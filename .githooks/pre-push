@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ "$(git config --bool --get jukebox.allowPush)" != "true" ]; then
+  echo "Push blocked: this repository is local-only until explicitly authorized." >&2
+  exit 1
+fi
+while read -r local_ref local_oid remote_ref remote_oid; do
+  if [ "$remote_ref" = "refs/heads/main" ]; then
+    echo "Push blocked: main changes require reviewed PRs; no direct update or deletion." >&2
+    exit 1
+  fi
+done
