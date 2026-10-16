@@ -2,57 +2,43 @@
 
 ## Session
 
-Updated: 2026-10-15 19:15 MDT (America/Denver). Agent: Codex; model identity not recorded.
-Task: A3-00, prepare a local Assignment 3 collaboration scaffold from Assignment 2.
+Updated: 2026-10-15 19:39 MDT (America/Denver). Agent: Codex; model identity not recorded.
+Task: follow-up to A3-00, document useful GitHub labels as a requirement.
 
 ## Constraints
 
-Do not push, create a remote, or modify GitHub. Future repository must be public
-with main protected like Assignment 2. No service calls authorized by setup.
-Read AGENTS.md first and update this file at every session/model transition.
+Do not push, create a remote, or modify GitHub. Future repo must be public
+and main protected like Assignment 2. Maintain this file every agent/model
+transition. No class service calls are part of this documentation change.
 
 ## Repository state
 
-Current branch: `codex/project-setup`.
-Last known commit before this handoff update: `9d8ee0e2139cdbe623cfef8706b91e5bdcd75a65`
-(the initial bootstrap on main). This handoff and validation record are the
-only pending changes, to be committed on this working branch. Read
-`git log -1 --oneline` for the final commit and verify
-`git status --short --branch` before continuing. No origin is configured.
-Local hooks block main commits and all pushes by default.
+Branch: `codex/project-setup`. Last known commit before this update:
+`ef7032bb42ab71eeafc544f9f904f4ea2934843f`. Working tree was clean at entry.
+This session changes CONTRIBUTING.md, docs/GITHUB_SETUP.md and handoff.md;
+these changes are to be committed locally. Inspect git log and git status for
+final commit/state. No remote is configured; pushes remain disabled locally
+(`jukebox.allowPush=false`).
 
 ## Work completed and decisions
 
-Adapted AGENTS.md, CONTRIBUTING.md, PLAN.md and README.md from Assignment 2
-commit 1a19c33ab9929dd2796ac7a5ea53247602a0cd32. Added mandatory agent/model
-handoff, requirements and unchanged starter prompt, phased acceptance checks,
-commit/test guidance, issue/PR templates, offline scaffold CI, public-file
-safeguards, local hooks and exact main-protection payload.
+Prior setup created all 23 scaffold files and verified the original starter
+prompt, local guards, ignored private paths and exact saved protection policy.
+See docs/TEST_RESULTS.md for that earlier evidence.
 
-Name: AI-Jukebox_MBAX6418, matching the Assignment 2 naming pattern.
-Read all three pages of the local assignment PDF. Preserve its starter wording.
-No app stack chosen; avoid inheriting the RAG stack. Proposed architecture is
-explicitly pending team review. No application code or generated assets exist.
+Added a required, small label scheme in CONTRIBUTING.md: one primary type
+(bug, enhancement, documentation, testing or infrastructure) and one current
+status (ready, in progress, blocked or review) on each open work issue and PR.
+Owners maintain labels and reviewers check them. Assignees track ownership;
+GitHub closed/merged states track completion. Labels become required when
+GitHub collaboration is authorized; no remote labels have been created.
+Updated the publication checklist to create/reuse labels before work issues.
 
 ## Validation
 
-- `python scripts/verify_repo.py`: PASS for all 23 tracked files, links,
-  tracked-file safeguards, handoff sections and exact saved protection policy.
-- Compared original PDF starter prompt to docs/ASSIGNMENT.md using pypdf:
-  PASS, identical words after whitespace normalization.
-- `git hook run pre-commit` on main after bootstrap: blocked as intended.
-- `git hook run pre-push` with default local config: blocked as intended.
-- `git -c jukebox.allowPush=true hook run --to-stdin=<temporary probe> pre-push`:
-  main update and deletion blocked; task-branch ref allowed. This is a local
-  hook invocation, not a push. Temporary input removed. The first probe used
-  a shell pipe, which Git hook run does not forward; corrected to --to-stdin
-  and reran all ref cases successfully. No hook defect was observed.
-- `git hook run pre-commit` on codex/project-setup: allowed as intended.
-- `git config --local --get jukebox.allowPush`: false (unchanged by probes).
-- `git remote -v`: empty; no GitHub writes or pushes occurred.
-- `.env`/endpoint/upload/reference paths are ignored; sample audio is permitted
-  under assets/samples/ so required approved samples can ship (verified below
-  in the final check). No app, browser, endpoint or generated-media tests run.
+`python scripts/verify_repo.py`: PASS, all 23 tracked files and local links.
+`git diff --check`: PASS. Reviewed the three-file diff for scope and accuracy.
+Documentation-only change; no app/service/browser tests apply.
 
 ## Blockers and unchecked areas
 
@@ -64,16 +50,15 @@ server-side protection. These are planned work, not setup failures.
 
 ## Next steps
 
-1. Read this file and AGENTS.md; verify branch, history and working tree.
-2. Claim A3-01 in PLAN.md; coordinate teammates and select a runtime/UI.
-3. Obtain private class service documentation; preserve it outside Git.
-4. Build a runnable skeleton with dependencies, commands and offline tests.
-5. Follow PLAN.md through generation, covers, DJ queue, samples and evidence.
-6. Keep remote publication pending until explicitly authorized; apply and
-   verify docs/GITHUB_SETUP.md settings only in that later task.
+1. Read AGENTS.md and this file; verify branch, current commit and working tree.
+2. Claim A3-01, coordinate teammates, choose stack and obtain private endpoint
+   documentation before writing service adapters.
+3. Follow PLAN.md for implementation, samples, test evidence and ZIP deployment.
+4. Only after explicit publication authorization, follow docs/GITHUB_SETUP.md,
+   including the required label setup and main protection verification.
 
 ## References
 
-README.md; PLAN.md; docs/ASSIGNMENT.md; docs/TESTING.md;
-docs/GITHUB_SETUP.md; .github/main-protection.json.
-No remote issues or PRs exist for this project.
+CONTRIBUTING.md (required labels); PLAN.md; README.md; docs/ASSIGNMENT.md;
+docs/GITHUB_SETUP.md; docs/TESTING.md; docs/TEST_RESULTS.md.
+No remote issues, PRs or labels exist for this project.

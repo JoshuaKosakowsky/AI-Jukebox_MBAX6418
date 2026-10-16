@@ -52,8 +52,10 @@ publication authorization; never silently disable these controls.
    rules to bypass failed checks, missing approvals, or administrator policy.
 6. Set `jukebox.allowPush=true` locally only once publishing is authorized.
    Main pushes stay locally blocked; future changes use reviewed PRs.
-7. Confirm teammate identities/access, create issues from PLAN.md, claim owners,
-   and ensure every teammate contributes and reviews. Do not invent accounts.
+7. Confirm teammate identities/access. Create or reuse the required labels
+   defined in CONTRIBUTING.md before creating work issues from PLAN.md; apply
+   their type/status labels and claim owners. Ensure every teammate contributes
+   and reviews. Do not invent accounts.
 8. Update README, PLAN and handoff with the actual URL, protection verification,
    commands/results and remaining work. Never commit credentials.
 

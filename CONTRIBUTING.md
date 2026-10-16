@@ -29,6 +29,36 @@ settings. See docs/GITHUB_SETUP.md for the future publication checklist.
    approval are required. Admins follow the same protection rules.
 8. Update PLAN.md and handoff.md before finishing. A model switch is a handoff.
 
+## Required GitHub labels
+
+Labels are required once GitHub collaboration is authorized. During the current
+local-only stage, this is a documented requirement; do not create remote labels.
+The publication owner must create or reuse these labels before opening the
+team's work issues. Reuse GitHub's default labels where their names match.
+
+Every open work issue and PR must have exactly one type label and one current
+status label. The owner updates labels when work changes state; reviewers check
+labels during review. A PR's type should match its linked issue unless its scope
+has changed and the difference is explained.
+
+| Label | Use |
+|---|---|
+| `bug` | Broken behavior or a regression |
+| `enhancement` | New or improved product behavior |
+| `documentation` | Requirements, instructions, report or handoff documentation |
+| `testing` | Test coverage, validation or evidence work |
+| `infrastructure` | Repository setup, CI, dependencies or deployment |
+| `status: ready` | Issue has acceptance checks and can be claimed |
+| `status: in progress` | Claimed issue or draft PR being worked on |
+| `status: blocked` | Work cannot proceed; explain the blocker and next action |
+| `status: review` | PR is ready for review, or its linked issue awaits review |
+
+Choose the primary type for mixed work and explain secondary scope in the body.
+Replace the previous status label when moving to a new state. Use assignees for
+ownership and GitHub's open/closed/merged states for completion; no duplicate
+owner or done labels are needed. Record local PLAN IDs in issue bodies rather
+than creating a label for every task. Add more labels only for a clear team need.
+
 ## Bugs and review
 
 One bug per issue. Report the problem with a unique summary, reproducibility,
