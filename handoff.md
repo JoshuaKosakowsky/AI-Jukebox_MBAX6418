@@ -2,7 +2,7 @@
 
 ## Session
 
-Updated: 2026-10-15 America/Denver. Agent: Codex; model identity not recorded.
+Updated: 2026-10-15 19:15 MDT (America/Denver). Agent: Codex; model identity not recorded.
 Task: A3-00, prepare a local Assignment 3 collaboration scaffold from Assignment 2.
 
 ## Constraints
@@ -13,10 +13,13 @@ Read AGENTS.md first and update this file at every session/model transition.
 
 ## Repository state
 
-Expected working branch after bootstrap: codex/project-setup.
-Last known commit: initial bootstrap pending at time of writing; inspect
-`git log -1 --oneline` and `git status --short --branch` before continuing.
-No origin configured. Local hooks block main commits and all pushes by default.
+Current branch: `codex/project-setup`.
+Last known commit before this handoff update: `9d8ee0e2139cdbe623cfef8706b91e5bdcd75a65`
+(the initial bootstrap on main). This handoff and validation record are the
+only pending changes, to be committed on this working branch. Read
+`git log -1 --oneline` for the final commit and verify
+`git status --short --branch` before continuing. No origin is configured.
+Local hooks block main commits and all pushes by default.
 
 ## Work completed and decisions
 
@@ -33,8 +36,23 @@ explicitly pending team review. No application code or generated assets exist.
 
 ## Validation
 
-Pending final bootstrap verification; setup agent must replace this section
-with actual commands/outcomes before completion. No application checks run.
+- `python scripts/verify_repo.py`: PASS for all 23 tracked files, links,
+  tracked-file safeguards, handoff sections and exact saved protection policy.
+- Compared original PDF starter prompt to docs/ASSIGNMENT.md using pypdf:
+  PASS, identical words after whitespace normalization.
+- `git hook run pre-commit` on main after bootstrap: blocked as intended.
+- `git hook run pre-push` with default local config: blocked as intended.
+- `git -c jukebox.allowPush=true hook run --to-stdin=<temporary probe> pre-push`:
+  main update and deletion blocked; task-branch ref allowed. This is a local
+  hook invocation, not a push. Temporary input removed. The first probe used
+  a shell pipe, which Git hook run does not forward; corrected to --to-stdin
+  and reran all ref cases successfully. No hook defect was observed.
+- `git hook run pre-commit` on codex/project-setup: allowed as intended.
+- `git config --local --get jukebox.allowPush`: false (unchanged by probes).
+- `git remote -v`: empty; no GitHub writes or pushes occurred.
+- `.env`/endpoint/upload/reference paths are ignored; sample audio is permitted
+  under assets/samples/ so required approved samples can ship (verified below
+  in the final check). No app, browser, endpoint or generated-media tests run.
 
 ## Blockers and unchecked areas
 

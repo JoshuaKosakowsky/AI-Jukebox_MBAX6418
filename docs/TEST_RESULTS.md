@@ -5,7 +5,24 @@
 Scope: repository scaffold only. No service calls, generated samples, or app
 tests. Validation runs `python scripts/verify_repo.py` after staging files,
 checks local Git configuration/hooks, and verifies the preserved prompt.
-Final outcomes are recorded in handoff.md after execution.
+Verified 2026-10-15 19:15 MDT (America/Denver) by the Codex setup agent on Windows, Git 2.55.0.windows.5.
+Baseline commit: `9d8ee0e2139cdbe623cfef8706b91e5bdcd75a65`; final handoff commit is available via git log.
+
+| Setup check | Expected | Actual |
+|---|---|---|
+| Offline verifier | Required files, valid links, tracked safeguards, exact policy | PASS, 23 files |
+| Starter prompt vs PDF | Identical original wording | PASS after whitespace normalization |
+| Main pre-commit guard | Block after initial commit | PASS, blocked |
+| Local-only pre-push guard | Block without explicit enablement | PASS, blocked |
+| Main ref update/deletion | Block even with per-command enablement | PASS, both blocked |
+| Working-branch hooks | Permit commit; permit branch ref under test enablement | PASS |
+| Remote/config inspection | No remote; allowPush=false | PASS |
+
+Hook tests invoke hooks directly without any push. An initial piped-input probe
+was invalid because git hook run does not forward piped stdin; it was corrected
+to --to-stdin and ref-specific checks reran successfully. Remote protection and
+CI execution remain untested until publication. Secret-pattern checks are a
+basic guard, not proof against every form of credential; inspect diffs manually.
 
 ## Application evidence (not run)
 
