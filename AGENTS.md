@@ -15,12 +15,11 @@ Follow direct user instructions first. This guide applies throughout the repo.
 ## Current boundary and safeguards
 
 - Local commits on working branches are authorized; do not ask again for them.
-- Current phase: Joshua's solo repository setup. Commit validated setup work
-  directly to main and publish it when authorized; no PR or absent teammate
-  review is required. Use CONTRIBUTING's explicit solo-setup exception.
-- Once teammates begin contributing, use task branches and reviewed PRs.
-  Main protection follows docs/GITHUB_SETUP.md. Collaborator invitations stay
-  deferred until the user names them; do not infer team mode from publication.
+- Team workflow is active: use task branches and reviewed PRs for all changes,
+  including setup. No direct main commits/pushes or protection bypasses.
+  Main protection follows docs/GITHUB_SETUP.md and applies to admins too.
+- Collaborator invitations and issue owner/review-buddy assignments are for
+  Joshua/the team to arrange; do not add people or change assignments in this task.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.
 - No user uploads or voice references in Git/archives; no bundled third-party
@@ -46,7 +45,7 @@ Follow direct user instructions first. This guide applies throughout the repo.
   speculative abstractions, optional features and unrelated refactors.
 - Share stable contracts before parallel work. Coordinate interface changes
   with consumers; do not code against an assumed unmerged implementation.
-- In team collaboration, default to `codex/<task>` branches from main; no
+- Default to `codex/<task>` branches from main; no
   direct main commits. Keep one substantial PR active per contributor. PR scope
   and review rules live in CONTRIBUTING.md; commit style in docs/COMMITS.md.
   If a blocking reviewer is unavailable, follow its documented independent
@@ -80,6 +79,6 @@ check with independent ZIP evidence can establish recorded submission readiness.
 
 ## Done
 
-A solo setup commit or team PR meets its stated checks, has relevant passing
+A PR meets its stated checks, has relevant passing
 validation, inspected safe files, current affected docs and a handoff. A feature
 milestone is done only after its user flow is verified on integrated main. Partial PRs must not close it.

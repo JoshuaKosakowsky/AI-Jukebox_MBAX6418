@@ -9,8 +9,8 @@ Use [service-probes.json](../contracts/service-probes.json) for exact, reusable
 JSON requests, absolute routes and observed response fields. Safe measurements
 are in [service-contract-probes.json](../results/service-contract-probes.json);
 expected versus actual and limitations are in [TEST_RESULTS.md](TEST_RESULTS.md).
-Integrate changes on main using the current workflow in CONTRIBUTING. Once team
-collaboration begins, coordinate shared contract changes through reviewed PRs.
+Integrate changes through reviewed PRs under CONTRIBUTING. Coordinate shared
+contract changes with affected consumers; team workflow is active.
 Require new live evidence for a changed request format, model or response shape;
 do not repeat generation merely because an agent/model changes.
 
