@@ -11,7 +11,9 @@ public; main protection will be applied only after publication is authorized.
 - Agents: [AGENTS.md](AGENTS.md) and [handoff.md](handoff.md).
 - Team workflow and labels: [CONTRIBUTING.md](CONTRIBUTING.md).
 - Required features and unchanged starter prompt: [docs/ASSIGNMENT.md](docs/ASSIGNMENT.md).
-- Delivery order and acceptance checks: [PLAN.md](PLAN.md).
+- Delivery order and ownership: [PLAN.md](PLAN.md).
+- Full-brief coverage: [acceptance.json](docs/acceptance.json); concrete tasks:
+  [ISSUES.md](docs/ISSUES.md); lessons applied: [A2_LESSONS.md](docs/A2_LESSONS.md).
 - Tests/evidence: [docs/TESTING.md](docs/TESTING.md), [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md).
 - Future publication/protection: [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
 
@@ -44,6 +46,8 @@ git config --local core.hooksPath .githooks
 git config --local core.longpaths true
 git config --local jukebox.allowPush false
 python scripts/verify_repo.py
+python scripts/check_readiness.py
+python -m unittest discover -s tests -p 'test_*.py'
 ```
 
 This validates files, links, basic tracked-file safeguards and the saved policy;
@@ -71,6 +75,9 @@ Record inputs, expected/actual results for all core features and a failure case,
 safe screenshots, a tested design choice and an investigated limitation in
 docs/TEST_RESULTS.md; summarize verified findings here in the team's own words.
 No app functionality, playback or independent deployment has been verified yet.
+Current submission status: **NOT READY**. Coverage/CI success is not completion;
+the final candidate needs all AT cases and the independent GitHub ZIP check in
+docs/TESTING.md. Do not leave that rehearsal until the submission deadline.
 
 Submit the public repo URL, exact commit and GitHub ZIP of that same version.
 A teammate must install from the extracted ZIP using only this README and class

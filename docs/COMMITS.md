@@ -17,9 +17,10 @@ Adapted from Assignment 2. Follow for commits and PR titles.
 | revert | Revert a change |
 | test | Tests |
 
-Use `type: Capitalized imperative subject`, at most 50 characters, no final
-period. Blank line before body; wrap body at 72 characters and explain what
-and why. One logical change per commit.
+Use `type: Capitalized imperative subject`; aim for 50 characters and no final
+period. Explain non-obvious changes in a body, wrapped near 72 characters.
+Keep one logical change per commit. Prefer readable history without spending
+required-feature time rewriting otherwise useful commits for style alone.
 
 ```text
 feat: Add instrumental song generation

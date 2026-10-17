@@ -24,7 +24,9 @@ required = [
     '.githooks/pre-commit', '.githooks/pre-push', 'docs/ASSIGNMENT.md',
     'docs/COMMITS.md', 'docs/TESTING.md', 'docs/TEST_RESULTS.md',
     'docs/GITHUB_SETUP.md', 'assets/samples/README.md', 'results/README.md',
-    'scripts/verify_repo.py',
+    'scripts/verify_repo.py', 'scripts/check_readiness.py',
+    'docs/CONTRIBUTIONS.md', 'docs/acceptance.json', 'docs/ISSUES.md',
+    'docs/A2_LESSONS.md', 'assets/samples/manifest.json', 'tests/test_readiness.py',
 ]
 for name in required:
     require((ROOT / name).is_file(), f'Missing required file: {name}')

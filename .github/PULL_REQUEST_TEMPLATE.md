@@ -1,21 +1,20 @@
 ## Result
 
-<!-- What works now, and why? Link the work item: Refs #N for partial work;
-Closes #N only when its checks are met. Local-only work uses a PLAN ID. -->
+<!-- Concrete outcome; task ID + R requirement IDs + AT cases. Refs #N for
+partial work; Closes #N only for satisfied issue checks. -->
 
 ## Verification
 
-- Commands/inputs and actual results:
-- Not tested / limitations:
-
-<!-- For UI changes include safe evidence. Record real-service calls if made. -->
+- Commands/inputs, actual results, tester and commit:
+- Normal-launch live/browser evidence, or explicitly not run:
+- Missing requirements / blockers retained on parent:
 
 ## Ready for review
 
-- [ ] Scope and relevant checks satisfied; shared-contract changes coordinated
+- [ ] Relevant checks actually ran; shared-contract changes coordinated
 - [ ] No credentials, uploads, voice references or third-party media included
-- [ ] Changed sample assets have provenance, if applicable
-- [ ] Affected docs and handoff updated; teammate review requested
+- [ ] Changed samples have actual media and provenance, if applicable
+- [ ] Affected requirement checks/docs/handoff current; teammate review requested
 
-<!-- Reviewers: mark correctness/security/acceptance failures as blocking;
-wording preferences and optional improvements as non-blocking. -->
+<!-- Blocking: correctness, safety, required acceptance. Optional refactors,
+wording/style suggestions are non-blocking. No claim of full readiness from CI alone. -->

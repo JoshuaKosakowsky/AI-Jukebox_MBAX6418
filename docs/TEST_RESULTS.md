@@ -24,26 +24,27 @@ to --to-stdin and ref-specific checks reran successfully. Remote protection and
 CI execution remain untested until publication. Secret-pattern checks are a
 basic guard, not proof against every form of credential; inspect diffs manually.
 
-## Application evidence (not run)
+## Application and release evidence (not run)
 
-| Case | Inputs | Expected | Actual | Status |
-|---|---|---|---|---|
-| Vocal song | TBD style/mood/duration | AI lyrics, playable ACE-Step song, library entry | Not run | Pending |
-| Instrumental song | TBD style/mood/duration | Playable instrumental, library entry | Not run | Pending |
-| Matching cover | Generated song context | New FLUX image with correct track | Not run | Pending |
-| Default DJ | Queue of multiple tracks | Song-specific speech, then music; no overlap | Not run | Pending |
-| Reference DJ | MP3 and WAV reference cases | Customized voice with safe temporary upload handling | Not run | Pending |
-| Playback controls | Pause/resume/skip/end | Correct sequential automatic advancement | Not run | Pending |
-| Failure/recovery | TBD timeout or failed request | Safe useful error and successful recovery | Not run | Pending |
-| Sample collection | Fresh install | Three actual songs/titles/covers play | Not run | Pending |
-| Independent ZIP | Exact submission commit ZIP | Core features work using README + keys only | Not run | Pending |
+The complete checklist is AT-01-AT-19 in [acceptance.json](acceptance.json).
+All app cases remain **not run**. No sample media or application exists yet.
+Record one short entry per executed case: date/tester/environment/commit,
+inputs/command, expected, actual, result, evidence paths and unchecked scope.
+Consolidate repeated fixes; never turn an unrun case into a pass from test counts.
 
-For each executed case add date/time, tester, OS/browser/runtime, commit,
-commands, exact safe inputs, expected/actual behavior, pass/fail and evidence
-paths. Do not include credentials, user recordings, or raw unsafe logs.
+## Protocol verification - 2026-10-17 America/Denver
+
+Full brief was read and mapped to 36 requirements, 11 tasks and 19 acceptance
+cases. Offline readiness-gate regressions cover dropped/unmapped requirements,
+dependency cycles, skipped/stub-only claims, missing results/evidence, both
+reference formats, independent installation, absent media and wrong ZIP contents.
+Commands: python scripts/check_readiness.py (36/11/19 coverage PASS), and\npython -m unittest discover -s tests -p "test_*.py" (18 passed). The explicit\nrelease command without actual evidence correctly returned NOT READY. This is protocol
+verification, not jukebox/live/browser acceptance. The release check must report
+NOT READY until actual independent evidence and sample assets exist.
 
 ## Design judgment and investigated limitation
 
-Pending. Record one decision supported by testing and one investigated failure
-or limitation, including alternatives, observed result, and lesson learned.
-Summarize verified findings in the final README in the team's own words.
+Pending app work. Explain one important choice supported by observed tests and
+one investigated limitation/failure with the lesson learned, then summarize
+verified findings in README in the team's own words. Do not import A2's SVG or
+RAG question-set requirements as mandatory A3 work.

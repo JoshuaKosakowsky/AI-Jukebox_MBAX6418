@@ -56,7 +56,9 @@ publication authorization; never silently disable these controls.
 6. Set `jukebox.allowPush=true` locally only once publishing is authorized.
    Main pushes stay locally blocked; future changes use reviewed PRs.
 7. Confirm teammate identities/access. Create or reuse the required labels
-   defined in CONTRIBUTING.md before creating work issues from PLAN.md; apply
+   defined in CONTRIBUTING.md before creating work issues from docs/ISSUES.md;
+   retain requirement/case IDs from docs/acceptance.json, choose owners/review
+   buddies, add the actual issue links to PLAN.md, and apply
    their type/status labels and claim owners. Ensure every teammate contributes
    and reviews. Do not invent accounts.
 8. Update README, PLAN and handoff with the actual URL, protection verification,

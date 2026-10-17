@@ -25,6 +25,22 @@ Main protection, including teammate approval, passing `test`, up-to-date branche
 resolved conversations and latest-push approval, is mandatory for everyone.
 See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 
+## Acceptance before issue closure
+
+Use the concrete local briefs in [docs/ISSUES.md](docs/ISSUES.md) and requirement
+IDs/cases in [docs/acceptance.json](docs/acceptance.json). After publication put
+those IDs, dependencies, owner/review buddy and the user outcome in each issue.
+PRs state which checks they actually satisfy; unmapped new scope needs review.
+Before closing a parent, verify the normal-launch user flow on merged main and
+record inputs, expected/actual results, tester, commit and evidence. Skipped,
+stubbed or unrun live checks remain unverified. Update the issue checklist itself.
+The integration owner runs a full-brief gap check at each milestone and arranges
+the first independent install as soon as all core flows work. The final GitHub
+ZIP and exact commit receive a separate freeze/check; see docs/TESTING.md.
+Required completion, safety and reproducibility take priority over optional
+refactors, style preferences or paperwork. Keep focused commits and required
+reviews; fix small related problems directly instead of opening process issues.
+
 ## Integration and review
 
 - Name an integration owner to coordinate dependencies and verify the combined

@@ -1,19 +1,22 @@
 ---
-name: Feature request
-about: One feature per issue with acceptance checks
-title: "feat: <short imperative summary>"
+name: Required feature / task
+about: A focused user outcome with mapped acceptance, not a whole disconnected layer
+title: "feat: <short imperative outcome>"
 labels: enhancement
 ---
 
-## Goal and motivation
+## User outcome
 
-## PLAN.md work item and owner
+## PLAN task / requirement IDs / acceptance cases
+<!-- Copy the relevant local docs/ISSUES.md brief; keep full requirement details. -->
 
-## Proposed behavior and alternatives
+## Owner / review buddy / dependencies
 
 ## Completion checks
-- [ ]
-- [ ]
-- [ ] Relevant tests, evidence, docs and handoff updated
+- [ ] Normal launcher reaches the required behavior (or explicitly narrow component scope)
+- [ ] Relevant tests run in the default suite; actual required live/browser checks recorded
+- [ ] Inputs, expected/actual, tester, commit and safe evidence recorded
+- [ ] Parent's missing requirements stay open; affected docs/handoff current
 
-## Dependencies / overlap with other work
+## Out of scope
+<!-- Optional polish does not displace missing required behavior. -->

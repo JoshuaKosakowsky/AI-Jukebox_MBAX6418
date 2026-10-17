@@ -1,0 +1,599 @@
+{
+  "schema_version": 1,
+  "source": {
+    "file": "MBAX 6418 Assignment 3.pdf",
+    "sha256": "1ac6feae8eba528396a8927f854d38c296ef96a44adf28142f9d18a4fefffc39",
+    "pages": 3,
+    "note": "Brief is source evidence, not an instruction to start building in this setup session. User additionally requires public repo and no publication yet."
+  },
+  "tasks": {
+    "A3-01": {
+      "title": "Verify startup and shared service contracts",
+      "depends_on": [],
+      "issue_anchor": "a3-01"
+    },
+    "A3-02": {
+      "title": "Generate and play an instrumental from the UI",
+      "depends_on": [
+        "A3-01"
+      ],
+      "issue_anchor": "a3-02"
+    },
+    "A3-03": {
+      "title": "Generate vocal songs with AI lyrics",
+      "depends_on": [
+        "A3-02"
+      ],
+      "issue_anchor": "a3-03"
+    },
+    "A3-04": {
+      "title": "Generate and pair a new cover for every song",
+      "depends_on": [
+        "A3-01"
+      ],
+      "issue_anchor": "a3-04"
+    },
+    "A3-05": {
+      "title": "Play a queue with the default AI DJ and controls",
+      "depends_on": [
+        "A3-02",
+        "A3-04"
+      ],
+      "issue_anchor": "a3-05"
+    },
+    "A3-06": {
+      "title": "Support MP3 and WAV DJ reference voices safely",
+      "depends_on": [
+        "A3-05"
+      ],
+      "issue_anchor": "a3-06"
+    },
+    "A3-07": {
+      "title": "Ship three class-generated sample tracks and covers",
+      "depends_on": [
+        "A3-02",
+        "A3-03",
+        "A3-04"
+      ],
+      "issue_anchor": "a3-07"
+    },
+    "A3-08": {
+      "title": "Verify failure recovery and public-file safeguards",
+      "depends_on": [
+        "A3-01"
+      ],
+      "issue_anchor": "a3-08"
+    },
+    "A3-09": {
+      "title": "Maintain verified README, screenshots and findings",
+      "depends_on": [
+        "A3-01"
+      ],
+      "issue_anchor": "a3-09"
+    },
+    "A3-10": {
+      "title": "Rehearse ZIP installation and freeze the submission",
+      "depends_on": [
+        "A3-03",
+        "A3-05",
+        "A3-06",
+        "A3-07",
+        "A3-08",
+        "A3-09",
+        "A3-GH"
+      ],
+      "issue_anchor": "a3-10"
+    },
+    "A3-GH": {
+      "title": "Publish the public repo and verify main protection",
+      "depends_on": [],
+      "issue_anchor": "a3-gh"
+    }
+  },
+  "cases": {
+    "AT-01": {
+      "title": "Starter and team decisions",
+      "modes": [
+        "review"
+      ],
+      "expected": "Original starter wording retained; team additions/choices are separate and checked.",
+      "owner_task": "A3-01"
+    },
+    "AT-02": {
+      "title": "Real class service contracts",
+      "modes": [
+        "live",
+        "review"
+      ],
+      "expected": "Four prescribed services accept documented feature requests, with class-only config, no paid features and no app request to port 9000.",
+      "owner_task": "A3-01"
+    },
+    "AT-03": {
+      "title": "Instrumental song",
+      "modes": [
+        "live",
+        "browser"
+      ],
+      "expected": "Normal launch: style/mood/duration -> playable ACE-Step instrumental -> session library.",
+      "owner_task": "A3-02"
+    },
+    "AT-04": {
+      "title": "Vocal song",
+      "modes": [
+        "live",
+        "browser"
+      ],
+      "expected": "Qwen AI lyrics -> playable ACE-Step vocal song using selected settings.",
+      "owner_task": "A3-03"
+    },
+    "AT-05": {
+      "title": "New matching covers",
+      "modes": [
+        "live",
+        "browser"
+      ],
+      "expected": "New FLUX covers reflect song context and remain paired with two or more distinct tracks.",
+      "owner_task": "A3-04"
+    },
+    "AT-06": {
+      "title": "Session library",
+      "modes": [
+        "browser"
+      ],
+      "expected": "Newly generated tracks remain selectable/playable for the session through later generation and playback.",
+      "owner_task": "A3-02"
+    },
+    "AT-07": {
+      "title": "Default AI DJ",
+      "modes": [
+        "live",
+        "browser"
+      ],
+      "expected": "Without an upload, Qwen track-specific commentary is spoken by Chatterbox between queued songs.",
+      "owner_task": "A3-05"
+    },
+    "AT-08": {
+      "title": "Reference DJ voices",
+      "modes": [
+        "live",
+        "browser"
+      ],
+      "expected": "Both MP3 and WAV uploads customize DJ speech; default mode and temporary cleanup still work.",
+      "variants": [
+        "mp3",
+        "wav"
+      ],
+      "owner_task": "A3-06"
+    },
+    "AT-09": {
+      "title": "Playback sequencing",
+      "modes": [
+        "browser"
+      ],
+      "expected": "Pause/resume, skip, automatic advancement, speech then music without overlap, including transition races.",
+      "variants": [
+        "pause-resume",
+        "skip-during-speech",
+        "skip-during-music",
+        "automatic-advance"
+      ],
+      "owner_task": "A3-05"
+    },
+    "AT-10": {
+      "title": "Status, failure and recovery",
+      "modes": [
+        "browser"
+      ],
+      "expected": "Generation progress is visible; at least one failed request produces a useful safe error and a working recovery.",
+      "owner_task": "A3-08"
+    },
+    "AT-11": {
+      "title": "Three ready samples",
+      "modes": [
+        "asset-review",
+        "browser"
+      ],
+      "expected": "Three actual titled class-generated songs/covers ship, play, and have honest AI-lyric/generation provenance.",
+      "owner_task": "A3-07"
+    },
+    "AT-12": {
+      "title": "Public-file safeguards",
+      "modes": [
+        "review",
+        "browser"
+      ],
+      "expected": "No credentials exposed; uploads/voice references excluded from Git/ZIP; no bundled third-party music, lyrics, art or voices.",
+      "owner_task": "A3-08"
+    },
+    "AT-13": {
+      "title": "Verified setup and use documentation",
+      "modes": [
+        "review"
+      ],
+      "expected": "README has dependencies/software, secure config examples, launch/use of all core features and real screenshots; team verifies wording against app.",
+      "owner_task": "A3-09"
+    },
+    "AT-14": {
+      "title": "Honest feature/failure evidence",
+      "modes": [
+        "review"
+      ],
+      "expected": "Inputs, expected and actual results for all three features plus a failure distinguish passed, failed and unchecked claims.",
+      "owner_task": "A3-09"
+    },
+    "AT-15": {
+      "title": "Design judgment and limitation",
+      "modes": [
+        "review"
+      ],
+      "expected": "One important choice is justified by observed tests; an investigated limitation/failure and lesson are explained.",
+      "owner_task": "A3-09"
+    },
+    "AT-16": {
+      "title": "Independent ZIP deployment",
+      "modes": [
+        "live",
+        "browser",
+        "zip-install"
+      ],
+      "expected": "Another teammate installs this exact GitHub ZIP using only README/class keys, exercises core flows and samples, and resolves missing-file/setup issues.",
+      "owner_task": "A3-10"
+    },
+    "AT-17": {
+      "title": "Team participation",
+      "modes": [
+        "review"
+      ],
+      "expected": "Every actual teammate has a meaningful contribution and a completed review of a teammate, with evidence.",
+      "owner_task": "A3-10"
+    },
+    "AT-18": {
+      "title": "Submission identity and access",
+      "modes": [
+        "review",
+        "zip-install"
+      ],
+      "expected": "Public repo is accessible through grading; repo URL, exact merged commit, GitHub ZIP and required files agree.",
+      "owner_task": "A3-10"
+    },
+    "AT-19": {
+      "title": "Public repository access",
+      "modes": [
+        "review"
+      ],
+      "expected": "Public repo access and protected main are verified after authorization; the team keeps access available through grading.",
+      "owner_task": "A3-GH"
+    }
+  },
+  "requirements": [
+    {
+      "id": "R01",
+      "source": "Brief p.1",
+      "statement": "Retain all existing starter language; team reviews/adds instructions.",
+      "task": "A3-01",
+      "cases": [
+        "AT-01"
+      ]
+    },
+    {
+      "id": "R02",
+      "source": "Brief p.1",
+      "statement": "Qwen3.6-35B-A3B port 9001 supplies text generation.",
+      "task": "A3-01",
+      "cases": [
+        "AT-02"
+      ]
+    },
+    {
+      "id": "R03",
+      "source": "Brief p.1",
+      "statement": "FLUX.2 klein 4B port 9006 supplies cover art.",
+      "task": "A3-01",
+      "cases": [
+        "AT-02"
+      ]
+    },
+    {
+      "id": "R04",
+      "source": "Brief p.1",
+      "statement": "ACE-Step 1.5 XL Turbo port 9007 supplies music.",
+      "task": "A3-01",
+      "cases": [
+        "AT-02"
+      ]
+    },
+    {
+      "id": "R05",
+      "source": "Brief p.1",
+      "statement": "Chatterbox Multilingual V3 port 9008 supplies DJ speech.",
+      "task": "A3-01",
+      "cases": [
+        "AT-02"
+      ]
+    },
+    {
+      "id": "R06",
+      "source": "Brief p.1",
+      "statement": "Use supplied connection details and documented service request formats.",
+      "task": "A3-01",
+      "cases": [
+        "AT-02"
+      ]
+    },
+    {
+      "id": "R07",
+      "source": "Brief p.1",
+      "statement": "Core uses class credentials alone; no paid features, including optional ones; no app requests to port 9000.",
+      "task": "A3-08",
+      "cases": [
+        "AT-02",
+        "AT-12"
+      ]
+    },
+    {
+      "id": "R08",
+      "source": "Brief p.2",
+      "statement": "Choose song style, mood and duration.",
+      "task": "A3-02",
+      "cases": [
+        "AT-03"
+      ]
+    },
+    {
+      "id": "R09",
+      "source": "Brief p.2",
+      "statement": "Generate playable instrumental music and add it to the library.",
+      "task": "A3-02",
+      "cases": [
+        "AT-03"
+      ]
+    },
+    {
+      "id": "R10",
+      "source": "Brief p.2",
+      "statement": "Generate playable vocal tracks with AI-generated lyrics.",
+      "task": "A3-03",
+      "cases": [
+        "AT-04"
+      ]
+    },
+    {
+      "id": "R11",
+      "source": "Brief p.2",
+      "statement": "Generate new matching FLUX art per custom song; display with correct track and reflect theme/style/mood.",
+      "task": "A3-04",
+      "cases": [
+        "AT-05"
+      ]
+    },
+    {
+      "id": "R12",
+      "source": "Brief p.2",
+      "statement": "Newly generated songs join the playable library and remain available during the session.",
+      "task": "A3-02",
+      "cases": [
+        "AT-06"
+      ]
+    },
+    {
+      "id": "R13",
+      "source": "Brief p.2",
+      "statement": "Qwen writes song-specific commentary spoken by Chatterbox between queued songs.",
+      "task": "A3-05",
+      "cases": [
+        "AT-07",
+        "AT-09"
+      ]
+    },
+    {
+      "id": "R14",
+      "source": "Brief p.2",
+      "statement": "Default DJ voice works without upload.",
+      "task": "A3-05",
+      "cases": [
+        "AT-07"
+      ]
+    },
+    {
+      "id": "R15",
+      "source": "Brief p.2",
+      "statement": "MP3 reference customizes the DJ voice.",
+      "task": "A3-06",
+      "cases": [
+        "AT-08"
+      ]
+    },
+    {
+      "id": "R16",
+      "source": "Brief p.2",
+      "statement": "WAV reference customizes the DJ voice.",
+      "task": "A3-06",
+      "cases": [
+        "AT-08"
+      ]
+    },
+    {
+      "id": "R17",
+      "source": "Brief p.2",
+      "statement": "Include three ready-to-play sample songs with titles and covers.",
+      "task": "A3-07",
+      "cases": [
+        "AT-11"
+      ]
+    },
+    {
+      "id": "R18",
+      "source": "Brief pp.2-3",
+      "statement": "Pregenerate samples with class endpoints; any lyrics are AI-generated; explain sample generation.",
+      "task": "A3-07",
+      "cases": [
+        "AT-11"
+      ]
+    },
+    {
+      "id": "R19",
+      "source": "Brief p.2",
+      "statement": "Provide play and pause controls.",
+      "task": "A3-05",
+      "cases": [
+        "AT-09"
+      ]
+    },
+    {
+      "id": "R20",
+      "source": "Brief p.2",
+      "statement": "Provide skip controls.",
+      "task": "A3-05",
+      "cases": [
+        "AT-09"
+      ]
+    },
+    {
+      "id": "R21",
+      "source": "Brief p.2",
+      "statement": "After playback starts, advance automatically with sequential speech/music and no overlap.",
+      "task": "A3-05",
+      "cases": [
+        "AT-09"
+      ]
+    },
+    {
+      "id": "R22",
+      "source": "Brief p.2",
+      "statement": "Show generation status, understandable errors and recovery from failed requests.",
+      "task": "A3-08",
+      "cases": [
+        "AT-10"
+      ]
+    },
+    {
+      "id": "R23",
+      "source": "Brief p.1",
+      "statement": "Credentials server-side; absent from GitHub, archives, browser code, logs and docs; placeholder examples.",
+      "task": "A3-08",
+      "cases": [
+        "AT-12"
+      ]
+    },
+    {
+      "id": "R24",
+      "source": "Brief p.1",
+      "statement": "Never commit user uploads or voice-reference recordings, or include them in submission archives.",
+      "task": "A3-08",
+      "cases": [
+        "AT-12"
+      ]
+    },
+    {
+      "id": "R25",
+      "source": "Brief p.1",
+      "statement": "Do not bundle third-party music, lyrics, cover art or voice samples.",
+      "task": "A3-08",
+      "cases": [
+        "AT-12"
+      ]
+    },
+    {
+      "id": "R26",
+      "source": "Brief p.2",
+      "statement": "README starts report/docs: dependencies, software, secure endpoint config, launch and use of all core features.",
+      "task": "A3-09",
+      "cases": [
+        "AT-13"
+      ]
+    },
+    {
+      "id": "R27",
+      "source": "Brief p.2",
+      "statement": "Include screenshots illustrating interface and core features.",
+      "task": "A3-09",
+      "cases": [
+        "AT-13"
+      ]
+    },
+    {
+      "id": "R28",
+      "source": "Brief p.2",
+      "statement": "Record inputs/expected/actual for three features and at least one failure; disclose unresolved/unchecked claims.",
+      "task": "A3-09",
+      "cases": [
+        "AT-14"
+      ]
+    },
+    {
+      "id": "R29",
+      "source": "Brief p.2",
+      "statement": "Explain an important design choice justified with test evidence.",
+      "task": "A3-09",
+      "cases": [
+        "AT-15"
+      ]
+    },
+    {
+      "id": "R30",
+      "source": "Brief p.2",
+      "statement": "Investigate a limitation/failure and explain what was learned.",
+      "task": "A3-09",
+      "cases": [
+        "AT-15"
+      ]
+    },
+    {
+      "id": "R31",
+      "source": "Brief p.3",
+      "statement": "Team verifies documentation against finished app and explains findings in its own words.",
+      "task": "A3-09",
+      "cases": [
+        "AT-13",
+        "AT-15"
+      ]
+    },
+    {
+      "id": "R32",
+      "source": "Brief p.3",
+      "statement": "Submit one shared repo link, exact commit and GitHub-downloaded ZIP of that same version per team on Canvas.",
+      "task": "A3-10",
+      "cases": [
+        "AT-18"
+      ]
+    },
+    {
+      "id": "R33",
+      "source": "Brief p.3",
+      "statement": "ZIP contains code, dependencies, config examples, docs and actual generated sample audio/images needed to run.",
+      "task": "A3-10",
+      "cases": [
+        "AT-11",
+        "AT-16",
+        "AT-18"
+      ]
+    },
+    {
+      "id": "R34",
+      "source": "Brief p.3",
+      "statement": "Teammate independently installs extracted ZIP from docs/class keys, tests core features and fixes missing/private-machine dependencies.",
+      "task": "A3-10",
+      "cases": [
+        "AT-16"
+      ]
+    },
+    {
+      "id": "R35",
+      "source": "Brief p.3",
+      "statement": "GitHub issues/PRs organize/review substantial work; every teammate contributes meaningfully and reviews a teammate.",
+      "task": "A3-10",
+      "cases": [
+        "AT-17"
+      ]
+    },
+    {
+      "id": "R36",
+      "source": "Brief p.3; user public-repo requirement",
+      "statement": "Repository stays accessible through grading; user additionally requires public visibility.",
+      "task": "A3-GH",
+      "cases": [
+        "AT-19"
+      ]
+    }
+  ]
+}

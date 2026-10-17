@@ -1,37 +1,43 @@
 # Agent handoff
 
 ## Session
-2026-10-16 21:01 MDT (America/Denver); Codex. Task: document resolved-review dismissal exception.
+2026-10-17 00:28 MDT (America/Denver); Codex. Task: full-brief A2 audit and A3 delivery safeguards.
 
 ## Constraints
-Local commits authorized; no GitHub writes, pushes, actual dismissals or service calls.
+Local commits authorized. No GitHub writes/pushes, A2 edits, app build or class calls.
 
 ## Repository state
-Branch: codex/project-setup; pre-handoff commit: 4ddb0977ddd498984d6992026efc991ee6420288.
-Clean on entry; this session changes AGENTS, CONTRIBUTING, GITHUB_SETUP and handoff.
+Branch: codex/project-setup; pre-handoff commit: 12d56820ec68e3947e61d9155d0a9f468d46e1c2. Clean on entry.
+This session's protocol/docs/gate changes are to be committed locally; inspect Git.
 
 ## Work completed and decisions
-Added a narrow exception for an unavailable blocking reviewer: another teammate
-verifies every finding at current head; an authorized maintainer may dismiss the
-outdated review with a recorded reason/evidence. Replacement approval remains
-subject to GitHub protections. No unresolved-defect or deadline waiver.
+Audited A2 main dfc0fc4 and late PRs #30/#31; see docs/A2_LESSONS.md for bounded findings.
+Mapped all A3 brief pages into 36 requirements, 11 task briefs and 19 acceptance
+cases. Added continuous coverage/rehearsal/frozen-ZIP gates and empty sample manifest.
+Preserved concise in-task fixes, review exceptions, labels, completion record and
+the original starter. CI checks structure/gate regressions, not app readiness.
 
 ## Validation
-Scaffold verifier: PASS (24 tracked files). Diff whitespace check: PASS.
-GitHub's official dismissal documentation confirms recorded dismissal is supported.
-No actual review dismissed; saved protection policy and app requirements unchanged.
+Coverage: PASS, 36 requirements / 11 tasks / 19 cases. Gate regressions: 18 passed.
+Release without evidence correctly returns NOT READY. Original starter matches
+the PDF word-for-word after whitespace normalization; source PDF hash matches.
+Full Git/ZIP test uses isolated synthetic repos; fixed its Windows line-ending
+assumption with local core.autocrlf=false. No production settings were changed.
+Final staged scaffold/hygiene: PASS (30 files); staged whitespace: PASS.
+Original assignment/protection payload unchanged; no remote and allowPush=false.
+No A3 app or service calls. A2's remote snapshot was reviewed, not runtime-tested.
 
 ## Blockers and unchecked areas
-No remote exists; dismissal permissions/effective rules must be checked at publication.
-App/runtime/contracts and independent deployment remain pending.
+Submission NOT READY: no app/samples/independent ZIP evidence. Owners/runtime and
+generation contracts remain pending; inherited discovery below is not generation proof.
 
 ## Next steps
-1. Continue A3-01 and the delivery order in PLAN.
-2. Use the exception only with independent evidence and actual GitHub permission.
-3. Keep publication pending explicit authorization; preserve inherited notes below.
+1. Read docs/ISSUES.md and claim A3-01; choose integration owner and review buddies.
+2. Deliver the normal-launch instrumental/cover flow, then vocals and DJ playback.
+3. Reconcile R01-R36 each milestone; rehearse ZIP early; no publication without authorization.
 
 ## References
-CONTRIBUTING.md (resolved-review exception); docs/GITHUB_SETUP.md; PLAN.md.
+PLAN.md; docs/acceptance.json; docs/ISSUES.md; docs/TESTING.md; docs/A2_LESSONS.md.
 
 ### Hermes entry (2026-10-15)
 

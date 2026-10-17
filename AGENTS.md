@@ -63,6 +63,17 @@ entries; the integration owner consolidates them on merge. Record a pre-handoff
 hash rather than repeatedly amending to reference the handoff's own commit.
 If interrupted, the next agent reconstructs state from Git before proceeding.
 
+## Deliver the brief, not just components
+
+Map the task to R01-R36 in docs/acceptance.json and its brief in docs/ISSUES.md.
+Check the full docs/ASSIGNMENT.md source when changing scope. Required behavior,
+safe operation and reproducible delivery take priority over optional polish.
+After each integrated milestone reconcile uncovered/unchecked requirements; do
+not wait until submission. Use the normal launcher for live/browser evidence;
+fixtures, backend tests, merged PRs and honest limitations do not satisfy missing
+features. Run the coverage gate with relevant checks; only the explicit release
+check with independent ZIP evidence can establish recorded submission readiness.
+
 ## Done
 
 A PR meets its stated checks, has relevant passing validation, reviewed safe
