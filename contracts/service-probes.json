@@ -1,0 +1,110 @@
+{
+  "contract_version": 1,
+  "verified_on": "2026-10-17",
+  "scope": "One successful minimal generation per required class service, not full API schemas or app acceptance.",
+  "authentication": "Authorization: Bearer <server-side class key>; JSON Content-Type for POST",
+  "path_resolution": "All request paths below are absolute from the configured service origin, even when the configured endpoint ends in /v1.",
+  "services": {
+    "text": {
+      "port": 9001,
+      "method": "POST",
+      "path": "/v1/chat/completions",
+      "request": {
+        "model": "cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Reply with exactly CONTRACT_OK and nothing else."
+          }
+        ],
+        "max_completion_tokens": 192,
+        "temperature": 0,
+        "stream": false
+      },
+      "response": {
+        "content_path": "choices[0].message.content",
+        "content_type": "string",
+        "expected_content": "CONTRACT_OK"
+      },
+      "deployed_openapi_snapshot_sha256": "2e3a25e28ff2133e259300d3175ad543e8c89d5b9da77bf93c6a6df431e1403b"
+    },
+    "art": {
+      "port": 9006,
+      "method": "POST",
+      "path": "/v1/images/generations",
+      "request": {
+        "model": "black-forest-labs/FLUX.2-klein-4B",
+        "prompt": "Minimalist album cover: one small golden circle on a deep navy blue background. Flat geometric design. No text.",
+        "n": 1,
+        "size": "512x512",
+        "num_inference_steps": 4,
+        "response_format": "b64_json",
+        "output_format": "png"
+      },
+      "response": {
+        "image_path": "data[0].b64_json",
+        "encoding": "base64",
+        "format": "PNG",
+        "width": 512,
+        "height": 512
+      },
+      "deployed_openapi_snapshot_sha256": "ad59baf8b58cd7350a24942eb25c7128fb79f579bc791787297a4e107ec58dbb"
+    },
+    "music": {
+      "port": 9007,
+      "method": "POST",
+      "path": "/release_task",
+      "request": {
+        "prompt": "Gentle instrumental piano, calm mood, slow tempo, no vocals.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 10,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": false,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "bpm": 80,
+        "key_scale": "C Major",
+        "time_signature": "4",
+        "audio_format": "wav"
+      },
+      "response": {
+        "submit_task_id_path": "data.task_id",
+        "poll_method": "POST",
+        "poll_path": "/query_result",
+        "poll_request": {
+          "task_id_list": [
+            "TASK_ID_FROM_SUBMISSION"
+          ]
+        },
+        "poll_item_path": "data[0]",
+        "success_status": 1,
+        "result_encoding": "JSON string containing an array",
+        "audio_file_path": "JSON.parse(data[0].result)[0].file",
+        "download_method": "GET",
+        "download_path": "/v1/audio",
+        "download_query": "path=opaque server-returned value; preserve encoding",
+        "model_path": "JSON.parse(data[0].result)[0].dit_model",
+        "observed_model": "acestep-v15-xl-turbo"
+      },
+      "deployed_openapi_snapshot_sha256": "bd750e0730bb3191be071e68e4597df2460d8f80798e8a72da51486cc8a5f0ee"
+    },
+    "speech": {
+      "port": 9008,
+      "method": "POST",
+      "path": "/v1/audio/speech",
+      "request": {
+        "model": "chatterbox-v3",
+        "input": "Welcome to the jukebox.",
+        "response_format": "wav"
+      },
+      "response": {
+        "body": "complete binary WAV file",
+        "voice": "omit voice for service default",
+        "sample_rate": 24000,
+        "channels": 1
+      },
+      "deployed_openapi_snapshot_sha256": "f56343ad5969997c451ea7dd96ae30ed880a73c209d39834488c40ea265e7eb6"
+    }
+  }
+}

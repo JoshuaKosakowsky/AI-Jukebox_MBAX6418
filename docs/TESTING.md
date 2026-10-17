@@ -20,6 +20,15 @@ tests; wiring -> contract/smoke tests; features -> real normal-launch browser
 and class-service cases. Use a locked runtime/dependency set and verify supported
 Windows behavior. Repeat passing tests only for relevant changes or open risks.
 
+## Deliberate service contract probes
+
+The four live requests are frozen in [SERVICE_CONTRACTS.md](SERVICE_CONTRACTS.md)
+and [service-probes.json](../contracts/service-probes.json). Reuse them when
+an assigned task needs a live compatibility check; generation is opt-in and
+bounded, never triggered by offline checks, CI or app startup. Record new
+expected/actual results and schema changes together. Do not treat schema-only
+reference upload support or decoded smoke media as completed browser features.
+
 ## Acceptance evidence
 
 [acceptance.json](acceptance.json) is the requirement/task/case index;

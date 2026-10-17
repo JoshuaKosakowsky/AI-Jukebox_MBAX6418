@@ -3,7 +3,9 @@
 **Current state:** public collaboration scaffold; no app, samples or release
 acceptance yet. Local setup A3-00 is complete. [GitHub repo](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418) and task
 issues exist; [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) records publication/CI/protection verification.
-Collaborators and implementation ownership remain for the team to choose.
+The [four live service contracts](docs/SERVICE_CONTRACTS.md) are verified in an
+A3-01 component change; startup/shared objects and feature acceptance are pending.
+Collaborators and remaining implementation ownership are for the team to choose.
 
 ## Coverage and ownership
 
@@ -15,7 +17,7 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 
 | Work item | Owner / review buddy | Depends on | State |
 |---|---|---|---|
-| [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | Unassigned | None | See issue |
+| [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky; buddy pending | None | See issue |
 | [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | Unassigned | 01 | See issue |
 | [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | Unassigned | 02 | See issue |
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | Unassigned | 01 | See issue |

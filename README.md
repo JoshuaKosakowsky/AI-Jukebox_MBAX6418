@@ -2,8 +2,10 @@
 
 A team-built app for custom songs, matching covers and spoken DJ commentary.
 **Status: collaboration scaffold; no application or generated samples yet.**
-Public repository: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418). Existing service-discovery
-notes are in handoff.md; generation contracts remain unverified. Initial CI and
+Public repository: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
+The four minimal live generation requests are verified in
+[service contracts](docs/SERVICE_CONTRACTS.md); app integration remains pending.
+Initial CI and
 main-protection verification are recorded in [publication issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11).
 Collaborators will be added later.
 
@@ -34,9 +36,9 @@ sample songs with titles, covers and AI-generated lyrics where applicable.
 | Music | ACE-Step 1.5 XL Turbo | 9007 |
 | Speech | Chatterbox Multilingual V3 | 9008 |
 
-Confirm request formats from the team's class-endpoints.txt; never guess API
-routes or schemas. No paid services, including optional features; no app requests
-to port 9000. Core features must work with class services and credentials alone.
+Use the [verified request baseline](docs/SERVICE_CONTRACTS.md) and current class
+documentation; never guess API routes or schemas. No paid services, including
+optional features; no app requests to port 9000. Core features must work with class services and credentials alone.
 
 ## Local scaffold setup
 

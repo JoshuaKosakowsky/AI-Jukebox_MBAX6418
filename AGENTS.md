@@ -25,9 +25,10 @@ Follow direct user instructions first. This guide applies throughout the repo.
   music, lyrics, art or voice samples. Required class-generated samples must ship.
 - Use the four required class services in docs/ASSIGNMENT.md. No paid features
   and no app requests to port 9000. Keep the original starter prompt unchanged.
-- Confirm service contracts from supplied documentation; do not guess payloads.
-  Service calls are deliberate, bounded and recorded, never part of offline
-  tests. This setup task does not authorize generation or other service calls.
+- Use docs/SERVICE_CONTRACTS.md for the verified request baseline; check supplied
+  documentation before changing it. Do not guess payloads. Generation calls must
+  be deliberate, bounded and within the user-assigned task, never triggered by
+  startup, CI or offline tests. A model/session switch does not justify new calls.
 - Report implemented, tested and unchecked behavior accurately.
 
 ## Keep work moving
