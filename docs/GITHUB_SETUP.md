@@ -50,6 +50,9 @@ publication authorization; never silently disable these controls.
    every setting above. Do not claim protection before successful readback.
 5. Inspect effective repository rules too. Keep main protected; don't weaken
    rules to bypass failed checks, missing approvals, or administrator policy.
+   Confirm who has review-dismissal permission. CONTRIBUTING.md permits recorded
+   dismissal of an independently verified-as-resolved review when its original
+   reviewer is unavailable; all remaining protections still apply.
 6. Set `jukebox.allowPush=true` locally only once publishing is authorized.
    Main pushes stay locally blocked; future changes use reviewed PRs.
 7. Confirm teammate identities/access. Create or reuse the required labels

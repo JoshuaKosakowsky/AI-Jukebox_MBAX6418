@@ -1,36 +1,37 @@
 # Agent handoff
 
 ## Session
-2026-10-16 20:39 MDT (America/Denver); Codex. Task: add the agreed short team completion record.
+2026-10-16 21:01 MDT (America/Denver); Codex. Task: document resolved-review dismissal exception.
 
 ## Constraints
-Local commits authorized; no remote configuration, GitHub writes/pushes or service calls.
+Local commits authorized; no GitHub writes, pushes, actual dismissals or service calls.
 
 ## Repository state
-Branch: codex/project-setup; pre-handoff commit: `ef79e738e540bacac42375220c1de5bdb4e79e61`.
-Working tree clean at entry; this session changes CONTRIBUTING, CONTRIBUTIONS and handoff.
+Branch: codex/project-setup; pre-handoff commit: 4ddb0977ddd498984d6992026efc991ee6420288.
+Clean on entry; this session changes AGENTS, CONTRIBUTING, GITHUB_SETUP and handoff.
 
 ## Work completed and decisions
-Added docs/CONTRIBUTIONS.md and a short CONTRIBUTING rule to maintain it.
-Record substantial completed outcomes/reviews with evidence, credited to responsible
-teammates using AI tools. No rankings, metrics, routine-edit entries or extra issues.
-Seeded only Joshua's verified local setup work; no feature/review claims invented.
+Added a narrow exception for an unavailable blocking reviewer: another teammate
+verifies every finding at current head; an authorized maintainer may dismiss the
+outdated review with a recorded reason/evidence. Replacement approval remains
+subject to GitHub protections. No unresolved-defect or deadline waiver.
 
 ## Validation
-`python scripts/verify_repo.py`: PASS (24 tracked files, including local links).
-`git diff --cached --check`: PASS.
-No app/service/browser tests; inherited endpoint discovery below not reverified.
+Scaffold verifier: PASS (24 tracked files). Diff whitespace check: PASS.
+GitHub's official dismissal documentation confirms recorded dismissal is supported.
+No actual review dismissed; saved protection policy and app requirements unchanged.
 
 ## Blockers and unchecked areas
-App, runtime/owners, generation contracts and independent deployment still pending.
+No remote exists; dismissal permissions/effective rules must be checked at publication.
+App/runtime/contracts and independent deployment remain pending.
 
 ## Next steps
-1. Claim A3-01 and agree integration ownership, runtime and shared contracts.
-2. Deliver the first playable user flow in PLAN; record substantial completions.
-3. Keep GitHub publication pending explicit authorization.
+1. Continue A3-01 and the delivery order in PLAN.
+2. Use the exception only with independent evidence and actual GitHub permission.
+3. Keep publication pending explicit authorization; preserve inherited notes below.
 
 ## References
-CONTRIBUTING.md; docs/CONTRIBUTIONS.md; PLAN.md; docs/GITHUB_SETUP.md.
+CONTRIBUTING.md (resolved-review exception); docs/GITHUB_SETUP.md; PLAN.md.
 
 ### Hermes entry (2026-10-15)
 

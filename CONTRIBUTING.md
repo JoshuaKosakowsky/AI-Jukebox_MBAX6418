@@ -41,6 +41,25 @@ See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
   Parent features close only after their flow passes on merged main; child PRs
   may deliver tested components without claiming the whole feature is complete.
 
+### Resolved blocking review; original reviewer unavailable
+
+The original reviewer is preferred for re-review, but is not the only person
+who can verify a fix. If they are unavailable, a teammate other than the fix's
+author must independently verify every blocking finding in that review against
+the current PR head, including relevant regression checks, before dismissal. Record the findings, fix commit,
+actual verification results and verifier in the PR conversation.
+
+An administrator or maintainer with effective GitHub permission may then dismiss
+that outdated review, explaining the original reviewer's unavailability and
+linking the independent verification. Use GitHub's recorded dismissal action;
+it does not represent approval by the original reviewer. No separate issue or
+exception document is required. An eligible replacement reviewer can approve.
+
+Unresolved findings remain blocking. A deadline alone is never grounds for
+dismissal. All other approval, latest-push, CI and conversation-resolution
+requirements still apply; do not weaken branch protection. See
+[GitHub's dismissal guidance](https://docs.github.com/en/pull-requests/how-tos/review-pull-requests/dismissing-a-pull-request-review).
+
 ## Required labels (after publication is authorized)
 
 Create/reuse the labels below before opening work issues. Every open work issue
