@@ -10,7 +10,7 @@ labels: enhancement
 ## PLAN task / requirement IDs / acceptance cases
 <!-- Copy the relevant local docs/ISSUES.md brief; keep full requirement details. -->
 
-## Owner / review buddy / dependencies
+## Lead / contributors / dependencies
 
 ## Completion checks
 - [ ] Normal launcher reaches the required behavior (or explicitly narrow component scope)

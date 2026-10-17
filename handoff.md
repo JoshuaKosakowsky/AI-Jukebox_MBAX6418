@@ -1,33 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-17 America/Denver; Codex. Task: docs-only lead/contributor team workflow.
+2026-10-17 America/Denver; Codex. Task: fix Matt's non-blocking PR #14 finding.
 ## Constraints
-No code/hooks/tests/config/service changes. No invitations, live issue-body edits
-or assignments. Review requests deferred until Joshua names teammates. Protected
-PR workflow applies; the explicitly authorized final exception is complete.
+User authorized the correction and merge if possible, without another review
+request. Keep branch protection intact; no admin override, service calls or assignments.
 ## Repository state
-Branch codex/team-assignee-workflow; fresh origin/main base 8e41e6cdabf05bd629bd8e8869365ae3a05c4643.
-PR #13 merged exact head d714d04; main CI passed; protection was restored byte-identically.
+Branch codex/team-assignee-workflow; Matt (mase7919) approved reviewed head 3aaaba4.
+Read actual GitHub eligibility after the correction is pushed; approval may be dismissed.
 ## Work completed and decisions
-Issues allow one lead plus up to two contributors. Assignment does not determine
-review eligibility: zero commits on the PR required. Approving reviewer or lead
-merges; branch freezes for review. Updated guides and all 11 local task briefs.
-Unavailable-reviewer procedure is unchanged; live issue bodies remain for Joshua.
+Changed the feature issue-template header to lead/contributors/dependencies.
+The earlier scan omitted hidden files; scan hidden .github content as well.
+Recorded Matt's completed review against its actual head, not any later correction.
 ## Validation
-Scaffold/coverage and all 28 tests pass; whitespace checks clean; zero obsolete
-terminology hits. Only Markdown changed. Unavailable-reviewer section unchanged;
-live protection still byte-identical to the saved baseline after the docs change.
+Scaffold/coverage and all 28 tests pass; whitespace clean; hidden-file scan has
+zero obsolete terms. CI and current approval/merge status are authoritative on PR #14.
 ## Blockers and unchecked areas
-This docs change awaits normal PR review/merge; app/startup/samples remain absent.
-No independent review is claimed for PR #12 or the final authorized PR #13 integration.
+Merge only if GitHub permits it under existing protection. Do not request another
+review or weaken protection. App/startup/samples and release checks remain absent.
 ## Next steps
-1. Review/merge this docs PR without weakening protection.
-2. On merge, add one completion row in docs/CONTRIBUTIONS.md for this docs change.
-3. Joshua invites teammates and assigns leads/contributors and the integration owner.
+1. Push the verified correction, wait for CI and merge normally if permitted.
+2. Record the docs implementation completion when it actually merges.
+3. Joshua/the team assigns leads/contributors and continues A3-01 startup work.
 ## References
-PLAN.md; CONTRIBUTING.md; docs/ISSUES.md;
-[final exception audit](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/13#issuecomment-6240577780).
+[PR #14](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/14);
+CONTRIBUTING.md; docs/CONTRIBUTIONS.md.
 
 Inherited discovery note (its unverified status was superseded by 2026-10-17 probes):
 
