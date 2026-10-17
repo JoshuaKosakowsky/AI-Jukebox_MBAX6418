@@ -1,40 +1,36 @@
 # Agent handoff
 
 ## Session
-2026-10-16 19:50 MDT (America/Denver); Codex. Task: finalize local workflow documentation commit.
+2026-10-16 20:39 MDT (America/Denver); Codex. Task: add the agreed short team completion record.
 
 ## Constraints
-Local commits are authorized. No remote configuration, GitHub pushes/writes or
-service calls. Preserve the inherited Hermes note.
+Local commits authorized; no remote configuration, GitHub writes/pushes or service calls.
 
 ## Repository state
-Branch: codex/project-setup; pre-handoff commit: `d742a906975717d576c29b5d0c8c1676d15b3db0`.
-The user authorized committing the eight documentation files locally, including
-the preserved Hermes note. This handoff is written before that commit; use
-`git log -1` for its final hash and verify the working tree on entry.
+Branch: codex/project-setup; pre-handoff commit: `ef79e738e540bacac42375220c1de5bdb4e79e61`.
+Working tree clean at entry; this session changes CONTRIBUTING, CONTRIBUTIONS and handoff.
 
 ## Work completed and decisions
-Simplified AGENTS, CONTRIBUTING, README, PLAN, TESTING, COMMITS and the PR template.
-Routine related fixes stay in-task; separate work is for independent scope.
-Added focused PRs, blocking/suggestion distinction, shared contracts, integration
-ownership and early complete user flows. Assignment requirements are unchanged.
+Added docs/CONTRIBUTIONS.md and a short CONTRIBUTING rule to maintain it.
+Record substantial completed outcomes/reviews with evidence, credited to responsible
+teammates using AI tools. No rankings, metrics, routine-edit entries or extra issues.
+Seeded only Joshua's verified local setup work; no feature/review claims invented.
 
 ## Validation
-`python scripts/verify_repo.py`: PASS (23 tracked files); `git diff --check`: PASS.
-Original assignment unchanged; Hermes service note preserved verbatim.
-No app, browser or generation checks; inherited endpoint discovery not reverified.
+`python scripts/verify_repo.py`: PASS (24 tracked files, including local links).
+`git diff --cached --check`: PASS.
+No app/service/browser tests; inherited endpoint discovery below not reverified.
 
 ## Blockers and unchecked areas
-No app yet; runtime, owners, shared contracts and generation schemas still need work.
-Hermes reports local configuration/discovery below; do not treat it as generation proof.
+App, runtime/owners, generation contracts and independent deployment still pending.
 
 ## Next steps
-1. Claim A3-01; choose an integration owner/review buddies, runtime and contracts.
-2. Confirm documented requests, then deliver the first playable user flow in PLAN.
-3. Continue local work/commits; keep GitHub publication pending authorization.
+1. Claim A3-01 and agree integration ownership, runtime and shared contracts.
+2. Deliver the first playable user flow in PLAN; record substantial completions.
+3. Keep GitHub publication pending explicit authorization.
 
 ## References
-PLAN.md; CONTRIBUTING.md; docs/ASSIGNMENT.md; docs/GITHUB_SETUP.md.
+CONTRIBUTING.md; docs/CONTRIBUTIONS.md; PLAN.md; docs/GITHUB_SETUP.md.
 
 ### Hermes entry (2026-10-15)
 

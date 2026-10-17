@@ -60,6 +60,13 @@ or draft PR), `status: blocked` (explain blocker and next action), `status: revi
 Use assignees for ownership and closed/merged state for completion. Prefer the
 linked issue's type for its PR. Do not create an issue merely to apply a label.
 
+## Completion record
+
+When substantial work merges or a review is completed, add/update one brief row
+in [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md) with the responsible teammate,
+outcome and evidence. Credit implementation, review, testing and integration;
+combine follow-up revisions. Routine edits do not need entries or extra issues.
+
 ## Keep records useful
 
 Issues own task status; PLAN owns milestone checks and integration ownership;
