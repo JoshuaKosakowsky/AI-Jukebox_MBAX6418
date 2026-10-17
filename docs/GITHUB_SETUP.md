@@ -2,7 +2,7 @@
 
 Public repository: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
 Owner: JoshuaKosakowsky. Team workflow is active, including for setup changes.
-Joshua/the team handles collaborator invitations and issue owner/review-buddy
+Joshua/the team handles collaborator invitations and issue lead/contributor
 assignments. Agents must not add people or change assignments in this task.
 
 [Publication issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11)
