@@ -1,10 +1,11 @@
 # AI Jukebox - MBAX 6418-801 (Assignment 3)
 
 A team-built app for custom songs, matching covers and spoken DJ commentary.
-**Status: local scaffold; no application or generated samples yet.** Existing
-service-discovery notes are in handoff.md; generation contracts remain unverified.
-No GitHub repo/remote exists and nothing has been pushed. Planned visibility is
-public; main protection will be applied only after publication is authorized.
+**Status: collaboration scaffold; no application or generated samples yet.**
+Public repository: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418). Existing service-discovery
+notes are in handoff.md; generation contracts remain unverified. Initial CI and
+main-protection verification are recorded in [publication issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11).
+Collaborators will be added later.
 
 ## Start here
 
@@ -15,7 +16,7 @@ public; main protection will be applied only after publication is authorized.
 - Full-brief coverage: [acceptance.json](docs/acceptance.json); concrete tasks:
   [ISSUES.md](docs/ISSUES.md); lessons applied: [A2_LESSONS.md](docs/A2_LESSONS.md).
 - Tests/evidence: [docs/TESTING.md](docs/TESTING.md), [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md).
-- Future publication/protection: [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
+- Publication/protection: [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
 
 ## Required app
 
@@ -44,16 +45,17 @@ Git and Python 3.12+ are sufficient for the current offline scaffold check:
 ```powershell
 git config --local core.hooksPath .githooks
 git config --local core.longpaths true
-git config --local jukebox.allowPush false
+git config --local jukebox.allowPush true
 python scripts/verify_repo.py
 python scripts/check_readiness.py
 python -m unittest discover -s tests -p 'test_*.py'
 ```
 
 This validates files, links, basic tracked-file safeguards and the saved policy;
-it does not test app functionality. Local hooks block main commits after bootstrap
-and all pushes by default. They are bypassable local guards, not server protection.
-Work starts on codex/project-setup. No app install/launch command exists yet;
+it does not test app functionality. Local hooks block main commits and pushes;
+task-branch pushes are enabled by the local setting above. They are bypassable
+local guards; GitHub enforces main protection. Clone this public repo, then create
+a task branch from main. No app install/launch command exists yet;
 A3-01 will add the chosen runtime, locked dependencies and verified instructions.
 
 Keep keys server-side in ignored `.env` or environment variables; `.env.example`

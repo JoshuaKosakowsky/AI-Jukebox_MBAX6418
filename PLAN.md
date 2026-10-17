@@ -1,29 +1,31 @@
 # Delivery plan - Assignment 3
 
-**Current state:** local scaffold only; no app, samples or release acceptance yet.
-Local setup A3-00 is complete. GitHub publication is still prohibited.
+**Current state:** public collaboration scaffold; no app, samples or release
+acceptance yet. Local setup A3-00 is complete. [GitHub repo](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418) and task
+issues exist; [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) records publication/CI/protection verification.
+Collaborators and implementation ownership remain for the team to choose.
 
 ## Coverage and ownership
 
 [acceptance.json](docs/acceptance.json) maps every brief requirement R01-R36 to a
-work item and acceptance case. [ISSUES.md](docs/ISSUES.md) contains concrete local
-issue briefs. These A3 IDs are not GitHub issue numbers. No requirement is optional
-because its task or PR is closed. Add real issue links and chosen owners here at
-publication; team chooses ownership. Integration owner: **unassigned**.
+work item and acceptance case. [ISSUES.md](docs/ISSUES.md) preserves each issue's
+scope/acceptance checks. The links below are live GitHub issues; their state and
+labels are authoritative for task progress. No requirement becomes optional when
+a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 
 | Work item | Owner / review buddy | Depends on | State |
 |---|---|---|---|
-| A3-01 Startup and service contracts | Unassigned | None | Pending |
-| A3-02 Playable instrumental UI flow | Unassigned | 01 | Pending |
-| A3-03 Vocal songs and AI lyrics | Unassigned | 02 | Pending |
-| A3-04 New matching covers | Unassigned | 01 | Pending |
-| A3-05 Default DJ queue and controls | Unassigned | 02, 04 | Pending |
-| A3-06 MP3/WAV reference DJ | Unassigned | 05 | Pending |
-| A3-07 Three ready sample tracks | Unassigned | 02, 03, 04 | Pending |
-| A3-08 Failure recovery and safeguards | Unassigned | 01; continuous | Pending |
-| A3-09 Verified report and evidence | Unassigned | 01; continuous | Pending |
-| A3-10 Independent ZIP and submission | Unassigned | 03, 05-09, GH | Pending |
-| A3-GH Public GitHub/protection | Joshua/team; buddy unassigned | Explicit authorization | Waiting |
+| [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | Unassigned | None | See issue |
+| [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | Unassigned | 01 | See issue |
+| [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | Unassigned | 02 | See issue |
+| [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | Unassigned | 01 | See issue |
+| [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | Unassigned | 02, 04 | See issue |
+| [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | Unassigned | 05 | See issue |
+| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | Unassigned | 02, 03, 04 | See issue |
+| [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | Unassigned | 01; continuous | See issue |
+| [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | Unassigned | 01; continuous | See issue |
+| [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | Unassigned | 03, 05-09, GH | See issue |
+| [A3-GH](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) Public GitHub/protection | Joshua/team; buddy unassigned | Publication verification | See issue |
 
 ## Demonstrate progress early
 

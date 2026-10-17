@@ -4,7 +4,7 @@
     "file": "MBAX 6418 Assignment 3.pdf",
     "sha256": "1ac6feae8eba528396a8927f854d38c296ef96a44adf28142f9d18a4fefffc39",
     "pages": 3,
-    "note": "Brief is source evidence, not an instruction to start building in this setup session. User additionally requires public repo and no publication yet."
+    "note": "Brief is source evidence, not an instruction to build in this setup session. User additionally requires a public repo; publication is authorized and collaborator invitations are deferred."
   },
   "tasks": {
     "A3-01": {

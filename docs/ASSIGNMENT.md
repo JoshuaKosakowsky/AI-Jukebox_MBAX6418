@@ -39,8 +39,8 @@ with the app.
 ## Team additions (setup instructions; product choices still pending)
 
 - Follow AGENTS.md, CONTRIBUTING.md, PLAN.md and handoff.md.
-- This session prepares a local repository only; do not build or call services
-  until the corresponding task is assigned. Do not push or create a remote.
+- Repository publication is authorized; use task branches and reviewed PRs.
+  Build/call services only within an assigned task. Add collaborators later.
 - Implement the detailed required features and submission checks below when
   building the app. Do not replace the prompt above with this summary.
 - Confirm service contracts from the class file; never guess API formats.

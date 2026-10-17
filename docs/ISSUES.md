@@ -1,8 +1,9 @@
 # Local issue briefs
 
-These are proposed tasks, not existing GitHub issue numbers. Create them only
-after publication is authorized; record real issue links, owner and review buddy
-in PLAN. Acceptance IDs are defined once in [acceptance.json](acceptance.json).
+These task briefs are published as GitHub issues linked in [PLAN](../PLAN.md).
+The issues own status, owner and review buddy; keep each brief's scope and
+acceptance checks when updating work. Acceptance IDs are defined once in
+[acceptance.json](acceptance.json).
 Split a large task into focused child PRs without dropping its user outcome.
 A3-08 and A3-09 run throughout the build; they are not final cleanup phases.
 
@@ -180,4 +181,5 @@ Owner / review buddy: unassigned. Type: `infrastructure`. Dependencies: none.
 - [ ] Applicable cases: AT-19; record actual inputs/results, not only test counts.
 - [ ] Relevant integration/failure checks complete (normal entrypoint for features); parent gaps stay open.
 
-**Keep out of scope:** Blocked by the standing no-push instruction; this local setup does not authorize publication.
+**Keep out of scope:** Publication is authorized; [https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) records the actual setup
+verification. This task does not authorize app generation or collaborator invitations.

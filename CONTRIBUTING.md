@@ -20,8 +20,9 @@ must contribute meaningfully and review a teammate's work.
 6. Address blocking findings together, update the branch, rerun affected checks,
    then request approval on that head. Keep handoff.md current each session.
 
-Local setup remains **no push/no remote writes** until explicitly authorized.
-Main protection, including teammate approval, passing `test`, up-to-date branches,
+Publication and branch/issue/PR collaboration for assigned work are authorized.
+Collaborator invitations are deferred. Main protection, including teammate
+approval, passing `test`, up-to-date branches,
 resolved conversations and latest-push approval, is mandatory for everyone.
 See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 

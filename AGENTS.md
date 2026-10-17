@@ -15,9 +15,10 @@ Follow direct user instructions first. This guide applies throughout the repo.
 ## Current boundary and safeguards
 
 - Local commits on working branches are authorized; do not ask again for them.
-- Local setup only: **do not push, create a remote, open remote issues/PRs or
-  change GitHub settings** until explicitly authorized. Future repo is public;
-  main protection is specified in docs/GITHUB_SETUP.md.
+- Publication is authorized. The public repo is AI-Jukebox_MBAX6418; for
+  user-assigned work, use task branches, pushes and reviewed PRs. Main protection
+  follows docs/GITHUB_SETUP.md; no direct main updates after initial publication.
+  Collaborator invitations are deferred until the user names them.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.
 - No user uploads or voice references in Git/archives; no bundled third-party

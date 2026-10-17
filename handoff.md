@@ -1,43 +1,40 @@
 # Agent handoff
 
 ## Session
-2026-10-17 00:28 MDT (America/Denver); Codex. Task: full-brief A2 audit and A3 delivery safeguards.
+2026-10-17 00:36 MDT (America/Denver); Codex. Task: authorized initial public GitHub publication.
 
 ## Constraints
-Local commits authorized. No GitHub writes/pushes, A2 edits, app build or class calls.
+Publication/branch collaboration authorized; collaborator invitations deferred.
+No app generation or class-service calls in this setup task. Preserve inherited notes.
 
 ## Repository state
-Branch: codex/project-setup; pre-handoff commit: 12d56820ec68e3947e61d9155d0a9f468d46e1c2. Clean on entry.
-This session's protocol/docs/gate changes are to be committed locally; inspect Git.
+Repo: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418. Origin configured; pre-publication commit: 6edac1e6bc349b85b06875254dde4b1c905140ad.
+The reviewed scaffold on codex/project-setup is the initial main baseline.
+Read actual branch/history on entry; local hooks still block direct main work.
 
 ## Work completed and decisions
-Audited A2 main dfc0fc4 and late PRs #30/#31; see docs/A2_LESSONS.md for bounded findings.
-Mapped all A3 brief pages into 36 requirements, 11 task briefs and 19 acceptance
-cases. Added continuous coverage/rehearsal/frozen-ZIP gates and empty sample manifest.
-Preserved concise in-task fixes, review exceptions, labels, completion record and
-the original starter. CI checks structure/gate regressions, not app readiness.
+Created public repo, required labels and issues #1-#11 from all mapped task briefs.
+Updated canonical docs from local-only instructions to normal branch/PR workflow.
+Live publication, CI and protection results are recorded in [issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11);
+use that record for final remote state rather than inferring it from this commit.
+Initial main seeding uses a one-command local hook override, then server protection.
 
 ## Validation
-Coverage: PASS, 36 requirements / 11 tasks / 19 cases. Gate regressions: 18 passed.
-Release without evidence correctly returns NOT READY. Original starter matches
-the PDF word-for-word after whitespace normalization; source PDF hash matches.
-Full Git/ZIP test uses isolated synthetic repos; fixed its Windows line-ending
-assumption with local core.autocrlf=false. No production settings were changed.
-Final staged scaffold/hygiene: PASS (30 files); staged whitespace: PASS.
-Original assignment/protection payload unchanged; no remote and allowPush=false.
-No A3 app or service calls. A2's remote snapshot was reviewed, not runtime-tested.
+Local scaffold/coverage pass; 18 offline gate tests pass. Reviewed 64 historical
+blobs for prohibited private files and credential patterns; no findings.
+No app/live/browser acceptance. Publication verification is tracked in #11.
 
 ## Blockers and unchecked areas
-Submission NOT READY: no app/samples/independent ZIP evidence. Owners/runtime and
-generation contracts remain pending; inherited discovery below is not generation proof.
+App/samples/independent ZIP are still absent: submission NOT READY. Owners/runtime
+and generation request schemas are pending; discovery below is not generation proof.
 
 ## Next steps
-1. Read docs/ISSUES.md and claim A3-01; choose integration owner and review buddies.
-2. Deliver the normal-launch instrumental/cover flow, then vocals and DJ playback.
-3. Reconcile R01-R36 each milestone; rehearse ZIP early; no publication without authorization.
+1. Check publication issue #11 for CI/protection readback and current Git state.
+2. Claim issue #1; choose integration owner/runtime/contracts and review buddies.
+3. Add collaborators later when named by the user; use PRs for subsequent changes.
 
 ## References
-PLAN.md; docs/acceptance.json; docs/ISSUES.md; docs/TESTING.md; docs/A2_LESSONS.md.
+PLAN.md; docs/ISSUES.md; docs/GITHUB_SETUP.md; docs/acceptance.json.
 
 ### Hermes entry (2026-10-15)
 
