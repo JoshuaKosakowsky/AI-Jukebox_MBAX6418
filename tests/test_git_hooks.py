@@ -1,4 +1,4 @@
-"""Exercise team guards and the explicit solo exception in an isolated Git repo."""
+"""Exercise protected-main guards in an isolated Git repo; never push anywhere."""
 import os
 from pathlib import Path
 import subprocess
@@ -23,6 +23,7 @@ class GitHookTests(unittest.TestCase):
             cls.git('-c', 'user.name=Hook Test', '-c', 'user.email=hooks@example.invalid',
                     'commit', '--allow-empty', '-m', message)
             setattr(cls, message, cls.git('rev-parse', 'HEAD').stdout.strip())
+        cls.git('branch', 'codex/hook-test')
         cls.git('config', 'core.hooksPath', str(HOOKS))
 
     @classmethod
@@ -34,9 +35,11 @@ class GitHookTests(unittest.TestCase):
         return subprocess.run(['git', *args], cwd=cls.repo, env=cls.env,
                               text=True, capture_output=True, check=check)
 
-    def hook(self, name, *, solo=False, allow_push=True, ref=None):
-        args = ['-c', f'jukebox.soloSetup={str(solo).lower()}',
-                '-c', f'jukebox.allowPush={str(allow_push).lower()}', 'hook', 'run']
+    def hook(self, name, *, extra_config=(), allow_push=True, ref=None):
+        args = ['-c', f'jukebox.allowPush={str(allow_push).lower()}']
+        for value in extra_config:
+            args.extend(['-c', value])
+        args.extend(['hook', 'run'])
         if ref is not None:
             stdin_path = self.repo / 'hook-input'
             stdin_path.write_text(ref + '\n', encoding='utf-8', newline='\n')
@@ -46,45 +49,54 @@ class GitHookTests(unittest.TestCase):
     def main_update(self, local=None, remote=None):
         return f'refs/heads/main {local or self.second} refs/heads/main {remote or self.first}'
 
-    def test_team_main_commit_is_blocked(self):
-        result = self.hook('pre-commit')
-        self.assertNotEqual(result.returncode, 0, result.stderr)
-        self.assertIn('Commit blocked', result.stderr)
+    def task_update(self):
+        return f'refs/heads/codex/task {self.second} refs/heads/codex/task {self.first}'
 
-    def test_explicit_solo_commit_is_allowed_without_persisting_option(self):
-        result = self.hook('pre-commit', solo=True)
+    def assert_blocked(self, result, message):
+        self.assertNotEqual(result.returncode, 0, result.stderr)
+        self.assertIn(message, result.stderr)
+
+    def test_main_commit_is_blocked(self):
+        self.assert_blocked(self.hook('pre-commit'), 'Commit blocked')
+
+    def test_task_branch_commit_is_allowed(self):
+        self.git('switch', 'codex/hook-test')
+        try:
+            result = self.hook('pre-commit')
+            self.assertEqual(result.returncode, 0, result.stderr)
+        finally:
+            self.git('switch', 'main')
+
+    def test_removed_setting_cannot_allow_main_commit(self):
+        result = self.hook('pre-commit', extra_config=('jukebox.soloSetup=true',))
+        self.assert_blocked(result, 'Commit blocked')
+
+    def test_push_requires_publication_authorization(self):
+        result = self.hook('pre-push', allow_push=False, ref=self.task_update())
+        self.assert_blocked(result, 'local-only')
+
+    def test_main_fast_forward_push_is_blocked(self):
+        self.assert_blocked(self.hook('pre-push', ref=self.main_update()), 'main changes require reviewed PRs')
+
+    def test_removed_setting_cannot_allow_main_push(self):
+        result = self.hook('pre-push', extra_config=('jukebox.soloSetup=true',), ref=self.main_update())
+        self.assert_blocked(result, 'main changes require reviewed PRs')
+
+    def test_main_deletion_is_blocked(self):
+        result = self.hook('pre-push', ref=self.main_update(local='0' * 40))
+        self.assert_blocked(result, 'no direct update or deletion')
+
+    def test_main_history_rewrite_is_blocked(self):
+        result = self.hook('pre-push', ref=self.main_update(local=self.first, remote=self.second))
+        self.assert_blocked(result, 'no direct update or deletion')
+
+    def test_task_branch_push_is_allowed(self):
+        result = self.hook('pre-push', ref=self.task_update())
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(self.git('config', '--get', 'jukebox.soloSetup', check=False).returncode, 1)
 
-    def test_push_still_requires_publication_authorization(self):
-        result = self.hook('pre-push', solo=True, allow_push=False, ref=self.main_update())
-        self.assertNotEqual(result.returncode, 0, result.stderr)
-        self.assertIn('local-only', result.stderr)
-
-    def test_team_main_push_is_blocked(self):
-        result = self.hook('pre-push', ref=self.main_update())
-        self.assertNotEqual(result.returncode, 0, result.stderr)
-        self.assertIn('team main updates require PRs', result.stderr)
-
-    def test_solo_fast_forward_is_allowed(self):
-        result = self.hook('pre-push', solo=True, ref=self.main_update())
-        self.assertEqual(result.returncode, 0, result.stderr)
-
-    def test_solo_main_deletion_is_blocked(self):
-        result = self.hook('pre-push', solo=True, ref=self.main_update(local='0' * 40))
-        self.assertNotEqual(result.returncode, 0, result.stderr)
-        self.assertIn('deletion is forbidden', result.stderr)
-
-    def test_solo_non_fast_forward_is_blocked(self):
-        result = self.hook('pre-push', solo=True,
-                           ref=self.main_update(local=self.first, remote=self.second))
-        self.assertNotEqual(result.returncode, 0, result.stderr)
-        self.assertIn('only fast-forward', result.stderr)
-
-    def test_team_task_branch_push_is_allowed(self):
-        ref = f'refs/heads/codex/task {self.second} refs/heads/codex/task {self.first}'
-        result = self.hook('pre-push', ref=ref)
-        self.assertEqual(result.returncode, 0, result.stderr)
+    def test_main_push_is_blocked_in_a_batch_with_task_branch(self):
+        result = self.hook('pre-push', ref=self.task_update() + '\n' + self.main_update())
+        self.assert_blocked(result, 'main changes require reviewed PRs')
 
 
 if __name__ == '__main__':

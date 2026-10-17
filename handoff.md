@@ -1,32 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-17 America/Denver; Codex. Task: integrate setup and clarify solo workflow.
+2026-10-17 America/Denver; Codex. Task: activate team workflow; retire setup exception.
 ## Constraints
-Joshua is the sole contributor, preparing for later teamwork. Validated setup
-commits go to main without PR/reviewer requirements. No new service calls.
+Task branches and reviewed PRs apply to every change, including setup. No direct
+main updates or protection overrides. Joshua/the team manages invitations/assignments.
 ## Repository state
-Local main contains contract commit 75ea4aa; this session adds the solo exception.
-Check Git/remote state on entry; publication/protection readback is in issue #1.
+Branch codex/activate-team-workflow; base main ada2a6cc66eaab24e87439627fa5fc8c7e5685f3.
+Confirm actual Git/PR state on entry; the transition requires normal review/merge.
 ## Work completed and decisions
-Separate current solo preparation from later team collaboration in canonical docs.
-Per-command jukebox.soloSetup permits main commits/fast-forward pushes only;
-no persistent bypass. Restore full remote admin enforcement immediately after
-the authorized setup update. Team review/check policy JSON remains unchanged.
+Removed preparation bypass instructions from all current guides and both hooks.
+Regression tests cover blocked main operations, ignored retired configuration
+and permitted task-branch work. PR #12 is historical implementation/testing only;
+docs/CONTRIBUTIONS.md explicitly records no independent review.
 ## Validation
-Four earlier live probes and frozen evidence remain valid; no new generation.
-Scaffold/coverage pass; all 26 offline tests pass, including eight isolated hook
-checks. Remote CI/protection results are recorded in issue #1 after publication.
+Scaffold/coverage and all 28 offline tests pass; live protection matches the saved
+policy via read-only API check. Original prompt/policy unchanged; no retired config.
+No new service calls, collaborator invitations, owner or review-buddy assignments.
 ## Blockers and unchecked areas
-A3-01 startup/runtime/shared objects/adapters remain unfinished. No app, approved
-samples or release acceptance. Solo setup is not a teammate review/contribution.
+Main still needs the transition PR merged before onboarding. A3-01 startup/runtime/
+shared objects remain unfinished; app, samples and release acceptance remain absent.
 ## Next steps
-1. Continue requested setup directly; do not create unnecessary review blockers.
-2. Complete A3-01 startup/shared objects before dependent feature integration.
-3. On team collaboration, confirm protection and use normal branches/reviewed PRs.
+1. Review/merge this transition with existing main protection; do not bypass it.
+2. Joshua/the team invites collaborators and assigns owners/review buddies afterward.
+3. Continue A3-01 startup/shared objects using the verified service contracts.
 ## References
-[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1);
-CONTRIBUTING.md; docs/GITHUB_SETUP.md; docs/SERVICE_CONTRACTS.md.
+CONTRIBUTING.md; docs/GITHUB_SETUP.md; docs/CONTRIBUTIONS.md;
+[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1).
 
 Inherited discovery note (its unverified status was superseded by 2026-10-17 probes):
 

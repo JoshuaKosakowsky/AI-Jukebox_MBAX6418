@@ -99,18 +99,31 @@ measurements and OpenAPI fingerprints matched the private originals in an offlin
 comparison. No credentials, private task IDs or provider filesystem paths were
 published. These checks add no further live or app acceptance claims.
 
-## Solo setup workflow - 2026-10-17 America/Denver
+## Historical preparation integration - 2026-10-17 America/Denver
 
-Joshua clarified that repo preparation is currently solo; teammate reviews start
-with collaboration. Integrated the verified contract commit 75ea4aa into local
-main and documented an explicit setup exception without changing the saved team
-protection policy or original assignment prompt. No additional service calls.
+Contract commit 75ea4aa reached main through the owner-controlled preparation
+integration at ada2a6c. GitHub marked PR #12 merged; it had no independent reviews
+and supplies implementation/testing evidence only. The historical CI run passed
+26 tests. The preparation exception has been retired; it grants no ongoing
+permission. Current work uses task branches, reviewed PRs and enforced protection.
 
-Expected: an explicit per-command solo option permits validated main commits
-and fast-forward pushes; normal team guards, publication authorization, deletion
-and non-fast-forward blocks remain. Actual: all eight isolated Git hook tests
-pass, plus the existing 18 gate tests (26 total). A Windows-only fixture newline
-issue was corrected to supply the LF input produced by Git. Scaffold/links and
-coverage checks pass; no persistent solo bypass is configured. Main CI and full
-protection restoration readback are recorded in issue #1 after the owner-authorized
-setup push. These are setup checks, not app or teammate-review acceptance.
+The four original probe results above remain unchanged. No new service calls
+were made to transition the workflow. Current guard validation is recorded below.
+
+## Team workflow activation - 2026-10-17 America/Denver
+
+Base: ada2a6cc66eaab24e87439627fa5fc8c7e5685f3; branch
+codex/activate-team-workflow. Removed the preparation exception from current
+guides, hooks and handoff; retained historical PR #12 implementation/testing
+credit with no independent review claimed. No service or invitation calls.
+
+Expected: no main commit, direct push, deletion or history rewrite is permitted;
+the retired configuration cannot authorize any of them. Task-branch commits and
+authorized pushes still work. Actual: all ten isolated Git hook regressions pass,
+including a batch containing both task and main refs, plus 18 gate tests (28 total).
+Scaffold/links/credential guards and 36/11/19 coverage pass. Original assignment
+prompt and saved protection policy are unchanged; no retired setting is configured.
+Read-only GitHub API verification confirms the live policy matches the saved
+check/review/admin/conversation and force-push/deletion settings. No protection
+settings, collaborators, assignees or review buddies were changed. This transition
+still needs normal PR review/merge; onboarding follows it. No app acceptance claimed.

@@ -5,8 +5,8 @@ acceptance yet. Local setup A3-00 is complete. [GitHub repo](https://github.com/
 issues exist; [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) records publication/CI/protection verification.
 The [four live service contracts](docs/SERVICE_CONTRACTS.md) are verified in an
 A3-01 component change; startup/shared objects and feature acceptance are pending.
-Current phase: Joshua's solo preparation; validated setup commits go to main
-under CONTRIBUTING's exception. Team branch/review rules begin with collaboration.
+Team workflow active: all changes use task branches and reviewed PRs.
+Joshua/the team will arrange invitations and owner/review-buddy assignments.
 Collaborators and remaining implementation ownership are for the team to choose.
 
 ## Coverage and ownership
