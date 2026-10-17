@@ -18,8 +18,10 @@ Follow direct user instructions first. This guide applies throughout the repo.
 - Team workflow is active: use task branches and reviewed PRs for all changes,
   including setup. No direct main commits/pushes or protection bypasses.
   Main protection follows docs/GITHUB_SETUP.md and applies to admins too.
-- Collaborator invitations and issue owner/review-buddy assignments are for
+- Collaborator invitations and issue lead/contributor assignments are for
   Joshua/the team to arrange; do not add people or change assignments in this task.
+  The PR author cannot approve their own PR; any teammate without commits on the
+  PR may review/approve/request changes, and the approving reviewer or the lead merges.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.
 - No user uploads or voice references in Git/archives; no bundled third-party

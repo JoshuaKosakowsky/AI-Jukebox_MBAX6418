@@ -7,12 +7,15 @@ must contribute meaningfully and review a teammate's work.
 
 All changes, including setup, use task branches and reviewed PRs. Main protection
 applies to everyone, including admins. Do not disable protection or push directly
-to main. Joshua/the team handles invitations and owner/review-buddy assignments.
+to main. Joshua/the team handles invitations and lead/contributor assignments.
 
 ## Team workflow: work in small steps
 
-1. Claim one substantial work item with acceptance checks, an owner and a review
-   buddy. Before publication, record it in PLAN.md; afterward use GitHub issues.
+1. Claim one substantial work item with acceptance checks, one lead and up
+   to two contributors (max 3 assignees per issue). The lead owns the
+   acceptance checks and the merge; contributors co-implement and are the
+   natural first-review pool. Before publication, record it in PLAN.md;
+   afterward use GitHub issues.
 2. Branch from current main (`codex/<task>` or `type/slug`). Keep one substantial
    PR active per contributor. A broad milestone can have several focused child
    issues/PRs; avoid long-lived dependent branches unless merge order is explicit.
@@ -35,7 +38,7 @@ See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 
 Use the concrete local briefs in [docs/ISSUES.md](docs/ISSUES.md) and requirement
 IDs/cases in [docs/acceptance.json](docs/acceptance.json). After publication put
-those IDs, dependencies, owner/review buddy and the user outcome in each issue.
+those IDs, dependencies, lead/contributors and the user outcome in each issue.
 PRs state which checks they actually satisfy; unmapped new scope needs review.
 Before closing a parent, verify the normal-launch user flow on merged main and
 record inputs, expected/actual results, tester, commit and evidence. Skipped,
@@ -62,6 +65,19 @@ reviews; fix small related problems directly instead of opening process issues.
 - Review correctness and the user flow, not test counts alone. No self-approval.
   Parent features close only after their flow passes on merged main; child PRs
   may deliver tested components without claiming the whole feature is complete.
+
+- **Review eligibility:** the PR author cannot approve their own PR. Any
+  teammate with zero commits on the PR may review, approve, or request
+  changes, even if they did not code the change.
+- **Merge:** the approving reviewer or the issue lead merges once the one
+  required approval, green `test`, and resolved conversations are present.
+  A PR author may merge after an eligible approval exists, but convention
+  is that a non-author merges.
+- **Branch freeze at review:** last-push approval and stale-review
+  dismissal are enabled, so any collaborator push invalidates an approval.
+  When the lead calls for review, collaborators stop pushing to that
+  branch until the verdict; the reviewer who approves must not be the last
+  committer.
 
 ### Resolved blocking review; original reviewer unavailable
 

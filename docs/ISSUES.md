@@ -1,7 +1,7 @@
 # Local issue briefs
 
 These task briefs are published as GitHub issues linked in [PLAN](../PLAN.md).
-The issues own status, owner and review buddy; keep each brief's scope and
+The issues own status, lead and contributors; keep each brief's scope and
 acceptance checks when updating work. Acceptance IDs are defined once in
 [acceptance.json](acceptance.json).
 Split a large task into focused child PRs without dropping its user outcome.
@@ -9,7 +9,7 @@ A3-08 and A3-09 run throughout the build; they are not final cleanup phases.
 
 ## A3-01 - Verify startup and shared service contracts
 
-Owner / review buddy: unassigned. Type: `infrastructure`. Dependencies: none.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `infrastructure`. Dependencies: none.
 
 **User outcome:** A teammate launches the empty app from documented commands; minimal track/job/adaptor contracts and one documented real request per required service are recorded.
 
@@ -25,7 +25,7 @@ Owner / review buddy: unassigned. Type: `infrastructure`. Dependencies: none.
 
 ## A3-02 - Generate and play an instrumental from the UI
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-01.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-01.
 
 **User outcome:** The normal launch accepts style, mood and duration, generates ACE-Step audio, adds it to the session library and plays it.
 
@@ -41,7 +41,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-01.
 
 ## A3-03 - Generate vocal songs with AI lyrics
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-02.
 
 **User outcome:** A vocal request uses Qwen lyrics and ACE-Step to produce a playable vocal track with the selected settings.
 
@@ -57,7 +57,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02.
 
 ## A3-04 - Generate and pair a new cover for every song
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-01.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-01.
 
 **User outcome:** Every custom song gets new FLUX art reflecting its theme/style/mood; multiple tracks keep their correct cover/audio associations.
 
@@ -73,7 +73,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-01.
 
 ## A3-05 - Play a queue with the default AI DJ and controls
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02, A3-04.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-02, A3-04.
 
 **User outcome:** Queued tracks advance automatically; Qwen writes track-specific commentary spoken by Chatterbox, followed by music without overlap.
 
@@ -89,7 +89,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02, A3-0
 
 ## A3-06 - Support MP3 and WAV DJ reference voices safely
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-05.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-05.
 
 **User outcome:** Both MP3 and WAV uploads customize Chatterbox DJ speech; default voice still works without an upload.
 
@@ -105,7 +105,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-05.
 
 ## A3-07 - Ship three class-generated sample tracks and covers
 
-Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02, A3-03, A3-04.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `enhancement`. Dependencies: A3-02, A3-03, A3-04.
 
 **User outcome:** Three titled, ready-to-play songs and matching covers are tracked and load from the source ZIP without regeneration.
 
@@ -121,7 +121,7 @@ Owner / review buddy: unassigned. Type: `enhancement`. Dependencies: A3-02, A3-0
 
 ## A3-08 - Verify failure recovery and public-file safeguards
 
-Owner / review buddy: unassigned. Type: `testing`. Dependencies: A3-01.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `testing`. Dependencies: A3-01.
 
 **User outcome:** At least one actual UI failure and recovery is recorded; credentials and prohibited media stay out of browser outputs, Git and archives.
 
@@ -137,7 +137,7 @@ Owner / review buddy: unassigned. Type: `testing`. Dependencies: A3-01.
 
 ## A3-09 - Maintain verified README, screenshots and findings
 
-Owner / review buddy: unassigned. Type: `documentation`. Dependencies: A3-01.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `documentation`. Dependencies: A3-01.
 
 **User outcome:** README matches the finished app and explains setup/use, all core flows, observed results, a tested design choice and an investigated limitation.
 
@@ -153,7 +153,7 @@ Owner / review buddy: unassigned. Type: `documentation`. Dependencies: A3-01.
 
 ## A3-10 - Rehearse ZIP installation and freeze the submission
 
-Owner / review buddy: unassigned. Type: `testing`. Dependencies: A3-03, A3-05, A3-06, A3-07, A3-08, A3-09, A3-GH.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `testing`. Dependencies: A3-03, A3-05, A3-06, A3-07, A3-08, A3-09, A3-GH.
 
 **User outcome:** A different teammate installs the exact GitHub ZIP from README + class credentials, verifies all core features and samples, and records the submitted commit/ZIP identity.
 
@@ -169,11 +169,11 @@ Owner / review buddy: unassigned. Type: `testing`. Dependencies: A3-03, A3-05, A
 
 ## A3-GH - Publish the public repo and verify main protection
 
-Owner / review buddy: unassigned. Type: `infrastructure`. Dependencies: none.
+Lead / contributors: unassigned (up to 3; lead owns acceptance and merge; any teammate without commits on a PR may review). Type: `infrastructure`. Dependencies: none.
 
 **User outcome:** After explicit authorization, the public repo, labels, teammate access and protected main policy are configured and independently read back.
 
-**Scope:** Use docs/GITHUB_SETUP.md; convert these local task IDs into real issues and fill owner/review buddy fields. Preserve the unavailable-reviewer exception.
+**Scope:** Use docs/GITHUB_SETUP.md; convert these local task IDs into real issues and fill lead/contributor fields. Preserve the unavailable-reviewer exception.
 
 **Completion checks:**
 

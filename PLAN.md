@@ -6,7 +6,10 @@ issues exist; [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issu
 The [four live service contracts](docs/SERVICE_CONTRACTS.md) are verified in an
 A3-01 component change; startup/shared objects and feature acceptance are pending.
 Team workflow active: all changes use task branches and reviewed PRs.
-Joshua/the team will arrange invitations and owner/review-buddy assignments.
+Joshua/the team will arrange invitations and lead/contributor assignments
+(up to 3 assignees per issue: one lead who owns acceptance and merge, plus
+up to two contributors). Any teammate without commits on a PR may review
+and approve; the approving reviewer or the issue lead merges.
 Collaborators and remaining implementation ownership are for the team to choose.
 
 ## Coverage and ownership
@@ -17,9 +20,9 @@ scope/acceptance checks. The links below are live GitHub issues; their state and
 labels are authoritative for task progress. No requirement becomes optional when
 a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 
-| Work item | Owner / review buddy | Depends on | State |
+| Work item | Lead / contributors | Depends on | State |
 |---|---|---|---|
-| [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky; buddy pending | None | See issue |
+| [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky (lead); contributors pending | None | See issue |
 | [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | Unassigned | 01 | See issue |
 | [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | Unassigned | 02 | See issue |
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | Unassigned | 01 | See issue |
@@ -29,7 +32,7 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 | [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | Unassigned | 01; continuous | See issue |
 | [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | Unassigned | 01; continuous | See issue |
 | [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | Unassigned | 03, 05-09, GH | See issue |
-| [A3-GH](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) Public GitHub/protection | Joshua/team; buddy unassigned | Publication verification | See issue |
+| [A3-GH](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) Public GitHub/protection | Joshua (lead); contributors unassigned | Publication verification | See issue |
 
 ## Demonstrate progress early
 

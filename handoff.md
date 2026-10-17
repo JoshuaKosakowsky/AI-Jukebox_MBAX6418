@@ -1,32 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-17 America/Denver; Codex. Task: activate team workflow; retire setup exception.
+2026-10-17 America/Denver; Codex. Task: fix Matt's non-blocking PR #14 finding.
 ## Constraints
-Task branches and reviewed PRs apply to every change, including setup. No direct
-main updates or protection overrides. Joshua/the team manages invitations/assignments.
+User authorized the correction and merge if possible, without another review
+request. Keep branch protection intact; no admin override, service calls or assignments.
 ## Repository state
-Branch codex/activate-team-workflow; base main ada2a6cc66eaab24e87439627fa5fc8c7e5685f3.
-Confirm actual Git/PR state on entry; the transition requires normal review/merge.
+Branch codex/team-assignee-workflow; Matt (mase7919) approved reviewed head 3aaaba4.
+Read actual GitHub eligibility after the correction is pushed; approval may be dismissed.
 ## Work completed and decisions
-Removed preparation bypass instructions from all current guides and both hooks.
-Regression tests cover blocked main operations, ignored retired configuration
-and permitted task-branch work. PR #12 is historical implementation/testing only;
-docs/CONTRIBUTIONS.md explicitly records no independent review.
+Changed the feature issue-template header to lead/contributors/dependencies.
+The earlier scan omitted hidden files; scan hidden .github content as well.
+Recorded Matt's completed review against its actual head, not any later correction.
 ## Validation
-Scaffold/coverage and all 28 offline tests pass; live protection matches the saved
-policy via read-only API check. Original prompt/policy unchanged; no retired config.
-No new service calls, collaborator invitations, owner or review-buddy assignments.
+Scaffold/coverage and all 28 tests pass; whitespace clean; hidden-file scan has
+zero obsolete terms. CI and current approval/merge status are authoritative on PR #14.
 ## Blockers and unchecked areas
-Main still needs the transition PR merged before onboarding. A3-01 startup/runtime/
-shared objects remain unfinished; app, samples and release acceptance remain absent.
+Merge only if GitHub permits it under existing protection. Do not request another
+review or weaken protection. App/startup/samples and release checks remain absent.
 ## Next steps
-1. Review/merge this transition with existing main protection; do not bypass it.
-2. Joshua/the team invites collaborators and assigns owners/review buddies afterward.
-3. Continue A3-01 startup/shared objects using the verified service contracts.
+1. Push the verified correction, wait for CI and merge normally if permitted.
+2. Record the docs implementation completion when it actually merges.
+3. Joshua/the team assigns leads/contributors and continues A3-01 startup work.
 ## References
-CONTRIBUTING.md; docs/GITHUB_SETUP.md; docs/CONTRIBUTIONS.md;
-[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1).
+[PR #14](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/14);
+CONTRIBUTING.md; docs/CONTRIBUTIONS.md.
 
 Inherited discovery note (its unverified status was superseded by 2026-10-17 probes):
 
