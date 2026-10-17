@@ -1,6 +1,8 @@
 #!/bin/sh
 branch=$(git symbolic-ref --quiet --short HEAD) || exit 0
 if [ "$branch" = "main" ] && git rev-parse --verify HEAD >/dev/null 2>&1; then
-  echo "Commit blocked: main is the shared baseline. Use a task branch and reviewed PR." >&2
-  exit 1
+  if [ "$(git config --bool --get jukebox.soloSetup)" != "true" ]; then
+    echo "Commit blocked: use a team task branch, or the authorized solo-setup option in CONTRIBUTING." >&2
+    exit 1
+  fi
 fi

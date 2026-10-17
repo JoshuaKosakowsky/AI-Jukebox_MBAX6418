@@ -9,7 +9,7 @@ python -m unittest discover -s tests -p 'test_*.py'
 ```
 
 The first checks tracked files/safeguards, the second checks R01-R36 coverage,
-and the third tests the gate itself. **None proves jukebox functionality.** CI
+and the third tests the gate and Git guards. **None proves jukebox functionality.** CI
 job `test` runs these. Keep it stable when adding the chosen app's offline suite.
 Check that new tests are actually collected by the default command; missing
 markers previously hid A2 tests. Verify media fixtures decode/render, not just

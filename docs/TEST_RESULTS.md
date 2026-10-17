@@ -98,3 +98,19 @@ offline gate tests PASS, staged whitespace check PASS. Exact frozen payloads,
 measurements and OpenAPI fingerprints matched the private originals in an offline
 comparison. No credentials, private task IDs or provider filesystem paths were
 published. These checks add no further live or app acceptance claims.
+
+## Solo setup workflow - 2026-10-17 America/Denver
+
+Joshua clarified that repo preparation is currently solo; teammate reviews start
+with collaboration. Integrated the verified contract commit 75ea4aa into local
+main and documented an explicit setup exception without changing the saved team
+protection policy or original assignment prompt. No additional service calls.
+
+Expected: an explicit per-command solo option permits validated main commits
+and fast-forward pushes; normal team guards, publication authorization, deletion
+and non-fast-forward blocks remain. Actual: all eight isolated Git hook tests
+pass, plus the existing 18 gate tests (26 total). A Windows-only fixture newline
+issue was corrected to supply the LF input produced by Git. Scaffold/links and
+coverage checks pass; no persistent solo bypass is configured. Main CI and full
+protection restoration readback are recorded in issue #1 after the owner-authorized
+setup push. These are setup checks, not app or teammate-review acceptance.

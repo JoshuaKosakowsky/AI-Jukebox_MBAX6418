@@ -15,10 +15,12 @@ Follow direct user instructions first. This guide applies throughout the repo.
 ## Current boundary and safeguards
 
 - Local commits on working branches are authorized; do not ask again for them.
-- Publication is authorized. The public repo is AI-Jukebox_MBAX6418; for
-  user-assigned work, use task branches, pushes and reviewed PRs. Main protection
-  follows docs/GITHUB_SETUP.md; no direct main updates after initial publication.
-  Collaborator invitations are deferred until the user names them.
+- Current phase: Joshua's solo repository setup. Commit validated setup work
+  directly to main and publish it when authorized; no PR or absent teammate
+  review is required. Use CONTRIBUTING's explicit solo-setup exception.
+- Once teammates begin contributing, use task branches and reviewed PRs.
+  Main protection follows docs/GITHUB_SETUP.md. Collaborator invitations stay
+  deferred until the user names them; do not infer team mode from publication.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.
 - No user uploads or voice references in Git/archives; no bundled third-party
@@ -36,7 +38,7 @@ Follow direct user instructions first. This guide applies throughout the repo.
 - Fix small, reversible problems within the authorized task directly: a typo,
   local validation error, missing import or straightforward test adjustment
   does not need a separate issue, planning document or permission request.
-- Keep the fix in the current PR if it supports the same acceptance checks.
+- Keep the fix in the same change if it supports the same acceptance checks.
   Separate work when it changes scope, a shared interface, data handling, or
   another contributor's ownership. Document deferred work briefly and proceed
   with unaffected work. Do not ignore security or correctness failures.
@@ -44,9 +46,9 @@ Follow direct user instructions first. This guide applies throughout the repo.
   speculative abstractions, optional features and unrelated refactors.
 - Share stable contracts before parallel work. Coordinate interface changes
   with consumers; do not code against an assumed unmerged implementation.
-- Default to `codex/<task>` branches from main; no direct main commits after
-  bootstrap. Keep one substantial PR active per contributor. PR scope and
-  review rules live in CONTRIBUTING.md; commit style in docs/COMMITS.md.
+- In team collaboration, default to `codex/<task>` branches from main; no
+  direct main commits. Keep one substantial PR active per contributor. PR scope
+  and review rules live in CONTRIBUTING.md; commit style in docs/COMMITS.md.
   If a blocking reviewer is unavailable, follow its documented independent
   verification/dismissal exception; never waive an unresolved finding.
 - Current check: `python scripts/verify_repo.py`. Use docs/TESTING.md for
@@ -78,6 +80,6 @@ check with independent ZIP evidence can establish recorded submission readiness.
 
 ## Done
 
-A PR meets its stated checks, has relevant passing validation, reviewed safe
-files, current affected docs and a handoff. A feature milestone is done only
-after its user flow is verified on merged main. Partial PRs must not close it.
+A solo setup commit or team PR meets its stated checks, has relevant passing
+validation, inspected safe files, current affected docs and a handoff. A feature
+milestone is done only after its user flow is verified on integrated main. Partial PRs must not close it.

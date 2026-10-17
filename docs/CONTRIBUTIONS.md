@@ -6,7 +6,7 @@ produced with AI tools. No separate human-versus-model credit is needed.
 
 Add one row for a completed substantial task or review, with a brief outcome and
 verifiable evidence. Use merged PRs, completed reviews, test evidence or local
-commit IDs before publication. Combine follow-up revisions to the same work;
+commit IDs for solo setup. Combine follow-up revisions to the same work;
 skip routine edits and repeated review rounds. Include implementation, reviews,
 debugging, integration, testing/deployment and documentation where applicable.
 
@@ -19,6 +19,7 @@ attribution. A component entry does not claim the whole feature is complete.
 | 2026-10-16 | JoshuaKosakowsky | Setup and documentation | Local repository scaffold, safeguards, labels and streamlined collaboration guidance | Local commits `9d8ee0e`, `d742a90`, `ef79e73` |
 | 2026-10-17 | JoshuaKosakowsky | Requirements audit and delivery safeguards | Mapped the complete A3 brief, wrote concrete task briefs and added an offline-tested submission gate from the A2 audit | [Audit](A2_LESSONS.md), [coverage](acceptance.json), [gate tests](../tests/test_readiness.py) |
 | 2026-10-17 | JoshuaKosakowsky | Public repository and task setup | Created the public repo, required labels and linked task issues; publication verification is recorded in #11 | [Publication record](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) |
+| 2026-10-17 | JoshuaKosakowsky | Service contract verification | One successful real request per required service, decoded media and frozen payloads; integrated during solo setup | Contract commit `75ea4aa`, [safe evidence](../results/service-contract-probes.json) |
 
 Application features, teammate reviews and independent deployment are not yet
 recorded as completed. Add their evidence as the team delivers them.

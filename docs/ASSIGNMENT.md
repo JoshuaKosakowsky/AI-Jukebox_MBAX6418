@@ -39,7 +39,8 @@ with the app.
 ## Team additions (setup instructions; product choices still pending)
 
 - Follow AGENTS.md, CONTRIBUTING.md, PLAN.md and handoff.md.
-- Repository publication is authorized; use task branches and reviewed PRs.
+- Repository publication is authorized. Solo preparation follows CONTRIBUTING's
+  setup exception; team collaboration uses task branches and reviewed PRs.
   Build/call services only within an assigned task. Add collaborators later.
 - Implement the detailed required features and submission checks below when
   building the app. Do not replace the prompt above with this summary.

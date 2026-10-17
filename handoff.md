@@ -1,36 +1,34 @@
 # Agent handoff
 
 ## Session
-2026-10-17 America/Denver; Codex. Task: A3-01 verified service contract slice.
+2026-10-17 America/Denver; Codex. Task: integrate setup and clarify solo workflow.
 ## Constraints
-User explicitly authorized one minimal live generation per required service.
-Keys/raw responses/media stay ignored; no automatic calls or collaborator invites.
+Joshua is the sole contributor, preparing for later teamwork. Validated setup
+commits go to main without PR/reviewer requirements. No new service calls.
 ## Repository state
-Branch codex/service-contract-probes; base main d0d566238b184413960076985b5681576111737c.
-Check actual Git/PR state on entry; main protection remains in force.
+Local main contains contract commit 75ea4aa; this session adds the solo exception.
+Check Git/remote state on entry; publication/protection readback is in issue #1.
 ## Work completed and decisions
-Located dated class file; inspected all four deployed schemas/models, then made
-one successful generation each. Music is async submit/poll/double-JSON/download;
-speech returns complete WAV with default voice omitted. Frozen requests in
-contracts/service-probes.json; shared usage/limits in docs/SERVICE_CONTRACTS.md.
+Separate current solo preparation from later team collaboration in canonical docs.
+Per-command jukebox.soloSetup permits main commits/fast-forward pushes only;
+no persistent bypass. Restore full remote admin enforcement immediately after
+the authorized setup update. Team review/check policy JSON remains unchanged.
 ## Validation
-All four live HTTP 200; decoded PNG and complete non-silent PCM WAVs. See
-docs/TEST_RESULTS.md and results/service-contract-probes.json for exact evidence.
-Offline scaffold/coverage and 18 gate tests pass; frozen requests/evidence match
-private originals. Remote CI/review status belongs to the linked issue/PR.
+Four earlier live probes and frozen evidence remain valid; no new generation.
+Scaffold/coverage pass; all 26 offline tests pass, including eight isolated hook
+checks. Remote CI/protection results are recorded in issue #1 after publication.
 ## Blockers and unchecked areas
-A3-01 remains open: runtime/startup/shared objects/adapters pending. No app,
-approved samples or ZIP acceptance; reference uploads, vocals and browser untested.
+A3-01 startup/runtime/shared objects/adapters remain unfinished. No app, approved
+samples or release acceptance. Solo setup is not a teammate review/contribution.
 ## Next steps
-1. Review/merge this contract slice; reuse payloads rather than guessing/reprobing.
-2. Complete A3-01 startup/shared objects, then demonstrate the instrumental flow.
-3. Add collaborators/review buddy when the user supplies teammates.
+1. Continue requested setup directly; do not create unnecessary review blockers.
+2. Complete A3-01 startup/shared objects before dependent feature integration.
+3. On team collaboration, confirm protection and use normal branches/reviewed PRs.
 ## References
 [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1);
-docs/SERVICE_CONTRACTS.md; PLAN.md; docs/TEST_RESULTS.md.
+CONTRIBUTING.md; docs/GITHUB_SETUP.md; docs/SERVICE_CONTRACTS.md.
 
-The inherited note below is preserved for provenance. Its models-only limitation
-and unverified 9007/9008 status were superseded by the 2026-10-17 probes above.
+Inherited discovery note (its unverified status was superseded by 2026-10-17 probes):
 
 ### Hermes entry (2026-10-15)
 

@@ -9,7 +9,8 @@ Use [service-probes.json](../contracts/service-probes.json) for exact, reusable
 JSON requests, absolute routes and observed response fields. Safe measurements
 are in [service-contract-probes.json](../results/service-contract-probes.json);
 expected versus actual and limitations are in [TEST_RESULTS.md](TEST_RESULTS.md).
-Changes to these shared contracts belong in a reviewed PR with affected consumers.
+Integrate changes on main using the current workflow in CONTRIBUTING. Once team
+collaboration begins, coordinate shared contract changes through reviewed PRs.
 Require new live evidence for a changed request format, model or response shape;
 do not repeat generation merely because an agent/model changes.
 
@@ -127,6 +128,6 @@ Review any newly collected evidence before committing it.
 
 This freezes only provider wire formats. A3-01 remains open for runtime choice,
 locked dependencies, normal startup, shared track/job/playback objects and adapter
-failure behavior. Merge this contract slice before dependent implementations use
-it, then demonstrate one real instrumental flow. App and release readiness remain
+failure behavior. Use the integrated contract baseline for dependent work, then
+demonstrate one real instrumental flow. App and release readiness remain
 NOT READY; no probe output counts as one of the three approved sample tracks.

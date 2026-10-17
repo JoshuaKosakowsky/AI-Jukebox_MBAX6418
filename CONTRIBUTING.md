@@ -3,7 +3,24 @@
 Agents follow AGENTS.md. Requirements live in docs/ASSIGNMENT.md. Every teammate
 must contribute meaningfully and review a teammate's work.
 
-## Work in small steps
+## Current phase: solo setup
+
+Joshua is preparing the repo before teammates join. For user-assigned setup,
+documentation and contract verification, inspect the diff, run relevant checks,
+update handoff.md, then commit to main and push when authorized. No PR, separate
+issue or unavailable reviewer is required for this preparation. Existing milestone
+issues remain useful planning; completed setup does not close unfinished features.
+
+Local main guards accept the per-command option `-c jukebox.soloSetup=true`
+for this authorized work; do not persist it in Git config. Main pushes must still
+fast-forward and cannot delete the branch. If GitHub blocks the owner, use the
+brief administrative exception in docs/GITHUB_SETUP.md, then restore protection.
+
+Team mode begins when teammates start contributing or Joshua explicitly starts
+collaboration. Confirm main protection, stop using the solo option, and follow
+the branch/PR/review workflow below. Publication alone does not start team mode.
+
+## Team workflow: work in small steps
 
 1. Claim one substantial work item with acceptance checks, an owner and a review
    buddy. Before publication, record it in PLAN.md; afterward use GitHub issues.
@@ -21,9 +38,8 @@ must contribute meaningfully and review a teammate's work.
    then request approval on that head. Keep handoff.md current each session.
 
 Publication and branch/issue/PR collaboration for assigned work are authorized.
-Collaborator invitations are deferred. Main protection, including teammate
-approval, passing `test`, up-to-date branches,
-resolved conversations and latest-push approval, is mandatory for everyone.
+Collaborator invitations are deferred. In team mode, main protection, including
+teammate approval, passing `test`, up-to-date branches, resolved conversations and latest-push approval, is mandatory for everyone.
 See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 
 ## Acceptance before issue closure
@@ -98,8 +114,8 @@ linked issue's type for its PR. Do not create an issue merely to apply a label.
 
 ## Completion record
 
-When substantial work merges or a review is completed, add/update one brief row
-in [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md) with the responsible teammate,
+When substantial solo setup is committed, team work merges or a review finishes,
+add/update one brief row in [docs/CONTRIBUTIONS.md](docs/CONTRIBUTIONS.md) with the responsible teammate,
 outcome and evidence. Credit implementation, review, testing and integration;
 combine follow-up revisions. Routine edits do not need entries or extra issues.
 

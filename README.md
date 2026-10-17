@@ -7,7 +7,8 @@ The four minimal live generation requests are verified in
 [service contracts](docs/SERVICE_CONTRACTS.md); app integration remains pending.
 Initial CI and
 main-protection verification are recorded in [publication issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11).
-Collaborators will be added later.
+Current phase: solo setup by Joshua. Validated setup goes directly to main;
+team PR/review rules begin when collaboration starts. Collaborators will be added later.
 
 ## Start here
 
@@ -54,10 +55,10 @@ python -m unittest discover -s tests -p 'test_*.py'
 ```
 
 This validates files, links, basic tracked-file safeguards and the saved policy;
-it does not test app functionality. Local hooks block main commits and pushes;
-task-branch pushes are enabled by the local setting above. They are bypassable
-local guards; GitHub enforces main protection. Clone this public repo, then create
-a task branch from main. No app install/launch command exists yet;
+it does not test app functionality. Local hooks block main changes by default;
+CONTRIBUTING documents the explicit solo-setup option. Task-branch pushes are
+enabled above. GitHub enforces server protection. Team contributors create task
+branches from main. No app install/launch command exists yet;
 A3-01 will add the chosen runtime, locked dependencies and verified instructions.
 
 Keep keys server-side in ignored `.env` or environment variables; `.env.example`

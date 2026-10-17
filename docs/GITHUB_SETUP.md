@@ -31,17 +31,38 @@ protect a branch on GitHub.
 ## Local guards and bootstrap
 
 Configured: core.hooksPath=.githooks, core.longpaths=true and jukebox.allowPush=true.
-Task-branch pushes for assigned work are permitted. Local hooks continue blocking
-main commits and direct main updates/deletion. GitHub provides server enforcement.
+Task-branch pushes for assigned work are permitted. Local hooks block main changes
+by default; the explicit solo option below permits only fast-forward main updates.
+GitHub provides server enforcement.
 New checkouts install these local settings from README; hooks are bypassable.
 
 The initial publication uses a documented one-command hooksPath override solely
-to seed main from the reviewed local scaffold. It does not permanently disable
-hooks or permit later direct main pushes. Main protection is applied immediately
-after the initial CI succeeds, then verified through the GitHub API. The exact
+to seed main from the reviewed local scaffold. Later solo setup uses the explicit
+exception below; hooks are never permanently disabled. Main protection was
+applied after initial CI succeeded, then verified through the GitHub API. The exact
 commands, resulting SHA, CI URL and policy readback are recorded in issue #11.
 
-## Working from this repo
+## Solo setup exception (current phase)
+
+The owner is preparing the repository alone. Validated setup can be committed
+and pushed directly to main, without creating a PR or requiring teammate review.
+Use `git -c jukebox.soloSetup=true commit ...` and the same per-command option
+for a normal fast-forward push. Keep the option out of persistent Git config.
+
+The saved Assignment 2 team policy stays unchanged and enforced at rest. If it
+blocks a user-authorized solo setup update, an owner with actual admin permission
+may briefly disable admin enforcement, push the validated commit, then immediately
+restore admin enforcement in a finally/cleanup step and read back the full policy.
+Do not remove review/check rules, enable force pushes/deletion, or leave the
+exception active. Record the resulting commit, CI and protection readback with
+the setup evidence. This permission is limited to solo preparation; it cannot be
+used to bypass a teammate's blocking findings or failed checks.
+
+Before teammates begin contributing, confirm the full policy matches the saved
+JSON and start the team branch/review workflow. No teammate is needed to approve
+the preliminary setup itself.
+
+## Team collaboration
 
 Use the requirement-mapped issues in [PLAN](../PLAN.md), claim an owner/review
 buddy, and work through branches and reviewed PRs. Main requires the policy above;
@@ -51,6 +72,7 @@ documented CONTRIBUTING exception by someone with actual dismissal permission.
 
 Required type/status labels are configured. Keep real task state on the issues.
 Add collaborators only when the user chooses them. The app and class-service
-features are still unimplemented/unverified; CI validates scaffold and gates only.
+features are still unimplemented. The four minimal generation contracts are
+verified in docs/SERVICE_CONTRACTS.md; CI validates scaffold and gates only.
 Keep this public repo accessible through grading. Final release readiness is
 separate from publication; follow [TESTING](TESTING.md) for the exact GitHub ZIP.
