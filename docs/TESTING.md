@@ -1,43 +1,40 @@
 # Testing - AI Jukebox
 
-## Current scaffold check
+Current runnable check: `python scripts/verify_repo.py` (offline, standard library).
+CI job `test` currently validates the scaffold, not application functionality.
 
-Run `python scripts/verify_repo.py` from the root. It uses no credentials,
-network, third-party packages or class services. CI's stable job name is
-`test`, matching the saved Assignment 2 branch protection. Currently it checks
-scaffold integrity and tracked-file safeguards only; it is not an app test.
+## Match verification to the change
 
-## Application test policy (to implement with the app)
+| Change | Verification |
+|---|---|
+| Docs, labels, formatting | Read the diff, check links and whitespace; no new app tests |
+| Logic or bug fix | Focused tests of changed behavior and a meaningful failure case |
+| Wiring/shared contract | Offline smoke check of both sides using the same contract |
+| User feature | Actual browser flow against required services, with recorded results |
 
-Carry forward Assignment 2's three tiers. If the team chooses Python, use
-pytest markers `unit`, `smoke`, `e2e`, and configure default pytest to exclude
-e2e. Add dependencies and runnable commands when tests actually exist. If the
-team chooses another stack, document equivalent commands and preserve tiers.
+Use unit/smoke/e2e tiers. If Python is selected, use pytest markers and default
+to offline unit + smoke; document commands when those tests exist. Mock providers
+and external-tool presence/absence. Never call services from offline tests or CI.
+Real-service checks are deliberate opt-in, bounded, and skip without credentials.
 
-| Tier | Network | Target |
-|---|---|---|
-| Unit | No | Track schema, generation state, queue transitions, pause/skip, retry rules, config handling |
-| Smoke | No | Adapters with synthetic responses, library/cover associations, server/UI wiring and launch |
-| E2E | Explicit opt-in | Four real class services, vocal/instrumental output, matching covers, default/reference DJ, actual browser sequencing |
+Run focused checks while iterating, then the applicable offline suite before
+review. Once checks pass, repeat only for new changes or unresolved concerns.
+Keep checks deterministic; do not add tests that mirror implementation details.
+Agree runtime versions and lock dependencies; test supported Windows behavior
+as well as CI. Retain the required `test` context when extending CI.
 
-New logic needs meaningful tests including failure cases. Wiring changes need
-smoke checks. Offline tests must stub providers and never consume class capacity.
-E2E must skip when credentials are unavailable, use bounded calls and record
-inputs/results without keys. No real-service tests run in CI. Use original,
-tiny synthetic fixtures, never user uploads or third-party media.
+## Prove the user flow
 
-Playback verification must observe speech/music ordering, no overlap, automatic
-advancement and controls in the real browser. Stubs alone cannot prove audible
-playback. Check partial failures and retry without losing correct track links.
+Observe generated audio/cover pairing, session retention, vocals/instrumentals,
+default and MP3/WAV-reference DJ voices, play/pause/skip, automatic advancement,
+and speech/music sequencing without overlap. Check failures and recovery.
+Stubs do not prove audible playback. Record stage timings before diagnosing
+slowness; avoid duplicate generation and unbounded retries.
 
-Record date, tester, environment, commit, command, inputs, expected/actual
-results and safe evidence in docs/TEST_RESULTS.md. Reviewed screenshots and
-metrics may go in results/. No raw logs, credentials, uploads or voice recordings.
-Do not report queued tests as passed or absent tests as coverage.
+Record date, tester, environment, commit, command/inputs, expected/actual results
+and safe screenshots in docs/TEST_RESULTS.md and results/. Never include keys,
+user recordings or raw unsafe logs. Distinguish untested behavior from failures.
 
-## Independent deployment
-
-A teammate tests the exact GitHub ZIP and commit being submitted, with only
-README and class credentials. Verify dependencies, samples and all three core
-features, voice input, controls and a failure/recovery case. Record findings and
-fixes. Inspect the actual archive tree for excluded files and required media.
+A teammate must also verify the exact submission GitHub ZIP from README + class
+credentials alone, including three actual sample songs/covers and all core flows.
+Inspect that ZIP for missing assets, secrets, uploads and developer-only files.

@@ -28,7 +28,9 @@ Let listeners create tracks without vocals using the class music
 service. Preserve generation settings with each library entry.
 ```
 
-One issue = one branch = one PR. Agent branches default to `codex/<task>`;
-human branches may use `feat/<slug>`, `fix/<slug>`, `docs/<slug>`, etc.
-Use `Closes #N` only for an existing issue. During local-only setup, use the
-PLAN.md work item ID instead. Update handoff.md with each session's work.
+Keep each PR focused on one behavior; milestone issues may have several child
+issues/PRs. Related small fixes stay with the current task. Agent branches use
+`codex/<task>`; human branches may use `feat/<slug>`, `fix/<slug>`, etc.
+Use `Refs #N` for partial work and `Closes #N` only when that issue's checks
+are met. Before publication use a PLAN ID. Commit wording preferences should
+not block an otherwise correct change. Update handoff.md each session.

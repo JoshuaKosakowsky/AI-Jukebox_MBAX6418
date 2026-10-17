@@ -1,8 +1,26 @@
 # Plan - AI Jukebox (Assignment 3)
 
-Status: local collaboration scaffold. Check only verified work. Owners are
-unassigned until claimed. These local IDs are not GitHub issue numbers.
-Convert substantial items into issues after publication is authorized.
+Status: local scaffold; no app yet. These IDs are milestones, not GitHub issue
+numbers or a requirement for one large PR each. Use small child work items;
+routine related fixes stay in the current change (CONTRIBUTING.md).
+
+Integration owner: unassigned. Each claimed work item needs an owner and review
+buddy; before publication record them here, afterward use its GitHub issue.
+
+## Delivery order
+
+1. A3-01: agree runtime/dependencies and merge minimal track/job/service contracts.
+   Confirm documented service requests before adapters diverge. Record discovery
+   separately from actual generation success; models-list checks are insufficient.
+2. First user flow across A3-02/A3-03: UI -> instrumental generation -> session
+   library -> play. Add a correctly paired cover, then vocals/AI lyrics.
+3. A3-04: add song-specific DJ speech and automatic sequencing; exercise pause,
+   skip and no-overlap behavior early. Define playback transitions in A3-01.
+4. Complete reference voice, required samples, recovery, evidence and ZIP checks.
+
+Parallel work uses merged contracts. Keep one substantial PR active per person.
+The integration owner verifies each combined flow on main before its milestone
+is marked done. A component-only PR may close a child issue, not the whole flow.
 
 | ID | Phase | Owner | Status |
 |---|---|---|---|
@@ -34,7 +52,8 @@ Convert substantial items into issues after publication is authorized.
 - [ ] Obtain class-endpoints.txt privately; confirm hosts/routes/auth/payloads,
       response schemas, polling/async behavior, duration limits and timeouts.
 - [ ] Keep the starter prompt unchanged; record team additions separately.
-- [ ] Add installation, launch command, dependency manifests and offline tests.
+- [ ] Add verified installation/launch commands, a reproducible dependency lock,
+      agreed runtime versions and offline tests; check supported Windows setup.
 - [ ] Missing config returns an understandable safe error without leaking keys.
 - **Done:** teammate can install and launch a skeleton with no undocumented
   machine-local files; assumptions and decisions are documented.

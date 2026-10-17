@@ -1,79 +1,70 @@
-# Contributing - AI Jukebox (MBAX 6418-801)
+# Contributing - AI Jukebox, MBAX 6418-801
 
-Use issues, branches, commits, pull requests, teammate reviews, and repeatable
-tests as in Assignment 2. Every teammate must contribute meaningfully and review
-someone else's work. AI agents must follow AGENTS.md and maintain handoff.md.
+Agents follow AGENTS.md. Requirements live in docs/ASSIGNMENT.md. Every teammate
+must contribute meaningfully and review a teammate's work.
 
-## Current local-only stage
+## Work in small steps
 
-No GitHub publishing is authorized. Record proposed work and ownership in
-PLAN.md until remote issues are authorized. No remote exists. Keep `main` as
-the baseline and work on `codex/<task>` or `type/slug` branches. The setup
-commit on main is the sole bootstrap exception. Do not push or change remote
-settings. See docs/GITHUB_SETUP.md for the future publication checklist.
+1. Claim one substantial work item with acceptance checks, an owner and a review
+   buddy. Before publication, record it in PLAN.md; afterward use GitHub issues.
+2. Branch from current main (`codex/<task>` or `type/slug`). Keep one substantial
+   PR active per contributor. A broad milestone can have several focused child
+   issues/PRs; avoid long-lived dependent branches unless merge order is explicit.
+3. Implement the smallest useful behavior. Fix related small problems in that
+   change. Open separate work for independent bugs or scope/interface changes,
+   not every typo, missing import or straightforward local correction.
+4. Run relevant checks (docs/TESTING.md), inspect the diff and update affected
+   docs. Use docs/COMMITS.md for readable commits; wording nits are non-blocking.
+5. Open a PR with its result, issue link and actual validation. Use `Refs #N`
+   for partial work; `Closes #N` only when that issue's checks are satisfied.
+6. Address blocking findings together, update the branch, rerun affected checks,
+   then request approval on that head. Keep handoff.md current each session.
 
-## Team workflow after publication
+Local setup remains **no push/no remote writes** until explicitly authorized.
+Main protection, including teammate approval, passing `test`, up-to-date branches,
+resolved conversations and latest-push approval, is mandatory for everyone.
+See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 
-1. Create or claim an issue with acceptance checks; check existing issues first.
-   Coordinate overlapping files and record the owner in PLAN.md.
-2. Branch from up-to-date main. One issue = one branch = one PR.
-3. Follow docs/COMMITS.md: type prefix, imperative subject of at most 50
-   characters, no trailing period; blank line then body wrapped at 72.
-4. Add meaningful tests for changed logic and wiring. Run the offline checks
-   and describe any deliberate real-service tests (docs/TESTING.md).
-5. Check the diff for secrets, uploads, voice references, and third-party media.
-6. Open a PR with the template and `Closes #N`. State tested and unchecked
-   behavior and include reviewed screenshots for UI changes.
-7. Obtain at least one teammate approval; address feedback on the same branch.
-   Passing `test`, up-to-date branches, resolved conversations, and latest-push
-   approval are required. Admins follow the same protection rules.
-8. Update PLAN.md and handoff.md before finishing. A model switch is a handoff.
+## Integration and review
 
-## Required GitHub labels
+- Name an integration owner to coordinate dependencies and verify the combined
+  app. Merge shared data/service contracts before their implementations diverge.
+  Coordinate shared-file and interface changes with affected contributors.
+- Each PR should demonstrate one behavior. If a reviewer cannot explain its
+  result and checks briefly, split it by behavior; do not use a rigid line quota.
+- **Blocking:** broken required behavior, unsafe handling, incompatible contracts,
+  failed relevant checks or unmet acceptance criteria. Include reproduction and
+  expected behavior. Batch findings from the review; new evidence may justify more.
+- **Non-blocking:** preferences, wording, optional refactors and out-of-scope
+  improvements. Mark them as suggestions; do not turn them into merge conditions.
+- Review correctness and the user flow, not test counts alone. No self-approval.
+  Parent features close only after their flow passes on merged main; child PRs
+  may deliver tested components without claiming the whole feature is complete.
 
-Labels are required once GitHub collaboration is authorized. During the current
-local-only stage, this is a documented requirement; do not create remote labels.
-The publication owner must create or reuse these labels before opening the
-team's work issues. Reuse GitHub's default labels where their names match.
+## Required labels (after publication is authorized)
 
-Every open work issue and PR must have exactly one type label and one current
-status label. The owner updates labels when work changes state; reviewers check
-labels during review. A PR's type should match its linked issue unless its scope
-has changed and the difference is explained.
+Create/reuse the labels below before opening work issues. Every open work issue
+and PR gets one primary type and one current status; the owner keeps them current.
 
-| Label | Use |
+| Type | Use |
 |---|---|
-| `bug` | Broken behavior or a regression |
-| `enhancement` | New or improved product behavior |
-| `documentation` | Requirements, instructions, report or handoff documentation |
-| `testing` | Test coverage, validation or evidence work |
-| `infrastructure` | Repository setup, CI, dependencies or deployment |
-| `status: ready` | Issue has acceptance checks and can be claimed |
-| `status: in progress` | Claimed issue or draft PR being worked on |
-| `status: blocked` | Work cannot proceed; explain the blocker and next action |
-| `status: review` | PR is ready for review, or its linked issue awaits review |
+| `bug` | Broken behavior |
+| `enhancement` | New/improved feature |
+| `documentation` | Instructions/report/handoff |
+| `testing` | Tests and evidence |
+| `infrastructure` | Setup, CI, dependencies, deployment |
 
-Choose the primary type for mixed work and explain secondary scope in the body.
-Replace the previous status label when moving to a new state. Use assignees for
-ownership and GitHub's open/closed/merged states for completion; no duplicate
-owner or done labels are needed. Record local PLAN IDs in issue bodies rather
-than creating a label for every task. Add more labels only for a clear team need.
+Statuses: `status: ready` (claimable issue), `status: in progress` (active work
+or draft PR), `status: blocked` (explain blocker and next action), `status: review`
+(ready PR or linked issue awaiting review). Replace the old status on transition.
+Use assignees for ownership and closed/merged state for completion. Prefer the
+linked issue's type for its PR. Do not create an issue merely to apply a label.
 
-## Bugs and review
+## Keep records useful
 
-One bug per issue. Report the problem with a unique summary, reproducibility,
-precise steps, expected versus actual results, environment, and safe evidence.
-Separate facts from speculation. Never paste keys or upload private recordings.
-
-Review scope against the issue, functionality and failure cases, test evidence,
-credential handling, media provenance, sample inclusion, docs, and handoff.
-Be specific and constructive. Do not approve your own work in place of a
-teammate review or weaken branch protection to merge.
-
-## Security and public assets
-
-See AGENTS.md and docs/ASSIGNMENT.md. Use class services only; no paid services
-or requests to port 9000. Credentials stay server-side. User uploads and voice
-references never enter Git or archives. Only approved class-generated samples
-may be bundled, with provenance. No license is chosen for this scaffold;
-public visibility alone does not grant a license. Agree licensing as a team.
+Issues own task status; PLAN owns milestone checks and integration ownership;
+README owns setup/use; docs/TEST_RESULTS.md owns evidence; handoff owns resumption.
+Update the affected source and its summary, not every file on every change.
+Report bugs with steps, expected/actual behavior and environment. No secrets,
+uploads, voice recordings or third-party assets in reports or committed files.
+No license is selected yet; public visibility alone does not grant one.
