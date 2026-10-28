@@ -12,3 +12,9 @@
 *.flac binary
 *.ogg binary
 *.m4a binary
+*.js text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
+.python-version text eol=lf

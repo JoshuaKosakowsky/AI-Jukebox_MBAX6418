@@ -27,8 +27,9 @@ basic guard, not proof against every form of credential; inspect diffs manually.
 ## Application and release evidence (not run)
 
 The complete checklist is AT-01-AT-19 in [acceptance.json](acceptance.json).
-All end-to-end app cases remain **not run**. AT-02 has the partial live contract
-evidence below. No approved sample media or application exists yet.
+Generation/playback/upload user flows remain **not run**. AT-02 has live provider
+contract evidence below; the startup foundation now has separate browser evidence.
+No approved sample media or independent release acceptance exists yet.
 Record one short entry per executed case: date/tester/environment/commit,
 inputs/command, expected, actual, result, evidence paths and unchecked scope.
 Consolidate repeated fixes; never turn an unrun case into a pass from test counts.
@@ -127,3 +128,73 @@ Read-only GitHub API verification confirms the live policy matches the saved
 check/review/admin/conversation and force-push/deletion settings. No protection
 settings, collaborators, assignees or review buddies were changed. This transition
 still needs normal PR review/merge; onboarding follows it. No app acceptance claimed.
+
+## A3-01 runtime and shared contracts - 2026-10-27 America/Denver
+
+Tester: JoshuaKosakowsky directing Codex. Branch codex/app-runtime-contracts,
+base main 301585b667c59f972caf7f7aeca3a7b89f39c41a. Windows with managed Python
+3.12.14, uv 0.12.19 and exact uv.lock dependencies. This evidence is task-branch
+startup/provider integration, not completed browser generation or release acceptance.
+
+| Check / safe input | Expected | Observed |
+|---|---|---|
+| Install/start: python scripts/dev.py --port 8000 from the original long course path | Locked install and usable local page | PASS, loopback server, four configured labels, empty library; Refresh status works |
+| Source-only rehearsal: 54 tracked files copied without .git/.env/ignored assets; same launcher on 8001 | No developer-only state needed for startup | PASS, separate isolated install; browser shows four Missing settings labels, empty library and App connected; refresh works |
+| Missing/example configuration | Empty app still starts, no provider call | PASS in normal launcher HTTP test and browser rehearsal |
+| Wrong port/host, embedded key, query, invalid key characters | Safe diagnostic, no value/key disclosure | PASS, configuration rejects invalid inputs; actual CLI exits 2 with a role-only error |
+| Invalid/busy app port | Actionable failure, no hang or service call | PASS via child-process tests; --port selects an alternate port |
+| Domain contracts | Stable IDs, valid media/job/queue references and legal states | PASS, round trips, local media URLs, ready-audio constraint, job transitions/progress/errors, single playback phase and schema drift checks |
+| Adapter failures through MockTransport | No raw errors, redirects, duplicate submissions or cross-origin auth | PASS for timeouts, network errors, 401/429/503, redirects, malformed JSON/results/URLs, wrong ticket/model, response caps and truncated PNG/WAV |
+| Browser/private-file boundary | No server keys/URLs, no .env/Git file access | PASS for public responses, private paths, wrong Host, cross-origin mutations and CSP/no-store/nosniff headers |
+| Locked offline command: python scripts/dev.py --check | Default suite collected and passing, coverage retained | PASS: verifier 54 files at rehearsal, coverage 36 requirements/11 tasks/19 cases, all 60 tests (28 existing plus 32 runtime/provider/startup) |
+
+Actual browser evidence: [configured setup](../results/startup-configured.png),
+[empty library](../results/startup-library.png), [missing configuration](../results/startup-missing-settings.png).
+The browser check used the normal launcher; no fixture provider or generated
+tracks were substituted into the UI. No keys/endpoint values appear in screenshots.
+
+### New production adapters: deliberate live smoke
+
+One generation submission per adapter used the unchanged canonical probe inputs
+from contracts/service-probes.json. This checks the new client implementation,
+not merely the earlier standalone harness. Safe exact measurements are in
+[runtime-adapter-smoke.json](../results/runtime-adapter-smoke.json). Calls were
+explicitly part of A3-01 testing, not startup, refresh, CI or offline tests.
+
+| Service | Expected | Actual |
+|---|---|---|
+| Qwen | Exact marker in final complete content | PASS, CONTRACT_OK, prescribed model; 1.109 s |
+| FLUX | One fully decoded PNG | PASS, 512x512 PNG, 787271 bytes; 1.344 s |
+| Chatterbox | Default voice without upload, full PCM WAV | PASS, 1.88 s, 24 kHz mono PCM16, non-silent; request 1.562 s |
+| ACE-Step | Submit -> same-job poll -> download, validate XL Turbo and PCM | PASS, one poll, 10.0 s, 48 kHz stereo PCM16, non-silent; 5.625 s including polling/download |
+
+Raw media and the server ticket remain ignored under generated/a3-01; they are
+not approved sample songs. There was no generation retry, port 9000, paid service
+or voice upload. Timings describe these calls, not a performance benchmark.
+
+### Design choice and investigated startup failure
+
+FastAPI plus a same-origin, build-free HTML/JS shell keeps one Python process and
+one locked environment for the team. Versioned typed objects and exported JSON
+Schema give the dependent issues concrete interfaces. Missing settings do not
+block the empty app; safe status explicitly distinguishes configuration from reachability.
+
+The first Windows install into the repository's long .venv path failed to import
+the native pydantic-core extension (a path lookup failed). The identical locked
+packages imported from a shorter environment. The normal launcher now selects a
+short per-checkout LOCALAPPDATA environment on Windows; the original long-path
+checkout and separate source-only copy both launched successfully afterward.
+No Windows security/path policy was changed. Linux retains .venv.
+
+The locked Starlette TestClient currently emits an httpx deprecation warning;
+tests pass, and production requests use the supported locked httpx client. No
+warning suppression or extra test transport was introduced just to hide it.
+
+Remaining: teammate review/startup verification on merged main (AT-01/02 closure),
+instrumental/vocal UI generation, persistence, new cover pairing, reference voices,
+actual playback controls/sequencing, failure/recovery user flows, sample assets
+and an independent GitHub ZIP install. The source-only rehearsal was performed
+by the same agent and is not AT-16 independent ZIP evidence. Submission NOT READY.
+
+Pre-handoff implementation commit for this runtime evidence: 60853ac51a5386412723470209e7971bdd172871.
+Final handoff/evidence bookkeeping is a separate commit; use the PR head for CI.

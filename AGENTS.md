@@ -52,8 +52,9 @@ Follow direct user instructions first. This guide applies throughout the repo.
   and review rules live in CONTRIBUTING.md; commit style in docs/COMMITS.md.
   If a blocking reviewer is unavailable, follow its documented independent
   verification/dismissal exception; never waive an unresolved finding.
-- Current check: `python scripts/verify_repo.py`. Use docs/TESTING.md for
-  application changes. After checks pass, rerun only for changes, failures or
+- Current checks: `python scripts/dev.py --check` (locked environment). Read
+  docs/APP_CONTRACTS.md before changing shared objects and docs/TESTING.md for
+  application evidence. After checks pass, rerun only for changes, failures or
   unresolved risk. Do not create tests that merely restate documentation edits.
 
 ## Short, mandatory handoff

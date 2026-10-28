@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      AI Jukebox
+    </title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script defer src="/static/app.js">
+    </script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="mark" aria-hidden="true">
+          ♫
+        </div>
+        <div>
+          <p class="eyebrow">
+            MBAX 6418 · ASSIGNMENT 3
+          </p>
+          <h1>
+            AI Jukebox
+          </h1>
+          <p class="subtitle">
+            Your music. Your mood. Your DJ.
+          </p>
+        </div>
+        <span class="tag">
+          Local session
+        </span>
+      </header>
+      <section class="setup" aria-labelledby="setup-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">
+              GET CONNECTED
+            </p>
+            <h2 id="setup-title">
+              Service setup
+            </h2>
+          </div>
+          <button id="refresh" type="button">
+            Refresh status
+          </button>
+        </div>
+        <p id="summary" role="status" aria-live="polite">
+          Checking local configuration…
+        </p>
+        <ul id="services" class="services">
+        </ul>
+        <p class="note">
+          Configuration status does not check connectivity or generate media. Missing settings can be added to your server’s .env file; restart the app afterward.
+        </p>
+      </section>
+      <section class="library" aria-labelledby="library-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">
+              YOUR COLLECTION
+            </p>
+            <h2 id="library-title">
+              Session library
+            </h2>
+          </div>
+          <span id="track-count" class="count">
+            0 tracks
+          </span>
+        </div>
+        <div class="empty">
+          <div class="disc" aria-hidden="true">
+            <span>
+            </span>
+          </div>
+          <h3>
+            A fresh start
+          </h3>
+          <p>
+            The app is running and your library is empty.
+          </p>
+          <p class="note">
+            Song generation and playback are not available in this startup version.
+          </p>
+        </div>
+      </section>
+      <footer>
+        Class-powered music, artwork and DJ speech.
+        <span id="app-status" role="status">
+        </span>
+      </footer>
+    </main>
+  </body>
+</html>

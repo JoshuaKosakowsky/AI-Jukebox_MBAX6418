@@ -14,16 +14,43 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+  checks:
+    name: Offline (${{ matrix.os }}, Python ${{ matrix.python }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.12"
+          - os: windows-latest
+            python: "3.12"
+          - os: ubuntu-latest
+            python: "3.14"
+    runs-on: ${{ matrix.os }}
+    env:
+      UV_PYTHON: ${{ matrix.python }}
+      UV_LINK_MODE: copy
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - name: Verify tracked-file safeguards and scaffold
-        run: python scripts/verify_repo.py
-      - name: Verify full-brief coverage (not application acceptance)
-        run: python scripts/check_readiness.py
-      - name: Test readiness-gate behavior offline
-        run: python -m unittest discover -s tests -p 'test_*.py'
+          python-version: ${{ matrix.python }}
+      - name: Install the locked dependency tool
+        run: python -m pip install uv==0.12.19
+      - name: Install exact application dependencies
+        run: uv sync --locked
+      - name: Verify tracked files and safeguards
+        run: uv run --locked python scripts/verify_repo.py
+      - name: Verify coverage structure (not feature acceptance)
+        run: uv run --locked python scripts/check_readiness.py
+      - name: Run all offline tests, including loopback startup
+        run: uv run --locked python -m unittest discover -s tests -p 'test_*.py'
+
+  test:
+    name: test
+    needs: checks
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every platform/runtime check to pass
+        run: test "${{ needs.checks.result }}" = "success"

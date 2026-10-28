@@ -27,6 +27,12 @@ required = [
     'scripts/verify_repo.py', 'scripts/check_readiness.py',
     'docs/CONTRIBUTIONS.md', 'docs/acceptance.json', 'docs/ISSUES.md',
     'docs/A2_LESSONS.md', 'assets/samples/manifest.json', 'tests/test_readiness.py',
+    'pyproject.toml', 'uv.lock', '.python-version', 'scripts/dev.py',
+    'jukebox/__init__.py', 'jukebox/__main__.py', 'jukebox/app.py',
+    'jukebox/config.py', 'jukebox/contracts.py', 'jukebox/providers.py',
+    'jukebox/web/index.html', 'jukebox/web/app.js', 'jukebox/web/style.css',
+    'contracts/app.schema.json', 'docs/APP_CONTRACTS.md',
+    'tests/test_runtime.py', 'tests/test_providers.py', 'tests/test_startup.py',
 ]
 for name in required:
     require((ROOT / name).is_file(), f'Missing required file: {name}')

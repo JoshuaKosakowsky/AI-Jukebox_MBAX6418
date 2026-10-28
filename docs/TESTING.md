@@ -3,22 +3,31 @@
 ## Fast checks (offline)
 
 ```powershell
-python scripts/verify_repo.py
-python scripts/check_readiness.py
-python -m unittest discover -s tests -p 'test_*.py'
+python scripts/dev.py --check
 ```
 
-The first checks tracked files/safeguards, the second checks R01-R36 coverage,
-and the third tests the gate and Git guards. **None proves jukebox functionality.** CI
-job `test` runs these. Keep it stable when adding the chosen app's offline suite.
-Check that new tests are actually collected by the default command; missing
-markers previously hid A2 tests. Verify media fixtures decode/render, not just
-that a path or header exists. New app tests must not call class services in CI.
+This uses uv.lock and runs the following in its isolated environment:
 
-Match checks to changes: docs -> diff/links; logic -> focused behavior/failure
-tests; wiring -> contract/smoke tests; features -> real normal-launch browser
-and class-service cases. Use a locked runtime/dependency set and verify supported
-Windows behavior. Repeat passing tests only for relevant changes or open risks.
+```powershell
+uv run --locked python scripts/verify_repo.py
+uv run --locked python scripts/check_readiness.py
+uv run --locked python -m unittest discover -s tests -p 'test_*.py'
+```
+
+On Windows, prefer scripts/dev.py: it selects a short environment path, avoiding
+native-extension import failures in long course folders. See README for setup.
+The suite covers the release gate, Git guards, app contracts/configuration,
+provider success/error parsing and an actual child-process startup over loopback.
+It never calls class services. Dependency installation needs initial internet
+access; already-synced tests do not. CI tests 3.12 Windows/Linux and 3.14 Linux;
+the aggregate required context stays test and fails if any matrix run fails.
+
+Use focused behavior/failure tests for logic and contract/normal-launch checks for
+wiring. Include new tests in the default discovery command. Media fixtures must
+fully decode, not merely have headers. Offline fixture results never count as
+live feature acceptance; browser playback, reference voices and the independent
+ZIP still require their specific cases. Rerun passing checks for relevant changes
+or open risk rather than generating media repeatedly.
 
 ## Deliberate service contract probes
 
