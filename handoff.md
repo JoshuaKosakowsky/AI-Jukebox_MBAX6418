@@ -1,32 +1,37 @@
 # Agent handoff
 
 ## Session
-2026-10-17 America/Denver; Codex. Task: fix Matt's non-blocking PR #14 finding.
+2026-10-27 America/Denver; Codex. Task: A3-01 runtime/startup/shared contracts.
 ## Constraints
-User authorized the correction and merge if possible, without another review
-request. Keep branch protection intact; no admin override, service calls or assignments.
+Protected task-branch PR only; no main/protection/assignment changes. Four deliberate
+adapter smokes completed; no generation on startup/CI. Raw media/ticket stay ignored.
 ## Repository state
-Branch codex/team-assignee-workflow; Matt (mase7919) approved reviewed head 3aaaba4.
-Read actual GitHub eligibility after the correction is pushed; approval may be dismissed.
+Branch codex/app-runtime-contracts; base main 301585b; pre-handoff code 60853ac51a5386412723470209e7971bdd172871.
+The current PR is linked from issue #1; read actual CI/review state before proceeding.
 ## Work completed and decisions
-Changed the feature issue-template header to lead/contributors/dependencies.
-The earlier scan omitted hidden files; scan hidden .github content as well.
-Recorded Matt's completed review against its actual head, not any later correction.
+FastAPI + plain same-origin frontend, exact uv.lock, Windows-safe short environment
+launcher. Typed v1 Track/MediaRef/GenerationJob/Playback/session schema and real
+class clients with safe errors, bounds, decoded media and async music ticket handling.
+README startup and docs/APP_CONTRACTS.md are the integration baseline after merge.
 ## Validation
-Scaffold/coverage and all 28 tests pass; whitespace clean; hidden-file scan has
-zero obsolete terms. CI and current approval/merge status are authoritative on PR #14.
+All 60 offline tests and scaffold/coverage checks pass. Normal browser startup and
+refresh work with private config and without .git/.env in a clean source copy.
+All four new adapters passed one real request each; safe measurements/screenshots
+are in results/ and docs/TEST_RESULTS.md. CI matrix results belong to the task PR.
 ## Blockers and unchecked areas
-Merge only if GitHub permits it under existing protection. Do not request another
-review or weaken protection. App/startup/samples and release checks remain absent.
+Foundation awaits teammate review/merged-main startup verification. No generation
+UI, writable sessions, playback, references, approved samples or release acceptance.
+The source-copy rehearsal is not independent GitHub ZIP evidence. Submission NOT READY.
 ## Next steps
-1. Push the verified correction, wait for CI and merge normally if permitted.
-2. Record the docs implementation completion when it actually merges.
-3. Joshua/the team assigns leads/contributors and continues A3-01 startup work.
+1. Review/merge; verify normal startup on main before closing #1/unblocking dependents.
+2. A3-02 implements the first real instrumental UI/session flow using these contracts.
+3. Record this substantial implementation on merge; preserve the shared objects.
 ## References
-[PR #14](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/14);
-CONTRIBUTING.md; docs/CONTRIBUTIONS.md.
+README.md; docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md;
+[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1).
 
-Inherited discovery note (its unverified status was superseded by 2026-10-17 probes):
+Inherited discovery note (its unverified status was superseded by the October 17
+probes and October 27 production-adapter smoke; preserve as history only):
 
 ### Hermes entry (2026-10-15)
 

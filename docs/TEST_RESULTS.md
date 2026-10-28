@@ -195,3 +195,6 @@ instrumental/vocal UI generation, persistence, new cover pairing, reference voic
 actual playback controls/sequencing, failure/recovery user flows, sample assets
 and an independent GitHub ZIP install. The source-only rehearsal was performed
 by the same agent and is not AT-16 independent ZIP evidence. Submission NOT READY.
+
+Pre-handoff implementation commit for this runtime evidence: 60853ac51a5386412723470209e7971bdd172871.
+Final handoff/evidence bookkeeping is a separate commit; use the PR head for CI.
