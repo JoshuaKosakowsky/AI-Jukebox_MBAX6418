@@ -46,20 +46,58 @@ Example empty snapshot (the current GET /api/session response):
 
 ## Current HTTP surface
 
-| GET route | Result |
+| Route | Result |
 |---|---|
-| / | startup page and empty library |
-| /static/app.js, /static/style.css | same-origin frontend assets only |
-| /api/health | local process health, contract version; no provider health claim |
-| /api/status | configured/missing per service, configured boolean, connectivity_checked=false, generation_available=false; no configuration values |
-| /api/session | fresh empty SessionSnapshot; writable session storage arrives with A3-02 |
-| /api/contracts | shared JSON Schema |
-| /api/openapi.json | actual current API specification |
+| GET / | cover form, configuration and session library |
+| GET /static/app.js, /static/style.css | same-origin frontend assets only |
+| GET /api/health | local process health, contract version; no provider health claim |
+| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available based on art settings |
+| GET /api/session | this browser's SessionSnapshot, including track-specific art jobs |
+| POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
+| GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
+| GET /api/contracts | unchanged v1 shared JSON Schema |
+| GET /api/openapi.json | actual current API specification, including request bodies |
 
-No generation, upload, playback-control or media-serving routes exist yet.
-MediaRef's route prefix is reserved for A3-02's asset store; it returns 404 today.
-The normal launcher has no fixture provider or fake tracks. A3-02 adds production
-orchestration, per-browser session storage and the first playable instrumental.
+The session dependency issues a random HttpOnly, SameSite=Strict cookie. Do not
+put the token in URLs, browser JavaScript, snapshots or logs. Use the same origin
+and retain cookies on API requests. Unknown/expired cookies create empty sessions;
+missing track/media IDs return 404, duplicate active requests 409 and capacity
+limits 429. Missing art configuration returns a safe 502 without creating a draft.
+
+Cover jobs run after the 202 response, using only ClassProviders.cover and the
+verified FLUX defaults. Read /api/session while a job is queued/running (the UI
+polls once per second); GETs do not resubmit. A terminal failure has SafeError.
+Retry creates a new job ID only on user action. Each successful cover gets a
+fresh MediaRef; replacing art changes only that track.cover. Existing audio,
+status, lyrics, speech, other tracks and playback are preserved. Failed requests
+leave prior media intact. Obsolete replaced cover bytes are removed.
+
+## A3-02 integration seam
+
+[SessionStore](../jukebox/sessions.py) is the shared, process-local store, not a
+second cover library. The normal app already creates real Track drafts with
+generating status and no audio; the UI labels that limit explicitly. Creating a
+draft queues fresh art from its title/theme, style and mood. Existing session
+tracks can use the same /cover route, regardless of their audio readiness.
+
+A3-02 should extend this store and POST /api/tracks orchestration to attach music
+to the existing job.track_id, retaining the automatic art request and track ID.
+Do not create a second cookie, library or duplicate cover submission. Use
+store.lock for atomic updates, validate the latest Track rather than overwriting
+a stale copy, and preserve cover when music completes (cover completion already
+preserves audio). Keep ready conditional on actual audio. Extend the existing
+media budget/lookup for decoded audio rather than exposing provider URLs. The
+cover integration tests exercise ready audio/playback preservation with offline
+fixtures; live audio/cover acceptance still waits for A3-02.
+
+Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
+20 tracks/100 jobs per session, two active cover requests app-wide, 64 MB total
+retained media. Capacity failures do not enqueue work or orphan new tracks.
+The single-process launcher owns this memory; restart clears it. No persistence,
+upload, fixtures or alternate generation provider is added to the normal launcher.
+Metadata must remain stable while its cover is generating; an editing feature
+would need coordinated versioning of those updates.
 
 ## Adapter boundary
 
@@ -76,7 +114,7 @@ the frozen service-probes.json defaults and exposes:
 - download_music(result) -> decoded PCM WAV bytes/MIME. Only the configured music
   origin's /v1/audio?path=... is accepted; redirects and alternate origins are rejected.
 
-No method is invoked by the startup shell. Offline tests use httpx.MockTransport,
+Only deliberate cover actions invoke the cover method; startup/refresh invoke none. Offline tests use httpx.MockTransport,
 never a provider substituted into the normal app. The earlier probes establish the frozen wire baseline; on 2026-10-27 all four
 new production methods also passed a deliberate real-service smoke using those
 inputs. See [runtime-adapter-smoke.json](../results/runtime-adapter-smoke.json).
@@ -85,8 +123,8 @@ Reference uploads/vocals and higher token limits still need their feature checks
 Each request has bounded time/size (20 MB and 180 seconds read budget), no implicit
 retries or redirects, and no environment proxy forwarding. A3-02's orchestration
 must impose an overall music-job deadline and retain tickets on ambiguous timeouts.
-Bytes live only in the caller's memory; future storage must map them to local media
-IDs and keep temporary outputs/uploads out of source archives.
+Cover bytes now map to session-local media IDs in bounded memory; future audio
+and uploads must use the same safe boundary and stay out of source archives.
 
 ## Configuration and browser boundary
 

@@ -198,3 +198,45 @@ by the same agent and is not AT-16 independent ZIP evidence. Submission NOT READ
 
 Pre-handoff implementation commit for this runtime evidence: 60853ac51a5386412723470209e7971bdd172871.
 Final handoff/evidence bookkeeping is a separate commit; use the PR head for CI.
+
+## A3-04 matching covers - 2026-10-27 America/Denver
+
+Tester: JoshuaKosakowsky directing Codex; Windows, locked Python 3.12.14.
+Branch codex/matching-covers; base main c635e86; cover/browser implementation 264c391; cookie follow-up 5ccb371.
+Scope: R11 / AT-05 cover generation and draft pairing. The parent issue stays
+open for merged-main and playable-song integration with A3-02.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Normal python scripts/dev.py --port 8000; Moonlit mountain lake / Ambient piano / Calm and reflective / 30 s planned instrumental | New contextual 512x512 FLUX cover on that draft | PASS, blue mountains/lake with moonlight; loaded image, ready art job and matching title/settings |
+| Same app; Desert sunrise / Upbeat desert funk / Warm and energetic / 30 s planned instrumental | Separate new cover reflecting contrasting context | PASS, warm orange desert/sunrise art, distinct track/media IDs; first cover retained |
+| Reload actual browser after both complete | Both pairs retained; no automatic generation | PASS, two loaded 512x512 images and correct titles; console had no errors |
+| Normal second launcher with art placeholders, localhost:8001 | Safe empty app with cover controls disabled | PASS, Missing settings for art, setup guidance and disabled submit; no service call |
+| Offline default suite | Base tests plus focused cover integration regressions | PASS, 73 tests (60 merged-main baseline + 13 cover tests), 60 tracked files, 36/11/19 coverage |
+| Offline partial failure/retry, ready-track fixture | Retain old cover/audio/lyrics/playback and other tracks; retry gets new job ID | PASS through real HTTP routes with mocked art only; replaced old cover removed after success |
+| Offline concurrency and isolation | No cover swaps, duplicate active submission, foreign track/media access or orphan capacity failures | PASS, running-state HTTP check, opposite completion order, 409 duplicate, 404 foreign IDs, bounded jobs/media/sessions and expiry |
+
+Exactly two deliberate class requests were made, both FLUX generation via the
+normal browser form and existing real adapter. No music/text/speech calls,
+uploads, paid services or port 9000. The adapter fully decodes each PNG before
+accepting it; the browser also loaded each at 512x512. Safe DOM observations and
+inputs: [cover-browser-record.json](../results/cover-browser-record.json).
+Actual screenshot: [cover-generation.jpg](../results/cover-generation.jpg).
+
+The art reflects both contexts, but FLUX added lettering despite the prompt's
+no-lettering instruction (including imperfect lettering on the first cover).
+Do not promise precise typography or absence of text from that instruction.
+No extra generation was spent on optional visual polish.
+
+Failure/retry and audio preservation were tested offline; no real outage or live
+song/audio pairing was claimed. No fixture provider or fake audio enters the
+normal app. Songs remain drafts until A3-02 supplies actual generated audio.
+No approved samples, full AT-05/AT-06 closure, independent ZIP or release
+acceptance is claimed. Submission NOT READY. Shared v1 objects/schema, service
+payloads, dependencies and branch protection are unchanged. The existing
+Starlette TestClient deprecation warning remains.
+
+Follow-up 5ccb371 retains HttpOnly session cookies on error/media responses; its
+HTTP regression confirms repeated failures reuse one session instead of consuming
+slots. All 73 tests passed after this fix. Browser cover evidence remains the
+264c391 feature run; no additional class generation was needed for cookie handling.

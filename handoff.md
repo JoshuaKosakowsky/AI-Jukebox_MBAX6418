@@ -1,34 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-27 America/Denver; Codex. Task: A3-01 runtime/startup/shared contracts.
+2026-10-27 America/Denver; Codex. Task: issue #4 matching cover generation.
 ## Constraints
-Protected task-branch PR only; no main/protection/assignment changes. Four deliberate
-adapter smokes completed; no generation on startup/CI. Raw media/ticket stay ignored.
+Reviewed task-branch PR only; no bypass/assignment changes. Two deliberate FLUX calls;
+no other live generation. No uploads, provider credentials or tickets in public files.
 ## Repository state
-Branch codex/app-runtime-contracts; base main 301585b; pre-handoff code 60853ac51a5386412723470209e7971bdd172871.
-The current PR is linked from issue #1; read actual CI/review state before proceeding.
+Branch codex/matching-covers from main c635e86; cover implementation 264c391; cookie fix 5ccb371.
+PR #16 remains separately open with runtime hardening/completion records; preserve it on integration.
 ## Work completed and decisions
-FastAPI + plain same-origin frontend, exact uv.lock, Windows-safe short environment
-launcher. Typed v1 Track/MediaRef/GenerationJob/Playback/session schema and real
-class clients with safe errors, bounds, decoded media and async music ticket handling.
-README startup and docs/APP_CONTRACTS.md are the integration baseline after merge.
+SessionStore, private media route, draft/create-cover APIs and actual form/library.
+Title/style/mood drive fresh art; UUID pairing, bounded jobs/memory, manual retry,
+old cover/audio/playback preserved on failure. v1 objects/schema/payloads unchanged.
 ## Validation
-All 60 offline tests and scaffold/coverage checks pass. Normal browser startup and
-refresh work with private config and without .git/.env in a clean source copy.
-All four new adapters passed one real request each; safe measurements/screenshots
-are in results/ and docs/TEST_RESULTS.md. CI matrix results belong to the task PR.
+Locked --check PASS: 73 tests, 60 tracked files, coverage 36/11/19.
+Normal browser: two real contextual FLUX covers, correct pairs after reload, no console errors.
+Missing-art normal launcher: disabled control. Failure/retry/audio pairing proven offline only.
 ## Blockers and unchecked areas
-Foundation awaits teammate review/merged-main startup verification. No generation
-UI, writable sessions, playback, references, approved samples or release acceptance.
-The source-copy rehearsal is not independent GitHub ZIP evidence. Submission NOT READY.
+PR requires review. #4 stays open for merged-main and live songs from #2; drafts have no audio.
+FLUX added imperfect lettering despite prompt. No samples/ZIP acceptance. Submission NOT READY.
 ## Next steps
-1. Review/merge; verify normal startup on main before closing #1/unblocking dependents.
-2. A3-02 implements the first real instrumental UI/session flow using these contracts.
-3. Record this substantial implementation on merge; preserve the shared objects.
+1. Review this cover PR normally; reconcile PR #16 docs if merge order conflicts.
+2. A3-02 extends this session/store/POST /api/tracks for music; keep track IDs and automatic covers.
+3. Verify two playable generated songs with correct art on main before closing #4.
 ## References
-README.md; docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md;
-[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1).
+Issue #4; docs/APP_CONTRACTS.md (integration seam); docs/TEST_RESULTS.md; results/cover-generation.jpg.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

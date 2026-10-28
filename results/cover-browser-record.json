@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-27 America/Denver",
+  "branch": "codex/matching-covers",
+  "base": "c635e86",
+  "entrypoint": "python scripts/dev.py --port 8000",
+  "submissions": 2,
+  "inputs": [
+    {
+      "title": "Moonlit mountain lake",
+      "style": "Ambient piano",
+      "mood": "Calm and reflective",
+      "duration_seconds": 30
+    },
+    {
+      "title": "Desert sunrise",
+      "style": "Upbeat desert funk",
+      "mood": "Warm and energetic",
+      "duration_seconds": 30
+    }
+  ],
+  "observations_after_reload": [
+    {
+      "cover_url": "/api/media/406369fd-ffee-4501-b652-ff8f66354540",
+      "height": 512,
+      "loaded": true,
+      "status": "New matching cover ready",
+      "title": "Moonlit mountain lake",
+      "track_id": "b22c2c46-8d67-4b94-9548-c575f8e03b46",
+      "width": 512
+    },
+    {
+      "cover_url": "/api/media/20d6e755-710a-43ca-b25a-5a39fd1b7313",
+      "height": 512,
+      "loaded": true,
+      "status": "New matching cover ready",
+      "title": "Desert sunrise",
+      "track_id": "f3497eec-cb8e-4de9-a7f8-c51381ed49e2",
+      "width": 512
+    }
+  ],
+  "scope": "Cover generation and draft pairing only; no audio generation or full AT-05 acceptance.",
+  "implementation_commit": "264c391",
+  "cookie_followup_commit": "5ccb3717d17a0c1a57f381a8e3a13f906ca2ced4",
+  "cookie_followup_validation": "73 offline tests pass; browser imagery run identifies 264c391; no further generation."
+}
