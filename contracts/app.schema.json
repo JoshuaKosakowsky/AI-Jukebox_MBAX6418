@@ -67,6 +67,7 @@
       "additionalProperties": false,
       "properties": {
         "id": {
+          "description": "Unique across all track media references in the session",
           "format": "uuid",
           "title": "Id",
           "type": "string"

@@ -73,10 +73,10 @@ and source archives. Never commit uploads, voice references or third-party media
   /api/session returns an empty v1 snapshot; /api/contracts and /api/openapi.json
   publish shared objects/current routes. No generation/media/upload routes exist yet.
 
-![Startup configuration view](results/startup-configured.png)
+![Startup configuration view](results/startup-configured.jpg)
 
 The screenshot is an actual normal-launch browser check, not evidence of music
-generation or playback. The [empty library view](results/startup-library.png)
+generation or playback. The [empty library view](results/startup-library.jpg)
 shows the same foundation's current limits.
 
 ## Development and verification
