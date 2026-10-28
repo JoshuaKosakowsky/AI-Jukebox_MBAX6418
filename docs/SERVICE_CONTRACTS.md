@@ -126,8 +126,8 @@ urllib with redirects disabled, a 20 MB response cap, up to 180-second initial
 requests, and full PCM/image decoding. Do not print keys or raw provider failures.
 Review any newly collected evidence before committing it.
 
-This freezes only provider wire formats. A3-01 remains open for runtime choice,
-locked dependencies, normal startup, shared track/job/playback objects and adapter
-failure behavior. Use the integrated contract baseline for dependent work, then
-demonstrate one real instrumental flow. App and release readiness remain
+This document freezes provider wire formats. The A3-01 runtime, shared objects
+and adapter boundary are described in [APP_CONTRACTS.md](APP_CONTRACTS.md), with
+startup and offline evidence in TEST_RESULTS.md. Review/merge that foundation
+before dependent integration, then demonstrate one real instrumental flow. App and release readiness remain
 NOT READY; no probe output counts as one of the three approved sample tracks.

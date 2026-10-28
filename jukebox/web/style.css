@@ -1,0 +1,223 @@
+:root {
+  color-scheme:dark;
+  font-family:system-ui,sans-serif;
+  background:#101519;
+  color:#f1f5f3;
+}
+* {
+  box-sizing:border-box;
+}
+body {
+  margin:0;
+  background:radial-gradient(ellipse at top right,#163a36 0,transparent 48%);
+  min-height:100vh;
+}
+main {
+  max-width:1040px;
+  margin:auto;
+  padding:56px 28px;
+}
+header,.section-heading,footer {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+header {
+  justify-content:flex-start;
+  margin-bottom:44px;
+}
+.mark {
+  display:grid;
+  place-items:center;
+  width:76px;
+  height:76px;
+  border-radius:22px;
+  background:#89e4bd;
+  color:#112b24;
+  font-size:46px;
+}
+.eyebrow {
+  color:#9aafa9;
+  font-size:11px;
+  letter-spacing:.18em;
+  font-weight:700;
+  margin:0 0 9px;
+}
+h1 {
+  font-size:42px;
+  letter-spacing:-.04em;
+  line-height:1.1;
+  margin:0;
+}
+h2 {
+  font-size:24px;
+  letter-spacing:-.025em;
+  margin:0;
+}
+.subtitle {
+  color:#aabbb5;
+  margin:10px 0 0;
+}
+.tag {
+  margin-left:auto;
+  color:#b9d0c7;
+  border:1px solid #35524a;
+  padding:8px 14px;
+  border-radius:30px;
+  font-size:12px;
+}
+section {
+  border:1px solid #2d3f3b;
+  background:#15201fe8;
+  border-radius:20px;
+  padding:28px;
+  margin-top:22px;
+}
+button {
+  background:#203b32;
+  border:1px solid #477b65;
+  color:#d9f9e9;
+  border-radius:9px;
+  padding:11px 15px;
+  cursor:pointer;
+  font:inherit;
+  font-size:13px;
+}
+button:hover {
+  background:#2b5043;
+}
+button:disabled {
+  opacity:.5;
+  cursor:wait;
+}
+button:focus-visible {
+  outline:3px solid #b8f3d7;
+  outline-offset:3px;
+}
+#summary {
+  font-size:15px;
+  color:#c6d6cf;
+  margin:22px 0;
+}
+.services {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  list-style:none;
+  padding:0;
+}
+.services li {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  border:1px solid #2c4039;
+  border-radius:10px;
+  padding:17px;
+  font-size:14px;
+}
+.services strong {
+  font-size:11px;
+  font-weight:600;
+  white-space:nowrap;
+}
+.ready {
+  color:#9ce9be;
+}
+.missing {
+  color:#edc799;
+}
+.note {
+  font-size:12px;
+  line-height:1.7;
+  color:#91a59c;
+}
+.library {
+  background:#141c1b;
+}
+.count {
+  color:#a0b5aa;
+  font-size:13px;
+}
+.empty {
+  text-align:center;
+  padding:35px 20px 25px;
+}
+.empty h3 {
+  font-size:21px;
+  margin:22px 0 10px;
+}
+.empty p {
+  font-size:14px;
+  color:#a7bbb0;
+  margin:7px auto;
+  max-width:420px;
+}
+.empty .note {
+  font-size:12px;
+}
+.disc {
+  margin:auto;
+  display:grid;
+  place-items:center;
+  width:95px;
+  height:95px;
+  border-radius:50%;
+  background:repeating-radial-gradient(circle,#24362f 0 2px,#1b2924 3px 5px);
+  border:1px solid #41584b;
+}
+.disc span {
+  height:26px;
+  width:26px;
+  border:8px solid #79ae92;
+  border-radius:50%;
+  background:#111c17;
+}
+footer {
+  color:#7f978a;
+  font-size:11px;
+  margin-top:25px;
+}
+#app-status {
+  color:#a3c3ae;
+}
+@media(max-width:650px) {
+  main {
+    padding:28px 16px;
+  }
+  h1 {
+    font-size:32px;
+  }
+  .mark {
+    width:60px;
+    height:60px;
+    font-size:36px;
+  }
+  .tag {
+    display:none;
+  }
+  section {
+    padding:22px 18px;
+  }
+  .services {
+    grid-template-columns:1fr;
+  }
+  .section-heading {
+    align-items:flex-start;
+  }
+  h2 {
+    font-size:21px;
+  }
+  button {
+    font-size:12px;
+    padding:9px;
+  }
+  .note {
+    max-width:100%;
+  }
+  footer {
+    align-items:flex-start;
+    line-height:1.6;
+  }
+}

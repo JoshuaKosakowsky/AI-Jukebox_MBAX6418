@@ -1,0 +1,356 @@
+{
+  "$defs": {
+    "GenerationJob": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "track_id": {
+          "format": "uuid",
+          "title": "Track Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "text",
+            "art",
+            "music",
+            "speech"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/JobState",
+          "default": "queued"
+        },
+        "progress": {
+          "default": 0,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Progress",
+          "type": "number"
+        },
+        "error": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SafeError"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "track_id",
+        "kind"
+      ],
+      "title": "GenerationJob",
+      "type": "object"
+    },
+    "JobState": {
+      "enum": [
+        "queued",
+        "running",
+        "succeeded",
+        "failed"
+      ],
+      "title": "JobState",
+      "type": "string"
+    },
+    "MediaRef": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "url": {
+          "pattern": "^/api/media/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+          "title": "Url",
+          "type": "string"
+        },
+        "content_type": {
+          "enum": [
+            "audio/wav",
+            "audio/mpeg",
+            "image/png"
+          ],
+          "title": "Content Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "content_type"
+      ],
+      "title": "MediaRef",
+      "type": "object"
+    },
+    "Playback": {
+      "additionalProperties": false,
+      "properties": {
+        "state": {
+          "default": "idle",
+          "enum": [
+            "idle",
+            "speaking",
+            "playing",
+            "paused"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "queue": {
+          "items": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "title": "Queue",
+          "type": "array"
+        },
+        "index": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Index",
+          "type": "integer"
+        },
+        "current_track_id": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Current Track Id"
+        },
+        "paused_from": {
+          "anyOf": [
+            {
+              "enum": [
+                "speaking",
+                "playing"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Paused From"
+        }
+      },
+      "title": "Playback",
+      "type": "object"
+    },
+    "SafeError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "enum": [
+            "not_configured",
+            "timeout",
+            "unavailable",
+            "rate_limited",
+            "rejected",
+            "invalid_response",
+            "generation_failed",
+            "internal_error"
+          ],
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "title": "Message",
+          "type": "string"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "title": "SafeError",
+      "type": "object"
+    },
+    "SongSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "style": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Style",
+          "type": "string"
+        },
+        "mood": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Mood",
+          "type": "string"
+        },
+        "duration_seconds": {
+          "maximum": 600,
+          "minimum": 10,
+          "title": "Duration Seconds",
+          "type": "integer"
+        },
+        "mode": {
+          "default": "instrumental",
+          "enum": [
+            "instrumental",
+            "vocal"
+          ],
+          "title": "Mode",
+          "type": "string"
+        }
+      },
+      "required": [
+        "style",
+        "mood",
+        "duration_seconds"
+      ],
+      "title": "SongSettings",
+      "type": "object"
+    },
+    "Track": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 120,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "settings": {
+          "$ref": "#/$defs/SongSettings"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "status": {
+          "default": "generating",
+          "enum": [
+            "generating",
+            "ready",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "audio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MediaRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "cover": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MediaRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "lyrics": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lyrics"
+        },
+        "dj_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dj Text"
+        },
+        "speech": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/MediaRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "title",
+        "settings"
+      ],
+      "title": "Track",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "contract_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Contract Version",
+      "type": "integer"
+    },
+    "tracks": {
+      "items": {
+        "$ref": "#/$defs/Track"
+      },
+      "title": "Tracks",
+      "type": "array"
+    },
+    "jobs": {
+      "items": {
+        "$ref": "#/$defs/GenerationJob"
+      },
+      "title": "Jobs",
+      "type": "array"
+    },
+    "playback": {
+      "$ref": "#/$defs/Playback"
+    }
+  },
+  "title": "SessionSnapshot",
+  "type": "object"
+}

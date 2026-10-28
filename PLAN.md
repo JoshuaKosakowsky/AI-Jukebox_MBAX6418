@@ -1,10 +1,12 @@
 # Delivery plan - Assignment 3
 
-**Current state:** public collaboration scaffold; no app, samples or release
-acceptance yet. Local setup A3-00 is complete. [GitHub repo](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418) and task
+**Current state:** startup foundation and v1 shared app contracts on the A3-01
+task branch, pending review/merge. No generation/playback features, approved
+samples or release acceptance yet. Local setup A3-00 is complete. [GitHub repo](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418) and task
 issues exist; [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) records publication/CI/protection verification.
 The [four live service contracts](docs/SERVICE_CONTRACTS.md) are verified in an
-A3-01 component change; startup/shared objects and feature acceptance are pending.
+merged A3-01 contract slice. The runtime/shared-object implementation is in the
+current A3-01 PR; feature acceptance is still pending.
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
@@ -36,8 +38,10 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 
 ## Demonstrate progress early
 
-1. **Startup:** supported runtime, locked dependencies, real service contracts and
-   minimal shared track/job/playback schema. Models-list discovery is not generation.
+1. **Startup:** Python/FastAPI, uv.lock and the normal scripts/dev.py launcher;
+   shared Track/GenerationJob/Playback objects in docs/APP_CONTRACTS.md. Review
+   and merge the current A3-01 foundation before dependent integration. Earlier
+   live provider probes remain separate evidence; models-list is not generation.
 2. **First useful flow:** normal launch -> instrumental generation -> library ->
    playback, then a newly generated matching cover. A3-02/04 coordinate on merged
    contracts. Never substitute test adapters in the normal launcher.

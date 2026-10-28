@@ -1,34 +1,55 @@
 # AI Jukebox - MBAX 6418-801 (Assignment 3)
 
 A team-built app for custom songs, matching covers and spoken DJ commentary.
-**Status: collaboration scaffold; no application or generated samples yet.**
-Public repository: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
-The four minimal live generation requests are verified in
-[service contracts](docs/SERVICE_CONTRACTS.md); app integration remains pending.
-Initial CI and
-main-protection verification are recorded in [publication issue #11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11).
-Team workflow active: all changes use task branches and reviewed PRs.
-Joshua/the team will arrange collaborator invitations and assignments.
+**Current version: runnable startup foundation and shared contracts.** The browser
+shows safe service configuration and an empty library. Generation, writable
+sessions, playback, reference uploads and approved sample songs are not built yet.
 
-## Start here
+Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
+Team workflow is active: task branches and reviewed PRs for every change.
+Live issues own assignments/status; Joshua/the team arranges access and allocations.
 
-- Agents: [AGENTS.md](AGENTS.md) and [handoff.md](handoff.md).
-- Team workflow and labels: [CONTRIBUTING.md](CONTRIBUTING.md).
-- Required features and unchanged starter prompt: [docs/ASSIGNMENT.md](docs/ASSIGNMENT.md).
-- Delivery order and ownership: [PLAN.md](PLAN.md).
-- Full-brief coverage: [acceptance.json](docs/acceptance.json); concrete tasks:
-  [ISSUES.md](docs/ISSUES.md); lessons applied: [A2_LESSONS.md](docs/A2_LESSONS.md).
-- Tests/evidence: [docs/TESTING.md](docs/TESTING.md), [docs/TEST_RESULTS.md](docs/TEST_RESULTS.md).
-- Publication/protection: [docs/GITHUB_SETUP.md](docs/GITHUB_SETUP.md).
+## Install and launch
 
-## Required app
+Supported: Python 3.12-3.14 on Windows/Linux; Python 3.12 is the default selected
+by .python-version. Install Python and uv once (uv can fetch Python 3.12 if needed):
 
-Choose style, mood, duration and vocal/instrumental mode; generate playable
-songs and matching covers; keep new songs in the session library. Provide
-song-specific spoken DJ commentary, default/reference voices (MP3/WAV),
-play/pause, skip and automatic speech/music sequencing without overlap.
-Show generation status, useful errors and recovery. Bundle three class-generated
-sample songs with titles, covers and AI-generated lyrics where applicable.
+```powershell
+python -m pip install uv==0.12.19
+```
+
+From the repo or extracted source folder, launch:
+
+```powershell
+python scripts/dev.py
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The launcher installs/syncs the
+exact uv.lock dependencies before starting FastAPI. No environment activation,
+Node build, paid account or Git metadata is needed to launch. Internet access is
+needed for the initial Python/package installation, not for subsequent empty-app
+startup. On Windows the launcher automatically uses a short per-checkout directory
+under LOCALAPPDATA/AI-Jukebox_MBAX6418 to avoid native-extension failures in long
+OneDrive course paths. Linux uses .venv. Neither environment ships in the repo.
+
+The app binds only to loopback. Ctrl+C stops it; if 8000 is busy, use:
+
+```powershell
+python scripts/dev.py --port 8001
+```
+
+Do not expose this development server publicly; deployment authentication is not
+implemented. A wrong class endpoint produces a safe role-only terminal error;
+fix .env and restart. No provider requests or generation happen on startup or on
+Refresh status. Configured means values were supplied, not that a service is reachable.
+
+## Configure class services
+
+The empty app works without credentials. If .env does not already exist, copy
+.env.example to .env; preserve any existing private configuration. Supply the
+eight endpoint/key values from the team/class documentation. Environment variables
+override .env. Missing/placeholders show Missing settings; restart after editing.
+Endpoint bases can end in /v1; the clients resolve API routes from the origin.
 
 | Role | Required class service | Port |
 |---|---|---|
@@ -37,59 +58,69 @@ sample songs with titles, covers and AI-generated lyrics where applicable.
 | Music | ACE-Step 1.5 XL Turbo | 9007 |
 | Speech | Chatterbox Multilingual V3 | 9008 |
 
-Use the [verified request baseline](docs/SERVICE_CONTRACTS.md) and current class
-documentation; never guess API routes or schemas. No paid services, including
-optional features; no app requests to port 9000. Core features must work with class services and credentials alone.
+Use the [verified provider formats](docs/SERVICE_CONTRACTS.md), not guessed APIs.
+The current allowlist accepts the documented dobolyi.com host and role-specific
+ports. No port 9000, paid service or fallback provider is used. Credentials remain
+server-side, are ignored by Git and are excluded from browser responses, screenshots
+and source archives. Never commit uploads, voice references or third-party media.
 
-## Local scaffold setup
+## Current browser/API behavior
 
-Git and Python 3.12+ are sufficient for the current offline scaffold check:
+- Open the home page, confirm the four configuration labels and empty session library.
+- Refresh status re-reads safe local status and the empty snapshot; it does not
+  validate connectivity, create tracks or contact providers.
+- GET /api/health checks the app process; /api/status returns safe configuration;
+  /api/session returns an empty v1 snapshot; /api/contracts and /api/openapi.json
+  publish shared objects/current routes. No generation/media/upload routes exist yet.
+
+![Startup configuration view](results/startup-configured.png)
+
+The screenshot is an actual normal-launch browser check, not evidence of music
+generation or playback. The [empty library view](results/startup-library.png)
+shows the same foundation's current limits.
+
+## Development and verification
+
+For a Git checkout, install local guards once:
 
 ```powershell
 git config --local core.hooksPath .githooks
 git config --local core.longpaths true
 git config --local jukebox.allowPush true
-python scripts/verify_repo.py
-python scripts/check_readiness.py
-python -m unittest discover -s tests -p 'test_*.py'
+python scripts/dev.py --check
 ```
 
-This validates files, links, basic tracked-file safeguards and the saved policy;
-it does not test app functionality. Local hooks block main commits and all
-direct main updates/deletion. Task-branch pushes are enabled above; GitHub
-enforces server protection. Create task branches from main and follow CONTRIBUTING. No app install/launch command exists yet;
-A3-01 will add the chosen runtime, locked dependencies and verified instructions.
+The check command runs tracked-file safeguards, requirement coverage and all
+offline tests in the locked environment. Provider tests use MockTransport; startup
+tests use loopback HTTP. CI runs Python 3.12 on Windows/Linux and 3.14 on Linux.
+The required aggregate check remains named test. These checks do not establish
+full feature or release acceptance. Repository-only Git checks require a checkout;
+the normal app also launches from source without .git.
 
-Keep keys server-side in ignored `.env` or environment variables; `.env.example`
-contains placeholders. Never expose keys in browser code, logs, docs, screenshots
-or archives. Never commit user uploads or voice references, or bundle third-party
-music, lyrics, art or voice samples. Approved class-generated samples go in
-[assets/samples/](assets/samples/README.md), with provenance and actual media.
+The next feature task A3-02 adds per-session storage, production orchestration and
+a playable instrumental. A3-04 consumes the same Track/MediaRef contract for covers;
+A3-05 implements the single playback controller and real speech/music sequencing.
+Review [app contracts](docs/APP_CONTRACTS.md) before building dependent work.
 
-## Implementation direction
+## Project guides and delivery
 
-Proposed: browser controls -> server orchestration -> four class adapters.
-Stable track IDs associate audio, cover, lyrics and status. One playback controller
-serializes speech/music. A3-01 chooses the UI/runtime and shared contracts;
-PLAN.md prioritizes a small working user flow before polishing separate components.
+- [AGENTS.md](AGENTS.md), [handoff.md](handoff.md), [CONTRIBUTING.md](CONTRIBUTING.md).
+- [Original assignment](docs/ASSIGNMENT.md), [PLAN](PLAN.md), [issue briefs](docs/ISSUES.md).
+- [Full requirement map](docs/acceptance.json), [testing](docs/TESTING.md),
+  [observed results](docs/TEST_RESULTS.md), [A2 lessons](docs/A2_LESSONS.md).
+- [GitHub/protection](docs/GITHUB_SETUP.md), [completion record](docs/CONTRIBUTIONS.md).
 
-## Evidence and submission (pending)
+Final delivery needs custom instrumental/vocal songs and AI lyrics, new matching
+covers, a session library, track-specific spoken DJ commentary with default and
+MP3/WAV reference voices, play/pause/skip and automatic sequencing without overlap.
+It also needs three actual class-generated samples with provenance, progress/error
+recovery, evidence/design findings and an independent exact-GitHub-ZIP installation.
+See the complete brief; this paragraph does not replace it.
 
-Record inputs, expected/actual results for all core features and a failure case,
-safe screenshots, a tested design choice and an investigated limitation in
-docs/TEST_RESULTS.md; summarize verified findings here in the team's own words.
-No app functionality, playback or independent deployment has been verified yet.
-Current submission status: **NOT READY**. Coverage/CI success is not completion;
-the final candidate needs all AT cases and the independent GitHub ZIP check in
-docs/TESTING.md. Do not leave that rehearsal until the submission deadline.
-
-Submit the public repo URL, exact commit and GitHub ZIP of that same version.
-A teammate must install from the extracted ZIP using only this README and class
-credentials, exercising core features and the three bundled samples. Keep the
-repo accessible through grading. Every teammate contributes and reviews.
-
-## Baseline
+**Submission NOT READY.** No generation/playback/upload feature or independent
+deployment has been accepted. Freeze a merged main SHA, download that GitHub ZIP
+and follow docs/TESTING.md with a different teammate. Submit the public repo URL,
+that commit and that same ZIP on Canvas; keep it public through grading.
 
 Adapted from [Assignment 2](https://github.com/JoshuaKosakowsky/Course-Assistant_MBAX6418)
-commit `1a19c33ab9929dd2796ac7a5ea53247602a0cd32`. Workflow was simplified after
-reviewing its integration/review history; Assignment 2's RAG stack is not assumed.
+at 1a19c33ab9929dd2796ac7a5ea53247602a0cd32; its RAG stack is not assumed here.
