@@ -155,6 +155,16 @@ class CoverHttpTests(unittest.TestCase):
                 self.assertEqual(client.post("/api/tracks", json=body(), headers={"origin": "http://evil.example"}).status_code, 403)
                 self.assertEqual(client.get("/api/session").json()["tracks"], [])
 
+    def test_error_responses_retain_the_session_cookie_instead_of_leaking_session_slots(self):
+        app = create_app(Settings.load(None, {}))
+        with TestClient(app, base_url="http://localhost") as client:
+            for _ in range(3):
+                response = client.post("/api/tracks", json=body())
+                self.assertEqual(response.status_code, 502)
+                self.assertIn("HttpOnly", response.headers["set-cookie"])
+            self.assertEqual(len(app.state.sessions.sessions), 1)
+            self.assertEqual(client.get("/api/session").json()["tracks"], [])
+
     def test_unexpected_failure_is_sanitized_and_app_restart_clears_library(self):
         with patch("jukebox.providers.ClassProviders.cover", side_effect=RuntimeError("private-offline-test-marker")):
             with TestClient(create_app(art_settings()), base_url="http://localhost") as client:

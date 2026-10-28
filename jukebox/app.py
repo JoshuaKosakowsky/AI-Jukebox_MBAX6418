@@ -55,15 +55,18 @@ def create_app(settings: Settings | None = None):
             if origin and origin != str(request.base_url).rstrip("/"):
                 return JSONResponse({"error": "Cross-origin requests are not allowed"}, status_code=403)
         response = await call_next(request)
+        current = getattr(request.state, "browser_session", None)
+        if current is not None:
+            response.set_cookie(SESSION_COOKIE, current.token, max_age=SESSION_SECONDS, httponly=True, samesite="strict")
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["Referrer-Policy"] = "no-referrer"
         response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'"
         response.headers["Cache-Control"] = "no-store"
         return response
 
-    def browser_session(request: Request, response: Response):
+    def browser_session(request: Request):
         session = store.resolve(request.cookies.get(SESSION_COOKIE))
-        response.set_cookie(SESSION_COOKIE, session.token, max_age=SESSION_SECONDS, httponly=True, samesite="strict")
+        request.state.browser_session = session
         return session
 
     def require_art():
