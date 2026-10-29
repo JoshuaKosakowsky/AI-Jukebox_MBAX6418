@@ -33,7 +33,7 @@ required = [
     'jukebox/web/index.html', 'jukebox/web/app.js', 'jukebox/web/style.css',
     'contracts/app.schema.json', 'docs/APP_CONTRACTS.md',
     'tests/test_runtime.py', 'tests/test_providers.py', 'tests/test_startup.py',
-    'jukebox/sessions.py', 'tests/test_covers.py', 'tests/test_music.py',
+    'jukebox/sessions.py', 'tests/test_covers.py', 'tests/test_music.py', 'tests/test_frontend.py',
 ]
 for name in required:
     require((ROOT / name).is_file(), f'Missing required file: {name}')

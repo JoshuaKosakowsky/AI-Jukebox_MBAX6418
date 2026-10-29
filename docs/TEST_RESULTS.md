@@ -328,3 +328,23 @@ the browser flow was exercised through the normal launcher over HTTP with fully
 decoded WAV/PNG media, and the page renders a real <audio controls> element for
 each ready track. That listener/browser step and the merged-main run remain for
 teammate review and the issue's completion checks. Submission NOT READY.
+
+### PR #18 hardening follow-up - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows, locked Python 3.12.14. Same task
+branch; base 4c30a88. No additional live ACE-Step or FLUX generation was made.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Frontend playback preservation | Playing audio survives unrelated library updates | FIXED and guarded: track cards are now diffed and rebuilt individually, and an in-progress audio position is carried across a same-card rebuild; static regression guards in tests/test_frontend.py |
+| Music task recovery | Resume the retained ACE-Step ticket without a new submission | ADDED: POST /api/tracks/{id}/music/resume?from={job} continues poll/download of the same task (verified the SAME ticket object is polled, submit count stays 1); never-confirmed submissions return 409 with guidance; non-retryable/succeeded jobs are 404 |
+| Truthful progress stages | UI never claims downloading while polling | FIXED: polling progress stays capped at 0.79; the 0.9 downloading stage is set only after a successful poll; covered by store-level and static-frontend tests |
+| Concurrency test reliability | Duplicate/coexistence tests prove real in-flight concurrency | HARDENED: both thread-pool tests now assert the in-flight job is visibly running, release the gate in finally, and cannot pass on a timed-out mock |
+| Configuration UX | Create button and messages match supported actions | FIXED: art-only mode creates draft+cover with an explanatory notice (label changes accordingly); music-only/neither modes explain what to configure; not_configured music errors give restart guidance |
+| Credential hygiene | No keys in branch, evidence or docs | PASS, scan of tracked files and the full diff finds no key assignments; .env.example keeps placeholders; .env stays gitignored |
+
+Locked python scripts/dev.py --check PASS here: all 109 tests (96 prior + 13
+hardening/regression), verifier 62 files, coverage 36/11/19; schema regenerated
+byte-identical; diff whitespace clean. The two real-generation records in
+instrumental-live-record.json are untouched and still describe the 4c30a88-era
+live run; interactive browser playback remains a teammate step.

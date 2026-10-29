@@ -12,16 +12,21 @@ No other open PRs touch these files. The task PR is linked from issue #2.
 Extended SessionStore (per-kind active set, server-private music tickets,
 queue/generate_music with bounded submit->poll->download), POST
 /api/tracks/{id}/music + music_generation_available, two-step browser create
-(draft+cover, then instrumental), per-track music status/retry UI, GenerationJob
+(draft+cover, then instrumental), per-track music status UI, GenerationJob
 with_progress. Instrumentals 10-60 s (20 MB provider cap rationale). Music
 failure leaves status/cover/audio untouched; replacement cleans old media on
 success; art and music jobs coexist on one track; no auto-resubmission.
+Hardening: POST .../music/resume?from={job} continues the SAME retained task
+without a new submission; polling progress capped at 0.79 with the 0.9
+downloading stage only after success; library cards render per-track so a
+playing song survives unrelated updates; config-missing UX is explicit.
 ## Validation
-Locked python scripts/dev.py --check PASS: all 96 tests (76 baseline + 20 new),
-verifier 61 files, coverage 36/11/19; diff whitespace clean; schema byte-identical.
+Locked python scripts/dev.py --check PASS: all 109 tests (96 prior + 13
+hardening/regression incl. static frontend guards), verifier 62 files, coverage
+36/11/19; schema byte-identical; diff whitespace clean; key-scan clean.
 Live: two real ACE-Step instrumentals (10 s and 20 s) with automatic FLUX covers
-through the normal launcher; decoded 48 kHz stereo WAVs, distinct media, reload
-stable. Safe record: results/instrumental-live-record.json.
+through the normal launcher (unchanged record results/instrumental-live-record.json);
+no new live generation on the hardening pass.
 ## Blockers and unchecked areas
 PR awaits teammate review and merged-main run before #2 closes. Audible browser
 playback not independently performed (automation unavailable); verified via HTTP

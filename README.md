@@ -77,14 +77,18 @@ and source archives. Never commit uploads, voice references or third-party media
 3. Watch each track's cover/instrumental status. Create a second distinct song,
    then reload: each instrumental and cover remains paired with its own
    title/settings.
-4. Play either song directly in the browser. Use Retry instrumental / Generate
-   new instrumental or Retry cover / Generate new cover to replace audio or art
-   deliberately. A failed replacement preserves existing art and audio; there
-   are no automatic generation retries. If a request is uncertain, refresh
-   before submitting again.
+4. Play either song directly in the browser. After a failed or timed-out
+   generation, use Resume check to continue checking the SAME class-service
+   task (it never submits a new one), or Generate new instrumental / Generate
+   new cover to start a fresh request deliberately. A failed replacement
+   preserves existing art and audio; there are no automatic generation
+   retries. If a request is uncertain, refresh before submitting again.
 
 Art and music settings are required for those controls; other services may
-remain missing. Refresh status and page reload never submit generation. Vocal
+remain missing. With art configured but not music, the create button makes a
+song draft with cover only and explains how to enable instrumentals; with
+music configured but not art, the form explains that art is needed to create
+tracks. Refresh status and page reload never submit generation. Vocal
 songs are not available yet (A3-03).
 
 Session media stays in process memory, private to the browser's HttpOnly,

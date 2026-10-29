@@ -139,6 +139,36 @@ class SessionStore:
             session.active.add((track_id, "music"))
             return job
 
+    def resume_music(self, session, failed_job_id):
+        """Continue polling/downloading an existing submitted task without creating a new one.
+
+        Only a failed music job with a retained provider ticket can be resumed; the
+        ticket is server-private and is never exposed to the browser. The resumed
+        job never calls submit_music; it re-polls the same provider task ID.
+        """
+        with self.lock:
+            previous = session.jobs.get(failed_job_id)
+            if previous is None or previous.kind != "music" or previous.state != JobState.FAILED or not previous.error.retryable:
+                raise SessionFailure(404, "No resumable music job found in this session.")
+            track_id = previous.track_id
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            duration = session.tracks[track_id].settings.duration_seconds
+            if not 10 <= duration <= MAX_MUSIC_DURATION:
+                raise SessionFailure(422, f"Instrumental duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
+            if failed_job_id not in session.tickets:
+                raise SessionFailure(409, "The previous music submission was never confirmed, so it cannot be resumed. Generating a new instrumental will submit a new request.")
+            if (track_id, "music") in session.active:
+                raise SessionFailure(409, "Music generation is already in progress for this track.")
+            if self._active_count("music") >= MAX_ACTIVE_MUSIC:
+                raise SessionFailure(429, "Music generation is busy. Try again shortly.", retryable=True)
+            if len(session.jobs) >= MAX_JOBS:
+                raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
+            job = GenerationJob(track_id=track_id, kind="music")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "music"))
+            return job, failed_job_id
+
     def generate_cover(self, session, job_id, providers):
         with self.lock:
             job = session.jobs[job_id]
@@ -171,20 +201,35 @@ class SessionStore:
                 session.active.discard((job.track_id, "art"))
                 session.touched = time.monotonic()
 
-    def generate_music(self, session, job_id, providers):
-        """Submit one ACE-Step task, poll it with a bounded deadline, then download and attach the WAV."""
+    def generate_music(self, session, job_id, providers, resume_from=None):
+        """Submit one ACE-Step task, poll it with a bounded deadline, then download and attach the WAV.
+
+        With resume_from set, no submission occurs: the poll/download continues the
+        retained provider ticket of the named failed job. Progress stages are
+        truthful: polling never rises above 0.79 (still generating), and the
+        downloading stage (0.9) is set only after the poll actually succeeds.
+        """
         with self.lock:
             job = session.jobs[job_id]
-            job = job.transition(JobState.RUNNING, progress=.1)
+            job = job.transition(JobState.RUNNING, progress=.35 if resume_from is not None else .1)
             session.jobs[job_id] = job
             track = session.tracks[job.track_id]
         try:
-            ticket = providers.submit_music(music_prompt(track), duration_seconds=track.settings.duration_seconds,
-                                            lyrics="[Instrumental]")
-            with self.lock:
-                session.tickets[job_id] = ticket
-                job = session.jobs[job_id].with_progress(.3)
-                session.jobs[job_id] = job
+            if resume_from is None:
+                ticket = providers.submit_music(music_prompt(track), duration_seconds=track.settings.duration_seconds,
+                                                lyrics="[Instrumental]")
+                with self.lock:
+                    session.tickets[job_id] = ticket
+                    job = session.jobs[job_id].with_progress(.3)
+                    session.jobs[job_id] = job
+            else:
+                with self.lock:
+                    ticket = session.tickets.get(resume_from)
+                    if ticket is None:
+                        raise ProviderFailure(SafeError(
+                            code="generation_failed",
+                            message="The previous music job can no longer be resumed. Generate a new instrumental instead.",
+                            retryable=False))
             deadline = time.monotonic() + MUSIC_DEADLINE_SECONDS
             result = None
             while result is None:
@@ -198,9 +243,12 @@ class SessionStore:
                     result = polled
                 else:
                     with self.lock:
-                        job = session.jobs[job_id].with_progress(min(job.progress + .05, .85))
+                        job = session.jobs[job_id].with_progress(min(job.progress + .05, .79))
                         session.jobs[job_id] = job
                     time.sleep(MUSIC_POLL_INTERVAL)
+            with self.lock:
+                job = session.jobs[job_id].with_progress(.9)
+                session.jobs[job_id] = job
             audio = providers.download_music(result)
             with self.lock:
                 used = sum(len(media.content) for value in self.sessions.values() for media in value.media.values())
@@ -215,6 +263,8 @@ class SessionStore:
                 session.tracks[current.id] = updated
                 session.jobs[job.id] = job.transition(JobState.SUCCEEDED)
                 session.tickets.pop(job_id, None)
+                if resume_from is not None:
+                    session.tickets.pop(resume_from, None)
                 if current.audio is not None:
                     session.media.pop(current.audio.id, None)
         except Exception as exc:
@@ -222,8 +272,8 @@ class SessionStore:
                 code="internal_error", message="Music generation could not be completed. You can try again.", retryable=True)
             with self.lock:
                 session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
-                # Keep the provider ticket so a future recovery action can reuse it;
-                # retry always creates a new app job and never auto-submits another task.
+                # Keep provider tickets so a future recovery action can reuse them;
+                # a new or resumed app job never auto-submits another task.
         finally:
             with self.lock:
                 session.active.discard((job.track_id, "music"))

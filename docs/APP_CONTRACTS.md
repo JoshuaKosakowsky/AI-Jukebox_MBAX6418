@@ -56,6 +56,7 @@ Example empty snapshot (the current GET /api/session response):
 | POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/music | deliberate instrumental generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
 | GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
 | GET /api/contracts | unchanged v1 shared JSON Schema |
 | GET /api/openapi.json | actual current API specification, including request bodies |
@@ -83,7 +84,12 @@ the instrumental marker). The returned provider task ID lives only in
 server-private session tickets, never in snapshots, the browser or logs.
 Polling reuses that ticket with a 3-second interval and a 300-second overall
 deadline; an expired job fails retryable with a safe message that tells the
-user to check the class queue before retrying. Poll/download failures never
+user to check the class queue before retrying. A failed retryable music job
+keeps its ticket so a Resume check (POST /api/tracks/{id}/music/resume) can
+continue polling/downloading the SAME task without any new submission; only
+jobs with a retained ticket are resumable, and a submission that was never
+confirmed returns 409 with guidance instead. Generating new instrumental is
+the explicit path to a brand-new task. Poll/download failures never
 auto-submit a second task; manual retry is a new app job and, after an
 uncertain submission, a newly user-approved task. Instrumental durations are
 operationally limited to 10-60 seconds (the class server's 20 MB response cap
@@ -91,6 +97,13 @@ bounds a 48 kHz/16-bit/stereo WAV at roughly 104 seconds; 60 seconds keeps
 margin); the shared SongSettings schema keeps its documented 10-600 range,
 and the narrower app bound is enforced before any provider work. The app-wide
 media budget (64 MB) is checked before attaching each result.
+
+Progress stages are truthful: submitting (up to 0.3), generating while polling
+(capped at 0.79, so the UI never claims downloading during polling), downloading
+(0.9, set only after the poll succeeds), succeeded (1). The frontend rebuilds
+track cards individually when a track's own data changes and carries an
+in-progress playback position across a rebuild, so generating one song never
+interrupts playback of another.
 
 ## Music and cover orchestration (A3-02)
 

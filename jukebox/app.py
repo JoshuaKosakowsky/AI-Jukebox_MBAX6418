@@ -2,7 +2,7 @@
 from contextlib import asynccontextmanager
 from uuid import UUID
 
-from fastapi import BackgroundTasks, Depends, FastAPI, Request, Response
+from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
@@ -115,6 +115,16 @@ def create_app(settings: Settings | None = None):
         require_music()
         job = store.queue_music(current, track_id)
         tasks.add_task(store.generate_music, current, job.id, app.state.providers)
+        return job
+
+    @app.post("/api/tracks/{track_id}/music/resume", response_model=GenerationJob, status_code=202)
+    def resume_music(track_id: UUID, from_job: UUID = Query(alias="from"), tasks: BackgroundTasks = BackgroundTasks,
+                     current=Depends(browser_session)):
+        require_music()
+        job, resume_from = store.resume_music(current, from_job)
+        if job.track_id != track_id:
+            raise SessionFailure(404, "Track not found in this session.")
+        tasks.add_task(store.generate_music, current, job.id, app.state.providers, resume_from=resume_from)
         return job
 
     @app.get("/api/media/{media_id}")

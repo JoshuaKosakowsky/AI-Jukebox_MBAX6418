@@ -8,7 +8,9 @@ let artConfigured = false;
 let musicConfigured = false;
 let submitting = false;
 let polling;
-let previousLibrary;
+// Serialized card inputs per track id; a card is rebuilt only when its own data
+// changes, so playing audio on other tracks is never destroyed by a poll update.
+const previousTracks = new Map();
 let refreshInFlight;
 
 async function request(path, data) {
@@ -18,7 +20,9 @@ async function request(path, data) {
   if (!response.ok) {
     // Only fixed server SafeError messages are displayed, never raw responses.
     const result = await response.json().catch(() => ({}));
-    throw new Error(result.error?.message || "The request could not be confirmed. Refresh before trying again.");
+    const error = new Error(result.error?.message || "The request could not be confirmed. Refresh before trying again.");
+    error.code = result.error?.code;
+    throw error;
   }
   return response.json();
 }
@@ -35,87 +39,159 @@ function musicStatusText(job, hasAudio) {
   if (job.state === "failed") return job.error?.message || "Instrumental generation failed.";
   if (job.state === "succeeded") return "Instrumental ready";
   if (job.progress >= 0.8) return "Downloading and validating audio…";
-  if (job.progress >= 0.45) return "Generating instrumental music…";
-  if (job.progress >= 0.2) return "Submitting music request…";
+  if (job.progress >= 0.35) return "Generating instrumental music…";
+  if (job.progress > 0) return "Submitting music request…";
   return "Waiting to start…";
+}
+
+function trackCardInput(track, jobs) {
+  return JSON.stringify({track, jobs: jobs.filter(job => job.track_id === track.id)});
+}
+
+function restoreAudio(card, saved) {
+  // Carry an in-progress playback position across a rebuild of THIS card only.
+  if (!saved) return;
+  const audio = card.querySelector("audio");
+  if (!audio) return;
+  audio.currentTime = saved.time;
+  const play = () => { audio.play().catch(() => {}); };
+  if (audio.readyState >= 2) play();
+  else audio.addEventListener("canplay", play, {once: true});
+}
+
+function buildTrackCard(track, jobs) {
+  const card = node("article", undefined, "track");
+  card.dataset.trackId = track.id;
+  const picture = node("div", undefined, "cover");
+  if (track.cover) {
+    const image = node("img");
+    image.src = track.cover.url;
+    image.alt = `Generated cover for ${track.title}`;
+    image.width = image.height = 512;
+    picture.append(image);
+  } else {
+    picture.append(node("p", "No cover yet"));
+  }
+  const detail = node("div", undefined, "track-detail");
+  detail.append(node("h3", track.title), node("p", `${track.settings.style} · ${track.settings.mood}`, "track-settings"));
+  const artJobs = jobs.filter(job => job.track_id === track.id && job.kind === "art");
+  const artJob = artJobs.at(-1);
+  const artActive = artJob && ["queued", "running"].includes(artJob.state);
+  const coverStatus = node("p", artActive ? "Generating new cover…" : artJob?.state === "failed" ? artJob.error.message : track.cover ? "New matching cover ready" : "Ready to generate a cover", "cover-status");
+  coverStatus.setAttribute("role", "status");
+  detail.append(coverStatus);
+  const musicJobs = jobs.filter(job => job.track_id === track.id && job.kind === "music");
+  const musicJob = musicJobs.at(-1);
+  const musicActive = musicJob && ["queued", "running"].includes(musicJob.state);
+  const musicStatus = node("p", musicStatusText(musicJob, Boolean(track.audio)), "cover-status");
+  musicStatus.setAttribute("role", "status");
+  detail.append(musicStatus);
+  if (track.audio) {
+    const audio = node("audio");
+    audio.controls = true;
+    audio.preload = "none";
+    audio.src = track.audio.url;
+    audio.setAttribute("aria-label", `Play ${track.title}`);
+    detail.append(audio);
+  } else {
+    detail.append(node("p", "Song draft · instrumental generation pending.", "note"));
+  }
+  const retryCover = node("button", artActive ? "Generating…" : artJob?.state === "failed" ? "Retry cover" : track.cover ? "Generate new cover" : "Generate cover");
+  retryCover.type = "button";
+  retryCover.disabled = artActive || !artConfigured;
+  retryCover.addEventListener("click", async () => {
+    retryCover.disabled = true;
+    try {
+      await request(`/api/tracks/${track.id}/cover`, {});
+      notice.textContent = `Cover requested for ${track.title}.`;
+    } catch (error) {
+      notice.textContent = error.message;
+    }
+    await syncAfterMutation();
+  });
+  detail.append(retryCover);
+  const failedMusic = musicJob?.state === "failed";
+  if (failedMusic && musicJob?.error?.retryable) {
+    // Resume continues polling/downloading the SAME class-service task; it never
+    // submits a new generation request. Generate new instrumental is the
+    // explicit path to start a brand-new task.
+    const resume = node("button", "Resume check");
+    resume.type = "button";
+    resume.disabled = !musicConfigured;
+    resume.addEventListener("click", async () => {
+      resume.disabled = true;
+      try {
+        await request(`/api/tracks/${track.id}/music/resume?from=${musicJob.id}`, {});
+        notice.textContent = `Resumed the previous generation check for ${track.title}. No new music request was submitted.`;
+      } catch (error) {
+        notice.textContent = error.message;
+      }
+      await syncAfterMutation();
+    });
+    detail.append(resume);
+  }
+  const retryMusic = node("button", musicActive ? "Generating…" : (track.audio || failedMusic) ? "Generate new instrumental" : "Generate instrumental");
+  retryMusic.type = "button";
+  retryMusic.disabled = musicActive || !musicConfigured;
+  retryMusic.addEventListener("click", async () => {
+    retryMusic.disabled = true;
+    try {
+      await request(`/api/tracks/${track.id}/music`, {});
+      notice.textContent = `Instrumental requested for ${track.title}.`;
+    } catch (error) {
+      notice.textContent = error.message;
+    }
+    await syncAfterMutation();
+  });
+  detail.append(retryMusic);
+  card.append(picture, detail);
+  return card;
 }
 
 function renderLibrary(session) {
   document.querySelector("#track-count").textContent = `${session.tracks.length} tracks`;
   document.querySelector("#empty-library").hidden = session.tracks.length > 0;
-  const serialized = JSON.stringify(session);
-  if (previousLibrary === serialized) return;
-  previousLibrary = serialized;
   const library = document.querySelector("#tracks");
-  library.replaceChildren();
+  const seen = new Set();
   for (const track of session.tracks) {
-    const card = node("article", undefined, "track");
-    card.dataset.trackId = track.id;
-    const picture = node("div", undefined, "cover");
-    if (track.cover) {
-      const image = node("img");
-      image.src = track.cover.url;
-      image.alt = `Generated cover for ${track.title}`;
-      image.width = image.height = 512;
-      picture.append(image);
+    seen.add(track.id);
+    const input = trackCardInput(track, session.jobs);
+    if (previousTracks.get(track.id) === input) continue;
+    previousTracks.set(track.id, input);
+    const card = buildTrackCard(track, session.jobs);
+    const existing = library.querySelector(`[data-track-id="${track.id}"]`);
+    if (existing) {
+      const audio = existing.querySelector("audio");
+      const saved = audio && !audio.paused ? {time: audio.currentTime} : null;
+      existing.replaceWith(card);
+      restoreAudio(card, saved);
     } else {
-      picture.append(node("p", "No cover yet"));
+      library.append(card);
     }
-    const detail = node("div", undefined, "track-detail");
-    detail.append(node("h3", track.title), node("p", `${track.settings.style} · ${track.settings.mood}`, "track-settings"));
-    const artJobs = session.jobs.filter(job => job.track_id === track.id && job.kind === "art");
-    const artJob = artJobs.at(-1);
-    const artActive = artJob && ["queued", "running"].includes(artJob.state);
-    const coverStatus = node("p", artActive ? "Generating new cover…" : artJob?.state === "failed" ? artJob.error.message : track.cover ? "New matching cover ready" : "Ready to generate a cover", "cover-status");
-    coverStatus.setAttribute("role", "status");
-    detail.append(coverStatus);
-    const musicJobs = session.jobs.filter(job => job.track_id === track.id && job.kind === "music");
-    const musicJob = musicJobs.at(-1);
-    const musicActive = musicJob && ["queued", "running"].includes(musicJob.state);
-    const musicStatus = node("p", musicStatusText(musicJob, Boolean(track.audio)), "cover-status");
-    musicStatus.setAttribute("role", "status");
-    detail.append(musicStatus);
-    if (track.audio) {
-      const audio = node("audio");
-      audio.controls = true;
-      audio.preload = "none";
-      audio.src = track.audio.url;
-      audio.setAttribute("aria-label", `Play ${track.title}`);
-      detail.append(audio);
-    } else {
-      detail.append(node("p", "Song draft · instrumental generation pending.", "note"));
-    }
-    const retryCover = node("button", artActive ? "Generating…" : artJob?.state === "failed" ? "Retry cover" : track.cover ? "Generate new cover" : "Generate cover");
-    retryCover.type = "button";
-    retryCover.disabled = artActive || !artConfigured;
-    retryCover.addEventListener("click", async () => {
-      retryCover.disabled = true;
-      try {
-        await request(`/api/tracks/${track.id}/cover`, {});
-        notice.textContent = `Cover requested for ${track.title}.`;
-      } catch (error) {
-        notice.textContent = error.message;
-      }
-      await syncAfterMutation();
-    });
-    detail.append(retryCover);
-    const retryMusic = node("button", musicActive ? "Generating…" : musicJob?.state === "failed" ? "Retry instrumental" : track.audio ? "Generate new instrumental" : "Generate instrumental");
-    retryMusic.type = "button";
-    retryMusic.disabled = musicActive || !musicConfigured;
-    retryMusic.addEventListener("click", async () => {
-      retryMusic.disabled = true;
-      try {
-        await request(`/api/tracks/${track.id}/music`, {});
-        notice.textContent = `Instrumental requested for ${track.title}.`;
-      } catch (error) {
-        notice.textContent = error.message;
-      }
-      await syncAfterMutation();
-    });
-    detail.append(retryMusic);
-    card.append(picture, detail);
-    library.append(card);
   }
+  for (const existing of [...library.querySelectorAll(".track")]) {
+    if (!seen.has(existing.dataset.trackId)) {
+      previousTracks.delete(existing.dataset.trackId);
+      existing.remove();
+    }
+  }
+}
+
+function refreshConfigurationCopy() {
+  if (artConfigured && musicConfigured) {
+    createButton.textContent = "Create song & generate instrumental";
+    document.querySelector("#cover-help").textContent = "Each request generates original instrumental music and matching cover art from the song title, style, mood and duration. Songs stay in this browser session.";
+    return;
+  }
+  if (artConfigured) {
+    createButton.textContent = "Create song draft & cover";
+    document.querySelector("#cover-help").textContent = "Covers are ready. Add the music service to the server’s .env and restart the app to generate instrumentals.";
+    return;
+  }
+  createButton.textContent = "Create song & generate instrumental";
+  document.querySelector("#cover-help").textContent = musicConfigured
+    ? "The music service is ready. Configure the art service for covers (needed to create tracks) and restart the app."
+    : "Configure the server’s music service and art service, then restart the app to generate songs.";
 }
 
 async function load() {
@@ -126,7 +202,7 @@ async function load() {
     const changedConfig = artConfigured !== status.cover_generation_available || musicConfigured !== status.music_generation_available;
     artConfigured = status.cover_generation_available;
     musicConfigured = status.music_generation_available;
-    if (changedConfig) previousLibrary = undefined;
+    if (changedConfig) previousTracks.clear();
     const list = document.querySelector("#services");
     list.replaceChildren();
     for (const [role, label] of Object.entries(labels)) {
@@ -136,11 +212,7 @@ async function load() {
       list.append(item);
     }
     document.querySelector("#summary").textContent = status.configured ? "All four services are configured." : "The app is running. Some service settings are missing.";
-    document.querySelector("#cover-help").textContent = artConfigured && musicConfigured
-      ? "Each request generates original art and instrumental music from the song title, style, mood and duration. Songs stay in this browser session."
-      : musicConfigured
-        ? "Instrumental generation is ready. Configure the server's art service and restart to also generate matching covers."
-        : "Configure the server's music service (and art service for covers) and restart the app to generate songs.";
+    refreshConfigurationCopy();
     createButton.disabled = submitting || !artConfigured;
     renderLibrary(session);
     document.querySelector("#app-status").textContent = "App connected";
@@ -164,7 +236,7 @@ function refresh() {
 async function syncAfterMutation() {
   // A poll started before this POST must not hide the newly accepted job.
   if (refreshInFlight) await refreshInFlight;
-  previousLibrary = undefined;
+  previousTracks.clear();
   return refresh();
 }
 
@@ -184,7 +256,11 @@ form.addEventListener("submit", async event => {
       await request(`/api/tracks/${job.track_id}/music`, {});
       notice.textContent = "Song created. Generating its instrumental and matching cover…";
     } catch (error) {
-      notice.textContent = `Song draft created, but the instrumental request failed: ${error.message}`;
+      if (error.code === "not_configured") {
+        notice.textContent = "Song draft and cover created. Instrumental generation needs the music service configured — add it to the server’s .env and restart the app.";
+      } else {
+        notice.textContent = `Song draft created, but the instrumental request failed: ${error.message}`;
+      }
     }
     form.reset();
   } catch (error) {
