@@ -69,7 +69,12 @@ class ClassProviders:
         if parsed.scheme or parsed.netloc or not path.startswith("/") or path.startswith("//") or parsed.fragment:
             fail("invalid_response", "Service returned an invalid route.")
         if payload is None:
-            if role != "music" or parsed.path != "/v1/audio" or set(parse_qs(parsed.query)) != {"path"}:
+            try:
+                parameters = parse_qs(parsed.query, keep_blank_values=True, strict_parsing=True)
+            except ValueError:
+                fail("invalid_response", "Service returned an invalid audio route.")
+            if (role != "music" or parsed.path != "/v1/audio" or set(parameters) != {"path"}
+                    or len(parameters["path"]) != 1 or not parameters["path"][0].strip()):
                 fail("invalid_response", "Service returned an invalid audio route.")
         elif path not in {PROBES[role]["path"], "/query_result" if role == "music" else PROBES[role]["path"]}:
             fail("invalid_response", "Unsupported service route.")
@@ -97,6 +102,7 @@ class ClassProviders:
         except httpx.HTTPError:
             fail("unavailable", "Could not reach the class service.", True)
         except httpx.InvalidURL:
+            # InvalidURL inherits directly from Exception in the locked HTTPX version.
             fail("invalid_response", "Service returned an invalid route.")
 
     def _json(self, role, path, payload):

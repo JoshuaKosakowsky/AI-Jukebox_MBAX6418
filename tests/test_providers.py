@@ -100,7 +100,9 @@ class ProviderTests(unittest.TestCase):
 
     def test_cross_origin_or_wrong_route_download_never_sends_a_request(self):
         provider = self.make(lambda request: self.fail("Request must be rejected before authentication"))
-        for path in ("http://other.example/v1/audio?path=x", "http://[bad/v1/audio?path=x", "//other.example/v1/audio?path=x", "/other?path=x", "/v1/audio?url=elsewhere"):
+        for path in ("http://other.example/v1/audio?path=x", "http://[bad/v1/audio?path=x", "//other.example/v1/audio?path=x",
+                     "/other?path=x", "/v1/audio?url=elsewhere", "/v1/audio?path=a&path=b",
+                     "/v1/audio?path=a&path=", "/v1/audio?path=", "/v1/audio?path=%20", "/v1/audio?path=a&broken"):
             with self.subTest(path=path), self.assertRaises(ProviderFailure):
                 provider.download_music(MusicPoll("succeeded", path))
 
@@ -125,6 +127,14 @@ class ProviderTests(unittest.TestCase):
                 self.make(reply).text("Hi")
             self.assertEqual(caught.exception.error.code, code)
             self.assertNotIn("private-test-key", str(caught.exception))
+
+    def test_httpx_invalid_url_has_a_reachable_sanitized_handler(self):
+        def reply(request):
+            raise httpx.InvalidURL("private-test-key")
+        with self.assertRaises(ProviderFailure) as caught:
+            self.make(reply).text("Hello")
+        self.assertEqual(caught.exception.error.code, "invalid_response")
+        self.assertNotIn("private-test-key", str(caught.exception))
 
     def test_response_cap_and_malformed_json_fail_safely(self):
         with patch("jukebox.providers.MAX_BYTES", 10):

@@ -111,6 +111,25 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValidationError):
             SessionSnapshot(playback=Playback(queue=[uuid4()]))
 
+    def test_media_ids_are_unique_across_tracks(self):
+        def asset(identifier):
+            return MediaRef(id=identifier, url=f"/api/media/{identifier}", content_type="audio/wav")
+        first_id, second_id = uuid4(), uuid4()
+        one = Track(title="One", settings=self.settings(), audio=asset(first_id))
+        two = Track(title="Two", settings=self.settings(), audio=asset(second_id))
+        self.assertEqual(len(SessionSnapshot(tracks=[one, two]).tracks), 2)
+        duplicate = Track(title="Duplicate", settings=self.settings(), audio=asset(first_id))
+        with self.assertRaises(ValidationError):
+            SessionSnapshot(tracks=[one, duplicate])
+
+    def test_media_ids_cannot_collide_between_audio_and_cover_roles(self):
+        identifier = uuid4()
+        audio = MediaRef(id=identifier, url=f"/api/media/{identifier}", content_type="audio/wav")
+        cover = MediaRef(id=identifier, url=f"/api/media/{identifier}", content_type="image/png")
+        track = Track(title="Conflicting asset types", settings=self.settings(), audio=audio, cover=cover)
+        with self.assertRaises(ValidationError):
+            SessionSnapshot(tracks=[track])
+
     def test_invalid_duration_and_blank_style_are_rejected(self):
         for duration in (0, 601):
             with self.assertRaises(ValidationError):

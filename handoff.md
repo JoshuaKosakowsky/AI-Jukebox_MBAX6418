@@ -1,34 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-27 America/Denver; Codex. Task: A3-01 runtime/startup/shared contracts.
+2026-10-27 America/Denver; Codex. Task: review/merge PR #15 and small review follow-ups.
 ## Constraints
-Protected task-branch PR only; no main/protection/assignment changes. Four deliberate
-adapter smokes completed; no generation on startup/CI. Raw media/ticket stay ignored.
+Protected task-branch PRs only; no bypass, protection/assignment changes or new service calls.
 ## Repository state
-Branch codex/app-runtime-contracts; base main 301585b; pre-handoff code 60853ac51a5386412723470209e7971bdd172871.
-The current PR is linked from issue #1; read actual CI/review state before proceeding.
+Branch codex/runtime-review-followups from main c635e86; PR #15 merged normally.
+Matt approved exact head 91eca84. Main CI passed; #1 closed; #2/4/8/9 ready.
 ## Work completed and decisions
-FastAPI + plain same-origin frontend, exact uv.lock, Windows-safe short environment
-launcher. Typed v1 Track/MediaRef/GenerationJob/Playback/session schema and real
-class clients with safe errors, bounds, decoded media and async music ticket handling.
-README startup and docs/APP_CONTRACTS.md are the integration baseline after merge.
+Normal browser/HTTP startup passed on merged main. Completion record credits implementation
+and Matt's independent HTTP/test review accurately. PLAN mirrors current live leads.
+Follow-up tightens download queries/media IDs and renames unchanged JPEG screenshots.
+Retain reachable HTTPX InvalidURL handler (regression proves it); other speech formats deferred.
 ## Validation
-All 60 offline tests and scaffold/coverage checks pass. Normal browser startup and
-refresh work with private config and without .git/.env in a clean source copy.
-All four new adapters passed one real request each; safe measurements/screenshots
-are in results/ and docs/TEST_RESULTS.md. CI matrix results belong to the task PR.
+Locked python scripts/dev.py --check: verifier/coverage PASS; 63 offline tests PASS.
+Schema regenerated; staged whitespace PASS. PR/CI state must be read live before merging.
 ## Blockers and unchecked areas
-Foundation awaits teammate review/merged-main startup verification. No generation
-UI, writable sessions, playback, references, approved samples or release acceptance.
-The source-copy rehearsal is not independent GitHub ZIP evidence. Submission NOT READY.
+Follow-up needs independent approval. No generation UI, writable sessions, playback,
+reference voices, approved samples or independent ZIP acceptance. Submission NOT READY.
 ## Next steps
-1. Review/merge; verify normal startup on main before closing #1/unblocking dependents.
-2. A3-02 implements the first real instrumental UI/session flow using these contracts.
-3. Record this substantial implementation on merge; preserve the shared objects.
+1. Review/merge this focused follow-up after green CI; preserve protected main.
+2. A3-02 (jovi1214): first real instrumental UI/session/playback flow on merged contracts.
+3. A3-04 (Joshua): new matching covers; coordinate shared objects with A3-02.
 ## References
-README.md; docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md;
-[A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1).
+[PR #15](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/15);
+docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md; GitHub issues own current status/assignees.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

@@ -27,7 +27,7 @@ class SongSettings(Model):
 
 
 class MediaRef(Model):
-    id: UUID = Field(default_factory=uuid4)
+    id: UUID = Field(default_factory=uuid4, description="Unique across all track media references in the session")
     url: str = Field(pattern=r"^/api/media/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
     content_type: Literal["audio/wav", "audio/mpeg", "image/png"]
 
@@ -130,6 +130,9 @@ class SessionSnapshot(Model):
             raise ValueError("IDs must be unique")
         if any(job.track_id not in tracks for job in self.jobs) or any(track not in tracks for track in self.playback.queue):
             raise ValueError("Jobs and queue entries must reference session tracks")
+        media = [asset.id for track in self.tracks for asset in (track.audio, track.cover, track.speech) if asset is not None]
+        if len(media) != len(set(media)):
+            raise ValueError("Media IDs must be unique across session tracks and roles")
         return self
 
 
