@@ -48,17 +48,6 @@ function trackCardInput(track, jobs) {
   return JSON.stringify({track, jobs: jobs.filter(job => job.track_id === track.id)});
 }
 
-function restoreAudio(card, saved) {
-  // Carry an in-progress playback position across a rebuild of THIS card only.
-  if (!saved) return;
-  const audio = card.querySelector("audio");
-  if (!audio) return;
-  audio.currentTime = saved.time;
-  const play = () => { audio.play().catch(() => {}); };
-  if (audio.readyState >= 2) play();
-  else audio.addEventListener("canplay", play, {once: true});
-}
-
 function buildTrackCard(track, jobs) {
   const card = node("article", undefined, "track");
   card.dataset.trackId = track.id;
@@ -161,10 +150,16 @@ function renderLibrary(session) {
     const card = buildTrackCard(track, session.jobs);
     const existing = library.querySelector(`[data-track-id="${track.id}"]`);
     if (existing) {
-      const audio = existing.querySelector("audio");
-      const saved = audio && !audio.paused ? {time: audio.currentTime} : null;
+      const oldAudio = existing.querySelector("audio");
+      const newAudio = card.querySelector("audio");
+      if (oldAudio && newAudio && track.audio && oldAudio.getAttribute("src") === track.audio.url) {
+        // Same underlying media: move the original element into the rebuilt card
+        // so playback continues without interruption (the node never leaves the
+        // document). A deliberate media replacement below instead gets a fresh
+        // stopped element, which is never auto-played here.
+        newAudio.replaceWith(oldAudio);
+      }
       existing.replaceWith(card);
-      restoreAudio(card, saved);
     } else {
       library.append(card);
     }
@@ -236,7 +231,9 @@ function refresh() {
 async function syncAfterMutation() {
   // A poll started before this POST must not hide the newly accepted job.
   if (refreshInFlight) await refreshInFlight;
-  previousTracks.clear();
+  // Deliberately do NOT clear the per-track cache: the next snapshot diff
+  // rebuilds only cards whose own data changed, leaving unrelated players
+  // (and their audio elements) untouched.
   return refresh();
 }
 

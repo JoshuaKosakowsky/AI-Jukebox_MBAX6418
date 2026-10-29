@@ -29,11 +29,25 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         self.assertNotIn("library.replaceChildren", self.source)
 
     def test_audio_position_is_captured_and_restored_across_card_rebuilds(self):
-        self.assertIn("function restoreAudio(card, saved)", self.source)
-        self.assertIn("const audio = existing.querySelector(\"audio\");", self.source)
-        self.assertIn("saved = audio && !audio.paused ? {time: audio.currentTime} : null", self.source)
-        self.assertIn("audio.play()", self.source)
-        self.assertIn("restoreAudio(card, saved)", self.source)
+        # Same underlying media => the ORIGINAL audio element is moved into the
+        # rebuilt card (playback is never interrupted because the node never
+        # leaves the document). This replaced the older capture/restore approach
+        # because restoring positions cannot guarantee uninterrupted audio.
+        self.assertIn("const oldAudio = existing.querySelector(\"audio\");", self.source)
+        self.assertIn("const newAudio = card.querySelector(\"audio\");", self.source)
+        self.assertIn("oldAudio.getAttribute(\"src\") === track.audio.url", self.source)
+        self.assertIn("newAudio.replaceWith(oldAudio);", self.source)
+        self.assertNotIn("function restoreAudio", self.source)
+        self.assertNotIn("audio.play()", self.source,
+                         "changed-media replacement must not auto-play the new element")
+
+    def test_sync_after_mutation_does_not_invalidate_unrelated_cards(self):
+        # Defect 2 regression: the post-mutation refresh must rely on the
+        # per-track diff rather than clearing the whole cache (which would
+        # rebuild every card and detach any playing player).
+        mutation = self.source.split("async function syncAfterMutation")[1].split("function refresh")[0]
+        self.assertNotIn("previousTracks.clear()", mutation)
+        self.assertNotIn("previousLibrary", mutation)
 
     def test_music_stage_text_matches_server_progress_stages(self):
         # The UI must not claim downloading below the server's post-poll stage.

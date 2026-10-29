@@ -79,10 +79,16 @@ and source archives. Never commit uploads, voice references or third-party media
    title/settings.
 4. Play either song directly in the browser. After a failed or timed-out
    generation, use Resume check to continue checking the SAME class-service
-   task (it never submits a new one), or Generate new instrumental / Generate
+   task (it never submits a new one — repeated resumes of one task stay on
+   its single original submission), or Generate new instrumental / Generate
    new cover to start a fresh request deliberately. A failed replacement
    preserves existing art and audio; there are no automatic generation
    retries. If a request is uncertain, refresh before submitting again.
+   While a song plays, creating another song or retrying art/music never
+   interrupts it: the browser keeps the same audio element until the actual
+   media reference changes. If the class service reports the music task
+   itself failed, it is not endlessly resumable — Generate new instrumental
+   is the only way forward.
 
 Art and music settings are required for those controls; other services may
 remain missing. With art configured but not music, the create button makes a

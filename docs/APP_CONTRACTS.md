@@ -86,9 +86,17 @@ Polling reuses that ticket with a 3-second interval and a 300-second overall
 deadline; an expired job fails retryable with a safe message that tells the
 user to check the class queue before retrying. A failed retryable music job
 keeps its ticket so a Resume check (POST /api/tracks/{id}/music/resume) can
-continue polling/downloading the SAME task without any new submission; only
-jobs with a retained ticket are resumable, and a submission that was never
-confirmed returns 409 with guidance instead. Generating new instrumental is
+continue polling/downloading the SAME task without any new submission; the
+ticket is associated with each resumed job, so a second failed attempt is
+itself resumable (any number of resumes stay on the one original submission).
+A resume whose URL names the wrong track is rejected 404 with no side effects:
+no job is created, no capacity consumed, and the rightful track remains
+resumable. Only jobs with a retained ticket are resumable, and a submission
+that was never confirmed returns 409 with guidance instead. When the class
+service reports the task itself failed during a resume, the job becomes
+terminal (not retryable) — Generate new instrumental is the explicit path to a
+brand-new task, and no failed or terminal job ever misleadingly offers endless
+resumability. Generating new instrumental is
 the explicit path to a brand-new task. Poll/download failures never
 auto-submit a second task; manual retry is a new app job and, after an
 uncertain submission, a newly user-approved task. Instrumental durations are

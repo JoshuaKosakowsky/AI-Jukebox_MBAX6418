@@ -18,15 +18,28 @@ failure leaves status/cover/audio untouched; replacement cleans old media on
 success; art and music jobs coexist on one track; no auto-resubmission.
 Hardening: POST .../music/resume?from={job} continues the SAME retained task
 without a new submission; polling progress capped at 0.79 with the 0.9
-downloading stage only after success; library cards render per-track so a
-playing song survives unrelated updates; config-missing UX is explicit.
+downloading stage only after success; config-missing UX is explicit.
+Three-defect correction (base f3b047f): (1) resume track-ownership validation
+moved INSIDE SessionStore.resume_music — a wrong-track resume URL now 404s
+with zero side effects instead of leaking a job + active slot that blocked
+the rightful track; (2) syncAfterMutation no longer clears the per-track card
+cache and renderLibrary MOVES the unchanged-media audio element into rebuilt
+cards, so creating another song or changing job status never detaches a
+playing player (fresh element only on genuine media change, never auto-played);
+(3) every resumed job now carries its own ticket association, so repeated
+resumes of one task stay on the single original submission and no second
+resume returns 409; a provider-reported task failure during a resume is now
+terminal (non-retryable) so nothing advertises endless resumability; success
+removes all app-job associations of the ticket.
 ## Validation
-Locked python scripts/dev.py --check PASS: all 109 tests (96 prior + 13
-hardening/regression incl. static frontend guards), verifier 63 files, coverage
+Locked python scripts/dev.py --check PASS: all 115 tests (109 prior + 5
+music chain/wrong-track + 1 updated frontend guard), verifier 63 files, coverage
 36/11/19; schema byte-identical; diff whitespace clean; key-scan clean.
 Live: two real ACE-Step instrumentals (10 s and 20 s) with automatic FLUX covers
 through the normal launcher (unchanged record results/instrumental-live-record.json);
-no new live generation on the hardening pass.
+no new live generation on the correction pass. Defect 2 additionally verified
+with a dependency-free node DOM simulation (8 checks; passes on the new app.js,
+fails on f3b047f) — still not a real-browser substitute.
 ## Blockers and unchecked areas
 PR awaits teammate review and merged-main run before #2 closes. Audible browser
 playback not independently performed (automation unavailable); verified via HTTP

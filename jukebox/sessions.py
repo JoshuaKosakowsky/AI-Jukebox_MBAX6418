@@ -139,19 +139,20 @@ class SessionStore:
             session.active.add((track_id, "music"))
             return job
 
-    def resume_music(self, session, failed_job_id):
+    def resume_music(self, session, failed_job_id, track_id):
         """Continue polling/downloading an existing submitted task without creating a new one.
 
-        Only a failed music job with a retained provider ticket can be resumed; the
-        ticket is server-private and is never exposed to the browser. The resumed
-        job never calls submit_music; it re-polls the same provider task ID.
+        Only a failed music job with a retained provider ticket can be resumed, and
+        the URL track must own the failed job. ALL validation happens before any
+        job/slot allocation, so an invalid resume request has zero side effects.
+        The resumed job never calls submit_music; it re-polls the same provider
+        task ID and inherits the ticket association so further resumes work.
         """
         with self.lock:
             previous = session.jobs.get(failed_job_id)
             if previous is None or previous.kind != "music" or previous.state != JobState.FAILED or not previous.error.retryable:
                 raise SessionFailure(404, "No resumable music job found in this session.")
-            track_id = previous.track_id
-            if track_id not in session.tracks:
+            if previous.track_id != track_id or track_id not in session.tracks:
                 raise SessionFailure(404, "Track not found in this session.")
             duration = session.tracks[track_id].settings.duration_seconds
             if not 10 <= duration <= MAX_MUSIC_DURATION:
@@ -230,6 +231,9 @@ class SessionStore:
                             code="generation_failed",
                             message="The previous music job can no longer be resumed. Generate a new instrumental instead.",
                             retryable=False))
+                    # Associate the ticket with this job too, so a further resume
+                    # of THIS job can locate it (repeated resumes of one task).
+                    session.tickets[job_id] = ticket
             deadline = time.monotonic() + MUSIC_DEADLINE_SECONDS
             result = None
             while result is None:
@@ -238,7 +242,17 @@ class SessionStore:
                         code="generation_failed",
                         message="Music generation is taking longer than expected. Check the class service queue before retrying.",
                         retryable=True))
-                polled = providers.poll_music(ticket)
+                try:
+                    polled = providers.poll_music(ticket)
+                except ProviderFailure as exc:
+                    if resume_from is not None and exc.error.code == "generation_failed":
+                        # The provider reports the TASK itself failed; re-polling
+                        # cannot ever succeed, so this is not endlessly resumable.
+                        raise ProviderFailure(SafeError(
+                            code="generation_failed",
+                            message="The music task failed on the class service. Generate a new instrumental to start a new request.",
+                            retryable=False)) from None
+                    raise
                 if polled.state == "succeeded":
                     result = polled
                 else:
@@ -262,9 +276,11 @@ class SessionStore:
                 session.media[identifier] = audio
                 session.tracks[current.id] = updated
                 session.jobs[job.id] = job.transition(JobState.SUCCEEDED)
+                # Clear every app job that pointed at this provider ticket
+                # (the original submission and any intermediate resumes).
+                for key in [key for key, item in session.tickets.items() if item == ticket]:
+                    session.tickets.pop(key, None)
                 session.tickets.pop(job_id, None)
-                if resume_from is not None:
-                    session.tickets.pop(resume_from, None)
                 if current.audio is not None:
                     session.media.pop(current.audio.id, None)
         except Exception as exc:

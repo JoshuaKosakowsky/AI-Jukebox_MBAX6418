@@ -168,7 +168,7 @@ class MusicStoreTests(unittest.TestCase):
         with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
             self.store.generate_music(self.session, first.id, stuck)
         self.assertEqual(self.session.jobs[first.id].state.value, "failed")
-        resumed, source = self.store.resume_music(self.session, first.id)
+        resumed, source = self.store.resume_music(self.session, first.id, item.id)
         self.assertEqual(source, first.id)
         resumed_providers = Mock()
         resumed_providers.submit_music.side_effect = AssertionError("Resume must never submit a new task")
@@ -196,14 +196,14 @@ class MusicStoreTests(unittest.TestCase):
             SafeError(code="unavailable", message="Could not reach the class service.", retryable=True))
         self.store.generate_music(self.session, first.id, failed_submit)
         with self.assertRaises(SessionFailure) as caught:
-            self.store.resume_music(self.session, first.id)
+            self.store.resume_music(self.session, first.id, item.id)
         self.assertEqual(caught.exception.status, 409)
         self.assertIn("never confirmed", caught.exception.error.message)
         # Successful jobs are terminal history, not resumable.
         good = self.store.queue_music(self.session, item.id)
         self.store.generate_music(self.session, good.id, self.music_providers())
         with self.assertRaises(SessionFailure) as caught:
-            self.store.resume_music(self.session, good.id)
+            self.store.resume_music(self.session, good.id, item.id)
         self.assertEqual(caught.exception.status, 404)
         # Non-retryable failures are not resumable either.
         hard = self.store.queue_music(self.session, item.id)
@@ -215,10 +215,32 @@ class MusicStoreTests(unittest.TestCase):
         self.session.jobs[hard.id] = self.session.jobs[hard.id].model_validate(
             {**self.session.jobs[hard.id].model_dump(), "error": SafeError(code="rejected", message="Denied.", retryable=False)})
         with self.assertRaises(SessionFailure) as caught:
-            self.store.resume_music(self.session, hard.id)
+            self.store.resume_music(self.session, hard.id, item.id)
         self.assertEqual(caught.exception.status, 404)
 
-    def test_resume_failure_keeps_both_jobs_and_their_tickets(self):
+    def test_resume_rejects_mismatched_track_without_side_effects(self):
+        """Defect 1 regression: a resume URL with the wrong track must not allocate
+        a job or active slot, and the rightful track stays resumable."""
+        other = self.add_track("Other")
+        item = self.add_track("Rightful")
+        first = self.store.queue_music(self.session, item.id)
+        stuck = Mock()
+        stuck.submit_music.return_value = MusicTicket("private-ticket")
+        stuck.poll_music.return_value = MusicPoll("running")
+        with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            self.store.generate_music(self.session, first.id, stuck)
+        jobs_before = len(self.session.jobs)
+        with self.assertRaises(SessionFailure) as caught:
+            self.store.resume_music(self.session, first.id, other.id)
+        self.assertEqual(caught.exception.status, 404)
+        self.assertEqual(len(self.session.jobs), jobs_before, "mismatched resume must not create a job")
+        self.assertFalse(self.session.active, "mismatched resume must not consume an active slot")
+        self.assertIn(first.id, self.session.tickets, "the retained ticket must survive")
+        resumed, source = self.store.resume_music(self.session, first.id, item.id)
+        self.assertEqual(source, first.id)
+        self.assertEqual(resumed.track_id, item.id)
+
+    def test_resume_failure_keeps_ticket_chain_and_releases_capacity(self):
         item = self.add_track()
         first = self.store.queue_music(self.session, item.id)
         stuck = Mock()
@@ -226,7 +248,7 @@ class MusicStoreTests(unittest.TestCase):
         stuck.poll_music.return_value = MusicPoll("running")
         with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
             self.store.generate_music(self.session, first.id, stuck)
-        resumed, source = self.store.resume_music(self.session, first.id)
+        resumed, source = self.store.resume_music(self.session, first.id, item.id)
         failing = Mock()
         failing.submit_music.side_effect = AssertionError("Resume must never submit")
         failing.poll_music.side_effect = ProviderFailure(
@@ -234,8 +256,75 @@ class MusicStoreTests(unittest.TestCase):
         self.store.generate_music(self.session, resumed.id, failing, resume_from=source)
         self.assertEqual(self.session.jobs[first.id].state.value, "failed")
         self.assertEqual(self.session.jobs[resumed.id].state.value, "failed")
+        # The ticket chain now covers BOTH the original job and the resumed job,
+        # so the latest failed job is itself resumable (Defect 3 regression).
         self.assertIn(first.id, self.session.tickets)
-        self.assertNotIn(resumed.id, self.session.tickets)
+        self.assertIn(resumed.id, self.session.tickets)
+        self.assertFalse(self.session.active)
+
+    def test_repeated_resumes_of_same_task_need_only_one_submission(self):
+        """Defect 3 regression: any number of resumed attempts of the SAME task
+        must stay based on the one retained ticket; only one submit_music call."""
+        item = self.add_track()
+        first = self.store.queue_music(self.session, item.id)
+        original = Mock()
+        original.submit_music.return_value = MusicTicket("single-task")
+        original.poll_music.return_value = MusicPoll("running")
+        with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            self.store.generate_music(self.session, first.id, original)
+        # Resume 1 also times out.
+        r1, _ = self.store.resume_music(self.session, first.id, item.id)
+        stuck = Mock()
+        stuck.submit_music.side_effect = AssertionError("Resume must never submit")
+        stuck.poll_music.return_value = MusicPoll("running")
+        with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            self.store.generate_music(self.session, r1.id, stuck, resume_from=first.id)
+        self.assertEqual(self.session.jobs[r1.id].state.value, "failed")
+        # Resume 2 (from the LATEST failed job) succeeds and downloads.
+        r2, source2 = self.store.resume_music(self.session, r1.id, item.id)
+        self.assertEqual(source2, r1.id)
+        finishing = Mock()
+        finishing.submit_music.side_effect = AssertionError("Resume must never submit")
+        polled = []
+        def poll(ticket):
+            polled.append(ticket)
+            return MusicPoll("succeeded", "/v1/audio?path=x")
+        finishing.poll_music.side_effect = poll
+        finishing.download_music.return_value = MediaBytes(wav_bytes(), "audio/wav")
+        self.store.generate_music(self.session, r2.id, finishing, resume_from=source2)
+        self.assertEqual(self.session.jobs[r2.id].state.value, "succeeded")
+        self.assertEqual(self.session.tracks[item.id].status, "ready")
+        self.assertEqual(original.submit_music.call_count, 1, "exactly one provider submission across all attempts")
+        self.assertEqual(polled, [original.submit_music.return_value])
+        self.assertFalse(self.session.tickets, "all ticket associations clean after success")
+        self.assertFalse(self.session.active)
+
+    def test_resumed_terminal_service_failure_is_not_endlessly_resumable(self):
+        """A provider-reported task failure on a resumed poll is terminal: re-polling
+        can never succeed, so the job must not advertise further resumability."""
+        item = self.add_track()
+        first = self.store.queue_music(self.session, item.id)
+        original = Mock()
+        original.submit_music.return_value = MusicTicket("single-task")
+        original.poll_music.return_value = MusicPoll("running")
+        with patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            self.store.generate_music(self.session, first.id, original)
+        r1, _ = self.store.resume_music(self.session, first.id, item.id)
+        dead_task = Mock()
+        dead_task.submit_music.side_effect = AssertionError("Resume must never submit")
+        dead_task.poll_music.side_effect = ProviderFailure(
+            SafeError(code="generation_failed", message="The music task failed.", retryable=True))
+        self.store.generate_music(self.session, r1.id, dead_task, resume_from=first.id)
+        latest = self.session.jobs[r1.id]
+        self.assertEqual(latest.state.value, "failed")
+        self.assertFalse(latest.error.retryable, "task-level failure must be terminal")
+        self.assertIn("failed on the class service", latest.error.message)
+        self.assertIn(r1.id, self.session.tickets)
+        # The job still exposes its ticket via the route-facing API, but the
+        # non-retryable error means resume_music refuses it.
+        with self.assertRaises(SessionFailure) as caught:
+            self.store.resume_music(self.session, r1.id, item.id)
+        self.assertEqual(caught.exception.status, 404)
         self.assertFalse(self.session.active)
 
     def test_submit_failure_is_sanitized_and_never_repolls_or_resubmits(self):
@@ -540,6 +629,88 @@ class MusicHttpTests(unittest.TestCase):
                 self.assertEqual(rejected.status_code, 409)
                 self.assertIn("never confirmed", rejected.json()["error"]["message"])
                 self.assertEqual(client.post(f"/api/tracks/{track_id}/music/resume?from=00000000-0000-0000-0000-000000000000", json={}).status_code, 404)
+
+    def test_http_resume_wrong_track_has_no_side_effects(self):
+        """Defect 1 regression over HTTP: resuming A's failed job via track B's URL
+        returns 404, creates nothing, and does not block A's rightful resume."""
+        state = {"first_job_running": True}
+        def poll(ticket):
+            if state["first_job_running"]:
+                return MusicPoll("running")
+            return MusicPoll("succeeded", "/v1/audio?path=x")
+        with patch("jukebox.providers.ClassProviders.cover", return_value=png("blue")), \
+             patch("jukebox.providers.ClassProviders.submit_music", return_value=MusicTicket("ticket")), \
+             patch("jukebox.providers.ClassProviders.poll_music", side_effect=poll), \
+             patch("jukebox.providers.ClassProviders.download_music",
+                   return_value=MediaBytes(wav_bytes(), "audio/wav")), \
+             patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), \
+             patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            with self.client(art_music_settings()) as client:
+                job_a = client.post("/api/tracks", json=body("A", "Piano", "Calm", 10)).json()
+                track_a = job_a["track_id"]
+                client.post("/api/tracks", json=body("B", "Funk", "Energetic", 10)).json()
+                failed = client.post(f"/api/tracks/{track_a}/music", json={}).json()
+                snapshot_before = client.get("/api/session").json()
+                self.assertEqual(next(j for j in snapshot_before["jobs"] if j["id"] == failed["id"])["state"], "failed")
+                jobs_before = len(snapshot_before["jobs"])
+                track_b = next(t for t in snapshot_before["tracks"] if t["title"] == "B")["id"]
+                wrong = client.post(f"/api/tracks/{track_b}/music/resume?from={failed['id']}", json={})
+                self.assertEqual(wrong.status_code, 404)
+                snapshot_after = client.get("/api/session").json()
+                self.assertEqual(len(snapshot_after["jobs"]), jobs_before,
+                                 "mismatched track resume must not create a job")
+                self.assertEqual(len([j for j in snapshot_after["jobs"] if j["kind"] == "music"]),
+                                 len([j for j in snapshot_before["jobs"] if j["kind"] == "music"]))
+                # The rightful track is not blocked: its resume still works.
+                state["first_job_running"] = False
+                right = client.post(f"/api/tracks/{track_a}/music/resume?from={failed['id']}", json={})
+                self.assertEqual(right.status_code, 202)
+                final = client.get("/api/session").json()
+                current = next(t for t in final["tracks"] if t["id"] == track_a)
+                self.assertEqual(current["status"], "ready")
+
+    def test_http_repeated_resume_flow_uses_one_submission(self):
+        """Defect 3 regression over HTTP: two consecutive resumes of the same task
+        both work, and submit_music is called exactly once."""
+        state = {"submits": 0, "fail_next_poll": True}
+        def submit(prompt, *, duration_seconds, lyrics):
+            state["submits"] += 1
+            return MusicTicket("single-task")
+        def poll(ticket):
+            if state["fail_next_poll"]:
+                return MusicPoll("running")
+            return MusicPoll("succeeded", "/v1/audio?path=x")
+        with patch("jukebox.providers.ClassProviders.cover", return_value=png("blue")), \
+             patch("jukebox.providers.ClassProviders.submit_music", side_effect=submit), \
+             patch("jukebox.providers.ClassProviders.poll_music", side_effect=poll), \
+             patch("jukebox.providers.ClassProviders.download_music",
+                   return_value=MediaBytes(wav_bytes(), "audio/wav")), \
+             patch("jukebox.sessions.MUSIC_DEADLINE_SECONDS", 0.05), \
+             patch("jukebox.sessions.MUSIC_POLL_INTERVAL", 0.01):
+            with self.client(art_music_settings()) as client:
+                job = client.post("/api/tracks", json=body()).json()
+                track_id = job["track_id"]
+                first = client.post(f"/api/tracks/{track_id}/music", json={}).json()
+                failed1 = next(j for j in client.get("/api/session").json()["jobs"] if j["id"] == first["id"])
+                self.assertEqual(failed1["state"], "failed")
+                self.assertTrue(failed1["error"]["retryable"])
+                # First resume also times out ("fail_next_poll" stays True).
+                resume1 = client.post(f"/api/tracks/{track_id}/music/resume?from={first['id']}", json={})
+                self.assertEqual(resume1.status_code, 202)
+                failed2 = next(j for j in client.get("/api/session").json()["jobs"] if j["id"] == resume1.json()["id"])
+                self.assertEqual(failed2["state"], "failed")
+                self.assertTrue(failed2["error"]["retryable"])
+                # Second resume -- from the LATEST failed job -- succeeds.
+                state["fail_next_poll"] = False
+                resume2 = client.post(f"/api/tracks/{track_id}/music/resume?from={resume1.json()['id']}", json={})
+                self.assertEqual(resume2.status_code, 202)
+                final = client.get("/api/session").json()
+                current = next(t for t in final["tracks"] if t["id"] == track_id)
+                self.assertEqual(current["status"], "ready")
+                self.assertIsNotNone(current["audio"])
+                self.assertEqual(state["submits"], 1, "exactly one provider submission across three attempts")
+                succeeded = [j for j in final["jobs"] if j["kind"] == "music" and j["state"] == "succeeded"]
+                self.assertEqual(len(succeeded), 1)
 
     def test_missing_music_configuration_is_safe_and_never_submits(self):
         with patch("jukebox.providers.ClassProviders.cover", return_value=png("blue")), \

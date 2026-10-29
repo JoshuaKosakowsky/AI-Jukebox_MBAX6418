@@ -121,9 +121,10 @@ def create_app(settings: Settings | None = None):
     def resume_music(track_id: UUID, from_job: UUID = Query(alias="from"), tasks: BackgroundTasks = BackgroundTasks,
                      current=Depends(browser_session)):
         require_music()
-        job, resume_from = store.resume_music(current, from_job)
-        if job.track_id != track_id:
-            raise SessionFailure(404, "Track not found in this session.")
+        # All ownership/state/capacity validation happens atomically inside the
+        # store BEFORE a job or active slot is allocated; a mismatched track in
+        # the URL has zero side effects.
+        job, resume_from = store.resume_music(current, from_job, track_id)
         tasks.add_task(store.generate_music, current, job.id, app.state.providers, resume_from=resume_from)
         return job
 
