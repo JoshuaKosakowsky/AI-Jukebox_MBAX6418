@@ -101,10 +101,10 @@ it reports configuration, not provider reachability. See the full
 Actual normal-launch browser evidence: calm piano/mountain-lake and energetic
 funk/desert art. These are live cover checks, not accepted audio/playback or sample songs.
 
-![Startup configuration view](results/startup-configured.png)
+![Startup configuration view](results/startup-configured.jpg)
 
 The screenshot is an actual normal-launch browser check, not evidence of music
-generation or playback. The [empty library view](results/startup-library.png)
+generation or playback. The [empty library view](results/startup-library.jpg)
 records the earlier startup-only foundation.
 
 ## Development and verification

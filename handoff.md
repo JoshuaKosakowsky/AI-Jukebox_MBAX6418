@@ -1,30 +1,29 @@
 # Agent handoff
 
 ## Session
-2026-10-27 America/Denver; Codex. Task: issue #4 matching cover generation.
+2026-10-28 America/Denver; Codex. Task: reconcile PR #17 with merged main.
 ## Constraints
-Reviewed task-branch PR only; no bypass/assignment changes. Two deliberate FLUX calls;
-no other live generation. No uploads, provider credentials or tickets in public files.
+Reviewed PR only; no bypass/protection/assignment changes or new service calls.
 ## Repository state
-Branch codex/matching-covers from main c635e86; cover implementation 264c391; cookie fix 5ccb371.
-PR #16 remains separately open with runtime hardening/completion records; preserve it on integration.
+Branch codex/matching-covers, merging main 2775f0b (PR #16) into reviewed cover head bcdfcb5.
+Matt approved bcdfcb5; the reconciliation needs current CI and independent approval.
 ## Work completed and decisions
-SessionStore, private media route, draft/create-cover APIs and actual form/library.
-Title/style/mood drive fresh art; UUID pairing, bounded jobs/memory, manual retry,
-old cover/audio/playback preserved on failure. v1 objects/schema/payloads unchanged.
+Preserved main's route/media-ID hardening and JPEG renames; retained all cover code,
+session integration, both evidence histories and inherited notes. Fixed screenshot
+links and deferred grammar nit; consolidated completed PR #16/#17 review credit.
 ## Validation
-Locked --check PASS: 73 tests, 60 tracked files, coverage 36/11/19.
-Normal browser: two real contextual FLUX covers, correct pairs after reload, no console errors.
-Missing-art normal launcher: disabled control. Failure/retry/audio pairing proven offline only.
+Locked --check PASS: all 76 tests, verifier 60 files, coverage 36/11/19; whitespace/links clean.
+Previous live cover/browser evidence is unchanged and identifies 264c391/5ccb371.
 ## Blockers and unchecked areas
-PR requires review. #4 stays open for merged-main and live songs from #2; drafts have no audio.
-FLUX added imperfect lettering despite prompt. No samples/ZIP acceptance. Submission NOT READY.
+New head needs review; #4 stays open for merged-main and live playable-song pairing with #2.
+No new generation. FLUX lettering limitation persists; samples/ZIP acceptance NOT READY.
 ## Next steps
-1. Review this cover PR normally; reconcile PR #16 docs if merge order conflicts.
-2. A3-02 extends this session/store/POST /api/tracks for music; keep track IDs and automatic covers.
-3. Verify two playable generated songs with correct art on main before closing #4.
+1. Publish the reconciliation, verify CI and obtain fresh eligible approval; merge normally.
+2. A3-02 extends this store/POST /api/tracks for audio, preserving track IDs and covers.
+3. Verify two playable generated songs with matching art on main before closing #4.
 ## References
-Issue #4; docs/APP_CONTRACTS.md (integration seam); docs/TEST_RESULTS.md; results/cover-generation.jpg.
+[PR #17](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/17);
+docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md; PR #16 merge 2775f0b.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

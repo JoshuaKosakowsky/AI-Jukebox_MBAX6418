@@ -126,7 +126,7 @@ Scaffold/links/credential guards and 36/11/19 coverage pass. Original assignment
 prompt and saved protection policy are unchanged; no retired setting is configured.
 Read-only GitHub API verification confirms the live policy matches the saved
 check/review/admin/conversation and force-push/deletion settings. No protection
-settings, collaborators, assignees or review buddies were changed. This transition
+settings, collaborator access, or lead/contributor assignments were changed. This transition
 still needs normal PR review/merge; onboarding follows it. No app acceptance claimed.
 
 ## A3-01 runtime and shared contracts - 2026-10-27 America/Denver
@@ -148,8 +148,8 @@ startup/provider integration, not completed browser generation or release accept
 | Browser/private-file boundary | No server keys/URLs, no .env/Git file access | PASS for public responses, private paths, wrong Host, cross-origin mutations and CSP/no-store/nosniff headers |
 | Locked offline command: python scripts/dev.py --check | Default suite collected and passing, coverage retained | PASS: verifier 54 files at rehearsal, coverage 36 requirements/11 tasks/19 cases, all 60 tests (28 existing plus 32 runtime/provider/startup) |
 
-Actual browser evidence: [configured setup](../results/startup-configured.png),
-[empty library](../results/startup-library.png), [missing configuration](../results/startup-missing-settings.png).
+Actual browser evidence: [configured setup](../results/startup-configured.jpg),
+[empty library](../results/startup-library.jpg), [missing configuration](../results/startup-missing-settings.jpg).
 The browser check used the normal launcher; no fixture provider or generated
 tracks were substituted into the UI. No keys/endpoint values appear in screenshots.
 
@@ -199,6 +199,43 @@ by the same agent and is not AT-16 independent ZIP evidence. Submission NOT READ
 Pre-handoff implementation commit for this runtime evidence: 60853ac51a5386412723470209e7971bdd172871.
 Final handoff/evidence bookkeeping is a separate commit; use the PR head for CI.
 
+## A3-01 integration and review follow-up - 2026-10-27 America/Denver
+
+Tester: JoshuaKosakowsky directing Codex; Windows, locked Python 3.12.14.
+Matt independently approved PR #15 head 91eca84 after 60 offline tests and
+normal-launch HTTP/security checks; his review did not claim interactive browser
+verification. PR #15 merged normally at c635e86; all matrix jobs and required
+[test on main](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/40627942656)
+passed. Protection was unchanged; no bypass was used.
+
+Merged-main input: python scripts/dev.py --port 8000 from the original course
+checkout. Expected: empty local app, safe configuration labels, no generation.
+Actual: normal browser launch showed all four services configured, App connected
+and zero tracks. /api/health, /api/status and /api/session passed HTTP checks;
+connectivity_checked and generation_available remained false. Server stopped
+cleanly afterward. A3-01 closed; direct dependencies A3-02/04/08/09 became ready.
+Other feature and release acceptance remain pending.
+
+Follow-up branch codex/runtime-review-followups, base c635e86:
+
+- Reject duplicate, blank and malformed music-download query parameters before
+  authentication. Existing successful canonical payloads/routes remain unchanged.
+- Reject reused media IDs across tracks or audio/cover/speech roles; export the
+  identifier constraint into the shared schema description.
+- Rename the three JPEG-encoded startup screenshots to .jpg and update links;
+  Git reports 100% identical bytes, preserving the original browser evidence.
+- Retain the safe httpx.InvalidURL handler: in locked HTTPX 0.28.1 it inherits
+  directly from Exception, not HTTPError. Introspection plus a MockTransport
+  regression confirms the handler is reachable and does not expose raw text.
+- Keep speech output at the verified WAV contract. Other advertised formats
+  require coordinated support in A3-05/06 if used; no guessed formats are added.
+
+Validation: python scripts/dev.py --check PASS, verifier 56 tracked files,
+coverage 36 requirements / 11 tasks / 19 cases, all 63 offline tests; staged
+whitespace check PASS. No new service calls, generated media, assignments,
+dependencies or protection changes. The existing TestClient warning remains.
+This follow-up does not establish playback, generation UI or submission readiness.
+
 ## A3-04 matching covers - 2026-10-27 America/Denver
 
 Tester: JoshuaKosakowsky directing Codex; Windows, locked Python 3.12.14.
@@ -240,3 +277,24 @@ Follow-up 5ccb371 retains HttpOnly session cookies on error/media responses; its
 HTTP regression confirms repeated failures reuse one session instead of consuming
 slots. All 73 tests passed after this fix. Browser cover evidence remains the
 264c391 feature run; no additional class generation was needed for cookie handling.
+
+## PR #17 main reconciliation - 2026-10-28 America/Denver
+
+Integrated main 2775f0b (merged PR #16) into codex/matching-covers without
+rewriting its reviewed cover commits. Three documentation conflicts were
+resolved: README uses the renamed .jpg evidence and the cover-era description;
+TEST_RESULTS preserves both runtime-hardening and cover evidence; handoff
+consolidates current state and inherited notes. Auto-merged contracts retain
+media-ID uniqueness, the verified speech-format boundary and session integration.
+Applied the deferred PR #16 grammar nit and consolidated completed review credit.
+No app code, provider payload, dependency, CI or protection change was introduced
+by the resolution. No new live generation or media was needed.
+
+Matt approved the original cover head bcdfcb5 with 73 tests; that historical
+review remains credited. The combined head requires current CI and independent
+approval under the existing protection rules. Combined python scripts/dev.py
+--check PASS: 76 tests (63 main + 13 cover), verifier 60 files, coverage 36/11/19.
+Whitespace, local links, retired-term/stale screenshot-reference and conflict-marker
+checks pass. Cover app/frontend/tests match the previously reviewed cover commit;
+provider/contracts/schema and protected files match main exactly. Previous browser
+evidence retains its original tested commits and is not relabeled as a new live run.
