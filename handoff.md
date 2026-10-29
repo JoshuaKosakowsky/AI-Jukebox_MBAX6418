@@ -40,9 +40,23 @@ through the normal launcher (unchanged record results/instrumental-live-record.j
 no new live generation on the correction pass. Defect 2 additionally verified
 with a dependency-free node DOM simulation (8 checks; passes on the new app.js,
 fails on f3b047f) — still not a real-browser substitute.
+Real-browser acceptance (this session): system Chrome via Playwright against an
+OFFLINE harness = the real app + real frontend + deterministic fixture
+providers serving the genuine class-generated WAV/PNG files; no network, no
+repo changes, dummy keys, .env never loaded. All 31 checks PASS in a REAL
+Chrome engine: basic play/pause/resume with advancing currentTime, two- and
+three-track libraries with distinct media, playing-audio continuity across
+track creation (same DOM node, still playing), exact paused-position
+preservation across mutations, cover regeneration while playing (same node,
+still playing, exactly one player), genuine audio replacement (new element,
+new URL, never auto-played, content changed 10 s -> 20 s, cover pairing held),
+and zero unexpected HTTP errors/page errors (the only console 404s are the
+pre-existing missing favicon; confirmed URL via CDP). Browser ran headless and
+muted: audible listening still NOT performed — a human/teammate step.
 ## Blockers and unchecked areas
 PR awaits teammate review and merged-main run before #2 closes. Audible browser
-playback not independently performed (automation unavailable); verified via HTTP
+playback still not listened for (headless and muted runs; engine-level
+verification completed this session); verified via HTTP
 surface, media decoding and the in-page audio element. No samples/ZIP acceptance.
 ## Next steps
 1. Review/merge the A3-02 PR; verify two playable songs with covers on main.

@@ -369,3 +369,51 @@ The two real-generation records in instrumental-live-record.json are untouched
 and still describe the 4c30a88-era live run. Interactive browser playback
 remains a teammate step; the node DOM simulation is behavioral evidence for
 defect 2 but is not a substitute for a real browser.
+
+### PR #18 real-browser acceptance - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows; system Chrome via Playwright
+(headless, autoplay-policy=no-user-gesture-required, muted). OFFLINE HARNESS:
+the real FastAPI application (real session store, routes, cookies, media
+serving and the real jukebox/web frontend) with ONLY the four class-provider
+methods replaced by deterministic fixtures serving the genuine class-generated
+WAV/PNG files from jukebox-live (Moonlit Reflection 10 s, Desert Drive 20 s).
+No network requests to class services; nothing committed; NOT a substitute for
+the normal-launch flow or for live generation claims. Dummy keys only; the
+repo .env is never loaded (Settings.load(env_file=None), neutral cwd).
+
+All 31 checks PASS (full transcript and JSON evidence kept outside the repo):
+
+- Test A (basic playback): song created through the real form; audio element
+  rendered; play() accepted; readyState >= 1; currentTime advanced 0.00 ->
+  1.25 s; pause froze the position; resume continued (no restart); zero media
+  error events; real Moonlit WAV decoded (duration = 10 s).
+- Test C (playing during another track's creation): while A played, Desert
+  Drive was created from the form; A's audio element SURVIVED by node
+  identity (same DOM node) and kept playing (1.72 -> 2.06 s, not paused,
+  not reset); media URL unchanged; two players in the library.
+- Test B (two-track library): correct titles and style/mood labels per card;
+  distinct audio URLs and distinct covers; play B while A paused -> both
+  independent and selectable; B's real Desert WAV decoded (duration = 20 s).
+- Test D (paused position): seek+play+pause A at 4.527 s; create a third
+  song; A stayed paused and its position was preserved exactly (4.527 ->
+  4.527 s, tolerance 1.0 s); resume continued from ~4.5 s to ~5.5 s, not 0.
+- Test E (changes to the playing track itself): regenerating A's cover while
+  A played updated the artwork, kept the SAME audio node, kept it playing,
+  and left exactly one audio element.
+- Test F (genuine audio replacement): "Generate new instrumental" produced a
+  NEW element (node identity changed), new media URL, old element removed,
+  exactly one player, replacement NEVER auto-played (paused), and the new
+  content genuinely was the other song (duration 20 s); A's cover pairing
+  survived the music replacement.
+- Console/network: no console errors or warnings beyond the app shipping no
+  favicon (Chrome requests /favicon.ico twice per load; both 404s logged,
+  confirmed by URL via CDP; cosmetic and pre-existing, unrelated to playback
+  or PR #18's changes); zero unexpected HTTP >= 400 responses; zero uncaught
+  page errors.
+
+Limitations (unchanged, honest): engine-level playback evidence only. The
+browser ran headless and muted, so audible output was NOT listened for; human
+listening in a real (headed/audible) browser remains a teammate step. The
+harness substitutes fixtures for the live providers, so this does not re-test
+class-service connectivity (already covered by the two-song live record).
