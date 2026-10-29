@@ -22,7 +22,7 @@ downloading stage only after success; library cards render per-track so a
 playing song survives unrelated updates; config-missing UX is explicit.
 ## Validation
 Locked python scripts/dev.py --check PASS: all 109 tests (96 prior + 13
-hardening/regression incl. static frontend guards), verifier 62 files, coverage
+hardening/regression incl. static frontend guards), verifier 63 files, coverage
 36/11/19; schema byte-identical; diff whitespace clean; key-scan clean.
 Live: two real ACE-Step instrumentals (10 s and 20 s) with automatic FLUX covers
 through the normal launcher (unchanged record results/instrumental-live-record.json);

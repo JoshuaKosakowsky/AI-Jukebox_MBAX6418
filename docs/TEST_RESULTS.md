@@ -308,7 +308,7 @@ parent issue stays open for merged-main verification and independent review.
 
 | Check / exact safe input | Expected | Actual |
 |---|---|---|
-| Locked offline command: python scripts/dev.py --check | Default suite collected and passing; coverage retained | PASS, verifier 61 files, coverage 36 requirements/11 tasks/19 cases, all 96 tests (76 merged baseline + 20 new music/contract tests) |
+| Locked offline command: python scripts/dev.py --check | Default suite collected and passing; coverage retained | PASS, verifier 62 files, coverage 36 requirements/11 tasks/19 cases, all 96 tests (76 merged baseline + 20 new music/contract tests) |
 | New music routes offline (mocked adapters, real HTTP) | Submit once with instrumental marker, poll, download, attach WAV -> ready; no duplicates; safe failures; art+music concurrency; session isolation | PASS, two-track flow, 409 duplicates, 404 foreign media, 429 caps, deadline/retry, both completion orders, media budget, reload without regeneration |
 | Normal launcher + real services; Song A: Moonlit Reflection / Ambient piano / Calm and reflective / 10 s instrumental | One ACE-Step task -> playable WAV on that track plus automatic FLUX cover; ready status | PASS, art and music jobs succeeded in ~6 s; 10.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.144); 512x512 cover paired; track ready |
 | Same app; Song B: Desert Drive / Upbeat funk / Energetic and optimistic / 20 s instrumental | Second distinct song; first song not overwritten | PASS, ~6 s; 20.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.216); separate audio/cover media IDs; Song A intact |
@@ -344,7 +344,7 @@ branch; base 4c30a88. No additional live ACE-Step or FLUX generation was made.
 | Credential hygiene | No keys in branch, evidence or docs | PASS, scan of tracked files and the full diff finds no key assignments; .env.example keeps placeholders; .env stays gitignored |
 
 Locked python scripts/dev.py --check PASS here: all 109 tests (96 prior + 13
-hardening/regression), verifier 62 files, coverage 36/11/19; schema regenerated
+hardening/regression), verifier 63 files, coverage 36/11/19; schema regenerated
 byte-identical; diff whitespace clean. The two real-generation records in
 instrumental-live-record.json are untouched and still describe the 4c30a88-era
 live run; interactive browser playback remains a teammate step.
