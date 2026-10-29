@@ -1,9 +1,10 @@
 # AI Jukebox - MBAX 6418-801 (Assignment 3)
 
 A team-built app for custom songs, matching covers and spoken DJ commentary.
-**Current version: runnable startup foundation and shared contracts.** The browser
-shows safe service configuration and an empty library. Generation, writable
-sessions, playback, reference uploads and approved sample songs are not built yet.
+**Current version: matching covers for session song drafts.** The browser
+creates new FLUX artwork from a title/theme, style and mood, and keeps it with
+the correct track across page reloads. Music generation, DJ playback, reference
+uploads and approved sample songs are not built yet.
 
 Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
 Team workflow is active: task branches and reviewed PRs for every change.
@@ -66,18 +67,45 @@ and source archives. Never commit uploads, voice references or third-party media
 
 ## Current browser/API behavior
 
-- Open the home page, confirm the four configuration labels and empty session library.
-- Refresh status re-reads safe local status and the empty snapshot; it does not
-  validate connectivity, create tracks or contact providers.
-- GET /api/health checks the app process; /api/status returns safe configuration;
-  /api/session returns an empty v1 snapshot; /api/contracts and /api/openapi.json
-  publish shared objects/current routes. No generation/media/upload routes exist yet.
+1. Configure the art service, launch normally and open the home page.
+2. Under Create a matching cover, enter a song title/theme, musical style, mood
+   and planned duration. Select Create song draft & cover. This deliberately
+   calls FLUX once; it does not generate audio or invoke the other services.
+3. Watch the track's generating/ready/failed status. Create another distinct
+   draft, then reload: each new cover remains paired with its own title/settings.
+4. Use Retry cover after failure or Generate new cover to replace art deliberately.
+   A failed replacement preserves existing art and audio; there are no automatic
+   generation retries. If a request is uncertain, refresh before submitting again.
+
+Art settings are required for those controls; other services may remain missing.
+Refresh status and page reload never submit generation. Drafts are clearly marked
+as awaiting audio. A3-02 will use these same track IDs for playable songs.
+
+Session media stays in process memory, private to the browser's HttpOnly,
+SameSite=Strict cookie. Reloading keeps it; restarting the app or two hours of
+inactivity clears it. Limits: 20 tracks and 100 cover attempts per session,
+32 sessions, two simultaneous covers, and 64 MB of media across the app.
+Use a fresh private browser window for a new session if a session limit is reached.
+There is no disk persistence, upload route or multi-user deployment authentication.
+
+GET /api/session returns the v1 tracks/jobs/playback snapshot; /api/media/UUID
+serves only that session's assets. POST /api/tracks creates a draft and art job;
+POST /api/tracks/UUID/cover creates a replacement/retry job. Both return 202
+with a queued GenerationJob; read the snapshot for the terminal result.
+/api/status reports cover_generation_available separately from song generation;
+it reports configuration, not provider reachability. See the full
+[app contracts and integration seam](docs/APP_CONTRACTS.md).
+
+![Two generated covers paired with their song drafts](results/cover-generation.jpg)
+
+Actual normal-launch browser evidence: calm piano/mountain-lake and energetic
+funk/desert art. These are live cover checks, not accepted audio/playback or sample songs.
 
 ![Startup configuration view](results/startup-configured.jpg)
 
 The screenshot is an actual normal-launch browser check, not evidence of music
 generation or playback. The [empty library view](results/startup-library.jpg)
-shows the same foundation's current limits.
+records the earlier startup-only foundation.
 
 ## Development and verification
 
@@ -97,8 +125,8 @@ The required aggregate check remains named test. These checks do not establish
 full feature or release acceptance. Repository-only Git checks require a checkout;
 the normal app also launches from source without .git.
 
-The next feature task A3-02 adds per-session storage, production orchestration and
-a playable instrumental. A3-04 consumes the same Track/MediaRef contract for covers;
+The next feature task A3-02 extends the existing session store with production
+music orchestration and a playable instrumental, preserving each Track/MediaRef;
 A3-05 implements the single playback controller and real speech/music sequencing.
 Review [app contracts](docs/APP_CONTRACTS.md) before building dependent work.
 

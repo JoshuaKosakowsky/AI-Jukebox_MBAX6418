@@ -11,3 +11,8 @@ Runtime foundation evidence (A3-01): runtime-adapter-smoke.json contains the saf
 2026-10-27 real-client results; startup-configured.jpg, startup-library.jpg and
 startup-missing-settings.jpg are actual normal-launch browser screenshots. They
 show startup/configuration only, not accepted generation/playback features.
+
+A3-04 cover evidence: cover-generation.jpg is an actual normal-launch browser
+screenshot with two new FLUX covers on their own song drafts. The safe inputs
+and DOM observations after reload are in cover-browser-record.json. These are
+not approved sample songs, live audio-pairing or release acceptance evidence.

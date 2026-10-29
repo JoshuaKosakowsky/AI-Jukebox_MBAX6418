@@ -1,30 +1,29 @@
 # Agent handoff
 
 ## Session
-2026-10-27 America/Denver; Codex. Task: review/merge PR #15 and small review follow-ups.
+2026-10-28 America/Denver; Codex. Task: reconcile PR #17 with merged main.
 ## Constraints
-Protected task-branch PRs only; no bypass, protection/assignment changes or new service calls.
+Reviewed PR only; no bypass/protection/assignment changes or new service calls.
 ## Repository state
-Branch codex/runtime-review-followups from main c635e86; PR #15 merged normally.
-Matt approved exact head 91eca84. Main CI passed; #1 closed; #2/4/8/9 ready.
+Branch codex/matching-covers, merging main 2775f0b (PR #16) into reviewed cover head bcdfcb5.
+Matt approved bcdfcb5; the reconciliation needs current CI and independent approval.
 ## Work completed and decisions
-Normal browser/HTTP startup passed on merged main. Completion record credits implementation
-and Matt's independent HTTP/test review accurately. PLAN mirrors current live leads.
-Follow-up tightens download queries/media IDs and renames unchanged JPEG screenshots.
-Retain reachable HTTPX InvalidURL handler (regression proves it); other speech formats deferred.
+Preserved main's route/media-ID hardening and JPEG renames; retained all cover code,
+session integration, both evidence histories and inherited notes. Fixed screenshot
+links and deferred grammar nit; consolidated completed PR #16/#17 review credit.
 ## Validation
-Locked python scripts/dev.py --check: verifier/coverage PASS; 63 offline tests PASS.
-Schema regenerated; staged whitespace PASS. PR/CI state must be read live before merging.
+Locked --check PASS: all 76 tests, verifier 60 files, coverage 36/11/19; whitespace/links clean.
+Previous live cover/browser evidence is unchanged and identifies 264c391/5ccb371.
 ## Blockers and unchecked areas
-Follow-up needs independent approval. No generation UI, writable sessions, playback,
-reference voices, approved samples or independent ZIP acceptance. Submission NOT READY.
+New head needs review; #4 stays open for merged-main and live playable-song pairing with #2.
+No new generation. FLUX lettering limitation persists; samples/ZIP acceptance NOT READY.
 ## Next steps
-1. Review/merge this focused follow-up after green CI; preserve protected main.
-2. A3-02 (jovi1214): first real instrumental UI/session/playback flow on merged contracts.
-3. A3-04 (Joshua): new matching covers; coordinate shared objects with A3-02.
+1. Publish the reconciliation, verify CI and obtain fresh eligible approval; merge normally.
+2. A3-02 extends this store/POST /api/tracks for audio, preserving track IDs and covers.
+3. Verify two playable generated songs with matching art on main before closing #4.
 ## References
-[PR #15](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/15);
-docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md; GitHub issues own current status/assignees.
+[PR #17](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/17);
+docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md; PR #16 merge 2775f0b.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

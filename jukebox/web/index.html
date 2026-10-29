@@ -54,6 +54,30 @@
           Configuration status does not check connectivity or generate media. Missing settings can be added to your server’s .env file; restart the app afterward.
         </p>
       </section>
+      <section aria-labelledby="cover-title">
+        <p class="eyebrow">DESIGN YOUR SONG</p>
+        <h2 id="cover-title">Create a matching cover</h2>
+        <p id="cover-help" class="note">Checking art service configuration…</p>
+        <form id="cover-form">
+          <label>Song title / theme
+            <input name="title" required maxlength="120" placeholder="Moonlit mountain lake">
+          </label>
+          <div class="form-row">
+            <label>Musical style
+              <input name="style" required maxlength="120" placeholder="Ambient piano">
+            </label>
+            <label>Mood
+              <input name="mood" required maxlength="120" placeholder="Calm and reflective">
+            </label>
+            <label>Planned duration (seconds)
+              <input name="duration" type="number" min="10" max="600" step="1" value="30" required>
+            </label>
+          </div>
+          <button id="create-cover" type="submit" disabled>Create song draft &amp; cover</button>
+        </form>
+        <p id="cover-notice" role="status" aria-live="polite"></p>
+        <p class="note">Cover generation is available now. Audio generation is still being built. Drafts and media last for this browser session, up to two hours of inactivity; restarting the app clears them.</p>
+      </section>
       <section class="library" aria-labelledby="library-title">
         <div class="section-heading">
           <div>
@@ -68,7 +92,8 @@
             0 tracks
           </span>
         </div>
-        <div class="empty">
+        <div id="tracks" class="tracks"></div>
+        <div id="empty-library" class="empty">
           <div class="disc" aria-hidden="true">
             <span>
             </span>
@@ -77,10 +102,10 @@
             A fresh start
           </h3>
           <p>
-            The app is running and your library is empty.
+            Your session library is empty. Create a song draft and its cover above.
           </p>
           <p class="note">
-            Song generation and playback are not available in this startup version.
+            Each cover is generated for its own track. No stock artwork is used.
           </p>
         </div>
       </section>

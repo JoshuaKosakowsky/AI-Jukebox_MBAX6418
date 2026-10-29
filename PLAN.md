@@ -3,7 +3,8 @@
 **Current state:** startup foundation and v1 shared app contracts merged in
 [PR #15](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/15)
 at main `c635e86`. Normal startup on merged main passed; A3-01 is complete.
-A3-02/04/08/09 are ready. Generation/playback features, approved samples and
+A3-02/08/09 are ready; A3-04 cover implementation is in PR #17 for review and
+integration. Main still lacks song generation/playback; approved samples and
 release acceptance remain pending. Local setup A3-00 is complete;
 [#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11)
 records publication/CI/protection verification. The
