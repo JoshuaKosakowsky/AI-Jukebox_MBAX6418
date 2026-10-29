@@ -130,6 +130,19 @@ The screenshot is an actual normal-launch browser check, not evidence of music
 generation or playback. The [empty library view](results/startup-library.jpg)
 records the earlier startup-only foundation.
 
+## Verified normal-launch milestone
+
+On main 7cc9645, two real instrumentals (30 s ambient piano and 20 s upbeat funk)
+generated with new matching covers. Actual browser checks passed play/pause/resume,
+generation during playback, two-track retention and replay after reload. Joshua
+confirmed that both clips were audible, instrumental and broadly matched the
+requested styles. See [inputs/results](results/main-instrumental-acceptance.json).
+
+![Two real generated songs on merged main](results/main-instrumental-library.jpg)
+
+This completes the instrumental/library and cover-pairing milestone. Vocals, the
+AI DJ queue, reference voices, approved samples and ZIP/release acceptance remain.
+
 ## Development and verification
 
 For a Git checkout, install local guards once:

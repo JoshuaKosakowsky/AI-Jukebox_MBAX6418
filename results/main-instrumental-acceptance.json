@@ -1,0 +1,438 @@
+{
+  "date": "2026-10-28 America/Denver",
+  "tester": "JoshuaKosakowsky directing Codex",
+  "tested_main": "7cc96458fa4c99120380379d46b96592d3a3934e",
+  "entrypoint": "python scripts/dev.py --port 8000",
+  "scope": "Normal-launch actual class generation and real-browser playback; no fixture provider",
+  "invalid_duration": {
+    "input": 9,
+    "valid": false,
+    "tracks_after": 0
+  },
+  "inputs": [
+    {
+      "title": "Moonlit Reflection",
+      "style": "Ambient piano",
+      "mood": "Calm and reflective",
+      "duration_seconds": 30,
+      "mode": "instrumental"
+    },
+    {
+      "title": "Desert Drive",
+      "style": "Upbeat funk",
+      "mood": "Energetic and optimistic",
+      "duration_seconds": 20,
+      "mode": "instrumental"
+    }
+  ],
+  "observations": {
+    "first_play": {
+      "duration": 30,
+      "error": null,
+      "muted": false,
+      "paused": false,
+      "readyState": 4,
+      "time": 0.121467
+    },
+    "first_paused": {
+      "paused": true,
+      "time": 3.599095
+    },
+    "pause_held": {
+      "paused": true,
+      "time": 3.599095
+    },
+    "playing_during_second_creation": {
+      "duration": 30,
+      "error": null,
+      "paused": false,
+      "src": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+      "time": 3.832261,
+      "trackCount": "2 tracks"
+    },
+    "first_during_second_progress": {
+      "duration": 30,
+      "error": null,
+      "paused": false,
+      "time": 24.597208
+    },
+    "second_play": [
+      {
+        "duration": 30,
+        "error": null,
+        "muted": false,
+        "paused": true,
+        "readyState": 4,
+        "src": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+        "time": 30
+      },
+      {
+        "duration": 20,
+        "error": null,
+        "muted": false,
+        "paused": false,
+        "readyState": 4,
+        "src": "/api/media/271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+        "time": 0.131929
+      }
+    ],
+    "before_reload": [
+      {
+        "audio": {
+          "duration": 30,
+          "ended": true,
+          "error": null,
+          "muted": false,
+          "paused": true,
+          "time": 30
+        },
+        "audio_url": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+        "cover": {
+          "height": 512,
+          "loaded": true,
+          "url": "/api/media/a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+          "width": 512
+        },
+        "settings": "Ambient piano \u00b7 Calm and reflective",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ],
+        "title": "Moonlit Reflection",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447"
+      },
+      {
+        "audio": {
+          "duration": 20,
+          "ended": true,
+          "error": null,
+          "muted": false,
+          "paused": true,
+          "time": 20
+        },
+        "audio_url": "/api/media/271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+        "cover": {
+          "height": 512,
+          "loaded": true,
+          "url": "/api/media/00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+          "width": 512
+        },
+        "settings": "Upbeat funk \u00b7 Energetic and optimistic",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ],
+        "title": "Desert Drive",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6"
+      }
+    ],
+    "after_reload": [
+      {
+        "audio_url": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+        "cover_loaded": true,
+        "cover_url": "/api/media/a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ],
+        "title": "Moonlit Reflection",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447"
+      },
+      {
+        "audio_url": "/api/media/271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+        "cover_loaded": true,
+        "cover_url": "/api/media/00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ],
+        "title": "Desert Drive",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6"
+      }
+    ],
+    "first_play_after_reload": {
+      "duration": 30,
+      "error": null,
+      "paused": false,
+      "time": 0.113171
+    },
+    "second_play_after_reload": {
+      "duration": 20,
+      "error": null,
+      "paused": false,
+      "time": 0.101706
+    },
+    "no_regeneration_on_reload": true,
+    "console_errors": []
+  },
+  "first_submitted_at": "2026-10-29T03:52:53.671Z",
+  "first_ready_observed_at": "2026-10-29T03:53:38.241Z",
+  "second_submitted_at": "2026-10-29T03:53:47.907Z",
+  "second_ready_observed_at": "2026-10-29T03:54:27.103Z",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "result": "pass",
+    "confirmation": "Both play and broadly match",
+    "scope": "Audible instrumental output broadly matches ambient piano and upbeat funk",
+    "source": "Direct user response in this chat"
+  },
+  "session_before_reload": {
+    "contract_version": 1,
+    "tracks": [
+      {
+        "id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "title": "Moonlit Reflection",
+        "settings": {
+          "style": "Ambient piano",
+          "mood": "Calm and reflective",
+          "duration_seconds": 30,
+          "mode": "instrumental"
+        },
+        "created_at": "2026-10-29T03:52:53.703017Z",
+        "status": "ready",
+        "audio": {
+          "id": "78127487-524c-4234-ae11-4de51a9065eb",
+          "url": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+          "content_type": "audio/wav"
+        },
+        "cover": {
+          "id": "a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+          "url": "/api/media/a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+          "content_type": "image/png"
+        },
+        "lyrics": null,
+        "dj_text": null,
+        "speech": null
+      },
+      {
+        "id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "title": "Desert Drive",
+        "settings": {
+          "style": "Upbeat funk",
+          "mood": "Energetic and optimistic",
+          "duration_seconds": 20,
+          "mode": "instrumental"
+        },
+        "created_at": "2026-10-29T03:53:47.935433Z",
+        "status": "ready",
+        "audio": {
+          "id": "271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+          "url": "/api/media/271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+          "content_type": "audio/wav"
+        },
+        "cover": {
+          "id": "00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+          "url": "/api/media/00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+          "content_type": "image/png"
+        },
+        "lyrics": null,
+        "dj_text": null,
+        "speech": null
+      }
+    ],
+    "jobs": [
+      {
+        "id": "38cf0010-81ae-455f-b343-ecc5ed1d6c31",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "kind": "art",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "c756aecc-aeea-490f-ae95-387424570945",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "kind": "music",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "14ceb54a-536d-4919-bca6-57e69800e10f",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "kind": "art",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "82cfcf88-6779-4e65-b479-fec54c92758b",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "kind": "music",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      }
+    ],
+    "playback": {
+      "state": "idle",
+      "queue": [],
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    }
+  },
+  "session_after_reload": {
+    "contract_version": 1,
+    "tracks": [
+      {
+        "id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "title": "Moonlit Reflection",
+        "settings": {
+          "style": "Ambient piano",
+          "mood": "Calm and reflective",
+          "duration_seconds": 30,
+          "mode": "instrumental"
+        },
+        "created_at": "2026-10-29T03:52:53.703017Z",
+        "status": "ready",
+        "audio": {
+          "id": "78127487-524c-4234-ae11-4de51a9065eb",
+          "url": "/api/media/78127487-524c-4234-ae11-4de51a9065eb",
+          "content_type": "audio/wav"
+        },
+        "cover": {
+          "id": "a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+          "url": "/api/media/a0630f0d-4c11-44cf-93d8-a76bc7c48db3",
+          "content_type": "image/png"
+        },
+        "lyrics": null,
+        "dj_text": null,
+        "speech": null
+      },
+      {
+        "id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "title": "Desert Drive",
+        "settings": {
+          "style": "Upbeat funk",
+          "mood": "Energetic and optimistic",
+          "duration_seconds": 20,
+          "mode": "instrumental"
+        },
+        "created_at": "2026-10-29T03:53:47.935433Z",
+        "status": "ready",
+        "audio": {
+          "id": "271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+          "url": "/api/media/271b1fac-7f80-4c32-a0ad-37710a4ea19c",
+          "content_type": "audio/wav"
+        },
+        "cover": {
+          "id": "00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+          "url": "/api/media/00b9bf92-bf29-4bb8-8e75-323081dd1dbc",
+          "content_type": "image/png"
+        },
+        "lyrics": null,
+        "dj_text": null,
+        "speech": null
+      }
+    ],
+    "jobs": [
+      {
+        "id": "38cf0010-81ae-455f-b343-ecc5ed1d6c31",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "kind": "art",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "c756aecc-aeea-490f-ae95-387424570945",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "kind": "music",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "14ceb54a-536d-4919-bca6-57e69800e10f",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "kind": "art",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      },
+      {
+        "id": "82cfcf88-6779-4e65-b479-fec54c92758b",
+        "track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+        "kind": "music",
+        "state": "succeeded",
+        "progress": 1,
+        "error": null
+      }
+    ],
+    "playback": {
+      "state": "idle",
+      "queue": [],
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    }
+  },
+  "media_measurements": [
+    {
+      "file": "moonlit-reflection.wav",
+      "duration_seconds": 30.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "frames": 1440000,
+      "bytes": 5760078,
+      "peak": 0.891266,
+      "rms": 0.222449,
+      "sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a"
+    },
+    {
+      "file": "desert-drive.wav",
+      "duration_seconds": 20.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "frames": 960000,
+      "bytes": 3840078,
+      "peak": 0.891266,
+      "rms": 0.176626,
+      "sha256": "6402d2f1b3cb730d9af6f98c2bae0c71596377c116cd2b9af0c6c225c989aa26"
+    },
+    {
+      "file": "moonlit-reflection.png",
+      "format": "PNG",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 787271,
+      "sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818"
+    },
+    {
+      "file": "desert-drive.png",
+      "format": "PNG",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 787271,
+      "sha256": "423fe5d2daf1ddb4b4c0270295d1bbafe10627d6456d7da1b92f668efe37c9ab"
+    }
+  ],
+  "cases": {
+    "AT-03": "pass",
+    "AT-05": "pass",
+    "AT-06": "pass"
+  },
+  "live_requests": {
+    "music_submissions": 2,
+    "art_submissions": 2,
+    "text_submissions": 0,
+    "speech_submissions": 0,
+    "automatic_regeneration_on_reload": 0
+  },
+  "ci": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/40814391178",
+  "screenshot": "results/main-instrumental-library.jpg",
+  "limitations": [
+    "Timing observations include browser/tool waits and are not inference benchmarks.",
+    "FLUX lettering is imperfect: the second cover says DESSERT DRIVE; no typography accuracy is promised.",
+    "Instrumental generation is operationally bounded to 10-60 seconds, as documented.",
+    "Raw generated media is retained locally/ignored, not approved sample assets.",
+    "No vocals, AI DJ queue, reference-voice or independent ZIP acceptance is established."
+  ]
+}
