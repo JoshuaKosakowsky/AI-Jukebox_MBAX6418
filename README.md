@@ -181,9 +181,10 @@ It also needs three actual class-generated samples with provenance, progress/err
 recovery, evidence/design findings and an independent exact-GitHub-ZIP installation.
 See the complete brief; this paragraph does not replace it.
 
-**Submission NOT READY.** No generation/playback/upload feature or independent
-deployment has been accepted. Freeze a merged main SHA, download that GitHub ZIP
-and follow docs/TESTING.md with a different teammate. Submit the public repo URL,
+**Submission NOT READY.** Instrumental generation/playback and matching covers
+have passed acceptance. Vocals, DJ sequencing, reference uploads, samples and
+independent deployment remain incomplete. Freeze a merged main SHA, download
+that GitHub ZIP and follow docs/TESTING.md with a different teammate. Submit the public repo URL,
 that commit and that same ZIP on Canvas; keep it public through grading.
 
 Adapted from [Assignment 2](https://github.com/JoshuaKosakowsky/Course-Assistant_MBAX6418)

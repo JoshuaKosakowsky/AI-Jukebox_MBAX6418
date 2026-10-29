@@ -382,7 +382,10 @@ No network requests to class services; nothing committed; NOT a substitute for
 the normal-launch flow or for live generation claims. Dummy keys only; the
 repo .env is never loaded (Settings.load(env_file=None), neutral cwd).
 
-All 31 checks PASS (full transcript and JSON evidence kept outside the repo):
+All 40 checks PASS / 0 FAIL, per mase7919's recount of the retained
+`qa-browser-final.txt` transcript in the [PR #19 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#pullrequestreview-5692830523).
+The full transcript and JSON evidence remain outside the repo; this correction
+uses the reviewer's recount, not a new browser run:
 
 - Test A (basic playback): song created through the real form; audio element
   rendered; play() accepted; readyState >= 1; currentTime advanced 0.00 ->

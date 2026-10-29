@@ -1,29 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-28 America/Denver; Codex for Joshua. Task: merge #18 and complete #2 acceptance.
-## Constraints
-Protected PR workflow; no protection/assignment changes. Two deliberate music + two art requests only.
-## Repository state
-PR #18 marked ready and merged normally at main 7cc9645 after current-head approval.
-Branch codex/a3-02-browser-acceptance contains docs/evidence only; tested app code is exact main.
-## Work completed and decisions
-Clean-main normal launcher -> two real songs/covers -> native play/pause/resume -> reload/replay PASS.
-Joshua confirmed both clips audible/instrumental and broadly matching styles. AT-03/05/06 satisfied.
-Preserved pending PLAN #2 Matt/#7 jovi swap and review/merge credit; no ownership change in this task.
-## Validation
-Main --check: 115 tests, verifier 63 files before evidence addition, coverage 36/11/19; main CI green.
-Both PCM WAVs fully decoded/non-silent at exact 30/20 s; both PNGs fully decoded at 512x512.
-Same snapshot before/after reload: two tracks/four succeeded jobs; no console/media errors.
-## Blockers and unchecked areas
-Evidence PR needs review. Vocals/DJ/reference voices/samples/independent ZIP remain; submission NOT READY.
-FLUX lettering is imperfect. Raw acceptance clips remain ignored, available for later sample consideration.
+2026-10-29 America/Denver; Codex for Joshua. Task: catch up on commits and Matt's review.
+Branch codex/a3-02-browser-acceptance; base 9540a89; main remains 7cc9645.
+Review clone: /private/tmp/ai-jukebox-review-20261029; OneDrive files are dataless and reads stalled.
+Original OneDrive checkout was not changed; no push, review message or merge performed.
+## Changes and decisions
+Corrected docs/TEST_RESULTS.md count to 40 PASS / 0 FAIL, explicitly attributed to
+Matt's PR #19 recount; external qa-browser-final.txt was unavailable for our own recount.
+Updated results/README.md evidence summary and docs/CONTRIBUTIONS.md listening attribution.
+Corrected README.md's contradictory claim that no generation/playback was accepted.
+No application code, dependencies or existing acceptance records were changed.
+## Verification
+Locked python scripts/dev.py --check PASS with Python 3.12.14 / Git 2.53.0:
+115 tests; repository verifier 65 files; coverage structure 36 requirements/11 tasks/19 cases.
+Initial Apple Git 2.39.5 run failed 7 hook tests (unsupported --to-stdin); current Git resolves it.
+PR #19 existing four CI checks green; git diff --check clean. No new live/browser generation.
+## Remaining work
+Local documentation correction needs publication to #19 and teammate re-review; no approval assumed.
+#1/#2/#4/#11 closed; #3 vocals (jovi1214) and #5 default DJ queue (prse4479) are ready.
+#6 references waits on #5; #7 samples waits on vocals; #8/#9 continue; #10 independent ZIP pending.
 ## Next steps
-1. Review/merge this documentation evidence; #2 may close with the recorded main acceptance.
-2. #3 (jovi) vocals and #5 (prse) DJ queue can proceed; #8/9 stay continuous.
-3. Verify each remaining flow before closure; #6 waits for DJ, #7 for vocals; no needless regeneration.
-## References
-results/main-instrumental-acceptance.json; docs/TEST_RESULTS.md; PR #18; issue #2.
+1. Publish this correction to #19 when authorized; Matt verifies his requested fixes before approval/merge.
+2. Coordinate #3/#5 from main 7cc9645; preserve current issue ownership and protection.
+3. Complete remaining real user-flow checks, samples and independent ZIP; submission NOT READY.
+Review: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#pullrequestreview-5692830523
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
