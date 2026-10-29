@@ -97,6 +97,12 @@ class GenerationJob(Model):
             raise ValueError("Progress cannot go backwards")
         return self.model_validate({**self.model_dump(), "state": state, "progress": value, "error": error})
 
+    def with_progress(self, value: float):
+        """Advance progress without changing state (e.g. while a job is running)."""
+        if not 0 <= value <= 1 or value < self.progress:
+            raise ValueError("Progress must stay within bounds and cannot go backwards")
+        return self.model_validate({**self.model_dump(), "progress": value})
+
 
 class Playback(Model):
     state: Literal["idle", "speaking", "playing", "paused"] = "idle"

@@ -73,6 +73,10 @@ def create_app(settings: Settings | None = None):
         if "art" not in settings.services:
             fail("not_configured", "Art service is not configured.")
 
+    def require_music():
+        if "music" not in settings.services:
+            fail("not_configured", "Music service is not configured.")
+
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(ROOT / "jukebox/web/index.html")
@@ -85,7 +89,8 @@ def create_app(settings: Settings | None = None):
     def status():
         return {"services": settings.public_status(), "configured": len(settings.services) == 4,
                 "connectivity_checked": False, "generation_available": False,
-                "cover_generation_available": "art" in settings.services}
+                "cover_generation_available": "art" in settings.services,
+                "music_generation_available": "music" in settings.services}
 
     @app.get("/api/session", response_model=SessionSnapshot)
     def session(current=Depends(browser_session)):
@@ -103,6 +108,13 @@ def create_app(settings: Settings | None = None):
         require_art()
         job = store.queue_cover(current, track_id)
         tasks.add_task(store.generate_cover, current, job.id, app.state.providers)
+        return job
+
+    @app.post("/api/tracks/{track_id}/music", response_model=GenerationJob, status_code=202)
+    def generate_music(track_id: UUID, tasks: BackgroundTasks, current=Depends(browser_session)):
+        require_music()
+        job = store.queue_music(current, track_id)
+        tasks.add_task(store.generate_music, current, job.id, app.state.providers)
         return job
 
     @app.get("/api/media/{media_id}")

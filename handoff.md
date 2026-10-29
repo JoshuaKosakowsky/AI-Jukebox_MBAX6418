@@ -1,29 +1,38 @@
 # Agent handoff
 
 ## Session
-2026-10-28 America/Denver; Codex. Task: reconcile PR #17 with merged main.
+2026-10-28 America/Denver; Hermes for mase7919. Task: A3-02 instrumentals (#2 lead).
 ## Constraints
-Reviewed PR only; no bypass/protection/assignment changes or new service calls.
+Task branch + reviewed PR only; no main/protection/assignment changes, no bypass.
+Two authorized live ACE-Step generations plus automatic covers; no other service calls.
 ## Repository state
-Branch codex/matching-covers, merging main 2775f0b (PR #16) into reviewed cover head bcdfcb5.
-Matt approved bcdfcb5; the reconciliation needs current CI and independent approval.
+Branch codex/a3-02-instrumental-generation from main 3e298fe (PR #17 merged).
+No other open PRs touch these files. The task PR is linked from issue #2.
 ## Work completed and decisions
-Preserved main's route/media-ID hardening and JPEG renames; retained all cover code,
-session integration, both evidence histories and inherited notes. Fixed screenshot
-links and deferred grammar nit; consolidated completed PR #16/#17 review credit.
+Extended SessionStore (per-kind active set, server-private music tickets,
+queue/generate_music with bounded submit->poll->download), POST
+/api/tracks/{id}/music + music_generation_available, two-step browser create
+(draft+cover, then instrumental), per-track music status/retry UI, GenerationJob
+with_progress. Instrumentals 10-60 s (20 MB provider cap rationale). Music
+failure leaves status/cover/audio untouched; replacement cleans old media on
+success; art and music jobs coexist on one track; no auto-resubmission.
 ## Validation
-Locked --check PASS: all 76 tests, verifier 60 files, coverage 36/11/19; whitespace/links clean.
-Previous live cover/browser evidence is unchanged and identifies 264c391/5ccb371.
+Locked python scripts/dev.py --check PASS: all 96 tests (76 baseline + 20 new),
+verifier 61 files, coverage 36/11/19; diff whitespace clean; schema byte-identical.
+Live: two real ACE-Step instrumentals (10 s and 20 s) with automatic FLUX covers
+through the normal launcher; decoded 48 kHz stereo WAVs, distinct media, reload
+stable. Safe record: results/instrumental-live-record.json.
 ## Blockers and unchecked areas
-New head needs review; #4 stays open for merged-main and live playable-song pairing with #2.
-No new generation. FLUX lettering limitation persists; samples/ZIP acceptance NOT READY.
+PR awaits teammate review and merged-main run before #2 closes. Audible browser
+playback not independently performed (automation unavailable); verified via HTTP
+surface, media decoding and the in-page audio element. No samples/ZIP acceptance.
 ## Next steps
-1. Publish the reconciliation, verify CI and obtain fresh eligible approval; merge normally.
-2. A3-02 extends this store/POST /api/tracks for audio, preserving track IDs and covers.
-3. Verify two playable generated songs with matching art on main before closing #4.
+1. Review/merge the A3-02 PR; verify two playable songs with covers on main.
+2. Add the A3-02 implementation row in docs/CONTRIBUTIONS.md on merge.
+3. A3-03 (vocals/AI lyrics) extends the same store/route pattern; A3-05 queues playback.
 ## References
-[PR #17](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/17);
-docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md; PR #16 merge 2775f0b.
+Issue #2; README.md; docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md;
+results/instrumental-live-record.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

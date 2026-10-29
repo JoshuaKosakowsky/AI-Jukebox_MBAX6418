@@ -17,8 +17,8 @@ uv run --locked python -m unittest discover -s tests -p 'test_*.py'
 On Windows, prefer scripts/dev.py: it selects a short environment path, avoiding
 native-extension import failures in long course folders. See README for setup.
 The suite covers the release gate, Git guards, app contracts/configuration,
-provider success/error parsing, session-scoped cover jobs/media, failure/retry
-and an actual child-process startup over loopback.
+provider success/error parsing, session-scoped cover and music jobs, media,
+failure/retry and concurrency, and an actual child-process startup over loopback.
 It never calls class services. Dependency installation needs initial internet
 access; already-synced tests do not. CI tests 3.12 Windows/Linux and 3.14 Linux;
 the aggregate required context stays test and fails if any matrix run fails.

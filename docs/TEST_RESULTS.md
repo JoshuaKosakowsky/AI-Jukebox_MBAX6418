@@ -298,3 +298,33 @@ Whitespace, local links, retired-term/stale screenshot-reference and conflict-ma
 checks pass. Cover app/frontend/tests match the previously reviewed cover commit;
 provider/contracts/schema and protected files match main exactly. Previous browser
 evidence retains its original tested commits and is not relabeled as a new live run.
+
+## A3-02 instrumentals - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows, locked Python 3.12.14.
+Branch codex/a3-02-instrumental-generation; base main 3e298fe.
+Scope: R08/R09/R12 and the AT-03/AT-06 normal-launch instrumental flow. The
+parent issue stays open for merged-main verification and independent review.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Default suite collected and passing; coverage retained | PASS, verifier 61 files, coverage 36 requirements/11 tasks/19 cases, all 96 tests (76 merged baseline + 20 new music/contract tests) |
+| New music routes offline (mocked adapters, real HTTP) | Submit once with instrumental marker, poll, download, attach WAV -> ready; no duplicates; safe failures; art+music concurrency; session isolation | PASS, two-track flow, 409 duplicates, 404 foreign media, 429 caps, deadline/retry, both completion orders, media budget, reload without regeneration |
+| Normal launcher + real services; Song A: Moonlit Reflection / Ambient piano / Calm and reflective / 10 s instrumental | One ACE-Step task -> playable WAV on that track plus automatic FLUX cover; ready status | PASS, art and music jobs succeeded in ~6 s; 10.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.144); 512x512 cover paired; track ready |
+| Same app; Song B: Desert Drive / Upbeat funk / Energetic and optimistic / 20 s instrumental | Second distinct song; first song not overwritten | PASS, ~6 s; 20.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.216); separate audio/cover media IDs; Song A intact |
+| Reload-equivalent after both complete | Tracks, covers, audio and job states persist; no new generation | PASS, snapshot stable across reads; 2 tracks / 4 terminal jobs; no resubmission |
+| Security/boundary | No keys, provider task IDs, opaque download paths or raw bodies reach the browser/snapshot; media stays session-private; no port 9000 | PASS, tickets kept server-side only (snapshot test), 404 for foreign media, safe fixed error messages, status flags cover/music availability only |
+
+Safe measurements: [instrumental-live-record.json](../results/instrumental-live-record.json).
+Raw WAV/PNG media stayed in an ignored temp location; it is not approved sample
+material (Issue #7 owns samples). Instrumental duration bound: the app accepts
+10-60 seconds (the class 20 MB response cap bounds a 48 kHz/16-bit/stereo WAV
+at about 104 seconds; 60 s leaves margin). The shared SongSettings schema range
+(10-600) is unchanged and documented in APP_CONTRACTS.md.
+
+Limitations: interactive browser automation is unavailable in this environment,
+so audible playback and visual UI verification were not independently performed;
+the browser flow was exercised through the normal launcher over HTTP with fully
+decoded WAV/PNG media, and the page renders a real <audio controls> element for
+each ready track. That listener/browser step and the merged-main run remain for
+teammate review and the issue's completion checks. Submission NOT READY.

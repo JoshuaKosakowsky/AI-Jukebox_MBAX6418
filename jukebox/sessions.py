@@ -1,4 +1,4 @@
-"""Bounded, process-local sessions and cover jobs shared with song orchestration."""
+"""Bounded, process-local sessions and cover/music jobs shared with song orchestration."""
 from dataclasses import dataclass, field
 import secrets
 from threading import RLock
@@ -6,7 +6,7 @@ import time
 from uuid import UUID, uuid4
 
 from .contracts import GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
-from .providers import MediaBytes, ProviderFailure
+from .providers import MediaBytes, MusicTicket, ProviderFailure
 
 SESSION_COOKIE = "jukebox_session"
 SESSION_SECONDS = 7200
@@ -14,7 +14,14 @@ MAX_SESSIONS = 32
 MAX_TRACKS = 20
 MAX_JOBS = 100
 MAX_ACTIVE_COVERS = 2
+MAX_ACTIVE_MUSIC = 2
 MAX_MEDIA_BYTES = 64_000_000
+# Operational music bounds: the class server's 20 MB response cap limits a
+# 48 kHz/16-bit/stereo WAV to roughly 104 seconds, and 60 seconds leaves safe
+# margin for headers/overhead while staying well within the global media budget.
+MAX_MUSIC_DURATION = 60
+MUSIC_POLL_INTERVAL = 3.0
+MUSIC_DEADLINE_SECONDS = 300
 
 
 class SessionFailure(Exception):
@@ -31,7 +38,12 @@ class Session:
     jobs: dict[UUID, GenerationJob] = field(default_factory=dict)
     media: dict[UUID, MediaBytes] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
-    active: set[UUID] = field(default_factory=set)
+    # Each entry is one in-flight job (track id, job kind); a track may have an
+    # art job and a music job running at the same time.
+    active: set[tuple[UUID, str]] = field(default_factory=set)
+    # Server-private ACE-Step submission tickets retained for the job's polls;
+    # never exposed to the browser, snapshots or logs.
+    tickets: dict[UUID, MusicTicket] = field(default_factory=dict)
     touched: float = field(default_factory=time.monotonic)
 
 
@@ -42,6 +54,15 @@ def cover_prompt(track: Track) -> str:
             f"Mood: {track.settings.mood}\n"
             "Reflect this song's theme, musical style and mood in the imagery and colors. "
             "Use an original visual composition, no lettering, logos or copied album artwork.")
+
+
+def music_prompt(track: Track) -> str:
+    return ("Compose an original instrumental song; no vocals and no lyrics.\n"
+            f"Song title and theme: {track.title}\n"
+            f"Musical style: {track.settings.style}\n"
+            f"Mood: {track.settings.mood}\n"
+            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
+            "Create a cohesive, playable instrumental piece that matches this style and mood.")
 
 
 class SessionStore:
@@ -82,24 +103,46 @@ class SessionStore:
                 del session.tracks[track.id]
                 raise
 
+    def _active_count(self, kind):
+        return sum(1 for value in self.sessions.values() for (_, active_kind) in value.active if active_kind == kind)
+
     def queue_cover(self, session, track_id):
         with self.lock:
             if track_id not in session.tracks:
                 raise SessionFailure(404, "Track not found in this session.")
-            if track_id in session.active:
+            if (track_id, "art") in session.active:
                 raise SessionFailure(409, "A cover is already being generated for this track.")
-            if sum(len(value.active) for value in self.sessions.values()) >= MAX_ACTIVE_COVERS:
+            if self._active_count("art") >= MAX_ACTIVE_COVERS:
                 raise SessionFailure(429, "Cover generation is busy. Try again shortly.", retryable=True)
             if len(session.jobs) >= MAX_JOBS:
                 raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
             job = GenerationJob(track_id=track_id, kind="art")
             session.jobs[job.id] = job
-            session.active.add(track_id)
+            session.active.add((track_id, "art"))
+            return job
+
+    def queue_music(self, session, track_id):
+        with self.lock:
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            duration = session.tracks[track_id].settings.duration_seconds
+            if not 10 <= duration <= MAX_MUSIC_DURATION:
+                raise SessionFailure(422, f"Instrumental duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
+            if (track_id, "music") in session.active:
+                raise SessionFailure(409, "Music generation is already in progress for this track.")
+            if self._active_count("music") >= MAX_ACTIVE_MUSIC:
+                raise SessionFailure(429, "Music generation is busy. Try again shortly.", retryable=True)
+            if len(session.jobs) >= MAX_JOBS:
+                raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
+            job = GenerationJob(track_id=track_id, kind="music")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "music"))
             return job
 
     def generate_cover(self, session, job_id, providers):
         with self.lock:
-            job = session.jobs[job_id].transition(JobState.RUNNING)
+            job = session.jobs[job_id]
+            job = job.transition(JobState.RUNNING)
             session.jobs[job_id] = job
             track = session.tracks[job.track_id]
         try:
@@ -125,7 +168,65 @@ class SessionStore:
                 session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
         finally:
             with self.lock:
-                session.active.discard(job.track_id)
+                session.active.discard((job.track_id, "art"))
+                session.touched = time.monotonic()
+
+    def generate_music(self, session, job_id, providers):
+        """Submit one ACE-Step task, poll it with a bounded deadline, then download and attach the WAV."""
+        with self.lock:
+            job = session.jobs[job_id]
+            job = job.transition(JobState.RUNNING, progress=.1)
+            session.jobs[job_id] = job
+            track = session.tracks[job.track_id]
+        try:
+            ticket = providers.submit_music(music_prompt(track), duration_seconds=track.settings.duration_seconds,
+                                            lyrics="[Instrumental]")
+            with self.lock:
+                session.tickets[job_id] = ticket
+                job = session.jobs[job_id].with_progress(.3)
+                session.jobs[job_id] = job
+            deadline = time.monotonic() + MUSIC_DEADLINE_SECONDS
+            result = None
+            while result is None:
+                if time.monotonic() >= deadline:
+                    raise ProviderFailure(SafeError(
+                        code="generation_failed",
+                        message="Music generation is taking longer than expected. Check the class service queue before retrying.",
+                        retryable=True))
+                polled = providers.poll_music(ticket)
+                if polled.state == "succeeded":
+                    result = polled
+                else:
+                    with self.lock:
+                        job = session.jobs[job_id].with_progress(min(job.progress + .05, .85))
+                        session.jobs[job_id] = job
+                    time.sleep(MUSIC_POLL_INTERVAL)
+            audio = providers.download_music(result)
+            with self.lock:
+                used = sum(len(media.content) for value in self.sessions.values() for media in value.media.values())
+                if used + len(audio.content) > MAX_MEDIA_BYTES:
+                    raise ProviderFailure(SafeError(code="generation_failed", message="Session media capacity reached. Existing tracks are preserved."))
+                identifier = uuid4()
+                reference = MediaRef(id=identifier, url=f"/api/media/{identifier}", content_type=audio.content_type)
+                # Read the latest track: its cover may have completed while music was generating.
+                current = session.tracks[job.track_id]
+                updated = Track.model_validate({**current.model_dump(), "audio": reference, "status": "ready"})
+                session.media[identifier] = audio
+                session.tracks[current.id] = updated
+                session.jobs[job.id] = job.transition(JobState.SUCCEEDED)
+                session.tickets.pop(job_id, None)
+                if current.audio is not None:
+                    session.media.pop(current.audio.id, None)
+        except Exception as exc:
+            error = exc.error if isinstance(exc, ProviderFailure) else SafeError(
+                code="internal_error", message="Music generation could not be completed. You can try again.", retryable=True)
+            with self.lock:
+                session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
+                # Keep the provider ticket so a future recovery action can reuse it;
+                # retry always creates a new app job and never auto-submits another task.
+        finally:
+            with self.lock:
+                session.active.discard((job.track_id, "music"))
                 session.touched = time.monotonic()
 
     def get_media(self, session, identifier):
