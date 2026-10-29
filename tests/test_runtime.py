@@ -85,6 +85,17 @@ class ContractTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             running.transition(JobState.FAILED, progress=.1, error=SafeError(code="timeout", message="Timed out"))
 
+    def test_with_progress_advances_without_changing_state_and_is_monotonic(self):
+        running = GenerationJob(track_id=uuid4(), kind="music").transition(JobState.RUNNING, progress=.1)
+        advanced = running.with_progress(.55)
+        self.assertEqual(advanced.state, JobState.RUNNING)
+        self.assertEqual(advanced.progress, .55)
+        with self.assertRaises(ValueError):
+            advanced.with_progress(.2)
+        with self.assertRaises(ValueError):
+            advanced.with_progress(1.5)
+        self.assertEqual(advanced.transition(JobState.SUCCEEDED).progress, 1)
+
     def test_failed_jobs_need_safe_errors(self):
         with self.assertRaises(ValidationError):
             GenerationJob(track_id=uuid4(), kind="music", state="failed")

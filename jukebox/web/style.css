@@ -227,6 +227,9 @@ footer {
 label { display:flex; flex-direction:column; gap:8px; font-size:13px; color:#c6d6cf; }
 input { width:100%; border:1px solid #477b65; border-radius:8px; background:#101b18; color:#f1f5f3; padding:12px; font:inherit; }
 input:focus-visible { outline:3px solid #b8f3d7; outline-offset:2px; }
+.mode { font-size:14px; color:#a7bbb0; margin:16px 0 10px; }
+.mode strong { color:#e9f3ee; }
+.mode span { color:#7d9187; font-size:12px; }
 .form-row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin:18px 0; }
 #cover-notice { color:#c6e6d4; font-size:14px; }
 .tracks { display:grid; gap:20px; margin-top:22px; }

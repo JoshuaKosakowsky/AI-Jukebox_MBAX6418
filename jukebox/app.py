@@ -2,7 +2,7 @@
 from contextlib import asynccontextmanager
 from uuid import UUID
 
-from fastapi import BackgroundTasks, Depends, FastAPI, Request, Response
+from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
@@ -73,6 +73,10 @@ def create_app(settings: Settings | None = None):
         if "art" not in settings.services:
             fail("not_configured", "Art service is not configured.")
 
+    def require_music():
+        if "music" not in settings.services:
+            fail("not_configured", "Music service is not configured.")
+
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(ROOT / "jukebox/web/index.html")
@@ -85,7 +89,8 @@ def create_app(settings: Settings | None = None):
     def status():
         return {"services": settings.public_status(), "configured": len(settings.services) == 4,
                 "connectivity_checked": False, "generation_available": False,
-                "cover_generation_available": "art" in settings.services}
+                "cover_generation_available": "art" in settings.services,
+                "music_generation_available": "music" in settings.services}
 
     @app.get("/api/session", response_model=SessionSnapshot)
     def session(current=Depends(browser_session)):
@@ -103,6 +108,24 @@ def create_app(settings: Settings | None = None):
         require_art()
         job = store.queue_cover(current, track_id)
         tasks.add_task(store.generate_cover, current, job.id, app.state.providers)
+        return job
+
+    @app.post("/api/tracks/{track_id}/music", response_model=GenerationJob, status_code=202)
+    def generate_music(track_id: UUID, tasks: BackgroundTasks, current=Depends(browser_session)):
+        require_music()
+        job = store.queue_music(current, track_id)
+        tasks.add_task(store.generate_music, current, job.id, app.state.providers)
+        return job
+
+    @app.post("/api/tracks/{track_id}/music/resume", response_model=GenerationJob, status_code=202)
+    def resume_music(track_id: UUID, from_job: UUID = Query(alias="from"), tasks: BackgroundTasks = BackgroundTasks,
+                     current=Depends(browser_session)):
+        require_music()
+        # All ownership/state/capacity validation happens atomically inside the
+        # store BEFORE a job or active slot is allocated; a mismatched track in
+        # the URL has zero side effects.
+        job, resume_from = store.resume_music(current, from_job, track_id)
+        tasks.add_task(store.generate_music, current, job.id, app.state.providers, resume_from=resume_from)
         return job
 
     @app.get("/api/media/{media_id}")

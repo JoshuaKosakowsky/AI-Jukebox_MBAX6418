@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-28 America/Denver",
+  "tester": "mase7919 directing Hermes",
+  "environment": "Windows, locked Python 3.12.14, normal launcher python scripts/dev.py --port 8150, class services configured",
+  "branch": "codex/a3-02-instrumental-generation",
+  "base": "3e298fe",
+  "entrypoint": "python scripts/dev.py",
+  "scope": "Two deliberate real ACE-Step instrumental generations and their automatic FLUX covers through the normal application; not sample-song assets and not full AT-03/AT-06 browser closure (interactive browser automation was unavailable; the flow ran over the normal loopback HTTP surface with fully decoded media).",
+  "inputs": [
+    {
+      "title": "Moonlit Reflection",
+      "style": "Ambient piano",
+      "mood": "Calm and reflective",
+      "duration_seconds": 10,
+      "mode": "instrumental"
+    },
+    {
+      "title": "Desert Drive",
+      "style": "Upbeat funk",
+      "mood": "Energetic and optimistic",
+      "duration_seconds": 20,
+      "mode": "instrumental"
+    }
+  ],
+  "songs": [
+    {
+      "title": "Moonlit Reflection",
+      "completion_seconds": 6.0,
+      "job_states": {"art": "succeeded", "music": "succeeded"},
+      "track_status": "ready",
+      "audio": {
+        "duration_seconds": 10.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "decoded_frames": 480000,
+        "peak": 0.89127,
+        "rms": 0.14428,
+        "bytes": 1920078,
+        "sha256": "0c3473d7e9ac8b4a"
+      },
+      "cover": {"bytes": 787271, "sha256": "0a3d5907d38f0719", "format": "PNG", "size": "512x512"}
+    },
+    {
+      "title": "Desert Drive",
+      "completion_seconds": 6.0,
+      "job_states": {"art": "succeeded", "music": "succeeded"},
+      "track_status": "ready",
+      "audio": {
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "decoded_frames": 960000,
+        "peak": 0.89127,
+        "rms": 0.21628,
+        "bytes": 3840078,
+        "sha256": "1dbbd34a91988364"
+      },
+      "cover": {"bytes": 787271, "sha256": "dd66958b9bc9d7ad", "format": "PNG", "size": "512x512"}
+    }
+  ],
+  "verification": {
+    "reload_stable": true,
+    "final_session": {"tracks": 2, "jobs": 4},
+    "audio_id_uniqueness": "two distinct audio MediaRefs on two distinct tracks",
+    "cover_id_uniqueness": "two distinct cover MediaRefs on two distinct tracks",
+    "audio_distinct": true,
+    "cover_distinct": true,
+    "audio_matches_requests": "10.0s and 20.0s WAVs, non-silent, 48 kHz stereo PCM16",
+    "media_content_types": "audio/wav and image/png served with no-store",
+    "no_regeneration_on_reload": true
+  },
+  "limitations": [
+    "Interactive browser playback (audible listening, play events) not independently performed: browser automation is unavailable in this environment. The page renders an <audio controls> element for every ready track and media is served with full PCM decoding; listener verification remains a teammate/browser step.",
+    "Two approved live generations only, per the authorized plan; no additional class requests were made.",
+    "Provider task IDs and opaque download paths are not recorded here (server-private)."
+  ]
+}

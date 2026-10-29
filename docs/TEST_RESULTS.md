@@ -298,3 +298,122 @@ Whitespace, local links, retired-term/stale screenshot-reference and conflict-ma
 checks pass. Cover app/frontend/tests match the previously reviewed cover commit;
 provider/contracts/schema and protected files match main exactly. Previous browser
 evidence retains its original tested commits and is not relabeled as a new live run.
+
+## A3-02 instrumentals - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows, locked Python 3.12.14.
+Branch codex/a3-02-instrumental-generation; base main 3e298fe.
+Scope: R08/R09/R12 and the AT-03/AT-06 normal-launch instrumental flow. The
+parent issue stays open for merged-main verification and independent review.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Default suite collected and passing; coverage retained | PASS, verifier 62 files, coverage 36 requirements/11 tasks/19 cases, all 96 tests (76 merged baseline + 20 new music/contract tests) |
+| New music routes offline (mocked adapters, real HTTP) | Submit once with instrumental marker, poll, download, attach WAV -> ready; no duplicates; safe failures; art+music concurrency; session isolation | PASS, two-track flow, 409 duplicates, 404 foreign media, 429 caps, deadline/retry, both completion orders, media budget, reload without regeneration |
+| Normal launcher + real services; Song A: Moonlit Reflection / Ambient piano / Calm and reflective / 10 s instrumental | One ACE-Step task -> playable WAV on that track plus automatic FLUX cover; ready status | PASS, art and music jobs succeeded in ~6 s; 10.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.144); 512x512 cover paired; track ready |
+| Same app; Song B: Desert Drive / Upbeat funk / Energetic and optimistic / 20 s instrumental | Second distinct song; first song not overwritten | PASS, ~6 s; 20.0 s 48 kHz stereo PCM16 WAV, non-silent (RMS 0.216); separate audio/cover media IDs; Song A intact |
+| Reload-equivalent after both complete | Tracks, covers, audio and job states persist; no new generation | PASS, snapshot stable across reads; 2 tracks / 4 terminal jobs; no resubmission |
+| Security/boundary | No keys, provider task IDs, opaque download paths or raw bodies reach the browser/snapshot; media stays session-private; no port 9000 | PASS, tickets kept server-side only (snapshot test), 404 for foreign media, safe fixed error messages, status flags cover/music availability only |
+
+Safe measurements: [instrumental-live-record.json](../results/instrumental-live-record.json).
+Raw WAV/PNG media stayed in an ignored temp location; it is not approved sample
+material (Issue #7 owns samples). Instrumental duration bound: the app accepts
+10-60 seconds (the class 20 MB response cap bounds a 48 kHz/16-bit/stereo WAV
+at about 104 seconds; 60 s leaves margin). The shared SongSettings schema range
+(10-600) is unchanged and documented in APP_CONTRACTS.md.
+
+Limitations: interactive browser automation is unavailable in this environment,
+so audible playback and visual UI verification were not independently performed;
+the browser flow was exercised through the normal launcher over HTTP with fully
+decoded WAV/PNG media, and the page renders a real <audio controls> element for
+each ready track. That listener/browser step and the merged-main run remain for
+teammate review and the issue's completion checks. Submission NOT READY.
+
+### PR #18 hardening follow-up - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows, locked Python 3.12.14. Same task
+branch; base 4c30a88. No additional live ACE-Step or FLUX generation was made.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Frontend playback preservation | Playing audio survives unrelated library updates | FIXED and guarded: track cards are now diffed and rebuilt individually, and an in-progress audio position is carried across a same-card rebuild; static regression guards in tests/test_frontend.py |
+| Music task recovery | Resume the retained ACE-Step ticket without a new submission | ADDED: POST /api/tracks/{id}/music/resume?from={job} continues poll/download of the same task (verified the SAME ticket object is polled, submit count stays 1); never-confirmed submissions return 409 with guidance; non-retryable/succeeded jobs are 404 |
+| Truthful progress stages | UI never claims downloading while polling | FIXED: polling progress stays capped at 0.79; the 0.9 downloading stage is set only after a successful poll; covered by store-level and static-frontend tests |
+| Concurrency test reliability | Duplicate/coexistence tests prove real in-flight concurrency | HARDENED: both thread-pool tests now assert the in-flight job is visibly running, release the gate in finally, and cannot pass on a timed-out mock |
+| Configuration UX | Create button and messages match supported actions | FIXED: art-only mode creates draft+cover with an explanatory notice (label changes accordingly); music-only/neither modes explain what to configure; not_configured music errors give restart guidance |
+| Credential hygiene | No keys in branch, evidence or docs | PASS, scan of tracked files and the full diff finds no key assignments; .env.example keeps placeholders; .env stays gitignored |
+
+Locked python scripts/dev.py --check PASS here: all 109 tests (96 prior + 13
+hardening/regression), verifier 63 files, coverage 36/11/19; schema regenerated
+byte-identical; diff whitespace clean. The two real-generation records in
+instrumental-live-record.json are untouched and still describe the 4c30a88-era
+live run; interactive browser playback remains a teammate step.
+
+### PR #18 three-defect correction - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows, locked Python 3.12.14. Same task
+branch; base f3b047f. Defects found by independent inspection after the
+hardening pass; each reproduced against the base, then fixed with a regression
+test. No additional live ACE-Step or FLUX generation was made.
+
+| Defect | Reproduction (base f3b047f) | Fix | Regression tests |
+|---|---|---|---|
+| 1. Mismatched resume URL leaves an active job behind | POST /api/tracks/{B}/music/resume?from={A failed job} returned 404 but had ALREADY created a job and consumed the (A, music) active slot; A then refused both new-music and resume with 409 forever. Reproduced store-level and over HTTP | Track-ownership validation moved INTO SessionStore.resume_music before any allocation; a mismatched resume has zero side effects (job count, active set and tickets unchanged; the rightful track resumes normally) | test_resume_rejects_mismatched_track_without_side_effects (store), test_http_resume_wrong_track_has_no_side_effects (HTTP: 404, no new job, rightful resume succeeds to ready) |
+| 2. Normal mutations can still interrupt an active audio player | syncAfterMutation() called previousTracks.clear(), so the next refresh rebuilt EVERY card after any mutation; a playing track's element was destroyed (verified by a dependency-free node DOM simulation: old app.js loses audio node identity and playback position on both unrelated-track creation and the tracked song's own job progress; media replacement still swaps deliberately) | syncAfterMutation() no longer clears the cache — refreshes rely on the per-track diff; renderLibrary() now MOVES the original (still playing) audio element into a rebuilt card whenever its media reference is unchanged, so the node never leaves the document; a genuinely changed media reference gets a fresh, never-auto-played element | Updated static guards in tests/test_frontend.py (no global clear in syncAfterMutation; same-src audio node moved via replaceWith; restoreAudio removed; no audio.play() auto-resume); 8-check node DOM simulation passes on new app.js and fails on the old |
+| 3. Second resume attempt cannot locate the original provider ticket | After resume-1 failed, the ticket remained only under the ORIGINAL job; the UI's Resume check (from the LATEST failed job) hit 409 despite the valid ticket — reproduced with a single mocked task (deadline timeout, resume timeout, second resume) | Each resumed job now gets the ticket associated with its own id, so any number of resumes stay on the ONE original submission; provider-reported task failure during a resume is terminal (non-retryable) instead of endlessly resumable — only deadline/transport timeouts advertise Resume check; success removes every app-job association of the ticket | test_repeated_resumes_of_same_task_need_only_one_submission (store: r1 -> r2 succeeds, submit_music called exactly once, tickets empty after), test_resumed_terminal_service_failure_is_not_endlessly_resumable (store), test_http_repeated_resume_flow_uses_one_submission (HTTP: two resumes, one submission, track ready), test_resume_failure_keeps_ticket_chain_and_releases_capacity (updated) |
+
+Locked python scripts/dev.py --check PASS here: all 115 tests (109 prior + 5
+music chain/wrong-track + 1 updated frontend guard), verifier 63 files,
+coverage 36/11/19; schema regenerated byte-identical; diff whitespace clean.
+The two real-generation records in instrumental-live-record.json are untouched
+and still describe the 4c30a88-era live run. Interactive browser playback
+remains a teammate step; the node DOM simulation is behavioral evidence for
+defect 2 but is not a substitute for a real browser.
+
+### PR #18 real-browser acceptance - 2026-10-28 America/Denver
+
+Tester: mase7919 directing Hermes; Windows; system Chrome via Playwright
+(headless, autoplay-policy=no-user-gesture-required, muted). OFFLINE HARNESS:
+the real FastAPI application (real session store, routes, cookies, media
+serving and the real jukebox/web frontend) with ONLY the four class-provider
+methods replaced by deterministic fixtures serving the genuine class-generated
+WAV/PNG files from jukebox-live (Moonlit Reflection 10 s, Desert Drive 20 s).
+No network requests to class services; nothing committed; NOT a substitute for
+the normal-launch flow or for live generation claims. Dummy keys only; the
+repo .env is never loaded (Settings.load(env_file=None), neutral cwd).
+
+All 31 checks PASS (full transcript and JSON evidence kept outside the repo):
+
+- Test A (basic playback): song created through the real form; audio element
+  rendered; play() accepted; readyState >= 1; currentTime advanced 0.00 ->
+  1.25 s; pause froze the position; resume continued (no restart); zero media
+  error events; real Moonlit WAV decoded (duration = 10 s).
+- Test C (playing during another track's creation): while A played, Desert
+  Drive was created from the form; A's audio element SURVIVED by node
+  identity (same DOM node) and kept playing (1.72 -> 2.06 s, not paused,
+  not reset); media URL unchanged; two players in the library.
+- Test B (two-track library): correct titles and style/mood labels per card;
+  distinct audio URLs and distinct covers; play B while A paused -> both
+  independent and selectable; B's real Desert WAV decoded (duration = 20 s).
+- Test D (paused position): seek+play+pause A at 4.527 s; create a third
+  song; A stayed paused and its position was preserved exactly (4.527 ->
+  4.527 s, tolerance 1.0 s); resume continued from ~4.5 s to ~5.5 s, not 0.
+- Test E (changes to the playing track itself): regenerating A's cover while
+  A played updated the artwork, kept the SAME audio node, kept it playing,
+  and left exactly one audio element.
+- Test F (genuine audio replacement): "Generate new instrumental" produced a
+  NEW element (node identity changed), new media URL, old element removed,
+  exactly one player, replacement NEVER auto-played (paused), and the new
+  content genuinely was the other song (duration 20 s); A's cover pairing
+  survived the music replacement.
+- Console/network: no console errors or warnings beyond the app shipping no
+  favicon (Chrome requests /favicon.ico twice per load; both 404s logged,
+  confirmed by URL via CDP; cosmetic and pre-existing, unrelated to playback
+  or PR #18's changes); zero unexpected HTTP >= 400 responses; zero uncaught
+  page errors.
+
+Limitations (unchanged, honest): engine-level playback evidence only. The
+browser ran headless and muted, so audible output was NOT listened for; human
+listening in a real (headed/audible) browser remains a teammate step. The
+harness substitutes fixtures for the live providers, so this does not re-test
+class-service connectivity (already covered by the two-song live record).

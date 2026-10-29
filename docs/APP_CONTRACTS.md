@@ -21,9 +21,9 @@ contract, distinct from the verified [provider formats](SERVICE_CONTRACTS.md).
 | Object | Meaning and invariants |
 |---|---|
 | SongSettings | style, mood, duration_seconds (10-600), instrumental/vocal mode; the range follows documented ACE limits, not exhaustive live verification |
-| Track | stable UUID, title/settings, UTC created_at, generating/ready/failed status; ready means audio exists; cover/lyrics/DJ text/speech may still be pending |
+| Track | stable UUID, title/settings, UTC created_at, generating/ready/failed status; ready means actual audio exists (set only when the instrumental attaches); cover/lyrics/DJ text/speech may still be pending |
 | MediaRef | stable asset UUID and matching /api/media/UUID URL, MIME type; never a provider URL, filesystem path or credential |
-| GenerationJob | separate app job UUID, track UUID, kind (text/art/music/speech), queued/running/succeeded/failed, progress 0-1, optional SafeError |
+| GenerationJob | separate app job UUID, track UUID, kind (text/art/music/speech), queued/running/succeeded/failed, progress 0-1 (advanceable inline via with_progress while running), optional SafeError |
 | Playback | one phase: idle/speaking/playing/paused; queue of track UUIDs, current index/track, paused_from for resumption |
 | SessionSnapshot | contract_version=1, tracks, jobs, playback; track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
 | SafeError | code, fixed safe message, retryable; never copy raw provider errors/progress to the browser |
@@ -51,10 +51,12 @@ Example empty snapshot (the current GET /api/session response):
 | GET / | cover form, configuration and session library |
 | GET /static/app.js, /static/style.css | same-origin frontend assets only |
 | GET /api/health | local process health, contract version; no provider health claim |
-| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available based on art settings |
-| GET /api/session | this browser's SessionSnapshot, including track-specific art jobs |
+| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available and music_generation_available based on configured services |
+| GET /api/session | this browser's SessionSnapshot, including track-specific art/music jobs |
 | POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/music | deliberate instrumental generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
 | GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
 | GET /api/contracts | unchanged v1 shared JSON Schema |
 | GET /api/openapi.json | actual current API specification, including request bodies |
@@ -66,37 +68,76 @@ missing track/media IDs return 404, duplicate active requests 409 and capacity
 limits 429. Missing art configuration returns a safe 502 without creating a draft.
 
 Cover jobs run after the 202 response, using only ClassProviders.cover and the
-verified FLUX defaults. Read /api/session while a job is queued/running (the UI
-polls once per second); GETs do not resubmit. A terminal failure has SafeError.
-Retry creates a new job ID only on user action. Each successful cover gets a
-fresh MediaRef; replacing art changes only that track.cover. Existing audio,
-status, lyrics, speech, other tracks and playback are preserved. Failed requests
-leave prior media intact. Obsolete replaced cover bytes are removed.
+verified FLUX defaults. Music jobs run the same way through the verified
+submit -> poll -> download ACE-Step flow. Read /api/session while a job is
+queued/running (the UI polls once per second); GETs do not resubmit. A terminal
+failure has SafeError. Retry creates a new job ID only on user action. Each
+successful cover or instrumental gets a fresh MediaRef; replacing art or audio
+changes only that field of that track. Existing audio, status, lyrics, speech,
+other tracks and playback are preserved. Failed requests leave prior media
+intact; obsolete replaced media bytes are removed on success. A track may have
+an art job and a music job active at the same time; whichever completes last
+re-reads the latest track and cannot overwrite the other's media.
 
-## A3-02 integration seam
+Music orchestration: one ACE-Step task is submitted per job (lyrics fixed to
+the instrumental marker). The returned provider task ID lives only in
+server-private session tickets, never in snapshots, the browser or logs.
+Polling reuses that ticket with a 3-second interval and a 300-second overall
+deadline; an expired job fails retryable with a safe message that tells the
+user to check the class queue before retrying. A failed retryable music job
+keeps its ticket so a Resume check (POST /api/tracks/{id}/music/resume) can
+continue polling/downloading the SAME task without any new submission; the
+ticket is associated with each resumed job, so a second failed attempt is
+itself resumable (any number of resumes stay on the one original submission).
+A resume whose URL names the wrong track is rejected 404 with no side effects:
+no job is created, no capacity consumed, and the rightful track remains
+resumable. Only jobs with a retained ticket are resumable, and a submission
+that was never confirmed returns 409 with guidance instead. When the class
+service reports the task itself failed during a resume, the job becomes
+terminal (not retryable) — Generate new instrumental is the explicit path to a
+brand-new task, and no failed or terminal job ever misleadingly offers endless
+resumability. Generating new instrumental is
+the explicit path to a brand-new task. Poll/download failures never
+auto-submit a second task; manual retry is a new app job and, after an
+uncertain submission, a newly user-approved task. Instrumental durations are
+operationally limited to 10-60 seconds (the class server's 20 MB response cap
+bounds a 48 kHz/16-bit/stereo WAV at roughly 104 seconds; 60 seconds keeps
+margin); the shared SongSettings schema keeps its documented 10-600 range,
+and the narrower app bound is enforced before any provider work. The app-wide
+media budget (64 MB) is checked before attaching each result.
 
-[SessionStore](../jukebox/sessions.py) is the shared, process-local store, not a
-second cover library. The normal app already creates real Track drafts with
-generating status and no audio; the UI labels that limit explicitly. Creating a
-draft queues fresh art from its title/theme, style and mood. Existing session
-tracks can use the same /cover route, regardless of their audio readiness.
+Progress stages are truthful: submitting (up to 0.3), generating while polling
+(capped at 0.79, so the UI never claims downloading during polling), downloading
+(0.9, set only after the poll succeeds), succeeded (1). The frontend rebuilds
+track cards individually when a track's own data changes and carries an
+in-progress playback position across a rebuild, so generating one song never
+interrupts playback of another.
 
-A3-02 should extend this store and POST /api/tracks orchestration to attach music
-to the existing job.track_id, retaining the automatic art request and track ID.
-Do not create a second cookie, library or duplicate cover submission. Use
-store.lock for atomic updates, validate the latest Track rather than overwriting
-a stale copy, and preserve cover when music completes (cover completion already
-preserves audio). Keep ready conditional on actual audio. Extend the existing
-media budget/lookup for decoded audio rather than exposing provider URLs. The
-cover integration tests exercise ready audio/playback preservation with offline
-fixtures; live audio/cover acceptance still waits for A3-02.
+## Music and cover orchestration (A3-02)
+
+[SessionStore](../jukebox/sessions.py) is the single shared, process-local store.
+A draft created through /api/tracks immediately queues fresh art from its
+title/theme, style and mood; the browser then requests the instrumental through
+/tracks/{id}/music using the same track ID, cookie and store. Do not create a
+second cookie, library or duplicate cover submission. Per-kind active entries
+(track id, kind) let art and music run concurrently on the same track: 409 is
+returned only for a duplicate of the same kind. All updates run under
+store.lock and re-read the latest Track before attaching a result, so whichever
+job finishes last preserves the other's media (tests cover both completion
+orders). Track status becomes ready only when audio is attached; a music
+failure leaves the prior status, cover and audio untouched and is reported
+through the job's SafeError. Provider tickets and media bytes stay server-side.
+A3-03 (vocals) should extend the same store/route pattern with the text
+provider for lyrics and a vocal music payload, keeping the automatic art
+request, track ID and media budget.
 
 Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
-20 tracks/100 jobs per session, two active cover requests app-wide, 64 MB total
-retained media. Capacity failures do not enqueue work or orphan new tracks.
+20 tracks/100 jobs per session, two active covers and two active instrumentals
+app-wide, 64 MB total retained media. Capacity failures do not enqueue work or
+orphan new tracks.
 The single-process launcher owns this memory; restart clears it. No persistence,
 upload, fixtures or alternate generation provider is added to the normal launcher.
-Metadata must remain stable while its cover is generating; an editing feature
+Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
 
 ## Adapter boundary
@@ -114,7 +155,8 @@ the frozen service-probes.json defaults and exposes:
 - download_music(result) -> decoded PCM WAV bytes/MIME. Only the configured music
   origin's /v1/audio?path=... is accepted; redirects and alternate origins are rejected.
 
-Only deliberate cover actions invoke the cover method; startup/refresh invoke none. Offline tests use httpx.MockTransport,
+Only deliberate cover and music actions invoke the adapters; startup/refresh
+invoke none. Offline tests use httpx.MockTransport,
 never a provider substituted into the normal app. The earlier probes establish the frozen wire baseline; on 2026-10-27 all four
 new production methods also passed a deliberate real-service smoke using those
 inputs. See [runtime-adapter-smoke.json](../results/runtime-adapter-smoke.json).

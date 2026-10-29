@@ -56,8 +56,8 @@
       </section>
       <section aria-labelledby="cover-title">
         <p class="eyebrow">DESIGN YOUR SONG</p>
-        <h2 id="cover-title">Create a matching cover</h2>
-        <p id="cover-help" class="note">Checking art service configuration…</p>
+        <h2 id="cover-title">Create an instrumental song</h2>
+        <p id="cover-help" class="note">Checking service configuration…</p>
         <form id="cover-form">
           <label>Song title / theme
             <input name="title" required maxlength="120" placeholder="Moonlit mountain lake">
@@ -69,14 +69,15 @@
             <label>Mood
               <input name="mood" required maxlength="120" placeholder="Calm and reflective">
             </label>
-            <label>Planned duration (seconds)
-              <input name="duration" type="number" min="10" max="600" step="1" value="30" required>
+            <label>Duration (seconds)
+              <input name="duration" type="number" min="10" max="60" step="1" value="30" required>
             </label>
           </div>
-          <button id="create-cover" type="submit" disabled>Create song draft &amp; cover</button>
+          <p class="mode">Mode: <strong>Instrumental</strong> <span>(vocals arrive in a later task)</span></p>
+          <button id="create-cover" type="submit" disabled>Create song &amp; generate instrumental</button>
         </form>
         <p id="cover-notice" role="status" aria-live="polite"></p>
-        <p class="note">Cover generation is available now. Audio generation is still being built. Drafts and media last for this browser session, up to two hours of inactivity; restarting the app clears them.</p>
+        <p class="note">Each song gets a new matching cover and a playable ACE-Step instrumental. Instrumental durations are currently limited to 10–60 seconds so downloads stay within the class service size limit. Drafts and media last for this browser session, up to two hours of inactivity; restarting the app clears them.</p>
       </section>
       <section class="library" aria-labelledby="library-title">
         <div class="section-heading">
