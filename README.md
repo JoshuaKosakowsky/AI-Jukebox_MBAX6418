@@ -80,9 +80,11 @@ and source archives. Never commit uploads, voice references or third-party media
    for a new matching cover and ACE-Step once for the audio. A vocal song calls
    FLUX for the cover and Qwen once for original lyrics; when the lyrics
    complete, the app automatically calls ACE-Step once to sing them (a lyrics
-   job seen succeeding while the page is open starts the vocal-track request —
-   reloading the page never submits generation, and a failed vocal submission
-   is a deliberate button click away).
+   job seen succeeding while the page is open starts the vocal-track request).
+   Reloading the page never submits a new generation request and never
+   continues an in-flight chain: a vocal draft whose chain was interrupted by
+   a reload waits for a deliberate **Generate vocal song** click. A failed
+   vocal submission is likewise a deliberate button click away.
 3. Watch each track's cover/lyrics/instrumental status. Create a second distinct
    song, then reload: each track, cover, lyrics and audio remains paired with
    its own title/settings.

@@ -143,7 +143,8 @@ submission time so a job can never silently fall back to the instrumental
 marker. One text job may run app-wide (MAX_ACTIVE_TEXT=1); art/music/text jobs
 for one track coexist. The lyrics token budget is raised to 512 for this call
 only (the 192-token probe budget was for a short reply marker); this deviation
-is covered by the live A3-03 acceptance evidence.
+requires live A3-03 acceptance evidence, which is still pending (no class keys
+on the development machine).
 
 Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
 20 tracks/100 jobs per session, two active covers, two active music and one

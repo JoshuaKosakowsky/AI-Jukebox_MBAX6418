@@ -102,10 +102,19 @@ function buildTrackCard(track, jobs) {
     retryLyrics.disabled = textActive || !textConfigured;
     retryLyrics.addEventListener("click", async () => {
       retryLyrics.disabled = true;
+      const previousLabel = retryLyrics.textContent;
+      retryLyrics.textContent = "Requesting…";
       try {
         await request(`/api/tracks/${track.id}/lyrics`, {});
         notice.textContent = `Lyrics requested for ${track.title}.`;
       } catch (error) {
+        // A rejected request (429 while another lyrics job holds the single
+        // text slot, 502 not configured, ...) creates NO job, so the next
+        // refresh sees identical card data and would skip rebuilding this
+        // card — the disabled state set above would persist until reload.
+        // Restore the button explicitly so the control stays usable.
+        retryLyrics.disabled = !textConfigured;
+        retryLyrics.textContent = previousLabel;
         notice.textContent = error.message;
       }
       await syncAfterMutation();
@@ -246,10 +255,13 @@ async function load() {
     textConfigured = status.lyrics_generation_available;
     if (changedConfig) previousTracks.clear();
     if (!seeded) {
-      // First snapshot: treat every already-succeeded lyrics job as already
-      // chained, so reloading the page never starts a new music submission.
+      // First snapshot: EVERY text job that is not terminal-failed (pending
+      // or succeeded) is treated as already chained, so a page reload — even
+      // mid-chain — never starts a new music submission. Only a lyrics job
+      // observed reaching success WHILE this document is open can start the
+      // vocal request; a reloaded vocal draft waits for a deliberate button.
       for (const job of session.jobs) {
-        if (job.kind === "text" && job.state === "succeeded") autoChained.add(job.id);
+        if (job.kind === "text" && job.state !== "failed") autoChained.add(job.id);
       }
       seeded = true;
     }
