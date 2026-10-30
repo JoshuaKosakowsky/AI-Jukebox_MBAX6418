@@ -132,7 +132,10 @@ request, and a request without lyrics is rejected with 409. All POSTs return 202
 with a queued GenerationJob; read the snapshot for the terminal result.
 /api/status reports cover_generation_available, music_generation_available and
 lyrics_generation_available separately from song generation; it reports
-configuration, not provider reachability. See the full
+configuration, not provider reachability. Temporary MP3/WAV DJ reference
+uploads are accepted at POST /api/references/speech (multipart `file`; magic-
+byte, size and WAV-duration validation; session memory only, consumed once, no
+read route; no UI yet — the DJ queue task #5 will use them). See the full
 [app contracts and integration notes](docs/APP_CONTRACTS.md).
 
 The earlier [startup configuration view](results/startup-configured.jpg) shows

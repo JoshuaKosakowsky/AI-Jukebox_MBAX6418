@@ -57,8 +57,11 @@ Example empty snapshot (the current GET /api/session response):
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/music | deliberate instrumental or vocal-music generation/replacement/retry for an existing session track; vocal tracks submit the track's current lyrics with the same verified request and are rejected with 409 while lyrics are missing; queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/lyrics | deliberate Qwen lyrics generation/replacement/retry for a vocal session track (422 for instrumental tracks); attaches the text to the track on success; queued GenerationJob with 202 |
+| DELETE /api/references/speech/{reference_id} | discard one temporary voice reference; 404 if unknown |
 | POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
 | GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
+| POST /api/references/speech | multipart `file`; validate MP3/WAV fingerprints (magic bytes), size (max 5 MB) and WAV duration (1-60 s); store in session memory only and return 201 `{id, media_type}` |
+
 | GET /api/contracts | unchanged v1 shared JSON Schema |
 | GET /api/openapi.json | actual current API specification, including request bodies |
 
@@ -150,8 +153,27 @@ Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained)
 20 tracks/100 jobs per session, two active covers, two active music and one
 active text (lyrics) job app-wide, 64 MB total retained media. Capacity failures
 do not enqueue work or orphan new tracks.
-The single-process launcher owns this memory; restart clears it. No persistence,
-upload, fixtures or alternate generation provider is added to the normal launcher.
+
+## Temporary reference voices (A3-06, interface for A3-05)
+
+The DJ queue (#5) customizes Chatterbox speech with an optional uploaded
+reference: the browser POSTs an MP3/WAV clip (multipart `file`) to
+/api/references/speech and receives a server-private `{id}`; a speech job then
+consumes that reference exactly once via the store's `take_reference` and calls
+`ClassProviders.speech(text, reference=...)`. References are session-scoped
+memory only: they never appear in GET /api/session (no contract change), are
+never written to disk, have no read route, are removed once consumed or
+explicitly deleted, and die with the session (two-hour expiry). Validation
+rejects non-MP3/WAV fingerprints, results over 5 MB, unreadable WAVs and WAV
+clips outside 1-60 seconds (the Chatterbox documented range); MP3 duration is
+not decoded at upload. The speech request stays the frozen probe shape and adds
+`ref_audio` as a base64 data URI (the documented schema path — live class
+verification of the reference route is pending acceptance evidence and is
+required before AT-08 closes). Default voice remains the no-reference call.
+The single-process launcher owns this memory; restart clears it. No persistence
+or fixtures and no alternate generation provider are added to the normal
+launcher; the only upload surface is the temporary in-memory speech reference
+described above, which is never persisted or committed.
 Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
 
@@ -165,6 +187,8 @@ the frozen service-probes.json defaults and exposes:
   budget for 10-60 second songs (documented deviation from the 192-token probe).
 - cover(prompt) -> decoded PNG bytes/MIME; the baseline requests one 512x512 cover.
 - speech(text) -> decoded PCM WAV bytes/MIME, default voice omitted.
+- speech(text, reference=MediaBytes) -> same, with ref_audio as a base64 data
+  URI in the frozen request (schema-inspected; live verification pending).
 - submit_music(prompt, duration_seconds=10, lyrics="[Instrumental]") -> MusicTicket.
 - poll_music(ticket) -> running or succeeded with a private download path; status
   2 becomes a safe generation_failed error. Success parses the JSON string array,

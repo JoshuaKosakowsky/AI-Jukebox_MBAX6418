@@ -551,6 +551,33 @@ rejected card's Generate lyrics re-enables after the holder completes and a
 Refresh status (no reload); and a mid-chain reload (lyrics job held, then
 released) leaves submit_music at zero — no auto-continuation after reload.
 
+## A3-06 temporary reference voices - 2026-10-30 America/Denver
+
+Tester: MSpanny directing Hermes. Branch codex/a3-06-reference-voices; base
+main 7d003c6 (post-#21 merge). Scope: R15/R16 provider-layer work per the issue
+handoff — temporary MP3/WAV references, validation, cleanup/recovery and
+default-voice fallback. Final DJ integration/acceptance stays blocked on #5.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Suite passing; coverage retained | PASS, 137 tests (128 baseline + 9 new), verifier 71 files, coverage 36/11/19 |
+| Multipart MP3 and WAV uploads over real HTTP | 201 {id, media_type}; validated fingerprints; bytes never in snapshots | PASS, audio/wav and audio/mpeg accepted; reference id and bytes absent from every snapshot dump |
+| Rejections: non-audio bytes, truncated RIFF, >5 MB (patched), WAV outside 1-60 s | 422 before any storage | PASS for all four cases; zero tracks/jobs created |
+| Consumption and cleanup | take_reference consumes exactly once; DELETE works; unknown/foreign ids 404; session expiry drops references | PASS through real HTTP and store-level tests; GET on the reference path is 405 (no read route) |
+| Provider: speech without reference | Frozen probe payload byte-identical | PASS (MockTransport, same probe input) |
+| Provider: speech with reference | Same request plus ref_audio base64 data URI; WAV decodes | PASS (MockTransport) |
+| Dependency | python-multipart added (0.0.32) to locked env for multipart parsing | pyproject/uv.lock updated; `uv run --locked` installs it |
+
+Design: references are session-scoped memory only — never in the session
+snapshot (no contract change), never on disk, no read route, consumed once by a
+speech job, expired with the session. Validation uses content fingerprints, not
+client-declared types. The Chatterbox reference path (ref_audio as a base64
+data URI in the frozen JSON request) is schema-inspected only; live class
+verification is required before AT-08 closes and remains pending (no .env on
+this machine; #5 integration will provide the normal-entrypoint flow, after
+which MP3 AND WAV variants must be demonstrated live). No uploads or voice
+references are committed, per the repo safeguards.
+
 Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
