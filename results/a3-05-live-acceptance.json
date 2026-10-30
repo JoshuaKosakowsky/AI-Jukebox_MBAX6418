@@ -1,0 +1,43 @@
+{
+  "record": "A3-05 live acceptance - partial run (INCOMPLETE - acceptance NOT claimed)",
+  "date_utc": "2026-10-30",
+  "commit_tested": "895a61677d607f347e713636a449e16f2b817499 (draft PR #27)",
+  "environment": "normal launcher: scripts/dev.py --port 8000, locked venv; real class services at dobolyi.com:9001/9006/9007/9008; server-side .env only (keys never exposed)",
+  "service_models_probed": {
+    "Qwen": "cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit",
+    "FLUX": "black-forest-labs/FLUX.2-klein-4B",
+    "ACE-Step": "acestep/acestep-v15-xl-turbo",
+    "Chatterbox": "chatterbox-v3"
+  },
+  "generation_budget_authorized": {"art": 2, "music": 2, "text": 2, "speech": 2},
+  "generation_observed_live": {
+    "art": "2 covers created via normal UI (both rendered on cards)",
+    "music": "2 ACE-Step instrumentals created via normal UI (both played through the DJ player)",
+    "text": "2 Qwen writing phases observed in the UI ('DJ is writing the introduction for Copper Horizon' / '...Harbor Lights')",
+    "speech": "2 Chatterbox speech jobs entered at each transition (speech media refs created; audible verification pending)"
+  },
+  "tracks": [
+    {"title": "Copper Horizon", "style": "Ambient guitar", "mood": "Golden and open", "duration_s": 12},
+    {"title": "Harbor Lights", "style": "Warm piano", "mood": "Gentle and calm", "duration_s": 12}
+  ],
+  "playback_observed": {
+    "sequence": "writing(C) -> playing(C) [~13.6 s] -> writing(H) -> playing(H) [~13.6 s] -> idle ('Ready. 2 songs queued - press Play.')",
+    "automatic_advance": true,
+    "single_audio_element_no_overlap": true,
+    "distinct_media_sources": 3,
+    "skipped_or_repeated_track": false,
+    "verified_by": "real-browser 0.8 s status/source sampler during the single uninterrupted pass"
+  },
+  "inconclusive_or_not_covered": [
+    "DJ 'speaking' phase: status text never sampled between the writing phase and music (one speech media source did load; whether both introductions played audibly could not be confirmed from the sampler alone) - requires one more observation pass on the cached session",
+    "Pause/resume, Skip during speech/music, Skip while paused, reload, replay-without-generation: NOT executed (driver crashed on the replay step; the replay never left the idle state within the wait window)",
+    "Exact per-service request accounting via /api/session job list: NOT obtained (the acceptance driver read the snapshot with a stale session cookie; jobs/tracks of the live session were invisible to it). Upload count is instead inferred from observable outcomes (2+2 tracks, 2 writing phases, 2 speech jobs)",
+    "Human listening: NOT performed - PENDING",
+    "Screenshots: not captured (driver aborted before the screenshot section)"
+  ],
+  "blocker_for_completion": "The browser session cookie died with the closed Playwright context; the app keeps sessions process-local and cookie-bound, so the cached session (tracks + commentary) is unrecoverable and replayed playthroughs/controls are impossible without either the saved cookie or new generation. The authorized generation budget (8) is spent; no further generation was or will be attempted without reauthorization.",
+  "at07": "FAIL (incomplete evidence; speech phase and default-voice hearing not verified)",
+  "at09": "FAIL (incomplete evidence; controls and replay/reload not executed)",
+  "conclusion": "Real end-to-end generation works (Qwen writing phases, Chatterbox speech job creation, ACE-Step music, FLUX covers, sequential playback, automatic advance, no overlap). Acceptance is NOT claimed. A second bounded live run with a session-preserving driver is required to close speaking-phase, controls, reload, accounting, and listening.",
+  "authorization_limits_respected": true
+}
