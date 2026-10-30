@@ -705,9 +705,21 @@ introduction); reload during an active queue resumes playback with zero new
 jobs and zero provider submissions; clean end-of-queue; request accounting
 cross-checked (jobs per kind == fixture submission counters, exactly
 2/2/2/2 art/music/Qwen/TTS); screenshots captured; failures reported without
-losing evidence. Independent per-track players can still run music
-concurrently with the DJ timeline (recorded as a documented acceptance gap,
-not fixed).
+losing evidence. Audio exclusivity (Stage 1): manual library players are
+suppressed while the DJ timeline is active (notice shown, event-level), and
+starting the DJ pauses any running manual player; manual playback works
+normally when the DJ is idle (154/154 unit tests incl. new static guards,
+18/18 functional, 20/20 concurrency, 43/43 rehearsal).
+
+LIVE defect found on run 2 (authorized real-provider acceptance): the speech
+job path generates and SUCCEEDS its provider steps but `track.speech` never
+attaches with the REAL services — neither introduction played, and replay
+re-created the speech jobs (2 -> 4), exceeding the authorized Qwen/Chatterbox
+budget because the failed attachment voids the commentary cache. Exact
+adapter-level cause not determined (needs one diagnostic Qwen+Chatterbox
+call); correction proposal + full run-2 accounting in
+results/a3-05-live-acceptance.json. AT-07/AT-09 remain FAIL until the
+speech-attachment defect is fixed and re-verified live.
 
 Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
 stale-pause phase correction, one-index-per-advance + straggler 409,
