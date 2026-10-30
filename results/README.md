@@ -30,3 +30,10 @@ Raw clips/images stay ignored under results/raw; they are not approved sample as
 Offline retry variants: [a3-08-retry-variants.json](a3-08-retry-variants.json),
 [cover screenshot](cover-retry-disabled.png), [resume screenshot](resume-retry-disabled.png).
 See [reproduction and limitations](../docs/RECOVERY_AUDIT.md#cover-retry-and-resume-variants-on-main-e2b1e52-2026-10-29); no app fix or live acceptance claimed.
+
+Early Windows ZIP startup evidence: [windows-zip-startup.json](windows-zip-startup.json)
+records the exact GitHub archive identity, untouched source comparison and
+missing/placeholder/invalid/configured checks on main 7b9dd2b. The actual browser
+views are [missing settings](windows-zip-missing-settings.jpg) and
+[configured](windows-zip-configured.jpg). This developer-directed rehearsal
+does not satisfy independent final ZIP or feature acceptance.

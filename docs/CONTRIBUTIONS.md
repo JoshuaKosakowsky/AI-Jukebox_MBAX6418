@@ -30,6 +30,8 @@ attribution. A component entry does not claim the whole feature is complete.
 | 2026-10-28 | mase7919 (Matt) | Instrumental generation and recovery | Delivered real ACE-Step orchestration, safe repeated resume, per-track UI/audio preservation and regressions; PR #18 merged at 7cc9645 after independent approval. Two normal-launch songs passed browser acceptance; Joshua performed and confirmed the listening check. | [PR #18](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/18), [tests and evidence](TEST_RESULTS.md) |
 | 2026-10-29 | JoshuaKosakowsky | PR #21 vocal implementation review | Independently reproduced the lyrics-retry defect, then verified correction 04650a5 with 128 passing tests and actual offline browser 429/reload regressions; approved the corrected head and resolved the blocking thread. Live vocal/listening acceptance remains pending. | [Approval](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707544155), [safe observations](../results/pr21-independent-review.json) |
 
+| 2026-10-30 | JoshuaKosakowsky | PR #26 reference-voice review | Independently ran 137 locked tests and offline HTTP upload probes; requested changes for multipart disk spooling before the size check and malformed WAV/MP3 acceptance. No class-service calls or user recordings; reference/DJ live acceptance remains pending. | [Review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5713181117) |
+
 Whole-app features and independent deployment remain incomplete; component entries
 above claim only their recorded scope.
 Add their evidence as the team delivers them.

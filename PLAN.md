@@ -3,7 +3,7 @@
 **Current state:** runtime/contracts, instrumental generation/playback and matching
 covers are accepted (A3-01/02/04). Mike's vocal implementation (#21) is merged;
 A3-03 stays open for real-class normal-launch vocal/browser/listening acceptance.
-Main `e2b1e52` includes #23's Moonlit candidate; the final sample library remains
+Main `770ce62` includes #23's Moonlit candidate and #20's ZIP-startup evidence; the final sample library remains
 unfinished. Matt leads the ready A3-05 default DJ queue; Mike leads A3-03
 acceptance and A3-06 reference voices after A3-05 integration. Matt/prse provide
 reciprocal backup coverage for A3-05/08/09; Mike/jovi for A3-03/06/07/10.
@@ -29,6 +29,9 @@ Assignees are coverage, not reserved reviewers; anyone without PR commits may
 review. Keep branches still during review and preserve all required checks.
 
 ## Coverage and ownership
+
+**Names:** `MSpanny` is **Mike**; `mase7919` (Mase) is **Matt**.
+Mike leads A3-03/A3-06; Matt leads A3-05. Live issues remain authoritative.
 
 [acceptance.json](docs/acceptance.json) maps every brief requirement R01-R36 to a
 work item and acceptance case. [ISSUES.md](docs/ISSUES.md) preserves each issue's
