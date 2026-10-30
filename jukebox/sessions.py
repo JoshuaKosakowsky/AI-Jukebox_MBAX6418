@@ -204,7 +204,8 @@ class SessionStore:
             if not 10 <= duration <= MAX_MUSIC_DURATION:
                 raise SessionFailure(422, f"Song duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
             if failed_job_id not in session.tickets:
-                raise SessionFailure(409, "The previous music submission was never confirmed, so it cannot be resumed. Generating a new instrumental will submit a new request.")
+                kind = "vocal song" if session.tracks[track_id].settings.mode == "vocal" else "instrumental"
+                raise SessionFailure(409, f"The previous music submission was never confirmed, so it cannot be resumed. Generating a new {kind} will submit a new request.")
             if (track_id, "music") in session.active:
                 raise SessionFailure(409, "Music generation is already in progress for this track.")
             if self._active_count("music") >= MAX_ACTIVE_MUSIC:
@@ -313,9 +314,10 @@ class SessionStore:
                 with self.lock:
                     ticket = session.tickets.get(resume_from)
                     if ticket is None:
+                        kind = "vocal song" if session.tracks[job.track_id].settings.mode == "vocal" else "instrumental"
                         raise ProviderFailure(SafeError(
                             code="generation_failed",
-                            message="The previous music job can no longer be resumed. Generate a new instrumental instead.",
+                            message=f"The previous music job can no longer be resumed. Generate a new {kind} instead.",
                             retryable=False))
                     # Associate the ticket with this job too, so a further resume
                     # of THIS job can locate it (repeated resumes of one task).

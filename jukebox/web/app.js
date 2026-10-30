@@ -263,7 +263,10 @@ async function load() {
       if (!lyricsJob || lyricsJob.state !== "succeeded" || autoChained.has(lyricsJob.id)) continue;
       if (session.jobs.some(job => job.track_id === track.id && job.kind === "music")) continue;
       autoChained.add(lyricsJob.id);
-      if (!musicConfigured) continue;
+      if (!musicConfigured) {
+        notice.textContent = `Lyrics ready for ${track.title} — the music service is not configured, so the vocal track was not requested. Add it to the server’s .env, restart, then use Generate vocal song.`;
+        continue;
+      }
       request(`/api/tracks/${track.id}/music`, {}).then(async () => {
         notice.textContent = `Lyrics ready — generating the vocal track for ${track.title}…`;
         await syncAfterMutation();
