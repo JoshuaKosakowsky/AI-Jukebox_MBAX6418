@@ -633,8 +633,8 @@ and existing class-generated candidate files remain unchanged; no samples select
 
 | Check / input | Expected | Actual |
 |---|---|---|
-| Offline catalog + HTTP/session regressions | Validate bounded files/provenance; seed ready tracks without jobs; preserve isolation/reload/expiry/caps | PASS, 15 new tests: empty/unregistered, instrumental/vocal metadata and exact bytes, safe malformed/missing/oversized manifests, missing/corrupt/truncated/wrong-size media, invalid durations, traversal/escaping symlinks/aliases/duplicates, budget, track caps, session isolation and reseeding |
-| Locked `python scripts/dev.py --check` | Repository safeguards, coverage and existing regressions pass | PASS, 144 tests; coverage 36 requirements / 11 tasks / 19 cases |
+| Offline catalog + HTTP/session regressions | Validate bounded files/provenance; seed ready tracks without jobs; preserve isolation/reload/expiry/caps | PASS, 16 new tests: empty/unregistered, instrumental/vocal metadata and exact bytes, safe malformed/missing/oversized manifests, missing/corrupt/truncated/wrong-size media, invalid durations, traversal/escaping symlinks/aliases/duplicates, budget, track caps, session isolation/reseeding and generation/replacement alongside samples |
+| Locked `python scripts/dev.py --check` | Repository safeguards, coverage and existing regressions pass | PASS, 145 tests; coverage 36 requirements / 11 tasks / 19 cases |
 | Normal `python scripts/dev.py --port 8013` in an isolated source copy with three synthetic 60-second silent WAVs / solid 512px covers | Local ready samples without service settings or provider substitutes | PASS, three correctly paired cards, all three playable, decoded covers, expandable vocal lyrics; HTTP three tracks / zero jobs; no class-service settings or requests |
 | First fixture play -> pause -> resume | Time advances, pause holds, resume continues | PASS, 3.494188 seconds playing -> 3.505433 paused and held -> 6.447209 resumed; no media errors |
 | Reload same browser | No duplication, same IDs/URLs, no automatic playback | PASS, all three track IDs/audio URLs/cover URLs unchanged; all players paused |
@@ -648,3 +648,11 @@ third-party media, user recordings or human listening. All rehearsal servers sto
 This verifies the loader mechanism through the normal entrypoint, not class-media
 quality/provenance acceptance. Jovi still selects three songs; merged-main and exact
 final GitHub ZIP sample playback/AT-11 acceptance remain pending. Submission NOT READY.
+
+Existing cover/music/vocal/runtime HTTP scenarios explicitly use an empty catalog
+fixture so registering real approved samples does not change their inputs. The
+loader HTTP suite retains real temporary manifests and verifies creation alongside
+loaded tracks plus session-local replacement with original catalog bytes preserved.
+All 28 existing HTTP cases also passed from the isolated source copy with the
+three-entry synthetic manifest present; their explicit fixtures keep them independent
+of Jovi's eventual selection. The approved tracked manifest remained unchanged.

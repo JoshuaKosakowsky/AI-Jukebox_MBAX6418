@@ -231,6 +231,40 @@ class SampleHttpTests(unittest.TestCase):
         self.assertEqual([t.id for t in store.snapshot(replacement).tracks], [t.id for t in original.tracks])
         self.assertFalse(replacement.jobs)
 
+    def test_generation_alongside_samples_and_replacement_stay_session_local(self):
+        settings = Settings.load(None, {"JUKEBOX_ART_ENDPOINT": "http://dobolyi.com:9006/v1", "JUKEBOX_ART_API_KEY": "offline-fixture-only"})
+        app = create_app(settings)
+        with patch("jukebox.providers.ClassProviders.cover", return_value=MediaBytes(b"new-cover", "image/png")) as cover:
+            with TestClient(app, base_url="http://localhost") as client:
+                initial = client.get("/api/session").json()
+                token = client.cookies.get(SESSION_COOKIE)
+                sample = initial["tracks"][0]
+                client.cookies.clear()
+                other = client.get("/api/session").json()
+                other_token = client.cookies.get(SESSION_COOKIE)
+                client.cookies.clear()
+                client.cookies.set(SESSION_COOKIE, token)
+                created = client.post("/api/tracks", json={"title": "New draft", "settings": {"style": "Piano", "mood": "Calm", "duration_seconds": 10}})
+                self.assertEqual(created.status_code, 202)
+                before = client.get("/api/session").json()
+                self.assertEqual(before["tracks"][:2], initial["tracks"])
+                self.assertEqual(len(before["tracks"]), 3)
+                self.assertEqual(client.post(f'/api/tracks/{sample["id"]}/cover', json={}).status_code, 202)
+                updated = client.get("/api/session").json()
+                self.assertEqual(updated["tracks"][0]["audio"], sample["audio"])
+                self.assertNotEqual(updated["tracks"][0]["cover"], sample["cover"])
+                self.assertEqual(client.get(sample["cover"]["url"]).status_code, 404)
+                client.cookies.clear()
+                client.cookies.set(SESSION_COOKIE, other_token)
+                self.assertEqual(client.get("/api/session").json(), other)
+                self.assertEqual(client.get(other["tracks"][0]["cover"]["url"]).status_code, 200)
+                client.cookies.clear()
+                fresh = client.get("/api/session").json()
+                self.assertEqual(len(fresh["tracks"]), 2)
+                self.assertNotEqual(client.get(fresh["tracks"][0]["cover"]["url"]).content, b"new-cover")
+        self.assertEqual(cover.call_count, 2)
+        self.provider_request.assert_not_called()
+
     def test_shared_catalog_counts_once_and_replaced_bytes_remain_budgeted(self):
         catalog = load_samples(self.root, max_bytes=MAX_MEDIA_BYTES)
         store = SessionStore(catalog)

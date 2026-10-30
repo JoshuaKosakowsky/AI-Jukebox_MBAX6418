@@ -10,10 +10,11 @@ Branch codex/a3-07-sample-loader from main 2a19ecf. No shared Track/schema chang
 Added bounded all-or-nothing local catalog validation; only manifest entries load, never candidates.
 app.py loads once; SessionStore seeds ready tracks with fresh private media URLs, no jobs/provider requests.
 Catalog bytes stay immutable/shared and counted once in existing media budget, including after replacements.
+Isolated 4 existing HTTP suites (28 cases pass with a populated source-copy manifest); sample replacement stays private.
 Fixed safe status/summary warning for bad catalogs; empty manifest keeps existing empty-library behavior.
 Changed samples.py, app.py, sessions.py, app.js, tests/test_samples.py; updated README, asset/contract/test docs and safe evidence.
 ## Validation
-Locked checks PASS: 144 tests (15 new); coverage 36/11/19. Schema, approved manifest and candidate media unchanged.
+Locked checks PASS: 145 tests (16 new); coverage 36/11/19. Schema, approved manifest and candidate media unchanged.
 Normal-launch isolated source-copy browser: 3 synthetic silence/solid-cover samples, matching cards, each plays; first pause/resume, lyrics and reload PASS.
 Missing-cover restart -> safe warning/zero tracks; approved empty-manifest restart -> no warning/zero tracks. Servers stopped.
 ## Blockers and unchecked areas
