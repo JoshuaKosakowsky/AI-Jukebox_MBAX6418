@@ -1,32 +1,34 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: publish Moonlit candidate and allow independent concurrent PRs.
+2026-10-29 America/Denver; Codex for Joshua. Shared integration handoff for PR #20 ZIP evidence and #23 Moonlit candidate.
 ## Constraints
-Joshua explicitly authorized parallel independent PRs now; keep protected reviews/checks and issue ownership.
+Protected reviews/checks unchanged; concurrent independent PRs authorized. Preserve prse's #5/#8/#9 and jovi's #7/#10 ownership.
 ## Repository state
-Branch codex/moonlit-sample-candidate from main 7b9dd2b; original candidate commit 586025f is pushed.
-PR #20 remains independent. Audit/review work is on codex/a3-08-recovery-audit; no app code shared here.
+Branches codex/windows-zip-startup (#20) and codex/moonlit-sample-candidate (#23), each reconciled against main 7d003c6.
+Main includes Mike's #21; live vocal/listening acceptance still remains on #3. Audit/review records stay in PR #22.
+Both branches use this same consolidated handoff to avoid conflicting status rewrites on the next merge.
 ## Work completed and decisions
-Moonlit WAV/PNG are unchanged originals with a candidate record, model/settings/provenance and README guidance.
-Both full decodes and muted asset-preview play/pause/resume passed; Joshua's earlier listening is attributed.
-Updated AGENTS/CONTRIBUTING: concurrent independent PRs allowed; coordinate overlap/dependencies as needed.
-The audit PR carries the identical guide update, so either merge order works; reconcile handoff text on integration.
-Shared manifest is still empty. Jovi owns candidate selection, sample-library integration and the full three-song set.
+#20 preserves the original 7b9dd2b ZIP identity/65-file startup rehearsal alongside Mike's vocal evidence; no new ZIP acceptance claimed.
+#23 retains the original Moonlit WAV/PNG, hashes/provenance and candidate status; final manifest/library/ZIP acceptance still belongs to jovi.
+The Moonlit preview index entry belongs to #23's results README; #20 keeps only its ZIP evidence additions.
+Reconciliation changes docs/handoff only; inherited application code matches main. No prse task or assignment is taken over.
 ## Validation
-Candidate hashes match the original normal-launch record; 30 s/48 kHz/stereo/PCM16 WAV and 512x512 PNG.
-Prior candidate gates passed: 69 tracked files, coverage 36/11/19, whitespace clean; no new generation.
-Final guide/handoff checks passed: verifier 69 files, coverage 36/11/19, whitespace clean; runtime/protection untouched.
+Merged-main baseline: 128 tests and four CI checks passed; prior media decoding/preview and ZIP observations retain their original scope.
+Run python scripts/dev.py --check and git diff --check for each reconciled head; exact results/head IDs are posted on #20/#23.
+No class-service generation, new media, credentials or user uploads were introduced during reconciliation.
 ## Blockers and unchecked areas
-This is a candidate, not final sample/ZIP acceptance. The #21 retry finding last reproduced on 3245fcd remains in its review.
-Full submission NOT READY; no new listening or class-service calls claimed. No dependency on #20's approval.
+Fresh review is required after these updates; request MSpanny on both heads and keep normal protection in force.
+No published prse branch/PR was affected; unpublished local work is not visible. Her task ownership remains unchanged.
+#3 live vocal acceptance, #8 instrumental fix, DJ/reference features, final samples and independent ZIP remain incomplete; NOT READY.
 ## Next steps
-1. Teammate reviews the candidate PR; merge normally after approval and green CI.
-2. Jovi adopts the candidate if selected, completes the other samples and verifies normal-app/final ZIP playback.
-3. Preserve all task notes when reconciling shared handoff text after another PR merges.
+1. Mike re-reviews the updated #20/#23 heads; merge normally only after eligible approval and green CI.
+2. Recheck the remaining PR against main after the first merge; retain all distinct evidence and task notes.
+3. Continue normal-launch vocal acceptance on main; prse's feature/recovery work and jovi's sample/ZIP work can proceed separately.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7#issuecomment-6513289437
-Candidate: assets/samples/moonlit-reflection.candidate.json; source: results/main-instrumental-acceptance.json.
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/23
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

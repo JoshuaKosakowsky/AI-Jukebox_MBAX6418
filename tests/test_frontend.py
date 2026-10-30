@@ -58,6 +58,37 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         self.assertIn("\"Resume check\"", self.source)
         self.assertIn(f"/music/resume?from=${{musicJob.id}}", self.source)
 
+    def test_vocal_controls_are_wired_and_music_label_is_mode_aware(self):
+        self.assertIn("\"Generate lyrics\"", self.source)
+        self.assertIn("Generate new lyrics", self.source)
+        self.assertIn("\"Generate vocal song\"", self.source)
+        self.assertIn("Generate new vocal song", self.source)
+        self.assertIn("`/api/tracks/${track.id}/lyrics`", self.source)
+        self.assertIn("Generating vocal music…", self.source)
+        self.assertIn("Song draft · lyrics and vocal generation pending.", self.source)
+
+    def test_vocal_lyrics_chain_never_re_submits_music(self):
+        # The one-click vocal chain must fire only for a lyrics job observed
+        # succeeding AFTER the page loaded (seeded set), and only when no music
+        # job exists for the track yet. Reloads — even mid-chain — and retries
+        # stay manual.
+        self.assertIn("autoChained.add(job.id)", self.source)
+        # Seeding includes every non-terminal-failed (pending or succeeded)
+        # text job from the first snapshot, so reloading mid-chain cannot
+        # continue an auto-chain either.
+        self.assertIn("if (job.kind === \"text\" && job.state !== \"failed\") autoChained.add(job.id)", self.source)
+        self.assertIn("session.jobs.some(job => job.track_id === track.id && job.kind === \"music\")", self.source)
+        self.assertIn("track.settings.mode !== \"vocal\" || track.audio", self.source)
+
+    def test_rejected_lyrics_request_re_enables_the_button(self):
+        # A rejected lyrics POST (429 while another track holds the single text
+        # slot, 502, ...) creates no job, so the per-track diff would skip
+        # rebuilding the card: the handler must restore label and enabled state.
+        mutation = self.source.split("retryLyrics.addEventListener")[1].split("});\n    detail.append(retryLyrics)")[0]
+        self.assertIn("retryLyrics.disabled = !textConfigured;", mutation)
+        self.assertIn("retryLyrics.textContent = previousLabel;", mutation)
+        self.assertIn("\"Requesting…\"", mutation)
+
     def test_music_stage_thresholds_match_server_progress_bounds(self):
         server = (ROOT / "jukebox/sessions.py").read_text(encoding="utf-8")
         poll_cap = re.search(r"with_progress\(min\(job\.progress \+ \.05, (0?\.\d+)\)\)", server)
