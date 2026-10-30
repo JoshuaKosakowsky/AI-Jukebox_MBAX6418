@@ -1,31 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: verify Mike's correction and record current integration handoff.
+2026-10-29 America/Denver; Codex for Joshua. Task: merge PR #21 and reconcile its integration handoff.
 ## Constraints
 Independent concurrent PRs authorized; protected reviews/checks and issue ownership remain. No class generation here.
 ## Repository state
-Branch codex/a3-08-recovery-audit, PR #22; pre-handoff 108d0f5. #23 is the separate Moonlit candidate PR.
-Mike's #21 at 04650a5 is independently approved and its blocking thread resolved; no merge performed.
+Branch codex/a3-08-recovery-audit, PR #22, syncing to main 7d003c6; pre-handoff 624b02a. #23 is separate.
+PR #21 merged normally at 7d003c68523deb625b28b644265edd039c6ae680 from approved 04650a5; local main synced.
 #20 is approved; #22/#23 await teammate review. Live GitHub remains authoritative if those states change.
 ## Work completed and decisions
 #8's instrumental retry finding, offline reproductions and workaround remain valid on main 7b9dd2b; prse owns its fix.
 Mike fixed the new lyrics-control instance: rejected 429 now restores the control; retry after capacity frees succeeds.
 Pending-lyrics reload no longer starts music: mock submissions stayed at two until the deliberate third request.
-Recorded exact-head approval/browser evidence, enabled-control screenshot, combined review credit and audit status note.
+Recorded approval/browser evidence and review credit; added Mike's merged implementation credit. Main CI passed all four checks.
 ## Validation
 #21: 128 tests, verifier 67 files, coverage 36/11/19, diff clean; all four exact-head CI checks green on 04650a5.
 Independent browser used only MockTransport/synthetic media; no real keys/requests/listening. Harness stopped; clone clean.
-Audit artifact checks passed: verifier 74 files, coverage 36/11/19, staged whitespace clean; app source unchanged.
+Synced audit checks passed: 128 tests, verifier 76 files, coverage 36/11/19, whitespace clean; app matches main.
 ## Blockers and unchecked areas
 #3 live Qwen/ACE-Step vocal run, human listening and integrated-main acceptance remain open; approval is partial scope.
 #8's instrumental fix and normal-launch recovery, DJ/references/samples/final ZIP remain incomplete; NOT READY.
 ## Next steps
-1. Mike/eligible teammate merges #21 normally; perform bounded normal-launch vocal acceptance on integrated main afterward.
+1. Perform bounded normal-launch vocal acceptance on main 7d003c6; retain #3 until live results/listening pass.
 2. Teammates review #22/#23 independently; prse coordinates the outstanding instrumental-control correction.
 3. Preserve all task notes on handoff reconciliation; update contributions as work merges, without duplicate review rows.
 ## References
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707544155
+Main CI: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/40994770930
 Audit: docs/RECOVERY_AUDIT.md; results/pr21-independent-review.json; results/pr21-lyrics-retry-enabled.jpg.
 
 Inherited discovery note (its unverified status was superseded by the October 17

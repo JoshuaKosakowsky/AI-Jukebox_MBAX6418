@@ -15,6 +15,7 @@ MAX_TRACKS = 20
 MAX_JOBS = 100
 MAX_ACTIVE_COVERS = 2
 MAX_ACTIVE_MUSIC = 2
+MAX_ACTIVE_TEXT = 1
 MAX_MEDIA_BYTES = 64_000_000
 # Operational music bounds: the class server's 20 MB response cap limits a
 # 48 kHz/16-bit/stereo WAV to roughly 104 seconds, and 60 seconds leaves safe
@@ -63,6 +64,26 @@ def music_prompt(track: Track) -> str:
             f"Mood: {track.settings.mood}\n"
             f"Approximate length: {track.settings.duration_seconds} seconds.\n"
             "Create a cohesive, playable instrumental piece that matches this style and mood.")
+
+
+def vocal_music_prompt(track: Track) -> str:
+    return ("Compose an original song with expressive sung vocals that perform the provided lyrics.\n"
+            f"Song title and theme: {track.title}\n"
+            f"Musical style: {track.settings.style}\n"
+            f"Mood: {track.settings.mood}\n"
+            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
+            "Create a cohesive, playable vocal piece that matches this style and mood.")
+
+
+def lyrics_prompt(track: Track) -> str:
+    line_count = min(16, max(6, round(track.settings.duration_seconds / 4)))
+    return ("Write original song lyrics for a new song.\n"
+            f"Song title and theme: {track.title}\n"
+            f"Musical style: {track.settings.style}\n"
+            f"Mood: {track.settings.mood}\n"
+            f"Target length: about {track.settings.duration_seconds} seconds, roughly {line_count} short lines.\n"
+            "Return only the lyrics: original, plain, one line per verse line, "
+            "no section headings, no song title, no commentary. English.")
 
 
 class SessionStore:
@@ -125,9 +146,12 @@ class SessionStore:
         with self.lock:
             if track_id not in session.tracks:
                 raise SessionFailure(404, "Track not found in this session.")
+            track = session.tracks[track_id]
+            if track.settings.mode == "vocal" and track.lyrics is None:
+                raise SessionFailure(409, "Generate the song's lyrics before requesting vocal music.")
             duration = session.tracks[track_id].settings.duration_seconds
             if not 10 <= duration <= MAX_MUSIC_DURATION:
-                raise SessionFailure(422, f"Instrumental duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
+                raise SessionFailure(422, f"Song duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
             if (track_id, "music") in session.active:
                 raise SessionFailure(409, "Music generation is already in progress for this track.")
             if self._active_count("music") >= MAX_ACTIVE_MUSIC:
@@ -139,6 +163,24 @@ class SessionStore:
             session.active.add((track_id, "music"))
             return job
 
+    def queue_lyrics(self, session, track_id):
+        "Queue one deliberate Qwen lyrics generation for a vocal track."
+        with self.lock:
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            if session.tracks[track_id].settings.mode != "vocal":
+                raise SessionFailure(422, "Only vocal tracks use AI lyrics.")
+            if (track_id, "text") in session.active:
+                raise SessionFailure(409, "Lyrics generation is already in progress for this track.")
+            if self._active_count("text") >= MAX_ACTIVE_TEXT:
+                raise SessionFailure(429, "Lyrics generation is busy. Try again shortly.", retryable=True)
+            if len(session.jobs) >= MAX_JOBS:
+                raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
+            job = GenerationJob(track_id=track_id, kind="text")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "text"))
+            return job
+
     def resume_music(self, session, failed_job_id, track_id):
         """Continue polling/downloading an existing submitted task without creating a new one.
 
@@ -147,6 +189,10 @@ class SessionStore:
         job/slot allocation, so an invalid resume request has zero side effects.
         The resumed job never calls submit_music; it re-polls the same provider
         task ID and inherits the ticket association so further resumes work.
+        Vocal tracks need no lyrics check here: the resumed task was already
+        submitted with the lyrics it had then, and resume never resubmits — a
+        lyrics re-generation is picked up only by a fresh 'Generate new vocal
+        song' request, never by a resume.
         """
         with self.lock:
             previous = session.jobs.get(failed_job_id)
@@ -156,9 +202,10 @@ class SessionStore:
                 raise SessionFailure(404, "Track not found in this session.")
             duration = session.tracks[track_id].settings.duration_seconds
             if not 10 <= duration <= MAX_MUSIC_DURATION:
-                raise SessionFailure(422, f"Instrumental duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
+                raise SessionFailure(422, f"Song duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
             if failed_job_id not in session.tickets:
-                raise SessionFailure(409, "The previous music submission was never confirmed, so it cannot be resumed. Generating a new instrumental will submit a new request.")
+                kind = "vocal song" if session.tracks[track_id].settings.mode == "vocal" else "instrumental"
+                raise SessionFailure(409, f"The previous music submission was never confirmed, so it cannot be resumed. Generating a new {kind} will submit a new request.")
             if (track_id, "music") in session.active:
                 raise SessionFailure(409, "Music generation is already in progress for this track.")
             if self._active_count("music") >= MAX_ACTIVE_MUSIC:
@@ -202,6 +249,33 @@ class SessionStore:
                 session.active.discard((job.track_id, "art"))
                 session.touched = time.monotonic()
 
+    def generate_lyrics(self, session, job_id, providers):
+        """One deliberate Qwen lyrics call; the text attaches to its vocal track."""
+        with self.lock:
+            job = session.jobs[job_id]
+            job = job.transition(JobState.RUNNING, progress=.3)
+            session.jobs[job_id] = job
+            track = session.tracks[job.track_id]
+        try:
+            lyrics = providers.lyrics(lyrics_prompt(track))
+            if not lyrics.strip():
+                raise ProviderFailure(SafeError(
+                    code="generation_failed", message="The text service returned empty lyrics.", retryable=False))
+            with self.lock:
+                current = session.tracks[job.track_id]
+                updated = Track.model_validate({**current.model_dump(), "lyrics": lyrics})
+                session.tracks[current.id] = updated
+                session.jobs[job.id] = job.transition(JobState.SUCCEEDED)
+        except Exception as exc:
+            error = exc.error if isinstance(exc, ProviderFailure) else SafeError(
+                code="internal_error", message="Lyrics generation could not be completed. You can try again.", retryable=True)
+            with self.lock:
+                session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
+        finally:
+            with self.lock:
+                session.active.discard((job.track_id, "text"))
+                session.touched = time.monotonic()
+
     def generate_music(self, session, job_id, providers, resume_from=None):
         """Submit one ACE-Step task, poll it with a bounded deadline, then download and attach the WAV.
 
@@ -217,8 +291,21 @@ class SessionStore:
             track = session.tracks[job.track_id]
         try:
             if resume_from is None:
-                ticket = providers.submit_music(music_prompt(track), duration_seconds=track.settings.duration_seconds,
-                                                lyrics="[Instrumental]")
+                # Vocal tracks submit the track's current AI lyrics in the same
+                # verified ACE-Step request; a vocal submission without lyrics
+                # must fail loudly rather than silently produce another
+                # instrumental with the frozen "[Instrumental]" marker.
+                current = session.tracks[job.track_id]
+                vocal = current.settings.mode == "vocal"
+                if vocal and not current.lyrics:
+                    raise ProviderFailure(SafeError(
+                        code="generation_failed",
+                        message="Lyrics are missing. Generate the song's lyrics before requesting vocal music.",
+                        retryable=False))
+                prompt = vocal_music_prompt(current) if vocal else music_prompt(current)
+                lyrics = current.lyrics if vocal else "[Instrumental]"
+                ticket = providers.submit_music(prompt, duration_seconds=current.settings.duration_seconds,
+                                                lyrics=lyrics)
                 with self.lock:
                     session.tickets[job_id] = ticket
                     job = session.jobs[job_id].with_progress(.3)
@@ -227,9 +314,10 @@ class SessionStore:
                 with self.lock:
                     ticket = session.tickets.get(resume_from)
                     if ticket is None:
+                        kind = "vocal song" if session.tracks[job.track_id].settings.mode == "vocal" else "instrumental"
                         raise ProviderFailure(SafeError(
                             code="generation_failed",
-                            message="The previous music job can no longer be resumed. Generate a new instrumental instead.",
+                            message=f"The previous music job can no longer be resumed. Generate a new {kind} instead.",
                             retryable=False))
                     # Associate the ticket with this job too, so a further resume
                     # of THIS job can locate it (repeated resumes of one task).
