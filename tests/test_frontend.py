@@ -116,6 +116,14 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         advance = self.source.split("async function djAdvanceOnce")[1].split("// User intents")[0]
         self.assertIn("} finally {", advance)
         self.assertNotIn("promise.finally(", advance)
+        # The prior-await must sit INSIDE the try: if the awaited earlier
+        # advance rejects, this promise still reaches its finally and clears
+        # the in-flight slot — otherwise a rejected queued advance poisons
+        # every subsequent advance (verified by the Node micro-test and the
+        # S8 browser scenario).
+        self.assertLess(advance.index("try {"),
+                        advance.index("if (prior) await prior.promise"),
+                        "prior-await must be inside the try/finally")
         self.assertIn("let djUserChain = Promise.resolve();", self.source)
         self.assertIn("djUserChain = next.catch(() => {});", self.source)
         skip = self.source.split("async function djSkip")[1].split("function djStatusIdleDone")[0]

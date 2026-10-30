@@ -663,10 +663,16 @@ Final edge cases (pre-live-acceptance): **skip while paused during music**
 advances exactly one track, stays paused, and Resume plays the NEXT song's
 DJ introduction before its music — the queue's `paused_from` after a paused
 advance is always "speaking" (carrying the previous track's "playing" phase
-forward previously bypassed the new track's introduction); and a **forced
-offline advance failure** leaves no console error and the next Skip works.
-Both are covered by a unit test each (151 total) plus the real-browser
-scenarios S6/S7 below.
+forward previously bypassed the new track's introduction); a **forced
+offline advance failure** leaves no console error and the next Skip works;
+and a **queued advance whose awaited predecessor fails** must not poison the
+controller — the predecessor await sits inside the advance promise's
+try/finally, so the in-flight slot is always cleared and future advancement
+recovers (previously a rejected queued advance occupied the slot forever and
+every subsequent advance rejected). The queueing path is exercised with a
+deterministic Node micro-test of the real `djAdvanceOnce` (all 7 assertions
+PASS on the fixed source; on the pre-fix source the slot stays OCCUPIED and
+the subsequent advance never posts) plus the browser scenario S8.
 
 Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
 stale-pause phase correction, one-index-per-advance + straggler 409,

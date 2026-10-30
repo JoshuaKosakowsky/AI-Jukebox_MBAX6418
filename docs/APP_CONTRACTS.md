@@ -255,8 +255,12 @@ into it, so one Skip advances at most once, while rapid distinct Skips
 serialize and each still applies — and all user intents (play/pause/resume/
 skip) travel through one FIFO (`djUserQueue`) so the server applies them in
 the exact order the user issued them even though fetches use separate
-connections. A failed pause (network error) un-halts the controller instead
-of freezing the timeline, and the engine loop survives transient failures.
+connections. A failed pause (network error) un-halts the controller, and the
+engine loop survives transient failures. The advance's earlier-flight await
+sits INSIDE its try/finally, so a queued advance that rejects alongside a
+failed predecessor still clears the in-flight slot — the controller can
+never be poisoned by a rejected advance and keeps advancing on the next
+Skip.
 
 ## Adapter boundary
 

@@ -476,10 +476,14 @@ async function djAdvanceOnce(currentTrackId, automatic) {
     return prior.promise;
   }
   const promise = (async () => {
-    // Any earlier advance must land first, so server-side arrival order
-    // matches intent order even though fetches use separate connections.
-    if (prior) await prior.promise;
     try {
+      // Any earlier advance must land first, so server-side arrival order
+      // matches intent order even though fetches use separate connections.
+      // This await sits INSIDE the try: if the prior advance REJECTS, this
+      // promise still reaches its finally and clears the in-flight slot —
+      // otherwise the slot stays occupied by this rejected promise and
+      // every subsequent advance rejects forever (poisoned).
+      if (prior) await prior.promise;
       const response = await request("/api/playback/advance", {});
       await syncAfterMutation();
       return response.state;
