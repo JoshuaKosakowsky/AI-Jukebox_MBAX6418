@@ -1,29 +1,30 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Tasks: #8 support audit handoff; independent review of Mike's #21.
+2026-10-29 America/Denver; Codex for Joshua. Task: publish failure audit and allow independent concurrent PRs.
 ## Constraints
-Task branches/reviews; no self-approval or main changes. Preserve prse4479's #8 and Mike's #3 ownership.
+Joshua explicitly authorized parallel independent PRs now; keep protected reviews/checks and issue ownership.
 ## Repository state
-Branch codex/a3-08-recovery-audit; pre-handoff e4c10c5 pushed, base main 7b9dd2b. PR #20 still awaits review.
-Rechecked #21 latest 3245fcd in a separate clean clone; original P2 still reproduces; no author-branch changes/merge.
+Branch codex/a3-08-recovery-audit from main 7b9dd2b; audit/review evidence through 2d19839 is pushed.
+PR #20 and codex/moonlit-sample-candidate are separate tasks; no application files changed in this audit.
 ## Work completed and decisions
-#8: RECOVERY_AUDIT + runnable offline probes + safe JSON/screenshots; one P2 music retry lock after 429.
-Published #8 findings/fix guidance; reload then explicit retry works. All 65 isolated source files stayed unchanged.
-#21: requested changes for the new lyrics retry lock after text-slot 429; same cached-card cause, reproduced in browser.
-Reload continuation and premature live-evidence wording were non-blocking notes; #3 live acceptance remains pending.
-Saved exact-head review JSON/screenshot; completed review credited in CONTRIBUTIONS. No shared app changes.
+#8: seven offline backend probe groups and browser failure/recovery observations; one P2 music retry lock after 429.
+RECOVERY_AUDIT includes safe JSON/screenshots, runnable offline probes, reload workaround and focused fix guidance.
+#21: independent review/recheck at 3245fcd still reproduced the new lyrics retry lock; formal review remains recorded.
+Updated AGENTS/CONTRIBUTING: concurrent independent PRs allowed; coordinate overlap/dependencies as needed.
+The candidate PR carries the identical guide update, so either merge order works; reconcile handoff text on integration.
 ## Validation
-#8: seven offline probe groups and 115 tests passed, verifier 71 files, coverage 36/11/19 at e4c10c5.
-#21 recheck: 127 tests, verifier 67 files, coverage 36/11/19; four exact-head CI checks green on 3245fcd.
-Browser used only MockTransport/synthetic media; no class keys/requests/listening. Review clone clean; harness stopped.
+Audit: seven probe groups and 115 tests passed; verifier 73 files after review records; coverage 36/11/19.
+#21 recheck: 127 tests, verifier 67 files and four exact-head CI checks passed on 3245fcd; retry still failed in browser.
+All fault probes used MockTransport/synthetic media; no real class keys/requests. Harnesses stopped.
+Final guide/handoff checks passed: verifier 73 files, coverage 36/11/19, whitespace clean; runtime/protection untouched.
 ## Blockers and unchecked areas
-Mike must fix the new lyrics control before approval; prse coordinates the broader #8 fix with Mike's shared app.js.
-Normal-launch vocal/failure acceptance and remaining DJ/reference/sample/release work are incomplete; NOT READY.
+prse4479 owns #8's fix; coordinate shared app.js edits with Mike's #21. No code fix or normal-launch acceptance here.
+Full submission NOT READY; review/candidate records preserve their separate scopes. No dependency on #20's approval.
 ## Next steps
-1. Re-review Mike's correction on its exact head, including the 429 -> slot free -> retry-enabled browser case.
-2. After #20 merges, open/reconcile the audit PR; preserve its distinct main and PR21 evidence and review credit.
-3. prse implements the #8 fix and records normal-launch recovery as remaining features integrate.
+1. Teammate reviews the evidence PR; merge normally after approval and green CI.
+2. prse implements the focused retry fix and browser regression, coordinating with Mike.
+3. Record normal-launch recovery as remaining features integrate; preserve task notes when merging handoff updates.
 ## References
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6512838146
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820
