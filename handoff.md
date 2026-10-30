@@ -1,34 +1,29 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: publish #19 corrections and sync OneDrive.
+2026-10-29 America/Denver; Codex for Joshua. Task: early Windows ZIP startup rehearsal, Refs #10.
 ## Constraints
-Joshua authorized repo commits/messages/pushes and local sync. Protected PR workflow; no self-approval.
+Protected task-branch/PR workflow; no self-approval. No feature changes or service generation.
 ## Repository state
-Branch codex/a3-02-browser-acceptance; pre-handoff 99536f2 pushed; main 7cc9645.
-Original OneDrive checkout fast-forwarded cleanly to 99536f2; ignored .env preserved.
-Review clone /private/tmp/ai-jukebox-review-20261029 has the same tracked branch.
+Branch codex/windows-zip-startup from merged main 7b9dd2b; PR #19 merged with Matt's approval and green main CI.
 ## Work completed and decisions
-Corrected TEST_RESULTS count to 40 PASS / 0 FAIL, attributed to Matt's review recount;
-external qa-browser-final.txt unavailable for our own recount. Updated results/README evidence,
-CONTRIBUTIONS listening credit and README's contradictory acceptance statement. No app/dependency changes.
-Posted correction summary to #19 and formally requested mase7919 re-review; approval still required.
-Pinned OneDrive repo via Finder; cloud-only Git metadata downloaded, allowing safe fetch/fast-forward.
+Downloaded exact GitHub ZIP; fresh extraction launched from README without .git or private config.
+Missing/placeholders, invalid endpoint, configured recovery, alternate port and browser refresh/reload passed.
+All 65 archived source files byte-identical; servers stopped and temporary .env removed; original preserved.
+Added safe JSON/two actual screenshots, TEST_RESULTS evidence and concise README/results links; no launcher fix needed.
+Mike/MSpanny now leads #3 per Joshua; #5 remains prse4479. Live issues own current assignments.
 ## Validation
-Earlier locked checks: 115 tests, verifier 65 files, coverage 36/11/19 with Python 3.12.14/Git 2.53.
-05f4382 CI caught missing required headings in handoff, edited after those checks; restored them here.
-Initial Apple Git 2.39 run failed 7 hook tests (--to-stdin unsupported); current Git resolved those.
-All four GitHub CI checks passed on 99536f2. Final handoff verifier/coverage/whitespace checks pass.
-No new class-service generation or browser acceptance run.
+Startup rehearsal passed on Windows, launcher Python 3.14.7 -> locked app Python 3.12.14, uv 0.12.19.
+Locked checks passed: 115 tests, verifier 68 files, coverage 36 requirements/11 tasks/19 cases; diff clean.
 ## Blockers and unchecked areas
-#19 awaits Matt's re-review on the final documentation head; no merge or review dismissal.
-Submission NOT READY; remaining feature work unchanged. OneDrive filesystem sync is managed by its client.
+#10 remains blocked and led by jovi1214; this developer rehearsal is not the final independent installation.
+Vocals, DJ flow, references, samples and full release verification remain incomplete; submission NOT READY.
 ## Next steps
-1. Matt verifies #19 corrections on the final head; merge normally after approval and green CI.
-2. Keep the OneDrive task branch aligned with GitHub; local main already matches origin/main.
-3. #3 vocals (jovi1214) and #5 DJ queue (prse4479) ready; references/samples/independent ZIP follow.
+1. Teammate reviews the focused evidence PR; merge only after approval and green CI.
+2. Mike implements #3; prse4479 implements #5; avoid shared app-file changes in this docs task.
+3. Record completed work/review credit when this PR merges; jovi performs final independent ZIP checks later.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#issuecomment-6500246029
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

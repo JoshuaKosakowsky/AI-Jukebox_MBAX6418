@@ -467,3 +467,43 @@ pairing gap is satisfied. This does not establish vocals, AI DJ sequencing,
 reference voices, full failure-case coverage, sample completion or independent
 GitHub ZIP/release acceptance. Full submission remains NOT READY. Recorded wall
 times include browser/tool waits and must not be used as inference benchmarks.
+
+## Early Windows GitHub ZIP startup rehearsal - 2026-10-29
+
+Tester: JoshuaKosakowsky directing Codex. Downloaded GitHub's source ZIP of merged
+main `7b9dd2b2702d7280a231cdcbfbd1afad136f3f56` into a fresh Windows folder,
+then followed README's pinned uv installation, configuration and normal launcher.
+No Git metadata or private `.env` shipped in the archive. All 65 source files
+remained byte-identical to the downloaded archive after the checks.
+
+Archive: [exact GitHub ZIP](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/7b9dd2b2702d7280a231cdcbfbd1afad136f3f56.zip),
+330089 bytes; SHA-256
+`ffca71b88e7875985a95095043bac5dd93c5907021bb82f5e5b9c183086c1415`.
+Environment: Windows 11 (10.0.26200), launcher Python 3.14.7, uv 0.12.19;
+uv selected Python 3.12.14 and installed 19 locked packages into a fresh short
+LOCALAPPDATA environment. Existing Python/Git tooling, internet and cached
+Python 3.12 were available; this was a fresh extraction, not a clean OS.
+
+| Input/check | Expected | Actual |
+|---|---|---|
+| `python -m pip install uv==0.12.19`, then `python scripts/dev.py` without `.env` | Install and launch directly from the ZIP | PASS; new environment created, app served on loopback 8000, browser connected with empty library |
+| Missing settings, then Refresh status | Useful setup guidance; generation disabled | PASS; all four roles show Missing settings; create disabled; refresh stays connected with zero tracks |
+| Copy `.env.example` unchanged to `.env`, restart | Placeholders allow empty-app startup | PASS; same missing-settings view; health/status/session HTTP 200, zero tracks/jobs; no browser console errors |
+| Synthetic invalid art endpoint and synthetic key, normal launch | Reject safely without echoing values | PASS; exit 2, only "Invalid art endpoint. Use the documented class host, port and /v1 base URL."; no endpoint, key or traceback |
+| Supply existing local class settings, then `python scripts/dev.py --port 8001` | Correcting settings recovers; alternate-port launch works | PASS; all four roles Configured, generation control enabled, health/status/session HTTP 200; connectivity_checked remains false |
+| Configured Refresh status and page reload | Stay connected without starting generation | PASS; zero tracks/jobs and no browser console errors |
+| Compare extraction with archive; stop servers and remove temporary `.env` | Preserve shipped source and private developer setup | PASS; all 65 files byte-identical, both rehearsal ports closed, only the temporary private settings copy removed |
+
+[Safe structured record](../results/windows-zip-startup.json), actual browser
+screenshots: [missing settings](../results/windows-zip-missing-settings.jpg),
+[configured](../results/windows-zip-configured.jpg). No startup or configuration
+fix was needed. No deliberate class-service generation was submitted.
+
+This supports the startup/configuration portion of AT-16 and archive-identity
+preparation for AT-18. Neither case is complete: Joshua was already involved in
+implementation; a different teammate must still install the final candidate ZIP
+and exercise every required feature and sample. No provider-connectivity,
+generation/playback, vocal, DJ, reference-voice, sample or release acceptance was
+performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
+remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
+candidate containing this documentation.
