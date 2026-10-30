@@ -1,34 +1,73 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Shared integration handoff for PR #20 ZIP evidence and #23 Moonlit candidate.
+2026-10-30 America/Denver; Codex for mase7919. A3-05 default AI DJ queue
+implementation on `codex/a3-05-dj-queue` (draft PR), built on main
+`e2b1e52`. This file also retains the #20 ZIP-evidence and #23 Moonlit
+candidate coordination notes below.
+
 ## Constraints
-Protected reviews/checks unchanged; concurrent independent PRs authorized. Preserve prse's #5/#8/#9 and jovi's #7/#10 ownership.
+Protected reviews/checks unchanged. User-controlled workflow: this draft PR
+must stay DRAFT until mase7919 authorizes readiness/review; no self-approval,
+no branch-protection bypass, no merge. Keep prse's #8/#9 and jovi's #7/#10
+ownership; #6 (reference voices) is explicitly out of scope of A3-05.
+
 ## Repository state
-Branches codex/windows-zip-startup (#20) and codex/moonlit-sample-candidate (#23), each reconciled against main 7d003c6.
-Main includes Mike's #21; live vocal/listening acceptance still remains on #3. Audit/review records stay in PR #22.
-Both branches use this same consolidated handoff to avoid conflicting status rewrites on the next merge.
+Main `e2b1e52` (includes #18 instrumentals, #19 acceptance evidence, #21
+vocals, #23 Moonlit candidate). Open: #20 ZIP evidence (behind main, sync
+requested), #22 recovery audit (dirty on handoff only), #24 vocal credits.
+A3-05 branch `codex/a3-05-dj-queue` = main + playback controller (queue +
+AI DJ commentary), one draft PR.
+
 ## Work completed and decisions
-#20 preserves the original 7b9dd2b ZIP identity/65-file startup rehearsal alongside Mike's vocal evidence; no new ZIP acceptance claimed.
-#23 retains the original Moonlit WAV/PNG, hashes/provenance and candidate status; final manifest/library/ZIP acceptance still belongs to jovi.
-The Moonlit preview index entry belongs to #23's results README; #20 keeps only its ZIP evidence additions.
-Reconciliation changes docs/handoff only; inherited application code matches main. No prse task or assignment is taken over.
+A3-05 implemented end-to-end: queue endpoints, DJ speech jobs (Qwen text ->
+Chatterbox default-voice speech, voice omitted per contract), playback state
+machine on the existing Playback contract (no schema change; track.speech
+reused as the per-track introduction), one persistent browser audio element +
+engine loop for sequencing, play/pause/resume/skip in both phases, automatic
+advancement, end-of-queue, reload without regeneration. Every transition
+including the first is DJ-introduced (documented design choice; same code
+path for all transitions). Commentary speech attaches to the TRACK so stale
+jobs from skipped tracks can never play out of turn.
+#20 notes (historical): original 7b9dd2b ZIP identity/65-file startup
+rehearsal; #23: original Moonlit WAV/PNG candidate material. Neither is
+touched by A3-05.
+
 ## Validation
-Merged-main baseline: 128 tests and four CI checks passed; prior media decoding/preview and ZIP observations retain their original scope.
-Run python scripts/dev.py --check and git diff --check for each reconciled head; exact results/head IDs are posted on #20/#23.
-No class-service generation, new media, credentials or user uploads were introduced during reconciliation.
+Baseline `e2b1e52`: 128 tests / 4 CI. A3-05 head: 142/142 tests (9 new
+tests/test_dj.py, 5 new frontend guards) and a REAL-Chrome offline harness
+run with fixture providers: 18/18 checks (ordered speech->music sequencing
+for 3 tracks, skip during speech and music, pause/resume in both phases,
+reload resumes without regeneration, exactly 3 Qwen + 3 speech requests
+total — zero duplicates, no console errors, no 4xx). Evidence retained
+outside the repo (dj-browser-evidence.json, dj-browser-final.txt). No class
+service, no .env, no credentials were used; no new live generation was
+requested.
+
 ## Blockers and unchecked areas
-Fresh review is required after these updates; request MSpanny on both heads and keep normal protection in force.
-No published prse branch/PR was affected; unpublished local work is not visible. Her task ownership remains unchanged.
-#3 live vocal acceptance, #8 instrumental fix, DJ/reference features, final samples and independent ZIP remain incomplete; NOT READY.
+Live Qwen/Chatterbox acceptance (AT-07, AT-09 live portion) is NOT done —
+authorized separately, planned on the normal launcher. Not claimed: audible
+listening, headed-browser listening, class-service connectivity. #22 remains
+dirty (handoff-only conflict; sync + current-head CI before its formal
+review). #8's instrumental retry P2 is unfixed on main and out of A3-05
+scope. Not ready for submission: vocals live acceptance, reference voices,
+samples, ZIP acceptance.
+
 ## Next steps
-1. Mike re-reviews the updated #20/#23 heads; merge normally only after eligible approval and green CI.
-2. Recheck the remaining PR against main after the first merge; retain all distinct evidence and task notes.
-3. Continue normal-launch vocal acceptance on main; prse's feature/recovery work and jovi's sample/ZIP work can proceed separately.
+1. mase7919 authorizes readiness/review of the A3-05 draft; MSpanny is the
+   preferred independent reviewer if eligible.
+2. Propose the bounded live acceptance procedure (normal launcher, one
+   2-track queue, real commentary + speech + sequencing in a browser) for
+   authorization — no live calls before then.
+3. After #25 merges, reconcile #20/#22 handoff (integration owner) and
+   re-verify current-head CI. Keep #6 extension clean on top of the A3-05
+   controller.
+
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/23
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/25
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
@@ -43,5 +82,5 @@ JUKEBOX_SPEECH=http://dobolyi.com:9008/v1 (chatterbox-v3).
 Same class key as Assignment 2 (copied from A2 `.env`; hash-verified, never printed).
 `.env` confirmed gitignored (`git check-ignore .env`); no commits, no push.
 All four respond to `/v1/models` with the key. Unverified: request/response
-payload schemas for 9007/9008 (music/TTS) â€” still need class-endpoints.txt
+payload schemas for 9007/9008 (music/TTS) — still need class-endpoints.txt
 before building adapters.

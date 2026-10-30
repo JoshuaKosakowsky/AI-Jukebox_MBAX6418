@@ -155,6 +155,77 @@ upload, fixtures or alternate generation provider is added to the normal launche
 Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
 
+## Default AI DJ playback queue (A3-05)
+
+The queue lives in the session and uses the existing `Playback` contract
+unchanged (`state: idle|speaking|playing|paused`, `queue`, `index`,
+`current_track_id`, `paused_from`) — no schema or media changes were needed.
+`track.speech` (declared in the shared contract, previously unused) is the
+per-track DJ introduction: a session-safe `MediaRef` whose media id is unique
+across roles, so the snapshot validator already covers it. The browser never
+POSTs generation routes; only the two user-intent endpoints below create
+speech jobs, so polling, reloads and re-renders can never cause duplicates.
+
+### Playback endpoints (all require the Qwen text AND Chatterbox speech
+services configured; all return the updated `Playback`)
+
+- `POST /api/playback/queue` `{track_id}` — appends one playable track
+  (audio must exist; 409 for drafts), one queue entry per track (409 for
+  duplicates), queue cap `MAX_QUEUE` (429). Only start/advance create
+  generation jobs.
+- `POST /api/playback/start` — from idle with a non-empty queue: state
+  `speaking`, index 0, and a `kind: "speech"` job for the FIRST track (the DJ
+  introduces the first song — documented design choice: every song gets an
+  introduction, and the first-transition path exercises the same
+  speech→music flow as every other transition).
+- `POST /api/playback/advance` — from any active state (skip or natural end):
+  move to the next queue entry with state `speaking` and a speech job for the
+  NEW current track; past the last entry the queue returns to `idle` with
+  index 0 and the queue kept for another play. A paused advance stays paused.
+- `POST /api/playback/phase` `{phase: "speaking"|"playing"}` — the browser
+  records each speech→music transition so reloads always know which phase is
+  playing.
+- `POST /api/playback/pause` `{phase}` — state `paused` with
+  `paused_from` = the phase the user was in when pausing.
+- `POST /api/playback/resume` — back to `playing` with the phase restored
+  from `paused_from` (resume continues mid-speech or mid-music).
+
+### Commentary generation (`GenerationJob.kind: "speech"`)
+
+One job per transition, attached to the UPCOMING track: Qwen `text()` is
+called once with a prompt that includes the song title, style, mood,
+instrumental/vocal mode and the prior song's title for transition context,
+then Chatterbox `speech()` is called once with exactly that text. The speech
+payload comes from the committed service probe, which has NO `voice`
+parameter — the default voice is used by omission (R14). The audio attaches to
+`track.speech`; the Qwen commentary text stays server-private
+(`session.speech_prompts`) and never appears in a snapshot. Because speech
+attaches to the TRACK, a job that completes after the user has skipped past
+that track can never play out of turn — the browser only plays the CURRENT
+track's speech. Idempotence: no second job is created once a track has speech
+or an active speech job; `MAX_ACTIVE_SPEECH = 2` and the jobs cap cause
+silent skips (best-effort commentary, never a blocker). A failed commentary
+job is recorded with `retryable: true` and the "song plays without an
+introduction" message; the set continues with music only.
+
+### Browser sequencing (single authoritative controller)
+
+One persistent `<audio id="dj-audio">` element and one engine loop drive the
+whole timeline: engine reads the snapshot, plays `current_track.speech`
+first, posts the `speaking→playing` phase on its `ended`, then plays the
+track's audio, then advances. Speech and music can therefore NEVER overlap
+(one element, strictly sequential awaits). One monotonic `djEpoch` token is
+bumped by every user action (play/pause/resume/skip) and fires a
+`dj-interrupt` event that unblocks the engine's pending phase; every
+continuation re-checks its captured epoch, so a late `ended`/`error` callback
+from a skipped track cannot restart the wrong audio. A `djHalted` gate keeps
+the engine out of the window between a user action and the server's
+acknowledgement (this previously resumed playback mid-pause). Pause keeps the
+element's src and position so Resume continues in place; Skip stops the
+current phase and advances; reloads resume the timeline from server state and
+the engine never POSTs start/advance, so nothing regenerates. Per-track
+inline players remain independent for manual listening.
+
 ## Adapter boundary
 
 [ClassProviders](../jukebox/providers.py) is the real server-side client. It uses

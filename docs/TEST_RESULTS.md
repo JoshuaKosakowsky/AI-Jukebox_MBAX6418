@@ -555,3 +555,75 @@ Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
+
+## A3-05 default AI DJ queue - 2026-10-30 America/Denver
+
+Branch `codex/a3-05-dj-queue` (baseline main `e2b1e52`). Offline development
+only: no class-service request was made; provider methods were replaced by
+deterministic fixtures (bound-method patches, the same pattern as the other
+offline suites) and no `.env` was loaded.
+
+### Automated tests
+
+`python -m unittest discover -s tests` (locked environment): 142/142 OK —
+128 baseline + 9 new `tests/test_dj.py` (queue lifecycle and guards, Qwen
+prompt content incl. prior-song context, default-voice contract, speech->music
+protocol, pause/resume phase round trips, skip/advance, end-of-queue, stale
+speech-job safety, duplicate suppression on replay and reload, cross-session
+isolation, media bounds, config guards) + 5 new static frontend guards in
+`tests/test_frontend.py` (single DJ element, speech-before-music ordering in
+the engine, engine never submits generation, epoch/stale-callback guards,
+pause keeps position).
+
+Key contract checks: the committed speech probe request has NO `voice`
+parameter (R14 default voice by omission, model `chatterbox-v3`); the speech
+input equals the Qwen output exactly (R13 chain); commentary text never
+appears in a snapshot; each track's speech media id is unique across roles
+and the snapshot validator accepts the queue with commentary media.
+
+### Real-browser offline acceptance (real Chrome, fixture providers)
+
+Harness: the real app under uvicorn on 127.0.0.1:8665 with only the six
+provider methods swapped; Microsoft Playwright drives the real UI. Three
+tracks (Aurora/Bask/Cela) created through the form, queued via the UI, then
+the full scenario. 18/18 checks PASS (evidence: `dj-browser-evidence.json` +
+`dj-browser-final.txt`, retained outside the repo):
+
+1. Sequencing: speech then music for every track, strictly ordered
+   A→B→C, automatic advancement, clean end-of-queue (idle, queue kept).
+2. No overlap: every playing sample's media belongs to the track named in
+   its status; one persistent element drives the timeline.
+3. Skip during speech and during music: lands on the next track's
+   introduction (skip during music can finish the set cleanly).
+4. Pause freezes both phases (currentTime held); Resume continues the set
+   from the paused position in the same phase; status reports
+   "Paused during DJ speech"/"Paused during music".
+5. Reload mid-set: queue/index preserved and playback resumes without ANY
+   new provider request.
+6. Exactly 3 Qwen texts and 3 Chatterbox speech media for the whole run —
+   across replay, skips and reload, zero duplicates.
+7. No console errors and no 4xx responses.
+
+During development the harness exposed two real sequencing bugs that the
+browser run caught and the fixes are covered above: (a) the engine replayed
+speech forever after posting `speaking→playing` because polling had stopped
+and `latestSession` stayed stale — the engine now refreshes after every
+phase transition it performs; (b) pause could resume mid-hold because the
+engine re-entered playback from stale state between the interrupt and the
+server's acknowledgement — the `djHalted` gate now keeps the engine out of
+that window. Both are guarded by tests and by the 18/18 run.
+
+### Design decision recorded with evidence
+
+Every transition — including the FIRST song — is introduced by the DJ
+(speech before music), because the first-transition path is the same code as
+every later one and the timeline evidence shows ordered
+speaking→playing phases for all three tracks with clean
+speech→music boundaries on the single element.
+
+### Unverified (honest)
+
+Real Qwen commentary + Chatterbox default-voice speech were NOT submitted;
+AT-07 and AT-09's live portion remain pending class-service acceptance on
+the normal launcher, which is a separate authorized step. Audible listening
+in a headed browser is also not claimed here. Submission NOT READY.
