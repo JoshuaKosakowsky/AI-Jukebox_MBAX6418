@@ -77,6 +77,10 @@ def create_app(settings: Settings | None = None):
         if "music" not in settings.services:
             fail("not_configured", "Music service is not configured.")
 
+    def require_text():
+        if "text" not in settings.services:
+            fail("not_configured", "Text service is not configured.")
+
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(ROOT / "jukebox/web/index.html")
@@ -90,7 +94,8 @@ def create_app(settings: Settings | None = None):
         return {"services": settings.public_status(), "configured": len(settings.services) == 4,
                 "connectivity_checked": False, "generation_available": False,
                 "cover_generation_available": "art" in settings.services,
-                "music_generation_available": "music" in settings.services}
+                "music_generation_available": "music" in settings.services,
+                "lyrics_generation_available": "text" in settings.services}
 
     @app.get("/api/session", response_model=SessionSnapshot)
     def session(current=Depends(browser_session)):
@@ -115,6 +120,13 @@ def create_app(settings: Settings | None = None):
         require_music()
         job = store.queue_music(current, track_id)
         tasks.add_task(store.generate_music, current, job.id, app.state.providers)
+        return job
+
+    @app.post("/api/tracks/{track_id}/lyrics", response_model=GenerationJob, status_code=202)
+    def generate_lyrics(track_id: UUID, tasks: BackgroundTasks, current=Depends(browser_session)):
+        require_text()
+        job = store.queue_lyrics(current, track_id)
+        tasks.add_task(store.generate_lyrics, current, job.id, app.state.providers)
         return job
 
     @app.post("/api/tracks/{track_id}/music/resume", response_model=GenerationJob, status_code=202)
