@@ -2,7 +2,7 @@
 from contextlib import asynccontextmanager
 from uuid import UUID
 
-from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request, Response
+from fastapi import BackgroundTasks, Depends, FastAPI, File, Query, Request, Response, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import Field
@@ -11,7 +11,8 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from .config import ROOT, Settings
 from .contracts import GenerationJob, Model, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
-from .sessions import SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
+from .sessions import (MAX_REFERENCE_BYTES, SESSION_COOKIE, SESSION_SECONDS,
+                       SessionFailure, SessionStore)
 
 
 class NewCoverTrack(Model):
@@ -144,6 +145,22 @@ def create_app(settings: Settings | None = None):
     def media(media_id: UUID, current=Depends(browser_session)):
         image = store.get_media(current, media_id)
         return Response(image.content, media_type=image.content_type)
+
+    @app.post("/api/references/speech", status_code=201)
+    async def upload_speech_reference(file: UploadFile = File(...), current=Depends(browser_session)):
+        # Temporary MP3/WAV voice reference: bytes are validated and kept in
+        # session memory only; never persisted, never in the snapshot, never
+        # served back to the browser.
+        content = await file.read(MAX_REFERENCE_BYTES + 1)
+        if len(content) > MAX_REFERENCE_BYTES:
+            raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
+        identifier, media_type = store.upload_reference(current, content)
+        return {"id": str(identifier), "media_type": media_type}
+
+    @app.delete("/api/references/speech/{reference_id}", status_code=204)
+    def delete_speech_reference(reference_id: UUID, current=Depends(browser_session)):
+        store.drop_reference(current, reference_id)
+        return Response(status_code=204)
 
     @app.get("/api/contracts")
     def contracts():

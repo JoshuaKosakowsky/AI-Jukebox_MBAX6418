@@ -1,9 +1,11 @@
 """Bounded, process-local sessions and cover/music jobs shared with song orchestration."""
 from dataclasses import dataclass, field
+import io
 import secrets
 from threading import RLock
 import time
 from uuid import UUID, uuid4
+import wave
 
 from .contracts import GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
 from .providers import MediaBytes, MusicTicket, ProviderFailure
@@ -17,6 +19,13 @@ MAX_ACTIVE_COVERS = 2
 MAX_ACTIVE_MUSIC = 2
 MAX_ACTIVE_TEXT = 1
 MAX_MEDIA_BYTES = 64_000_000
+# Reference-voice bounds: temporary uploaded MP3/WAV clips for Chatterbox DJ
+# speech. Kept in session memory only (never disk, snapshot or archives),
+# consumed once by a speech job, expired with the session.
+MAX_REFERENCES = 4
+MAX_REFERENCE_BYTES = 5_000_000
+MIN_REFERENCE_SECONDS = 1
+MAX_REFERENCE_SECONDS = 60
 # Operational music bounds: the class server's 20 MB response cap limits a
 # 48 kHz/16-bit/stereo WAV to roughly 104 seconds, and 60 seconds leaves safe
 # margin for headers/overhead while staying well within the global media budget.
@@ -38,6 +47,9 @@ class Session:
     tracks: dict[UUID, Track] = field(default_factory=dict)
     jobs: dict[UUID, GenerationJob] = field(default_factory=dict)
     media: dict[UUID, MediaBytes] = field(default_factory=dict)
+    # Temporary voice references: browser uploads -> server-private bytes used
+    # once by a speech job. Never exposed in snapshots, never written to disk.
+    references: dict[UUID, MediaBytes] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
     # Each entry is one in-flight job (track id, job kind); a track may have an
     # art job and a music job running at the same time.
@@ -84,6 +96,15 @@ def lyrics_prompt(track: Track) -> str:
             f"Target length: about {track.settings.duration_seconds} seconds, roughly {line_count} short lines.\n"
             "Return only the lyrics: original, plain, one line per verse line, "
             "no section headings, no song title, no commentary. English.")
+
+
+def sniff_reference_type(content: bytes) -> str | None:
+    """Normalize an MP3/WAV fingerprint to its media type, or None."""
+    if content.startswith(b"RIFF") and content[8:12] == b"WAVE":
+        return "audio/wav"
+    if content.startswith(b"ID3") or (len(content) >= 2 and content[0] == 0xFF and (content[1] & 0xE0) == 0xE0):
+        return "audio/mpeg"
+    return None
 
 
 class SessionStore:
@@ -389,3 +410,46 @@ class SessionStore:
             if media is None:
                 raise SessionFailure(404, "Media not found in this session.")
             return media
+
+    def upload_reference(self, session, content: bytes):
+        """Validate and store one temporary MP3/WAV voice reference.
+
+        Returns (id, normalized media type). The bytes live only in session
+        memory; they are consumed once by a speech job, deleted explicitly, or
+        dropped with the session. Nothing here touches disk, the snapshot or
+        Git (uploads are excluded from archives by the repo safeguards).
+        """
+        with self.lock:
+            if len(content) > MAX_REFERENCE_BYTES:
+                raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
+            media_type = sniff_reference_type(content)
+            if media_type is None:
+                raise SessionFailure(422, "Reference must be an MP3 or WAV audio file.")
+            if media_type == "audio/wav":
+                try:
+                    with wave.open(io.BytesIO(content), "rb") as audio:
+                        rate = audio.getframerate()
+                        duration = audio.getnframes() / rate if rate else 0
+                except (wave.Error, EOFError, ValueError):
+                    raise SessionFailure(422, "The WAV reference could not be read.")
+                if not MIN_REFERENCE_SECONDS <= duration <= MAX_REFERENCE_SECONDS:
+                    raise SessionFailure(
+                        422, f"Reference audio must be {MIN_REFERENCE_SECONDS}-{MAX_REFERENCE_SECONDS} seconds.")
+            if len(session.references) >= MAX_REFERENCES:
+                raise SessionFailure(429, "Too many reference uploads in this session. Delete one before uploading again.", retryable=True)
+            identifier = uuid4()
+            session.references[identifier] = MediaBytes(content, media_type)
+            session.touched = time.monotonic()
+            return identifier, media_type
+
+    def take_reference(self, session, identifier):
+        """Consume a reference exactly once; the speech job that uses it removes it."""
+        with self.lock:
+            return session.references.pop(identifier, None)
+
+    def drop_reference(self, session, identifier):
+        with self.lock:
+            if identifier not in session.references:
+                raise SessionFailure(404, "Reference not found in this session.")
+            del session.references[identifier]
+            session.touched = time.monotonic()

@@ -173,11 +173,17 @@ class ClassProviders:
         except (KeyError, IndexError, TypeError, ValueError, OSError, binascii.Error, UnidentifiedImageError, Image.DecompressionBombError):
             fail("invalid_response", "The art service returned an invalid image.")
 
-    def speech(self, text: str) -> MediaBytes:
+    def speech(self, text: str, *, reference: MediaBytes | None = None) -> MediaBytes:
+        """Chatterbox default-voice speech; optional MP3/WAV reference (schema-
+        inspected path: ref_audio as a base64 data URI in the same frozen JSON
+        request; live verification is pending acceptance evidence)."""
         if not 1 <= len(text.strip()) <= 4096:
             raise ValueError("Speech input must contain 1-4096 characters")
         payload = self._payload("speech")
         payload["input"] = text
+        if reference is not None:
+            media_type = reference.content_type if reference.content_type in {"audio/wav", "audio/x-wav", "audio/mpeg"} else "audio/wav"
+            payload["ref_audio"] = "data:" + media_type + ";base64," + base64.b64encode(reference.content).decode()
         raw, mime = self._request("speech", PROBES["speech"]["path"], payload)
         return self._wav(raw, mime)
 
