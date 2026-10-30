@@ -58,6 +58,24 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         self.assertIn("\"Resume check\"", self.source)
         self.assertIn(f"/music/resume?from=${{musicJob.id}}", self.source)
 
+    def test_vocal_controls_are_wired_and_music_label_is_mode_aware(self):
+        self.assertIn("\"Generate lyrics\"", self.source)
+        self.assertIn("Generate new lyrics", self.source)
+        self.assertIn("\"Generate vocal song\"", self.source)
+        self.assertIn("Generate new vocal song", self.source)
+        self.assertIn("`/api/tracks/${track.id}/lyrics`", self.source)
+        self.assertIn("Generating vocal music…", self.source)
+        self.assertIn("Song draft · lyrics and vocal generation pending.", self.source)
+
+    def test_vocal_lyrics_chain_never_re_submits_music(self):
+        # The one-click vocal chain must fire only for a lyrics job observed
+        # succeeding AFTER the page loaded (seeded set), and only when no music
+        # job exists for the track yet. Reloads and retries stay manual.
+        self.assertIn("autoChained.add(job.id)", self.source)
+        self.assertIn("if (job.kind === \"text\" && job.state === \"succeeded\") autoChained.add(job.id)", self.source)
+        self.assertIn("session.jobs.some(job => job.track_id === track.id && job.kind === \"music\")", self.source)
+        self.assertIn("track.settings.mode !== \"vocal\" || track.audio", self.source)
+
     def test_music_stage_thresholds_match_server_progress_bounds(self):
         server = (ROOT / "jukebox/sessions.py").read_text(encoding="utf-8")
         poll_cap = re.search(r"with_progress\(min\(job\.progress \+ \.05, (0?\.\d+)\)\)", server)
