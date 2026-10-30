@@ -1,9 +1,9 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Independent integration support: #20 ZIP evidence and #22 recovery audit.
+2026-10-29 America/Denver; Codex for Joshua. Integration support and authorized reciprocal issue coverage.
 ## Constraints
-Normal protected reviews/checks; no app changes or class calls. Matt leads #5/#6, Mike #3, prse #8/#9, jovi #7/#10.
+Normal protected reviews/checks; no app changes or class calls. Matt leads #5, Mike #3/#6, prse #8/#9, jovi #7/#10.
 ## Repository state
 Main e2b1e52 includes #21 vocals and #23 Moonlit candidate/preview fix. #20/#22 are being reconciled with that base.
 Live issues/PRs are authoritative; Mike's #24 owns his implementation/review credit and may still need a main sync.
@@ -15,6 +15,8 @@ Historical audit finding remains for prse: instrumental retry after capacity rej
 Desert Drive second candidate is ready in PR #25 for jovi; exact original media and cover-lettering limitation retained.
 Confirmed cover-retry and Resume check capacity-rejection variants on isolated main e2b1e52; both stay disabled after release/refresh.
 Reload plus explicit retry succeeds; resume uses its original ticket. Added safe record, screenshots and manual harness; no app fix.
+Joshua moved #6 to Mike. Live #3/#5-10 bodies/assignees now document lead, backup, next work and independent review coverage.
+Matt/prse back each other on #5/#8/#9; Mike/jovi on #3/#6/#7/#10. Claim exact pieces; continue explicit handoffs, never duplicate active claims.
 ## Validation
 Variant audit: 71 isolated source files unchanged; MockTransport only; no .env or external calls; harnesses stopped.
 Run locked checks and diff check after these artifacts; exact head/counts/CI posted on #22.
@@ -24,8 +26,8 @@ Prior 128-test baseline and offline/live evidence keep their stated scope; no ne
 Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
 ## Next steps
 1. Matt/prse review #22 with the new recovery evidence; prse owns a focused fix for instrumental/cover/resume controls, coordinating app.js with Matt.
-2. Mike finishes #3 acceptance; Matt implements #5 then #6. They independently review each other's PRs.
-3. Prse coordinates any unpublished #5 work with Matt and retains #8/#9; reconcile #22/#24 credit without duplication.
+2. Mike finishes #3 acceptance then #6 after Matt's #5 integration; they independently review each other if eligible.
+3. Prse/jovi can continue their backups' explicit handoffs and independently review each other tomorrow; reconcile #22/#24 credit without duplication.
 ## References
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
