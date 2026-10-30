@@ -36,6 +36,10 @@ startup. On Windows the launcher automatically uses a short per-checkout directo
 under LOCALAPPDATA/AI-Jukebox_MBAX6418 to avoid native-extension failures in long
 OneDrive course paths. Linux uses .venv. Neither environment ships in the repo.
 
+An early [Windows GitHub ZIP rehearsal](docs/TEST_RESULTS.md#early-windows-github-zip-startup-rehearsal---2026-10-29)
+verified these startup/configuration steps without Git metadata on main `7b9dd2b`.
+It does not replace the final independent full-feature ZIP check.
+
 The app binds only to loopback. Ctrl+C stops it; if 8000 is busy, use:
 
 ```powershell
