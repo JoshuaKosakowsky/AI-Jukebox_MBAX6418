@@ -47,9 +47,11 @@ Follow direct user instructions first. This guide applies throughout the repo.
   speculative abstractions, optional features and unrelated refactors.
 - Share stable contracts before parallel work. Coordinate interface changes
   with consumers; do not code against an assumed unmerged implementation.
-- Default to `codex/<task>` branches from main; no
-  direct main commits. Keep one substantial PR active per contributor. PR scope
-  and review rules live in CONTRIBUTING.md; commit style in docs/COMMITS.md.
+- Default to `codex/<task>` branches from main; no direct main commits.
+  Keep each PR focused. Independent tasks may have concurrent PRs from the same
+  contributor; coordinate overlapping files/interfaces and record dependencies
+  and merge order where needed. PR scope and review rules live in CONTRIBUTING.md;
+  commit style in docs/COMMITS.md.
   If a blocking reviewer is unavailable, follow its documented independent
   verification/dismissal exception; never waive an unresolved finding.
 - Current checks: `python scripts/dev.py --check` (locked environment). Read

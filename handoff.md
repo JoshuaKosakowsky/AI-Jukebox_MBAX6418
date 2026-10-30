@@ -1,34 +1,31 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Shared integration handoff for PR #20 ZIP evidence and #23 Moonlit candidate.
+2026-10-29 America/Denver; Codex for Joshua. Independent integration support: #20 ZIP evidence and #22 recovery audit.
 ## Constraints
-Protected reviews/checks unchanged; concurrent independent PRs authorized. Preserve prse's #5/#8/#9 and jovi's #7/#10 ownership.
+Normal protected reviews/checks; no app changes or class calls. Matt leads #5/#6, Mike #3, prse #8/#9, jovi #7/#10.
 ## Repository state
-Branches codex/windows-zip-startup (#20) and codex/moonlit-sample-candidate (#23), each reconciled against main 7d003c6.
-Main includes Mike's #21; live vocal/listening acceptance still remains on #3. Audit/review records stay in PR #22.
-Both branches use this same consolidated handoff to avoid conflicting status rewrites on the next merge.
+Main e2b1e52 includes #21 vocals and #23 Moonlit candidate/preview fix. #20/#22 are being reconciled with that base.
+Live issues/PRs are authoritative; Mike's #24 owns his implementation/review credit and may still need a main sync.
 ## Work completed and decisions
-#20 preserves the original 7b9dd2b ZIP identity/65-file startup rehearsal alongside Mike's vocal evidence; no new ZIP acceptance claimed.
-#23 retains the original Moonlit WAV/PNG, hashes/provenance and candidate status; final manifest/library/ZIP acceptance still belongs to jovi.
-The Moonlit preview index entry belongs to #23's results README; #20 keeps only its ZIP evidence additions.
-Reconciliation changes docs/handoff only; inherited application code matches main. No prse task or assignment is taken over.
+#20 retains the original 7b9dd2b ZIP rehearsal; no new release/independent-install acceptance claimed.
+#22 retains the offline #8 audit/reproductions and Joshua's #21 review evidence; omit Mike's duplicate implementation row covered in #24.
+Historical audit finding remains for prse: instrumental retry after capacity rejection; Mike's lyrics retry fix is a separate merged correction.
+#23 media remain candidate-only; jovi owns final sample selection/library/ZIP. No task ownership is taken over here.
 ## Validation
-Merged-main baseline: 128 tests and four CI checks passed; prior media decoding/preview and ZIP observations retain their original scope.
-Run python scripts/dev.py --check and git diff --check for each reconciled head; exact results/head IDs are posted on #20/#23.
-No class-service generation, new media, credentials or user uploads were introduced during reconciliation.
+Run python scripts/dev.py --check and git diff --check per reconciled head; record exact results/CI on #20/#22.
+Prior 128-test baseline and offline/live evidence keep their stated scope; no new generation, listening or release acceptance here.
 ## Blockers and unchecked areas
-Fresh review is required after these updates; request MSpanny on both heads and keep normal protection in force.
-No published prse branch/PR was affected; unpublished local work is not visible. Her task ownership remains unchanged.
-#3 live vocal acceptance, #8 instrumental fix, DJ/reference features, final samples and independent ZIP remain incomplete; NOT READY.
+#3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 recovery fix, final samples and independent ZIP remain incomplete; NOT READY.
+Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
 ## Next steps
-1. Mike re-reviews the updated #20/#23 heads; merge normally only after eligible approval and green CI.
-2. Recheck the remaining PR against main after the first merge; retain all distinct evidence and task notes.
-3. Continue normal-launch vocal acceptance on main; prse's feature/recovery work and jovi's sample/ZIP work can proceed separately.
+1. Mike reviews reconciled #20; Matt/prse review #22. Merge normally only with current approval/checks; sync remaining PRs afterward.
+2. Mike finishes #3 acceptance; Matt implements #5 then #6. They independently review each other's PRs.
+3. Prse coordinates any unpublished #5 work with Matt and retains #8/#9; reconcile #22/#24 credit without duplication.
 ## References
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/23
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

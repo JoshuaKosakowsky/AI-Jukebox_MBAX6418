@@ -7,6 +7,11 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Moonlit sample candidate: [moonlit-candidate-preview.jpg](moonlit-candidate-preview.jpg)
+shows the retained media in a muted local asset preview. Provenance and
+selection/integration notes are in [the sample guide](../assets/samples/README.md);
+this does not establish normal-app sample-library or final ZIP acceptance.
+
 Runtime foundation evidence (A3-01): runtime-adapter-smoke.json contains the safe
 2026-10-27 real-client results; startup-configured.jpg, startup-library.jpg and
 startup-missing-settings.jpg are actual normal-launch browser screenshots. They
