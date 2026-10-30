@@ -1,6 +1,36 @@
 # Agent handoff
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: sample-library loader, Refs #7 (R17/R18, AT-11 component).
+## Constraints
+MSpanny = Mike; Mase/mase7919 = Matt. Jovi owns final sample selection/#7; no generation or manifest approvals here.
+## Repository state
+Branch codex/a3-07-sample-loader from main 2a19ecf. No shared Track/schema changes or new dependencies.
+## Work completed and decisions
+Added bounded all-or-nothing local catalog validation; only manifest entries load, never candidates.
+app.py loads once; SessionStore seeds ready tracks with fresh private media URLs, no jobs/provider requests.
+Catalog bytes stay immutable/shared and counted once in existing media budget, including after replacements.
+Fixed safe status/summary warning for bad catalogs; empty manifest keeps existing empty-library behavior.
+Changed samples.py, app.py, sessions.py, app.js, tests/test_samples.py; updated README, asset/contract/test docs and safe evidence.
+## Validation
+Locked checks PASS: 144 tests (15 new); coverage 36/11/19. Schema, approved manifest and candidate media unchanged.
+Normal-launch isolated source-copy browser: 3 synthetic silence/solid-cover samples, matching cards, each plays; first pause/resume, lyrics and reload PASS.
+Missing-cover restart -> safe warning/zero tracks; approved empty-manifest restart -> no warning/zero tracks. Servers stopped.
+## Blockers and unchecked areas
+No final sample selection, class generation/listening, merged-main acceptance or exact final ZIP check; #7 remains open, submission NOT READY.
+## Next steps
+1. Eligible teammate reviews this focused loader PR; all contributors must have zero commits on it to approve.
+2. After protected merge, Jovi registers three selected samples and verifies real-media playback/AT-11 on main and final ZIP.
+3. Preserve pending #22/#24/#25/#26/#27/#28/#29 work; coordinate app/session seams when merging DJ/reference changes.
+## References
+Issue #7 claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7#issuecomment-6530493708
+results/sample-loader-browser.json; results/sample-loader-fixture.jpg; docs/TEST_RESULTS.md.
+
+---
+
+## Inherited prior task handoff
+
+## Session
 2026-10-30 America/Denver; Codex for Joshua. Task: recheck Matt, then fix #8 retry controls.
 ## Constraints
 MSpanny = Mike; mase7919/Mase = Matt. No ownership/protection changes or class calls.
