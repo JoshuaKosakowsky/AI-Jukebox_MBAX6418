@@ -15,9 +15,10 @@ ownership; #6 (reference voices) is explicitly out of scope of A3-05.
 ## Repository state
 Main `e2b1e52` (includes #18 instrumentals, #19 acceptance evidence, #21
 vocals, #23 Moonlit candidate). Open: #20 ZIP evidence (behind main, sync
-requested), #22 recovery audit (dirty on handoff only), #24 vocal credits.
-A3-05 branch `codex/a3-05-dj-queue` = main + playback controller (queue +
-AI DJ commentary), one draft PR.
+requested), #22 recovery audit (dirty on handoff only), #24 vocal credits, #25
+and #26 (teammate PRs opened while A3-05 was in flight). A3-05 branch
+`codex/a3-05-dj-queue` = main + playback controller (queue + AI DJ
+commentary), one draft PR #27.
 
 ## Work completed and decisions
 A3-05 implemented end-to-end: queue endpoints, DJ speech jobs (Qwen text ->
@@ -64,7 +65,7 @@ samples, ZIP acceptance.
    controller.
 
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/25
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5
