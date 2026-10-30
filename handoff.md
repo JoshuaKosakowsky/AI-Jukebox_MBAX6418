@@ -1,31 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Independent integration support: #20 ZIP evidence and #22 recovery audit.
+2026-10-30 America/Denver; Codex for Joshua. Task: bounded live vocal acceptance after PR triage.
 ## Constraints
-Normal protected reviews/checks; no app changes or class calls. Matt leads #5/#6, Mike #3, prse #8/#9, jovi #7/#10.
+MSpanny = Mike; mase7919/Mase = Matt. Mike leads #3/#6; Matt #5; assignments unchanged.
+One form request only: at most one lyrics, cover and music submission; no retry on uncertainty.
 ## Repository state
-Main e2b1e52 includes #21 vocals and #23 Moonlit candidate/preview fix. #20/#22 are being reconciled with that base.
-Live issues/PRs are authoritative; Mike's #24 owns his implementation/review credit and may still need a main sync.
+Clean tested main 770ce62; branch codex/a3-03-live-acceptance contains evidence/docs only.
+#20 merged; #22 149090c fixes names/ownership and awaits review; #26 requests changes; #24 sync requested.
 ## Work completed and decisions
-#20 retains the original 7b9dd2b ZIP rehearsal; no new release/independent-install acceptance claimed.
-#22 retains the offline #8 audit/reproductions and Joshua's #21 review evidence; omit Mike's duplicate implementation row covered in #24.
-Historical audit finding remains for prse: instrumental retry after capacity rejection; Mike's lyrics retry fix is a separate merged correction.
-#23 media remain candidate-only; jovi owns final sample selection/library/ZIP. No task ownership is taken over here.
+Normal launcher + real browser form: Morning Signal / Acoustic indie pop / Hopeful and upbeat / 30 s / Vocal.
+Cover succeeded; lyrics returned safe invalid_response; zero music jobs/audio. No second generation attempted.
+Before/after reload snapshots identical; Retry lyrics enabled; no browser error/warning entries observed.
+Saved public JSON and actual card screenshot; raw generated cover ignored, no user recordings or keys committed.
 ## Validation
-Run python scripts/dev.py --check and git diff --check per reconciled head; record exact results/CI on #20/#22.
-Prior 128-test baseline and offline/live evidence keep their stated scope; no new generation, listening or release acceptance here.
+AT-04 FAIL; precise parser guard unknown because raw provider response/finish metadata was not retained.
+Source rejects unexpected model, empty content or non-stop completion; no speculative budget/schema change.
+Final repository/coverage/whitespace checks recorded in the PR; no application code/dependency changes.
+Earlier independent #26 checks: 137 tests; #22 reconciliation: 128 tests, both CI 4/4 green at review.
 ## Blockers and unchecked areas
-#3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 recovery fix, final samples and independent ZIP remain incomplete; NOT READY.
-Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
+#3 live vocal/playback/listening acceptance still blocked. No music, speech or reference calls in this run.
+#26 upload findings, draft #27 DJ, #8 control fixes, sample library and final ZIP remain; NOT READY.
 ## Next steps
-1. Mike reviews reconciled #20; Matt/prse review #22. Merge normally only with current approval/checks; sync remaining PRs afterward.
-2. Mike finishes #3 acceptance; Matt implements #5 then #6. They independently review each other's PRs.
-3. Prse coordinates any unpublished #5 work with Matt and retains #8/#9; reconcile #22/#24 credit without duplication.
+1. Mike diagnoses #3 using safe response metadata in a separately bounded run; retain this failed case.
+2. Mike fixes #26 and synchronizes #24; Matt finalizes #27 readiness; eligible teammates review #22.
+3. Preserve current claim/ownership and coordinate shared files; do not repeat generation merely to refresh context.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24
+results/vocal-live-failure-record.json; docs/TEST_RESULTS.md; issue #3; PRs #20/#22/#24/#26/#27.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
