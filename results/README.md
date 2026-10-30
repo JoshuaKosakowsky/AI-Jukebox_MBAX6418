@@ -30,3 +30,10 @@ Raw clips/images stay ignored under results/raw; they are not approved sample as
 Desert Drive candidate: [desert-candidate-preview.png](desert-candidate-preview.png)
 shows the original retained pair in a muted local preview; [provenance and selection
 notes](../assets/samples/README.md#desert-drive-candidate-for-jovi-7) include the known cover-lettering limitation. Not final library/ZIP acceptance.
+
+Early Windows ZIP startup evidence: [windows-zip-startup.json](windows-zip-startup.json)
+records the exact GitHub archive identity, untouched source comparison and
+missing/placeholder/invalid/configured checks on main 7b9dd2b. The actual browser
+views are [missing settings](windows-zip-missing-settings.jpg) and
+[configured](windows-zip-configured.jpg). This developer-directed rehearsal
+does not satisfy independent final ZIP or feature acceptance.

@@ -1,28 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Desert Drive second sample candidate for jovi, then isolated recovery variants.
+2026-10-30 America/Denver; Codex for Joshua. Task: review Mase's latest update, then prepare #25 for Jovi.
 ## Constraints
-No app/manifest changes or class calls. Matt #5/#6, Mike #3, prse #8/#9, jovi #7/#10; normal reviews/protection.
+MSpanny = Mike; mase7919/Mase = Matt. Protected PR/review workflow; no self-approval or assignments changed.
+No new generation, class calls, media edits, listening or final sample selection.
 ## Repository state
-codex/desert-drive-sample-candidate from main e2b1e52. #20 de256e2 and #22 156739b are separate reviewed-work candidates.
+Branch codex/desert-drive-sample-candidate; pre-handoff 7ac548d, synchronized with main 2a19ecf.
+Resolved only handoff/results index conflicts; app/tests/dependencies/contracts match current main.
 ## Work completed and decisions
-Packaged the retained Desert Drive WAV/PNG and safe candidate record; original title is Drive, not earlier chat's Dawn.
-Original cover says DESSERT DRIVE; limitation explicitly retained for jovi selection. No new generation/listening claimed.
-Updated sample guide and preview index; final manifest remains empty. Normal-app library and ZIP acceptance stay with jovi.
+Mase #27 2cdfe38 removes one handoff marker only; CI 4/4 green, playback findings/draft remain.
+Preserved Desert Drive's original WAV/PNG/candidate record/preview byte-for-byte, including DESSERT DRIVE lettering disclosure.
+Preserved both candidate and Windows ZIP evidence indexes; manifest remains empty and unchanged.
+#30 retry fix is integrated; #22 audit is separate and awaiting review. Mike's #24/#26/#29 remain unchanged.
 ## Validation
-Hashes match the original acceptance; 20 s/48 kHz/stereo PCM16 full decode and PNG inspection; muted static browser play/pause/resume passed.
-Run locked repo checks and staged-blob comparisons before commit; record exact head/results on the PR. No live-provider acceptance here.
+Rechecked original acceptance SHA-256s, full WAV frame data and PNG decode; results reported on #25's checked head.
+Locked suite/verifier/coverage/whitespace and conflict-marker scan run before push; no live/browser/listening rerun claimed.
+Prior candidate preview/listening remain historical, with their original tester/scope in the untouched provenance.
 ## Blockers and unchecked areas
-#3 live vocal acceptance, DJ/references, #8 correction, final samples/ZIP remain incomplete; NOT READY.
+Jovi or another eligible zero-commit teammate must review the current head before normal merge.
+Candidate packaging does not select an approved sample, populate the manifest, load it in-app or satisfy final ZIP acceptance.
+#3 live vocals, #5/#6 DJ/references and full #8/#7/#10 acceptance remain; submission NOT READY.
 ## Next steps
-1. Jovi reviews/selects this pair alongside Moonlit; integrate final three samples and verify normal-launch/ZIP playback.
-2. Perform isolated offline cover-retry/resume rejection variants against main e2b1e52; report findings for prse without app edits.
-3. Review/merge independent #20/#22/#24 normally, retaining distinct contribution rows and refreshing stale branches as needed.
+1. Jovi/eligible teammate reviews #25 current head; merge normally after approval, current CI and resolved conversations.
+2. Jovi selects the final three pairs and implements/verifies the sample library; reuse retained media.
+3. Preserve #22/#24 credit/evidence when reconciling later PRs; do not rerun class generation on session changes.
 ## References
-results/main-instrumental-acceptance.json; assets/samples/desert-drive.candidate.json; results/desert-candidate-preview.png.
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
+assets/samples/desert-drive.candidate.json; results/main-instrumental-acceptance.json; PR #25; issue #7.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

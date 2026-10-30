@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "base": "770ce6203937a6adcb26c63a8b405d4e44d12478",
+  "scope": "Real browser and production app/frontend with MockTransport/synthetic media; deterministic reserved capacity; no .env or class requests",
+  "cases": [
+    {
+      "case": "cover",
+      "enabled_after_rejection": true,
+      "enabled_after_release_and_refresh": true,
+      "explicit_retry_succeeded_without_reload": true,
+      "final_fixture_state": {
+        "case": "cover",
+        "released": true,
+        "counts": {
+          "/v1/images/generations": 7
+        },
+        "jobs": 7,
+        "active": 0,
+        "target": "fe25a91e-af7c-402d-ac01-b09d4842407b"
+      }
+    },
+    {
+      "case": "resume",
+      "enabled_after_rejection": true,
+      "enabled_after_release_and_refresh": true,
+      "explicit_retry_succeeded_without_reload": true,
+      "final_fixture_state": {
+        "case": "resume",
+        "released": true,
+        "counts": {
+          "/v1/images/generations": 3,
+          "/release_task": 3,
+          "/query_result": 4,
+          "/v1/audio": 3
+        },
+        "jobs": 7,
+        "active": 0,
+        "target": "ad699c45-a2fc-4e70-b9df-04885abf444a"
+      }
+    },
+    {
+      "case": "instrumental",
+      "enabled_after_rejection": true,
+      "enabled_after_release_and_refresh": true,
+      "explicit_retry_succeeded_without_reload": true,
+      "final_fixture_state": {
+        "case": "instrumental",
+        "released": true,
+        "counts": {
+          "/v1/images/generations": 3,
+          "/release_task": 3,
+          "/query_result": 3,
+          "/v1/audio": 3
+        },
+        "jobs": 6,
+        "active": 0,
+        "target": "6c852f20-2ad8-42a0-bfe2-7aebf78a0dbc"
+      }
+    }
+  ],
+  "counts": {
+    "cover": "4 initial including failed cover -> 6 after two blockers -> 7 after explicit retry",
+    "resume": "1 submission initial -> 3 after two blockers -> still 3 after explicit resume",
+    "instrumental": "0 submissions before release -> 2 after blockers -> 3 after explicit retry"
+  },
+  "notes": [
+    "Cases run sequentially in isolated browser tabs; cookies are scoped by host rather than port.",
+    "Initial simultaneous-tab setup was discarded; the final cover rejection/release/retry sequence was rerun in isolation.",
+    "Handler test fails on baseline and passes on patch; actual audio node identity/configuration/pending-request guards checked in minimal DOM harness.",
+    "Offline evidence supports #8 but does not establish complete normal-launch/live acceptance."
+  ]
+}
