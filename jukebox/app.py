@@ -161,6 +161,21 @@ def create_app(settings: Settings | None = None):
         require_dj()
         return store.queue_playback(current, data.track_id)
 
+    @app.post("/api/playback/speech", response_model=GenerationJob, status_code=202)
+    def playback_speech(data: QueueBody, tasks: BackgroundTasks = BackgroundTasks,
+                        current=Depends(browser_session)):
+        """Explicit user retry for a failed/absent DJ introduction.
+
+        Never invoked automatically: replay, reload, polling and automatic
+        advancement skip failed or cached commentary via the store guard. A
+        failed introduction is only regenerated through this deliberate
+        action, so provider budget cannot be re-spent by playback alone.
+        """
+        require_dj()
+        job = store.request_dj_speech(current, data.track_id)
+        tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
+        return job
+
     @app.post("/api/playback/start", response_model=Playback)
     def playback_start(tasks: BackgroundTasks = BackgroundTasks, current=Depends(browser_session)):
         require_dj()

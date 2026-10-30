@@ -70,6 +70,42 @@ class DjRecorders:
         return MediaBytes(speech_wav(), "audio/wav")
 
 
+class FailingSpeechRecorders(DjRecorders):
+    """Deterministic offline failure modes for the DJ commentary chain.
+
+    fail_text         -> the Qwen call raises (any validation-cause carrier;
+                         the real named guards live in providers, PR #29).
+    fail_speech       -> the Chatterbox call raises (HTTP-rejection analogue).
+    malformed_wav     -> the Chatterbox byte validation fails (WAV-guard
+                         analogue); the real check lives in providers._wav.
+    Call counts bound the provider budget assertions.
+    """
+
+    def __init__(self, fail_text=False, fail_speech=False, malformed_wav=False):
+        super().__init__()
+        self.fail_text_mode = fail_text
+        self.fail_speech_mode = fail_speech
+        self.malformed_wav_mode = malformed_wav
+        self.text_calls = 0
+        self.speech_calls = 0
+
+    def text(self, prompt):
+        self.text_calls += 1
+        self.prompts.append(prompt)
+        if self.fail_text_mode:
+            raise RuntimeError("offline Qwen failure")
+        return self.commentary
+
+    def speech(self, text):
+        self.speech_calls += 1
+        self.spoken_inputs.append(text)
+        if self.fail_speech_mode:
+            raise RuntimeError("offline Chatterbox failure")
+        if self.malformed_wav_mode:
+            raise RuntimeError("offline malformed WAV")
+        return MediaBytes(speech_wav(), "audio/wav")
+
+
 def app_fixture(recorders):
     from jukebox.app import create_app
     from jukebox.providers import ClassProviders
@@ -215,6 +251,107 @@ class DjTests(unittest.TestCase):
         client.get("/api/session")
         self.assertEqual(len(recorders.prompts), chat_before, "replay must not re-generate commentary")
         self.assertEqual(client.post("/api/playback/advance", json={}).status_code, 200)
+
+    def _speech_jobs(self, client, state=None):
+        snapshot = client.get("/api/session").json()
+        jobs = [j for j in snapshot["jobs"] if j["kind"] == "speech"]
+        if state is not None:
+            jobs = [j for j in jobs if j["state"] == state]
+        return jobs
+
+    def _queue_one_and_start(self, client, title="Solar Tide"):
+        first = self.create_track(client, title, "Ambient guitar", "Golden and open")[0]
+        client.post("/api/playback/queue", json={"track_id": first})
+        started = client.post("/api/playback/start", json={})
+        self.assertEqual(started.status_code, 200)
+        return first
+
+    def _assert_replay_never_regenerates_after_failure(self, client, recorders):
+        """A legal replay (queue idle) — once and again — must not create a
+        new speech job nor spend any provider calls."""
+        calls = (recorders.text_calls, recorders.speech_calls)
+        # run the queue out so a replay is legal
+        self.assertEqual(client.post("/api/playback/advance", json={}).status_code, 200)
+        self.assertEqual(client.get("/api/session").json()["playback"]["state"], "idle")
+        self.assertEqual(client.post("/api/playback/start", json={}).status_code, 200)
+        self.assertEqual(len(self._speech_jobs(client)), 1)
+        self.assertEqual((recorders.text_calls, recorders.speech_calls), calls,
+                         "replay must not resubmit failed commentary")
+        # a second replay after running the queue out again
+        self.assertEqual(client.post("/api/playback/advance", json={}).status_code, 200)
+        self.assertEqual(client.post("/api/playback/start", json={}).status_code, 200)
+        self.assertEqual(len(self._speech_jobs(client)), 1)
+        self.assertEqual((recorders.text_calls, recorders.speech_calls), calls,
+                         "a second replay must also stay silent")
+
+    def test_failed_qwen_commentary_never_resubmitted_on_replay(self):
+        """A Qwen-side failure (any guard) leaves a FAILED job visible in the
+        snapshot; replay/reload/advance never re-create it."""
+        recorders = FailingSpeechRecorders(fail_text=True)
+        client, _ = self.make_client(recorders)
+        self._queue_one_and_start(client)
+        jobs = self._speech_jobs(client)
+        self.assertEqual(len(jobs), 1)
+        self.assertEqual(jobs[0]["state"], "failed")
+        self.assertIsNotNone(jobs[0]["error"])
+        self.assertTrue(jobs[0]["error"]["message"])
+        # the public job record carries the failure; the DJ prompt never leaks
+        snapshot = client.get("/api/session").json()
+        self.assertNotIn("You are the jukebox DJ", json.dumps(snapshot))
+        self.assertNotIn("first song of the set", json.dumps(snapshot))
+        self._assert_replay_never_regenerates_after_failure(client, recorders)
+
+    def test_failed_chatterbox_never_resubmitted_on_replay(self):
+        recorders = FailingSpeechRecorders(fail_speech=True)
+        client, _ = self.make_client(recorders)
+        self._queue_one_and_start(client)
+        jobs = self._speech_jobs(client)
+        self.assertEqual(len(jobs), 1)
+        self.assertEqual(jobs[0]["state"], "failed")
+        self._assert_replay_never_regenerates_after_failure(client, recorders)
+
+    def test_malformed_chatterbox_wav_never_resubmitted_on_replay(self):
+        recorders = FailingSpeechRecorders(malformed_wav=True)
+        client, _ = self.make_client(recorders)
+        self._queue_one_and_start(client)
+        jobs = self._speech_jobs(client)
+        self.assertEqual(len(jobs), 1)
+        self.assertEqual(jobs[0]["state"], "failed")
+        snapshot = client.get("/api/session").json()
+        track = next(t for t in snapshot["tracks"] if t["id"] == jobs[0]["track_id"])
+        self.assertIsNone(track["speech"], "invalid audio must never attach")
+        self._assert_replay_never_regenerates_after_failure(client, recorders)
+
+    def test_explicit_speech_retry_is_the_only_path_after_failure(self):
+        """The explicit /api/playback/speech action is the sole retry path; it
+        re-creates the job and succeeds once the provider recovers, and a
+        track with commentary already attached rejects further retries."""
+        recorders = FailingSpeechRecorders(fail_text=True)
+        client, _ = self.make_client(recorders)
+        first = self._queue_one_and_start(client)
+        self.assertEqual(self._speech_jobs(client)[0]["state"], "failed")
+        # automatic paths refuse to resubmit (legal replay after idle)
+        client.post("/api/playback/advance", json={})
+        client.post("/api/playback/start", json={})
+        self.assertEqual(len(self._speech_jobs(client)), 1)
+        # explicit retry with a recovered provider
+        recorders.fail_text_mode = False
+        resp = client.post("/api/playback/speech", json={"track_id": first})
+        self.assertEqual(resp.status_code, 202)
+        self.assertEqual(resp.json()["kind"], "speech")
+        jobs = self._speech_jobs(client)
+        self.assertEqual(len(jobs), 2)
+        self.assertEqual(jobs[-1]["state"], "succeeded")
+        snapshot = client.get("/api/session").json()
+        track = next(t for t in snapshot["tracks"] if t["id"] == first)
+        self.assertIsNotNone(track["speech"])
+        # a retry for an already-introduced track is rejected
+        self.assertEqual(client.post("/api/playback/speech",
+                                     json={"track_id": first}).status_code, 409)
+        # a retry for an unknown track is rejected
+        import uuid as _uuid
+        self.assertEqual(client.post("/api/playback/speech",
+                                     json={"track_id": str(_uuid.uuid4())}).status_code, 404)
 
     def test_paused_advance_resumes_with_next_song_introduction(self):
         """Skip while paused during music: the queue advances exactly one

@@ -213,6 +213,27 @@ function buildTrackCard(track, jobs, queued) {
     await syncAfterMutation();
   });
   detail.append(addQueue);
+  // Explicit DJ-introduction retry: a FAILED commentary job is never
+  // automatically resubmitted (replay/reload/advance skip it server-side);
+  // this deliberate button is the only path back to an introduction.
+  const speechJobs = jobs.filter(job => job.track_id === track.id && job.kind === "speech");
+  const latestSpeech = speechJobs.at(-1);
+  if (latestSpeech && latestSpeech.state === "failed" && !track.speech) {
+    const retrySpeech = node("button", "Retry DJ introduction");
+    retrySpeech.type = "button";
+    retrySpeech.addEventListener("click", async () => {
+      retrySpeech.disabled = true;
+      try {
+        await request("/api/playback/speech", {track_id: track.id});
+        notice.textContent = `DJ introduction requested for ${track.title}.`;
+      } catch (error) {
+        notice.textContent = error.message;
+        retrySpeech.disabled = latestSpeech.state === "failed" && !track.speech;
+      }
+      await syncAfterMutation();
+    });
+    detail.append(retrySpeech);
+  }
   card.append(picture, detail);
   return card;
 }

@@ -126,6 +126,21 @@ class FrontendLibraryGuardTests(unittest.TestCase):
                       "the engine must keep the DJ-active flag in sync "
                       "with the server playback state")
 
+    def test_dj_retry_button_is_explicit_and_never_automatic(self):
+        # A failed DJ introduction is only regenerated through the explicit
+        # card button + endpoint; the engine loop never POSTs it, and the
+        # button only appears for a FAILED speech job on a track without
+        # commentary (replay/reload/advance stay silent server-side).
+        card = self.source.split("function buildTrackCard")[1].split("function renderLibrary")[0]
+        self.assertIn('"Retry DJ introduction"', card)
+        self.assertEqual(card.count('"/api/playback/speech"'), 1,
+                         "the retry endpoint is referenced only by the card button")
+        self.assertIn('latestSpeech.state === "failed"', card)
+        self.assertIn('!track.speech', card)
+        engine = self.source.split("async function djEngine")[1].split("async function djStart")[0]
+        self.assertNotIn('"/api/playback/speech"', engine,
+                         "the engine must never invoke the retry automatically")
+
     def test_dj_engine_never_submits_generation_itself(self):
         # Polling/reloads must never trigger generation: only user actions POST
         # start/advance; the engine only posts the phase transition and reads

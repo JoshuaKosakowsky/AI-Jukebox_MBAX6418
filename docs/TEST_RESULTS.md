@@ -711,7 +711,7 @@ starting the DJ pauses any running manual player; manual playback works
 normally when the DJ is idle (154/154 unit tests incl. new static guards,
 18/18 functional, 20/20 concurrency, 43/43 rehearsal).
 
-LIVE defect found on run 2 (authorized real-provider acceptance): the speech
+Live defect found on run 2 (authorized real-provider acceptance): the speech
 job path generates and SUCCEEDS its provider steps but `track.speech` never
 attaches with the REAL services — neither introduction played, and replay
 re-created the speech jobs (2 -> 4), exceeding the authorized Qwen/Chatterbox
@@ -720,6 +720,21 @@ adapter-level cause not determined (needs one diagnostic Qwen+Chatterbox
 call); correction proposal + full run-2 accounting in
 results/a3-05-live-acceptance.json. AT-07/AT-09 remain FAIL until the
 speech-attachment defect is fixed and re-verified live.
+
+Replay-regeneration correction (offline): `_queue_dj_speech` now treats a
+track whose latest speech job FAILED as terminal — replay, reload, polling
+and automatic advancement never resubmit a failed introduction, so a
+provider failure cannot re-spend the Qwen/Chatterbox budget. The ONLY retry
+path is the explicit `POST /api/playback/speech` action (card button "Retry
+DJ introduction", shown only for a failed speech job without commentary);
+a track with commentary attached rejects a retry (409) and an unknown track
+404s. The failed job's SafeError stays visible in the session snapshot and
+never carries the prompt. Tests prove a failed Qwen response, a failed
+Chatterbox response and a malformed-WAV failure all stay silent across two
+legal replays (job count and provider-call counts frozen), and that the
+explicit retry is the only working path. Diagnostic integration with PR #29:
+the shared `_chat` guards there will name the exact live Qwen failure mode
+(model/finish/content) once merged — no duplicate implementation here.
 
 Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
 stale-pause phase correction, one-index-per-advance + straggler 409,

@@ -241,12 +241,54 @@ class SessionStore:
             track = session.tracks[track_id]
             if track.speech is not None or (track_id, "speech") in session.active:
                 return None
+            # A previously REQUESTED introduction that FAILED must never be
+            # silently resubmitted by replay, reload, polling or automatic
+            # advancement: the failure is terminal for the session and stays
+            # visible on its job record, music continues best-effort, and the
+            # only retry path is an explicit user action (request_dj_speech).
+            # Otherwise a transient provider failure would re-spend the
+            # Qwen/Chatterbox budget on every replay.
+            latest = next((job for job in reversed(list(session.jobs.values()))
+                           if job.track_id == track_id and job.kind == "speech"), None)
+            if latest is not None and latest.state == JobState.FAILED:
+                return None
             if self._active_count("speech") >= MAX_ACTIVE_SPEECH or len(session.jobs) >= MAX_JOBS:
                 return None
             job = GenerationJob(track_id=track_id, kind="speech")
             session.jobs[job.id] = job
             session.active.add((track_id, "speech"))
             session.speech_prompts[job.id] = dj_prompt(track, prior, position, total)
+            return job
+
+    def request_dj_speech(self, session, track_id):
+        """Explicit user retry for a failed or absent DJ introduction.
+
+        The only path that creates a NEW speech job after a failure; it is
+        never called automatically (replay/reload/advance all skip via
+        _queue_dj_speech). A track with commentary already attached or with a
+        speech job already in flight rejects the request.
+        """
+        with self.lock:
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            track = session.tracks[track_id]
+            if track.speech is not None:
+                raise SessionFailure(409, "This track already has its DJ introduction.")
+            if (track_id, "speech") in session.active:
+                raise SessionFailure(409, "DJ commentary is already being generated for this track.")
+            queue = session.playback.queue
+            try:
+                position = queue.index(track_id)
+            except ValueError:
+                position, queue_length = 0, 1
+            else:
+                queue_length = len(queue)
+            prior_id = queue[position - 1] if position > 0 else None
+            prior = session.tracks[prior_id] if prior_id is not None else None
+            job = GenerationJob(track_id=track_id, kind="speech")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "speech"))
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length)
             return job
 
     def start_playback(self, session):
