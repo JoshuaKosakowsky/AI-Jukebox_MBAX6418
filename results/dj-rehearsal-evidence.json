@@ -1,0 +1,207 @@
+{
+  "mode": "offline rehearsal - normal launcher, deterministic fixture providers",
+  "base": "http://127.0.0.1:8665",
+  "checks": [
+    {
+      "check": "app loads (normal launcher, fixture providers)",
+      "pass": true,
+      "detail": "AI Jukebox"
+    },
+    {
+      "check": "fixture track generated: Copper Horizon",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "fixture track generated: Harbor Lights",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "session identity: both tracks visible to the same browser session",
+      "pass": true,
+      "detail": "2 tracks"
+    },
+    {
+      "check": "creation accounting: art/music jobs = 2 each",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2}"
+    },
+    {
+      "check": "fixture counters after creation: art/music/downloads = 2 each",
+      "pass": true,
+      "detail": "{'text': 0, 'speech': 0, 'art': 2, 'music': 2, 'downloads': 2, 'polls': 2}"
+    },
+    {
+      "check": "DJ speaking phase observed (status text)",
+      "pass": true,
+      "detail": "speaking in transcript"
+    },
+    {
+      "check": "both introductions reached the audio element",
+      "pass": true,
+      "detail": "speech-linked events: 12"
+    },
+    {
+      "check": "both speeches and both songs audibly played (playing events)",
+      "pass": true,
+      "detail": "playing events: 4"
+    },
+    {
+      "check": "A speech events strictly before A music events",
+      "pass": true,
+      "detail": "(1, 1) vs (7, 7)"
+    },
+    {
+      "check": "B speech events strictly before B music events",
+      "pass": true,
+      "detail": "(13, 13) vs (19, 19)"
+    },
+    {
+      "check": "four distinct media sources played (2 speech + 2 music)",
+      "pass": true,
+      "detail": "4 unique: ['101095f9-45ff-4ff3-975d-153501c89642', '324ce3bf-d87c-406a-bdbb-7965d6720046', '61526d66-1eef-4d5d-90bf-4c8f17455703', '63272810-6c89-40f7-a67d-df3d28e08e99']"
+    },
+    {
+      "check": "no simultaneous audio sources (event-level)",
+      "pass": true,
+      "detail": "4 playing stamps"
+    },
+    {
+      "check": "scenario 1: clean end-of-queue",
+      "pass": true,
+      "detail": "Ready. 2 songs queued \u2014 press Play."
+    },
+    {
+      "check": "scenario 1: exactly 2 art + 2 music + 2 speech jobs (Qwen runs inside the speech job)",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "fixture counters: exactly 2 Qwen + 2 TTS submissions for one pass",
+      "pass": true,
+      "detail": "{'text': 2, 'speech': 2, 'art': 2, 'music': 2, 'downloads': 2, 'polls': 2}"
+    },
+    {
+      "check": "scenario 2: replay leaves idle and resumes the queue",
+      "pass": true,
+      "detail": "DJ is speaking about Copper Horizon\u2026"
+    },
+    {
+      "check": "scenario 2: replay actually played media again",
+      "pass": true,
+      "detail": "24 -> 48 events"
+    },
+    {
+      "check": "scenario 2: replay made ZERO provider submissions",
+      "pass": true,
+      "detail": "before={'text': 2, 'speech': 2, 'art': 2, 'music': 2, 'downloads': 2, 'polls': 2} after={'text': 2, 'speech': 2, 'art': 2, 'music': 2, 'downloads': 2, 'polls': 2}"
+    },
+    {
+      "check": "scenario 2: session jobs unchanged after replay",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 3: pause during speech holds",
+      "pass": true,
+      "detail": "Paused during DJ speech (Copper Horizon)."
+    },
+    {
+      "check": "scenario 3: speech position frozen while paused",
+      "pass": true,
+      "detail": "0.510 -> 0.510"
+    },
+    {
+      "check": "scenario 3: resume continues speech",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 4: pause during music holds",
+      "pass": true,
+      "detail": "Now playing Copper Horizon"
+    },
+    {
+      "check": "scenario 4: music position frozen while paused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 4: resume continues music",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 5: skip during speech advances to next track",
+      "pass": true,
+      "detail": "DJ is speaking about Harbor Lights\u2026"
+    },
+    {
+      "check": "scenario 6: skip during music advances",
+      "pass": true,
+      "detail": "DJ is speaking about Harbor Lights\u2026"
+    },
+    {
+      "check": "scenario 7: skip while paused stays paused on the next track",
+      "pass": true,
+      "detail": "Paused during DJ speech (Harbor Lights)."
+    },
+    {
+      "check": "scenario 7 cleanup: queue reached idle after the resumed pass",
+      "pass": true,
+      "detail": "Ready. 2 songs queued \u2014 press Play."
+    },
+    {
+      "check": "scenario 8: session identity survives reload",
+      "pass": true,
+      "detail": "2 tracks after reload"
+    },
+    {
+      "check": "scenario 8: reload created ZERO new jobs",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 8: reload created ZERO provider submissions",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 8: playback resumes from server state after reload",
+      "pass": true,
+      "detail": "DJ is speaking about Copper Horizon\u2026"
+    },
+    {
+      "check": "scenario 9/10: replay+reload made ZERO provider submissions",
+      "pass": true,
+      "detail": "{'text': 2, 'speech': 2, 'art': 2, 'music': 2, 'downloads': 2, 'polls': 2}"
+    },
+    {
+      "check": "scenario 9/10: final job accounting identical after all passes",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 10: clean end-of-queue after all passes",
+      "pass": true,
+      "detail": "Ready. 2 songs queued \u2014 press Play."
+    },
+    {
+      "check": "overlap probe recorded (documented gap, not a fix)",
+      "pass": true,
+      "detail": "independent per-track player concurrent with DJ timeline: True"
+    },
+    {
+      "check": "no console/page/network errors",
+      "pass": true,
+      "detail": "[]"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-final.png",
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-overlap.png"
+  ],
+  "console_errors": [],
+  "event_log_sample": null
+}

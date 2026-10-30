@@ -70,6 +70,27 @@ class FrontendLibraryGuardTests(unittest.TestCase):
                         speech_branch.index("djPlayOnce(epoch, track.audio.url)"),
                         "speech must be played before music inside the engine")
 
+    def test_dj_play_once_never_resolves_on_a_transient_play_rejection(self):
+        # A navigation teardown (reload mid-queue) rejects the in-flight
+        # audio play(); resolving djPlayOnce there let the engine post phase
+        # transitions and fast-forward the whole queue while nothing was
+        # audible. The rejection path must retry briefly (bounded) instead of
+        # completing the segment.
+        play_once = self.source.split("function djPlayOnce")[1].split(
+            "async function djAdvanceOnce")[0]
+        catch = play_once.split("djAudio.play().catch")[1]
+        self.assertIn("setTimeout(startPlay, 350)", catch,
+                      "transient play() rejection must retry, not resolve")
+        self.assertIn('attempts >= 6', catch,
+                      "retries must be bounded so a genuinely blocked page "
+                      "still degrades to best-effort completion")
+        # The first-rejection path must not complete the segment: resolve()
+        # may only appear inside the bounded-exhausted branch, not as the
+        # direct handler action. (The catch's first statements start with the
+        # epoch guard and the retry counter.)
+        self.assertNotIn("resolve()", catch[:90],
+                         "the direct rejection path must retry, never resolve")
+
     def test_dj_engine_never_submits_generation_itself(self):
         # Polling/reloads must never trigger generation: only user actions POST
         # start/advance; the engine only posts the phase transition and reads

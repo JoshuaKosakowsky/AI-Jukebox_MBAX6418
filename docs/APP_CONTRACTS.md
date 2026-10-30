@@ -260,7 +260,10 @@ engine loop survives transient failures. The advance's earlier-flight await
 sits INSIDE its try/finally, so a queued advance that rejects alongside a
 failed predecessor still clears the in-flight slot — the controller can
 never be poisoned by a rejected advance and keeps advancing on the next
-Skip.
+Skip. The segment player (`djPlayOnce`) retries transient `play()`
+rejections (bounded) instead of treating them as segment completion: a
+navigation teardown during a mid-queue reload previously resolved the play
+promise, fast-forwarding the whole queue while nothing was audible.
 
 ## Adapter boundary
 

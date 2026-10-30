@@ -459,11 +459,27 @@ function djPlayOnce(epoch, url) {
       resolve();
     };
     if (djAudio.getAttribute("src") !== url) djAudio.src = url;
-    djAudio.play().catch(() => {
-      if (epoch !== djEpoch) return;
-      djAudio.onended = null;
-      resolve();
-    });
+    // A transient play() rejection (navigation teardown during a reload,
+    // autoplay policy, media still buffering) must NOT be mistaken for the
+    // segment finishing: resolving here lets the engine post the phase
+    // transition and advance the whole queue in seconds while nothing was
+    // audible. Retry briefly; treat the segment as best-effort-complete only
+    // after the retries exhaust. If the element was interrupted (its src was
+    // cleared), stop retrying and resolve.
+    let attempts = 0;
+    const startPlay = () => {
+      if (djAudio.getAttribute("src") !== url) { resolve(); return; }
+      djAudio.play().catch(() => {
+        if (epoch !== djEpoch) return;
+        if (++attempts >= 6) {
+          djAudio.onended = null;
+          resolve();
+          return;
+        }
+        setTimeout(startPlay, 350);
+      });
+    };
+    startPlay();
   });
 }
 

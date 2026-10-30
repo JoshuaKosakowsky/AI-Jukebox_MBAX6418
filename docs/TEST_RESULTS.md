@@ -674,6 +674,32 @@ deterministic Node micro-test of the real `djAdvanceOnce` (all 7 assertions
 PASS on the fixed source; on the pre-fix source the slot stays OCCUPIED and
 the subsequent advance never posts) plus the browser scenario S8.
 
+Reload-fast-forward defect (found by the corrected rehearsal driver):
+reloading mid-queue rejected the in-flight `audio.play()`; `djPlayOnce`
+resolved on the first rejection, so the engine posted the phase transition
+AND advanced the whole queue in seconds while nothing was audible. Fix:
+transient play() rejections are retried (bounded, 6 x 350 ms) instead of
+completing the segment; the element's src-clear (interrupt) still resolves
+immediately. Static frontend guard added; verified by the corrected
+rehearsal driver (39/39) and the full regression stack (152/152 unit,
+18/18 functional, 20/20 concurrency).
+
+Corrected acceptance-driver rehearsal (deterministic fixture providers,
+normal launcher): session identity survives reload; both DJ introductions
+observed with EVENT-level evidence (loadstart/loadedmetadata/playing/ended
+per media, speech events strictly before each track's music events, 4
+distinct media sources, no simultaneous sources); replay after idle re-plays
+media with zero new provider submissions; pause/resume during speech and
+music (positions frozen/continued); skip during speech, during music, and
+while paused (stays paused on the next track, resume enters the next
+introduction); reload during an active queue resumes playback with zero new
+jobs and zero provider submissions; clean end-of-queue; request accounting
+cross-checked (jobs per kind == fixture submission counters, exactly
+2/2/2/2 art/music/Qwen/TTS); screenshots captured; failures reported without
+losing evidence. Independent per-track players can still run music
+concurrently with the DJ timeline (recorded as a documented acceptance gap,
+not fixed).
+
 Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
 stale-pause phase correction, one-index-per-advance + straggler 409,
 reordered advance/stale-phase sequence, paused-advance contract validity;
