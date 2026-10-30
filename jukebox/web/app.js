@@ -228,7 +228,12 @@ function buildTrackCard(track, jobs, queued) {
         notice.textContent = `DJ introduction requested for ${track.title}.`;
       } catch (error) {
         notice.textContent = error.message;
-        retrySpeech.disabled = latestSpeech.state === "failed" && !track.speech;
+        // A rejected request creates NO job, so the snapshot is unchanged and
+        // the card is not rebuilt — leaving the disabled state set would keep
+        // the button unusable until a reload. Restore it so the user can try
+        // again (an accepted request's running job hides the button via the
+        // rebuild; a 409-already-attached retry also rebuilds it away).
+        retrySpeech.disabled = false;
       }
       await syncAfterMutation();
     });

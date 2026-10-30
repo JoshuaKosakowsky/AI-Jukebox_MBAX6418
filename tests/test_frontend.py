@@ -140,6 +140,15 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         engine = self.source.split("async function djEngine")[1].split("async function djStart")[0]
         self.assertNotIn('"/api/playback/speech"', engine,
                          "the engine must never invoke the retry automatically")
+        # A REJECTED retry request creates no job, so the card is not rebuilt:
+        # the catch must restore the button (permanent disable otherwise).
+        catch_block = card.split('retrySpeech.addEventListener("click"')[1]
+        self.assertIn("retrySpeech.disabled = false;", catch_block,
+                      "a rejected retry must restore the button to a usable state")
+        self.assertNotIn('latestSpeech.state === "failed" && !track.speech',
+                         catch_block.split("await syncAfterMutation()")[0],
+                         "the catch must not re-derive the disabled state from "
+                         "an unchanged snapshot")
 
     def test_dj_engine_never_submits_generation_itself(self):
         # Polling/reloads must never trigger generation: only user actions POST
