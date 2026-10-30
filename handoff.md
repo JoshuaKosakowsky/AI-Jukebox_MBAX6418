@@ -1,5 +1,14 @@
 # Agent handoff
 
+## Session — Joshua integration check (2026-10-30 America/Denver)
+Local recheck of 2f872b4 found one missing djReady stub in the merged #30
+retry probe; corrected only that test fixture, not the DJ implementation.
+PASS after correction: 153 locked tests, verifier 82, coverage 36-11-19; whitespace clean.
+Actual-function timer probes still reproduce stale retry after Pause and
+persistent-rejection segment completion; posted both to #27, no class calls.
+Joshua now contributes to this PR and cannot approve it; Mike/Jovi remain
+eligible if they have no commits. Prior Matt implementation/handoff follows.
+
 ## Session
 <<<<<<< HEAD
 2026-10-30 America/Denver; Codex for mase7919. A3-05 default AI DJ queue
