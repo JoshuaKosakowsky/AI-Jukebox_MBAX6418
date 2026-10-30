@@ -152,6 +152,8 @@ function buildTrackCard(track, jobs, queued) {
       await request(`/api/tracks/${track.id}/cover`, {});
       notice.textContent = `Cover requested for ${track.title}.`;
     } catch (error) {
+      // A rejected POST creates no job, so the unchanged card may not redraw.
+      retryCover.disabled = artActive || !artConfigured;
       notice.textContent = error.message;
     }
     await syncAfterMutation();
@@ -171,6 +173,8 @@ function buildTrackCard(track, jobs, queued) {
         await request(`/api/tracks/${track.id}/music/resume?from=${musicJob.id}`, {});
         notice.textContent = `Resumed the previous generation check for ${track.title}. No new music request was submitted.`;
       } catch (error) {
+        // A rejected POST creates no job, so the unchanged card may not redraw.
+        resume.disabled = !musicConfigured;
         notice.textContent = error.message;
       }
       await syncAfterMutation();
@@ -186,6 +190,8 @@ function buildTrackCard(track, jobs, queued) {
       await request(`/api/tracks/${track.id}/music`, {});
       notice.textContent = `Instrumental requested for ${track.title}.`;
     } catch (error) {
+      // A rejected POST creates no job, so the unchanged card may not redraw.
+      retryMusic.disabled = musicActive || !musicConfigured;
       notice.textContent = error.message;
     }
     await syncAfterMutation();
