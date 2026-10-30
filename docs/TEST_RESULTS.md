@@ -595,3 +595,31 @@ generation/playback, vocal, DJ, reference-voice, sample or release acceptance wa
 performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
+
+
+## A3-08 retry-control correction - 2026-10-30 America/Denver
+
+On main 770ce62, rejected cover, instrumental and resume POSTs leave their
+buttons disabled when unchanged snapshots skip card rebuilding. The focused
+patch restores only the rejected control according to its configuration and
+active-job guard; accepted requests stay disabled until the job snapshot arrives.
+No card-cache invalidation, audio recreation, automatic retry or DJ changes.
+
+The production-handler Node probe fails on baseline (Retry cover remains
+disabled) and passes after the patch. It exercises rejection, explicit retry,
+request counts, unchanged audio-node identity, configuration and pending-request
+guards. This is a minimal DOM simulation, not browser acceptance.
+
+Real-browser offline checks use the existing #22 MockTransport/synthetic-media
+harness with reserved slots. Each case: click while busy -> button immediately
+enabled -> release blockers -> Refresh status -> button enabled -> explicit retry
+succeeds on the same page without reload. All three cases PASS. Cover calls:
+4 -> 6 -> 7; resume music submissions: 1 -> 3 -> still 3; instrumental music
+submissions: 0 -> 2 -> 3. Rejection/refresh never submit another generation.
+Cases were isolated sequentially because localhost cookies are not port-scoped;
+the initial simultaneous-tab setup was discarded and cover rerun from scratch.
+
+[Safe counters](../results/retry-control-fix.json) and
+[actual fixed target card](../results/retry-control-fixed.jpg). No .env,
+class-service requests, user recordings or human listening. These are focused
+offline recovery checks; #8's broader normal-launch acceptance stays open.

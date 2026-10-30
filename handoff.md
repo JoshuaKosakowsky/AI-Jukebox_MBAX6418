@@ -1,31 +1,31 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Independent integration support: #20 ZIP evidence and #22 recovery audit.
+2026-10-30 America/Denver; Codex for Joshua. Task: recheck Matt, then fix #8 retry controls.
 ## Constraints
-Normal protected reviews/checks; no app changes or class calls. Matt leads #5/#6, Mike #3, prse #8/#9, jovi #7/#10.
+MSpanny = Mike; mase7919/Mase = Matt. No ownership/protection changes or class calls.
+Claim posted on #8; app.js edits confined to cover/music/resume rejection catches; no DJ code edits.
 ## Repository state
-Main e2b1e52 includes #21 vocals and #23 Moonlit candidate/preview fix. #20/#22 are being reconciled with that base.
-Live issues/PRs are authoritative; Mike's #24 owns his implementation/review credit and may still need a main sync.
+Branch codex/a3-08-retry-controls from main 770ce62. Existing #22/#24/#26/#28/#29 remain separate.
 ## Work completed and decisions
-#20 retains the original 7b9dd2b ZIP rehearsal; no new release/independent-install acceptance claimed.
-#22 retains the offline #8 audit/reproductions and Joshua's #21 review evidence; omit Mike's duplicate implementation row covered in #24.
-Historical audit finding remains for prse: instrumental retry after capacity rejection; Mike's lyrics retry fix is a separate merged correction.
-#23 media remain candidate-only; jovi owns final sample selection/library/ZIP. No task ownership is taken over here.
+Matt #27 895a616 rejected-advance cleanup verified fixed; 151 locked tests PASS. Manual/DJ overlap remains open.
+Restore the three rejected controls explicitly; retain cached cards, audio nodes, active/config guards and deliberate retry semantics.
+Added dependency-free optional Node handler regression in default Python discovery; Node is not an app dependency.
 ## Validation
-Run python scripts/dev.py --check and git diff --check per reconciled head; record exact results/CI on #20/#22.
-Prior 128-test baseline and offline/live evidence keep their stated scope; no new generation, listening or release acceptance here.
+Node regression fails baseline and passes patch, including pending, configuration, same-node and no-auto-submit checks.
+Real browser offline: cover/music/resume reject -> release -> refresh -> explicit retry all PASS without reload.
+Fixture counters cover 4/6/7; resume submissions 1/3/3; music 0/2/3. Safe record/screenshot committed.
+Sequential tabs avoid cross-port localhost cookie collisions; initial mixed setup discarded and cover rerun cleanly.
+Final locked checks/CI reported in PR. No real providers, .env, user recordings or listening involved.
 ## Blockers and unchecked areas
-#3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 recovery fix, final samples and independent ZIP remain incomplete; NOT READY.
-Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
+#8 broader normal-launch/live acceptance stays open. Matt's overlap fix and Mike's #26/#29 findings remain separate.
+Submission NOT READY; no issue closed and no self-approval.
 ## Next steps
-1. Mike reviews reconciled #20; Matt/prse review #22. Merge normally only with current approval/checks; sync remaining PRs afterward.
-2. Mike finishes #3 acceptance; Matt implements #5 then #6. They independently review each other's PRs.
-3. Prse coordinates any unpublished #5 work with Matt and retains #8/#9; reconcile #22/#24 credit without duplication.
+1. Eligible teammate reviews this focused #8 patch; coordinate merge order with Matt's #27 shared app.js.
+2. Rerun integrated browser regression after normal protected merge; preserve full acceptance gaps on #8.
+3. Mike/Matt continue their existing follow-ups; do not repeat generation on session switches.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24
+Issue #8; results/retry-control-fix.json; docs/TEST_RESULTS.md; tests/frontend_retry_probe.cjs.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
