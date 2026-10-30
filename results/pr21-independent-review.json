@@ -178,5 +178,125 @@
       },
       "review_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820"
     }
-  ]
+  ],
+  "latest_review": {
+    "state": "APPROVED",
+    "commit_id": "04650a5a551170fbf8ab37aefbe24be31dc043f2",
+    "html_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707544155",
+    "submitted_at": "2026-10-30T02:52:42Z"
+  },
+  "correction_verification": {
+    "head": "04650a5a551170fbf8ab37aefbe24be31dc043f2",
+    "mode": "Independent offline browser, MockTransport only",
+    "retryEnabledImmediately": true,
+    "retryEnabledAfterCapacityFreed": true,
+    "retrySucceeded": {
+      "cards": [
+        {
+          "audio": true,
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE fixed hold"
+        },
+        {
+          "audio": true,
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE fixed retry"
+        }
+      ]
+    },
+    "pendingReloadNoAutomaticMusic": {
+      "audio": false,
+      "buttons": [
+        {
+          "disabled": false,
+          "label": "Generate new lyrics"
+        },
+        {
+          "disabled": false,
+          "label": "Generate new cover"
+        },
+        {
+          "disabled": false,
+          "label": "Generate vocal song"
+        }
+      ],
+      "statuses": [
+        "New matching cover ready",
+        "No vocal yet",
+        "AI lyrics ready"
+      ],
+      "title": "OFFLINE fixed reload"
+    },
+    "deliberateMusicAfterReload": {
+      "tracks": [
+        {
+          "audio": true,
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE fixed hold"
+        },
+        {
+          "audio": true,
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE fixed retry"
+        },
+        {
+          "audio": true,
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE fixed reload"
+        }
+      ]
+    },
+    "counts_before_reload_release": {
+      "/v1/images/generations": 3,
+      "/v1/chat/completions": 3,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2
+    },
+    "counts_after_reload_release": {
+      "/v1/images/generations": 3,
+      "/v1/chat/completions": 3,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2
+    },
+    "final_counts": {
+      "/v1/images/generations": 3,
+      "/v1/chat/completions": 3,
+      "/release_task": 3,
+      "/query_result": 3,
+      "/v1/audio": 3
+    },
+    "validation": {
+      "tests_passed": 128,
+      "verifier_files": 67,
+      "coverage": [
+        36,
+        11,
+        19
+      ],
+      "diff_check": "clean"
+    },
+    "screenshot": "results/pr21-lyrics-retry-enabled.jpg"
+  }
 }

@@ -1,34 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: publish failure audit and allow independent concurrent PRs.
+2026-10-29 America/Denver; Codex for Joshua. Task: verify Mike's correction and record current integration handoff.
 ## Constraints
-Joshua explicitly authorized parallel independent PRs now; keep protected reviews/checks and issue ownership.
+Independent concurrent PRs authorized; protected reviews/checks and issue ownership remain. No class generation here.
 ## Repository state
-Branch codex/a3-08-recovery-audit from main 7b9dd2b; audit/review evidence through 2d19839 is pushed.
-PR #20 and codex/moonlit-sample-candidate are separate tasks; no application files changed in this audit.
+Branch codex/a3-08-recovery-audit, PR #22; pre-handoff 108d0f5. #23 is the separate Moonlit candidate PR.
+Mike's #21 at 04650a5 is independently approved and its blocking thread resolved; no merge performed.
+#20 is approved; #22/#23 await teammate review. Live GitHub remains authoritative if those states change.
 ## Work completed and decisions
-#8: seven offline backend probe groups and browser failure/recovery observations; one P2 music retry lock after 429.
-RECOVERY_AUDIT includes safe JSON/screenshots, runnable offline probes, reload workaround and focused fix guidance.
-#21: independent review/recheck at 3245fcd still reproduced the new lyrics retry lock; formal review remains recorded.
-Updated AGENTS/CONTRIBUTING: concurrent independent PRs allowed; coordinate overlap/dependencies as needed.
-The candidate PR carries the identical guide update, so either merge order works; reconcile handoff text on integration.
+#8's instrumental retry finding, offline reproductions and workaround remain valid on main 7b9dd2b; prse owns its fix.
+Mike fixed the new lyrics-control instance: rejected 429 now restores the control; retry after capacity frees succeeds.
+Pending-lyrics reload no longer starts music: mock submissions stayed at two until the deliberate third request.
+Recorded exact-head approval/browser evidence, enabled-control screenshot, combined review credit and audit status note.
 ## Validation
-Audit: seven probe groups and 115 tests passed; verifier 73 files after review records; coverage 36/11/19.
-#21 recheck: 127 tests, verifier 67 files and four exact-head CI checks passed on 3245fcd; retry still failed in browser.
-All fault probes used MockTransport/synthetic media; no real class keys/requests. Harnesses stopped.
-Final guide/handoff checks passed: verifier 73 files, coverage 36/11/19, whitespace clean; runtime/protection untouched.
+#21: 128 tests, verifier 67 files, coverage 36/11/19, diff clean; all four exact-head CI checks green on 04650a5.
+Independent browser used only MockTransport/synthetic media; no real keys/requests/listening. Harness stopped; clone clean.
+Audit artifact checks passed: verifier 74 files, coverage 36/11/19, staged whitespace clean; app source unchanged.
 ## Blockers and unchecked areas
-prse4479 owns #8's fix; coordinate shared app.js edits with Mike's #21. No code fix or normal-launch acceptance here.
-Full submission NOT READY; review/candidate records preserve their separate scopes. No dependency on #20's approval.
+#3 live Qwen/ACE-Step vocal run, human listening and integrated-main acceptance remain open; approval is partial scope.
+#8's instrumental fix and normal-launch recovery, DJ/references/samples/final ZIP remain incomplete; NOT READY.
 ## Next steps
-1. Teammate reviews the evidence PR; merge normally after approval and green CI.
-2. prse implements the focused retry fix and browser regression, coordinating with Mike.
-3. Record normal-launch recovery as remaining features integrate; preserve task notes when merging handoff updates.
+1. Mike/eligible teammate merges #21 normally; perform bounded normal-launch vocal acceptance on integrated main afterward.
+2. Teammates review #22/#23 independently; prse coordinates the outstanding instrumental-control correction.
+3. Preserve all task notes on handoff reconciliation; update contributions as work merges, without duplicate review rows.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6512838146
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820
-Audit: docs/RECOVERY_AUDIT.md; results/a3-08-recovery-audit.json; results/pr21-independent-review.json.
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707544155
+Audit: docs/RECOVERY_AUDIT.md; results/pr21-independent-review.json; results/pr21-lyrics-retry-enabled.jpg.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

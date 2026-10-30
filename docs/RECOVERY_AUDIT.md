@@ -45,6 +45,12 @@ for the same pattern; those capacity-rejection variants were not reproduced here
 Coordinate `app.js` edits with Mike's vocal [PR #21](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21).
 No fix to shared application code was made during this audit.
 
+Related review update: Mike fixed the new lyrics-control instance in PR #21
+at `04650a5`; independent 128-test and offline browser verification passed,
+and the [correction was approved](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707544155).
+This does not change the instrumental finding above on main 7b9dd2b; its fix
+still belongs to #8. [Corrected lyrics control](../results/pr21-lyrics-retry-enabled.jpg).
+
 ## Passing checks
 
 Seven offline backend probe groups passed through real app routes, SessionStore
