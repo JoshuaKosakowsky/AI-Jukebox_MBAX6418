@@ -1,35 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-30 America/Denver; Codex for Joshua. Task: name/ownership correction and approved PR sequence.
+2026-10-30 America/Denver; Codex for Joshua. Task: new-push/review triage and protected integration.
 ## Constraints
-MSpanny = Mike; mase7919 (Mase) = Matt. Mike leads #3/#6; Matt #5; prse #8/#9; jovi #7/#10.
-Normal protected PR workflow; user authorized commits/messages/pushes. No assignment changes or class calls.
+MSpanny = Mike; mase7919/Mase = Matt. Protected reviews/checks; no assignment changes or class calls.
 ## Repository state
-#20 merged normally at main 770ce62 after Mike approved de256e2 and CI 4/4 passed.
-#22 synchronized with main; pre-handoff b2d5a68. No application changes in this reconciliation.
+#30 merged normally at main 2a19ecf after Mike approved exact 62506de and CI 4/4 passed.
+#22 reconciled with main; pre-handoff 149090c. Historical audit remains, with current correction status linked.
 ## Work completed and decisions
-PLAN now states the name mapping; resolved handoff ownership mismatch without changing issue leads.
-Preserved #20 ZIP evidence alongside #22 audit/variants, and added Joshua's separate #26 review credit.
-#26 cdb00cd: independent review requests changes for multipart disk spooling/late cap and malformed audio acceptance.
-#24 Mike owns his three credit rows; asked him to sync current main and request fresh review (old approval dismissed).
-Prior pending work preserved: #8 instrumental/cover/resume retry controls remain disabled after rejection; reload works.
-#25 Desert Drive candidate remains for Jovi's review; DESSERT DRIVE cover lettering disclosed; manifest unchanged.
+Mike's #30 approval independently reproduced baseline failure/patched success; recorded its review credit.
+Updated PLAN/audit status and preserved #20 ZIP, #22 historical probes, #23 candidate and distinct review records.
+Matt's new #27 74ebc0b adds partial live evidence only; AT-07/09 correctly remain failed/incomplete.
+Posted qualification request: writing status is not successful Qwen/Chatterbox evidence; job accounting and both spoken introductions are unverified.
+#27's 895a616 cleanup remains verified fixed; manual-player/DJ overlap remains open. No additional live run performed.
 ## Validation
-#26 locked check PASS: 137 tests, verifier 72 files, coverage 36/11/19; Python 3.12.14/Git 2.53.0.
-Offline HTTP probes: valid 1.92 MB WAV spools to disk; oversized upload spools before 422; 44-byte WAV/3-byte ID3 return 201.
-Temporary files closed after requests; no claim of persistent files. Synthetic bytes, no .env/providers/user recordings.
-#22 final locked check and whitespace results are recorded in its follow-up comment after reconciliation.
+#30 approved head: 129 locked tests, verifier 77, coverage 36/11/19; CI 4/4 green before normal merge.
+#22 final checked head: tests/verifier/coverage/whitespace reported in its follow-up comment; app source matches merged main.
+Prior #29 review: 131 tests; arbitrary error metadata + malformed-message findings remain. Prior #27: 151 tests.
+No test servers started this session; no credentials, uploads, generated media or new listening.
 ## Blockers and unchecked areas
-#26 needs Mike's fixes and re-review; #27 Matt's draft DJ queue awaits readiness/review and live acceptance.
-#3 live vocal/browser/listening, #5/#6 integration, #8 fixes, three-sample library and independent ZIP remain; NOT READY.
+#22/#28 await independent review; #24 still needs Mike's main sync/fresh approval; #26/#29 unchanged with requested changes.
+#25 Desert Drive remains a candidate awaiting review; manifest/library incomplete. #3 live acceptance failed; submission NOT READY.
 ## Next steps
-1. Eligible teammate reviews final #22; Mike synchronizes #24 and addresses #26, then request current-head reviews.
-2. Matt finalizes #27; coordinate reference consumption/UI with Mike before #6 acceptance; prse/Matt handle #8 shared frontend.
-3. Mike/Jovi finish #3 acceptance and #7 sample selection/library; #23/#25 candidates are not final sample acceptance.
+1. Eligible teammate reviews current #22; reconcile remaining task branches with current main under normal protection.
+2. Mike fixes #26/#29 and syncs #24; Matt syncs #27, fixes overlap and qualifies incomplete evidence before readiness.
+3. Preserve #8's broader acceptance, #7 sample library and independent final ZIP requirements; no automatic new generation.
 ## References
-[#26 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5713181117)
-[#24 sync request](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24#issuecomment-6524316120)
+PRs #22/#24/#25/#26/#27/#28/#29/#30; docs/RECOVERY_AUDIT.md; results/retry-control-fix.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

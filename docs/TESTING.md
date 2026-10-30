@@ -23,6 +23,13 @@ It never calls class services. Dependency installation needs initial internet
 access; already-synced tests do not. CI tests 3.12 Windows/Linux and 3.14 Linux;
 the aggregate required context stays test and fails if any matrix run fails.
 
+When Node is available, default test discovery also executes the actual cover,
+music and resume click handlers in a small dependency-free JavaScript harness.
+It checks rejected-request recovery, explicit retries, unchanged audio nodes,
+configuration guards and no automatic submissions. Without Node that optional
+check is explicitly skipped; Node is not an application dependency. Browser
+verification remains separate from this minimal DOM simulation.
+
 Use focused behavior/failure tests for logic and contract/normal-launch checks for
 wiring. Include new tests in the default discovery command. Media fixtures must
 fully decode, not merely have headers. Offline fixture results never count as

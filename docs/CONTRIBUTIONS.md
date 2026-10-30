@@ -32,6 +32,11 @@ attribution. A component entry does not claim the whole feature is complete.
 
 | 2026-10-30 | JoshuaKosakowsky | PR #26 reference-voice review | Independently ran 137 locked tests and offline HTTP upload probes; requested changes for multipart disk spooling before the size check and malformed WAV/MP3 acceptance. No class-service calls or user recordings; reference/DJ live acceptance remains pending. | [Review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5713181117) |
 
+
+| 2026-10-30 | JoshuaKosakowsky | PR #29 diagnostics review and #27 draft review | Independently passed 131/151 locked tests; reproduced unsafe error metadata/malformed-message handling, offline browser manual/DJ overlap and failed-advance cleanup. Requested #29 changes; verified Matt's 895a616 cleanup correction; overlap remains open. | [#29 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5714381726), [#27 draft notes](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6526170064) |
+| 2026-10-30 | JoshuaKosakowsky | A3-08 rejected-control correction | Delivered focused cover/music/resume control restoration, actual-handler regressions and offline browser recovery evidence; #30 merged normally at 2a19ecf after Mike's approval and green checks. Broader #8 acceptance remains open. | [PR #30](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/30), [safe record](../results/retry-control-fix.json) |
+| 2026-10-30 | MSpanny (Mike) | PR #30 independent review | Independently reproduced the Node probe failing on baseline and passing on the patch, checked guards/evidence scope, and approved exact head 62506de without blockers. | [PR #30 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/30) |
+
 Whole-app features and independent deployment remain incomplete; component entries
 above claim only their recorded scope.
 Add their evidence as the team delivers them.

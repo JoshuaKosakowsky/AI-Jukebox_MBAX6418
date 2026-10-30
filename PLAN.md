@@ -3,12 +3,14 @@
 **Current state:** runtime/contracts, instrumental generation/playback and matching
 covers are accepted (A3-01/02/04). Mike's vocal implementation (#21) is merged;
 A3-03 stays open for real-class normal-launch vocal/browser/listening acceptance.
-Main `770ce62` includes #23's Moonlit candidate and #20's ZIP-startup evidence; the final sample library remains
-unfinished. Matt leads the ready A3-05 default DJ queue; Mike leads A3-03
+Main `2a19ecf` includes #30's rejected-control correction, #23's Moonlit candidate
+and #20's ZIP-startup evidence. The final sample library remains unfinished.
+Matt leads draft #27 for the A3-05 default DJ queue; Mike leads A3-03
 acceptance and A3-06 reference voices after A3-05 integration. Matt/prse provide
 reciprocal backup coverage for A3-05/08/09; Mike/jovi for A3-03/06/07/10.
-Mike/Matt can independently review each other tonight, and prse/jovi tomorrow,
-provided the reviewer has no commits on the PR.
+Eligible teammates can review across the pairings provided the reviewer has
+no commits on the PR. #8's three rejected controls are corrected on main; broader
+normal-launch recovery acceptance remains open. #3's live attempt failed; #29's diagnostic follow-up still needs its safe-error review findings addressed.
 Prse retains A3-08 recovery/safeguards and A3-09 documentation; coordinate shared
 frontend edits and any unpublished A3-05 work with Matt. Jovi retains A3-07
 samples and A3-10 independent ZIP/submission. Our #20 ZIP rehearsal and #22

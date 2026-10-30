@@ -1,5 +1,12 @@
 # Instrumental failure and recovery audit
 
+**Current status (2026-10-30):** the three control defects described below were
+corrected by [PR #30](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/30),
+merged at main `2a19ecf` after independent approval. These are historical
+reproductions on their recorded bases. The [correction record](../results/retry-control-fix.json)
+verifies all three offline browser recoveries without reload or automatic
+submissions. #8 remains open for broader integrated/normal-launch acceptance.
+
 2026-10-29 America/Denver; JoshuaKosakowsky directing Codex. Support for
 [A3-08 / #8](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8),
 whose lead remains prse4479. Tested main `7b9dd2b2702d7280a231cdcbfbd1afad136f3f56`.
