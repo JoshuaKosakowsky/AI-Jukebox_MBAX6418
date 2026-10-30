@@ -1,32 +1,31 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Tasks: latest #21 recheck, then Moonlit Reflection candidate for jovi/#7.
+2026-10-29 America/Denver; Codex for Joshua. Task: publish Moonlit candidate and allow independent concurrent PRs.
 ## Constraints
-Protected task branches; no main/self-approval. Preserve Mike's #3, prse's #8 and jovi's #7 ownership.
+Joshua explicitly authorized parallel independent PRs now; keep protected reviews/checks and issue ownership.
 ## Repository state
-Branch codex/moonlit-sample-candidate from main 7b9dd2b. PR #20 remains the author's active PR awaiting review.
-Audit/review branch codex/a3-08-recovery-audit is pushed at 2d19839; its handoff/evidence is preserved separately.
+Branch codex/moonlit-sample-candidate from main 7b9dd2b; original candidate commit 586025f is pushed.
+PR #20 remains independent. Audit/review work is on codex/a3-08-recovery-audit; no app code shared here.
 ## Work completed and decisions
-Rechecked #21 head 3245fcd: lyrics retry P2 still reproduces; posted precise recheck, no new blockers or approval.
-Copied original Moonlit Reflection WAV/PNG unchanged to assets/samples with a candidate JSON and README guidance.
-Provenance includes original settings/date/models, reconstructed payloads, exact hashes and Joshua's prior listening.
-Both full decodes and current muted static-preview play/pause/resume passed; no new generation or app changes.
-Shared manifest remains empty; sample selection/library integration/final ZIP acceptance belong to jovi.
+Moonlit WAV/PNG are unchanged originals with a candidate record, model/settings/provenance and README guidance.
+Both full decodes and muted asset-preview play/pause/resume passed; Joshua's earlier listening is attributed.
+Updated AGENTS/CONTRIBUTING: concurrent independent PRs allowed; coordinate overlap/dependencies as needed.
+The audit PR carries the identical guide update, so either merge order works; reconcile handoff text on integration.
+Shared manifest is still empty. Jovi owns candidate selection, sample-library integration and the full three-song set.
 ## Validation
-#21 recheck: 127 tests, verifier 67 files, coverage 36/11/19, four exact-head CI checks green on 3245fcd.
-Candidate: 30.0 s/48 kHz/stereo/PCM16 WAV and 512x512 PNG; both original acceptance hashes match.
-Candidate gates passed: verifier 69 files, coverage 36/11/19, whitespace clean; staged media hashes match. Preview stopped.
+Candidate hashes match the original normal-launch record; 30 s/48 kHz/stereo/PCM16 WAV and 512x512 PNG.
+Prior candidate gates passed: 69 tracked files, coverage 36/11/19, whitespace clean; no new generation.
+Final guide/handoff checks passed: verifier 69 files, coverage 36/11/19, whitespace clean; runtime/protection untouched.
 ## Blockers and unchecked areas
-Mike's lyrics retry fix remains required. Candidate is not the approved three-song set or app/ZIP integration.
-Whole submission NOT READY; no new human listening or class-service calls claimed.
+This is a candidate, not final sample/ZIP acceptance. The #21 retry finding last reproduced on 3245fcd remains in its review.
+Full submission NOT READY; no new listening or class-service calls claimed. No dependency on #20's approval.
 ## Next steps
-1. Jovi reviews the candidate record's sample object, selects/integrates it if suitable, then completes the other samples.
-2. Re-review Mike's actual recovery correction; preserve #3 live vocal acceptance before closure.
-3. Open/reconcile candidate/audit PRs after #20 merges; use task branches and independent reviews.
+1. Teammate reviews the candidate PR; merge normally after approval and green CI.
+2. Jovi adopts the candidate if selected, completes the other samples and verifies normal-app/final ZIP playback.
+3. Preserve all task notes when reconciling shared handoff text after another PR merges.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7#issuecomment-6513289437
 Candidate: assets/samples/moonlit-reflection.candidate.json; source: results/main-instrumental-acceptance.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17
