@@ -467,3 +467,44 @@ pairing gap is satisfied. This does not establish vocals, AI DJ sequencing,
 reference voices, full failure-case coverage, sample completion or independent
 GitHub ZIP/release acceptance. Full submission remains NOT READY. Recorded wall
 times include browser/tool waits and must not be used as inference benchmarks.
+
+## A3-03 vocal songs with AI lyrics - 2026-10-29 America/Denver
+
+Tester: MSpanny directing Hermes. Branch codex/a3-03-vocal-songs; base main
+7b9dd2b (post-#19). Scope: R10 / AT-04 vocal user outcome plus the shared
+infrastructure it needs. The parent issue stays open for the live class-service
+run and merged-main verification.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Default suite collected and passing; coverage retained | PASS, verifier 65 files, coverage 36 requirements/11 tasks/19 cases, all 127 tests (115 merged baseline + 12 new) |
+| Vocal create + lyrics + music over real HTTP routes (mocked Qwen/FLUX/ACE-Step) | Qwen lyrics attach to the track; the vocal ACE-Step request carries the REAL lyrics and a vocal-aware prompt; WAV attaches -> ready with cover | PASS, three succeeded jobs, lyrics on track, submit_music called once with the exact lyrics text and duration, audio+cover media served; no key material in snapshots |
+| Instrumental regression over real HTTP | Instrumental path unchanged: frozen "[Instrumental]" marker and the no-vocals prompt | PASS, submit_music kwargs lyrics="[Instrumental]", prompt unchanged |
+| Vocal music without lyrics | Reject before any provider submission, zero side effects | PASS, 409 "Generate the song's lyrics...", no submit call, one art job only |
+| Submit-time guard (defensive) | A vocal music job without lyrics at generate time fails loudly, never falls back to the marker | PASS, job failed with a lyrics message, submit_music not called, slot released |
+| Lyrics failure/retry | Failed text job is retryable, track/cover untouched, retry gets a NEW job id and attaches fresh lyrics | PASS through real HTTP routes with mocked providers |
+| Missing text configuration | Safe not_configured error, no provider call, draft/cover unaffected | PASS, 502 lyrics_generation_available=false, only the art job ran |
+| Static frontend guards | Vocal controls wired; one-click chain never re-submits after reload or when a music job exists | PASS, 3 new guards in tests/test_frontend.py plus the existing playback-preservation guards |
+
+Design decision: vocals reuse the SAME verified ACE-Step release_task request
+and only change the lyrics field (instrumentals send the frozen
+"[Instrumental]" marker; vocals send the track's current AI lyrics) plus a
+vocal-aware prompt. The probe already proved the lyrics field and the 
+submit/poll/download flow; this is the smallest deviation from a verified
+contract, and the lyrics token budget for Qwen is raised from 192 to 512 only
+for this call so 10-60 second songs get complete lyrics. Both deviations are
+recorded in SERVICE_CONTRACTS/APP_CONTRACTS and require the live acceptance
+evidence below before issue closure.
+
+One-click vocal chain: the browser starts the cover and lyrics jobs at create,
+then asks for the vocal track exactly once when a lyrics job observed while the
+page is open succeeds. The chain is seeded from the first snapshot, so reloading
+the page never submits generation (README rule preserved); a music job that
+already exists prevents re-chaining, so a failed vocal request is always a
+deliberate button click.
+
+Unchecked (honest): NO live Qwen lyrics or ACE-Step vocal generation was
+performed on this machine — the class .env is not present here (the earlier
+October 15 record refers to a different checkout). Live R10/AT-04 evidence,
+audible/visual browser verification and sample selection remain. Offline tests
+use mocked providers and real HTTP routes only. Submission NOT READY.
