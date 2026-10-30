@@ -6,7 +6,7 @@
 Task branches/reviews; no self-approval or main changes. Preserve prse4479's #8 and Mike's #3 ownership.
 ## Repository state
 Branch codex/a3-08-recovery-audit; pre-handoff e4c10c5 pushed, base main 7b9dd2b. PR #20 still awaits review.
-Separate clean review clone tested #21 at 8906093; no commits on Mike's branch and no merge performed.
+Rechecked #21 latest 3245fcd in a separate clean clone; original P2 still reproduces; no author-branch changes/merge.
 ## Work completed and decisions
 #8: RECOVERY_AUDIT + runnable offline probes + safe JSON/screenshots; one P2 music retry lock after 429.
 Published #8 findings/fix guidance; reload then explicit retry works. All 65 isolated source files stayed unchanged.
@@ -15,7 +15,7 @@ Reload continuation and premature live-evidence wording were non-blocking notes;
 Saved exact-head review JSON/screenshot; completed review credited in CONTRIBUTIONS. No shared app changes.
 ## Validation
 #8: seven offline probe groups and 115 tests passed, verifier 71 files, coverage 36/11/19 at e4c10c5.
-#21: independent 127 tests, verifier 66 files, coverage 36/11/19; all four exact-head CI checks green.
+#21 recheck: 127 tests, verifier 67 files, coverage 36/11/19; four exact-head CI checks green on 3245fcd.
 Browser used only MockTransport/synthetic media; no class keys/requests/listening. Review clone clean; harness stopped.
 ## Blockers and unchecked areas
 Mike must fix the new lyrics control before approval; prse coordinates the broader #8 fix with Mike's shared app.js.
@@ -26,7 +26,7 @@ Normal-launch vocal/failure acceptance and remaining DJ/reference/sample/release
 3. prse implements the #8 fix and records normal-launch recovery as remaining features integrate.
 ## References
 https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6512838146
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707209912
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820
 Audit: docs/RECOVERY_AUDIT.md; results/a3-08-recovery-audit.json; results/pr21-independent-review.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17

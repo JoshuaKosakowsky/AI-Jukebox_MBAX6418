@@ -121,5 +121,62 @@
     "html_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707209912",
     "commit_id": "8906093a5f303cd24bb803e79e024f2898bde981",
     "submitted_at": "2026-10-30T01:54:01Z"
-  }
+  },
+  "rechecks": [
+    {
+      "head": "3245fcddf50107a90487db5ed152960b97223ae4",
+      "mode": "offline browser",
+      "afterSlotFreedAndRefresh": {
+        "cards": [
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new lyrics"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new vocal song"
+              }
+            ],
+            "title": "OFFLINE latest hold"
+          },
+          {
+            "audio": false,
+            "buttons": [
+              {
+                "disabled": true,
+                "label": "Generate lyrics"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate vocal song"
+              }
+            ],
+            "title": "OFFLINE latest retry"
+          }
+        ]
+      },
+      "validation": {
+        "tests_passed": 127,
+        "verifier_files": 67,
+        "coverage": [
+          36,
+          11,
+          19
+        ],
+        "exact_head_ci": "four checks passed"
+      },
+      "review_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820"
+    }
+  ]
 }
