@@ -1,15 +1,14 @@
 # Delivery plan - Assignment 3
 
-**Current state:** startup foundation and v1 shared app contracts merged in
-[PR #15](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/15)
-at main `c635e86`. Normal startup on merged main passed; A3-01 is complete.
-A3-02/08/09 are ready; A3-04 cover implementation is in PR #17 for review and
-integration. Main still lacks song generation/playback; approved samples and
-release acceptance remain pending. Local setup A3-00 is complete;
-[#11](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11)
-records publication/CI/protection verification. The
-[four live service contracts](docs/SERVICE_CONTRACTS.md) and
-[shared app objects](docs/APP_CONTRACTS.md) are the integration baseline.
+**Current state:** instrumental generation and matching covers are integrated
+through [PR #18](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/18)
+at main `7cc9645`. Normal-launch browser acceptance passed with two real songs,
+correct covers, playback/pause/resume, generation during playback, reload retention
+and Joshua's listening confirmation. A3-01/02/04 and GitHub setup are complete;
+A3-03 (vocals) and A3-05 (DJ queue) can proceed. A3-08/09 continue alongside them.
+Samples, reference voices, the DJ flow and independent ZIP/release acceptance
+remain pending. Evidence: [main acceptance](results/main-instrumental-acceptance.json)
+and [test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
@@ -29,12 +28,12 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 | Work item | Lead / contributors | Depends on | State |
 |---|---|---|---|
 | [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky (lead); contributors pending | None | See issue |
-| [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | jovi1214 (lead); contributors unassigned | 01 | See issue |
+| [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | mase7919 (lead); contributors unassigned | 01 | See issue |
 | [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | jovi1214 (lead); contributors unassigned | 02 | See issue |
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | JoshuaKosakowsky (lead); contributors unassigned | 01 | See issue |
 | [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | prse4479 (lead); contributors unassigned | 02, 04 | See issue |
 | [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | mase7919 (lead); contributors unassigned | 05 | See issue |
-| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | mase7919 (lead); contributors unassigned | 02, 03, 04 | See issue |
+| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); contributors unassigned | 02, 03, 04 | See issue |
 | [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | prse4479 (lead); contributors unassigned | 01; continuous | See issue |
 | [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | prse4479 (lead); contributors unassigned | 01; continuous | See issue |
 | [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | jovi1214 (lead); contributors unassigned | 03, 05-09, GH | See issue |
@@ -47,8 +46,8 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
    on merged main c635e86, with normal-launch browser/HTTP verification and green
    CI. Earlier provider probes remain separate evidence; models-list is not generation.
 2. **First useful flow:** normal launch -> instrumental generation -> library ->
-   playback, then a newly generated matching cover. A3-02/04 coordinate on merged
-   contracts. Never substitute test adapters in the normal launcher.
+   playback, with a newly generated matching cover. Verified on main 7cc9645
+   using the normal launcher and real services; see the acceptance record above.
 3. **All core flows:** add vocals and the default DJ queue; observe playback/control
    transitions in the actual browser. Start sample generation once its paths work.
 4. **Rehearsal:** after all three core features first work, a teammate installs an

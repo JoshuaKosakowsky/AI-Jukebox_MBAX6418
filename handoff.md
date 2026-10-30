@@ -1,70 +1,34 @@
 # Agent handoff
 
 ## Session
-2026-10-28 America/Denver; Hermes for mase7919. Task: A3-02 instrumentals (#2 lead).
+2026-10-29 America/Denver; Codex for Joshua. Task: publish #19 corrections and sync OneDrive.
 ## Constraints
-Task branch + reviewed PR only; no main/protection/assignment changes, no bypass.
-Two authorized live ACE-Step generations plus automatic covers; no other service calls.
+Joshua authorized repo commits/messages/pushes and local sync. Protected PR workflow; no self-approval.
 ## Repository state
-Branch codex/a3-02-instrumental-generation from main 3e298fe (PR #17 merged).
-No other open PRs touch these files. The task PR is linked from issue #2.
+Branch codex/a3-02-browser-acceptance; pre-handoff 99536f2 pushed; main 7cc9645.
+Original OneDrive checkout fast-forwarded cleanly to 99536f2; ignored .env preserved.
+Review clone /private/tmp/ai-jukebox-review-20261029 has the same tracked branch.
 ## Work completed and decisions
-Extended SessionStore (per-kind active set, server-private music tickets,
-queue/generate_music with bounded submit->poll->download), POST
-/api/tracks/{id}/music + music_generation_available, two-step browser create
-(draft+cover, then instrumental), per-track music status UI, GenerationJob
-with_progress. Instrumentals 10-60 s (20 MB provider cap rationale). Music
-failure leaves status/cover/audio untouched; replacement cleans old media on
-success; art and music jobs coexist on one track; no auto-resubmission.
-Hardening: POST .../music/resume?from={job} continues the SAME retained task
-without a new submission; polling progress capped at 0.79 with the 0.9
-downloading stage only after success; config-missing UX is explicit.
-Three-defect correction (base f3b047f): (1) resume track-ownership validation
-moved INSIDE SessionStore.resume_music — a wrong-track resume URL now 404s
-with zero side effects instead of leaking a job + active slot that blocked
-the rightful track; (2) syncAfterMutation no longer clears the per-track card
-cache and renderLibrary MOVES the unchanged-media audio element into rebuilt
-cards, so creating another song or changing job status never detaches a
-playing player (fresh element only on genuine media change, never auto-played);
-(3) every resumed job now carries its own ticket association, so repeated
-resumes of one task stay on the single original submission and no second
-resume returns 409; a provider-reported task failure during a resume is now
-terminal (non-retryable) so nothing advertises endless resumability; success
-removes all app-job associations of the ticket.
+Corrected TEST_RESULTS count to 40 PASS / 0 FAIL, attributed to Matt's review recount;
+external qa-browser-final.txt unavailable for our own recount. Updated results/README evidence,
+CONTRIBUTIONS listening credit and README's contradictory acceptance statement. No app/dependency changes.
+Posted correction summary to #19 and formally requested mase7919 re-review; approval still required.
+Pinned OneDrive repo via Finder; cloud-only Git metadata downloaded, allowing safe fetch/fast-forward.
 ## Validation
-Locked python scripts/dev.py --check PASS: all 115 tests (109 prior + 5
-music chain/wrong-track + 1 updated frontend guard), verifier 63 files, coverage
-36/11/19; schema byte-identical; diff whitespace clean; key-scan clean.
-Live: two real ACE-Step instrumentals (10 s and 20 s) with automatic FLUX covers
-through the normal launcher (unchanged record results/instrumental-live-record.json);
-no new live generation on the correction pass. Defect 2 additionally verified
-with a dependency-free node DOM simulation (8 checks; passes on the new app.js,
-fails on f3b047f) — still not a real-browser substitute.
-Real-browser acceptance (this session): system Chrome via Playwright against an
-OFFLINE harness = the real app + real frontend + deterministic fixture
-providers serving the genuine class-generated WAV/PNG files; no network, no
-repo changes, dummy keys, .env never loaded. All 31 checks PASS in a REAL
-Chrome engine: basic play/pause/resume with advancing currentTime, two- and
-three-track libraries with distinct media, playing-audio continuity across
-track creation (same DOM node, still playing), exact paused-position
-preservation across mutations, cover regeneration while playing (same node,
-still playing, exactly one player), genuine audio replacement (new element,
-new URL, never auto-played, content changed 10 s -> 20 s, cover pairing held),
-and zero unexpected HTTP errors/page errors (the only console 404s are the
-pre-existing missing favicon; confirmed URL via CDP). Browser ran headless and
-muted: audible listening still NOT performed — a human/teammate step.
+Earlier locked checks: 115 tests, verifier 65 files, coverage 36/11/19 with Python 3.12.14/Git 2.53.
+05f4382 CI caught missing required headings in handoff, edited after those checks; restored them here.
+Initial Apple Git 2.39 run failed 7 hook tests (--to-stdin unsupported); current Git resolved those.
+All four GitHub CI checks passed on 99536f2. Final handoff verifier/coverage/whitespace checks pass.
+No new class-service generation or browser acceptance run.
 ## Blockers and unchecked areas
-PR awaits teammate review and merged-main run before #2 closes. Audible browser
-playback still not listened for (headless and muted runs; engine-level
-verification completed this session); verified via HTTP
-surface, media decoding and the in-page audio element. No samples/ZIP acceptance.
+#19 awaits Matt's re-review on the final documentation head; no merge or review dismissal.
+Submission NOT READY; remaining feature work unchanged. OneDrive filesystem sync is managed by its client.
 ## Next steps
-1. Review/merge the A3-02 PR; verify two playable songs with covers on main.
-2. Add the A3-02 implementation row in docs/CONTRIBUTIONS.md on merge.
-3. A3-03 (vocals/AI lyrics) extends the same store/route pattern; A3-05 queues playback.
+1. Matt verifies #19 corrections on the final head; merge normally after approval and green CI.
+2. Keep the OneDrive task branch aligned with GitHub; local main already matches origin/main.
+3. #3 vocals (jovi1214) and #5 DJ queue (prse4479) ready; references/samples/independent ZIP follow.
 ## References
-Issue #2; README.md; docs/APP_CONTRACTS.md; docs/TEST_RESULTS.md;
-results/instrumental-live-record.json.
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#issuecomment-6500246029
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

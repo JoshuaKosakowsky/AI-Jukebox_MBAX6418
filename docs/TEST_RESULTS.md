@@ -382,7 +382,10 @@ No network requests to class services; nothing committed; NOT a substitute for
 the normal-launch flow or for live generation claims. Dummy keys only; the
 repo .env is never loaded (Settings.load(env_file=None), neutral cwd).
 
-All 31 checks PASS (full transcript and JSON evidence kept outside the repo):
+All 40 checks PASS / 0 FAIL, per mase7919's recount of the retained
+`qa-browser-final.txt` transcript in the [PR #19 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#pullrequestreview-5692830523).
+The full transcript and JSON evidence remain outside the repo; this correction
+uses the reviewer's recount, not a new browser run:
 
 - Test A (basic playback): song created through the real form; audio element
   rendered; play() accepted; readyState >= 1; currentTime advanced 0.00 ->
@@ -417,3 +420,50 @@ browser ran headless and muted, so audible output was NOT listened for; human
 listening in a real (headed/audible) browser remains a teammate step. The
 harness substitutes fixtures for the live providers, so this does not re-test
 class-service connectivity (already covered by the two-song live record).
+
+## A3-02 / A3-04 normal-launch acceptance - 2026-10-28 America/Denver
+
+Tester: JoshuaKosakowsky directing Codex, with Joshua personally confirming the
+listening result. Tested a clean checkout of merged **main
+7cc96458fa4c99120380379d46b96592d3a3934e**, started with the documented
+python scripts/dev.py --port 8000 and existing ignored class configuration.
+No harness, fixture provider, imported track or alternate launcher was used.
+PR #18 was still a draft; Joshua authorized merging it, so it was marked ready
+and merged normally at the approved d1a1a92 head. Protection was unchanged.
+
+| Input/check | Expected | Actual |
+|---|---|---|
+| Duration 9 s, otherwise valid form | Reject before a provider submission | PASS, browser says minimum 10; zero tracks; correcting to 30 recovers |
+| Moonlit Reflection / Ambient piano / Calm and reflective / 30 s / Instrumental | Fresh ACE-Step audio and matching FLUX art | PASS, 30.0 s, 48 kHz stereo PCM16 WAV, 5760078 bytes, full decode/nonzero signal; 512x512 PNG; ready track |
+| Native play -> pause -> resume | Audio plays, pause holds position, resume continues | PASS, readyState 4, unmuted/volume 1, no media errors; paused position held exactly at 3.599095 s |
+| Desert Drive / Upbeat funk / Energetic and optimistic / 20 s, created while first plays | New independent audio/cover; first track keeps playing | PASS, first continued from 3.832261 to 24.597208 s on the same media URL; second generated as 20.0 s, 48 kHz stereo PCM16, 3840078 bytes with distinct 512x512 cover |
+| Select/play second song | Both tracks independently playable without manual overlap | PASS, first stopped/ended, second advanced; both ultimately reached their 30/20 s ends with no errors |
+| Normal page reload, then select/play both again | Keep the same tracks/media and do not regenerate | PASS, identical session snapshot before/after, two tracks/four succeeded jobs, same UUIDs and pairings; both players decoded and advanced after reload |
+| Human listening | Audible instrumental output broadly fits the two requested styles | PASS, Joshua replied "Both play and broadly match" after receiving the actual 30/20 s clips |
+| Offline suite and main CI | Relevant regressions/gates still pass on merged code | PASS, 115 tests; verifier 63 files; coverage 36/11/19; all four main CI checks green |
+
+Safe full observations, request values, hashes, decoded-media measurements,
+job/session state and listening attribution are in
+[main-instrumental-acceptance.json](../results/main-instrumental-acceptance.json).
+Actual screenshot: [two-song library](../results/main-instrumental-library.jpg).
+Main CI: [run 40814391178](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/40814391178).
+
+Exactly two deliberate music submissions and two automatic art submissions were
+made. Text/speech generation, uploads, paid services and port 9000 were not used.
+Startup, status refresh, downloading existing media and reload did not submit
+generation. No browser console errors were observed. Public evidence contains
+app UUIDs only, not private provider tickets, keys or filesystem routes.
+
+The first cover shows a piano/lake scene; the second has a bright driving/car
+theme. FLUX again added lettering despite the prompt, including "DESSERT DRIVE"
+on the second image. This is a disclosed typography limitation, not polished
+sample acceptance. Raw generated WAV/PNG files are retained locally under ignored
+results/raw/a3-02-normal-launch-7cc9645 for possible later sample selection;
+none are committed or declared approved samples.
+
+AT-03, AT-05 and AT-06 now have actual normal-entrypoint/live-browser evidence on
+integrated main. A3-02 acceptance is complete; A3-04's remaining live audio/cover
+pairing gap is satisfied. This does not establish vocals, AI DJ sequencing,
+reference voices, full failure-case coverage, sample completion or independent
+GitHub ZIP/release acceptance. Full submission remains NOT READY. Recorded wall
+times include browser/tool waits and must not be used as inference benchmarks.
