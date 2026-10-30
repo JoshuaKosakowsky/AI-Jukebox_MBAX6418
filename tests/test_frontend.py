@@ -58,6 +58,51 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         self.assertIn("\"Resume check\"", self.source)
         self.assertIn(f"/music/resume?from=${{musicJob.id}}", self.source)
 
+    def test_dj_uses_one_persistent_audio_element(self):
+        # The DJ timeline is driven by exactly one element declared once; a
+        # second element or a recreated one would allow two sources to fight.
+        self.assertEqual(self.source.count("document.querySelector(\"#dj-audio\")"), 1)
+        self.assertIn("djPlayOnce(epoch, speech.url)", self.source)
+        self.assertIn("djPlayOnce(epoch, track.audio.url)", self.source)
+        # Speech always precedes music on that single element.
+        speech_branch = self.source.split("async function djEngine")[1]
+        self.assertLess(speech_branch.index("djPlayOnce(epoch, speech.url)"),
+                        speech_branch.index("djPlayOnce(epoch, track.audio.url)"),
+                        "speech must be played before music inside the engine")
+
+    def test_dj_engine_never_submits_generation_itself(self):
+        # Polling/reloads must never trigger generation: only user actions POST
+        # start/advance; the engine only posts the phase transition and reads
+        # already-generated media. Advance is called by user actions.
+        engine = self.source.split("async function djEngine")[1].split("async function djStart")[0]
+        self.assertNotIn("\"/api/playback/start\"", engine)
+        self.assertNotIn("\"/api/playback/advance\"", engine.split("async function djNext")[0])
+        self.assertNotIn("\"/api/playback/queue\"", engine)
+        for forbidden in ["request(\"/api/tracks", "generate", "lyrics"]:
+            self.assertNotIn(forbidden, engine)
+
+    def test_dj_stale_callbacks_are_epoch_guarded(self):
+        # A late 'ended'/'error' callback from a skipped phase must not restart
+        # the wrong audio: every continuation rechecks the epoch it captured.
+        self.assertIn("const epoch = djEpoch;", self.source)
+        self.assertIn("if (epoch === djEpoch)", self.source)
+        self.assertIn("djAudio.addEventListener(\"dj-interrupt\", interrupt, {once: true});", self.source)
+
+    def test_dj_pause_preserves_position_and_halts_the_engine(self):
+        # Pause must freeze the element (no src wipe) so Resume continues, and
+        # the engine must not re-enter playback before the server acknowledges.
+        pause = self.source.split("async function djPause")[1].split("async function djResume")[0]
+        self.assertIn("djAudio.pause();", pause)
+        self.assertNotIn("removeAttribute(\"src\")", pause)
+        self.assertIn("djHalted = true;", pause)
+        self.assertIn("if (djHalted) {", self.source)
+
+    def test_dj_render_shows_phase_and_controls(self):
+        render = self.source.split("function renderDj")[1]
+        self.assertIn("\"DJ speech\"", render)
+        self.assertIn("`Now playing ${", render)
+        self.assertIn("djReady()", self.source)
+
     def test_vocal_controls_are_wired_and_music_label_is_mode_aware(self):
         self.assertIn("\"Generate lyrics\"", self.source)
         self.assertIn("Generate new lyrics", self.source)

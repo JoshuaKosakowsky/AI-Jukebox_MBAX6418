@@ -7,8 +7,20 @@ const notice = document.querySelector("#cover-notice");
 let artConfigured = false;
 let musicConfigured = false;
 let textConfigured = false;
+let speechConfigured = false;
 let submitting = false;
 let polling;
+// DJ queue controller state: one persistent audio element, one timeline.
+// djEpoch is bumped by every user action (play/pause/resume/skip); any async
+// continuation from an older epoch bails, so late speech/music callbacks can
+// never restart the wrong phase. Speech always precedes music; the single
+// element plays at most one source at a time (no overlap by construction).
+const djAudio = document.querySelector("#dj-audio");
+let latestSession = null;
+let djEpoch = 0;
+let djHalted = false;
+let djRunning = false;
+let djPhase = "idle";
 // Auto-chained vocal steps: a lyrics job id lands here once its success has
 // already started the follow-up music request. Seeded from the first snapshot
 // so a page reload NEVER auto-submits music (README: reloads do not generate).
@@ -52,11 +64,11 @@ function musicStatusText(job, hasAudio, vocal) {
   return "Waiting to start…";
 }
 
-function trackCardInput(track, jobs) {
-  return JSON.stringify({track, jobs: jobs.filter(job => job.track_id === track.id)});
+function trackCardInput(track, jobs, queued) {
+  return JSON.stringify({track, jobs: jobs.filter(job => job.track_id === track.id), queued});
 }
 
-function buildTrackCard(track, jobs) {
+function buildTrackCard(track, jobs, queued) {
   const card = node("article", undefined, "track");
   card.dataset.trackId = track.id;
   const picture = node("div", undefined, "cover");
@@ -179,6 +191,21 @@ function buildTrackCard(track, jobs) {
     await syncAfterMutation();
   });
   detail.append(retryMusic);
+  const addQueue = node("button", queued ? "In DJ queue" : "Add to DJ queue");
+  addQueue.type = "button";
+  addQueue.disabled = !djReady() || !track.audio || queued;
+  addQueue.addEventListener("click", async () => {
+    addQueue.disabled = true;
+    try {
+      await request("/api/playback/queue", {track_id: track.id});
+      notice.textContent = `${track.title} added to the DJ queue.`;
+    } catch (error) {
+      notice.textContent = error.message;
+      addQueue.disabled = !djReady() || !track.audio || queued;
+    }
+    await syncAfterMutation();
+  });
+  detail.append(addQueue);
   card.append(picture, detail);
   return card;
 }
@@ -190,10 +217,11 @@ function renderLibrary(session) {
   const seen = new Set();
   for (const track of session.tracks) {
     seen.add(track.id);
-    const input = trackCardInput(track, session.jobs);
+    const queued = session.playback.queue.includes(track.id);
+    const input = trackCardInput(track, session.jobs, queued);
     if (previousTracks.get(track.id) === input) continue;
     previousTracks.set(track.id, input);
-    const card = buildTrackCard(track, session.jobs);
+    const card = buildTrackCard(track, session.jobs, queued);
     const existing = library.querySelector(`[data-track-id="${track.id}"]`);
     if (existing) {
       const oldAudio = existing.querySelector("audio");
@@ -249,10 +277,11 @@ async function load() {
   button.disabled = true;
   try {
     const [status, session] = await Promise.all([request("/api/status"), request("/api/session")]);
-    const changedConfig = artConfigured !== status.cover_generation_available || musicConfigured !== status.music_generation_available || textConfigured !== status.lyrics_generation_available;
+    const changedConfig = artConfigured !== status.cover_generation_available || musicConfigured !== status.music_generation_available || textConfigured !== status.lyrics_generation_available || speechConfigured !== (status.services?.speech === "configured");
     artConfigured = status.cover_generation_available;
     musicConfigured = status.music_generation_available;
     textConfigured = status.lyrics_generation_available;
+    speechConfigured = status.services?.speech === "configured";
     if (changedConfig) previousTracks.clear();
     if (!seeded) {
       // First snapshot: EVERY text job that is not terminal-failed (pending
@@ -296,6 +325,7 @@ async function load() {
     refreshConfigurationCopy();
     createButton.disabled = submitting || !artConfigured;
     renderLibrary(session);
+    renderDj(session);
     document.querySelector("#app-status").textContent = "App connected";
     if (session.jobs.some(job => ["queued", "running"].includes(job.state))) {
       polling = setTimeout(refresh, 1000);
@@ -375,3 +405,258 @@ for (const input of form.querySelectorAll('input[name="mode"]')) {
 }
 button.addEventListener("click", refresh);
 refresh();
+
+// ---------------------------------------------------------------------------
+// Default AI DJ: ONE persistent audio element, ONE persistent engine loop, and
+// one monotonic token (djEpoch). Every user action bumps djEpoch and fires a
+// 'dj-interrupt' on the element, which unblocks the engine's pending phase.
+// The engine then re-reads the server state and plays exactly the right phase —
+// a stale speech/music 'ended' callback can never restart the wrong audio
+// because every continuation checks its captured epoch. Speech always precedes
+// music on the SAME element, so the two can never overlap. Commentary is
+// best-effort: missing speech (still generating or failed) just plays music.
+// The engine NEVER POSTs start/advance on its own, so polling and reloads can
+// never trigger generation or duplicates.
+// ---------------------------------------------------------------------------
+
+function djReady() {
+  return textConfigured && speechConfigured;
+}
+
+function djSleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function djInterrupt() {
+  djEpoch += 1;
+  djAudio.dispatchEvent(new Event("dj-interrupt"));
+}
+
+function djStopLocal() {
+  djAudio.pause();
+  djAudio.onended = null;
+  djAudio.onerror = null;
+  try {
+    djAudio.removeAttribute("src");
+    djAudio.load();
+  } catch {
+    // Element may already be idle; nothing to abort.
+  }
+}
+
+function djPlayOnce(epoch, url) {
+  // Resolves when this source ends, errors, or the player is interrupted
+  // (skip/pause/start/resume). The engine re-checks the epoch after every
+  // await and abandons stale phases there.
+  return new Promise((resolve) => {
+    const finish = () => { if (epoch === djEpoch) resolve(); };
+    const interrupt = () => resolve();
+    djAudio.addEventListener("dj-interrupt", interrupt, {once: true});
+    djAudio.onended = finish;
+    djAudio.onerror = () => {
+      if (epoch !== djEpoch) return;
+      djAudio.onended = null;
+      resolve();
+    };
+    if (djAudio.getAttribute("src") !== url) djAudio.src = url;
+    djAudio.play().catch(() => {
+      if (epoch !== djEpoch) return;
+      djAudio.onended = null;
+      resolve();
+    });
+  });
+}
+
+async function djNext() {
+  const response = await request("/api/playback/advance", {});
+  await syncAfterMutation();
+  return response.state;
+}
+
+async function djEngine() {
+  while (true) {
+    // User actions set djHalted so the engine never re-enters playback in the
+    // window between the interrupt and the server's acknowledgement of the
+    // new state (pause/skip), which previously resumed playback mid-pause.
+    if (djHalted) {
+      await djSleep(100);
+      continue;
+    }
+    const session = latestSession;
+    const pb = session && session.playback;
+    if (!pb || pb.state === "idle" || pb.state === "paused") {
+      await djSleep(250);
+      continue;
+    }
+    const epoch = djEpoch;
+    const track = session.tracks.find(item => item.id === pb.current_track_id);
+    if (!track) {
+      await djSleep(250);
+      continue;
+    }
+    if (!track.audio) {
+      // Current entry is not playable (still generating): move along.
+      await djNext();
+      continue;
+    }
+    const speech = track.speech;
+    if (pb.state === "speaking" && speech) {
+      djPhase = "speaking";
+      await djPlayOnce(epoch, speech.url);
+      if (epoch === djEpoch) {
+        djPhase = "playing";
+        // Refresh the snapshot: polling may have stopped (no jobs pending)
+        // and the engine must never replay speech against stale state.
+        await request("/api/playback/phase", {phase: "playing"}).catch(() => {});
+        await syncAfterMutation();
+      }
+      continue;
+    }
+    if (pb.state === "speaking" && !track.speech) {
+      const speechJob = session.jobs
+        .filter(job => job.track_id === track.id && job.kind === "speech").at(-1);
+      if (speechJob && ["queued", "running"].includes(speechJob.state)) {
+        // Introduction is still being written/voiced; wait for a poll.
+        await djSleep(250);
+        continue;
+      }
+      if (epoch === djEpoch) {
+        // No introduction will come; record that music actually started.
+        await request("/api/playback/phase", {phase: "playing"}).catch(() => {});
+        await syncAfterMutation();
+      }
+    }
+    djPhase = "playing";
+    await djPlayOnce(epoch, track.audio.url);
+    if (epoch === djEpoch) {
+      await djNext();
+    }
+  }
+}
+djEngine();
+
+async function djStart() {
+  djHalted = false;
+  djInterrupt();
+  djStopLocal();
+  djPhase = "speaking";
+  try {
+    await request("/api/playback/start", {});
+    await syncAfterMutation();
+  } catch (error) {
+    document.querySelector("#dj-status").textContent = error.message;
+  }
+}
+
+async function djPause() {
+  const phase = djPhase === "playing" ? "playing" : "speaking";
+  djHalted = true;
+  djInterrupt();
+  // Keep the element's src and position so Resume continues where it stopped;
+  // only the timeline and its handlers are frozen.
+  djAudio.pause();
+  djAudio.onended = null;
+  djAudio.onerror = null;
+  djPhase = "idle";
+  try {
+    await request("/api/playback/pause", {phase});
+    await syncAfterMutation();
+  } catch (error) {
+    document.querySelector("#dj-status").textContent = error.message;
+  }
+}
+
+async function djResume() {
+  djHalted = false;
+  djInterrupt();
+  djPhase = "idle";
+  try {
+    await request("/api/playback/resume", {});
+    await syncAfterMutation();
+  } catch (error) {
+    document.querySelector("#dj-status").textContent = error.message;
+  }
+}
+
+async function djSkip() {
+  if (!latestSession || latestSession.playback.state === "idle") return;
+  djHalted = true;
+  djInterrupt();
+  djStopLocal();
+  djPhase = "speaking";
+  try {
+    const state = await djNext();
+    if (state === "idle") {
+      djStatusIdleDone();
+    }
+    // The advance landed; the engine may resume watching the new state.
+    djHalted = false;
+  } catch (error) {
+    djPhase = "idle";
+    djHalted = false;
+    document.querySelector("#dj-status").textContent = error.message;
+  }
+}
+
+function djStatusIdleDone() {
+  djPhase = "idle";
+  const status = document.querySelector("#dj-status");
+  status.textContent = "Queue finished. Press Play to hear it again.";
+}
+
+function renderDj(session) {
+  latestSession = session;
+  const pb = session.playback;
+  const list = document.querySelector("#dj-queue");
+  list.replaceChildren();
+  if (pb.queue.length === 0) {
+    list.append(node("li", "Queue is empty"));
+  }
+  session.tracks.forEach(track => {
+    const position = pb.queue.indexOf(track.id);
+    if (position < 0) return;
+    const item = node("li", `${position + 1}. ${track.title}`);
+    if (position === pb.index && pb.state !== "idle") {
+      item.className = "current";
+    }
+    list.append(item);
+  });
+  const status = document.querySelector("#dj-status");
+  const play = document.querySelector("#dj-play");
+  const pause = document.querySelector("#dj-pause");
+  const resume = document.querySelector("#dj-resume");
+  const skip = document.querySelector("#dj-skip");
+  const available = djReady();
+  play.disabled = !available || pb.queue.length === 0 || pb.state !== "idle";
+  pause.disabled = !(pb.state === "speaking" || pb.state === "playing");
+  resume.disabled = pb.state !== "paused";
+  skip.disabled = pb.state === "idle" || !available;
+  const current = pb.current_track_id
+    ? session.tracks.find(track => track.id === pb.current_track_id) : null;
+  if (!available) {
+    status.textContent = "DJ commentary needs the Qwen text and Chatterbox speech services configured.";
+  } else if (pb.state === "idle") {
+    status.textContent = pb.queue.length
+      ? `Ready. ${pb.queue.length} song${pb.queue.length === 1 ? "" : "s"} queued — press Play.`
+      : "Add playable songs from your library to the queue, then press Play.";
+  } else if (pb.state === "paused") {
+    status.textContent = `Paused during ${pb.paused_from === "speaking" ? "DJ speech" : "music"}`
+      + (current ? ` (${current.title})` : "") + ".";
+  } else if (pb.state === "speaking") {
+    const speechJob = current && session.jobs
+      .filter(job => job.track_id === current.id && job.kind === "speech").at(-1);
+    status.textContent = current && speechJob && ["queued", "running"].includes(speechJob.state)
+      ? `DJ is writing the introduction for ${current.title}…`
+      : `DJ is speaking about ${current.title}…`;
+  } else {
+    status.textContent = `Now playing ${current ? current.title : "…"}`;
+  }
+  // The persistent engine loop below picks up any active queue by itself on
+  // the next tick — including right after a reload — so there is nothing to
+  // restart here.
+}
+
+document.querySelector("#dj-play").addEventListener("click", djStart);
+document.querySelector("#dj-pause").addEventListener("click", djPause);
+document.querySelector("#dj-resume").addEventListener("click", djResume);
+document.querySelector("#dj-skip").addEventListener("click", djSkip);

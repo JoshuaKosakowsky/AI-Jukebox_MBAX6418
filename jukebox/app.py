@@ -1,5 +1,6 @@
 """Same-origin local app with session-scoped FLUX cover generation."""
 from contextlib import asynccontextmanager
+from typing import Literal
 from uuid import UUID
 
 from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request, Response
@@ -9,7 +10,7 @@ from pydantic import Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .config import ROOT, Settings
-from .contracts import GenerationJob, Model, SessionSnapshot, SongSettings, schema
+from .contracts import GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
 from .sessions import SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
 
@@ -81,6 +82,12 @@ def create_app(settings: Settings | None = None):
         if "text" not in settings.services:
             fail("not_configured", "Text service is not configured.")
 
+    def require_dj():
+        if "text" not in settings.services:
+            fail("not_configured", "DJ commentary needs the Qwen text service configured.")
+        if "speech" not in settings.services:
+            fail("not_configured", "DJ speech needs the Chatterbox speech service configured.")
+
     @app.get("/", include_in_schema=False)
     def home():
         return FileResponse(ROOT / "jukebox/web/index.html")
@@ -139,6 +146,50 @@ def create_app(settings: Settings | None = None):
         job, resume_from = store.resume_music(current, from_job, track_id)
         tasks.add_task(store.generate_music, current, job.id, app.state.providers, resume_from=resume_from)
         return job
+
+    # ---- AI DJ queue -------------------------------------------------------
+
+    class QueueBody(Model):
+        track_id: UUID
+
+    class PhaseBody(Model):
+        phase: Literal["speaking", "playing"]
+
+    @app.post("/api/playback/queue", response_model=Playback)
+    def playback_queue(data: QueueBody, current=Depends(browser_session)):
+        require_dj()
+        return store.queue_playback(current, data.track_id)
+
+    @app.post("/api/playback/start", response_model=Playback)
+    def playback_start(tasks: BackgroundTasks = BackgroundTasks, current=Depends(browser_session)):
+        require_dj()
+        playback, job = store.start_playback(current)
+        if job is not None:
+            tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
+        return playback
+
+    @app.post("/api/playback/advance", response_model=Playback)
+    def playback_advance(tasks: BackgroundTasks = BackgroundTasks, current=Depends(browser_session)):
+        require_dj()
+        playback, job = store.advance_playback(current)
+        if job is not None:
+            tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
+        return playback
+
+    @app.post("/api/playback/phase", response_model=Playback)
+    def playback_phase(data: PhaseBody, current=Depends(browser_session)):
+        require_dj()
+        return store.set_phase(current, data.phase)
+
+    @app.post("/api/playback/pause", response_model=Playback)
+    def playback_pause(data: PhaseBody, current=Depends(browser_session)):
+        require_dj()
+        return store.pause_playback(current, data.phase)
+
+    @app.post("/api/playback/resume", response_model=Playback)
+    def playback_resume(current=Depends(browser_session)):
+        require_dj()
+        return store.resume_playback(current)
 
     @app.get("/api/media/{media_id}")
     def media(media_id: UUID, current=Depends(browser_session)):
