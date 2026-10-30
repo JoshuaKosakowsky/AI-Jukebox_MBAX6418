@@ -1,14 +1,17 @@
 # Delivery plan - Assignment 3
 
-**Current state:** instrumental generation and matching covers are integrated
-through [PR #18](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/18)
-at main `7cc9645`. Normal-launch browser acceptance passed with two real songs,
-correct covers, playback/pause/resume, generation during playback, reload retention
-and Joshua's listening confirmation. A3-01/02/04 and GitHub setup are complete;
-A3-03 (vocals) and A3-05 (DJ queue) can proceed. A3-08/09 continue alongside them.
-Samples, reference voices, the DJ flow and independent ZIP/release acceptance
-remain pending. Evidence: [main acceptance](results/main-instrumental-acceptance.json)
-and [test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
+**Current state:** runtime/contracts, instrumental generation/playback and matching
+covers are accepted (A3-01/02/04). Mike's vocal implementation (#21) is merged;
+A3-03 stays open for real-class normal-launch vocal/browser/listening acceptance.
+Main `e2b1e52` includes #23's Moonlit candidate; the final sample library remains
+unfinished. Matt leads the ready A3-05 default DJ queue, then A3-06 reference
+voices; Mike and Matt independently review each other's PRs when eligible.
+Prse retains A3-08 recovery/safeguards and A3-09 documentation; coordinate shared
+frontend edits and any unpublished A3-05 work with Matt. Jovi retains A3-07
+samples and A3-10 independent ZIP/submission. Our #20 ZIP rehearsal and #22
+offline audit are supporting evidence, not final feature/release acceptance.
+Evidence: [main acceptance](results/main-instrumental-acceptance.json) and
+[test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
@@ -29,9 +32,9 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 |---|---|---|---|
 | [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky (lead); contributors pending | None | See issue |
 | [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | mase7919 (lead); contributors unassigned | 01 | See issue |
-| [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | jovi1214 (lead); contributors unassigned | 02 | See issue |
+| [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | MSpanny (lead); contributors unassigned | 02 | See issue |
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | JoshuaKosakowsky (lead); contributors unassigned | 01 | See issue |
-| [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | prse4479 (lead); contributors unassigned | 02, 04 | See issue |
+| [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | mase7919 (lead); contributors unassigned | 02, 04 | See issue |
 | [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | mase7919 (lead); contributors unassigned | 05 | See issue |
 | [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); contributors unassigned | 02, 03, 04 | See issue |
 | [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | prse4479 (lead); contributors unassigned | 01; continuous | See issue |

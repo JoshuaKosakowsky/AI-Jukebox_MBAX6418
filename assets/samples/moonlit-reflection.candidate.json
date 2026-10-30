@@ -1,0 +1,162 @@
+{
+  "status": "candidate; jovi selection and sample-library/ZIP acceptance pending",
+  "prepared_on": "2026-10-29 America/Denver",
+  "prepared_by": "JoshuaKosakowsky directing Codex",
+  "sample": {
+    "id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+    "title": "Moonlit Reflection",
+    "audio": "assets/samples/moonlit-reflection.wav",
+    "cover": "assets/samples/moonlit-reflection.png",
+    "instrumental": true,
+    "lyrics": null,
+    "generated_at": "2026-10-29",
+    "generation_notes": "Class-generated during the normal-launch 2026-10-28 America/Denver acceptance on main 7cc9645: Ambient piano, Calm and reflective, 30 seconds, instrumental. Generated date is UTC; exact submission/ready-observation bounds are in provenance. Retained audio and art reused byte-for-byte; no new generation.",
+    "generated_with": {
+      "music": "ACE-Step 1.5 XL Turbo",
+      "cover": "FLUX.2 klein 4B"
+    }
+  },
+  "provenance": {
+    "source_main": "7cc96458fa4c99120380379d46b96592d3a3934e",
+    "original_track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+    "settings": {
+      "style": "Ambient piano",
+      "mood": "Calm and reflective",
+      "duration_seconds": 30,
+      "mode": "instrumental"
+    },
+    "submitted_at_utc": "2026-10-29T03:52:53.671Z",
+    "ready_observed_at_utc": "2026-10-29T03:53:38.241Z",
+    "source_record": "results/main-instrumental-acceptance.json",
+    "source_record_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/blob/7b9dd2b2702d7280a231cdcbfbd1afad136f3f56/results/main-instrumental-acceptance.json",
+    "human_listening": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-10-28 America/Denver",
+      "confirmation": "Both play and broadly match",
+      "scope": "Prior direct confirmation of both original clips; Moonlit Reflection was audible, instrumental and broadly matched ambient piano. No new listening is claimed."
+    },
+    "cover_inspection": "Piano/player beside a still lake, cool twilight colors, readable Moonlit Reflection title; matches the reflective piano theme. Original generated lettering retained.",
+    "request_reconstruction": {
+      "basis": "Reconstructed from frozen provider defaults plus original settings and unchanged production prompts; not a separately captured wire log.",
+      "music": {
+        "prompt": "Compose an original instrumental song; no vocals and no lyrics.\nSong title and theme: Moonlit Reflection\nMusical style: Ambient piano\nMood: Calm and reflective\nApproximate length: 30 seconds.\nCreate a cohesive, playable instrumental piece that matches this style and mood.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": false,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "bpm": 80,
+        "key_scale": "C Major",
+        "time_signature": "4",
+        "audio_format": "wav"
+      },
+      "cover": {
+        "model": "black-forest-labs/FLUX.2-klein-4B",
+        "prompt": "Create original square album cover art for this song.\nSong title and theme: Moonlit Reflection\nMusical style: Ambient piano\nMood: Calm and reflective\nReflect this song's theme, musical style and mood in the imagery and colors. Use an original visual composition, no lettering, logos or copied album artwork.",
+        "n": 1,
+        "size": "512x512",
+        "num_inference_steps": 4,
+        "response_format": "b64_json",
+        "output_format": "png"
+      }
+    }
+  },
+  "validation": {
+    "audio": {
+      "file": "moonlit-reflection.wav",
+      "duration_seconds": 30.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "frames": 1440000,
+      "bytes": 5760078,
+      "peak": 0.891266,
+      "rms": 0.222449,
+      "sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a"
+    },
+    "cover": {
+      "file": "moonlit-reflection.png",
+      "format": "PNG",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 787271,
+      "sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818"
+    },
+    "pcm_full_decode": true,
+    "pcm_peak": 0.891266,
+    "pcm_rms": 0.222449,
+    "riff_chunks": [
+      {
+        "type": "fmt ",
+        "bytes": 16
+      },
+      {
+        "type": "LIST",
+        "bytes": 26
+      },
+      {
+        "type": "data",
+        "bytes": 5760000
+      }
+    ],
+    "png_full_decode": true,
+    "png_mode": "RGB",
+    "png_metadata": {},
+    "byte_identical_to_original_acceptance_files": true,
+    "new_generation_requests": 0,
+    "current_candidate_browser_playback": {
+      "result": "pass",
+      "mode": "local static asset preview, muted; not the app sample library",
+      "observations": {
+        "scope": "Local static asset preview of byte-identical packaged files, muted; not sample-library or final ZIP acceptance",
+        "decoded": {
+          "audio": {
+            "duration": 30,
+            "error": null,
+            "muted": true,
+            "paused": true,
+            "readyState": 4,
+            "time": 0
+          },
+          "cover": {
+            "complete": true,
+            "height": 512,
+            "width": 512
+          }
+        },
+        "playing": {
+          "ended": false,
+          "error": null,
+          "paused": false,
+          "time": 12.281745
+        },
+        "paused": {
+          "error": null,
+          "paused": true,
+          "time": 12.296645
+        },
+        "pauseHeld": {
+          "error": null,
+          "paused": true,
+          "time": 12.296645
+        },
+        "resumed": {
+          "duration": 30,
+          "ended": false,
+          "error": null,
+          "muted": true,
+          "paused": false,
+          "time": 23.968683
+        }
+      },
+      "screenshot": "results/moonlit-candidate-preview.jpg"
+    },
+    "final_manifest_updated": false,
+    "sample_library_integration": "pending",
+    "final_github_zip_check": "pending"
+  }
+}
