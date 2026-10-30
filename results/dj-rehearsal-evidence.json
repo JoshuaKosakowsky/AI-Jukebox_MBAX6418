@@ -60,7 +60,7 @@
     {
       "check": "four distinct media sources played (2 speech + 2 music)",
       "pass": true,
-      "detail": "4 unique: ['101095f9-45ff-4ff3-975d-153501c89642', '324ce3bf-d87c-406a-bdbb-7965d6720046', '61526d66-1eef-4d5d-90bf-4c8f17455703', '63272810-6c89-40f7-a67d-df3d28e08e99']"
+      "detail": "4 unique: ['6531063b-3e78-4b27-9e34-09c3c7992121', '88f89340-98cd-4f20-a9d4-7484ba135f77', 'a56cc056-86d1-4724-bfdc-45c8bf1f10c5', 'c87deeb1-88f2-450a-81e6-25c8b9144976']"
     },
     {
       "check": "no simultaneous audio sources (event-level)",
@@ -110,7 +110,7 @@
     {
       "check": "scenario 3: speech position frozen while paused",
       "pass": true,
-      "detail": "0.510 -> 0.510"
+      "detail": "0.559 -> 0.559"
     },
     {
       "check": "scenario 3: resume continues speech",
@@ -168,7 +168,17 @@
       "detail": ""
     },
     {
-      "check": "scenario 8: playback resumes from server state after reload",
+      "check": "scenario 8: blocked page pauses cleanly",
+      "pass": true,
+      "detail": "Paused during DJ speech (Copper Horizon)."
+    },
+    {
+      "check": "scenario 8: DJ control recovers a permission-blocked reload (queue resumes; no silent advance)",
+      "pass": true,
+      "detail": "DJ is speaking about Copper Horizon\u2026"
+    },
+    {
+      "check": "scenario 10: reloaded page recovered (blocked notice cleared)",
       "pass": true,
       "detail": "DJ is speaking about Copper Horizon\u2026"
     },
