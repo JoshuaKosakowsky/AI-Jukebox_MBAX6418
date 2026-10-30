@@ -1,34 +1,31 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: publish #19 corrections and sync OneDrive.
+2026-10-29 America/Denver; Codex for Joshua. Task: isolated instrumental failure/recovery audit, Refs #8.
 ## Constraints
-Joshua authorized repo commits/messages/pushes and local sync. Protected PR workflow; no self-approval.
+Support prse4479; keep Mike's application work untouched. No actual class requests/keys; no self-approval.
 ## Repository state
-Branch codex/a3-02-browser-acceptance; pre-handoff 99536f2 pushed; main 7cc9645.
-Original OneDrive checkout fast-forwarded cleanly to 99536f2; ignored .env preserved.
-Review clone /private/tmp/ai-jukebox-review-20261029 has the same tracked branch.
+Branch codex/a3-08-recovery-audit from main 7b9dd2b; PR #20 remains the author's active PR awaiting review.
+Mike has opened vocal PR #21; audit does not review or change it. PR #20 evidence remains on its own branch.
 ## Work completed and decisions
-Corrected TEST_RESULTS count to 40 PASS / 0 FAIL, attributed to Matt's review recount;
-external qa-browser-final.txt unavailable for our own recount. Updated results/README evidence,
-CONTRIBUTIONS listening credit and README's contradictory acceptance statement. No app/dependency changes.
-Posted correction summary to #19 and formally requested mase7919 re-review; approval still required.
-Pinned OneDrive repo via Finder; cloud-only Git metadata downloaded, allowing safe fetch/fast-forward.
+Seven backend fault groups passed; offline real-browser 503 cover retry and music timeout resume passed.
+Confirmed P2: after a 429, a card's Generate instrumental stays disabled after slots free and Refresh status.
+Reload then explicit retry recovers. Likely cached-card skip in app.js; documented steps/fix guidance for prse4479.
+Added RECOVERY_AUDIT, safe JSON/screenshots and standalone offline reproductions; application files untouched.
+All 65 isolated source files unchanged; harness stopped; no private .env was loaded.
 ## Validation
-Earlier locked checks: 115 tests, verifier 65 files, coverage 36/11/19 with Python 3.12.14/Git 2.53.
-05f4382 CI caught missing required headings in handoff, edited after those checks; restored them here.
-Initial Apple Git 2.39 run failed 7 hook tests (--to-stdin unsupported); current Git resolved those.
-All four GitHub CI checks passed on 99536f2. Final handoff verifier/coverage/whitespace checks pass.
-No new class-service generation or browser acceptance run.
+Backend probes passed through real routes/store/provider parsers with MockTransport; no real requests.
+Locked checks passed: 115 tests, verifier 71 files, coverage 36/11/19; staged whitespace clean. AT-10/12 remain partial.
 ## Blockers and unchecked areas
-#19 awaits Matt's re-review on the final documentation head; no merge or review dismissal.
-Submission NOT READY; remaining feature work unchanged. OneDrive filesystem sync is managed by its client.
+Shared app.js fix must coordinate with Mike's #21; normal-launch/live failure recovery still required.
+Keep one active PR: publish the audit as branch + #8 findings while #20 awaits review; do not merge unreviewed.
 ## Next steps
-1. Matt verifies #19 corrections on the final head; merge normally after approval and green CI.
-2. Keep the OneDrive task branch aligned with GitHub; local main already matches origin/main.
-3. #3 vocals (jovi1214) and #5 DJ queue (prse4479) ready; references/samples/independent ZIP follow.
+1. prse4479 coordinates the focused retry fix with Mike and adds actual browser regression coverage.
+2. Open/review the audit PR after #20 merges; preserve honest fixture-vs-live evidence and add credit on merge.
+3. Retest normal-launch recovery as remaining features integrate; leave issue ownership unchanged.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#issuecomment-6500246029
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
