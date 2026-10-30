@@ -30,20 +30,28 @@ advancement, end-of-queue, reload without regeneration. Every transition
 including the first is DJ-introduced (documented design choice; same code
 path for all transitions). Commentary speech attaches to the TRACK so stale
 jobs from skipped tracks can never play out of turn.
+Focused concurrency audit (delayed/reordered requests) found and fixed three
+real races: stale phase-after-skip now rejected via track-scoped
+preconditions (409), stale pause records the true phase, and advance-from-
+paused no longer 500s (paused_from carried correctly). Browser side: single
+-flight advances (skip coalesces into an in-flight automatic advance for the
+same track; rapid skips serialize), a FIFO for user intents, pause-failure
+un-halting, and a crash-proof engine loop.
 #20 notes (historical): original 7b9dd2b ZIP identity/65-file startup
 rehearsal; #23: original Moonlit WAV/PNG candidate material. Neither is
 touched by A3-05.
 
 ## Validation
-Baseline `e2b1e52`: 128 tests / 4 CI. A3-05 head: 142/142 tests (9 new
-tests/test_dj.py, 5 new frontend guards) and a REAL-Chrome offline harness
-run with fixture providers: 18/18 checks (ordered speech->music sequencing
-for 3 tracks, skip during speech and music, pause/resume in both phases,
-reload resumes without regeneration, exactly 3 Qwen + 3 speech requests
-total — zero duplicates, no console errors, no 4xx). Evidence retained
-outside the repo (dj-browser-evidence.json, dj-browser-final.txt). No class
-service, no .env, no credentials were used; no new live generation was
-requested.
+Baseline `e2b1e52`: 128 tests / 4 CI. A3-05 head: 151/151 tests (14
+tests/test_dj.py incl. 5 concurrency races, 21 frontend guards incl. 9 DJ
+guards) plus TWO real-Chrome offline harness runs with fixture providers:
+18/18 functional checks (sequencing, skip/pause both phases, reload no-regeneration,
+zero duplicates, no console errors) and 12/12 deterministic concurrency
+checks (delayed/reordered requests: skip-coalescing single-flight proof,
+rapid double-skip, pause/skip FIFO ordering both directions, failed-pause
+recovery). Evidence retained outside the repo (dj-browser-evidence.json,
+dj-concurrency-evidence.json). No class service, no .env, no credentials
+were used; no new live generation was requested.
 
 ## Blockers and unchecked areas
 Live Qwen/Chatterbox acceptance (AT-07, AT-09 live portion) is NOT done —

@@ -216,7 +216,122 @@ class DjTests(unittest.TestCase):
         self.assertEqual(len(recorders.prompts), chat_before, "replay must not re-generate commentary")
         self.assertEqual(client.post("/api/playback/advance", json={}).status_code, 200)
 
-    def test_pause_and_resume_phases_round_trip(self):
+    def test_paused_advance_keeps_paused_with_true_phase(self):
+        """Skip while paused (the advance races a pause): the queue advances
+        but the new track stays paused with paused_from preserved, and the
+        Playback contract validates (this produced a 500 — state/paused_from
+        mismatch — before the fix). Resume continues the new track."""
+        recorders = DjRecorders()
+        client, _ = self.make_client(recorders)
+        tracks = [self.create_track(client, f"PauseRace {i}", "Pop", "Bright")[0] for i in range(2)]
+        for track in tracks:
+            client.post("/api/playback/queue", json={"track_id": track})
+        client.post("/api/playback/start", json={})
+        client.post("/api/playback/phase", json={"phase": "playing", "track_id": tracks[0]})
+        client.post("/api/playback/pause", json={"phase": "playing", "track_id": tracks[0]})
+        advanced = client.post("/api/playback/advance", json={})
+        self.assertEqual(advanced.status_code, 200, "advance from paused must not fail validation")
+        state = advanced.json()
+        self.assertEqual(state["state"], "paused", "a paused advance stays paused")
+        self.assertEqual(state["index"], 1)
+        self.assertEqual(state["current_track_id"], tracks[1])
+        self.assertEqual(state["paused_from"], "playing")
+        resumed = client.post("/api/playback/resume", json={}).json()
+        self.assertEqual(resumed["state"], "playing", "resume continues the preserved phase")
+        self.assertEqual(resumed["current_track_id"], tracks[1])
+
+    def test_stale_phase_after_skip_is_rejected(self):
+        """A late speech-ended phase response must not flip the NEW track's
+        phase: phase for a skipped track -> 409, phase for the current track
+        -> applied. Otherwise the skipped track's speech phase could be
+        consumed by the wrong track and its introduction never plays."""
+        recorders = DjRecorders()
+        client, _ = self.make_client(recorders)
+        first, _ = self.create_track(client, "Moonlit Reflection", "Ambient piano", "Calm and reflective")
+        second, _ = self.create_track(client, "Desert Drive", "Upbeat funk", "Energetic and optimistic")
+        client.post("/api/playback/queue", json={"track_id": first})
+        client.post("/api/playback/queue", json={"track_id": second})
+        client.post("/api/playback/start", json={})
+        client.post("/api/playback/advance", json={})
+        self.assertEqual(client.get("/api/session").json()["playback"]["current_track_id"], second)
+        stale = client.post("/api/playback/phase", json={"phase": "playing", "track_id": first})
+        self.assertEqual(stale.status_code, 409)
+        snapshot = client.get("/api/session").json()["playback"]
+        self.assertEqual(snapshot["state"], "speaking", "stale phase must not change the new track's phase")
+        self.assertEqual(snapshot["current_track_id"], second)
+        current = client.post("/api/playback/phase", json={"phase": "playing", "track_id": second})
+        self.assertEqual(current.status_code, 200)
+        self.assertEqual(current.json()["state"], "playing")
+
+    def test_stale_pause_keeps_pause_intent_with_true_phase(self):
+        """A Pause that races an automatic advance preserves the pause (user
+        pressed it) but records the phase true for the CURRENT track, so
+        Resume cannot resume the skipped track's phase on the new track."""
+        recorders = DjRecorders()
+        client, _ = self.make_client(recorders)
+        first, _ = self.create_track(client, "Moonlit Reflection", "Ambient piano", "Calm and reflective")
+        second, _ = self.create_track(client, "Desert Drive", "Upbeat funk", "Energetic and optimistic")
+        client.post("/api/playback/queue", json={"track_id": first})
+        client.post("/api/playback/queue", json={"track_id": second})
+        client.post("/api/playback/start", json={})
+        # The user hears the first song's music (phase playing) while the
+        # automatic advance lands on the second track (phase speaking).
+        client.post("/api/playback/phase", json={"phase": "playing", "track_id": first})
+        client.post("/api/playback/advance", json={})
+        stale = client.post("/api/playback/pause", json={"phase": "playing", "track_id": first})
+        self.assertEqual(stale.status_code, 200)
+        paused = stale.json()
+        self.assertEqual(paused["state"], "paused")
+        self.assertEqual(paused["paused_from"], "speaking",
+                         "pause must record the NEW track's true phase, not the skipped track's")
+        resumed = client.post("/api/playback/resume", json={}).json()
+        self.assertEqual(resumed["state"], "speaking",
+                         "resume continues the new track's introduction phase")
+
+    def test_rapid_advances_each_move_exactly_one_index(self):
+        """Two racing advance calls (auto end + user skip, or two rapid
+        skips) each move the queue by exactly one index; the final advance
+        ends the queue and a straggler after idle is rejected."""
+        recorders = DjRecorders()
+        client, _ = self.make_client(recorders)
+        tracks = [self.create_track(client, f"Race {i}", "Pop", "Bright")[0] for i in range(3)]
+        for track in tracks:
+            client.post("/api/playback/queue", json={"track_id": track})
+        client.post("/api/playback/start", json={})
+        first_advance = client.post("/api/playback/advance", json={}).json()
+        self.assertEqual(first_advance["index"], 1)
+        self.assertEqual(first_advance["current_track_id"], tracks[1])
+        second_advance = client.post("/api/playback/advance", json={}).json()
+        self.assertEqual(second_advance["index"], 2)
+        self.assertEqual(second_advance["current_track_id"], tracks[2])
+        ended = client.post("/api/playback/advance", json={}).json()
+        self.assertEqual(ended["state"], "idle")
+        self.assertEqual(ended["index"], 0)
+        straggler = client.post("/api/playback/advance", json={})
+        self.assertEqual(straggler.status_code, 409, "an advance after the queue ended must be rejected")
+
+    def test_advance_and_stale_phase_ordering_matches_intent(self):
+        """Server-side equivalence of a reordered delivery: advance for track
+        A, then the OLD phase response for A, then a NEW advance — the queue
+        sequence must be exactly A -> B -> C with C's phase untouched by the
+        stale response (deliberate out-of-order request simulation)."""
+        recorders = DjRecorders()
+        client, _ = self.make_client(recorders)
+        tracks = [self.create_track(client, f"Order {i}", "Pop", "Bright")[0] for i in range(3)]
+        for track in tracks:
+            client.post("/api/playback/queue", json={"track_id": track})
+        client.post("/api/playback/start", json={})
+        # Browser B's speech ends; its phase response is SLOW.
+        client.post("/api/playback/advance", json={})           # A -> B
+        stale_phase = client.post("/api/playback/phase", json={"phase": "playing", "track_id": tracks[0]})
+        self.assertEqual(stale_phase.status_code, 409)          # rejected for A
+        self.assertEqual(client.get("/api/session").json()["playback"]["state"], "speaking")
+        client.post("/api/playback/advance", json={})           # B -> C
+        playback = client.get("/api/session").json()["playback"]
+        self.assertEqual(playback["current_track_id"], tracks[2])
+        self.assertEqual(playback["state"], "speaking", "C's introduction phase was never clobbered")
+
+    def test_pause_and_resume_phase_round_trip(self):
         recorders = DjRecorders()
         client, _ = self.make_client(recorders)
         track, _ = self.create_track(client)

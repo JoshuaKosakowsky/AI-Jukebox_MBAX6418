@@ -19,7 +19,7 @@ const djAudio = document.querySelector("#dj-audio");
 let latestSession = null;
 let djEpoch = 0;
 let djHalted = false;
-let djRunning = false;
+let djAdvanceInFlight = null;
 let djPhase = "idle";
 // Auto-chained vocal steps: a lyrics job id lands here once its success has
 // already started the follow-up music request. Seeded from the first snapshot
@@ -467,69 +467,104 @@ function djPlayOnce(epoch, url) {
   });
 }
 
-async function djNext() {
-  const response = await request("/api/playback/advance", {});
-  await syncAfterMutation();
-  return response.state;
+async function djAdvanceOnce(currentTrackId, automatic) {
+  const prior = djAdvanceInFlight;
+  if (prior && prior.automatic && prior.trackId === currentTrackId) {
+    // An automatic advance past THIS track is already on the wire (its
+    // music just ended); a user Skip for the same track is the SAME
+    // transition — coalesce so a single Skip advances at most once.
+    return prior.promise;
+  }
+  const promise = (async () => {
+    // Any earlier advance must land first, so server-side arrival order
+    // matches intent order even though fetches use separate connections.
+    if (prior) await prior.promise;
+    const response = await request("/api/playback/advance", {});
+    await syncAfterMutation();
+    return response.state;
+  })();
+  djAdvanceInFlight = {promise, trackId: currentTrackId, automatic};
+  promise.finally(() => {
+    if (djAdvanceInFlight && djAdvanceInFlight.promise === promise) djAdvanceInFlight = null;
+  });
+  return promise;
+}
+
+// User intents (Play/Pause/Resume/Skip) travel through one FIFO so the server
+// applies them in the exact order the user issued them; otherwise separate
+// connections could deliver a later action first.
+let djUserChain = Promise.resolve();
+
+function djUserQueue(task) {
+  const next = djUserChain.then(task);
+  djUserChain = next.catch(() => {});
+  return next;
 }
 
 async function djEngine() {
   while (true) {
-    // User actions set djHalted so the engine never re-enters playback in the
-    // window between the interrupt and the server's acknowledgement of the
-    // new state (pause/skip), which previously resumed playback mid-pause.
-    if (djHalted) {
-      await djSleep(100);
-      continue;
-    }
-    const session = latestSession;
-    const pb = session && session.playback;
-    if (!pb || pb.state === "idle" || pb.state === "paused") {
-      await djSleep(250);
-      continue;
-    }
-    const epoch = djEpoch;
-    const track = session.tracks.find(item => item.id === pb.current_track_id);
-    if (!track) {
-      await djSleep(250);
-      continue;
-    }
-    if (!track.audio) {
-      // Current entry is not playable (still generating): move along.
-      await djNext();
-      continue;
-    }
-    const speech = track.speech;
-    if (pb.state === "speaking" && speech) {
-      djPhase = "speaking";
-      await djPlayOnce(epoch, speech.url);
-      if (epoch === djEpoch) {
-        djPhase = "playing";
-        // Refresh the snapshot: polling may have stopped (no jobs pending)
-        // and the engine must never replay speech against stale state.
-        await request("/api/playback/phase", {phase: "playing"}).catch(() => {});
-        await syncAfterMutation();
+    try {
+      // User actions set djHalted so the engine never re-enters playback in the
+      // window between the interrupt and the server's acknowledgement of the
+      // new state (pause/skip), which previously resumed playback mid-pause.
+      if (djHalted) {
+        await djSleep(100);
+        continue;
       }
-      continue;
-    }
-    if (pb.state === "speaking" && !track.speech) {
-      const speechJob = session.jobs
-        .filter(job => job.track_id === track.id && job.kind === "speech").at(-1);
-      if (speechJob && ["queued", "running"].includes(speechJob.state)) {
-        // Introduction is still being written/voiced; wait for a poll.
+      const session = latestSession;
+      const pb = session && session.playback;
+      if (!pb || pb.state === "idle" || pb.state === "paused") {
         await djSleep(250);
         continue;
       }
-      if (epoch === djEpoch) {
-        // No introduction will come; record that music actually started.
-        await request("/api/playback/phase", {phase: "playing"}).catch(() => {});
-        await syncAfterMutation();
+      const epoch = djEpoch;
+      const track = session.tracks.find(item => item.id === pb.current_track_id);
+      if (!track) {
+        await djSleep(250);
+        continue;
       }
-    }
-    djPhase = "playing";
-    await djPlayOnce(epoch, track.audio.url);
-    if (epoch === djEpoch) {
-      await djNext();
+      if (!track.audio) {
+        // Current entry is not playable (still generating): move along.
+        await djAdvanceOnce(track.id, true);
+        continue;
+      }
+      const speech = track.speech;
+      if (pb.state === "speaking" && speech) {
+        djPhase = "speaking";
+        await djPlayOnce(epoch, speech.url);
+        if (epoch === djEpoch) {
+          djPhase = "playing";
+          // Refresh the snapshot: polling may have stopped (no jobs pending)
+          // and the engine must never replay speech against stale state.
+          await request("/api/playback/phase", {phase: "playing", track_id: track.id}).catch(() => {});
+          await syncAfterMutation();
+        }
+        continue;
+      }
+      if (pb.state === "speaking" && !track.speech) {
+        const speechJob = session.jobs
+          .filter(job => job.track_id === track.id && job.kind === "speech").at(-1);
+        if (speechJob && ["queued", "running"].includes(speechJob.state)) {
+          // Introduction is still being written/voiced; wait for a poll.
+          await djSleep(250);
+          continue;
+        }
+        if (epoch === djEpoch) {
+          // No introduction will come; record that music actually started.
+          await request("/api/playback/phase", {phase: "playing", track_id: track.id}).catch(() => {});
+          await syncAfterMutation();
+        }
+      }
+      djPhase = "playing";
+      await djPlayOnce(epoch, track.audio.url);
+      if (epoch === djEpoch) {
+        await djAdvanceOnce(track.id, true);
+      }
+    } catch (error) {
+      // A transient network/409 failure must never kill the timeline loop;
+      // surface it and keep observing the server state.
+      document.querySelector("#dj-status").textContent = error.message;
+      await djSleep(250);
     }
   }
 }
@@ -541,8 +576,10 @@ async function djStart() {
   djStopLocal();
   djPhase = "speaking";
   try {
-    await request("/api/playback/start", {});
-    await syncAfterMutation();
+    await djUserQueue(async () => {
+      await request("/api/playback/start", {});
+      await syncAfterMutation();
+    });
   } catch (error) {
     document.querySelector("#dj-status").textContent = error.message;
   }
@@ -550,6 +587,7 @@ async function djStart() {
 
 async function djPause() {
   const phase = djPhase === "playing" ? "playing" : "speaking";
+  const trackId = latestSession && latestSession.playback.current_track_id;
   djHalted = true;
   djInterrupt();
   // Keep the element's src and position so Resume continues where it stopped;
@@ -559,10 +597,15 @@ async function djPause() {
   djAudio.onerror = null;
   djPhase = "idle";
   try {
-    await request("/api/playback/pause", {phase});
-    await syncAfterMutation();
+    await djUserQueue(async () => {
+      await request("/api/playback/pause", {phase, track_id: trackId});
+      await syncAfterMutation();
+    });
   } catch (error) {
+    // A failed pause (network error) must not leave the controller halted.
+    djHalted = false;
     document.querySelector("#dj-status").textContent = error.message;
+    await syncAfterMutation();
   }
 }
 
@@ -571,8 +614,10 @@ async function djResume() {
   djInterrupt();
   djPhase = "idle";
   try {
-    await request("/api/playback/resume", {});
-    await syncAfterMutation();
+    await djUserQueue(async () => {
+      await request("/api/playback/resume", {});
+      await syncAfterMutation();
+    });
   } catch (error) {
     document.querySelector("#dj-status").textContent = error.message;
   }
@@ -580,12 +625,15 @@ async function djResume() {
 
 async function djSkip() {
   if (!latestSession || latestSession.playback.state === "idle") return;
+  const current = latestSession.playback.current_track_id
+    ? latestSession.tracks.find(t => t.id === latestSession.playback.current_track_id) : null;
   djHalted = true;
   djInterrupt();
   djStopLocal();
   djPhase = "speaking";
   try {
-    const state = await djNext();
+    const state = await djUserQueue(async () =>
+      djAdvanceOnce(current ? current.id : null, false));
     if (state === "idle") {
       djStatusIdleDone();
     }
@@ -595,6 +643,7 @@ async function djSkip() {
     djPhase = "idle";
     djHalted = false;
     document.querySelector("#dj-status").textContent = error.message;
+    await syncAfterMutation();
   }
 }
 

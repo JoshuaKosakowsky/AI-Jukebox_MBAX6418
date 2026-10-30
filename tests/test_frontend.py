@@ -103,6 +103,41 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         self.assertIn("`Now playing ${", render)
         self.assertIn("djReady()", self.source)
 
+    def test_dj_advance_coalescing_and_fifo(self):
+        # One Skip must advance at most once: when an automatic advance for
+        # the SAME track is already in flight, a user Skip coalesces into it.
+        # Rapid user skips still chain (serialized), and every user intent
+        # travels in issue order so separate connections cannot reorder.
+        self.assertIn("prior.automatic && prior.trackId === currentTrackId", self.source)
+        self.assertIn("djAdvanceInFlight = {promise", self.source)
+        self.assertIn("promise.finally", self.source)
+        self.assertIn("let djUserChain = Promise.resolve();", self.source)
+        self.assertIn("djUserChain = next.catch(() => {});", self.source)
+        skip = self.source.split("async function djSkip")[1].split("function djStatusIdleDone")[0]
+        self.assertIn("djAdvanceOnce(current ? current.id : null, false)", skip)
+
+    def test_dj_engine_survives_transient_failures(self):
+        # A network or stale-409 failure must not kill the timeline loop.
+        engine = self.source.split("async function djEngine")[1].split("async function djStart")[0]
+        self.assertIn("catch (error) {", engine)
+        self.assertIn("must never kill the timeline loop", engine)
+        self.assertIn("await djSleep(250);", engine)
+
+    def test_dj_phase_and_pause_carry_the_current_track(self):
+        # The server rejects a stale transition (phase/pause for a track the
+        # user has already skipped) — the browser must always tag its phase
+        # and pause requests with the CURRENT track id.
+        engine = self.source.split("async function djEngine")[1]
+        self.assertIn("track_id: track.id", engine)
+        pause = self.source.split("async function djPause")[1].split("async function djResume")[0]
+        self.assertIn("track_id: trackId", pause)
+
+    def test_dj_pause_failure_does_not_halt_the_engine(self):
+        # A failed pause (network error) must un-halt the controller so the
+        # timeline cannot be permanently frozen by a rejected request.
+        pause = self.source.split("async function djPause")[1].split("async function djResume")[0]
+        self.assertIn("djHalted = false;", pause)
+
     def test_vocal_controls_are_wired_and_music_label_is_mode_aware(self):
         self.assertIn("\"Generate lyrics\"", self.source)
         self.assertIn("Generate new lyrics", self.source)

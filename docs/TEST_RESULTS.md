@@ -627,3 +627,47 @@ Real Qwen commentary + Chatterbox default-voice speech were NOT submitted;
 AT-07 and AT-09's live portion remain pending class-service acceptance on
 the normal launcher, which is a separate authorized step. Audible listening
 in a headed browser is also not claimed here. Submission NOT READY.
+
+## A3-05 focused concurrency audit - 2026-10-30 America/Denver
+
+Focused audit of the playback endpoints with DELAYED and REORDERED requests
+before live acceptance. Three real defects were found and fixed (each with a
+regression test):
+
+1. **Stale `phase=playing` after a Skip flipped the NEW track's phase.**
+   `set_phase` now accepts an optional `track_id`; a phase transition for a
+   track the user has already skipped past is rejected (409) instead of
+   silently consuming the new track's introduction phase.
+2. **A pause racing an automatic advance recorded the WRONG phase.**
+   `pause_playback` keeps the pause but derives `paused_from` from the
+   current track's true phase when the claimed track is stale, so Resume
+   cannot resume the wrong phase.
+3. **Advancing from a paused queue returned 500.** The queue advanced but
+   kept the old `paused_from` on a `speaking` state — the Playback contract
+   rejected it. A paused advance now stays paused on the new track with
+   `paused_from` carried correctly.
+
+Browser-side deterministic guards (no contract change): every advance is
+single-flight (`djAdvanceOnce`) — a user Skip arriving while the engine's
+automatic advance for the same track is in flight coalesces into it (one
+Skip advances at most once), while rapid distinct Skips serialize and each
+applies — and user intents travel through one FIFO (`djUserQueue`) so the
+server sees them in issue order despite separate connections. A failed Pause
+un-halts the controller, and the engine loop survives transient failures
+instead of dying.
+
+Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
+stale-pause phase correction, one-index-per-advance + straggler 409,
+reordered advance/stale-phase sequence, paused-advance contract validity;
+plus 4 new frontend static guards for the single-flight/FIFO/engine-survival
+patterns).
+
+Real-browser deterministic concurrency run (fixture providers, server-side
+request log + per-path delays up to 1500 ms + one-shot failure injection):
+12/12 checks PASS — the coalescing proof (Skip fired while an automatic
+advance was in flight produced exactly ONE advance and landed on the correct
+next track with its introduction intact), rapid double-Skip (exactly two
+user advance calls, both applied), Pause→Skip and Skip→Pause FIFO ordering
+both deterministically delivered in issue order with coherent final states,
+and a failed Pause request recovering the timeline. Evidence retained
+outside the repo (dj-concurrency-evidence.json).

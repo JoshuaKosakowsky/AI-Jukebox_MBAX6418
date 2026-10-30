@@ -154,6 +154,7 @@ def create_app(settings: Settings | None = None):
 
     class PhaseBody(Model):
         phase: Literal["speaking", "playing"]
+        track_id: UUID | None = None
 
     @app.post("/api/playback/queue", response_model=Playback)
     def playback_queue(data: QueueBody, current=Depends(browser_session)):
@@ -179,12 +180,12 @@ def create_app(settings: Settings | None = None):
     @app.post("/api/playback/phase", response_model=Playback)
     def playback_phase(data: PhaseBody, current=Depends(browser_session)):
         require_dj()
-        return store.set_phase(current, data.phase)
+        return store.set_phase(current, data.phase, data.track_id)
 
     @app.post("/api/playback/pause", response_model=Playback)
     def playback_pause(data: PhaseBody, current=Depends(browser_session)):
         require_dj()
-        return store.pause_playback(current, data.phase)
+        return store.pause_playback(current, data.phase, data.track_id)
 
     @app.post("/api/playback/resume", response_model=Playback)
     def playback_resume(current=Depends(browser_session)):

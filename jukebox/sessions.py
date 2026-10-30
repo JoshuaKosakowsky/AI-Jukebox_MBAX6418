@@ -279,28 +279,53 @@ class SessionStore:
                 return session.playback, None
             previous = session.tracks[queue[index]]
             next_id = queue[index + 1]
+            was_paused = session.playback.state == "paused"
             session.playback = Playback.model_validate(
-                {**session.playback.model_dump(), "state": "speaking",
-                 "index": index + 1, "current_track_id": next_id})
+                {**session.playback.model_dump(),
+                 "state": "paused" if was_paused else "speaking",
+                 "index": index + 1, "current_track_id": next_id,
+                 # A paused advance stays paused on the NEW track with its
+                 # phase preserved; an active advance clears the phase. The
+                 # paused state MUST carry paused_from (contract validator)
+                 # — carrying the old track's value verbatim previously
+                 # produced a state/paused_from mismatch (500) whenever an
+                 # advance raced a pause.
+                 "paused_from": session.playback.paused_from if was_paused else None})
         job = self._queue_dj_speech(session, next_id, previous, index + 1, len(session.playback.queue))
         return session.playback, job
 
-    def set_phase(self, session, phase):
-        """Record the transition speech -> music (or back) made by the player."""
+    def set_phase(self, session, phase, track_id=None):
+        """Record the transition speech -> music (or back) made by the player.
+
+        The optional track_id makes the transition STALE-SAFE: a phase
+        recorded for a track the user has already skipped past (an automatic
+        speech-ended response arriving AFTER a Skip changed the current
+        track) is rejected with 409 instead of silently flipping the NEW
+        track's phase — otherwise a skipped track's speech phase could be
+        consumed by the wrong track and the introduction would never play.
+        """
         if phase not in ("speaking", "playing"):
             raise SessionFailure(422, "Playback phase must be speaking or playing.")
         with self.lock:
             if session.playback.state not in ("speaking", "playing"):
                 raise SessionFailure(409, "No active playback to transition.")
+            if track_id is not None and session.playback.current_track_id != track_id:
+                raise SessionFailure(409, "The current track changed while playback was transitioning. Refresh and continue.")
             session.playback = Playback.model_validate({**session.playback.model_dump(), "state": phase})
             return session.playback
 
-    def pause_playback(self, session, phase):
+    def pause_playback(self, session, phase, track_id=None):
         if phase not in ("speaking", "playing"):
             raise SessionFailure(422, "Paused playback must record its phase as speaking or playing.")
         with self.lock:
             if session.playback.state not in ("speaking", "playing"):
                 raise SessionFailure(409, "Playback is not active.")
+            # The pause raced an automatic advance: the claimed phase belongs
+            # to the OLD track. Preserve the pause intent (the user pressed
+            # Pause) but record the phase that is true for the CURRENT track,
+            # so Resume cannot resume the wrong phase of the new track.
+            if track_id is not None and session.playback.current_track_id != track_id:
+                phase = session.playback.state
             session.playback = Playback.model_validate(
                 {**session.playback.model_dump(), "state": "paused", "paused_from": phase})
             return session.playback

@@ -226,6 +226,36 @@ current phase and advances; reloads resume the timeline from server state and
 the engine never POSTs start/advance, so nothing regenerates. Per-track
 inline players remain independent for manual listening.
 
+### Concurrency contract (races audited with delayed/reordered requests)
+
+The playback endpoints carry transition-scoped preconditions so a late
+response cannot flip the WRONG track's state:
+
+- `phase` accepts the optional `track_id` of the track the speech just ended.
+  If that track is no longer current (a Skip raced the transition), the
+  request is rejected with 409 and the NEW track's phase is untouched — a
+  skipped track's `speaking→playing` transition can never skip the new
+  track's introduction.
+- `pause` accepts the optional `track_id` too. A pause that raced an automatic
+  advance keeps the pause (the user pressed it) but records `paused_from` as
+  the CURRENT track's true phase, so Resume cannot resume the wrong phase.
+- `advance` from a PAUSED queue stays paused on the new track and carries
+  `paused_from` forward (previously this produced a state/paused_from
+  mismatch and a 500 whenever an advance raced a pause); an active advance
+  stays a normal speaking transition. Each advance moves exactly one index;
+  the first advance past the last entry ends the queue, and a straggler after
+  idle is rejected with 409.
+
+The browser contributes two deterministic guards: every advance is
+SINGLE-FLIGHT (`djAdvanceOnce`) — a user Skip that arrives while the
+engine's own automatic advance for the SAME track is in flight coalesces
+into it, so one Skip advances at most once, while rapid distinct Skips
+serialize and each still applies — and all user intents (play/pause/resume/
+skip) travel through one FIFO (`djUserQueue`) so the server applies them in
+the exact order the user issued them even though fetches use separate
+connections. A failed pause (network error) un-halts the controller instead
+of freezing the timeline, and the engine loop survives transient failures.
+
 ## Adapter boundary
 
 [ClassProviders](../jukebox/providers.py) is the real server-side client. It uses
