@@ -1,12 +1,10 @@
-"""Static frontend regression guards for library rendering.
-
-The repository deliberately has no Node build or JavaScript test runner (see
-README), so these guards verify source-level invariants of jukebox/web/app.js
-that protect against reintroducing destructive full-library rebuilds which
-interrupt in-progress audio playback. They check structure, not runtime DOM
-behavior; interactive browser verification is a documented teammate step.
+"""Source-level rendering guards plus an optional, dependency-free Node probe.
+The behavioral probe executes production click handlers with a minimal DOM;
+real-browser verification remains separate evidence.
 """
 import re
+import shutil
+import subprocess
 import unittest
 from pathlib import Path
 
@@ -98,3 +96,13 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         before_download = server.split("audio = providers.download_music(result)")[0]
         self.assertIn("with_progress(.9)", before_download,
                       "downloading stage must be set only after a successful poll")
+
+
+class FrontendRetryBehaviorTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("node"), "Optional Node runtime is unavailable")
+    def test_rejected_controls_recover_without_redraw_or_resubmission(self):
+        result = subprocess.run(
+            [shutil.which("node"), str(ROOT / "tests/frontend_retry_probe.cjs"),
+             str(ROOT / "jukebox/web/app.js")],
+            capture_output=True, text=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
