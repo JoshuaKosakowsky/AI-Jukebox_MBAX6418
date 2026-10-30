@@ -135,6 +135,26 @@ class ClassProviders:
         except (KeyError, IndexError, TypeError, ValueError):
             fail("invalid_response", "The text service returned no complete text.")
 
+    def lyrics(self, prompt: str) -> str:
+        """Song lyrics from Qwen; same endpoint/model as text() with a token
+        budget sized for 10-60 second songs instead of the probe's short marker.
+        The raised budget is a deliberate, documented deviation that requires
+        live evidence (A3-03 acceptance), not a guessed payload."""
+        if not prompt.strip():
+            raise ValueError("Lyrics prompt is required")
+        payload = self._payload("text")
+        payload["messages"] = [{"role": "user", "content": prompt}]
+        payload["max_completion_tokens"] = 512
+        data = self._json("text", PROBES["text"]["path"], payload)
+        try:
+            choice = data["choices"][0]
+            result = choice["message"]["content"]
+            if data.get("model") != PROBES["text"]["request"]["model"] or not isinstance(result, str) or not result.strip() or choice.get("finish_reason") != "stop":
+                raise ValueError()
+            return result
+        except (KeyError, IndexError, TypeError, ValueError):
+            fail("invalid_response", "The text service returned no complete lyrics.")
+
     def cover(self, prompt: str) -> MediaBytes:
         if not prompt.strip():
             raise ValueError("Cover prompt is required")
