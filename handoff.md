@@ -1,31 +1,33 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: isolated instrumental failure/recovery audit, Refs #8.
+2026-10-29 America/Denver; Codex for Joshua. Tasks: #8 support audit handoff; independent review of Mike's #21.
 ## Constraints
-Support prse4479; keep Mike's application work untouched. No actual class requests/keys; no self-approval.
+Task branches/reviews; no self-approval or main changes. Preserve prse4479's #8 and Mike's #3 ownership.
 ## Repository state
-Branch codex/a3-08-recovery-audit from main 7b9dd2b; PR #20 remains the author's active PR awaiting review.
-Mike has opened vocal PR #21; audit does not review or change it. PR #20 evidence remains on its own branch.
+Branch codex/a3-08-recovery-audit; pre-handoff e4c10c5 pushed, base main 7b9dd2b. PR #20 still awaits review.
+Separate clean review clone tested #21 at 8906093; no commits on Mike's branch and no merge performed.
 ## Work completed and decisions
-Seven backend fault groups passed; offline real-browser 503 cover retry and music timeout resume passed.
-Confirmed P2: after a 429, a card's Generate instrumental stays disabled after slots free and Refresh status.
-Reload then explicit retry recovers. Likely cached-card skip in app.js; documented steps/fix guidance for prse4479.
-Added RECOVERY_AUDIT, safe JSON/screenshots and standalone offline reproductions; application files untouched.
-All 65 isolated source files unchanged; harness stopped; no private .env was loaded.
+#8: RECOVERY_AUDIT + runnable offline probes + safe JSON/screenshots; one P2 music retry lock after 429.
+Published #8 findings/fix guidance; reload then explicit retry works. All 65 isolated source files stayed unchanged.
+#21: requested changes for the new lyrics retry lock after text-slot 429; same cached-card cause, reproduced in browser.
+Reload continuation and premature live-evidence wording were non-blocking notes; #3 live acceptance remains pending.
+Saved exact-head review JSON/screenshot; completed review credited in CONTRIBUTIONS. No shared app changes.
 ## Validation
-Backend probes passed through real routes/store/provider parsers with MockTransport; no real requests.
-Locked checks passed: 115 tests, verifier 71 files, coverage 36/11/19; staged whitespace clean. AT-10/12 remain partial.
+#8: seven offline probe groups and 115 tests passed, verifier 71 files, coverage 36/11/19 at e4c10c5.
+#21: independent 127 tests, verifier 66 files, coverage 36/11/19; all four exact-head CI checks green.
+Browser used only MockTransport/synthetic media; no class keys/requests/listening. Review clone clean; harness stopped.
 ## Blockers and unchecked areas
-Shared app.js fix must coordinate with Mike's #21; normal-launch/live failure recovery still required.
-Keep one active PR: publish the audit as branch + #8 findings while #20 awaits review; do not merge unreviewed.
+Mike must fix the new lyrics control before approval; prse coordinates the broader #8 fix with Mike's shared app.js.
+Normal-launch vocal/failure acceptance and remaining DJ/reference/sample/release work are incomplete; NOT READY.
 ## Next steps
-1. prse4479 coordinates the focused retry fix with Mike and adds actual browser regression coverage.
-2. Open/review the audit PR after #20 merges; preserve honest fixture-vs-live evidence and add credit on merge.
-3. Retest normal-launch recovery as remaining features integrate; leave issue ownership unchanged.
+1. Re-review Mike's correction on its exact head, including the 429 -> slot free -> retry-enabled browser case.
+2. After #20 merges, open/reconcile the audit PR; preserve its distinct main and PR21 evidence and review credit.
+3. prse implements the #8 fix and records normal-launch recovery as remaining features integrate.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6512838146
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707209912
+Audit: docs/RECOVERY_AUDIT.md; results/a3-08-recovery-audit.json; results/pr21-independent-review.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

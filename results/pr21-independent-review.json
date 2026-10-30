@@ -1,0 +1,125 @@
+{
+  "head_sha": "8906093a5f303cd24bb803e79e024f2898bde981",
+  "base_sha": "7b9dd2b2702d7280a231cdcbfbd1afad136f3f56",
+  "reviewer": "JoshuaKosakowsky directing Codex",
+  "date": "2026-10-29 America/Denver",
+  "validation": {
+    "tests_passed": 127,
+    "verifier_files": 66,
+    "requirements": 36,
+    "tasks": 11,
+    "cases": 19,
+    "provider_mode": "MockTransport only; no class credentials or requests"
+  },
+  "browser_findings": {
+    "lyrics_retry_stays_disabled_after_429": {
+      "cards": [
+        {
+          "audio": true,
+          "buttons": [
+            {
+              "disabled": false,
+              "label": "Generate new lyrics"
+            },
+            {
+              "disabled": false,
+              "label": "Generate new cover"
+            },
+            {
+              "disabled": false,
+              "label": "Generate new vocal song"
+            }
+          ],
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE reload during lyrics"
+        },
+        {
+          "audio": true,
+          "buttons": [
+            {
+              "disabled": false,
+              "label": "Generate new lyrics"
+            },
+            {
+              "disabled": false,
+              "label": "Generate new cover"
+            },
+            {
+              "disabled": false,
+              "label": "Generate new vocal song"
+            }
+          ],
+          "statuses": [
+            "New matching cover ready",
+            "Vocal track ready",
+            "AI lyrics ready"
+          ],
+          "title": "OFFLINE hold text slot"
+        },
+        {
+          "audio": false,
+          "buttons": [
+            {
+              "disabled": true,
+              "label": "Generate lyrics"
+            },
+            {
+              "disabled": false,
+              "label": "Generate new cover"
+            },
+            {
+              "disabled": false,
+              "label": "Generate vocal song"
+            }
+          ],
+          "statuses": [
+            "New matching cover ready",
+            "No vocal yet",
+            "No lyrics yet"
+          ],
+          "title": "OFFLINE lyrics retry target"
+        }
+      ],
+      "notice": "Lyrics ready \u00e2\u20ac\u201d generating the vocal track for OFFLINE hold text slot\u00e2\u20ac\u00a6"
+    },
+    "pending_lyrics_reload_can_chain_music": {
+      "counters_before_release": {
+        "/v1/images/generations": 1,
+        "/v1/chat/completions": 1
+      },
+      "observed_after_release": {
+        "cards": [
+          {
+            "audio": true,
+            "statuses": [
+              "New matching cover ready",
+              "Vocal track ready",
+              "AI lyrics ready"
+            ],
+            "title": "OFFLINE reload during lyrics"
+          }
+        ],
+        "notice": "Lyrics ready \u00e2\u20ac\u201d generating the vocal track for OFFLINE reload during lyrics\u00e2\u20ac\u00a6"
+      }
+    }
+  },
+  "offline_fixture_request_counts": {
+    "/v1/images/generations": 3,
+    "/v1/chat/completions": 3,
+    "/release_task": 3,
+    "/query_result": 3,
+    "/v1/audio": 3
+  },
+  "lyrics_retry_reload_workaround_verified": true,
+  "normal_launch_live_vocal_acceptance": false,
+  "formal_review": {
+    "state": "CHANGES_REQUESTED",
+    "html_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707209912",
+    "commit_id": "8906093a5f303cd24bb803e79e024f2898bde981",
+    "submitted_at": "2026-10-30T01:54:01Z"
+  }
+}
