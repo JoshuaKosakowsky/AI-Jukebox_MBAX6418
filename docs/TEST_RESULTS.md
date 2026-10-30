@@ -682,7 +682,16 @@ transient play() rejections are retried (bounded, 6 x 350 ms) instead of
 completing the segment; the element's src-clear (interrupt) still resolves
 immediately. Static frontend guard added; verified by the corrected
 rehearsal driver (39/39) and the full regression stack (152/152 unit,
-18/18 functional, 20/20 concurrency).
+18/18 functional, 20/20 concurrency). Independent review found two further
+rejection-path flaws, both fixed and regression-guarded: a retry SCHEDULED
+before a pause could fire after it (pause advances the epoch but keeps the
+src for resume) — every scheduled retry now re-checks its captured epoch
+before touching the player; and a play-PERMISSION rejection (autoplay
+NotAllowedError) now stops retrying and keeps the segment pending with a
+user-action status notice instead of completing it after six attempts — the
+queue never advances over unplayed audio and any DJ control resumes it.
+Behavioral Node micro-test of the real djPlayOnce covers both paths
+(11/11 PASS).
 
 Corrected acceptance-driver rehearsal (deterministic fixture providers,
 normal launcher): session identity survives reload; both DJ introductions

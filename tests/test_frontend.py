@@ -73,21 +73,36 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         # audio play(); resolving djPlayOnce there let the engine post phase
         # transitions and fast-forward the whole queue while nothing was
         # audible. The rejection path must retry briefly (bounded) instead of
-        # completing the segment.
+        # completing the segment; a scheduled retry must re-check the captured
+        # epoch (a pause may have advanced it while keeping the src); and a
+        # play-PERMISSION rejection must never complete the segment (it waits
+        # for a user action instead).
         play_once = self.source.split("function djPlayOnce")[1].split(
             "async function djAdvanceOnce")[0]
         catch = play_once.split("djAudio.play().catch")[1]
         self.assertIn("setTimeout(startPlay, 350)", catch,
                       "transient play() rejection must retry, not resolve")
         self.assertIn('attempts >= 6', catch,
-                      "retries must be bounded so a genuinely blocked page "
-                      "still degrades to best-effort completion")
+                      "retries must be bounded so a genuinely broken media "
+                      "path still degrades to best-effort completion")
         # The first-rejection path must not complete the segment: resolve()
         # may only appear inside the bounded-exhausted branch, not as the
         # direct handler action. (The catch's first statements start with the
         # epoch guard and the retry counter.)
         self.assertNotIn("resolve()", catch[:90],
                          "the direct rejection path must retry, never resolve")
+        start_play = play_once.split("const startPlay =")[1].split("startPlay();")[0]
+        self.assertLess(start_play.index('epoch !== djEpoch'),
+                        start_play.index('djAudio.play().catch'),
+                        "a scheduled retry must re-check its captured epoch "
+                        "before touching the player (pause keeps the src)")
+        self.assertIn('err.name === "NotAllowedError"', play_once,
+                      "play-permission rejection must be distinguished")
+        blocked = play_once.split('err.name === "NotAllowedError"')[1].split(
+            "if (++attempts")[0]
+        self.assertNotIn("resolve()", blocked,
+                         "a blocked segment must stay pending (user action "
+                         "recovers it) instead of being treated as ended")
 
     def test_dj_engine_never_submits_generation_itself(self):
         # Polling/reloads must never trigger generation: only user actions POST

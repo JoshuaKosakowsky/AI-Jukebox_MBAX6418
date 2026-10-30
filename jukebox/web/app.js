@@ -466,17 +466,31 @@ function djPlayOnce(epoch, url) {
     };
     if (djAudio.getAttribute("src") !== url) djAudio.src = url;
     // A transient play() rejection (navigation teardown during a reload,
-    // autoplay policy, media still buffering) must NOT be mistaken for the
-    // segment finishing: resolving here lets the engine post the phase
-    // transition and advance the whole queue in seconds while nothing was
-    // audible. Retry briefly; treat the segment as best-effort-complete only
-    // after the retries exhaust. If the element was interrupted (its src was
-    // cleared), stop retrying and resolve.
+    // media still buffering) must NOT be mistaken for the segment finishing:
+    // resolving here lets the engine post the phase transition and advance
+    // the whole queue in seconds while nothing was audible. Retry briefly.
+    // Every scheduled retry re-checks its CAPTURED epoch (a pause/skip/start
+    // may have advanced the epoch while keeping the element's src for
+    // resume) and the element's src before touching the player.
+    // A play-PERMISSION rejection (autoplay policy) is different: retrying
+    // cannot succeed without a user gesture, so retries stop and the segment
+    // stays pending — the queue does not advance over unplayed audio, and
+    // any DJ control (pause/skip/resume) resumes/recovers it. Only genuine
+    // non-permission rejections keep the bounded best-effort path.
     let attempts = 0;
     const startPlay = () => {
+      if (epoch !== djEpoch) { resolve(); return; }  // stale retry: abort
       if (djAudio.getAttribute("src") !== url) { resolve(); return; }
-      djAudio.play().catch(() => {
+      djAudio.play().catch((err) => {
         if (epoch !== djEpoch) return;
+        if (err && err.name === "NotAllowedError") {
+          // Autoplay permission: wait for a user action instead of treating
+          // the segment as over; the next DJ control interrupts and recovers.
+          const status = document.querySelector("#dj-status");
+          if (status) status.textContent =
+            "Audio playback is blocked by this browser — use a DJ control to continue.";
+          return;
+        }
         if (++attempts >= 6) {
           djAudio.onended = null;
           resolve();
