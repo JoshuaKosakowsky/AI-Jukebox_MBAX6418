@@ -1,34 +1,33 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: publish #19 corrections and sync OneDrive.
+2026-10-29 America/Denver; Codex for Joshua. Tasks: latest #21 recheck, then Moonlit Reflection candidate for jovi/#7.
 ## Constraints
-Joshua authorized repo commits/messages/pushes and local sync. Protected PR workflow; no self-approval.
+Protected task branches; no main/self-approval. Preserve Mike's #3, prse's #8 and jovi's #7 ownership.
 ## Repository state
-Branch codex/a3-02-browser-acceptance; pre-handoff 99536f2 pushed; main 7cc9645.
-Original OneDrive checkout fast-forwarded cleanly to 99536f2; ignored .env preserved.
-Review clone /private/tmp/ai-jukebox-review-20261029 has the same tracked branch.
+Branch codex/moonlit-sample-candidate from main 7b9dd2b. PR #20 remains the author's active PR awaiting review.
+Audit/review branch codex/a3-08-recovery-audit is pushed at 2d19839; its handoff/evidence is preserved separately.
 ## Work completed and decisions
-Corrected TEST_RESULTS count to 40 PASS / 0 FAIL, attributed to Matt's review recount;
-external qa-browser-final.txt unavailable for our own recount. Updated results/README evidence,
-CONTRIBUTIONS listening credit and README's contradictory acceptance statement. No app/dependency changes.
-Posted correction summary to #19 and formally requested mase7919 re-review; approval still required.
-Pinned OneDrive repo via Finder; cloud-only Git metadata downloaded, allowing safe fetch/fast-forward.
+Rechecked #21 head 3245fcd: lyrics retry P2 still reproduces; posted precise recheck, no new blockers or approval.
+Copied original Moonlit Reflection WAV/PNG unchanged to assets/samples with a candidate JSON and README guidance.
+Provenance includes original settings/date/models, reconstructed payloads, exact hashes and Joshua's prior listening.
+Both full decodes and current muted static-preview play/pause/resume passed; no new generation or app changes.
+Shared manifest remains empty; sample selection/library integration/final ZIP acceptance belong to jovi.
 ## Validation
-Earlier locked checks: 115 tests, verifier 65 files, coverage 36/11/19 with Python 3.12.14/Git 2.53.
-05f4382 CI caught missing required headings in handoff, edited after those checks; restored them here.
-Initial Apple Git 2.39 run failed 7 hook tests (--to-stdin unsupported); current Git resolved those.
-All four GitHub CI checks passed on 99536f2. Final handoff verifier/coverage/whitespace checks pass.
-No new class-service generation or browser acceptance run.
+#21 recheck: 127 tests, verifier 67 files, coverage 36/11/19, four exact-head CI checks green on 3245fcd.
+Candidate: 30.0 s/48 kHz/stereo/PCM16 WAV and 512x512 PNG; both original acceptance hashes match.
+Candidate gates passed: verifier 69 files, coverage 36/11/19, whitespace clean; staged media hashes match. Preview stopped.
 ## Blockers and unchecked areas
-#19 awaits Matt's re-review on the final documentation head; no merge or review dismissal.
-Submission NOT READY; remaining feature work unchanged. OneDrive filesystem sync is managed by its client.
+Mike's lyrics retry fix remains required. Candidate is not the approved three-song set or app/ZIP integration.
+Whole submission NOT READY; no new human listening or class-service calls claimed.
 ## Next steps
-1. Matt verifies #19 corrections on the final head; merge normally after approval and green CI.
-2. Keep the OneDrive task branch aligned with GitHub; local main already matches origin/main.
-3. #3 vocals (jovi1214) and #5 DJ queue (prse4479) ready; references/samples/independent ZIP follow.
+1. Jovi reviews the candidate record's sample object, selects/integrates it if suitable, then completes the other samples.
+2. Re-review Mike's actual recovery correction; preserve #3 live vocal acceptance before closure.
+3. Open/reconcile candidate/audit PRs after #20 merges; use task branches and independent reviews.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/19#issuecomment-6500246029
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/21#pullrequestreview-5707271820
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7
+Candidate: assets/samples/moonlit-reflection.candidate.json; source: results/main-instrumental-acceptance.json.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
