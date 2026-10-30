@@ -1,0 +1,33 @@
+{
+  "record": "A3-03 vocal-song browser acceptance (offline fixture harness)",
+  "date": "2026-10-29 America/Denver",
+  "tester": "MSpanny directing Hermes",
+  "environment": "macOS; system Chrome via browser harness (headless, muted)",
+  "harness": "REAL FastAPI application (real session store, routes, cookies, media serving, real frontend) with ONLY the four ClassProviders methods replaced by deterministic fixtures; Settings.load(env_file=None) with dummy keys so no real .env is read; no network to class services; nothing committed from generated/",
+  "fixtures": {
+    "cover": "generated 512x512 PNG",
+    "lyrics": "fixed lyric text with a per-call version suffix",
+    "music": "submit->immediate succeed->WAV download (0.2 s 24 kHz mono PCM16)",
+    "provenance": "fixture only; NOT class-generated audio, NOT an approved sample"
+  },
+  "checks": [
+    {"check": "Page loads with all four services configured; instrumental mode default; mode radios present", "result": "PASS", "detail": "text/art/music/speech all 'Configured'; mode=[instrumental checked, vocal]; button 'Create song & generate instrumental'"},
+    {"check": "Selecting vocal mode updates button and help copy", "result": "PASS", "detail": "button -> 'Create vocal song & generate'; help mentions Qwen lyrics, ACE-Step vocal, FLUX cover"},
+    {"check": "One-click vocal create auto-chains cover -> lyrics -> vocal music", "result": "PASS", "detail": "one form submit; no manual music click; snapshot shows three succeeded jobs (art, text, music) and track ready with audio+cover+lyrics; provider stats exactly cover=1 lyrics=1 submit_music=1 poll_music=1 download_music=1"},
+    {"check": "Track card shows cover status, vocal status, AI-lyrics status, collapsible lyrics block and audio controls", "result": "PASS", "detail": "statuses ['New matching cover ready','Vocal track ready','AI lyrics ready']; details.lyrics pre contains the fixture text; <audio controls> with /api/media URL"},
+    {"check": "Generated WAV is playable in the real browser engine", "result": "PASS", "detail": "readyState=4 (HAD_ENOUGH_DATA), play() accepted, currentTime advanced 0->0.2 s (fixture length)"},
+    {"check": "Page reload preserves the session and submits ZERO new generation", "result": "PASS", "detail": "stats unchanged before/after reload (1/1/1/1/1); one card retained with lyrics and audio"},
+    {"check": "Second song in instrumental mode still auto-starts music at create", "result": "PASS", "detail": "cover=2 submit_music=2; two cards (City Lights, Desert Dawn)"},
+    {"check": "'Generate new lyrics' replaces lyrics but does NOT auto-resubmit music", "result": "PASS", "detail": "lyrics=2, text updated to '(version 2)'; submit_music stayed 2; existing audio/cover untouched"},
+    {"check": "'Generate new vocal song' is a deliberate re-submission, exactly once", "result": "PASS", "detail": "submit_music=3 poll_music=3 download_music=3; track still ready; two cards"},
+    {"check": "Total provider discipline across the whole session", "result": "PASS", "detail": "final stats cover=2 lyrics=2 submit=3 poll=3 download=3; every generation exactly once, no duplicates, no reload/refresh-triggered submissions"},
+    {"check": "P2 regression (Joshua review): lyrics retry button re-enables after a rejected POST", "result": "PASS", "detail": "hold lyrics fixture -> create vocal A (text job running, single app-wide slot held) -> create vocal B (its auto lyrics POST 429s; card shows enabled 'Generate lyrics') -> click B's Generate lyrics -> 429 -> button re-enabled IMMEDIATELY (no reload); release hold -> A completes and chains its own music -> click Refresh status -> B's Generate lyrics still enabled (old code kept it disabled until reload)"},
+    {"check": "Reload mid-chain never auto-continues an auto-chain", "result": "PASS", "detail": "create vocal C with held lyrics job; submit_music=1; reload the page while C's lyrics job is RUNNING; release the hold; 3s of polling -> submit_music still 1 (unchanged, no new submission); C's card shows 'AI lyrics ready' + 'No vocal yet' with the deliberate 'Generate vocal song' button"}
+  ],
+  "limitations": [
+    "Headless and muted: audible output was NOT listened for (human hearing remains a teammate step).",
+    "Fixture providers, not the class services: this re-tests the app flow, not provider connectivity.",
+    "Real-browser live run against Qwen/ACE-Step still pending (no class .env on this machine).",
+    "Console/network error sweep not captured beyond media serving success (audio readyState=4 implies /api/media 200)."
+  ]
+}

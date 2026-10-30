@@ -1,29 +1,34 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Task: early Windows ZIP startup rehearsal, Refs #10.
+2026-10-29 America/Denver; Codex for Joshua. Shared integration handoff for PR #20 ZIP evidence and #23 Moonlit candidate.
 ## Constraints
-Protected task-branch/PR workflow; no self-approval. No feature changes or service generation.
+Protected reviews/checks unchanged; concurrent independent PRs authorized. Preserve prse's #5/#8/#9 and jovi's #7/#10 ownership.
 ## Repository state
-Branch codex/windows-zip-startup from merged main 7b9dd2b; PR #19 merged with Matt's approval and green main CI.
+Branches codex/windows-zip-startup (#20) and codex/moonlit-sample-candidate (#23), each reconciled against main 7d003c6.
+Main includes Mike's #21; live vocal/listening acceptance still remains on #3. Audit/review records stay in PR #22.
+Both branches use this same consolidated handoff to avoid conflicting status rewrites on the next merge.
 ## Work completed and decisions
-Downloaded exact GitHub ZIP; fresh extraction launched from README without .git or private config.
-Missing/placeholders, invalid endpoint, configured recovery, alternate port and browser refresh/reload passed.
-All 65 archived source files byte-identical; servers stopped and temporary .env removed; original preserved.
-Added safe JSON/two actual screenshots, TEST_RESULTS evidence and concise README/results links; no launcher fix needed.
-Mike/MSpanny now leads #3 per Joshua; #5 remains prse4479. Live issues own current assignments.
+#20 preserves the original 7b9dd2b ZIP identity/65-file startup rehearsal alongside Mike's vocal evidence; no new ZIP acceptance claimed.
+#23 retains the original Moonlit WAV/PNG, hashes/provenance and candidate status; final manifest/library/ZIP acceptance still belongs to jovi.
+The Moonlit preview index entry belongs to #23's results README; #20 keeps only its ZIP evidence additions.
+Reconciliation changes docs/handoff only; inherited application code matches main. No prse task or assignment is taken over.
 ## Validation
-Startup rehearsal passed on Windows, launcher Python 3.14.7 -> locked app Python 3.12.14, uv 0.12.19.
-Locked checks passed: 115 tests, verifier 68 files, coverage 36 requirements/11 tasks/19 cases; diff clean.
+Merged-main baseline: 128 tests and four CI checks passed; prior media decoding/preview and ZIP observations retain their original scope.
+Run python scripts/dev.py --check and git diff --check for each reconciled head; exact results/head IDs are posted on #20/#23.
+No class-service generation, new media, credentials or user uploads were introduced during reconciliation.
 ## Blockers and unchecked areas
-#10 remains blocked and led by jovi1214; this developer rehearsal is not the final independent installation.
-Vocals, DJ flow, references, samples and full release verification remain incomplete; submission NOT READY.
+Fresh review is required after these updates; request MSpanny on both heads and keep normal protection in force.
+No published prse branch/PR was affected; unpublished local work is not visible. Her task ownership remains unchanged.
+#3 live vocal acceptance, #8 instrumental fix, DJ/reference features, final samples and independent ZIP remain incomplete; NOT READY.
 ## Next steps
-1. Teammate reviews the focused evidence PR; merge only after approval and green CI.
-2. Mike implements #3; prse4479 implements #5; avoid shared app-file changes in this docs task.
-3. Record completed work/review credit when this PR merges; jovi performs final independent ZIP checks later.
+1. Mike re-reviews the updated #20/#23 heads; merge normally only after eligible approval and green CI.
+2. Recheck the remaining PR against main after the first merge; retain all distinct evidence and task notes.
+3. Continue normal-launch vocal acceptance on main; prse's feature/recovery work and jovi's sample/ZIP work can proceed separately.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/23
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

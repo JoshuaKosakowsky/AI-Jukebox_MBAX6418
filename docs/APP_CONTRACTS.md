@@ -51,11 +51,12 @@ Example empty snapshot (the current GET /api/session response):
 | GET / | cover form, configuration and session library |
 | GET /static/app.js, /static/style.css | same-origin frontend assets only |
 | GET /api/health | local process health, contract version; no provider health claim |
-| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available and music_generation_available based on configured services |
+| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available, music_generation_available and lyrics_generation_available based on configured services |
 | GET /api/session | this browser's SessionSnapshot, including track-specific art/music jobs |
 | POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
-| POST /api/tracks/{track_id}/music | deliberate instrumental generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/music | deliberate instrumental or vocal-music generation/replacement/retry for an existing session track; vocal tracks submit the track's current lyrics with the same verified request and are rejected with 409 while lyrics are missing; queued GenerationJob with 202 |
+| POST /api/tracks/{track_id}/lyrics | deliberate Qwen lyrics generation/replacement/retry for a vocal session track (422 for instrumental tracks); attaches the text to the track on success; queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
 | GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
 | GET /api/contracts | unchanged v1 shared JSON Schema |
@@ -127,14 +128,28 @@ job finishes last preserves the other's media (tests cover both completion
 orders). Track status becomes ready only when audio is attached; a music
 failure leaves the prior status, cover and audio untouched and is reported
 through the job's SafeError. Provider tickets and media bytes stay server-side.
-A3-03 (vocals) should extend the same store/route pattern with the text
-provider for lyrics and a vocal music payload, keeping the automatic art
-request, track ID and media budget.
+
+## Vocal songs and lyrics (A3-03)
+
+Vocal tracks use the same store/route pattern: /api/tracks accepts
+`settings.mode: "vocal"` and still queues the automatic cover; the browser then
+calls /tracks/{id}/lyrics, which queues one Qwen text job. On success the text
+attaches to `track.lyrics` (replacement generations replace it; a failed job
+leaves the previous lyrics/audio/cover untouched and is retryable). The vocal
+music request is the SAME verified ACE-Step payload with the track's current
+lyrics in the lyrics field and a vocal-aware prompt; `queue_music` rejects a
+vocal track that still has no lyrics (409) and `generate_music` re-checks at
+submission time so a job can never silently fall back to the instrumental
+marker. One text job may run app-wide (MAX_ACTIVE_TEXT=1); art/music/text jobs
+for one track coexist. The lyrics token budget is raised to 512 for this call
+only (the 192-token probe budget was for a short reply marker); this deviation
+requires live A3-03 acceptance evidence, which is still pending (no class keys
+on the development machine).
 
 Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
-20 tracks/100 jobs per session, two active covers and two active instrumentals
-app-wide, 64 MB total retained media. Capacity failures do not enqueue work or
-orphan new tracks.
+20 tracks/100 jobs per session, two active covers, two active music and one
+active text (lyrics) job app-wide, 64 MB total retained media. Capacity failures
+do not enqueue work or orphan new tracks.
 The single-process launcher owns this memory; restart clears it. No persistence,
 upload, fixtures or alternate generation provider is added to the normal launcher.
 Metadata must remain stable while a job is generating; an editing feature
@@ -146,6 +161,8 @@ would need coordinated versioning of those updates.
 the frozen service-probes.json defaults and exposes:
 
 - text(prompt) -> final text only; reject incomplete output and wrong model.
+- lyrics(prompt) -> song lyrics; the same chat endpoint/model with a 512-token
+  budget for 10-60 second songs (documented deviation from the 192-token probe).
 - cover(prompt) -> decoded PNG bytes/MIME; the baseline requests one 512x512 cover.
 - speech(text) -> decoded PCM WAV bytes/MIME, default voice omitted.
 - submit_music(prompt, duration_seconds=10, lyrics="[Instrumental]") -> MusicTicket.

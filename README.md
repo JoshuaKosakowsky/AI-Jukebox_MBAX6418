@@ -1,10 +1,12 @@
 # AI Jukebox - MBAX 6418-801 (Assignment 3)
 
 A team-built app for custom songs, matching covers and spoken DJ commentary.
-**Current version: generate playable instrumentals with matching covers.** The browser
-creates new ACE-Step instrumental music and FLUX artwork from a title/theme,
-style, mood and duration, keeps them paired with the correct track across page
-reloads, and plays them inline. Lyrics/vocals, DJ playback, reference
+**Current version: generate playable instrumental or vocal songs with AI lyrics,
+each with new matching covers.** The browser creates new ACE-Step music and FLUX
+artwork from a title/theme, style, mood and duration. Instrumental songs play
+the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
+sings them into a playable track. Everything stays paired with the correct
+track across page reloads and plays inline. DJ playback, reference
 uploads and approved sample songs are not built yet.
 
 Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
@@ -72,15 +74,24 @@ and source archives. Never commit uploads, voice references or third-party media
 
 ## Current browser/API behavior
 
-1. Configure the art and music services, launch normally and open the home page.
-2. Under Create an instrumental song, enter a song title/theme, musical style,
-   mood and duration (10–60 seconds). Select Create song & generate
-   instrumental. This deliberately calls FLUX once for a new matching cover and
-   ACE-Step once for the instrumental (lyrics are the fixed instrumental marker).
-   It does not generate vocals or invoke the other services.
-3. Watch each track's cover/instrumental status. Create a second distinct song,
-   then reload: each instrumental and cover remains paired with its own
-   title/settings.
+1. Configure the art and text services (and music for playable tracks), launch
+   normally and open the home page. Choose a mode under Design your song:
+   **Instrumental** or **Vocal song with AI lyrics**.
+2. Under Create an instrumental song (the heading applies to both modes), enter
+   a song title/theme, musical style, mood and duration (10–60 seconds). Select
+   **Create song &amp; generate instrumental** (instrumental mode) or **Create vocal
+   song &amp; generate** (vocal mode). An instrumental deliberately calls FLUX once
+   for a new matching cover and ACE-Step once for the audio. A vocal song calls
+   FLUX for the cover and Qwen once for original lyrics; when the lyrics
+   complete, the app automatically calls ACE-Step once to sing them (a lyrics
+   job seen succeeding while the page is open starts the vocal-track request).
+   Reloading the page never submits a new generation request and never
+   continues an in-flight chain: a vocal draft whose chain was interrupted by
+   a reload waits for a deliberate **Generate vocal song** click. A failed
+   vocal submission is likewise a deliberate button click away.
+3. Watch each track's cover/lyrics/instrumental status. Create a second distinct
+   song, then reload: each track, cover, lyrics and audio remains paired with
+   its own title/settings.
 4. Play either song directly in the browser. After a failed or timed-out
    generation, use Resume check to continue checking the SAME class-service
    task (it never submits a new one — repeated resumes of one task stay on
@@ -98,8 +109,12 @@ Art and music settings are required for those controls; other services may
 remain missing. With art configured but not music, the create button makes a
 song draft with cover only and explains how to enable instrumentals; with
 music configured but not art, the form explains that art is needed to create
-tracks. Refresh status and page reload never submit generation. Vocal
-songs are not available yet (A3-03).
+tracks. Vocal mode additionally needs the text service for AI lyrics; without
+it the draft/cover still creates and the form explains what to add. Refresh
+status and page reload never submit generation. Lyrics appear on each vocal
+track's card (a collapsible block). Instrumental songs are not available
+through the vocal mode, and vocal songs are not available in the instrumental
+mode — the mode is chosen at creation and kept on the track.
 
 Session media stays in process memory, private to the browser's HttpOnly,
 SameSite=Strict cookie. Reloading keeps it; restarting the app or two hours of
@@ -114,11 +129,14 @@ There is no disk persistence, upload route or multi-user deployment authenticati
 GET /api/session returns the v1 tracks/jobs/playback snapshot; /api/media/UUID
 serves only that session's assets. POST /api/tracks creates a draft and art job;
 POST /api/tracks/UUID/cover creates a replacement/retry cover job; POST
-/api/tracks/UUID/music creates the instrumental job. All POSTs return 202 with
-a queued GenerationJob; read the snapshot for the terminal result.
-/api/status reports cover_generation_available and music_generation_available
-separately from song generation; it reports configuration, not provider
-reachability. See the full
+/api/tracks/UUID/lyrics (vocal tracks only) creates the Qwen lyrics job; POST
+/api/tracks/UUID/music creates the instrumental or vocal music job — for vocal
+tracks the track's current lyrics are submitted with the same verified ACE-Step
+request, and a request without lyrics is rejected with 409. All POSTs return 202
+with a queued GenerationJob; read the snapshot for the terminal result.
+/api/status reports cover_generation_available, music_generation_available and
+lyrics_generation_available separately from song generation; it reports
+configuration, not provider reachability. See the full
 [app contracts and integration notes](docs/APP_CONTRACTS.md).
 
 The earlier [startup configuration view](results/startup-configured.jpg) shows
@@ -165,9 +183,9 @@ The required aggregate check remains named test. These checks do not establish
 full feature or release acceptance. Repository-only Git checks require a checkout;
 the normal app also launches from source without .git.
 
-The next feature task A3-03 adds vocal songs with AI lyrics and reuses the same
-track/job/media flow; A3-05 implements the single playback controller and real
-speech/music sequencing. Review [app contracts](docs/APP_CONTRACTS.md) before
+The next feature task A3-05 implements the single playback controller and real
+speech/music sequencing (A3-06 adds MP3/WAV reference voices on top of it).
+Review [app contracts](docs/APP_CONTRACTS.md) before
 building dependent work.
 
 ## Project guides and delivery
