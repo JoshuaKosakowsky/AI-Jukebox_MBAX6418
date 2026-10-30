@@ -104,6 +104,28 @@ class FrontendLibraryGuardTests(unittest.TestCase):
                          "a blocked segment must stay pending (user action "
                          "recovers it) instead of being treated as ended")
 
+    def test_dj_audio_exclusivity_guards_exist(self):
+        # Manual library players must never be audible while the DJ timeline
+        # owns the audio: djPlayOnce pauses every other player when a DJ
+        # segment starts, and a capture-phase document listener stops manual
+        # players from starting while the DJ is active.
+        play_once = self.source.split("function djPlayOnce")[1].split(
+            "async function djAdvanceOnce")[0]
+        self.assertIn('document.querySelectorAll("audio")', play_once)
+        self.assertIn("el.pause()", play_once)
+        self.assertIn('el !== djAudio', play_once)
+        after_engine = self.source.split("djEngine();")[1]
+        self.assertIn('document.addEventListener("play"', after_engine)
+        self.assertIn('el.tagName !== "AUDIO"', after_engine)
+        self.assertIn('el === djAudio', after_engine)
+        self.assertIn("!djActive", after_engine)
+        self.assertIn("el.pause()", after_engine)
+        self.assertIn('djActive = false', self.source.split("let djPhase")[1])
+        engine = self.source.split("async function djEngine")[1]
+        self.assertIn('djActive = !!', engine,
+                      "the engine must keep the DJ-active flag in sync "
+                      "with the server playback state")
+
     def test_dj_engine_never_submits_generation_itself(self):
         # Polling/reloads must never trigger generation: only user actions POST
         # start/advance; the engine only posts the phase transition and reads

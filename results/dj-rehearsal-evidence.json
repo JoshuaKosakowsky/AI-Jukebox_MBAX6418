@@ -60,7 +60,7 @@
     {
       "check": "four distinct media sources played (2 speech + 2 music)",
       "pass": true,
-      "detail": "4 unique: ['6531063b-3e78-4b27-9e34-09c3c7992121', '88f89340-98cd-4f20-a9d4-7484ba135f77', 'a56cc056-86d1-4724-bfdc-45c8bf1f10c5', 'c87deeb1-88f2-450a-81e6-25c8b9144976']"
+      "detail": "4 unique: ['69702463-1a05-4b0f-b54f-8e7e4c1959da', '98f0ecce-e55e-4712-997e-1343881a4339', 'c19312ac-5420-44e8-ae7d-ec8f4050d713', 'fd408256-270e-422b-8a1e-4a1754df50d2']"
     },
     {
       "check": "no simultaneous audio sources (event-level)",
@@ -110,7 +110,7 @@
     {
       "check": "scenario 3: speech position frozen while paused",
       "pass": true,
-      "detail": "0.559 -> 0.559"
+      "detail": "0.471 -> 0.471"
     },
     {
       "check": "scenario 3: resume continues speech",
@@ -168,12 +168,7 @@
       "detail": ""
     },
     {
-      "check": "scenario 8: blocked page pauses cleanly",
-      "pass": true,
-      "detail": "Paused during DJ speech (Copper Horizon)."
-    },
-    {
-      "check": "scenario 8: DJ control recovers a permission-blocked reload (queue resumes; no silent advance)",
+      "check": "scenario 8: playback resumes from server state after reload",
       "pass": true,
       "detail": "DJ is speaking about Copper Horizon\u2026"
     },
@@ -198,9 +193,24 @@
       "detail": "Ready. 2 songs queued \u2014 press Play."
     },
     {
-      "check": "overlap probe recorded (documented gap, not a fix)",
+      "check": "exclusivity A: manual player suppressed while DJ music plays",
       "pass": true,
-      "detail": "independent per-track player concurrent with DJ timeline: True"
+      "detail": "manual-alive=False dj-paused=False"
+    },
+    {
+      "check": "exclusivity A: suppression notice shown",
+      "pass": true,
+      "detail": "The DJ queue is playing \u2014 pause or skip it first to hear individual so"
+    },
+    {
+      "check": "exclusivity B: manual playback works while the DJ is idle",
+      "pass": true,
+      "detail": "harbor-manual-paused=False"
+    },
+    {
+      "check": "exclusivity B: DJ start pauses the manual player",
+      "pass": true,
+      "detail": "manual-paused=[True, True] dj-paused=False"
     },
     {
       "check": "no console/page/network errors",
@@ -210,7 +220,7 @@
   ],
   "screenshots": [
     "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-final.png",
-    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-overlap.png"
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-exclusive-a.png"
   ],
   "console_errors": [],
   "event_log_sample": null

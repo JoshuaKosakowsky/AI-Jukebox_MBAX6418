@@ -21,6 +21,7 @@ let djEpoch = 0;
 let djHalted = false;
 let djAdvanceInFlight = null;
 let djPhase = "idle";
+let djActive = false;  // true while the DJ queue owns the timeline
 // Auto-chained vocal steps: a lyrics job id lands here once its success has
 // already started the follow-up music request. Seeded from the first snapshot
 // so a page reload NEVER auto-submits music (README: reloads do not generate).
@@ -481,6 +482,13 @@ function djPlayOnce(epoch, url) {
     const startPlay = () => {
       if (epoch !== djEpoch) { resolve(); return; }  // stale retry: abort
       if (djAudio.getAttribute("src") !== url) { resolve(); return; }
+      // The DJ owns the timeline: no manual library player may run
+      // concurrently with a DJ segment. (The capture-phase "play" listener
+      // below stops manual players from STARTING; this pauses any that were
+      // already running when the DJ takes over.)
+      document.querySelectorAll("audio").forEach((el) => {
+        if (el !== djAudio && !el.paused) el.pause();
+      });
       djAudio.play().catch((err) => {
         if (epoch !== djEpoch) return;
         if (err && err.name === "NotAllowedError") {
@@ -560,6 +568,7 @@ async function djEngine() {
       }
       const session = latestSession;
       const pb = session && session.playback;
+      djActive = !!(pb && pb.state !== "idle");
       if (!pb || pb.state === "idle" || pb.state === "paused") {
         await djSleep(250);
         continue;
@@ -616,6 +625,20 @@ async function djEngine() {
   }
 }
 djEngine();
+
+// Audio exclusivity: while the DJ timeline is active (speaking/playing/
+// paused), a manual library player cannot start — its play() is paused again
+// immediately with a clear notice, and the DJ keeps playing. When the DJ is
+// idle, the built-in per-track controls behave exactly as before. Combined
+// with the pause-all in djPlayOnce, manual music and DJ speech/music can
+// never be audible at the same time.
+document.addEventListener("play", (event) => {
+  const el = event.target;
+  if (!el || el.tagName !== "AUDIO" || el === djAudio || !djActive) return;
+  el.pause();
+  notice.textContent =
+    "The DJ queue is playing — pause or skip it first to hear individual songs.";
+}, true);
 
 async function djStart() {
   djHalted = false;
