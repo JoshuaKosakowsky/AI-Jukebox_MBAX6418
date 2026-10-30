@@ -165,3 +165,47 @@ class ProviderTests(unittest.TestCase):
         with self.assertRaises(ProviderFailure) as caught:
             provider.text("Hi")
         self.assertEqual(caught.exception.error.code, "not_configured")
+
+    def test_text_guard_failures_name_the_exact_guard_without_raw_content(self):
+        provider = self.make(lambda request: httpx.Response(200, json={
+            "model": "some/local/alias", "choices": [{"finish_reason": "stop",
+                                                      "message": {"content": "SECRET-MARKER-CONTENT"}}]}))
+        with self.assertRaises(ProviderFailure) as caught:
+            provider.text("Hi")
+        message = caught.exception.error.message
+        self.assertIn("model", message)
+        self.assertIn("some/local/alias", message)
+        self.assertNotIn("SECRET-MARKER-CONTENT", message)
+
+    def test_text_finish_reason_and_empty_content_failures_are_distinguishable(self):
+        expected = PROBES["text"]["request"]["model"]
+        cases = [
+            {"finish_reason": "length", "content": "Lyrics that got cut off", "needle": "finish_reason 'length'"},
+            {"finish_reason": "stop", "content": "   ", "needle": "no text content"},
+        ]
+        for case in cases:
+            with self.subTest(case=case):
+                def reply(request, case=case):
+                    return httpx.Response(200, json={"model": expected,
+                                                     "choices": [{"finish_reason": case["finish_reason"],
+                                                                  "message": {"content": case["content"]}}]})
+                with self.assertRaises(ProviderFailure) as caught:
+                    self.make(reply).text("Hi")
+                self.assertIn(case["needle"], caught.exception.error.message)
+
+    def test_reasoning_content_is_not_confused_with_final_content(self):
+        expected = PROBES["text"]["request"]["model"]
+        def reply(request):
+            return httpx.Response(200, json={"model": expected, "choices": [{
+                "finish_reason": "stop",
+                "message": {"content": "Real answer", "reasoning_content": "thinking not for the app"}}]})
+        # Final content wins when present; reasoning fields never leak.
+        self.assertEqual(self.make(reply).text("Hi"), "Real answer")
+        def empty_reply(request):
+            return httpx.Response(200, json={"model": expected, "choices": [{
+                "finish_reason": "stop",
+                "message": {"content": None, "reasoning_content": "thinking only"}}]})
+        with self.assertRaises(ProviderFailure) as caught:
+            self.make(empty_reply).text("Hi")
+        self.assertIn("no text content", caught.exception.error.message)
+        self.assertNotIn("thinking only", caught.exception.error.message)

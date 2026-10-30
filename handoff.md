@@ -1,6 +1,32 @@
 # Agent handoff
 
 ## Session
+2026-10-30 America/Denver (MDT); Hermes for MSpanny. Task: A3-03 lyrics parser diagnostics (#3 lead; follow-up to Joshua's failed live run, PR #28). Branch codex/a3-03-lyrics-diagnostics from main 770ce62.
+
+## Constraints
+Task branch + reviewed PR; no main/protection/assignment changes. Fix is offline-only: NO speculative token-budget/schema changes; bounded live rerun stays pending class .env.
+
+## Repository state
+Main 770ce62 = #23 Moonlit + #20 ZIP evidence merged. Open: #22 audit, #24 contributions, #25 Desert Drive candidate, #26 A3-06 references (MSpanny; CI green), #28 failure record. no other PR touches providers.py/tests/test_providers.py.
+
+## Work completed and decisions
+text()/lyrics() refactored onto a shared `_chat` guard whose SafeError names the exact failing condition: unexpected model id, missing/empty content (finish included), or non-stop finish (e.g. length). Safe metadata only (model ids + finish_reason; never raw content/reasoning). Behavior unchanged: content accepted only when present, non-empty, stop. Reasoning fields never leak. 3 new MockTransport guard tests; probe-fidelity test still byte-identical. Docs: TEST_RESULTS diagnostics section; this handoff.
+
+## Validation
+python scripts/dev.py --check PASS: 131 tests (128 prior + 3 new), verifier 74 files, coverage 36/11/19. No live calls.
+
+## Blockers and unchecked areas
+Live cause still unknown until the bounded rerun with class keys (.env absent here). AT-04/#3 remain open/failed (Joshua's run on 770ce62 failed at the lyrics guard). Human listening pending. #6 lead discrepancy (issue says MSpanny; Josh handoff text says Matt) flagged on #20 review; issue remains authoritative.
+
+## Next steps
+1. Open PR (Refs #3, honest: diagnostics only, live rerun pending), request Matt's review.
+2. When .env exists: bounded normal-launch vocal rerun — the parser now reports which guard fired (or succeeds); then decoded-media + browser + listening acceptance for AT-04.
+3. If the cause is finish=length: decide with team whether to raise the lyrics budget further (documented live-evidence change), not blind.
+
+## References
+Issue #3; PR #28 (Joshua's failure record); docs/TEST_RESULTS.md diagnostics section; tests/test_providers.py.
+
+### Session (Codex for Joshua, #20/#22 integration)
 2026-10-29 America/Denver; Codex for Joshua. Independent integration support: #20 ZIP evidence and #22 recovery audit.
 ## Constraints
 Normal protected reviews/checks; no app changes or class calls. Matt leads #5/#6, Mike #3, prse #8/#9, jovi #7/#10.

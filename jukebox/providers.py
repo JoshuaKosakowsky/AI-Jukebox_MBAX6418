@@ -120,20 +120,40 @@ class ClassProviders:
     def _payload(self, role):
         return deepcopy(PROBES[role]["request"])
 
-    def text(self, prompt: str) -> str:
-        if not prompt.strip():
-            raise ValueError("Text prompt is required")
+    def _chat(self, prompt: str, max_tokens: int | None, kind: str) -> str:
+        """Shared Qwen chat call whose failure messages name the exact guard.
+
+        Safe diagnostic metadata only: returned/expected model ids and the
+        finish_reason are not credentials or raw content, so they can appear
+        in the fixed SafeError message that reaches the UI. This is what lets
+        a bounded live run distinguish an unexpected model, an empty
+        (reasoning-only) completion, or a truncated (non-stop) completion
+        instead of collapsing them into one generic error.
+        """
         payload = self._payload("text")
         payload["messages"] = [{"role": "user", "content": prompt}]
+        if max_tokens is not None:
+            payload["max_completion_tokens"] = max_tokens
         data = self._json("text", PROBES["text"]["path"], payload)
         try:
             choice = data["choices"][0]
-            result = choice["message"]["content"]
-            if data.get("model") != PROBES["text"]["request"]["model"] or not isinstance(result, str) or not result.strip() or choice.get("finish_reason") != "stop":
-                raise ValueError()
-            return result
+            model = data.get("model")
+            if model != PROBES["text"]["request"]["model"]:
+                fail("invalid_response", f"The text service returned model {model!r} instead of the expected {PROBES['text']['request']['model']!r}.")
+            content = choice["message"].get("content")
+            finish = choice.get("finish_reason")
+            if not isinstance(content, str) or not content.strip():
+                fail("invalid_response", f"The text service returned no {kind} content (finish_reason={finish!r}).")
+            if finish != "stop":
+                fail("invalid_response", f"The text service ended the {kind} with finish_reason {finish!r} instead of 'stop'.")
+            return content
         except (KeyError, IndexError, TypeError, ValueError):
-            fail("invalid_response", "The text service returned no complete text.")
+            fail("invalid_response", f"The text service returned an invalid {kind} response.")
+
+    def text(self, prompt: str) -> str:
+        if not prompt.strip():
+            raise ValueError("Text prompt is required")
+        return self._chat(prompt, None, "text")
 
     def lyrics(self, prompt: str) -> str:
         """Song lyrics from Qwen; same endpoint/model as text() with a token
@@ -142,18 +162,7 @@ class ClassProviders:
         live evidence (A3-03 acceptance), not a guessed payload."""
         if not prompt.strip():
             raise ValueError("Lyrics prompt is required")
-        payload = self._payload("text")
-        payload["messages"] = [{"role": "user", "content": prompt}]
-        payload["max_completion_tokens"] = 512
-        data = self._json("text", PROBES["text"]["path"], payload)
-        try:
-            choice = data["choices"][0]
-            result = choice["message"]["content"]
-            if data.get("model") != PROBES["text"]["request"]["model"] or not isinstance(result, str) or not result.strip() or choice.get("finish_reason") != "stop":
-                raise ValueError()
-            return result
-        except (KeyError, IndexError, TypeError, ValueError):
-            fail("invalid_response", "The text service returned no complete lyrics.")
+        return self._chat(prompt, 512, "lyrics")
 
     def cover(self, prompt: str) -> MediaBytes:
         if not prompt.strip():

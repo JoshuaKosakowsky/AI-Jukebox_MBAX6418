@@ -595,3 +595,40 @@ generation/playback, vocal, DJ, reference-voice, sample or release acceptance wa
 performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
+
+## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
+
+Context: Joshua's bounded live vocal attempt on main 770ce62 (PR #28) failed
+before music generation — the FLUX cover succeeded but the Qwen lyrics job
+returned the generic `invalid_response` "no complete lyrics", with the parser
+unable to say which guard failed (unexpected model vs. missing/empty content
+vs. non-`stop` finish). AT-04 remains failed.
+
+Change (branch codex/a3-03-lyrics-diagnostics): text() and lyrics() now share a
+single `_chat` guard whose SafeError messages name the exact failing condition
+using safe metadata only — returned/expected model ids and the finish_reason
+are not credentials or raw content, so they are safe to surface in the fixed
+error shown to the user:
+
+| Guard | Safe message instead of the generic one |
+|---|---|
+| Unexpected model id | "returned model 'X' instead of the expected 'cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit'" |
+| Missing/empty content (reasoning-only or blank) | "returned no text content (finish_reason='...')" |
+| Non-`stop` completion (e.g. `length` truncation) | "ended ... with finish_reason 'length' instead of 'stop'" |
+
+Behavior was not loosened: content is still accepted only when present,
+non-empty and `finish_reason=stop`, and reasoning fields never leak into the
+app or messages. The next bounded live run reports the actual cause instead of
+a generic error — no speculative token-budget or schema change was made.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Suite passing; coverage retained | PASS, 131 tests (128 prior + 3 new guard tests), verifier 74 files, coverage 36/11/19 |
+| MockTransport: unexpected model id | Failure names expected vs returned model; no raw content | PASS |
+| MockTransport: finish_reason=length with content | Failure names the finish reason | PASS |
+| MockTransport: empty/whitespace content, stop | Failure says no content, with finish | PASS |
+| MockTransport: reasoning_content present + final content | Final content returned; reasoning never leaks | PASS (and reasoning-only responses are rejected with the no-content message) |
+| Existing probe fidelity | `text()` payload and success path unchanged | PASS, byte-identical probe test still green |
+
+Remaining: the bounded normal-launch rerun with real class keys (needs .env)
+to confirm which live cause fires and to complete AT-04, plus human listening.
