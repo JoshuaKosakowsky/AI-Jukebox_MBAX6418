@@ -275,7 +275,12 @@ class SessionStore:
                 raise SessionFailure(409, "Playback is not active.")
             if index + 1 >= len(queue):
                 session.playback = Playback.model_validate(
-                    {**session.playback.model_dump(), "state": "idle", "index": 0, "current_track_id": None})
+                    {**session.playback.model_dump(), "state": "idle", "index": 0,
+                     "current_track_id": None,
+                     # Advancing from a paused queue past the LAST track must
+                     # clear the paused phase too — the idle state carrying
+                     # paused_from violated the contract (500).
+                     "paused_from": None})
                 return session.playback, None
             previous = session.tracks[queue[index]]
             next_id = queue[index + 1]
@@ -284,13 +289,15 @@ class SessionStore:
                 {**session.playback.model_dump(),
                  "state": "paused" if was_paused else "speaking",
                  "index": index + 1, "current_track_id": next_id,
-                 # A paused advance stays paused on the NEW track with its
-                 # phase preserved; an active advance clears the phase. The
-                 # paused state MUST carry paused_from (contract validator)
-                 # — carrying the old track's value verbatim previously
-                 # produced a state/paused_from mismatch (500) whenever an
-                 # advance raced a pause.
-                 "paused_from": session.playback.paused_from if was_paused else None})
+                 # A paused advance stays paused on the NEW track, and the
+                 # phase it would resume in is ALWAYS "speaking": the new
+                 # track's DJ introduction comes before its music, even if
+                 # the user paused during the PREVIOUS track's music.
+                 # Preserving the old track's phase here made Resume land in
+                 # "playing" and silently bypass the new track's
+                 # introduction. The paused state MUST carry paused_from
+                 # (contract validator).
+                 "paused_from": "speaking" if was_paused else None})
         job = self._queue_dj_speech(session, next_id, previous, index + 1, len(session.playback.queue))
         return session.playback, job
 

@@ -654,7 +654,19 @@ Skip advances at most once), while rapid distinct Skips serialize and each
 applies — and user intents travel through one FIFO (`djUserQueue`) so the
 server sees them in issue order despite separate connections. A failed Pause
 un-halts the controller, and the engine loop survives transient failures
-instead of dying.
+instead of dying. The advance in-flight slot is cleared INSIDE the advance
+promise (not via an orphaned chained finally), so a failed advance request
+produces no unhandled promise rejection and the controller stays
+recoverable.
+
+Final edge cases (pre-live-acceptance): **skip while paused during music**
+advances exactly one track, stays paused, and Resume plays the NEXT song's
+DJ introduction before its music — the queue's `paused_from` after a paused
+advance is always "speaking" (carrying the previous track's "playing" phase
+forward previously bypassed the new track's introduction); and a **forced
+offline advance failure** leaves no console error and the next Skip works.
+Both are covered by a unit test each (151 total) plus the real-browser
+scenarios S6/S7 below.
 
 Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
 stale-pause phase correction, one-index-per-advance + straggler 409,

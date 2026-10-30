@@ -110,7 +110,12 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         # travels in issue order so separate connections cannot reorder.
         self.assertIn("prior.automatic && prior.trackId === currentTrackId", self.source)
         self.assertIn("djAdvanceInFlight = {promise", self.source)
-        self.assertIn("promise.finally", self.source)
+        # The in-flight slot is cleared inside the promise (try/finally) so a
+        # failed advance has NO unobserved orphan promise.finally(...) whose
+        # rejection could become an unhandled rejection.
+        advance = self.source.split("async function djAdvanceOnce")[1].split("// User intents")[0]
+        self.assertIn("} finally {", advance)
+        self.assertNotIn("promise.finally(", advance)
         self.assertIn("let djUserChain = Promise.resolve();", self.source)
         self.assertIn("djUserChain = next.catch(() => {});", self.source)
         skip = self.source.split("async function djSkip")[1].split("function djStatusIdleDone")[0]

@@ -239,12 +239,14 @@ response cannot flip the WRONG track's state:
 - `pause` accepts the optional `track_id` too. A pause that raced an automatic
   advance keeps the pause (the user pressed it) but records `paused_from` as
   the CURRENT track's true phase, so Resume cannot resume the wrong phase.
-- `advance` from a PAUSED queue stays paused on the new track and carries
-  `paused_from` forward (previously this produced a state/paused_from
-  mismatch and a 500 whenever an advance raced a pause); an active advance
-  stays a normal speaking transition. Each advance moves exactly one index;
-  the first advance past the last entry ends the queue, and a straggler after
-  idle is rejected with 409.
+- `advance` from a PAUSED queue stays paused on the new track and always
+  resumes with the new track's introduction (`paused_from` becomes
+  "speaking" — earlier it carried the old track's "playing" phase forward,
+  which made Resume bypass the new track's DJ introduction; even earlier it
+  produced a state/paused_from mismatch and a 500 whenever an advance raced
+  a pause). An active advance stays a normal speaking transition. Each
+  advance moves exactly one index; the first advance past the last entry
+  ends the queue, and a straggler after idle is rejected with 409.
 
 The browser contributes two deterministic guards: every advance is
 SINGLE-FLIGHT (`djAdvanceOnce`) — a user Skip that arrives while the

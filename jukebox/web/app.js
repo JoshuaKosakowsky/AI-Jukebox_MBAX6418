@@ -479,14 +479,21 @@ async function djAdvanceOnce(currentTrackId, automatic) {
     // Any earlier advance must land first, so server-side arrival order
     // matches intent order even though fetches use separate connections.
     if (prior) await prior.promise;
-    const response = await request("/api/playback/advance", {});
-    await syncAfterMutation();
-    return response.state;
+    try {
+      const response = await request("/api/playback/advance", {});
+      await syncAfterMutation();
+      return response.state;
+    } finally {
+      // Clear INSIDE the promise: a separate chained finally call would be
+      // an orphan whose rejection nobody observes (unhandled rejection any
+      // time the advance fails — e.g. a straggler advance after the queue
+      // already ended).
+      if (djAdvanceInFlight && djAdvanceInFlight.promise === promise) {
+        djAdvanceInFlight = null;
+      }
+    }
   })();
   djAdvanceInFlight = {promise, trackId: currentTrackId, automatic};
-  promise.finally(() => {
-    if (djAdvanceInFlight && djAdvanceInFlight.promise === promise) djAdvanceInFlight = null;
-  });
   return promise;
 }
 

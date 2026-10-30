@@ -216,11 +216,11 @@ class DjTests(unittest.TestCase):
         self.assertEqual(len(recorders.prompts), chat_before, "replay must not re-generate commentary")
         self.assertEqual(client.post("/api/playback/advance", json={}).status_code, 200)
 
-    def test_paused_advance_keeps_paused_with_true_phase(self):
-        """Skip while paused (the advance races a pause): the queue advances
-        but the new track stays paused with paused_from preserved, and the
-        Playback contract validates (this produced a 500 — state/paused_from
-        mismatch — before the fix). Resume continues the new track."""
+    def test_paused_advance_resumes_with_next_song_introduction(self):
+        """Skip while paused during music: the queue advances exactly one
+        track, stays paused, and Resume plays the NEXT song's DJ introduction
+        before its music — the previous track's phase ("playing") must never
+        be carried onto the new track (that bypassed the introduction)."""
         recorders = DjRecorders()
         client, _ = self.make_client(recorders)
         tracks = [self.create_track(client, f"PauseRace {i}", "Pop", "Bright")[0] for i in range(2)]
@@ -235,10 +235,30 @@ class DjTests(unittest.TestCase):
         self.assertEqual(state["state"], "paused", "a paused advance stays paused")
         self.assertEqual(state["index"], 1)
         self.assertEqual(state["current_track_id"], tracks[1])
-        self.assertEqual(state["paused_from"], "playing")
+        self.assertEqual(state["paused_from"], "speaking",
+                         "the new track must resume with its introduction, not the old track's music phase")
+        # The next track's commentary is already generating (advance queues
+        # the speech job); Resume enters the introduction phase.
         resumed = client.post("/api/playback/resume", json={}).json()
-        self.assertEqual(resumed["state"], "playing", "resume continues the preserved phase")
+        self.assertEqual(resumed["state"], "speaking", "resume starts the new track's introduction")
         self.assertEqual(resumed["current_track_id"], tracks[1])
+        # The browser then records the speech->music transition for the NEW
+        # track, exactly once.
+        playing = client.post("/api/playback/phase", json={"phase": "playing", "track_id": tracks[1]})
+        self.assertEqual(playing.status_code, 200)
+        self.assertEqual(playing.json()["state"], "playing")
+        # No previous-track phase or audio can resurface: a stale phase for
+        # track A is rejected.
+        self.assertEqual(client.post("/api/playback/phase",
+                                     json={"phase": "speaking", "track_id": tracks[0]}).status_code, 409)
+        # Advancing from a paused queue past the LAST track: idle with the
+        # paused phase cleared (state/paused_from mismatch previously 500'd).
+        client.post("/api/playback/phase", json={"phase": "playing", "track_id": tracks[1]})
+        client.post("/api/playback/pause", json={"phase": "playing", "track_id": tracks[1]})
+        ended = client.post("/api/playback/advance", json={})
+        self.assertEqual(ended.status_code, 200, "paused advance past the last track must validate")
+        self.assertEqual(ended.json()["state"], "idle")
+        self.assertIsNone(ended.json()["paused_from"])
 
     def test_stale_phase_after_skip_is_rejected(self):
         """A late speech-ended phase response must not flip the NEW track's
