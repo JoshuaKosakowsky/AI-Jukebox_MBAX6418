@@ -10,7 +10,6 @@ Joshua now contributes to this PR and cannot approve it; Mike/Jovi remain
 eligible if they have no commits. Prior Matt implementation/handoff follows.
 
 ## Session
-<<<<<<< HEAD
 2026-10-30 America/Denver; Codex for mase7919. A3-05 default AI DJ queue
 implementation on `codex/a3-05-dj-queue` (draft PR #27) — now synchronized
 with main `770ce62` (includes PR #20's Windows ZIP evidence, merged after
