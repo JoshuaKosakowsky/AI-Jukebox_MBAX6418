@@ -503,8 +503,38 @@ the page never submits generation (README rule preserved); a music job that
 already exists prevents re-chaining, so a failed vocal request is always a
 deliberate button click.
 
-Unchecked (honest): NO live Qwen lyrics or ACE-Step vocal generation was
-performed on this machine — the class .env is not present here (the earlier
-October 15 record refers to a different checkout). Live R10/AT-04 evidence,
-audible/visual browser verification and sample selection remain. Offline tests
-use mocked providers and real HTTP routes only. Submission NOT READY.
+### Real-browser acceptance (offline fixture harness) - 2026-10-29 America/Denver
+
+System Chrome (headless, muted) against the REAL application with only the
+four ClassProviders methods replaced by deterministic fixtures (generated
+512x512 PNG cover; fixed lyric text with a per-call version suffix; ACE-Step
+submit->immediate-succeed->WAV). Dummy keys, Settings.load(env_file=None),
+no network to class services, nothing committed from generated/. All 10
+checks PASS, per [vocal-browser-record.json](../results/vocal-browser-record.json):
+
+- One-click vocal create auto-chained cover -> lyrics -> vocal music with a
+  single form submit: three succeeded jobs, track ready, provider counters
+  exactly 1/1/1/1/1 (cover/lyrics/submit/poll/download).
+- Card showed cover, "Vocal track ready", "AI lyrics ready", the collapsible
+  lyrics block and an <audio controls> element; the fixture WAV decoded in the
+  engine (readyState 4) and playback advanced past zero.
+- Page reload preserved the session and left every provider counter unchanged
+  (no re-submission).
+- A second song in instrumental mode still auto-started music at create.
+- "Generate new lyrics" replaced the lyrics (version suffix 1 -> 2) WITHOUT
+  resubmitting music; "Generate new vocal song" then resubmitted deliberately,
+  exactly once.
+- Final counters 2/2/3/3/3: each generation fired exactly once, no duplicates,
+  no refresh/reload-triggered submissions.
+
+Independent review of the branch diff (fresh-context reviewer): PASS, no
+security or logic findings; one non-blocking suggestion about resume_music and
+regenerated lyrics — resolved in the docstring (resume re-polls the SAME task
+whose lyrics were fixed at submission; regenerated lyrics only enter through a
+fresh deliberate submission). The create heading and resume error now use
+mode-neutral "song" wording.
+
+Unchecked (honest): the class services were NOT called — the live Qwen lyrics
+and ACE-Step vocal run still requires the class .env (absent on this machine)
+and is the remaining evidence for AT-04 / issue closure. Audible listening in a
+headed browser and sample selection remain. Submission NOT READY.

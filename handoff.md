@@ -18,14 +18,14 @@ Branch codex/a3-03-vocal-songs from main 7b9dd2b (PR #19 merged). No other open 
 - Docs: README (intro, behavior steps, API list, next task), docs/APP_CONTRACTS.md (lyrics route, status flag, vocal orchestration section, bounds, adapter bullet), this handoff.
 
 ## Validation
-python scripts/dev.py --check PASS on this branch: verifier 65 files, coverage 36 requirements/11 tasks/19 cases, all 127 tests (115 baseline + 12 new); schema untouched; Starlette TestClient deprecation warning pre-existing. NO live Qwen/ACE-Step acceptance performed (no .env on this machine).
+python scripts/dev.py --check PASS on this branch: verifier 66 files, coverage 36 requirements/11 tasks/19 cases, all 127 tests (115 baseline + 12 new); schema untouched; Starlette TestClient deprecation warning pre-existing. Real-browser acceptance (offline fixture harness, system Chrome headless/muted): 10/10 checks PASS — one-click vocal chain fires each generation exactly once, reload submits nothing, deliberate re-generation paths work; see results/vocal-browser-record.json and the A3-03 section in docs/TEST_RESULTS.md. Independent fresh-context diff review: PASS (no security/logic findings; resume/lyrics suggestion resolved in docstring). NO live Qwen/ACE-Step acceptance yet (no .env on this machine).
 
 ## Blockers and unchecked areas
-No class keys locally: live vocal acceptance (R10/AT-04 inputs+results), audible/visual browser verification and the token-budget deviation evidence are pending. Interactive-browser vocal chain not yet exercised in a real browser (static guards + offline HTTP only). PR not yet opened.
+No class keys locally: live vocal acceptance (R10/AT-04 inputs+results), audible/visual listening and the token-budget deviation evidence are still pending. Headless/muted browser chain verified offline; PR #21 open awaiting teammate review.
 
 ## Next steps
-1. User supplies .env (class keys, never paste in chat) -> run deliberate live vocal acceptance through the normal launcher: one Qwen lyrics call + one ACE-Step vocal + automatic cover; decode/non-silent check; record results/vocal-live-record.json and add an A3-03 evidence section in docs/TEST_RESULTS.md.
-2. Open the PR (Closes #3 refs per brief; honest status: offline-verified, live run pending) and request a teammate review (Matt or Joshua; zero commits on this PR).
+1. User supplies .env (class keys, never paste in chat) -> run deliberate live vocal acceptance through the normal launcher: one Qwen lyrics call + one ACE-Step vocal + automatic cover; decode/non-silent check; record results/vocal-live-record.json and extend the A3-03 evidence section in docs/TEST_RESULTS.md.
+2. PR #21 review (Matt/Joshua): answer findings, keep CI green, merge.
 3. On merge: verify the vocal flow on integrated main, then docs/CONTRIBUTIONS.md row + close #3. #5 (DJ queue) is the next feature and consumes the same Track/MediaRef contracts.
 
 ## References

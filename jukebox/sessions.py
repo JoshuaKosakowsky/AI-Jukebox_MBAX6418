@@ -189,6 +189,10 @@ class SessionStore:
         job/slot allocation, so an invalid resume request has zero side effects.
         The resumed job never calls submit_music; it re-polls the same provider
         task ID and inherits the ticket association so further resumes work.
+        Vocal tracks need no lyrics check here: the resumed task was already
+        submitted with the lyrics it had then, and resume never resubmits — a
+        lyrics re-generation is picked up only by a fresh 'Generate new vocal
+        song' request, never by a resume.
         """
         with self.lock:
             previous = session.jobs.get(failed_job_id)
@@ -198,7 +202,7 @@ class SessionStore:
                 raise SessionFailure(404, "Track not found in this session.")
             duration = session.tracks[track_id].settings.duration_seconds
             if not 10 <= duration <= MAX_MUSIC_DURATION:
-                raise SessionFailure(422, f"Instrumental duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
+                raise SessionFailure(422, f"Song duration must be between 10 and {MAX_MUSIC_DURATION} seconds.")
             if failed_job_id not in session.tickets:
                 raise SessionFailure(409, "The previous music submission was never confirmed, so it cannot be resumed. Generating a new instrumental will submit a new request.")
             if (track_id, "music") in session.active:
