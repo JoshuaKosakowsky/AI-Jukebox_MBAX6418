@@ -1,37 +1,32 @@
 # Agent handoff
 
 ## Session
-2026-10-29 America/Denver; Codex for Joshua. Integration support and authorized reciprocal issue coverage.
+2026-10-29 22:15 America/Denver; Codex for Joshua. End-of-evening stopping point; refresh live GitHub before resuming.
 ## Constraints
-Normal protected reviews/checks; no app changes or class calls. Matt leads #5, Mike #3/#6, prse #8/#9, jovi #7/#10.
+Protected PR workflow unchanged. Claim exact pieces/branches/files; use explicit handoffs, avoid duplicate active work. No app changes or new class calls this session.
 ## Repository state
-Main e2b1e52 includes #21 vocals and #23 Moonlit candidate/preview fix. #20/#22 are being reconciled with that base.
-Live issues/PRs are authoritative; Mike's #24 owns his implementation/review credit and may still need a main sync.
+Checkout codex/a3-08-recovery-audit (#22); pre-handoff 8654a8a; clean/synced before this documentation update. Main e2b1e52 includes #21 vocals and #23 Moonlit.
+#20 de256e2, #22 and #25 7ac548d await fresh review; #24 aa14c97 is approved but behind main. Sync/recheck remaining PRs after any merge.
 ## Work completed and decisions
-#20 retains the original 7b9dd2b ZIP rehearsal; no new release/independent-install acceptance claimed.
-#22 retains the offline #8 audit/reproductions and Joshua's #21 review evidence; omit Mike's duplicate implementation row covered in #24.
-Historical audit finding remains for prse: instrumental retry after capacity rejection; Mike's lyrics retry fix is a separate merged correction.
-#23 media remain candidate-only; jovi owns final sample selection/library/ZIP. No task ownership is taken over here.
-Desert Drive second candidate is ready in PR #25 for jovi; exact original media and cover-lettering limitation retained.
-Confirmed cover-retry and Resume check capacity-rejection variants on isolated main e2b1e52; both stay disabled after release/refresh.
-Reload plus explicit retry succeeds; resume uses its original ticket. Added safe record, screenshots and manual harness; no app fix.
-Joshua moved #6 to Mike. Live #3/#5-10 bodies/assignees now document lead, backup, next work and independent review coverage.
-Matt/prse back each other on #5/#8/#9; Mike/jovi on #3/#6/#7/#10. Claim exact pieces; continue explicit handoffs, never duplicate active claims.
+#20 preserves historical ZIP rehearsal; #22 contains offline recovery probes/screenshots and Joshua's #21 review credit. Mike's credit is in #24; keep distinct rows on reconciliation.
+#8 now has three confirmed disabled-control cases: instrumental retry, Retry cover and Resume check after capacity rejection. Reload + explicit retry works; resume reuses the original task.
+#25 packages original Desert Drive (not earlier chat's Dawn), hashes/provenance and muted preview. Known DESSERT DRIVE cover lettering documented; no new generation/listening. Manifest unchanged.
+Live #3/#5-10 issues now define lead/backup, next steps and eligible review pools. Matt leads #5; Mike #3/#6; prse #8/#9; jovi #7/#10.
+Matt/prse back each other on #5/#8/#9; Mike/jovi on #3/#6/#7/#10. Reviewer must have no commits on that PR; use the other pair if both assignees implement.
 ## Validation
-Variant audit: 71 isolated source files unchanged; MockTransport only; no .env or external calls; harnesses stopped.
-Run locked checks and diff check after these artifacts; exact head/counts/CI posted on #22.
-Prior 128-test baseline and offline/live evidence keep their stated scope; no new generation, listening or release acceptance here.
+8654a8a: 128 tests, verifier 84 files, coverage structure 36/11/19 and all four CI checks passed. This final edit is handoff-only; recheck verifier/links/whitespace before push.
+#25: 128 tests/all four CI green; WAV/PNG full decode and original/staged hashes match; muted browser play/pause/resume passed. Not sample-library/ZIP acceptance.
+Offline recovery used synthetic media/MockTransport, no .env or external requests; all 71 isolated main files stayed identical. All temporary servers stopped; no merge/rebase in progress.
 ## Blockers and unchecked areas
-#3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 recovery fix, final samples and independent ZIP remain incomplete; NOT READY.
-Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
+#3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 fixes, final sample library and independent ZIP remain incomplete; NOT READY. Published inactivity does not prove no local work.
 ## Next steps
-1. Matt/prse review #22 with the new recovery evidence; prse owns a focused fix for instrumental/cover/resume controls, coordinating app.js with Matt.
-2. Mike finishes #3 acceptance then #6 after Matt's #5 integration; they independently review each other if eligible.
-3. Prse/jovi can continue their backups' explicit handoffs and independently review each other tomorrow; reconcile #22/#24 credit without duplication.
+1. Matt: #5; Mike: finish #3 acceptance, then #6 after #5 integration. Claim optional backup pieces only if unclaimed or explicitly handed off.
+2. Tomorrow prse: #8 control correction/regressions coordinated with Matt's app.js, then #9. Jovi: select/integrate three samples (#23/#25 candidates), then arrange #10's independent final ZIP after prerequisites.
+3. Any eligible teammate reviews #20/#22/#24/#25; prse/jovi may review each other tomorrow. Keep branches still during review; require current approval/checks, resolve conversations, merge normally.
 ## References
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
-https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24
+[Shared work/review coverage](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6514747773)
+[Recovery PR #22](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22); [candidate PR #25](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/25)
+[ZIP PR #20](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20); [credit PR #24](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24)
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):
