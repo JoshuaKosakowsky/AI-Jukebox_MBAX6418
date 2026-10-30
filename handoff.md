@@ -12,14 +12,18 @@ Live issues/PRs are authoritative; Mike's #24 owns his implementation/review cre
 #22 retains the offline #8 audit/reproductions and Joshua's #21 review evidence; omit Mike's duplicate implementation row covered in #24.
 Historical audit finding remains for prse: instrumental retry after capacity rejection; Mike's lyrics retry fix is a separate merged correction.
 #23 media remain candidate-only; jovi owns final sample selection/library/ZIP. No task ownership is taken over here.
+Desert Drive second candidate is ready in PR #25 for jovi; exact original media and cover-lettering limitation retained.
+Confirmed cover-retry and Resume check capacity-rejection variants on isolated main e2b1e52; both stay disabled after release/refresh.
+Reload plus explicit retry succeeds; resume uses its original ticket. Added safe record, screenshots and manual harness; no app fix.
 ## Validation
-Run python scripts/dev.py --check and git diff --check per reconciled head; record exact results/CI on #20/#22.
+Variant audit: 71 isolated source files unchanged; MockTransport only; no .env or external calls; harnesses stopped.
+Run locked checks and diff check after these artifacts; exact head/counts/CI posted on #22.
 Prior 128-test baseline and offline/live evidence keep their stated scope; no new generation, listening or release acceptance here.
 ## Blockers and unchecked areas
 #3 live vocal/browser/listening acceptance, #5/#6 DJ/references, #8 recovery fix, final samples and independent ZIP remain incomplete; NOT READY.
 Any branch update requires fresh eligible approval and current green CI. Reviewers must have no commits on that PR.
 ## Next steps
-1. Mike reviews reconciled #20; Matt/prse review #22. Merge normally only with current approval/checks; sync remaining PRs afterward.
+1. Matt/prse review #22 with the new recovery evidence; prse owns a focused fix for instrumental/cover/resume controls, coordinating app.js with Matt.
 2. Mike finishes #3 acceptance; Matt implements #5 then #6. They independently review each other's PRs.
 3. Prse coordinates any unpublished #5 work with Matt and retains #8/#9; reconcile #22/#24 credit without duplication.
 ## References

@@ -117,3 +117,54 @@ This is partial evidence for AT-10/AT-12, not normal-launch/live acceptance.
 #8 stays open: prse4479 still needs the shared-frontend correction, relevant
 regressions, and a normal-launch failure/recovery record as the remaining vocal,
 DJ and reference features integrate. Full submission remains NOT READY.
+
+## Cover-retry and resume variants on main e2b1e52 (2026-10-29)
+
+Both previously unchecked variants reproduce the same P2 disabled-control problem.
+The real browser/app/adapters ran against an isolated 71-file main snapshot,
+byte-identical before/after. Only MockTransport/synthetic PNG/WAV were used;
+no .env, class calls, new songs or app changes. This is offline evidence, not
+normal-launch/live acceptance. [Record](../results/a3-08-retry-variants.json).
+
+The manual harness seeds three tracks: two blockers and one failed target. It
+reserves two real queue slots without scheduling blockers, making the production
+capacity guard reject the target action. This is deterministic slot injection,
+not a claim about provider timing/concurrency. The audit-only release runs the
+two queued blockers; the target snapshot remains unchanged.
+
+| Target action | Initially enabled | After busy rejection | After release + Refresh | After reload |
+|---|---|---|---|---|
+| Retry cover (earlier cover-503 failure) | Yes | Disabled | Still disabled | Enabled |
+| Resume check (earlier polling timeout) | Yes | Disabled | Still disabled | Enabled |
+
+Expected: rejected actions restore their control, and a deliberate retry is
+possible without reload once capacity is available. Actual: each handler sets
+its button disabled, but its catch does not restore it; unchanged target data
+makes renderLibrary skip rebuilding the card. Mike's merged lyrics retry catch
+already restores its control; cover, resume and instrumental still need the
+corresponding correction. Preserve active-job guards/audio nodes; never auto-submit.
+
+Workaround verified: reload, then explicitly use the same control. Cover request
+counts: 4 before release, 6 after two blockers complete, 7 only after the explicit
+retry. Resume submissions: 1 before release, 3 after the two blockers run, still
+3 after explicit resume; target audio download succeeds, all active slots clear.
+Refresh/rejection did not introduce an extra provider operation. The busy-message
+branch maps to HTTP 429 in production code; browser tooling did not separately
+retain the response status. Actual screenshots:
+[cover retry](../results/cover-retry-disabled.png), [resume](../results/resume-retry-disabled.png).
+
+Reproduce from this branch with the locked environment (manual; not CI):
+
+```powershell
+uv run --locked python scripts/audit_retry_variants.py --source . --case cover --port 8171
+# Separate terminal/browser: open http://127.0.0.1:8171/audit/enter
+# On OFFLINE target click Retry cover; the busy notice appears and control disables.
+Invoke-RestMethod http://127.0.0.1:8171/audit/release -Method Post
+# Refresh status: target control remains disabled. Reload, then retry explicitly.
+# Read /audit/state for safe counters; stop harness with Ctrl+C.
+# Repeat with --case resume --port 8172 and target Resume check.
+```
+
+Helper routes exist only in this standalone audit harness, never production.
+Prse retains #8; coordinate a focused app.js correction/regressions with Matt's
+#5 frontend work. No issue is closed by this evidence.
