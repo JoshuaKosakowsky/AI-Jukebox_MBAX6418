@@ -1,6 +1,30 @@
 # Agent handoff
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: shared credential/live-rerun clarification for Mike/everyone.
+Branch codex/a3-live-run-clarification from main 31dc9e4; no application changes or new live generation.
+## Work and decisions
+Read config.py, launcher, status/routes, .env.example and AT-04/R10 requirements; do not assume remote teammates' settings.
+README links a canonical TESTING credentials/live guide; AGENTS points future agents there.
+Guide explains source-root .env + inherited overrides, safe role-only check, checkout/process/worktree differences.
+Clarifies all-four aggregate flags versus vocal text/art/music needs, dummy fixtures, browser-session isolation and real evidence.
+One coordinated bounded tester; valid existing config is sufficient, no extra .env/approval gate; prior task limits still apply.
+Includes normal-launch vocal path, stop/no-duplicate submission, media/browser/listening and exact safe blocker reporting.
+No keys/raw config printed/copied, no provider requests, no budgets/ownership/protection changes in this docs task.
+## Verification
+Cross-checked every supported variable/command against current source and existing config tests.
+Safe command rehearsed with all-placeholder and one dummy configured role; only labels printed, marker absent, no provider calls.
+Repo safeguards/coverage/whitespace pass; runtime/tests/contracts/dependencies unchanged; no new tests for prose-only changes.
+## Remaining
+Primary team message delivered on #3 tagging Mike/Matt/Preethi/Jovi; cross-linked #5/#8.
+Message: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6537867158
+Request eligible independent docs review; attach guide/PR to the delivered message once published. Agents can use the message now.
+Do not claim that configuration or this clarification completes A3-03; current code/review findings and AT-04 still apply.
+No collaborator credentials or successful normal-live evidence was inspected on their machines.
+
+## Preserved prior handoff from main
+
+## Session
 2026-10-30 America/Denver; Codex for Joshua. Catch-up and current-main reconciliation of PR #31.
 ## Repository state
 Branch codex/a3-07-sample-loader; pre-sync head 49c24ec; new main c6e1273 (normal protected merge of #32).

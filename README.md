@@ -74,6 +74,11 @@ eight endpoint/key values from the team/class documentation. Environment variabl
 override .env. Missing/placeholders show Missing settings; restart after editing.
 Endpoint bases can end in /v1; the clients resolve API routes from the origin.
 
+A literal `.env` file is optional when these variables already reach the app
+process. “Configured” does not prove a successful API call. For safe checks,
+worktree/process pitfalls and the actual A3-03 evidence required, follow
+[credentials and live acceptance](docs/TESTING.md#credentials-and-live-acceptance).
+
 | Role | Required class service | Port |
 |---|---|---|
 | Text/lyrics | Qwen3.6-35B-A3B | 9001 |
