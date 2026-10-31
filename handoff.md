@@ -1,3 +1,55 @@
+# Current merge follow-through - 2026-10-31 America/Denver
+
+Codex for Joshua. #29 merged normally at 25f86179f82cad2f323a81970a27fc76dbdb22ae from approved 02b85e2; all three review threads resolved, 4/4 head checks passed before merge.
+Docs branch codex/integration-catchup-oct31 synced with new main; app/tests/providers/contracts match main, no Mike-branch edits.
+#26 remains bbf80bc: merge-tree finds conflicts only sessions.py, TEST_RESULTS.md and handoff.md. Keep BOTH dj_prompt and reference validator blocks, plus both evidence strands.
+Mike's exact next-step handoff: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#issuecomment-6546007709
+#26 can merge as the declared upload/provider component after main sync, combined locked checks and Matt's renewed eligible review. Do not inflate its scope or waive Matt's blocking review.
+Parent #6 still needs private chooser/DJ consumption wiring and real MP3/WAV/default-voice/browser acceptance, in a focused follow-up. #3's successful live acceptance remains pending after diagnosis.
+No source edits, new generation, live calls or uploads. Previous 189-test exact-head review remains valid; docs sync gets verifier/coverage/whitespace checks, CI recorded on PR.
+Next: Mike syncs/checks/freezes #26; eligible review and normal merge; then #6 integration. Refresh live heads before continuing; #38 docs remains separate.
+
+# Current re-review update - 2026-10-31 America/Denver
+
+Codex for Joshua; independent #29 review, no commits on Mike's branch.
+Approved exact 02b85e232b0987fd86290ba7d8a98d2b306675da; remaining metadata/string threads resolved.
+189 locked tests (1 optional skip), verifier 118, coverage 36/11/19, whitespace and 4/4 exact-head CI PASS.
+Original object/short-string/finish/message probes now keep markers out of SafeError and public snapshots.
+Independent payload capture: default text probe-identical, DJ adds only thinking=False, lyrics adds only 512-token budget; frozen probe unchanged.
+PR #29 is APPROVED / MERGEABLE / CLEAN at review end. Kept open: this request was review; normal merge can proceed on frozen head.
+No app edits, live calls, credentials, new generation/listening or successful #3 acceptance claim. #26 integration/Matt review and #35/#37 draft investigation remain as below.
+This update is only on Joshua's docs PR #38; preserve #29's eligible exact-head approval. Refresh GitHub before any next action.
+Approval: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723737598
+
+# Agent handoff
+
+## Session
+2026-10-31 America/Denver; Codex for Joshua. Catch-up, protected #27 merge and independent #26/#29 re-reviews.
+## Constraints
+No class calls/generation/credentials or protection changes. Preserve existing assignees and all failed/live/offline evidence scopes.
+## Repository state
+Clean review clone: .assignment3-setup/catchup-20261031/repo in the shared workspace; original School checkout returned Git mmap failed, left untouched.
+Branch codex/integration-catchup-oct31 from current main a580756. #27 merged normally from 3522f63 with Mike approval; post-merge CI 4/4 PASS.
+## Work completed and decisions
+#26 bbf80bc: independently rechecked all three round-three fixes plus disk-free bounds; approved and resolved Joshua's five old threads. Matt's separate old review remains his to renew.
+#29 086ac6b: object-model/finish and message=[] fixes pass; short model string PRIVATE-MARKER still reaches SafeError/public snapshot. Requested focused changes inline; no implementation commits on either Mike PR.
+PLAN now reflects merged DJ/loader/recovery/docs/candidates; contribution records combine review rounds and credit Matt/Mike's DJ implementation/review.
+## Validation
+#26 locked suite: 165 tests (1 optional skip), verifier 105, coverage 36/11/19; four independent HTTP probe groups PASS. #29: 151 tests (1 optional skip), verifier 104, same coverage; snapshot-boundary probe confirms remaining leak.
+Synthetic in-memory fixtures, empty/dummy Settings, MockTransport only. No server or live-provider process started. This branch changes documentation only; verifier/coverage/whitespace checks recorded on PR.
+## Blockers and unchecked areas
+#26/#29 must reconcile main's DJ/provider seams before merge; #26 needs Matt re-review, #29 fixed/allowlisted diagnostics. Do not echo arbitrary bounded strings.
+#3 successful live-vocal and merged-main DJ/reference acceptance, final samples/recovery/report/ZIP remain pending. #37 stays draft: literal piano/DnB pass does not erase prior metal/rap failures; #36 lettering remains open. NOT READY.
+## Next steps
+1. Mike: fix #29 short-string leak, preserve text(thinking=False) DJ behavior in merge; sync #26 and integrate its reference picker/speech path. Eligible reviewer verifies current heads.
+2. Matt/prse: integrated-main DJ/recovery verification with existing budget/claims, no duplicate generation. Jovi/prse/Mike: final three samples/acceptance; keep candidates distinct from approved manifest.
+3. Eligible teammate reviews this documentation handoff; refresh live GitHub before editing. Use this clean clone; investigate OneDrive mmap separately without deleting/resetting the original checkout.
+## References
+[DJ integration handoff](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6545567239)
+[#26 approval](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5723606069); [#29 re-review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723606184)
+
+## Preserved earlier task notes (current facts above supersede historical status)
+
 # Agent handoff
 
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
