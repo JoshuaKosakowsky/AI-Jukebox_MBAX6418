@@ -11,7 +11,8 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from .config import ROOT, Settings
 from .contracts import GenerationJob, Model, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
-from .sessions import SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
+from .sessions import MAX_MEDIA_BYTES, SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
+from .samples import load_samples, SampleLibraryError
 
 
 class NewCoverTrack(Model):
@@ -21,7 +22,12 @@ class NewCoverTrack(Model):
 
 def create_app(settings: Settings | None = None):
     settings = settings if settings is not None else Settings.load()
-    store = SessionStore()
+    sample_error = None
+    try:
+        catalog = load_samples(ROOT, max_bytes=MAX_MEDIA_BYTES)
+    except SampleLibraryError as exc:
+        catalog, sample_error = (), str(exc)
+    store = SessionStore(catalog)
 
     @asynccontextmanager
     async def lifespan(app):
@@ -95,7 +101,8 @@ def create_app(settings: Settings | None = None):
                 "connectivity_checked": False, "generation_available": False,
                 "cover_generation_available": "art" in settings.services,
                 "music_generation_available": "music" in settings.services,
-                "lyrics_generation_available": "text" in settings.services}
+                "lyrics_generation_available": "text" in settings.services,
+                "sample_library": {"count": len(catalog), "error": sample_error}}
 
     @app.get("/api/session", response_model=SessionSnapshot)
     def session(current=Depends(browser_session)):

@@ -449,6 +449,12 @@ class MusicStoreTests(unittest.TestCase):
 
 
 class MusicHttpTests(unittest.TestCase):
+    def setUp(self):
+        # Generation scenarios own their library fixture, independently of shipped samples.
+        catalog = patch("jukebox.app.load_samples", return_value=())
+        catalog.start()
+        self.addCleanup(catalog.stop)
+
     def client(self, settings=None):
         return TestClient(create_app(settings or Settings.load(None, {})), base_url="http://localhost")
 
