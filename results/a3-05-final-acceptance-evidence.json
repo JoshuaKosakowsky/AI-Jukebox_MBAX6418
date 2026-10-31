@@ -1,0 +1,276 @@
+{
+  "mode": "FINAL acceptance - normal launcher (scripts/dev.py --port 8000), real class providers",
+  "commit": "b7d97a01282c05119cb023929e36aadab689f7ba",
+  "base": "http://127.0.0.1:8000",
+  "checks": [
+    {
+      "check": "app loads (normal launcher, real providers)",
+      "pass": true,
+      "detail": "AI Jukebox"
+    },
+    {
+      "check": "REAL track generated: Solar Tide",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "REAL track generated: Twilight Harbor",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "session identity: both tracks visible to the same browser session",
+      "pass": true,
+      "detail": "2 tracks"
+    },
+    {
+      "check": "creation accounting: art/music jobs = 2 each (max authorized)",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2}"
+    },
+    {
+      "check": "Solar Tide audio real media served",
+      "pass": true,
+      "detail": "HTTP 200 audio/wav 2304078 bytes"
+    },
+    {
+      "check": "Solar Tide cover real media served",
+      "pass": true,
+      "detail": "HTTP 200 image/png 787271 bytes"
+    },
+    {
+      "check": "Twilight Harbor audio real media served",
+      "pass": true,
+      "detail": "HTTP 200 audio/wav 2304078 bytes"
+    },
+    {
+      "check": "Twilight Harbor cover real media served",
+      "pass": true,
+      "detail": "HTTP 200 image/png 787271 bytes"
+    },
+    {
+      "check": "creation job states: all succeeded",
+      "pass": true,
+      "detail": "4 jobs"
+    },
+    {
+      "check": "DJ speaking phase observed (status text)",
+      "pass": true,
+      "detail": "speaking in transcript"
+    },
+    {
+      "check": "both introductions reached the audio element",
+      "pass": true,
+      "detail": "speech-linked events: 12"
+    },
+    {
+      "check": "both speeches and both songs audibly played (playing events)",
+      "pass": true,
+      "detail": "playing events: 4"
+    },
+    {
+      "check": "A speech events strictly before A music events",
+      "pass": true,
+      "detail": "(1, 1) vs (7, 7)"
+    },
+    {
+      "check": "B speech events strictly before B music events",
+      "pass": true,
+      "detail": "(13, 13) vs (19, 19)"
+    },
+    {
+      "check": "four distinct media sources played (2 speech + 2 music)",
+      "pass": true,
+      "detail": "4 unique: ['5c5f0caf-83fb-4dad-971f-b52475533a78', '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', '6f59ff53-d024-4501-b46f-5b8afd3195dd', 'ba24dab7-cd5b-4216-ab0f-487efb090313']"
+    },
+    {
+      "check": "no simultaneous audio sources (event-level)",
+      "pass": true,
+      "detail": "4 playing stamps"
+    },
+    {
+      "check": "scenario 1: clean end-of-queue",
+      "pass": true,
+      "detail": "Ready. 2 songs queued — press Play."
+    },
+    {
+      "check": "scenario 1: exactly 2 art + 2 music + 2 speech jobs (Qwen runs inside the speech job)",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "both speech jobs SUCCEEDED (2 total, no failures)",
+      "pass": true,
+      "detail": "2 speech jobs, 0 not succeeded"
+    },
+    {
+      "check": "real Chatterbox WAV for Solar Tide (decoded)",
+      "pass": true,
+      "detail": "HTTP 200 608684 bytes RIFF=True {'channels': 1, 'rate': 24000, 'width': 2, 'frames': 304320}"
+    },
+    {
+      "check": "real Chatterbox WAV for Twilight Harbor (decoded)",
+      "pass": true,
+      "detail": "HTTP 200 526124 bytes RIFF=True {'channels': 1, 'rate': 24000, 'width': 2, 'frames': 263040}"
+    },
+    {
+      "check": "two introductions are DISTINCT audio",
+      "pass": true,
+      "detail": "304320 vs 263040 frames"
+    },
+    {
+      "check": "scenario 2: replay leaves idle and resumes the queue",
+      "pass": true,
+      "detail": "DJ is speaking about Solar Tide…"
+    },
+    {
+      "check": "scenario 2: replay actually played media again",
+      "pass": true,
+      "detail": "24 -> 48 events"
+    },
+    {
+      "check": "scenario 2: replay made ZERO provider submissions",
+      "pass": true,
+      "detail": "before={'art': 2, 'music': 2, 'speech': 2} after={'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 2: session jobs unchanged after replay",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 3: pause during speech holds",
+      "pass": true,
+      "detail": "Paused during DJ speech (Solar Tide)."
+    },
+    {
+      "check": "scenario 3: speech position frozen while paused",
+      "pass": true,
+      "detail": "0.539 -> 0.539"
+    },
+    {
+      "check": "scenario 3: resume continues speech",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 4: pause during music holds",
+      "pass": true,
+      "detail": "Now playing Solar Tide"
+    },
+    {
+      "check": "scenario 4: music position frozen while paused",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 4: resume continues music",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "scenario 5: skip during speech advances to next track",
+      "pass": true,
+      "detail": "DJ is speaking about Twilight Harbor…"
+    },
+    {
+      "check": "scenario 6: skip during music advances",
+      "pass": true,
+      "detail": "DJ is speaking about Twilight Harbor…"
+    },
+    {
+      "check": "scenario 7: skip while paused stays paused on the next track",
+      "pass": true,
+      "detail": "Paused during DJ speech (Twilight Harbor)."
+    },
+    {
+      "check": "scenario 7 cleanup: queue reached idle after the resumed pass",
+      "pass": true,
+      "detail": "Ready. 2 songs queued — press Play."
+    },
+    {
+      "check": "scenario 8: session identity survives reload",
+      "pass": true,
+      "detail": "2 tracks after reload"
+    },
+    {
+      "check": "scenario 8: reload created ZERO new jobs",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 8: reload created ZERO provider submissions",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 8: playback resumes from server state after reload",
+      "pass": true,
+      "detail": "DJ is speaking about Solar Tide…"
+    },
+    {
+      "check": "scenario 10: reloaded page recovered (blocked notice cleared)",
+      "pass": true,
+      "detail": "DJ is speaking about Solar Tide…"
+    },
+    {
+      "check": "scenario 9/10: replay+reload made ZERO provider submissions",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 9/10: final job accounting identical after all passes",
+      "pass": true,
+      "detail": "{'art': 2, 'music': 2, 'speech': 2}"
+    },
+    {
+      "check": "scenario 10: clean end-of-queue after all passes",
+      "pass": true,
+      "detail": "Ready. 2 songs queued — press Play."
+    },
+    {
+      "check": "exclusivity A: manual player suppressed while DJ music plays",
+      "pass": true,
+      "detail": "manual-alive=False dj-paused=False"
+    },
+    {
+      "check": "exclusivity A: suppression notice shown",
+      "pass": true,
+      "detail": "The DJ queue controls playback, including while paused. Use Queue & DJ controls "
+    },
+    {
+      "check": "exclusivity B: manual playback works while the DJ is idle",
+      "pass": true,
+      "detail": "harbor-manual-paused=False"
+    },
+    {
+      "check": "exclusivity B: DJ start pauses the manual player",
+      "pass": true,
+      "detail": "manual-paused=[True, True] dj-paused=False"
+    },
+    {
+      "check": "no console/page/network errors",
+      "pass": true,
+      "detail": "[]"
+    }
+  ],
+  "screenshots": [
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-final.png",
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-exclusive-a.png"
+  ],
+  "console_errors": [
+    "REQFAIL http://127.0.0.1:8000/api/media/6f59ff53-d024-4501-b46f-5b8afd3195dd net::ERR_ABORTED"
+  ],
+  "event_log_sample": null,
+  "human_listening": {
+    "listener": "Matt (mase7919), Issue #5 lead — human",
+    "tracks": [
+      "Solar Tide",
+      "Twilight Harbor"
+    ],
+    "confirmation": "Both generated spoken DJ introductions were personally listened to and judged to meet the required quality standard.",
+    "source": "Explicit confirmation provided by Matt after the final acceptance run; recorded by the agent, not an independent evaluation.",
+    "recorded_by": "agent (evidence commit)",
+    "date": "2026-10-30 America/Denver"
+  }
+}

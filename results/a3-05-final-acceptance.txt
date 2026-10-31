@@ -1,0 +1,64 @@
+PASS app loads (normal launcher, real providers) | AI Jukebox
+PASS REAL track generated: Solar Tide
+PASS REAL track generated: Twilight Harbor
+PASS session identity: both tracks visible to the same browser session | 2 tracks
+PASS creation accounting: art/music jobs = 2 each (max authorized) | {'art': 2, 'music': 2}
+PASS Solar Tide audio real media served | HTTP 200 audio/wav 2304078 bytes
+PASS Solar Tide cover real media served | HTTP 200 image/png 787271 bytes
+PASS Twilight Harbor audio real media served | HTTP 200 audio/wav 2304078 bytes
+PASS Twilight Harbor cover real media served | HTTP 200 image/png 787271 bytes
+PASS creation job states: all succeeded | 4 jobs
+PASS-1 tags: ['writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'writing', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking', 'speaking']
+PASS-1 events: [('play', '5c5f0caf', 0), ('loadstart', '5c5f0caf', 0), ('loadedmetadata', '5c5f0caf', 0), ('playing', '5c5f0caf', 0), ('pause', '5c5f0caf', 12680), ('ended', '5c5f0caf', 12680), ('play', '6e38ff7e', 0), ('loadstart', '6e38ff7e', 0), ('loadedmetadata', '6e38ff7e', 0), ('playing', '6e38ff7e', 0), ('pause', '6e38ff7e', 12000), ('ended', '6e38ff7e', 12000), ('play', 'ba24dab7', 0), ('loadstart', 'ba24dab7', 0), ('loadedmetadata', 'ba24dab7', 0), ('playing', 'ba24dab7', 0), ('pause', 'ba24dab7', 10960), ('ended', 'ba24dab7', 10960), ('play', '6f59ff53', 0), ('loadstart', '6f59ff53', 0), ('loadedmetadata', '6f59ff53', 0), ('playing', '6f59ff53', 0), ('pause', '6f59ff53', 12000), ('ended', '6f59ff53', 12000)]
+PASS-1 snap tracks: [{'title': 'Solar Tide', 'speech': '5c5f0caf-83fb-4dad-971f-b52475533a78', 'audio': '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02'}, {'title': 'Twilight Harbor', 'speech': 'ba24dab7-cd5b-4216-ab0f-487efb090313', 'audio': '6f59ff53-d024-4501-b46f-5b8afd3195dd'}]
+PASS-1 media sequence: [('Solar Tide', 'speech'), ('Solar Tide', 'speech'), ('Solar Tide', 'audio'), ('Solar Tide', 'audio'), ('Twilight Harbor', 'speech'), ('Twilight Harbor', 'speech'), ('Twilight Harbor', 'audio'), ('Twilight Harbor', 'audio')]
+PASS DJ speaking phase observed (status text) | speaking in transcript
+PASS both introductions reached the audio element | speech-linked events: 12
+PASS both speeches and both songs audibly played (playing events) | playing events: 4
+PASS A speech events strictly before A music events | (1, 1) vs (7, 7)
+PASS B speech events strictly before B music events | (13, 13) vs (19, 19)
+PASS four distinct media sources played (2 speech + 2 music) | 4 unique: ['5c5f0caf-83fb-4dad-971f-b52475533a78', '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', '6f59ff53-d024-4501-b46f-5b8afd3195dd', 'ba24dab7-cd5b-4216-ab0f-487efb090313']
+PASS no simultaneous audio sources (event-level) | 4 playing stamps
+PASS scenario 1: clean end-of-queue | Ready. 2 songs queued — press Play.
+PASS scenario 1: exactly 2 art + 2 music + 2 speech jobs (Qwen runs inside the speech job) | {'art': 2, 'music': 2, 'speech': 2}
+PASS both speech jobs SUCCEEDED (2 total, no failures) | 2 speech jobs, 0 not succeeded
+PASS real Chatterbox WAV for Solar Tide (decoded) | HTTP 200 608684 bytes RIFF=True {'channels': 1, 'rate': 24000, 'width': 2, 'frames': 304320}
+PASS real Chatterbox WAV for Twilight Harbor (decoded) | HTTP 200 526124 bytes RIFF=True {'channels': 1, 'rate': 24000, 'width': 2, 'frames': 263040}
+PASS two introductions are DISTINCT audio | 304320 vs 263040 frames
+GATE: both speech jobs succeeded and both speech MediaRefs attached — proceeding to replay/controls
+PASS scenario 2: replay leaves idle and resumes the queue | DJ is speaking about Solar Tide…
+PASS scenario 2: replay actually played media again | 24 -> 48 events
+PASS scenario 2: replay made ZERO provider submissions | before={'art': 2, 'music': 2, 'speech': 2} after={'art': 2, 'music': 2, 'speech': 2}
+PASS scenario 2: session jobs unchanged after replay | {'art': 2, 'music': 2, 'speech': 2}
+PASS scenario 3: pause during speech holds | Paused during DJ speech (Solar Tide).
+PASS scenario 3: speech position frozen while paused | 0.539 -> 0.539
+PASS scenario 3: resume continues speech
+PASS scenario 4: pause during music holds | Now playing Solar Tide
+PASS scenario 4: music position frozen while paused
+PASS scenario 4: resume continues music
+PASS scenario 5: skip during speech advances to next track | DJ is speaking about Twilight Harbor…
+PASS scenario 6: skip during music advances | DJ is speaking about Twilight Harbor…
+PASS scenario 7: skip while paused stays paused on the next track | Paused during DJ speech (Twilight Harbor).
+PASS scenario 7 cleanup: queue reached idle after the resumed pass | Ready. 2 songs queued — press Play.
+scenario-8 server state BEFORE reload: {"state": "speaking", "queue": ["7b89efe0-2462-45cc-a8e8-f4529fc84e99", "a84b5211-af1f-4a4e-a7f1-1e649cad1b85"], "index": 0, "current_track_id": "7b89efe0-2462-45cc-a8e8-f4529fc84e99", "paused_from": null}
+PASS scenario 8: session identity survives reload | 2 tracks after reload
+scenario-8 server state AFTER reload: {"state": "speaking", "queue": ["7b89efe0-2462-45cc-a8e8-f4529fc84e99", "a84b5211-af1f-4a4e-a7f1-1e649cad1b85"], "index": 0, "current_track_id": "7b89efe0-2462-45cc-a8e8-f4529fc84e99", "paused_from": null}
+PASS scenario 8: reload created ZERO new jobs | {'art': 2, 'music': 2, 'speech': 2}
+PASS scenario 8: reload created ZERO provider submissions | {'art': 2, 'music': 2, 'speech': 2}
+scenario-8 statuses after reload: {'status': 'DJ is speaking about Solar Tide…', 'src': 'http://127.0.0.1:8000/api/media/5c5f0caf-83fb-4dad-971f-b52475533a78', 'paused': False, 'ct': 1.718796, 'dur': 12.68}
+PASS scenario 8: playback resumes from server state after reload | DJ is speaking about Solar Tide…
+PASS scenario 10: reloaded page recovered (blocked notice cleared) | DJ is speaking about Solar Tide…
+PASS scenario 9/10: replay+reload made ZERO provider submissions | {'art': 2, 'music': 2, 'speech': 2}
+PASS scenario 9/10: final job accounting identical after all passes | {'art': 2, 'music': 2, 'speech': 2}
+PASS scenario 10: clean end-of-queue after all passes | Ready. 2 songs queued — press Play.
+audio elements during DJ-play + manual attempt: [{'id': '?', 'src': '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', 'paused': True}, {'id': '?', 'src': '6f59ff53-d024-4501-b46f-5b8afd3195dd', 'paused': True}, {'id': 'dj-audio', 'src': '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', 'paused': False}] | dj: 6e38ff7e-78e1-4c70-a2bb-a56b8699aa02 False
+PASS exclusivity A: manual player suppressed while DJ music plays | manual-alive=False dj-paused=False
+PASS exclusivity A: suppression notice shown | The DJ queue controls playback, including while paused. Use Queue & DJ controls 
+dir-2 pre-manual state: Ready. 2 songs queued — press Play.
+PASS exclusivity B: manual playback works while the DJ is idle | harbor-manual-paused=False
+dir-2 post-manual dj state: Ready. 2 songs queued — press Play.
+PASS exclusivity B: DJ start pauses the manual player | manual-paused=[True, True] dj-paused=False
+PASS no console/page/network errors | []
+media saved for listening: ['C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-solar-tide-speech.wav', 'C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-solar-tide-audio.wav', 'C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-solar-tide-cover.png', 'C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-twilight-harbor-speech.wav', 'C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-twilight-harbor-audio.wav', 'C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\live2-twilight-harbor-cover.png']
+
+FINAL ACCEPTANCE: 50/50 PASS; fails=0

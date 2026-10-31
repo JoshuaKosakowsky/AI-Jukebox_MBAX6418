@@ -246,6 +246,10 @@ before building adapters.
 
 ## Preserved merged-main notes
 
+## Session — A3-09 README slice, 2026-10-30 America/Denver
+prse4479 (A3-09 lead). Claim on #9: branch codex/a3-09-readme-findings from main 81042a1, README-only +50 (failure/recovery observed results, R29 design choice, R30 limitation).
+PR #34 reviews: Joshua requested two P2 factual corrections — capacity slots are shared across browser sessions (not per-session), and the retry guarantee is per requested stage (not one generation per action) — plus one non-blocking toolchain qualification (129-test figure historical; Node optional). All batched in this commit; head frozen for re-review by Joshua (reported zero-commit) or Mike. No source/test changes, no provider calls, no .env involvement. #9 stays open for vocal/DJ/reference/results sections; R31 team wording verification happens in the PR review.
+
 ## Session — final contribution review head, 2026-10-30 America/Denver
 Codex for Joshua; PR24 preparation c7c5504, final mainca9fc83 after protected PR25 merge.
 Preethi renewed exact45d24bd approval; #25 merged normally with four green checks; candidate remains unselected/#7 open.

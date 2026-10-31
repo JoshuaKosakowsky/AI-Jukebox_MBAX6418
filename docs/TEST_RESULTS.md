@@ -1017,3 +1017,64 @@ Locked checks PASS: **183 tests**, repository safeguards, coverage 36/11/19 and
 whitespace. Prior real-adapter evidence retains its original scope. Normal-launch
 browser/control/listening and integrated-main feature acceptance remain pending;
 Matt/Preethi should claim one coordinated tester/head rather than duplicate runs.
+## A3-05 final normal-launch acceptance and human listening - 2026-10-30 America/Denver
+
+Final authorized live acceptance run. Tester: Preethi (prse4479) via the
+driver at the current repo, exact PR head `b7d97a01282c05119cb023929e36aadab689f7ba`,
+normal launcher `python scripts/dev.py --port 8000`, real class providers.
+Two real instrumentals (Solar Tide, Twilight Harbor) and covers were created
+through the normal UI and played as an exactly two-song queue with the DJ.
+
+- **50/50 automated checks PASS, zero fails** (full record:
+  `results/a3-05-final-acceptance-evidence.json`, transcript
+  `results/a3-05-final-acceptance.txt`; screenshots
+  [in-run](../results/a3-05-final-acceptance-inrun.png),
+  [audio-exclusivity](../results/a3-05-final-acceptance-exclusive.png),
+  [final state](../results/a3-05-final-acceptance-end.png)).
+- Real Qwen non-thinking commentary succeeded for BOTH tracks (both speech
+  jobs `succeeded`; the fixed `thinking=False` path); Chatterbox default-voice
+  WAVs fully decoded: Solar Tide 608,684 B (24 kHz mono, 304,320 frames
+  ~12.7 s), Twilight Harbor 526,124 B (263,040 frames ~11.0 s); both
+  `track.speech` MediaRefs attached; introductions audibly distinct.
+- Speech-before-music sequencing verified at event level for both songs;
+  automatic advancement ended the queue cleanly; no speech/music overlap,
+  including manual library players (suppressed while the DJ is active; DJ
+  start pauses manual players; direction checks A and B PASS).
+- Controls: pause/resume during speech and music (positions frozen and
+  continued), skip during speech/music/paused; replay and reload preserved
+  session identity with ZERO new jobs and ZERO provider submissions every
+  pass (final accounting identical: art=2, music=2, speech=2).
+- **Provider accounting: exactly 8 authorized submissions** (2 ACE-Step + 2
+  FLUX + 2 Qwen + 2 Chatterbox), zero automatic retries, verified 4x across
+  replay/reload. No errors on console/page/network.
+
+AT-07 (queue with sequenced DJ introduction-before-music and controls) and
+AT-09 (DJ playback controls: pause/resume/skip over both phases with
+replay/reload preservation and no overlap) are now PASS for Issue #5's scope,
+evidenced by the automated run above plus the human listening confirmation
+below. Historical failed-run evidence (`results/a3-05-live-acceptance.json`)
+and the successful Qwen adapter-verification record
+(`results/a3-05-qwen-fix-verification.json`) remain preserved as-is.
+
+### Human listening confirmation - Matt (Issue #5 lead), 2026-10-30
+
+- **Listener:** Matt, Issue #5 lead (human).
+- **Tracks:** Solar Tide and Twilight Harbor (the two real tracks from the
+  final acceptance run).
+- **Confirmation:** both generated spoken DJ introductions were personally
+  listened to by Matt and judged to meet the required quality standard
+  (intelligible, relevant to their tracks, properly sequenced).
+- **Source:** explicit confirmation provided by Matt after Preethi's
+  successful final acceptance run; recorded by the agent, not independently
+  re-evaluated.
+- This human quality confirmation is separate from, and complementary to,
+  Preethi's automated verification of audio ordering, controls, and overlap.
+  No additional listening observations, timestamps, audio measurements, or
+  quotations are recorded beyond the confirmation above.
+
+### Status after final acceptance
+
+Issue #5's implementation and acceptance are complete; PR #27 is DRAFT and
+awaiting mase7919's readiness decision. Project-wide items outside Issue #5
+(vocal lyrics, reference voices, final approved samples, independent ZIP
+testing) remain open and are not claimed here.
