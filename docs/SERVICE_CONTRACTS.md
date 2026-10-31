@@ -111,9 +111,12 @@ On 2026-10-30 the deployed `/openapi.json` still omitted the release-task JSON
 body; its raw SHA-256 was `232eda8eba8b7f1d574a0ccc2c5a9db8023ba27347b64ec60356361bbadb3bf9`.
 A read-only `/health` check reported `llm_initialized=true`. These are discovery
 observations, not generation/quality acceptance. The original probe fixture
-remains unchanged. Actual request compatibility and human genre/rhythm quality
-need the separately recorded bounded comparison; offline tests alone cannot
-establish better sounding music.
+remains unchanged. The [bounded comparison](../results/a3-35-genre-comparison.json)
+then completed two music-only requests and full WAV decodes. Returned metadata
+was 97 BPM in 3/4 for ambient piano and 120 BPM in 4/4 for upbeat funk; these are service
+metadata, not measured audio tempos. Joshua confirmed clearer genre/rhythm
+contrast for those two clips. This is adapter/listening evidence, not a new
+normal-launch/browser acceptance or a guarantee for all genres.
 
 ## Speech: Chatterbox V3, port 9008
 

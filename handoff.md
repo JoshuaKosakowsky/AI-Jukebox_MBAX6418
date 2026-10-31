@@ -8,11 +8,14 @@ Strengthened instrumental/vocal groove/tempo/rhythm instructions; no genre looku
 Deployed schema inspected232eda8e... (no typed release JSON); health LM initialized; matched pinned upstream optional fields.
 Preserved original starter prompt and frozen probe fixture; existing model/batch/steps/lyrics/retry flags unchanged.
 Regression: four style/mode cases fail on baseline and pass patch; full146 locked tests and verifier104/coverage PASS.
-Docs APP_CONTRACTS/SERVICE_CONTRACTS/TEST_RESULTS updated; musical quality and actual changed-request compatibility pending.
-Next bounded #35 comparison: two music-only calls, zero art/text/speech, no retries; stop on failure; original tracks reused as baselines.
+Docs APP_CONTRACTS/SERVICE_CONTRACTS/TEST_RESULTS updated; bounded real compatibility/listening completed below.
+Bounded #35 comparison on ddf9e61 completed2 music/4poll/2download, zero art/text/speech/retry; original inputs/audio reused.
 This is separate from Preethi's #27 budget; do not edit her branch. Local review server stays stopped.
-Next: commit checked implementation, record bounded comparison honestly, publish focused PR and request independent review.
-#35 stays open until listening comparison; no self-approval, direct-main push or automatic quality claim.
+New30/20s WAVs fully decoded; service reported97BPM/3 and120BPM/4 (metadata, not audio measurement).
+Joshua listened and confirmed "Yes, clearer genre/rhythm difference" for these two clips; safe record a3-35-genre-comparison.json.
+Raw media remains ignored/private; original probe/starter prompt/schema/assets unchanged.
+Next: publish focused PR, request eligible independent review, normal merge when ready; keep #35 open for integrated-main check.
+No self-approval, direct-main push or universal quality claim.
 
 ## Preserved main notes
 

@@ -744,8 +744,8 @@ here; #8 stays open for those, and submission remains NOT READY.
 
 ## A3-35 genre-conditioning correction — 2026-10-30 America/Denver
 
-Joshua/Codex, branch codex/a3-35-genre-controls from main1faacd0; Refs #35.
-Production inherited80BPM/C Major/4/4 from the historical piano probe for every
+Joshua/Codex, branch codex/a3-35-genre-controls from main 1faacd0; Refs #35.
+Production inherited 80 BPM/C Major/4/4 from the historical piano probe for every
 style. Removed only those three fields and strengthened instrumental/vocal
 prompts to request genre-characteristic groove/tempo/rhythm/instruments. No
 manual genre mapping, new dependency, public schema or model switch.
@@ -754,13 +754,24 @@ manual genre mapping, new dependency, public schema or model switch.
   ambient/drum-and-bass styles in instrumental and vocal modes. All four cases
   fail on baseline because fixed fields are sent, and pass after the correction.
   Duration/lyrics/batch/WAV/remaining flags and frozen probe immutability checked.
-- Full locked offline suite:146 tests PASS, repository104 files and coverage36/11/19 PASS.
+- Full locked offline suite: 146 tests PASS, repository 104 files and coverage 36/11/19 PASS.
 - Read-only deployed schema/health plus matching upstream source inspected;
   missing metadata is supported and music LM reports initialized. It may add
   planning time even with thinking=false. No generation occurred in discovery.
 
-The bounded follow-up comparison will use at most2 music submissions, no other
-services or retries, reusing the recorded ambient-piano/upbeat-funk inputs and
-original outputs as baselines. Actual results belong in a separate safe record;
-no improved musical-quality or human listening result is claimed here yet.
-Preethi's #27 test and its eight-request budget are separate and untouched.
+Bounded real comparison on code commit ddf9e61: **2 music submissions, 4 polls,
+2 downloads, 0 art/text/speech/retries**, both successful. Reused recorded Moonlit
+Reflection (Ambient piano / Calm and reflective / 30 s) and Desert Drive (Upbeat
+funk / Energetic and optimistic / 20 s) settings; original class audio was retained
+as baseline, with no baseline regeneration. New WAVs fully decoded non-silent
+48 kHz stereo PCM16 at exactly 30/20 s. Service metadata returned 97 BPM in 3/4 and 120 BPM in 4/4
+respectively; these are reported metadata, not measured beat/tempo estimates.
+
+Joshua listened to the two new clips and directly confirmed: **"Yes, clearer
+genre/rhythm difference."** Scope is these two outputs. Safe exact counts,
+request controls, metadata, hashes and listening attribution are in
+[a3-35-genre-comparison.json](../results/a3-35-genre-comparison.json).
+Raw audio remains ignored under results/raw, not approved sample media.
+This verifies changed-request compatibility and a limited listening comparison;
+normal-launch/browser checking on integrated main and broad genre quality remain
+unchecked. Preethi's #27 test and budget were separate and untouched.
