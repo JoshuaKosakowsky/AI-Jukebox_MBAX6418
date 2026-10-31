@@ -1,0 +1,111 @@
+{
+  "scope": "Synthetic silence/solid-cover fixtures in an isolated source copy; normal scripts/dev.py launcher; no class generation, listening or final sample acceptance.",
+  "initial": [
+    {
+      "audio": "/api/media/aef2708a-67f1-436a-884c-31225803cef5",
+      "cover": "/api/media/2c3fae6e-ccb9-4247-98cb-47d24176fddf",
+      "coverDecoded": true,
+      "id": "6f3acca8-ca01-4940-b2dd-aba0319ec7d3",
+      "title": "Blue instrumental fixture"
+    },
+    {
+      "audio": "/api/media/74a9e78a-b566-4767-9897-fbae82eface4",
+      "cover": "/api/media/6abb1975-94a1-4a97-83e7-8ff432789317",
+      "coverDecoded": true,
+      "id": "5af9d552-9c96-45e7-8bfa-73e4978cd4bf",
+      "title": "Orange vocal fixture"
+    },
+    {
+      "audio": "/api/media/4d453006-4c63-4812-a6df-973153b63c1b",
+      "cover": "/api/media/ffde3b08-ce64-4a29-a5d4-f36ce74a2147",
+      "coverDecoded": true,
+      "id": "204295cd-662e-4b1b-b88d-1f6164642a6b",
+      "title": "Green instrumental fixture"
+    }
+  ],
+  "playing": {
+    "duration": 60,
+    "error": null,
+    "paused": false,
+    "time": 3.494188
+  },
+  "paused": {
+    "error": null,
+    "paused": true,
+    "time": 3.505433
+  },
+  "pauseHeld": {
+    "paused": true,
+    "time": 3.505433
+  },
+  "resumed": {
+    "error": null,
+    "paused": false,
+    "time": 6.447209
+  },
+  "lyrics": true,
+  "reloaded": [
+    {
+      "audio": "/api/media/aef2708a-67f1-436a-884c-31225803cef5",
+      "cover": "/api/media/2c3fae6e-ccb9-4247-98cb-47d24176fddf",
+      "id": "6f3acca8-ca01-4940-b2dd-aba0319ec7d3",
+      "paused": true
+    },
+    {
+      "audio": "/api/media/74a9e78a-b566-4767-9897-fbae82eface4",
+      "cover": "/api/media/6abb1975-94a1-4a97-83e7-8ff432789317",
+      "id": "5af9d552-9c96-45e7-8bfa-73e4978cd4bf",
+      "paused": true
+    },
+    {
+      "audio": "/api/media/4d453006-4c63-4812-a6df-973153b63c1b",
+      "cover": "/api/media/ffde3b08-ce64-4a29-a5d4-f36ce74a2147",
+      "id": "204295cd-662e-4b1b-b88d-1f6164642a6b",
+      "paused": true
+    }
+  ],
+  "orangePlayback": {
+    "duration": 60,
+    "error": null,
+    "paused": false,
+    "time": 0.186876
+  },
+  "greenPlayback": {
+    "duration": 60,
+    "error": null,
+    "paused": false,
+    "time": 0.241647
+  },
+  "brokenCatalog": {
+    "connected": "App connected",
+    "summary": "The app is running. Some service settings are missing. Bundled samples could not be loaded. Check the sample manifest and assets, then restart the app.",
+    "tracks": 0
+  },
+  "emptyManifest": {
+    "connected": "App connected",
+    "summary": "The app is running. Some service settings are missing.",
+    "tracks": 0
+  },
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "branch": "codex/a3-07-sample-loader",
+  "base": "2a19ecf5d93403e3fc481253402d7a177f8d483e",
+  "launch_command": "python scripts/dev.py --port 8013",
+  "http_observed": {
+    "tracks": 3,
+    "jobs": 0,
+    "sample_library": {
+      "count": 3,
+      "error": null
+    },
+    "configured": false
+  },
+  "screenshot": "results/sample-loader-fixture.jpg",
+  "approved_manifest_changed": false,
+  "new_generation_requests": 0,
+  "unchecked": [
+    "Final approved class-generated sample set",
+    "Human listening/quality",
+    "Integrated main and exact final GitHub ZIP acceptance"
+  ]
+}

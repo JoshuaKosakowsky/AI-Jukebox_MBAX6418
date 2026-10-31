@@ -1,6 +1,29 @@
 # Agent handoff
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #28.
+## Current facts
+User explicitly added Preethi/prse4479 to #7; confirmed Jovi remains lead, Mike backup (3 assignees).
+Assignment/comment: issue #7 issuecomment-6537704666; retained-file confirmation precedes third-candidate preparation.
+Main is 31dc9e4 after normal #31 merge under Mike's exact-head approval; #7 final selection/ZIP still open.
+#25 is synchronized at 4d724c2, 4/4 CI green, awaiting fresh eligible review after main sync and JPEG filename correction.
+#27 is integrated at bee7209 with 183 tests/4 CI checks PASS; draft/readiness and coordinated browser/listening work remain.
+## This branch
+Merged current main into #28; only handoff conflict resolved, all evidence/loader/prse notes retained.
+Runtime/tests/contracts/dependencies match main. Original historical/failed evidence media and JSON unchanged.
+Safeguards, coverage, whitespace, source-equivalence and final current-head CI/review status recorded on PR.
+## Next work lanes
+Joshua handles integration/returned findings and independent review of Mike/Preethi code.
+Mike finishes current review work, fixes #29 safe parsing and #26 local upload validation; those heads remain unchanged.
+Preethi reviews #25 and can claim third-sample preparation; #5 acceptance uses existing backup coverage with Matt handoff.
+No duplicate live runs; no new generation, assignment beyond authorized #7 addition, or protection changes here.
+Next: eligible current-head review, then normal merge; no self-approval. Submission NOT READY.
+
+## Preserved historical task notes (current facts above supersede older status)
+
+## Session
+## Preserved prior evidence task notes
+
 2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #28, failed vocal acceptance evidence.
 ## Repository state
 Branch codex/a3-03-live-acceptance; pre-sync 0bb7fea; merged main c6e1273 after normal #32 approval/merge.
@@ -52,6 +75,92 @@ Earlier independent #26 checks: 137 tests; #22 reconciliation: 128 tests, both C
 3. Preserve current claim/ownership and coordinate shared files; do not repeat generation merely to refresh context.
 ## References
 results/vocal-live-failure-record.json; docs/TEST_RESULTS.md; issue #3; PRs #20/#22/#24/#26/#27.
+
+
+## Preserved loader integration notes
+
+2026-10-30 America/Denver; Codex for Joshua. Catch-up and current-main reconciliation of PR #31.
+## Repository state
+Branch codex/a3-07-sample-loader; pre-sync head 49c24ec; new main c6e1273 (normal protected merge of #32).
+## Work and decisions
+Independently reviewed/approved prse's evidence-only #32 with zero commits; normal merge succeeded. #8 stays open.
+Merged its docs/evidence into this loader branch; preserved both sample-loader and prse recovery records/handoffs.
+No runtime, schema, dependency, approved-manifest or candidate-asset changes in this reconciliation.
+## Validation
+Previous implementation: 145 locked tests and 4/4 CI on 49c24ec; final sync safeguards/CI recorded in PR.
+No new sample generation or listening. Loader browser evidence remains explicitly synthetic.
+## Current team blockers
+Own #22/#25/#28/#31 need eligible reviews, not author fixes. Re-request after current-main sync.
+Mike #26 upload/parser findings and #29 safe-diagnostic findings remain uncorrected at their old heads.
+Matt #27 remains draft; second live run failed speech attachment. Joshua owns no formal approval there (contributor).
+Separate #27 diagnostic finished: Qwen exhausted 192 tokens with length/no content; Chatterbox PCM decode passed. 1 call each, no retries/music/art.
+Assignments already allow backup work and any zero-commit reviewer; no assignment/protection changes.
+## Next steps
+1. Finish current-head checks, push, and request Matt/prse as additional eligible loader reviewers.
+2. Jovi selects three samples after normal merge; real-main/ZIP AT-11 remains pending.
+3. Finish diagnosis/technical verification separately, coordinate Mike/Matt fixes; submission NOT READY.
+## References
+PR #31; merged #32; results/sample-loader-browser.json; docs/TEST_RESULTS.md.
+
+## Preserved loader task notes
+
+## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: sample-library loader, Refs #7 (R17/R18, AT-11 component).
+## Constraints
+MSpanny = Mike; Mase/mase7919 = Matt. Jovi owns final sample selection/#7; no generation or manifest approvals here.
+## Repository state
+Branch codex/a3-07-sample-loader from main 2a19ecf. No shared Track/schema changes or new dependencies.
+## Work completed and decisions
+Added bounded all-or-nothing local catalog validation; only manifest entries load, never candidates.
+app.py loads once; SessionStore seeds ready tracks with fresh private media URLs, no jobs/provider requests.
+Catalog bytes stay immutable/shared and counted once in existing media budget, including after replacements.
+Isolated 4 existing HTTP suites (28 cases pass with a populated source-copy manifest); sample replacement stays private.
+Fixed safe status/summary warning for bad catalogs; empty manifest keeps existing empty-library behavior.
+Changed samples.py, app.py, sessions.py, app.js, tests/test_samples.py; updated README, asset/contract/test docs and safe evidence.
+## Validation
+Locked checks PASS: 145 tests (16 new); coverage 36/11/19. Schema, approved manifest and candidate media unchanged.
+Normal-launch isolated source-copy browser: 3 synthetic silence/solid-cover samples, matching cards, each plays; first pause/resume, lyrics and reload PASS.
+Missing-cover restart -> safe warning/zero tracks; approved empty-manifest restart -> no warning/zero tracks. Servers stopped.
+## Blockers and unchecked areas
+No final sample selection, class generation/listening, merged-main acceptance or exact final ZIP check; #7 remains open, submission NOT READY.
+## Next steps
+1. Eligible teammate reviews this focused loader PR; all contributors must have zero commits on it to approve.
+2. After protected merge, Jovi registers three selected samples and verifies real-media playback/AT-11 on main and final ZIP.
+3. Preserve pending #22/#24/#25/#26/#27/#28/#29 work; coordinate app/session seams when merging DJ/reference changes.
+## References
+Issue #7 claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7#issuecomment-6530493708
+results/sample-loader-browser.json; results/sample-loader-fixture.jpg; docs/TEST_RESULTS.md.
+
+---
+
+## Inherited prior task handoff
+
+## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: recheck Matt, then fix #8 retry controls.
+## Constraints
+MSpanny = Mike; mase7919/Mase = Matt. No ownership/protection changes or class calls.
+Claim posted on #8; app.js edits confined to cover/music/resume rejection catches; no DJ code edits.
+## Repository state
+Branch codex/a3-08-retry-controls from main 770ce62. Existing #22/#24/#26/#28/#29 remain separate.
+## Work completed and decisions
+Matt #27 895a616 rejected-advance cleanup verified fixed; 151 locked tests PASS. Manual/DJ overlap remains open.
+Restore the three rejected controls explicitly; retain cached cards, audio nodes, active/config guards and deliberate retry semantics.
+Added dependency-free optional Node handler regression in default Python discovery; Node is not an app dependency.
+## Validation
+Node regression fails baseline and passes patch, including pending, configuration, same-node and no-auto-submit checks.
+Real browser offline: cover/music/resume reject -> release -> refresh -> explicit retry all PASS without reload.
+Fixture counters cover 4/6/7; resume submissions 1/3/3; music 0/2/3. Safe record/screenshot committed.
+Sequential tabs avoid cross-port localhost cookie collisions; initial mixed setup discarded and cover rerun cleanly.
+Final locked checks/CI reported in PR. No real providers, .env, user recordings or listening involved.
+## Blockers and unchecked areas
+#8 broader normal-launch/live acceptance stays open. Matt's overlap fix and Mike's #26/#29 findings remain separate.
+Submission NOT READY; no issue closed and no self-approval.
+## Next steps
+1. Eligible teammate reviews this focused #8 patch; coordinate merge order with Matt's #27 shared app.js.
+2. Rerun integrated browser regression after normal protected merge; preserve full acceptance gaps on #8.
+3. Mike/Matt continue their existing follow-ups; do not repeat generation on session switches.
+## References
+Issue #8; results/retry-control-fix.json; docs/TEST_RESULTS.md; tests/frontend_retry_probe.cjs.
 
 Inherited discovery note (its unverified status was superseded by the October 17
 probes and October 27 production-adapter smoke; preserve as history only):

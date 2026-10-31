@@ -34,6 +34,12 @@ def body(title="Moonlit lake", style="Ambient piano", mood="Reflective"):
 
 
 class CoverHttpTests(unittest.TestCase):
+    def setUp(self):
+        # Generation scenarios own their library fixture, independently of shipped samples.
+        catalog = patch("jukebox.app.load_samples", return_value=())
+        catalog.start()
+        self.addCleanup(catalog.stop)
+
     def test_two_tracks_keep_distinct_covers_and_reload_without_regeneration(self):
         with patch("jukebox.providers.ClassProviders.cover", side_effect=[png("blue"), png("orange")]) as cover:
             with TestClient(create_app(art_settings()), base_url="http://localhost") as client:
