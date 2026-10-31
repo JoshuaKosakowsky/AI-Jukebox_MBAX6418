@@ -1,22 +1,23 @@
 # Delivery plan - Assignment 3
 
-**Current state:** runtime/contracts, instrumental generation/playback and matching
-covers are accepted (A3-01/02/04). Mike's vocal implementation (#21) is merged;
-A3-03 stays open for real-class normal-launch vocal/browser/listening acceptance.
-Main `2a19ecf` includes #30's rejected-control correction, #23's Moonlit candidate
-and #20's ZIP-startup evidence. The final sample library remains unfinished.
-Matt leads draft #27 for the A3-05 default DJ queue; Mike leads A3-03
-acceptance and A3-06 reference voices after A3-05 integration. Matt/prse provide
-reciprocal backup coverage for A3-05/08/09; Mike/jovi for A3-03/06/07/10.
-Eligible teammates can review across the pairings provided the reviewer has
-no commits on the PR. #8's three rejected controls are corrected on main; broader
-normal-launch recovery acceptance remains open. #3's live attempt failed; #29's diagnostic follow-up still needs its safe-error review findings addressed.
-Prse retains A3-08 recovery/safeguards and A3-09 documentation; coordinate shared
-frontend edits and any unpublished A3-05 work with Matt. Jovi retains A3-07
-samples and A3-10 independent ZIP/submission. Our #20 ZIP rehearsal and #22
-offline audit are supporting evidence, not final feature/release acceptance.
-Evidence: [main acceptance](results/main-instrumental-acceptance.json) and
-[test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
+**Current state (2026-10-31):** runtime/contracts, instrumental playback and
+matching covers are accepted (A3-01/02/04). Main `a580756` now includes Matt's
+A3-05 default DJ queue (#27), normally merged after Mike's exact-head approval
+and green CI. Its retained 50-check live evidence is branch evidence; integrated
+main verification/checklist reconciliation remains on #5. The sample loader
+(#31), retry fixes (#30), instrumental recovery evidence (#32), README slice
+(#34) and Moonlit/Desert Drive candidates are merged; final samples remain unselected.
+Mike's #26 upload corrections are independently approved at bbf80bc, but the
+branch needs current-main DJ integration and Matt's fresh review. #29 diagnostic
+changes still echo arbitrary short model strings into public errors; keep that
+fix local/offline, reconcile DJ thinking=False, then request re-review. #3's
+failed live-vocal evidence remains valid; successful integrated acceptance is pending.
+#35/#37 genre investigation remains open/draft: literal piano/DnB controls passed
+Joshua's listening; prior metal/rap failures remain failures. No universal quality
+claim or extra generation is implied. #36 cover lettering remains open.
+Live issues own lead/backup assignments and claims. Reference-voice acceptance,
+final three samples, remaining recovery/report evidence and independent final ZIP
+remain required. Full submission is **NOT READY**. Evidence: [test results](docs/TEST_RESULTS.md).
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus

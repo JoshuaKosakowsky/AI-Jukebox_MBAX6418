@@ -1,5 +1,34 @@
 # Agent handoff
 
+## Session
+2026-10-31 America/Denver; Codex for Joshua. Catch-up, protected #27 merge and independent #26/#29 re-reviews.
+## Constraints
+No class calls/generation/credentials or protection changes. Preserve existing assignees and all failed/live/offline evidence scopes.
+## Repository state
+Clean review clone: .assignment3-setup/catchup-20261031/repo in the shared workspace; original School checkout returned Git mmap failed, left untouched.
+Branch codex/integration-catchup-oct31 from current main a580756. #27 merged normally from 3522f63 with Mike approval; post-merge CI 4/4 PASS.
+## Work completed and decisions
+#26 bbf80bc: independently rechecked all three round-three fixes plus disk-free bounds; approved and resolved Joshua's five old threads. Matt's separate old review remains his to renew.
+#29 086ac6b: object-model/finish and message=[] fixes pass; short model string PRIVATE-MARKER still reaches SafeError/public snapshot. Requested focused changes inline; no implementation commits on either Mike PR.
+PLAN now reflects merged DJ/loader/recovery/docs/candidates; contribution records combine review rounds and credit Matt/Mike's DJ implementation/review.
+## Validation
+#26 locked suite: 165 tests (1 optional skip), verifier 105, coverage 36/11/19; four independent HTTP probe groups PASS. #29: 151 tests (1 optional skip), verifier 104, same coverage; snapshot-boundary probe confirms remaining leak.
+Synthetic in-memory fixtures, empty/dummy Settings, MockTransport only. No server or live-provider process started. This branch changes documentation only; verifier/coverage/whitespace checks recorded on PR.
+## Blockers and unchecked areas
+#26/#29 must reconcile main's DJ/provider seams before merge; #26 needs Matt re-review, #29 fixed/allowlisted diagnostics. Do not echo arbitrary bounded strings.
+#3 successful live-vocal and merged-main DJ/reference acceptance, final samples/recovery/report/ZIP remain pending. #37 stays draft: literal piano/DnB pass does not erase prior metal/rap failures; #36 lettering remains open. NOT READY.
+## Next steps
+1. Mike: fix #29 short-string leak, preserve text(thinking=False) DJ behavior in merge; sync #26 and integrate its reference picker/speech path. Eligible reviewer verifies current heads.
+2. Matt/prse: integrated-main DJ/recovery verification with existing budget/claims, no duplicate generation. Jovi/prse/Mike: final three samples/acceptance; keep candidates distinct from approved manifest.
+3. Eligible teammate reviews this documentation handoff; refresh live GitHub before editing. Use this clean clone; investigate OneDrive mmap separately without deleting/resetting the original checkout.
+## References
+[DJ integration handoff](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6545567239)
+[#26 approval](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5723606069); [#29 re-review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723606184)
+
+## Preserved earlier task notes (current facts above supersede historical status)
+
+# Agent handoff
+
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
 No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.
