@@ -34,10 +34,11 @@ def wav_bytes(seconds=2.0, rate=8000, marker=b"\x01\x00"):
 
 
 def mp3_bytes(seconds_hint=2):
-    # Synthetic fingerprint: ID3v2 header + payload; validation is format/size
-    # based (MP3 duration is not decoded), so the audio itself is not real.
-    body = b"MP3REF" + b"\x00" * 64 + b"ID3-metadata" + (b"\x00" * seconds_hint)
-    return b"ID3\x04\x00\x00\x00\x00\x00\x00" + body
+    # Structural MP3 fingerprint: an ID3v2 header declaring zero tag bytes, then
+    # minimal valid-looking MPEG-1 Layer III frame headers with stub payloads.
+    # Validation is structural (reachable frame required), not a full decode.
+    frame = b"\xff\xfb\x90\x00" + b"\x00" * 26
+    return b"ID3\x04\x00\x00\x00\x00\x00\x00" + frame * max(1, seconds_hint * 7)
 
 
 def speech_settings():
@@ -100,6 +101,82 @@ class ReferenceHttpTests(unittest.TestCase):
             # bytes cannot be retrieved through media either.
             self.assertEqual(client.get(f"/api/references/speech/{uploaded['id']}").status_code, 405)
             self.assertEqual(client.get(f"/api/media/{uploaded['id']}").status_code, 404)
+
+    def test_multipart_uploads_never_touch_disk_even_above_one_megabyte(self):
+        # A real multi-MB PCM WAV, larger than the framework's 1 MB spool
+        # boundary; any temp-file usage anywhere in the request path fails.
+        big = wav_bytes(seconds=12, rate=44100)
+        self.assertGreater(len(big), 1_000_000)
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            with patch("tempfile.SpooledTemporaryFile", side_effect=AssertionError("disk spool used")) as spool, \
+                 patch("tempfile.TemporaryFile", side_effect=AssertionError("disk temp used")) as tmp:
+                response = self.upload(client, big)
+            self.assertEqual(response.status_code, 201)
+            spool.assert_not_called()
+            tmp.assert_not_called()
+
+    def test_oversized_upload_is_rejected_without_touching_disk(self):
+        over = b"\x00" * 5_000_001
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            with patch("tempfile.SpooledTemporaryFile", side_effect=AssertionError("disk spool used")) as spool, \
+                 patch("tempfile.TemporaryFile", side_effect=AssertionError("disk temp used")) as tmp:
+                response = self.upload(client, over)
+            self.assertEqual(response.status_code, 422)
+            spool.assert_not_called()
+            tmp.assert_not_called()
+
+    def test_oversized_stream_is_aborted_before_parsing(self):
+        boundary = b"X-boundary"
+        body = (b"--" + boundary + b"\r\n"
+                b'Content-Disposition: form-data; name="file"; filename="big.wav"\r\n'
+                b"Content-Type: audio/wav\r\n\r\n"
+                + b"\x00" * 6_000_000 +
+                b"\r\n--" + boundary + b"--\r\n")
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            response = client.post(
+                "/api/references/speech", content=body,
+                headers={"Content-Type": "multipart/form-data; boundary=X-boundary"})
+            self.assertEqual(response.status_code, 422)
+
+    def test_header_only_wav_with_declared_but_missing_frames_is_rejected(self):
+        fmt = (b"\x01\x00"        # PCM
+               b"\x01\x00"        # mono
+               b"\x44\xac\x00\x00"   # 44100 Hz
+               b"\x88\x58\x01\x00"   # byte rate
+               b"\x02\x00"        # block align
+               b"\x10\x00")       # 16 bit
+        header_only = (b"RIFF" + (36 + 64_000).to_bytes(4, "little") + b"WAVE"
+                       + b"fmt " + (16).to_bytes(4, "little") + fmt
+                       + b"data" + (64_000).to_bytes(4, "little"))
+        self.assertLess(len(header_only), 100)
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, header_only).status_code, 422)
+
+    def test_bare_id3_and_truncated_mp3_are_rejected(self):
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, b"ID3", filename="voice.mp3",
+                                         media_type="audio/mpeg").status_code, 422)
+            # ID3v2 tag declares 1000 bytes but the upload stops after 24.
+            truncated = b"ID3\x04\x00\x00" + b"\x00\x00\x07\xd0" + b"\x00" * 24
+            self.assertEqual(self.upload(client, truncated, filename="voice.mp3",
+                                         media_type="audio/mpeg").status_code, 422)
+
+    def test_mp3_without_reachable_frames_is_rejected(self):
+        tags_only = b"ID3\x04\x00\x00\x00\x00\x00\x00" + b"TAG" * 10
+        self.assertEqual(tags_only[10:13], b"TAG")  # no MPEG sync anywhere
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, tags_only, filename="voice.mp3",
+                                         media_type="audio/mpeg").status_code, 422)
+
+    def test_missing_chunks_and_non_pcm_wavs_are_rejected(self):
+        no_data = b"RIFF" + (36).to_bytes(4, "little") + b"WAVE" + b"fmt " + (16).to_bytes(4, "little") + b"\x01" * 16
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, no_data).status_code, 422)
+            float_wav = b"RIFF" + (36).to_bytes(4, "little") + b"WAVE" \
+                + b"fmt " + (16).to_bytes(4, "little") \
+                + b"\x03\x00\x01\x00\x44\xac\x00\x00\x88\x58\x01\x00\x02\x00\x20\x00" \
+                + b"data" + (8000).to_bytes(4, "little") + b"\x00" * 8000
+            self.assertEqual(self.upload(client, float_wav).status_code, 422)
 
 
 class ReferenceStoreTests(unittest.TestCase):

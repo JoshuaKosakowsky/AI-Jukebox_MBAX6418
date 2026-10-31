@@ -5,7 +5,6 @@ import secrets
 from threading import RLock
 import time
 from uuid import UUID, uuid4
-import wave
 
 from .contracts import GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
 from .providers import MediaBytes, MusicTicket, ProviderFailure
@@ -98,13 +97,98 @@ def lyrics_prompt(track: Track) -> str:
             "no section headings, no song title, no commentary. English.")
 
 
-def sniff_reference_type(content: bytes) -> str | None:
-    """Normalize an MP3/WAV fingerprint to its media type, or None."""
+def validate_reference_audio(content: bytes) -> str:
+    """Return the canonical media type of a REAL MP3/WAV file, or raise.
+
+    Byte-level structural validation only: WAV must be RIFF/WAVE with a
+    full PCM fmt chunk and a physically present, non-empty data chunk;
+    MP3 must start with a valid ID3v2 tag (or a frame immediately) and
+    contain at least one reachable MPEG audio frame. Header-only or
+    truncated uploads are rejected here rather than trusted from their
+    bytes. Never echoes content; safe messages only.
+    """
     if content.startswith(b"RIFF") and content[8:12] == b"WAVE":
+        _validate_wav_structure(content)
         return "audio/wav"
-    if content.startswith(b"ID3") or (len(content) >= 2 and content[0] == 0xFF and (content[1] & 0xE0) == 0xE0):
+    if content.startswith(b"ID3"):
+        _validate_mp3_structure(content, id3=True)
         return "audio/mpeg"
-    return None
+    if len(content) >= 2 and content[0] == 0xFF and (content[1] & 0xE0) == 0xE0:
+        _validate_mp3_structure(content, id3=False)
+        return "audio/mpeg"
+    raise SessionFailure(422, "Reference must be an MP3 or WAV audio file.")
+
+
+def _validate_wav_structure(content: bytes) -> None:
+    """Require a real PCM WAV: RIFF/WAVE, fmt chunk, physical data chunk."""
+    if len(content) < 12:
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    offset = 12
+    fmt = None
+    data = None
+    found_data = False
+    while offset + 8 <= len(content):
+        chunk_id = content[offset : offset + 4]
+        size = int.from_bytes(content[offset + 4 : offset + 8], "little")
+        payload = offset + 8
+        if payload + size > len(content):
+            if found_data:
+                # Tolerated trailing bytes after the keep-audio chunk (some
+                # writers append metadata); the required structure is intact.
+                break
+            raise SessionFailure(422, "The WAV reference is truncated.")
+        if chunk_id == b"fmt ":
+            fmt = content[payload : payload + size]
+        elif chunk_id == b"data":
+            data = (payload, size)
+            found_data = True
+        offset = payload + size + (size & 1)  # RIFF pads odd sizes
+    if fmt is None or data is None:
+        raise SessionFailure(422, "The WAV reference is missing required chunks.")
+    if len(fmt) < 16:
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    format_tag = int.from_bytes(fmt[0:2], "little")
+    channels = int.from_bytes(fmt[2:4], "little")
+    sample_rate = int.from_bytes(fmt[4:8], "little")
+    byte_rate = int.from_bytes(fmt[8:12], "little")
+    block_align = int.from_bytes(fmt[12:14], "little")
+    bits = int.from_bytes(fmt[14:16], "little")
+    data_offset, data_size = data
+    if format_tag != 1 or not 1 <= channels <= 8:
+        raise SessionFailure(422, "The WAV reference must be uncompressed PCM.")
+    if not 1 <= sample_rate <= 384_000 or byte_rate <= 0 or block_align <= 0 or bits not in (8, 16, 24, 32):
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    if data_size < 1:
+        raise SessionFailure(422, "The WAV reference contains no audio data.")
+    if data_offset + data_size > len(content):
+        raise SessionFailure(422, "The WAV reference is truncated.")
+    duration = data_size / byte_rate
+    if not MIN_REFERENCE_SECONDS <= duration <= MAX_REFERENCE_SECONDS:
+        raise SessionFailure(
+            422, f"Reference audio must be {MIN_REFERENCE_SECONDS}-{MAX_REFERENCE_SECONDS} seconds.")
+
+
+def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
+    """Require a parseable ID3v2 tag and at least one reachable MPEG frame."""
+    skip = 0
+    if id3:
+        if len(content) < 10:
+            raise SessionFailure(422, "The MP3 reference is truncated.")
+        version = content[3:5]
+        if version[0] == 0xFF or version[1] == 0xFF:
+            raise SessionFailure(422, "The MP3 reference could not be read.")
+        size_bytes = content[6:10]
+        tag_size = 0
+        for byte in size_bytes:
+            tag_size = (tag_size << 7) | (byte & 0x7F)
+        if 10 + tag_size > len(content):
+            raise SessionFailure(422, "The MP3 reference is truncated.")
+        skip = 10 + tag_size
+    scan_limit = min(len(content) - 2, skip + 65_536)
+    for index in range(skip, scan_limit):
+        if content[index] == 0xFF and (content[index + 1] & 0xE0) == 0xE0 and (content[index + 1] & 0x06) != 0:
+            return
+    raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
 
 
 class SessionStore:
@@ -422,19 +506,7 @@ class SessionStore:
         with self.lock:
             if len(content) > MAX_REFERENCE_BYTES:
                 raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
-            media_type = sniff_reference_type(content)
-            if media_type is None:
-                raise SessionFailure(422, "Reference must be an MP3 or WAV audio file.")
-            if media_type == "audio/wav":
-                try:
-                    with wave.open(io.BytesIO(content), "rb") as audio:
-                        rate = audio.getframerate()
-                        duration = audio.getnframes() / rate if rate else 0
-                except (wave.Error, EOFError, ValueError):
-                    raise SessionFailure(422, "The WAV reference could not be read.")
-                if not MIN_REFERENCE_SECONDS <= duration <= MAX_REFERENCE_SECONDS:
-                    raise SessionFailure(
-                        422, f"Reference audio must be {MIN_REFERENCE_SECONDS}-{MAX_REFERENCE_SECONDS} seconds.")
+            media_type = validate_reference_audio(content)
             if len(session.references) >= MAX_REFERENCES:
                 raise SessionFailure(429, "Too many reference uploads in this session. Delete one before uploading again.", retryable=True)
             identifier = uuid4()
