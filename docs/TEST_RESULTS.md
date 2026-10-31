@@ -556,6 +556,201 @@ and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
 
+## A3-05 default AI DJ queue - 2026-10-30 America/Denver
+
+Branch `codex/a3-05-dj-queue` (baseline main `e2b1e52`). Offline development
+only: no class-service request was made; provider methods were replaced by
+deterministic fixtures (bound-method patches, the same pattern as the other
+offline suites) and no `.env` was loaded.
+
+### Automated tests
+
+`python -m unittest discover -s tests` (locked environment): 142/142 OK —
+128 baseline + 9 new `tests/test_dj.py` (queue lifecycle and guards, Qwen
+prompt content incl. prior-song context, default-voice contract, speech->music
+protocol, pause/resume phase round trips, skip/advance, end-of-queue, stale
+speech-job safety, duplicate suppression on replay and reload, cross-session
+isolation, media bounds, config guards) + 5 new static frontend guards in
+`tests/test_frontend.py` (single DJ element, speech-before-music ordering in
+the engine, engine never submits generation, epoch/stale-callback guards,
+pause keeps position).
+
+Key contract checks: the committed speech probe request has NO `voice`
+parameter (R14 default voice by omission, model `chatterbox-v3`); the speech
+input equals the Qwen output exactly (R13 chain); commentary text never
+appears in a snapshot; each track's speech media id is unique across roles
+and the snapshot validator accepts the queue with commentary media.
+
+### Real-browser offline acceptance (real Chrome, fixture providers)
+
+Harness: the real app under uvicorn on 127.0.0.1:8665 with only the six
+provider methods swapped; Microsoft Playwright drives the real UI. Three
+tracks (Aurora/Bask/Cela) created through the form, queued via the UI, then
+the full scenario. 18/18 checks PASS (evidence: `dj-browser-evidence.json` +
+`dj-browser-final.txt`, retained outside the repo):
+
+1. Sequencing: speech then music for every track, strictly ordered
+   A→B→C, automatic advancement, clean end-of-queue (idle, queue kept).
+2. No overlap: every playing sample's media belongs to the track named in
+   its status; one persistent element drives the timeline.
+3. Skip during speech and during music: lands on the next track's
+   introduction (skip during music can finish the set cleanly).
+4. Pause freezes both phases (currentTime held); Resume continues the set
+   from the paused position in the same phase; status reports
+   "Paused during DJ speech"/"Paused during music".
+5. Reload mid-set: queue/index preserved and playback resumes without ANY
+   new provider request.
+6. Exactly 3 Qwen texts and 3 Chatterbox speech media for the whole run —
+   across replay, skips and reload, zero duplicates.
+7. No console errors and no 4xx responses.
+
+During development the harness exposed two real sequencing bugs that the
+browser run caught and the fixes are covered above: (a) the engine replayed
+speech forever after posting `speaking→playing` because polling had stopped
+and `latestSession` stayed stale — the engine now refreshes after every
+phase transition it performs; (b) pause could resume mid-hold because the
+engine re-entered playback from stale state between the interrupt and the
+server's acknowledgement — the `djHalted` gate now keeps the engine out of
+that window. Both are guarded by tests and by the 18/18 run.
+
+### Design decision recorded with evidence
+
+Every transition — including the FIRST song — is introduced by the DJ
+(speech before music), because the first-transition path is the same code as
+every later one and the timeline evidence shows ordered
+speaking→playing phases for all three tracks with clean
+speech→music boundaries on the single element.
+
+### Unverified (honest)
+
+Real Qwen commentary + Chatterbox default-voice speech were NOT submitted;
+AT-07 and AT-09's live portion remain pending class-service acceptance on
+the normal launcher, which is a separate authorized step. Audible listening
+in a headed browser is also not claimed here. Submission NOT READY.
+
+## A3-05 focused concurrency audit - 2026-10-30 America/Denver
+
+Focused audit of the playback endpoints with DELAYED and REORDERED requests
+before live acceptance. Three real defects were found and fixed (each with a
+regression test):
+
+1. **Stale `phase=playing` after a Skip flipped the NEW track's phase.**
+   `set_phase` now accepts an optional `track_id`; a phase transition for a
+   track the user has already skipped past is rejected (409) instead of
+   silently consuming the new track's introduction phase.
+2. **A pause racing an automatic advance recorded the WRONG phase.**
+   `pause_playback` keeps the pause but derives `paused_from` from the
+   current track's true phase when the claimed track is stale, so Resume
+   cannot resume the wrong phase.
+3. **Advancing from a paused queue returned 500.** The queue advanced but
+   kept the old `paused_from` on a `speaking` state — the Playback contract
+   rejected it. A paused advance now stays paused on the new track with
+   `paused_from` carried correctly.
+
+Browser-side deterministic guards (no contract change): every advance is
+single-flight (`djAdvanceOnce`) — a user Skip arriving while the engine's
+automatic advance for the same track is in flight coalesces into it (one
+Skip advances at most once), while rapid distinct Skips serialize and each
+applies — and user intents travel through one FIFO (`djUserQueue`) so the
+server sees them in issue order despite separate connections. A failed Pause
+un-halts the controller, and the engine loop survives transient failures
+instead of dying. The advance in-flight slot is cleared INSIDE the advance
+promise (not via an orphaned chained finally), so a failed advance request
+produces no unhandled promise rejection and the controller stays
+recoverable.
+
+Final edge cases (pre-live-acceptance): **skip while paused during music**
+advances exactly one track, stays paused, and Resume plays the NEXT song's
+DJ introduction before its music — the queue's `paused_from` after a paused
+advance is always "speaking" (carrying the previous track's "playing" phase
+forward previously bypassed the new track's introduction); a **forced
+offline advance failure** leaves no console error and the next Skip works;
+and a **queued advance whose awaited predecessor fails** must not poison the
+controller — the predecessor await sits inside the advance promise's
+try/finally, so the in-flight slot is always cleared and future advancement
+recovers (previously a rejected queued advance occupied the slot forever and
+every subsequent advance rejected). The queueing path is exercised with a
+deterministic Node micro-test of the real `djAdvanceOnce` (all 7 assertions
+PASS on the fixed source; on the pre-fix source the slot stays OCCUPIED and
+the subsequent advance never posts) plus the browser scenario S8.
+
+Reload-fast-forward defect (found by the corrected rehearsal driver):
+reloading mid-queue rejected the in-flight `audio.play()`; `djPlayOnce`
+resolved on the first rejection, so the engine posted the phase transition
+AND advanced the whole queue in seconds while nothing was audible. Fix:
+transient play() rejections are retried (bounded, 6 x 350 ms) instead of
+completing the segment; the element's src-clear (interrupt) still resolves
+immediately. Static frontend guard added; verified by the corrected
+rehearsal driver (39/39) and the full regression stack (152/152 unit,
+18/18 functional, 20/20 concurrency). Independent review found two further
+rejection-path flaws, both fixed and regression-guarded: a retry SCHEDULED
+before a pause could fire after it (pause advances the epoch but keeps the
+src for resume) — every scheduled retry now re-checks its captured epoch
+before touching the player; and a play-PERMISSION rejection (autoplay
+NotAllowedError) now stops retrying and keeps the segment pending with a
+user-action status notice instead of completing it after six attempts — the
+queue never advances over unplayed audio and any DJ control resumes it.
+Behavioral Node micro-test of the real djPlayOnce covers both paths
+(11/11 PASS).
+
+Corrected acceptance-driver rehearsal (deterministic fixture providers,
+normal launcher): session identity survives reload; both DJ introductions
+observed with EVENT-level evidence (loadstart/loadedmetadata/playing/ended
+per media, speech events strictly before each track's music events, 4
+distinct media sources, no simultaneous sources); replay after idle re-plays
+media with zero new provider submissions; pause/resume during speech and
+music (positions frozen/continued); skip during speech, during music, and
+while paused (stays paused on the next track, resume enters the next
+introduction); reload during an active queue resumes playback with zero new
+jobs and zero provider submissions; clean end-of-queue; request accounting
+cross-checked (jobs per kind == fixture submission counters, exactly
+2/2/2/2 art/music/Qwen/TTS); screenshots captured; failures reported without
+losing evidence. Audio exclusivity (Stage 1): manual library players are
+suppressed while the DJ timeline is active (notice shown, event-level), and
+starting the DJ pauses any running manual player; manual playback works
+normally when the DJ is idle (154/154 unit tests incl. new static guards,
+18/18 functional, 20/20 concurrency, 43/43 rehearsal).
+
+Live defect found on run 2 (authorized real-provider acceptance): the speech
+job path generates and SUCCEEDS its provider steps but `track.speech` never
+attaches with the REAL services — neither introduction played, and replay
+re-created the speech jobs (2 -> 4), exceeding the authorized Qwen/Chatterbox
+budget because the failed attachment voids the commentary cache. Exact
+adapter-level cause not determined (needs one diagnostic Qwen+Chatterbox
+call); correction proposal + full run-2 accounting in
+results/a3-05-live-acceptance.json. AT-07/AT-09 remain FAIL until the
+speech-attachment defect is fixed and re-verified live.
+
+Replay-regeneration correction (offline): `_queue_dj_speech` now treats a
+track whose latest speech job FAILED as terminal — replay, reload, polling
+and automatic advancement never resubmit a failed introduction, so a
+provider failure cannot re-spend the Qwen/Chatterbox budget. The ONLY retry
+path is the explicit `POST /api/playback/speech` action (card button "Retry
+DJ introduction", shown only for a failed speech job without commentary);
+a track with commentary attached rejects a retry (409) and an unknown track
+404s. The failed job's SafeError stays visible in the session snapshot and
+never carries the prompt. Tests prove a failed Qwen response, a failed
+Chatterbox response and a malformed-WAV failure all stay silent across two
+legal replays (job count and provider-call counts frozen), and that the
+explicit retry is the only working path. Diagnostic integration with PR #29:
+the shared `_chat` guards there will name the exact live Qwen failure mode
+(model/finish/content) once merged — no duplicate implementation here.
+
+Automated: 151/151 tests (5 new concurrency tests: stale-phase rejection,
+stale-pause phase correction, one-index-per-advance + straggler 409,
+reordered advance/stale-phase sequence, paused-advance contract validity;
+plus 4 new frontend static guards for the single-flight/FIFO/engine-survival
+patterns).
+
+Real-browser deterministic concurrency run (fixture providers, server-side
+request log + per-path delays up to 1500 ms + one-shot failure injection):
+12/12 checks PASS — the coalescing proof (Skip fired while an automatic
+advance was in flight produced exactly ONE advance and landed on the correct
+next track with its introduction intact), rapid double-Skip (exactly two
+user advance calls, both applied), Pause→Skip and Skip→Pause FIFO ordering
+both deterministically delivered in issue order with coherent final states,
+and a failed Pause request recovering the timeline. Evidence retained
+outside the repo (dj-concurrency-evidence.json).
 ## Early Windows GitHub ZIP startup rehearsal - 2026-10-29
 
 Tester: JoshuaKosakowsky directing Codex. Downloaded GitHub's source ZIP of merged
@@ -694,6 +889,37 @@ class-service requests, user recordings or human listening. These are focused
 offline recovery checks; #8's broader normal-launch acceptance stays open.
 
 
+## A3-05 returned-blocker diagnosis and retry limits - 2026-10-30 America/Denver
+
+Codex for Joshua, diagnostic against Matt's draft c4404dd. Explicit separate
+bounded task: at most one Qwen text + one Chatterbox default-voice request,
+no retries, ACE-Step or FLUX. Existing private class settings stayed server-side.
+The production DJ prompt reached the expected Qwen model but returned no string
+content, finish_reason `length`, and exactly 192 completion tokens (the request
+limit; 105 prompt / 297 total). The text guard correctly rejected it. This pins
+the failure stage for this check, not a sufficient replacement token budget.
+
+Independent speech check with a fixed short original sentence passed: audio/wav,
+PCM format 1, mono, 24 kHz, 16 bit, 95,040 frames / 3.96 s, complete PCM decode.
+No raw text/audio retained. [Safe facts](../results/a3-05-provider-diagnostic.json).
+No additional generation; no normal-launch/browser/human listening acceptance.
+
+Offline actual-function Node probes verify Matt's fixes: stale retry after Pause
+is ignored, permission rejection remains pending until user interrupt, DJ start
+pauses existing manual audio, manual start is blocked during DJ ownership and
+allowed while idle. The committed executable probe fails on old 2cdfe38 at the
+stale-timer check. These are function checks, not browser observations.
+
+The explicit DJ-introduction endpoint omitted the shared speech/job limits.
+Added pre-allocation 429 guards for MAX_ACTIVE_SPEECH and MAX_JOBS. Two HTTP
+regressions fail on the original method and pass with the guards: rejected
+requests change no snapshot or provider counters, recovering capacity allows a
+deliberate request, and the active-speech limit applies across browser sessions.
+Full locked checks: 162 tests PASS (159 prior + 2 HTTP + 1 optional Node probe),
+repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
+Joshua contributes here and cannot supply independent approval. #5 stays open.
+
+
 ## A3-07 sample-library loader - 2026-10-30 America/Denver
 
 Branch `codex/a3-07-sample-loader`, based on main `2a19ecf`. Tester: Codex for
@@ -776,3 +1002,126 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
+
+
+## A3-05 Qwen correction - 2026-10-30 America/Denver
+
+Codex for Joshua, coordinated on #27 with the exact provider/DJ call-site claim;
+base c06cd0b. No competing published provider claim/commit was found; Matt retains
+readiness/acceptance and Mike's #29 lyrics diagnostics are untouched.
+The deployed chat request schema accepts chat_template_kwargs; the model owner's
+non-thinking instructions specify enable_thinking=false. Added an optional
+thinking keyword to text(), opted only the DJ into false. Probe defaults, the DJ
+prompt/model/192-token budget/temperature/stream and strict final-text checks stay
+unchanged. No new dependency, schema or frontend change.
+
+| Verification | Actual |
+|---|---|
+| Production provider/store regression, default Qwen returns null/length until direct mode is selected | Fails on baseline DJ call; passes with the fix, exactly one text + one speech request, speech attaches |
+| Exact payload/default isolation and incomplete/wrong-model/malformed-output regressions | PASS; opt-in is correctly encoded, subsequent default probe unchanged, final content only, bad output rejected without retry |
+| Full locked `python scripts/dev.py --check` | PASS, 165 tests (162 prior + 3 new); repository/coverage/whitespace pass |
+| Two retained class tracks seeded in memory, production FastAPI/TestClient routes, real Qwen and Chatterbox | PASS; first/transition text completes at 36/52 tokens (165/248 characters), stop, expected model; two speech jobs succeed and attach to correct tracks |
+| Read/decode both speech routes | PASS; PCM16 mono 24 kHz, 7.96/10.88 seconds; final Qwen text sent unchanged, no voice override |
+| HTTP reload and queue replay | PASS; identical tracks/jobs, cached speech reused, zero additional provider requests |
+
+Exactly **2 text + 2 speech requests**, no retries or ACE-Step/FLUX. The original
+class-generated Moonlit/Desert assets were retained inputs, not new generation
+or approved sample selection. No raw generated text/audio or keys retained in Git.
+[Safe verification](../results/a3-05-qwen-fix-verification.json). This fixes and
+verifies speech attachment through real adapters and HTTP/store orchestration;
+it is **not** normal-launch browser/control/listening or integrated-main acceptance.
+Matt still owns that remaining AT-07/AT-09 work; #5 stays open and #27 stays draft.
+
+
+## A3-05 integration with merged sample loader - 2026-10-30 America/Denver
+
+Joshua merged #31 normally at main 31dc9e4 after Mike's eligible current-head
+approval and green checks. Integrated that main into #27 from 81daed3;
+APP_CONTRACTS/TEST_RESULTS conflicts preserve both records, application seams
+otherwise merged cleanly. DJ speech attachment now uses common _media_bytes,
+including immutable catalog bytes retained after session references disappear.
+Its new cap regression fails the pre-integration sum-of-session-media method
+and passes after correction. Existing DJ HTTP fixtures explicitly isolate their
+catalog so later approved-manifest registration cannot change their inputs.
+
+Separate real-HTTP offline test loads two synthetic temporary manifest samples,
+queues/introduces both, verifies correct original audio/cover pairing, validates
+speech bytes, checks non-thinking DJ calls and rejects foreign speech access;
+a fresh session receives original samples without another session's speech/jobs.
+Providers remain offline mocks; no class requests or new media generation here.
+Locked checks PASS: **183 tests**, repository safeguards, coverage 36/11/19 and
+whitespace. Prior real-adapter evidence retains its original scope. Normal-launch
+browser/control/listening and integrated-main feature acceptance remain pending;
+Matt/Preethi should claim one coordinated tester/head rather than duplicate runs.
+## A3-05 final normal-launch acceptance and human listening - 2026-10-30 America/Denver
+
+Final authorized live acceptance run. Tester of record: Preethi (prse4479),
+the Issue #5 backup designated by mase7919's authorization; her COMMENTED
+design/test review is supporting evidence, not approval. The automated
+acceptance driver was executed on the Issue #5 lead's Windows machine
+(profile `C:\Users\matty`); recorded media/screenshot paths identify that
+machine, not the physical operator — operator identity beyond machine
+ownership is not independently provable from the artifacts. Exact PR head
+`b7d97a01282c05119cb023929e36aadab689f7ba`, normal launcher
+`python scripts/dev.py --port 8000`, real class providers.
+Two real instrumentals (Solar Tide, Twilight Harbor) and covers were created
+through the normal UI and played as an exactly two-song queue with the DJ.
+
+- **50/50 automated checks PASS, zero fails** (full record:
+  `results/a3-05-final-acceptance-evidence.json`, transcript
+  `results/a3-05-final-acceptance.txt`; screenshots
+  [in-run](../results/a3-05-final-acceptance-inrun.png),
+  [audio-exclusivity](../results/a3-05-final-acceptance-exclusive.png),
+  [final state](../results/a3-05-final-acceptance-end.png)).
+- Real Qwen non-thinking commentary succeeded for BOTH tracks (both speech
+  jobs `succeeded`; the fixed `thinking=False` path); Chatterbox default-voice
+  WAVs fully decoded: Solar Tide 608,684 B (24 kHz mono, 304,320 frames
+  ~12.7 s), Twilight Harbor 526,124 B (263,040 frames ~11.0 s); both
+  `track.speech` MediaRefs attached; introductions audibly distinct.
+- Speech-before-music sequencing verified at event level for both songs;
+  automatic advancement ended the queue cleanly; no speech/music overlap,
+  including manual library players (suppressed while the DJ is active; DJ
+  start pauses manual players; direction checks A and B PASS).
+- Controls: pause/resume during speech and music (positions frozen and
+  continued), skip during speech/music/paused; replay and reload preserved
+  session identity with ZERO new jobs and ZERO provider submissions every
+  pass (final accounting identical: art=2, music=2, speech=2).
+- **Provider accounting: exactly 8 authorized submissions** (2 ACE-Step + 2
+  FLUX + 2 Qwen + 2 Chatterbox), zero automatic retries, verified 4x across
+  replay/reload. No unexpected console/page/network errors; one recorded
+  media cancellation (`net::ERR_ABORTED` on the Twilight Harbor music re-fetch)
+  is the expected browser cancel from a navigation/source change — the same
+  media played to completion in pass 1 (event log: 12.0 s `ended`); classified
+  in `results/a3-05-final-acceptance-evidence.json`
+  (`recorded_media_cancellations`), retained raw.
+
+AT-07 (queue with sequenced DJ introduction-before-music and controls) and
+AT-09 (DJ playback controls: pause/resume/skip over both phases with
+replay/reload preservation and no overlap) are now PASS for Issue #5's scope,
+evidenced by the automated run above plus the human listening confirmation
+below. Historical failed-run evidence (`results/a3-05-live-acceptance.json`)
+and the successful Qwen adapter-verification record
+(`results/a3-05-qwen-fix-verification.json`) remain preserved as-is.
+
+### Human listening confirmation - Matt (Issue #5 lead), 2026-10-30
+
+- **Listener:** Matt, Issue #5 lead (human).
+- **Tracks:** Solar Tide and Twilight Harbor (the two real tracks from the
+  final acceptance run).
+- **Confirmation:** both generated spoken DJ introductions were personally
+  listened to by Matt and judged to meet the required quality standard
+  (intelligible, relevant to their tracks, properly sequenced).
+- **Source:** explicit confirmation provided by Matt after Preethi's
+  successful final acceptance run; recorded by the agent, not independently
+  re-evaluated.
+- This human quality confirmation is separate from, and complementary to,
+  Preethi's automated verification of audio ordering, controls, and overlap.
+  No additional listening observations, timestamps, audio measurements, or
+  quotations are recorded beyond the confirmation above.
+
+### Status after final acceptance
+
+Issue #5's implementation and acceptance are complete; PR #27 is DRAFT and
+awaiting mase7919's readiness decision. Project-wide items outside Issue #5
+(vocal lyrics, reference voices, final approved samples, independent ZIP
+testing) remain open and are not claimed here.

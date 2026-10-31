@@ -156,6 +156,125 @@ fixtures or alternate generation provider is added to the normal launcher.
 Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
 
+## Default AI DJ playback queue (A3-05)
+
+The queue lives in the session and uses the existing `Playback` contract
+unchanged (`state: idle|speaking|playing|paused`, `queue`, `index`,
+`current_track_id`, `paused_from`) — no schema or media changes were needed.
+`track.speech` (declared in the shared contract, previously unused) is the
+per-track DJ introduction: a session-safe `MediaRef` whose media id is unique
+across roles, so the snapshot validator already covers it. The browser never
+POSTs generation routes; only the two user-intent endpoints below create
+speech jobs, so polling, reloads and re-renders can never cause duplicates.
+
+### Playback endpoints (all require the Qwen text AND Chatterbox speech
+services configured; all return the updated `Playback`)
+
+- `POST /api/playback/queue` `{track_id}` — appends one playable track
+  (audio must exist; 409 for drafts), one queue entry per track (409 for
+  duplicates), queue cap `MAX_QUEUE` (429). Only start/advance create
+  generation jobs.
+- `POST /api/playback/start` — from idle with a non-empty queue: state
+  `speaking`, index 0, and a `kind: "speech"` job for the FIRST track (the DJ
+  introduces the first song — documented design choice: every song gets an
+  introduction, and the first-transition path exercises the same
+  speech→music flow as every other transition).
+- `POST /api/playback/advance` — from any active state (skip or natural end):
+  move to the next queue entry with state `speaking` and a speech job for the
+  NEW current track; past the last entry the queue returns to `idle` with
+  index 0 and the queue kept for another play. A paused advance stays paused.
+- `POST /api/playback/phase` `{phase: "speaking"|"playing"}` — the browser
+  records each speech→music transition so reloads always know which phase is
+  playing.
+- `POST /api/playback/pause` `{phase}` — state `paused` with
+  `paused_from` = the phase the user was in when pausing.
+- `POST /api/playback/resume` — back to `playing` with the phase restored
+  from `paused_from` (resume continues mid-speech or mid-music).
+
+Explicit `POST /api/playback/speech` retries obey the same app-wide two-active-
+speech and per-session 100-job limits before allocating a job. Capacity rejection
+returns a fixed safe 429 without changing tracks/jobs or invoking providers.
+
+### Commentary generation (`GenerationJob.kind: "speech"`)
+
+One job per transition, attached to the UPCOMING track: Qwen `text(thinking=False)` is
+called once with a prompt that includes the song title, style, mood,
+instrumental/vocal mode and the prior song's title for transition context,
+then Chatterbox `speech()` is called once with exactly that text. The DJ-only
+opt-in selects the documented non-thinking chat template at the same 192-token
+limit, so reasoning does not consume the introduction's final-output budget.
+The generic `text(prompt)` probe and separate `lyrics()` request stay unchanged;
+complete-output/model checks still reject truncated or invalid output. The speech
+payload comes from the committed service probe, which has NO `voice`
+parameter — the default voice is used by omission (R14). The audio attaches to
+`track.speech`; the Qwen commentary text stays server-private
+(`session.speech_prompts`) and never appears in a snapshot. Because speech
+attaches to the TRACK, a job that completes after the user has skipped past
+that track can never play out of turn — the browser only plays the CURRENT
+track's speech. Idempotence: no second job is created once a track has speech
+or an active speech job; `MAX_ACTIVE_SPEECH = 2` and the jobs cap cause
+silent skips (best-effort commentary, never a blocker). A failed commentary
+job is recorded with `retryable: true` and the "song plays without an
+introduction" message; the set continues with music only.
+
+### Browser sequencing (single authoritative controller)
+
+One persistent `<audio id="dj-audio">` element and one engine loop drive the
+whole timeline: engine reads the snapshot, plays `current_track.speech`
+first, posts the `speaking→playing` phase on its `ended`, then plays the
+track's audio, then advances. Speech and music can therefore NEVER overlap
+(one element, strictly sequential awaits). One monotonic `djEpoch` token is
+bumped by every user action (play/pause/resume/skip) and fires a
+`dj-interrupt` event that unblocks the engine's pending phase; every
+continuation re-checks its captured epoch, so a late `ended`/`error` callback
+from a skipped track cannot restart the wrong audio. A `djHalted` gate keeps
+the engine out of the window between a user action and the server's
+acknowledgement (this previously resumed playback mid-pause). Pause keeps the
+element's src and position so Resume continues in place; Skip stops the
+current phase and advances; reloads resume the timeline from server state and
+the engine never POSTs start/advance, so nothing regenerates. Per-track
+inline players remain independent for manual listening.
+
+### Concurrency contract (races audited with delayed/reordered requests)
+
+The playback endpoints carry transition-scoped preconditions so a late
+response cannot flip the WRONG track's state:
+
+- `phase` accepts the optional `track_id` of the track the speech just ended.
+  If that track is no longer current (a Skip raced the transition), the
+  request is rejected with 409 and the NEW track's phase is untouched — a
+  skipped track's `speaking→playing` transition can never skip the new
+  track's introduction.
+- `pause` accepts the optional `track_id` too. A pause that raced an automatic
+  advance keeps the pause (the user pressed it) but records `paused_from` as
+  the CURRENT track's true phase, so Resume cannot resume the wrong phase.
+- `advance` from a PAUSED queue stays paused on the new track and always
+  resumes with the new track's introduction (`paused_from` becomes
+  "speaking" — earlier it carried the old track's "playing" phase forward,
+  which made Resume bypass the new track's DJ introduction; even earlier it
+  produced a state/paused_from mismatch and a 500 whenever an advance raced
+  a pause). An active advance stays a normal speaking transition. Each
+  advance moves exactly one index; the first advance past the last entry
+  ends the queue, and a straggler after idle is rejected with 409.
+
+The browser contributes two deterministic guards: every advance is
+SINGLE-FLIGHT (`djAdvanceOnce`) — a user Skip that arrives while the
+engine's own automatic advance for the SAME track is in flight coalesces
+into it, so one Skip advances at most once, while rapid distinct Skips
+serialize and each still applies — and all user intents (play/pause/resume/
+skip) travel through one FIFO (`djUserQueue`) so the server applies them in
+the exact order the user issued them even though fetches use separate
+connections. A failed pause (network error) un-halts the controller, and the
+engine loop survives transient failures. The advance's earlier-flight await
+sits INSIDE its try/finally, so a queued advance that rejects alongside a
+failed predecessor still clears the in-flight slot — the controller can
+never be poisoned by a rejected advance and keeps advancing on the next
+Skip. The segment player (`djPlayOnce`) retries transient `play()`
+rejections (bounded) instead of treating them as segment completion: a
+navigation teardown during a mid-queue reload previously resolved the play
+promise, fast-forwarding the whole queue while nothing was audible.
+
+
 ## Approved sample catalog (A3-07 loader)
 
 `create_app` reads/validates `assets/samples/manifest.json` once with no provider
@@ -176,7 +295,10 @@ Catalog audio/cover bytes are immutable and shared between sessions; the common
 media-budget calculation counts each retained bytes object once, including catalog
 bytes no longer referenced by a session. The 64 MB cap and per-session track cap
 apply before allocations; seeding never creates provider work or a second store.
-Only approved manifest entries load, never unregistered candidate files.
+Only approved manifest entries load, never unregistered candidate files. DJ speech attachment uses the same
+retained-byte calculation as cover/music, including catalog bytes no longer
+referenced by a session. DJ HTTP tests own an empty catalog fixture; separate
+sample/DJ integration tests exercise real temporary manifest loading.
 
 ## Adapter boundary
 

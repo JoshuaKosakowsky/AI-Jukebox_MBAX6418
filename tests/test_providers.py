@@ -10,7 +10,9 @@ import httpx
 from PIL import Image
 
 from jukebox.config import Settings
+from jukebox.contracts import SongSettings, Track
 from jukebox.providers import ClassProviders, MusicPoll, MusicTicket, PROBES, ProviderFailure
+from jukebox.sessions import SessionStore
 
 
 def wav_bytes():
@@ -53,6 +55,74 @@ class ProviderTests(unittest.TestCase):
             self.assertEqual(json.loads(request.content), PROBES["art"]["request"])
             return httpx.Response(200, json={"data": [{"b64_json": base64.b64encode(png_bytes()).decode()}]})
         self.assertEqual(self.make(reply).cover(PROBES["art"]["request"]["prompt"]).content, png_bytes())
+
+    def test_nonthinking_text_opts_in_without_changing_budget_or_probe_defaults(self):
+        seen = []
+        def reply(request):
+            body = json.loads(request.content)
+            seen.append(body)
+            expected = {**PROBES["text"]["request"], "messages": [{"role": "user", "content": "Introduce the song"}]}
+            if len(seen) == 1:
+                expected["chat_template_kwargs"] = {"enable_thinking": False}
+            self.assertEqual(body, expected)
+            return httpx.Response(200, json={"model": body["model"], "choices": [{"finish_reason": "stop", "message": {
+                "content": "Here is the next song.", "reasoning_content": "PRIVATE-REASONING-MARKER"}}]})
+        provider = self.make(reply)
+        self.assertEqual(provider.text("Introduce the song", thinking=False), "Here is the next song.")
+        self.assertEqual(provider.text("Introduce the song"), "Here is the next song.")
+        self.assertEqual(len(seen), 2)
+        self.assertEqual(seen[0]["max_completion_tokens"], 192)
+        self.assertNotIn("chat_template_kwargs", seen[1])
+        self.assertNotIn("chat_template_kwargs", PROBES["text"]["request"])
+
+    def test_nonthinking_text_still_rejects_incomplete_empty_wrong_model_and_malformed_output(self):
+        expected_model = PROBES["text"]["request"]["model"]
+        for model, finish, message in [
+            (expected_model, "length", {"content": None}),
+            (expected_model, "length", {"content": "Partial PRIVATE-MARKER"}),
+            (expected_model, "stop", {"content": " "}),
+            ("wrong-model", "stop", {"content": "PRIVATE-MARKER"}),
+            (expected_model, "stop", []),
+        ]:
+            calls = []
+            def reply(request):
+                calls.append(request)
+                self.assertEqual(json.loads(request.content)["chat_template_kwargs"], {"enable_thinking": False})
+                return httpx.Response(200, json={"model": model, "choices": [{"finish_reason": finish, "message": message}]})
+            with self.subTest(model=model, finish=finish, message=message), self.assertRaises(ProviderFailure) as caught:
+                self.make(reply).text("Introduce the song", thinking=False)
+            self.assertEqual(caught.exception.error.code, "invalid_response")
+            self.assertNotIn("PRIVATE-MARKER", str(caught.exception))
+            self.assertEqual(len(calls), 1)
+
+    def test_dj_job_attaches_speech_after_requesting_final_text_directly(self):
+        calls = []
+        final = "Next up is Solar Tide, an open and gentle guitar instrumental."
+        def reply(request):
+            calls.append(request.url.port)
+            body = json.loads(request.content)
+            if request.url.port == 9001:
+                # Reproduce the observed boundary: the default request exhausts
+                # its output budget before final content; direct mode completes.
+                direct = body.get("chat_template_kwargs", {}).get("enable_thinking") is False
+                return httpx.Response(200, json={"model": body["model"], "choices": [{
+                    "finish_reason": "stop" if direct else "length",
+                    "message": {"content": final if direct else None}}]})
+            self.assertEqual(request.url.port, 9008)
+            self.assertEqual(body["input"], final)
+            self.assertNotIn("voice", body)
+            return httpx.Response(200, content=wav_bytes(), headers={"content-type": "audio/wav"})
+        store = SessionStore()
+        session = store.resolve(None)
+        track = Track(title="Solar Tide", settings=SongSettings(style="Ambient guitar", mood="Open", duration_seconds=12))
+        session.tracks[track.id] = track
+        job = store.request_dj_speech(session, track.id)
+        store.generate_dj_speech(session, job.id, self.make(reply))
+        self.assertEqual(session.jobs[job.id].state, "succeeded")
+        self.assertIsNotNone(session.tracks[track.id].speech)
+        self.assertIsNone(session.tracks[track.id].dj_text)
+        self.assertEqual(store.get_media(session, session.tracks[track.id].speech.id).content, wav_bytes())
+        self.assertEqual(calls, [9001, 9008])
 
     def test_speech_omits_voice_and_decodes_wav(self):
         def reply(request):
@@ -166,15 +236,18 @@ class ProviderTests(unittest.TestCase):
             provider.text("Hi")
         self.assertEqual(caught.exception.error.code, "not_configured")
 
-    def test_text_guard_failures_name_the_exact_guard_without_raw_content(self):
+    def test_unexpected_model_guard_uses_only_fixed_text(self):
+        # The returned model id - string OR object, however short - is never
+        # echoed into the SafeError that reaches the UI/snapshot; only the
+        # locally known expected id may appear (fixed-message whitelist).
         provider = self.make(lambda request: httpx.Response(200, json={
             "model": "some/local/alias", "choices": [{"finish_reason": "stop",
                                                       "message": {"content": "SECRET-MARKER-CONTENT"}}]}))
         with self.assertRaises(ProviderFailure) as caught:
             provider.text("Hi")
         message = caught.exception.error.message
-        self.assertIn("model", message)
-        self.assertIn("some/local/alias", message)
+        self.assertIn("unexpected model", message)
+        self.assertNotIn("some/local/alias", message)
         self.assertNotIn("SECRET-MARKER-CONTENT", message)
 
     def test_text_finish_reason_and_empty_content_failures_are_distinguishable(self):
@@ -201,6 +274,9 @@ class ProviderTests(unittest.TestCase):
             {"model": {"debug": "PRIVATE-MARKER"}, "choices": [{"finish_reason": "stop",
                                                                 "message": {"content": "ok"}}],
              "needle": "unexpected model"},
+            {"model": "PRIV-SHORT-MARKER", "choices": [{"finish_reason": "stop",
+                                                        "message": {"content": "ok"}}],
+             "needle": "unexpected model"},
             {"model": expected, "finish_reason": {"debug": "PRIVATE-MARKER"},
              "choices": [{"message": {"content": "ok"}}], "needle": "unexpected finish"},
         ]
@@ -217,6 +293,7 @@ class ProviderTests(unittest.TestCase):
                 message = caught.exception.error.message
                 self.assertIn(case["needle"], message)
                 self.assertNotIn("PRIVATE-MARKER", message)
+                self.assertNotIn("PRIV-SHORT-MARKER", message)
 
     def test_malformed_message_shape_raises_provider_failure_not_attribute_error(self):
         expected = PROBES["text"]["request"]["model"]

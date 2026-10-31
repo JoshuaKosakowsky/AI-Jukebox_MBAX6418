@@ -114,6 +114,37 @@
           </p>
         </div>
       </section>
+      <section class="dj" aria-labelledby="dj-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">
+              DEFAULT AI DJ
+            </p>
+            <h2 id="dj-title">
+              Queue &amp; DJ
+            </h2>
+          </div>
+          <ol id="dj-queue" class="dj-queue">
+          </ol>
+        </div>
+        <p id="dj-status" role="status" aria-live="polite">
+          Add playable songs from your library to the queue, then press Play.
+        </p>
+        <div class="dj-controls">
+          <button id="dj-play" type="button" disabled>Play queue</button>
+          <button id="dj-pause" type="button" disabled>Pause</button>
+          <button id="dj-resume" type="button" disabled>Resume</button>
+          <button id="dj-skip" type="button" disabled>Skip</button>
+        </div>
+        <audio id="dj-audio" hidden></audio>
+        <p class="note">
+          Qwen writes a short introduction for each queued song; Chatterbox
+          speaks it with its default voice, then the music plays — speech and
+          music never overlap. Pause and Skip work during speech and music, and
+          the queue advances on its own after each song. Reloading the page
+          keeps the queue and never generates new speech.
+        </p>
+      </section>
       <footer>
         Class-powered music, artwork and DJ speech.
         <span id="app-status" role="status">

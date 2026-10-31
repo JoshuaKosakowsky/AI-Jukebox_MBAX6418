@@ -1,0 +1,98 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "scope": "Production FastAPI/TestClient + real Qwen/Chatterbox with retained class-generated tracks seeded in memory; NOT normal launcher/browser/listening or final acceptance",
+  "base": "c06cd0b316e13d88c412e0dc4808635f9cbbfeef",
+  "request_limit": {
+    "text": 2,
+    "speech": 2,
+    "music": 0,
+    "art": 0
+  },
+  "requests": {
+    "text": 2,
+    "speech": 2,
+    "music": 0,
+    "art": 0
+  },
+  "automatic_retries": 0,
+  "text_responses": [
+    {
+      "model_matches": true,
+      "content_is_string": true,
+      "nonempty": true,
+      "characters": 165,
+      "finish_reason": "stop",
+      "completion_tokens": 36,
+      "max_completion_tokens": 192,
+      "enable_thinking": false
+    },
+    {
+      "model_matches": true,
+      "content_is_string": true,
+      "nonempty": true,
+      "characters": 248,
+      "finish_reason": "stop",
+      "completion_tokens": 52,
+      "max_completion_tokens": 192,
+      "enable_thinking": false
+    }
+  ],
+  "speech_media": [
+    {
+      "track": "Moonlit Reflection",
+      "bytes": 382124,
+      "channels": 1,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "frames": 191040,
+      "duration_seconds": 7.96,
+      "full_pcm_decode": true,
+      "speech_text_matched_final_content": true,
+      "elapsed_seconds": 3.645
+    },
+    {
+      "track": "Desert Drive",
+      "bytes": 522284,
+      "channels": 1,
+      "sample_rate": 24000,
+      "sample_width": 2,
+      "frames": 261120,
+      "duration_seconds": 10.88,
+      "full_pcm_decode": true,
+      "speech_text_matched_final_content": true,
+      "elapsed_seconds": 4.138
+    }
+  ],
+  "passed": [
+    "first and transition DJ jobs succeeded through production routes",
+    "two speech MediaRefs attached to the correct tracks",
+    "speech fully decoded; final Qwen text sent unchanged; default voice omitted",
+    "complete-output/model validation retained at 192-token limit",
+    "HTTP reload preserves tracks/jobs",
+    "queue replay reuses speech with zero additional requests"
+  ],
+  "result": "PASS",
+  "change": {
+    "provider_method": "text(prompt, thinking=None) retains probe defaults; DJ opts into thinking=False",
+    "request_delta": {
+      "chat_template_kwargs": {
+        "enable_thinking": false
+      }
+    },
+    "model_budget_prompt_temperature_stream_unchanged": true,
+    "lyrics_unchanged": true
+  },
+  "sources": {
+    "deployed_schema_route": "/openapi.json -> /v1/chat/completions -> ChatCompletionRequest.chat_template_kwargs",
+    "deployed_schema_raw_sha256": "ce8ac9354c29c893768b1089fcca82f46792dd3420cf6a454487d4f0396fa2e8",
+    "model_owner": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B#instruct-or-non-thinking-mode",
+    "quantization_owner": "https://huggingface.co/cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit#instruct-or-non-thinking-mode"
+  },
+  "coordination_claim": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6537399622",
+  "raw_text_or_audio_retained": false,
+  "unchecked": [
+    "Normal scripts/dev.py browser/control matrix",
+    "Human listening and quality",
+    "Integrated main and full AT-07/AT-09 acceptance"
+  ]
+}

@@ -1,5 +1,251 @@
 # Agent handoff
 
+## Session — final DJ integration and clarity, 2026-10-30 America/Denver
+Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
+No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6538451792
+Merged current main; resolved only handoff overlap while preserving DJ, failed-vocal, sample and credit records.
+Addressed Preethi's non-blocking README note: manual players independent only when idle, suppressed while DJ active/paused.
+Corrected related user notice that incorrectly said pausing the DJ would permit manual players; notice-only JS change.
+Playback logic/providers/tests/contracts/dependencies/manifest unchanged from0a05942; existing media/evidence bytes unchanged.
+Preethi's0a05942 review was COMMENTED/no blockers; new-head code review/approval still needed when Matt promotes.
+Earlier failed live runs predate successful real2Qwen+2speech HTTP/store correction; normal-launch controls/listening remain pending.
+No new class-service calls, credentials, sample selection, reference implementation or budget reset.
+Safeguards/coverage/whitespace, source/evidence equivalence, affected frontend checks and new-head CI recorded on PR.
+Joshua contributes and cannot approve; leave draft and readiness with Matt, coordinate one tester/head/budget with Preethi.
+Next: publish/freeze this head, finish normal-launch/browser/control/listening acceptance, eligible independent review then normal merge.
+
+## Preserved task and main notes (current facts above supersede historical status)
+
+## Session — DJ main reconciliation, Joshua, 2026-10-30 America/Denver
+Task: remove current-main integration blocker from existing #27 draft; pre-head bee7209, main9d84dab.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6538108304
+Only handoff conflicts required resolution; retained DJ, Qwen, loader, recovery and shared configuration notes.
+Runtime/tests/contracts/dependencies/approved manifest unchanged from bee7209; original DJ evidence/media unchanged.
+Shared credential/live-run guide from #33 and recovery evidence from #22 now present on this branch.
+#33 merged normally after Preethi approved1490da1 and CI4/4 passed; no new configuration requirement introduced.
+Current #25/#28 heads6276b29/66daf4f are green and frozen for eligible independent review.
+Mike's #26 head57fd24a has 161 passing tests/green CI but three reproduced validation/parser blockers;
+#29 safe diagnostic findings and #24 one-file credit integration conflict remain with Mike.
+Joshua stays zero-commit reviewer on #24/#26/#29; Matt retains #27 lead, draft state and readiness.
+No provider calls, new credentials, sample selection, reference UI implementation or ownership changes here.
+Normal-launch DJ browser/control/listening acceptance remains separately coordinated with Matt/Preethi.
+Prior real-adapter HTTP/store correction and offline fixtures do not establish that missing acceptance.
+Verifier/coverage/whitespace, exact source equivalence and locked-suite/CI outcomes recorded on PR.
+Next: publish checked head, stop integration edits, let eligible zero-commit reviewer inspect code/evidence.
+Never self-approve or merge this contributor PR; do not turn a docs sync into repeated live generation.
+
+## Preserved task and merged-main notes (current facts above supersede historical status)
+
+## Session — Joshua integration lane (2026-10-30 America/Denver)
+User has Mike and Preethi available; asks how to split work and whether to reassign. No assignees changed.
+Mike approved exact #31 cc90d293 and #25 4d41b9a. Merged #31 normally at main 31dc9e4; #7 remains open.
+Claimed #25 sync/byte-identical preview rename, pushed 4d724c2 and requested eligible Preethi review.
+Claimed #27 integration with loader main; pre-integration head 81daed3. Matt retains lead/draft/readiness.
+Resolved APP_CONTRACTS/TEST_RESULTS conflicts preserving both loader and DJ evidence. Handoff history retained below.
+Code seams auto-merged; changed DJ speech budget attachment to common _media_bytes so retained sample bytes count once.
+Isolated DJ HTTP fixture catalog from approved manifest; added real-HTTP sample/DJ pairing/isolation and retained-catalog cap regressions.
+New cap regression fails pre-integration speech accounting and passes with common helper; 183 locked tests PASS.
+No provider payload, frozen schema, approved manifest, dependency or new live-request change in this integration.
+Prior Qwen fix remains 81daed3: bounded real HTTP/store 2 text + 2 speech passed, not normal-launch/listening acceptance.
+Validation: safeguards/coverage/whitespace, complete suite and final CI recorded on current PR head.
+Current lanes: Joshua integration + independent review of Mike/Preethi code; Mike finishes reviews then #29/#26 fixes.
+Preethi can review #25 now, then claim #5 acceptance with Matt handoff or prepare a third #7 sample from retained #32 media if available.
+No duplicate live runs: coordinate tester/head/request cap; do not treat silence as an abandoned claim.
+Recommendation only: add Preethi as #7 preparation contributor if desired; keep existing leads and backups.
+Next: push checked integration, notify exact head, let Preethi/Matt coordinate normal browser/control/listening acceptance.
+No self-approval on #27 (Joshua/Matt contributors); eligible Mike/Jovi/zero-commit reviewer needed after author readiness.
+#5/#7/final ZIP remain open; submission NOT READY. Existing ownership/protection unchanged.
+
+## Session — Joshua Qwen-fix support (2026-10-30 America/Denver)
+User explicitly requested help on #27 and coordination with Matt; pre-change head c06cd0b.
+Claim posted: #27 issuecomment-6537399622; exact seam/budget follow-up issuecomment-6537415884.
+No newer competing published provider commit/claim; no Matt acknowledgment claimed. Matt retains draft/readiness and acceptance.
+Read current deployed ChatCompletionRequest schema and official Qwen3.6/quantization non-thinking guidance.
+Added optional ClassProviders.text(thinking=None); default preserves frozen probe, DJ calls thinking=False.
+Only request delta is chat_template_kwargs.enable_thinking=false; original model/prompt/192-token/temperature/stream retained.
+Strict model/nonempty-final/stop validation and no-auto-retry stay; Mike's lyrics method/#29 unchanged.
+Changed providers.py, one sessions.py call, provider/DJ tests, contracts/test docs, safe evidence and this handoff.
+165 locked tests PASS (3 new); provider/store regression fails on old DJ call and passes with the fix.
+New live task used exactly 2 Qwen + 2 default Chatterbox, no retries/music/art; first/transition jobs succeeded.
+Qwen returned complete final content at 36/52 tokens. Speech fully decoded: PCM16 mono 24 kHz, 7.96/10.88 s.
+Retained class music/covers were seeded in memory; TestClient drove production routes; replay/reload added no calls.
+No raw text/audio or credentials retained in Git; schema fingerprint and safe facts in results/a3-05-qwen-fix-verification.json.
+Scope: real-adapter/HTTP-store correction, NOT normal scripts/dev.py browser/control/listening or full acceptance.
+Next: Matt pulls current head, avoids a duplicate provider fix, updates author summary and completes bounded normal-launch AT-07/09.
+Eligible zero-commit Mike/Jovi/prse review after Matt readiness; Joshua contributes and cannot approve. #5 remains open.
+No ownership/protection change or new dependency/schema/frontend change; final checks/CI recorded in PR.
+Prior failed runs/diagnoses and Matt/prse notes are preserved below as history.
+
+## Session — Joshua returned-blocker support (2026-10-30 America/Denver)
+PR #27, pre-change c4404dd. Matt retains lead and draft/readiness control; Joshua already contributes and cannot approve.
+Bounded diagnostic completed: exactly 1 Qwen + 1 Chatterbox, no retries/music/art or acceptance rerun.
+Qwen matched model but returned no string content, finish_reason length, 192/192 completion tokens; fixed text guard rejected it.
+Independent default speech accepted/fully decoded: PCM16 mono 24 kHz, 3.96 s. No raw text/audio or secrets retained.
+Safe permanent record: results/a3-05-provider-diagnostic.json; posted exact facts to #27.
+Offline actual-function probes verify Matt's stale timer, permission and manual/DJ exclusivity corrections; no browser/listening claim.
+Found/fixed explicit request_dj_speech bypass of MAX_ACTIVE_SPEECH/MAX_JOBS; guarded before allocation with safe 429s.
+Added 2 real-HTTP cap/isolation/no-side-effect regressions and optional executable Node playback probe.
+Baseline checks fail as expected; patched locked suite 162 PASS; verifier/coverage/whitespace and final CI reported in PR.
+No provider payload/model/token-budget or shared schema changes; no additional live requests in this support task.
+Merged main c6e1273 after docs-only conflicts, preserving Matt/diagnostic/prse records; pre-sync b444eeb.
+Runtime/tests remain byte-identical to b444eeb (162 locked tests passed); safeguards/coverage/whitespace rechecked.
+Own #22/#25/#28/#31 were synchronized; eligible Matt/prse review requests added to unblock that separate queue.
+Next: Matt corrects the Qwen request against documented deployed contract, preserves complete-output validation, updates stale PR body/handoff.
+Then bounded normal-launch DJ/control/listening acceptance and eligible zero-commit review; #5 and submission NOT READY.
+Coordinate _media_bytes with loader #31 and reference interfaces with #26; do not guess unmerged seams.
+Preserve the older implementation/live-failure entries below as history; newer observations above supersede their pending claims.
+
+## Session — Joshua integration check (2026-10-30 America/Denver)
+Local recheck of 2f872b4 found one missing djReady stub in the merged #30
+retry probe; corrected only that test fixture, not the DJ implementation.
+PASS after correction: 153 locked tests, verifier 82, coverage 36-11-19; whitespace clean.
+Actual-function timer probes still reproduce stale retry after Pause and
+persistent-rejection segment completion; posted both to #27, no class calls.
+Joshua now contributes to this PR and cannot approve it; Mike/Jovi remain
+eligible if they have no commits. Prior Matt implementation/handoff follows.
+
+## Session
+2026-10-30 America/Denver; Codex for mase7919. A3-05 default AI DJ queue
+implementation on `codex/a3-05-dj-queue` (draft PR #27) — now synchronized
+with main `770ce62` (includes PR #20's Windows ZIP evidence, merged after
+E2B1E52). This file consolidates the A3-05 entry with PR #20's ZIP-evidence
+entry and preserves #23's Moonlit candidate notes below.
+
+## Constraints
+Protected reviews/checks unchanged. User-controlled workflow: the A3-05 draft
+PR must stay DRAFT until mase7919 authorizes readiness/review; no
+self-approval, no branch-protection bypass, no merge. Keep prse's #8/#9 and
+jovi's #7/#10 ownership; A3-06 (#6, MSpanny, PR #26) is excluded from A3-05 —
+its branch is untouched and its speech(reference=None) seam is backward
+compatible. #20 remains as the recorded ZIP startup evidence; no new ZIP
+acceptance is claimed.
+
+## Repository state
+Main `770ce62` (includes #18 instrumentals, #19 acceptance evidence, #21
+vocals, #23 Moonlit candidate, and #20 Windows ZIP evidence). Open PRs: #22
+recovery audit (dirty on handoff only), #24 vocal credits, #25/#26 teammate
+PRs, and #27 (A3-05, DRAFT, MERGEABLE). A3-05 branch `codex/a3-05-dj-queue`
+= main + playback controller (queue + AI DJ commentary) + concurrency
+hardening; the branch was merged with main `770ce62` after #20 landed; the
+only merge conflicts were the shared docs (TEST_RESULTS.md, handoff.md),
+resolved by keeping both entries.
+
+## Work completed and decisions
+A3-05 implemented end-to-end: queue endpoints, DJ speech jobs (Qwen text ->
+Chatterbox default-voice speech, voice omitted per contract), playback state
+machine on the existing Playback contract (no schema change; track.speech
+reused as the per-track introduction), one persistent browser audio element +
+engine loop for sequencing, play/pause/resume/skip in both phases, automatic
+advancement, end-of-queue, reload without regeneration. Every transition
+including the first is DJ-introduced (documented design choice; same code
+path for all transitions). Commentary speech attaches to the TRACK so stale
+jobs from skipped tracks can never play out of turn.
+Concurrency audit (delayed/reordered requests) found and fixed three real
+races: stale phase-after-skip rejected via track-scoped preconditions (409),
+stale pause records the current track's true phase, advance-from-paused no
+longer 500s. Browser: single-flight advances (a Skip coalesces into an
+in-flight automatic advance for the same track; rapid skips serialize), a
+FIFO for user intents, pause-failure un-halting, crash-proof engine loop.
+Final edge cases: a skip while paused during music keeps the queue paused
+and resumes with the NEXT song's introduction (paused_from is always
+"speaking" after a paused advance — carrying the old track's "playing"
+phase bypassed the introduction), and a failed advance request no longer
+creates an unobserved orphan promise (in-flight slot cleared inside the
+advance promise; controller recovers).
+#20 notes (historical): original 7b9dd2b ZIP identity/65-file startup
+rehearsal recordings remain intact on main and in this branch after the
+merge; #23: original Moonlit WAV/PNG candidate material. Neither is touched
+by A3-05.
+
+## Validation
+A3-05 head: 151/151 tests (14 tests/test_dj.py incl. concurrency races and
+edge cases, 21 frontend guards incl. DJ guards) plus real-Chrome offline
+harness runs with fixture providers: 18/18 functional, 12/12 deterministic
+concurrency, plus edge-case browser checks (paused-music -> Skip -> Resume
+-> next-song intro -> music; forced advance failure with no unhandled
+rejection) — evidence retained outside the repo (dj-browser-evidence.json,
+dj-concurrency-evidence.json). Baseline gates on merged main 770ce62:
+`python scripts/dev.py --check` PASS; CI 4/4 on the PR head. #20's ZIP
+evidence and #23's Moonlit files are byte-preserved through the merge. No
+class service, no .env, no credentials were used in A3-05 development; no
+new live generation was requested.
+
+## Blockers and unchecked areas
+Live Qwen/Chatterbox acceptance (AT-07, AT-09 live portion) is NOT done —
+authorized separately, planned on the normal launcher. Not claimed: audible
+listening, headed-browser listening, class-service connectivity. #22 remains
+dirty (handoff-only conflict; sync + current-head CI before its formal
+review). #8's instrumental retry P2 is unfixed on main and out of A3-05
+scope. Not ready for submission: vocals live acceptance, reference voices
+(A3-06 integration wiring is a coordinated follow-up after #27/#26 merge),
+samples, ZIP acceptance.
+
+## Next steps
+1. mase7919 authorizes readiness/review of the A3-05 draft; MSpanny is the
+   preferred independent reviewer if eligible.
+2. Propose the bounded live acceptance procedure (normal launcher, one
+   2-track queue, real commentary + speech + sequencing in a browser) for
+   authorization — no live calls before then.
+3. After #27 merges, wire A3-06's take_reference into generate_dj_speech
+   (coordinate with MSpanny; the reference=None default keeps the seam
+   compatible), reconcile #22's handoff, and re-verify current-head CI.
+
+## References
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5
+
+## A3-08 retry controls (PR #30, merged into main 2026-10-30)
+2026-10-30 America/Denver; Codex for Joshua. Task: recheck Matt, then fix #8 retry controls.
+### Constraints
+MSpanny = Mike; mase7919/Mase = Matt. No ownership/protection changes or class calls.
+Claim posted on #8; app.js edits confined to cover/music/resume rejection catches; no DJ code edits.
+### Repository state
+Branch codex/a3-08-retry-controls from main 770ce62. Existing #22/#24/#26/#28/#29 remain separate.
+### Work completed and decisions
+Matt #27 895a616 rejected-advance cleanup verified fixed; 151 locked tests PASS. Manual/DJ overlap remains open.
+Restore the three rejected controls explicitly; retain cached cards, audio nodes, active/config guards and deliberate retry semantics.
+Added dependency-free optional Node handler regression in default Python discovery; Node is not an app dependency.
+### Validation
+Node regression fails baseline and passes patch, including pending, configuration, same-node and no-auto-submit checks.
+Real browser offline: cover/music/resume reject -> release -> refresh -> explicit retry all PASS without reload.
+Fixture counters cover 4/6/7; resume submissions 1/3/3; music 0/2/3. Safe record/screenshot committed.
+Sequential tabs avoid cross-port localhost cookie collisions; initial mixed setup discarded and cover rerun cleanly.
+Final locked checks/CI reported in PR. No real providers, .env, user recordings or listening involved.
+### Blockers and unchecked areas
+#8 broader normal-launch/live acceptance stays open. Matt's overlap fix and Mike's #26/#29 findings remain separate.
+Submission NOT READY; no issue closed and no self-approval.
+### Next steps
+1. Eligible teammate reviews this focused #8 patch; coordinate merge order with Matt's #27 shared app.js.
+2. Rerun integrated browser regression after normal protected merge; preserve full acceptance gaps on #8.
+3. Mike/Matt continue their existing follow-ups; do not repeat generation on session switches.
+### References
+Issue #8; results/retry-control-fix.json; docs/TEST_RESULTS.md; tests/frontend_retry_probe.cjs.
+
+Inherited discovery note (its unverified status was superseded by the October 17
+probes and October 27 production-adapter smoke; preserve as history only):
+
+### Hermes entry (2026-10-15)
+
+Local `.env` created with all four required services, keyed and verified:
+JUKEBOX_TEXT=http://dobolyi.com:9001/v1 (Qwen3.6-35B-A3B),
+JUKEBOX_ART=http://dobolyi.com:9006/v1 (FLUX.2-klein-4B),
+JUKEBOX_MUSIC=http://dobolyi.com:9007/v1 (acestep-v15-xl-turbo),
+JUKEBOX_SPEECH=http://dobolyi.com:9008/v1 (chatterbox-v3).
+Same class key as Assignment 2 (copied from A2 `.env`; hash-verified, never printed).
+`.env` confirmed gitignored (`git check-ignore .env`); no commits, no push.
+All four respond to `/v1/models` with the key. Unverified: request/response
+payload schemas for 9007/9008 (music/TTS) — still need class-endpoints.txt
+before building adapters.
+
+
+## Preserved prse recovery handoff from main c6e1273
+
+## Preserved merged-main notes
+
 ## Session — A3-09 README slice, 2026-10-30 America/Denver
 prse4479 (A3-09 lead). Claim on #9: branch codex/a3-09-readme-findings from main 81042a1, README-only +50 (failure/recovery observed results, R29 design choice, R30 limitation).
 PR #34 reviews: Joshua requested two P2 factual corrections — capacity slots are shared across browser sessions (not per-session), and the retry guarantee is per requested stage (not one generation per action) — plus one non-blocking toolchain qualification (129-test figure historical; Node optional). All batched in this commit; head frozen for re-review by Joshua (reported zero-commit) or Mike. No source/test changes, no provider calls, no .env involvement. #9 stays open for vocal/DJ/reference/results sections; R31 team wording verification happens in the PR review.
@@ -86,7 +332,7 @@ Mike/Preethi requested for independent review. Main's #22 merge also retains the
 Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
 
 ## Session
-2026-10-30 America/Denver (MDT); Hermes for MSpanny. Task: A3-03 lyrics parser diagnostics (#3 lead; follow-up to Joshua's failed live run, PR #28). Branch codex/a3-03-lyrics-diagnostics from main 770ce62.
+2026-10-30/31 America/Denver; Hermes for MSpanny (Mike). Task: A3-03 lyrics parser diagnostics (#3 lead; follow-up to Joshua's failed live run, PR #28). Branch codex/a3-03-lyrics-diagnostics. Rounds: (1) distinct guard labels; (2) whitelisted metadata + malformed message=[] fix; (3) per Joshua's re-review of 086ac6b: returned model ids are NEVER echoed (fixed unexpected-model message — a length bound is not a whitelist; short-string marker regression through provider AND session snapshot), and #27's text(..., thinking=False) DJ call absorbed into the _chat refactor (chat_template_kwargs added only when thinking is not None; probe-identical defaults preserved). Suite 189 tests, verifier 118 files, coverage 36/11/19, gate PASS, CI green. AT-04 live root-cause remains pending class .env; no token-budget/schema guesses.
 
 ## Constraints
 Task branch + reviewed PR; no main/protection/assignment changes. Fix is offline-only: NO speculative token-budget/schema changes; bounded live rerun stays pending class .env.
