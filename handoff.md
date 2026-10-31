@@ -1,3 +1,15 @@
+# Current re-review update - 2026-10-31 America/Denver
+
+Codex for Joshua; independent #29 review, no commits on Mike's branch.
+Approved exact 02b85e232b0987fd86290ba7d8a98d2b306675da; remaining metadata/string threads resolved.
+189 locked tests (1 optional skip), verifier 118, coverage 36/11/19, whitespace and 4/4 exact-head CI PASS.
+Original object/short-string/finish/message probes now keep markers out of SafeError and public snapshots.
+Independent payload capture: default text probe-identical, DJ adds only thinking=False, lyrics adds only 512-token budget; frozen probe unchanged.
+PR #29 is APPROVED / MERGEABLE / CLEAN at review end. Kept open: this request was review; normal merge can proceed on frozen head.
+No app edits, live calls, credentials, new generation/listening or successful #3 acceptance claim. #26 integration/Matt review and #35/#37 draft investigation remain as below.
+This update is only on Joshua's docs PR #38; preserve #29's eligible exact-head approval. Refresh GitHub before any next action.
+Approval: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723737598
+
 # Agent handoff
 
 ## Session

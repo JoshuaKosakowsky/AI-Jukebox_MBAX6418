@@ -8,9 +8,9 @@ main verification/checklist reconciliation remains on #5. The sample loader
 (#31), retry fixes (#30), instrumental recovery evidence (#32), README slice
 (#34) and Moonlit/Desert Drive candidates are merged; final samples remain unselected.
 Mike's #26 upload corrections are independently approved at bbf80bc, but the
-branch needs current-main DJ integration and Matt's fresh review. #29 diagnostic
-changes still echo arbitrary short model strings into public errors; keep that
-fix local/offline, reconcile DJ thinking=False, then request re-review. #3's
+branch needs current-main DJ integration and Matt's fresh review. #29 diagnostics are independently approved at 02b85e2: fixed unexpected-model
+errors and merged DJ thinking=False payload behavior verified, 189 tests pass
+(1 optional skip). It is ready for normal protected merge; freeze that head. #3's
 failed live-vocal evidence remains valid; successful integrated acceptance is pending.
 #35/#37 genre investigation remains open/draft: literal piano/DnB controls passed
 Joshua's listening; prior metal/rap failures remain failures. No universal quality
