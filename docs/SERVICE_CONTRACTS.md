@@ -90,6 +90,82 @@ Duration range 10-600 seconds is documented upstream, not exhaustively verified
 here. Vocals, AI lyrics, user-selected settings and musical quality remain feature
 checks. Do not invent an OpenAI /v1/audio/generations request for this deployment.
 
+### Production genre conditioning (#35)
+
+The frozen probe above describes one slow piano example. Production music
+requests omit its `bpm`, `key_scale` and `time_signature` fields so every style
+is not forced to 80 BPM, C Major and 4/4. Duration, supplied lyrics,
+single-output batch, WAV format and eight turbo steps remain explicit.
+
+Production now sets **`thinking=true`, `use_cot_caption=true`**: ACE-Step's own
+5Hz music LM enhances the sparse style/mood/theme caption and plans semantic
+audio codes before DiT rendering. This replaces the probe's direct-DiT fast path;
+`use_cot_language=false` remains unchanged, and no separate Qwen job is added.
+Both modes use a compact genre-first audio caption, retaining all three full
+120-character user inputs within the documented 512-character caption limit.
+Theme/mood shape dynamics and motifs while genre guides groove, tempo,
+instruments and production. Vocal phrasing follows the style rather than
+universally requiring sung delivery; instrumental lyrics remain `[Instrumental]`.
+For the two bare genre labels that failed listening, captions add explicit sonic
+cues: distorted guitar riffs/bass/drums for Metal/Heavy Metal, and kick/bass,
+snare, hi-hats and a sparse hook for Rap/Hip-hop. Matching is limited to common
+exact labels (case insensitive, hyphen/space aliases); detailed/freeform styles
+and blends retain their own direction. These editorial defaults address the
+reported cases rather than pretending that labels alone worked. There is no
+fixed genre/BPM table, model switch or fixed seed.
+
+The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
+supports both flags and optional BPM/key/meter. The
+[API documentation](https://ace-step.github.io/ACE-Step-1.5/en/API#_4-create-generation-task)
+describes music-LM caption enhancement/audio-code planning and recommends
+`thinking=true` for quality. Supplied duration takes precedence over inferred
+metadata. The [inference guide](https://ace-step.github.io/ACE-Step-1.5/en/INFERENCE)
+documents the caption limit. Planning can add latency within the existing
+music task and deadline; no extra submission or automatic retry is introduced.
+Supported settings are a hypothesis for better genre fidelity, not proof of it.
+
+On 2026-10-30 the deployed `/openapi.json` still omitted the release-task JSON
+body; its raw SHA-256 was `232eda8eba8b7f1d574a0ccc2c5a9db8023ba27347b64ec60356361bbadb3bf9`.
+A read-only `/health` check reported `llm_initialized=true`. These are discovery
+observations, not generation/quality acceptance. The original probe fixture
+remains unchanged. The [bounded comparison](../results/a3-35-genre-comparison.json)
+then completed two music-only requests and full WAV decodes. Returned metadata
+was 97 BPM in 3/4 for ambient piano and 120 BPM in 4/4 for upbeat funk; these are service
+metadata, not measured audio tempos. Joshua confirmed clearer genre/rhythm
+contrast for those two clips. This is adapter/listening evidence, not a new
+normal-launch/browser acceptance or a guarantee for all genres. Subsequent user
+app testing on 666d44b found heavy metal and rap unsuitable, Latin only okay,
+and country good. That broader feedback leaves #35 unresolved; the planning
+revision has a [separate bounded record](../results/a3-35-genre-fidelity.json):
+two accepted requests and complete 30-second WAV decodes. Joshua's verdict was
+**"Neither is convincing"**, so both genre checks fail. Returned prompts echoed
+the inputs; no internal caption-rewrite trace was captured. The concrete
+arrangement-cue revision was then tested in a newly authorized two-clip run on
+e62fe17 ([record](../results/a3-35-concrete-cues.json)); both decoded fully but
+Joshua again judged **"Neither is convincing."** The advertised model is
+`acestep/acestep-v15-xl-turbo` and health reports both models/LM initialized;
+these read-only facts do not verify internal prompt/flag conditioning. No
+further generation in that run. #35 stays open and PR #37 stays draft.
+
+### Shared-path audit and title-free controls (#35)
+
+The [shared-conditioning audit](../results/a3-35-shared-conditioning.json) checks
+arbitrary genres through local HTTP/store/provider capture and two real title-free
+controls. Both20s piano/DnB controls used the same requested/reported DiT seed;
+Joshua confirmed **"Both match their descriptions."** Two formatter calls also
+returned different genre-aware captions, with some added musical choices.
+This establishes a limited ability to follow prompts, not uniform genre fidelity
+or the cause of prior metal/rap failures. Formatting and music rendering are
+separate observations; formatter output was not forwarded to the audio jobs.
+
+Official pinned source passes request.prompt to the inference caption and
+preserves original_prompt separately for result metadata. Echoing the original
+prompt is therefore expected, not evidence that enhancement did not occur.
+The remote implementation is not attested by that source inspection. The app's
+request/media path passed the checked cross-genre regressions; no production
+behavior changed during this audit. A within-genre caption-template comparison
+remains proposed; no additional requests were made after the bounded two-job run.
+
 ## Speech: Chatterbox V3, port 9008
 
 POST /v1/audio/speech with model=chatterbox-v3, input="Welcome to the jukebox."

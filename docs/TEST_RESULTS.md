@@ -740,3 +740,169 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
+
+
+## A3-35 genre-conditioning correction — 2026-10-30 America/Denver
+
+Joshua/Codex, branch codex/a3-35-genre-controls from main 1faacd0; Refs #35.
+Production inherited 80 BPM/C Major/4/4 from the historical piano probe for every
+style. Removed only those three fields and strengthened instrumental/vocal
+prompts to request genre-characteristic groove/tempo/rhythm/instruments. No
+manual genre mapping, new dependency, public schema or model switch.
+
+- New production-store + real-adapter/MockTransport regression covers contrasting
+  ambient/drum-and-bass styles in instrumental and vocal modes. All four cases
+  fail on baseline because fixed fields are sent, and pass after the correction.
+  Duration/lyrics/batch/WAV/remaining flags and frozen probe immutability checked.
+- Full locked offline suite: 146 tests PASS, repository 104 files and coverage 36/11/19 PASS.
+- Read-only deployed schema/health plus matching upstream source inspected;
+  missing metadata is supported and music LM reports initialized. It may add
+  planning time even with thinking=false. No generation occurred in discovery.
+
+Bounded real comparison on code commit ddf9e61: **2 music submissions, 4 polls,
+2 downloads, 0 art/text/speech/retries**, both successful. Reused recorded Moonlit
+Reflection (Ambient piano / Calm and reflective / 30 s) and Desert Drive (Upbeat
+funk / Energetic and optimistic / 20 s) settings; original class audio was retained
+as baseline, with no baseline regeneration. New WAVs fully decoded non-silent
+48 kHz stereo PCM16 at exactly 30/20 s. Service metadata returned 97 BPM in 3/4 and 120 BPM in 4/4
+respectively; these are reported metadata, not measured beat/tempo estimates.
+
+Joshua listened to the two new clips and directly confirmed: **"Yes, clearer
+genre/rhythm difference."** Scope is these two outputs. Safe exact counts,
+request controls, metadata, hashes and listening attribution are in
+[a3-35-genre-comparison.json](../results/a3-35-genre-comparison.json).
+Raw audio remains ignored under results/raw, not approved sample media.
+This verifies changed-request compatibility and a limited listening comparison;
+normal-launch/browser checking on integrated main and broad genre quality remain
+unchecked. Preethi's #27 test and budget were separate and untouched.
+
+
+### Broader user feedback and planning revision — #35 / PR #37
+
+Joshua tested the normal app running PR head 666d44b and reported:
+
+- **Iced Coffee / Heavy Metal / Angsty**: not metal; sounded like upbeat dungeon
+  music from a video game.
+- **Yellow Sundress / Rap / Upbeat**: sounded like wind-instrument snake-charming
+  music rather than the expected rap.
+- Latin was only okay; country worked well (exact title/mood not recorded).
+
+These are attributed user observations, not automated genre classification.
+Duration and mode for those attempts were not supplied; no missing vocals are
+inferred. The original two-clip endorsement is retained with its narrow scope.
+#35 remains unresolved, and PR #37 was returned to draft while revising.
+
+The revision enables documented ACE-Step caption enhancement and semantic
+planning, replacing generic chat-style prompts with compact genre-first audio
+captions. Theme/mood guide musical motifs/dynamics; vocal delivery follows the
+style instead of always requiring singing. Maximum allowed title/style/mood
+inputs all fit the documented 512-character caption limit without truncation.
+Four Heavy Metal/Rap x instrumental/vocal request cases and two initial
+caption-limit cases fail before and pass after the planning change; these verify request wiring, not
+musical quality. Existing duration/lyrics/single-job/batch/probe invariants hold. Full locked
+`python scripts/dev.py --check`: **147 tests PASS**, verifier105 files and
+coverage36 requirements/11 tasks/19 cases PASS; Node and startup checks included.
+
+Revision comparison on immutable code commit **9871e7b**: exactly **2 music
+submissions, 7 polls, 2 downloads; 0 art/text/speech/retries**. Both user title/style/mood
+examples completed as 30-second instrumentals (chosen test duration/mode, not
+inferred original settings). Full non-silent 48 kHz stereo PCM16 decode passed.
+The service reported 143 BPM / G major / 4 for metal and 100 BPM / D major / 4
+for rap; these are response metadata, not measured beats or genre judgments.
+The returned prompt echoed the request and no internal planning/rewriting trace
+was captured; accepted flags alone do not prove the audible result.
+
+[Safe revision record](../results/a3-35-genre-fidelity.json) includes exact prompts,
+flags, counts, timing and hashes; raw clips remain ignored/private and were shown
+to Joshua. His direct listening verdict: **"Neither is convincing." Both genre
+checks FAIL.** No separate theme/mood endorsement was supplied. Stop condition
+reached: no retries, replacements or further automated generation in this run.
+Normal-launch/main-browser and vocal/rap delivery acceptance remain unverified.
+
+Following that failure, the final offline revision supplies concrete arrangement
+cues for exact bare Metal/Heavy Metal and Rap/Hip-hop labels: distorted electric
+guitar riffs, palm-muted chugs, electric bass and forceful/double-kick drums for
+metal; kick/bass, snare backbeat, syncopated hi-hats and a sparse hook with room
+for vocal flow for rap. These are deliberate app defaults for the two reported
+failures, not universal genre definitions. Detailed/freeform styles and blends
+retain their own instructions. Theme/mood still shape dynamics and motifs.
+The caption limits, aliases and freeform-style preservation have offline
+regressions. Final full locked check: **148 tests PASS**, verifier/coverage/
+whitespace PASS, including actual startup and Node handler checks.
+**This concrete-cue version has no live/listening acceptance yet.**
+
+
+### Concrete-cue listening comparison — 2026-10-30 America/Denver
+
+Joshua explicitly requested one new Iced Coffee metal clip and one Yellow
+Sundress rap clip using the latest cues. This was a new bounded authorization,
+separate from the earlier stopped/failed planning-only run. Immutable code head
+**e62fe17**; production music_prompt + ClassProviders, **2 music submissions,
+6 polls, 2 downloads; 0 art/text/speech/retries**. No source changes or app restart.
+
+Both30s instrumentals used the original exact title/style/mood inputs and the
+concrete guitar/riff/drum versus hip-hop kick/bass/snare/hi-hat cues. Both fully
+decoded as non-silent48kHz stereo PCM16. Joshua listened and replied **"Neither
+is convincing." Both genre checks FAIL again.** No theme/mood endorsement is
+inferred, and generation stops at the two requested clips.
+
+[Safe concrete-cue record](../results/a3-35-concrete-cues.json) preserves exact
+submitted captions/flags, counts, hashes and attributed listening. Earlier
+failed clips/records are retained; no seed-matched causal comparison is claimed.
+Raw media stays ignored/private and was rendered in chat for listening.
+
+Read-only discovery afterward: health reports music and LM initialized; model
+listing advertises `acestep/acestep-v15-xl-turbo`. This establishes advertised
+configuration, not internal prompt/flag application. Returned captions echoed
+submitted prompts; no internal conditioning trace exists here. Next useful
+investigation is a genre-only control and service-conditioning verification,
+not a claim that more prompt words already solved it. #35 stays open/#37 draft.
+No extra generation, retries, cover changes, full-suite rerun or integrated-main
+acceptance in this comparison. Runtime/tests remain the148-test checked code.
+
+
+### Shared music request path and service controls — 2026-10-30 America/Denver
+
+Joshua requested an investigation across genres. Isolated branch
+codex/a3-35-shared-conditioning from2874e2c; runtime unchanged. New local route
+regression drives HTTP -> SessionStore -> real ClassProviders/MockTransport for
+Baroque chamber strings, jazz waltz and acoustic bluegrass. Full input settings
+reach the music wire, each distinct decoded fixture attaches to its own track,
+and reload/media reads make no extra submissions. **149 locked tests PASS**,
+including Node/startup checks; no live genre acceptance from these fixtures.
+
+Pinned official source maps request.prompt to GenerationParams.caption and
+forwards thinking/CoT flags. It separately preserves original_prompt for the
+result response, so an unchanged prompt echo is not evidence of ignored
+conditioning. This is an upstream source trace, not remote-code attestation.
+Deployed schema raw232eda8e remains unchanged and has no typed release body;
+inventory reports default/loadedXL Turbo and initialized5Hz4B LM.
+
+Bounded live diagnostic on immutable **088db31**: **2 music-service format_input
+calls,2 music submissions,6 polls,2 downloads;0 art/Qwen9001/speech/retries**.
+Two20s instrumental, title/theme-free captions: solo acoustic grand piano and
+fast breakbeat-driven drum and bass. Production adapter controls were preserved
+except the explicit diagnostic seed641835/use_random_seed=false; both results
+reported that seed. No production seed/default, app/session or parameter change.
+
+Formatter responses distinguished the targets (81 vs176 BPM) and rewrote both
+captions. It also added unspecified piano and melancholic mood to DnB; this
+shows added choices, not definitive violation of the acoustic-piano exclusion.
+Formatted captions/lyrics were NOT forwarded into music generation; exact lyrics
+normalization was not captured beyond the unchanged-marker boolean. Formatter
+metadata is not the music job metadata or a measured audio tempo.
+
+Both music WAVs fully decoded non-silent48kHz stereoPCM16, exactly20s, with
+different PCM hashes. The music jobs reported46 vs200 BPM (response metadata).
+Joshua listened and directly confirmed **"Both match their descriptions"** for
+these two controls. This establishes limited prompt-following capability, not
+all-genre quality, a single causal fix, or resolution of the metal/rap failures.
+Fixed DiT seed does not control every LM sampling source. No further generation.
+
+[Safe exact audit record](../results/a3-35-shared-conditioning.json) includes
+prompts, formatter text, controls/counts, hashes, source references and listening.
+Raw audio remains ignored/private. No request-loss or media-mispairing defect
+was found in the checked app path; the remote internal conditioning trace is
+unavailable. Next comparison: same genre and request controls, current template
+vs a concise musical description. That comparison is proposed, not executed.
+#35 stays open and #37 draft. No universal genre fix or integrated-main acceptance.

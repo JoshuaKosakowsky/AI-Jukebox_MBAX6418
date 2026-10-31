@@ -1,19 +1,22 @@
 """Offline instrumental music integration through real HTTP routes and the store; no class-service calls."""
 from concurrent.futures import ThreadPoolExecutor
+import base64
 import io
+import json
 from threading import Event
 import unittest
 from unittest.mock import Mock, patch
 from uuid import uuid4
 import wave
 
+import httpx
 from fastapi.testclient import TestClient
 
 from jukebox.app import create_app
 from jukebox.config import Settings
 from jukebox.contracts import MediaRef, Playback, SafeError, SongSettings, Track
-from jukebox.providers import MediaBytes, MusicPoll, MusicTicket, ProviderFailure
-from jukebox.sessions import SESSION_COOKIE, SessionFailure, SessionStore
+from jukebox.providers import ClassProviders, MediaBytes, MusicPoll, MusicTicket, PROBES, ProviderFailure
+from jukebox.sessions import SESSION_COOKIE, SessionFailure, SessionStore, music_prompt, vocal_music_prompt
 
 
 def wav_bytes():
@@ -86,6 +89,81 @@ class MusicStoreTests(unittest.TestCase):
         self.assertEqual(providers.submit_music.call_args.kwargs["duration_seconds"], 15)
         self.assertEqual(providers.submit_music.call_count, 1)
         self.assertEqual(providers.download_music.call_count, 1)
+
+    def test_genre_requests_leave_tempo_key_and_meter_to_the_music_service(self):
+        submissions = []
+        def reply(request):
+            if request.url.path == "/release_task":
+                submissions.append(json.loads(request.content))
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": {"task_id": f"ticket-{len(submissions)}"}})
+            if request.url.path == "/query_result":
+                ticket = json.loads(request.content)["task_id_list"][0]
+                result = json.dumps([{"file": "/v1/audio?path=fixture.wav",
+                                     "dit_model": "acestep-v15-xl-turbo", "status": 1}])
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": [{"task_id": ticket, "status": 1, "result": result}]})
+            self.assertEqual(request.url.path, "/v1/audio")
+            return httpx.Response(200, content=wav_bytes(), headers={"content-type": "audio/wav"})
+
+        provider = ClassProviders(art_music_settings(), transport=httpx.MockTransport(reply))
+        self.addCleanup(provider.close)
+        baseline = json.dumps(PROBES["music"]["request"], sort_keys=True)
+        for mode in ("instrumental", "vocal"):
+            for title, style, mood, duration in (("Iced Coffee", "Heavy Metal", "Angsty", 30),
+                                                 ("Yellow Sundress", "Rap", "Upbeat", 30)):
+                with self.subTest(mode=mode, style=style):
+                    lyrics = "Original test lyrics\nAnother original line" if mode == "vocal" else None
+                    item = Track(title=title, settings=SongSettings(
+                        style=style, mood=mood, duration_seconds=duration, mode=mode), lyrics=lyrics)
+                    self.session.tracks[item.id] = item
+                    job = self.store.queue_music(self.session, item.id)
+                    before = len(submissions)
+                    self.store.generate_music(self.session, job.id, provider)
+                    self.assertEqual(self.session.jobs[job.id].state.value, "succeeded")
+                    self.assertIsNotNone(self.session.tracks[item.id].audio)
+                    self.assertEqual(len(submissions), before + 1)
+                    payload = submissions[-1]
+                    self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload),
+                                    "A genre request must not inherit the slow-piano probe constraints")
+                    for value in (style, mood, item.title):
+                        self.assertIn(value, payload["prompt"])
+                    self.assertTrue(payload["prompt"].startswith(style))
+                    for cue in (("distorted electric guitars", "drums") if style == "Heavy Metal"
+                                else ("Hip-hop beat", "snare", "hi-hats")):
+                        self.assertIn(cue, payload["prompt"])
+                    self.assertTrue(payload["thinking"], "Sparse genre inputs need music-LM planning")
+                    self.assertTrue(payload["use_cot_caption"], "Enhance the caption within the same music task")
+                    self.assertFalse(payload["use_cot_language"])
+                    expected = {k: v for k, v in PROBES["music"]["request"].items()
+                                if k not in {"bpm", "key_scale", "time_signature"}}
+                    expected.update(prompt=payload["prompt"], audio_duration=duration,
+                                    lyrics=lyrics if mode == "vocal" else "[Instrumental]",
+                                    thinking=True, use_cot_caption=True)
+                    self.assertEqual(payload, expected)
+        self.assertEqual(json.dumps(PROBES["music"]["request"], sort_keys=True), baseline)
+
+    def test_music_captions_keep_all_maximum_length_inputs_within_documented_limit(self):
+        for style in ("s" * 120, "Heavy Metal", "Hip-hop", "Heavy" + " " * 110 + "Metal"):
+            item = Track(title="t" * 120, settings=SongSettings(style=style, mood="m" * 120,
+                                                               duration_seconds=30))
+            for caption in (music_prompt(item), vocal_music_prompt(item)):
+                with self.subTest(style=style, caption=caption):
+                    self.assertLessEqual(len(caption), 512)
+                    for value in (item.title, item.settings.style, item.settings.mood):
+                        self.assertIn(value, caption)
+
+    def test_bare_genre_cues_match_aliases_without_overriding_detailed_styles(self):
+        for style, cue in ((" HEAVY-METAL ", "distorted electric guitars"),
+                           ("Metal", "distorted electric guitars"), ("HIP HOP", "snare")):
+            item = Track(title="Theme", settings=SongSettings(style=style, mood="Moody", duration_seconds=30))
+            self.assertIn(cue, music_prompt(item))
+        for style in ("Rap with flute and hand drums", "Country metal blend", "Rapture synths"):
+            item = Track(title="Theme", settings=SongSettings(style=style, mood="Moody", duration_seconds=30))
+            caption = music_prompt(item)
+            self.assertIn(style, caption)
+            self.assertNotIn("Hip-hop beat:", caption)
+            self.assertNotIn("Riff-led metal:", caption)
 
     def test_bounded_polling_advances_progress_then_attaches_ready_audio(self):
         item = self.add_track()
@@ -457,6 +535,55 @@ class MusicHttpTests(unittest.TestCase):
 
     def client(self, settings=None):
         return TestClient(create_app(settings or Settings.load(None, {})), base_url="http://localhost")
+
+    def test_freeform_genres_reach_provider_wire_and_keep_their_own_audio(self):
+        submissions, media = [], {}
+        def reply(request):
+            if request.url.port == 9006:
+                return httpx.Response(200, json={"data": [{"b64_json":
+                    base64.b64encode(png("blue").content).decode()}]})
+            if request.url.path == "/release_task":
+                submissions.append(json.loads(request.content))
+                ticket = str(len(submissions))
+                # Distinct fully decoded fixtures detect swapped/shared media,
+                # independently of their user-visible labels.
+                media[ticket] = wav_bytes()[:-2] + int(ticket).to_bytes(2, "little")
+                return httpx.Response(200, json={"code": 200, "error": None, "data": {"task_id": ticket}})
+            if request.url.path == "/query_result":
+                ticket = json.loads(request.content)["task_id_list"][0]
+                result = json.dumps([{"file": f"/v1/audio?path={ticket}",
+                                     "dit_model": "acestep-v15-xl-turbo", "status": 1}])
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": [{"task_id": ticket, "status": 1, "result": result}]})
+            self.assertEqual(request.url.path, "/v1/audio")
+            return httpx.Response(200, content=media[request.url.params["path"]],
+                                  headers={"content-type": "audio/wav"})
+
+        provider = ClassProviders(art_music_settings(), transport=httpx.MockTransport(reply))
+        cases = [("Glass Atrium", "Baroque chamber strings", "Restrained", 15),
+                 ("Fogbound", "Jazz waltz with brushed drums", "Intimate", 25),
+                 ("Mountain Steps", "Acoustic bluegrass", "Playful", 35)]
+        with patch("jukebox.app.ClassProviders", return_value=provider):
+            with self.client(art_music_settings()) as client:
+                for title, style, mood, seconds in cases:
+                    created = client.post("/api/tracks", json=body(title, style, mood, seconds))
+                    self.assertEqual(created.status_code, 202)
+                    track_id = created.json()["track_id"]
+                    self.assertEqual(client.post(f"/api/tracks/{track_id}/music", json={}).status_code, 202)
+                    payload = submissions[-1]
+                    for value in (title, style, mood):
+                        self.assertIn(value, payload["prompt"])
+                    self.assertEqual(payload["audio_duration"], seconds)
+                    self.assertEqual(payload["lyrics"], "[Instrumental]")
+                    self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload))
+                snapshot = client.get("/api/session").json()
+                self.assertEqual([t["settings"]["style"] for t in snapshot["tracks"]], [c[1] for c in cases])
+                self.assertTrue(all(j["state"] == "succeeded" for j in snapshot["jobs"]))
+                for index, track in enumerate(snapshot["tracks"], 1):
+                    self.assertEqual(client.get(track["audio"]["url"]).content, media[str(index)])
+                client.get("/")
+                self.assertEqual(client.get("/api/session").json(), snapshot)
+                self.assertEqual(len(submissions), len(cases), "Reload/media reads must not submit new jobs")
 
     def test_create_and_two_songs_with_covers_and_audio_survive_reload(self):
         covers = [png("blue"), png("orange")]

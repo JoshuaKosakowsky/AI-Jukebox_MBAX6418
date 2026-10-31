@@ -67,7 +67,10 @@ class ProviderTests(unittest.TestCase):
             seen.append(request.url.path)
             self.assertEqual(request.url.port, 9007)
             if request.url.path == "/release_task":
-                self.assertEqual(json.loads(request.content), PROBES["music"]["request"])
+                expected = {k: v for k, v in PROBES["music"]["request"].items()
+                            if k not in {"bpm", "key_scale", "time_signature"}}
+                expected.update(thinking=True, use_cot_caption=True)
+                self.assertEqual(json.loads(request.content), expected)
                 return httpx.Response(200, json={"code": 200, "error": None, "data": {"task_id": "ticket"}})
             if request.url.path == "/query_result":
                 self.assertEqual(json.loads(request.content), {"task_id_list": ["ticket"]})

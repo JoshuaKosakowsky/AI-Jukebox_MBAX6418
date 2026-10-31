@@ -1,0 +1,219 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "088db310085048b0fdf80aafb18ad3dbf348d1b4",
+  "authorization": "User requested investigation of shared generation path/service prompt-following across genres; exact bounded plan posted on issue35 comment6539628063.",
+  "scope": "Offline route capture + two music-service caption-format checks + two title/theme-free adapter jobs with a diagnostic fixed-seed override; not normal-launch/main acceptance.",
+  "limits": {
+    "format_input_calls": 2,
+    "music_submissions": 2,
+    "art": 0,
+    "qwen_9001": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "counts": {
+    "format_input_calls": 2,
+    "music_submissions": 2,
+    "polls": 6,
+    "downloads": 2,
+    "art": 0,
+    "qwen_9001": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "diagnostic_controls": {
+    "duration_seconds": 20,
+    "lyrics": "[Instrumental]",
+    "seed": 641835,
+    "use_random_seed": false,
+    "production_seed_behavior_unchanged": true,
+    "formatted_captions_used_for_music": false
+  },
+  "format_results": [
+    {
+      "case": "solo-piano",
+      "input_caption": "Solo acoustic grand piano, classical instrumental. Gentle flowing arpeggios and expressive piano melody, natural piano tone, calm dynamics. No drums, percussion, synthesizers or vocals.",
+      "started_at_utc": "2026-10-31T05:39:12.585592+00:00",
+      "formatted_caption": "A solo grand piano performance with a clean, resonant tone and natural hall reverb. The piece begins with delicate, flowing arpeggios that establish a contemplative and slightly melancholic mood. It progresses through a series of rich, romantic chordal sections and expressive melodic lines, utilizing the full dynamic range of the instrument from soft, introspective passages to more powerful, emotionally charged moments. The arrangement feels like a neo-classical or romantic piano etude, characterized by its fluid tempo (rubato) and intricate harmonic development, before resolving into a quiet, peaceful conclusion.",
+      "caption_rewritten": true,
+      "lyrics_unchanged": false,
+      "metadata": {
+        "bpm": 81,
+        "duration": 20.0,
+        "key_scale": "E major",
+        "time_signature": "4"
+      },
+      "result": "PASS: bounded format response parsed; semantic judgment separate",
+      "formatted_caption_characters": 621
+    },
+    {
+      "case": "drum-and-bass",
+      "input_caption": "Drum and bass instrumental. Fast chopped breakbeats, syncopated kick and snare, crisp rapid hi-hats, deep electronic sub-bass, energetic club production. No acoustic piano or vocals.",
+      "started_at_utc": "2026-10-31T05:39:15.013082+00:00",
+      "formatted_caption": "An atmospheric liquid drum and bass track driven by a crisp, rolling breakbeat with intricate hi-hat patterns and a sharp snare. A deep sub-bass provides a solid foundation while lush, evolving synth pads create an introspective and slightly melancholic mood. The arrangement builds progressively, introducing melodic piano chords that become more prominent during a brief breakdown before re-emerging alongside the full beat for a dynamic climax. The production is clean and spacious, utilizing subtle filter sweeps and reverb to enhance its immersive quality.",
+      "caption_rewritten": true,
+      "lyrics_unchanged": false,
+      "metadata": {
+        "bpm": 176,
+        "duration": 20.0,
+        "key_scale": "G major",
+        "time_signature": "4"
+      },
+      "result": "PASS: bounded format response parsed; semantic judgment separate",
+      "formatted_caption_characters": 561
+    }
+  ],
+  "music_results": [
+    {
+      "case": "solo-piano",
+      "input_caption": "Solo acoustic grand piano, classical instrumental. Gentle flowing arpeggios and expressive piano melody, natural piano tone, calm dynamics. No drums, percussion, synthesizers or vocals.",
+      "started_at_utc": "2026-10-31T05:39:18.396639+00:00",
+      "request": {
+        "prompt": "Solo acoustic grand piano, classical instrumental. Gentle flowing arpeggios and expressive piano melody, natural piano tone, calm dynamics. No drums, percussion, synthesizers or vocals.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav",
+        "seed": 641835,
+        "use_random_seed": false
+      },
+      "service_metadata_not_audio_measurement": {
+        "bpm": 46,
+        "duration": 20.0,
+        "key_scale": "D minor",
+        "time_signature": "2"
+      },
+      "prompt_echo_matches": true,
+      "reported_model_matches": true,
+      "reported_seed": 641835,
+      "reported_seed_matches": true,
+      "audio": {
+        "sha256": "78d0b75fc332181dc92280d521cb4a479f01ff48cca9d71c841429bdfbacc769",
+        "pcm_sha256": "d25fe1a3ad01f25cba80d4a662319522c18d2fea96c1f3b776768f96bd467864",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.142003
+      },
+      "elapsed_seconds": 7.701,
+      "result": "PASS: completed/decoded, genre listening pending",
+      "human_genre_judgment": "PASS: user confirmed this control matches its description"
+    },
+    {
+      "case": "drum-and-bass",
+      "input_caption": "Drum and bass instrumental. Fast chopped breakbeats, syncopated kick and snare, crisp rapid hi-hats, deep electronic sub-bass, energetic club production. No acoustic piano or vocals.",
+      "started_at_utc": "2026-10-31T05:39:26.098742+00:00",
+      "request": {
+        "prompt": "Drum and bass instrumental. Fast chopped breakbeats, syncopated kick and snare, crisp rapid hi-hats, deep electronic sub-bass, energetic club production. No acoustic piano or vocals.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav",
+        "seed": 641835,
+        "use_random_seed": false
+      },
+      "service_metadata_not_audio_measurement": {
+        "bpm": 200,
+        "duration": 20.0,
+        "key_scale": "F# minor",
+        "time_signature": "4"
+      },
+      "prompt_echo_matches": true,
+      "reported_model_matches": true,
+      "reported_seed": 641835,
+      "reported_seed_matches": true,
+      "audio": {
+        "sha256": "bcaaadd391136fdb9789018209a9a88255ee7d66613464081ac52e1b6702c45f",
+        "pcm_sha256": "a1b3a2f4c48fbd854cc4a083837cdcc0db323518ea77add064cda343dea2132f",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.196843
+      },
+      "elapsed_seconds": 7.793,
+      "result": "PASS: completed/decoded, genre listening pending",
+      "human_genre_judgment": "PASS: user confirmed this control matches its description"
+    }
+  ],
+  "result": "PASS: local shared path and two title-free service controls; root cause of earlier genre failures not isolated",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "method": "Listened to the two title-free control clips displayed in chat",
+    "response": "Both match their descriptions",
+    "scope": "Solo acoustic piano and fast breakbeat-driven drum and bass only; no conclusion for every genre or the earlier metal/rap failures"
+  },
+  "limitations": [
+    "Same requested DiT seed does not control every LM sampling source or prove full determinism.",
+    "Different PCM hashes are not genre acceptance.",
+    "Original-caption echo is expected in official source, not a trace of internal enhancement.",
+    "Live remote implementation/version and internal model conditioning cannot be inspected from this client."
+  ],
+  "discovery": {
+    "schema_raw_sha256": "232eda8eba8b7f1d574a0ccc2c5a9db8023ba27347b64ec60356361bbadb3bf9",
+    "advertised_default_model": "acestep-v15-xl-turbo",
+    "advertised_lm_model": "acestep-5Hz-lm-4B",
+    "llm_initialized": true
+  },
+  "pcm_hashes_differ": true,
+  "findings": {
+    "local_path": "Three arbitrary genres preserve full title/style/mood/duration through HTTP->store->ClassProviders and attach each distinct audio fixture to its own track. Reload adds no submission.",
+    "service_formatter": "Returns semantically different captions/tempos for solo piano vs drum-and-bass. DnB caption adds unspecified piano and a melancholic mood; these are additions, not proof that the explicit acoustic-piano exclusion was violated.",
+    "service_music": "Both requested seed values are echoed correctly; both title-free20s outputs fully decode and were recognized by the user.",
+    "original_prompt_echo": "Official pinned request->worker source preserves original_prompt separately and returns it; echo is not evidence that caption enhancement was skipped.",
+    "unresolved": "This is not a within-genre A/B: genre, wording and title/theme context differ from earlier failed runs. No single causal change, internal remote conditioning trace or broad genre acceptance is established."
+  },
+  "proposed_next_comparison_not_executed": {
+    "design": "Same genre, mood, duration, instrumental marker, flags and requested seed. Compare current application caption against a concise descriptive caption; vary only the caption, then score genre recognition before theme/mood.",
+    "reason": "Separate template/context interference from genre-specific model limitations without adding presets.",
+    "caption_a": "Use the actual current music_prompt for Iced Coffee / Heavy Metal / Angsty, unchanged.",
+    "caption_b": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
+    "limits_note": "No additional calls executed or assumed authorized by the listening reply; the announced two-job diagnostic is complete."
+  },
+  "offline_verification": {
+    "command": "python scripts/dev.py --check",
+    "tests_passed": 149,
+    "skipped": 0,
+    "request_path_regression": "MusicHttpTests.test_freeform_genres_reach_provider_wire_and_keep_their_own_audio",
+    "freeform_styles": [
+      "Baroque chamber strings",
+      "Jazz waltz with brushed drums",
+      "Acoustic bluegrass"
+    ],
+    "scope": "Real local routes/store/provider with MockTransport; no live claims for these fixtures"
+  },
+  "official_source_trace_not_remote_attestation": [
+    {
+      "url": "https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_param_parser.py",
+      "cached_source_sha256": "092e9d5a37b7d5458a3b5ca01672920bfc192e4f316a9eef2e2704e5dbd49f13"
+    },
+    {
+      "url": "https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/llm_generation_inputs.py",
+      "cached_source_sha256": "a9cfa4f1d812fb4275fe406f95374e1369de124748114086dab5af502f391a82"
+    },
+    {
+      "url": "https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/job_generation_setup.py",
+      "cached_source_sha256": "69ee03d5d0091a9176a6001f430b84fb4b9d65ddae6b72cf2ccd367b7de9b113"
+    },
+    {
+      "url": "https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/job_blocking_generation.py",
+      "cached_source_sha256": "8d4325c466bac67341449948cbc601e8c2b07d33e4ac30844b686b3acc8a3242"
+    }
+  ]
+}

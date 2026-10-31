@@ -1,5 +1,99 @@
 # Agent handoff
 
+## Session — #35 shared-conditioning audit, 2026-10-30 America/Denver
+Codex for Joshua; isolated branchcodex/a3-35-shared-conditioning from2874e2c, same draftPR37 task.
+User explicitly requests shared path/service prompt-following investigation across genres; no new per-genre presets.
+Claim/budget issue35 comment6539628063; original user review app/source remains untouched.
+Source trace: browser settings -> HTTP Track -> store prompt -> production adapter; exact titles/styles/moods retained.
+Added offline HTTP->store->actual ClassProviders/MockTransport regression for strings/jazz-waltz/bluegrass.
+Verified correct distinct media attachments and reload/no-resubmit;35 focused music tests PASS. No app code change.
+Deployed schema raw232eda8e unchanged, release JSON body absent; pinned official parser supports prompt aliascaption.
+Inventory advertises loaded/defaultXLturbo + initialized5Hz4B LM; this does not prove internal conditioning.
+Bounded live audit on088db31:2 music-service format_input calls +2 music submissions (20s instrumental).
+Genre-only solo acoustic piano vs drum-and-bass captions; same seed diagnostic override, no titles/themes/presets.
+Zeroart/Qwen9001/speech/retry, stop request/validation/accounting failure; poll/download same jobs only.
+Prior generation limits stay historical; this is separately assigned shared-path audit, not feature acceptance.
+Full locked149 tests/coverage36-11-19 PASS; live2format+2music/6polls/2downloads completed,0other services/retries.
+Both requested/reported DiT seeds641835; different full decoded20s WAVs. Joshua: "Both match their descriptions."
+Formatter distinguishes81/176BPM captions, adds unspecified piano/melancholy toDnB; not definitive acoustic-ban violation.
+Original-caption echo is expected upstream; no internal remote trace or isolated cause of earlier failures.
+Official source maps request.prompt -> GenerationParams.caption and forwards LM flags; original_prompt is separately retained for results.
+Safe recorda3-35-shared-conditioning.json + source links/docs updated; no new runtime changes or per-genre presets.
+Next: publish evidence to same draftPR37; within-genre caption-template comparison remains proposed, not executed.
+No further generation under this completed two-job diagnostic; #35 open, no universal-quality/main acceptance claim.
+
+
+## Session — #35 concrete-cue clips, 2026-10-30 America/Denver
+Codex for Joshua; explicit new user request for one Iced Coffee metal and one Yellow Sundress rap clip.
+Immutable tested sourcee62fe17, branchcodex/a3-35-genre-fidelity; same draftPR37 remote branchcodex/a3-35-genre-controls.
+New bounded run separate from earlier failed/stopped run; claim on issue35 comment6539550891.
+Production music_prompt/ClassProviders, chosen30s instrumental, original Heavy Metal/Angsty and Rap/Upbeat inputs.
+Exactly2 music submissions/6polls/2downloads,0art/text/speech/retry; both full non-silent48kHz stereoPCM16 decodes.
+Joshua listened and replied "Neither is convincing"; BOTH GENRE CHECKS FAIL, no separate theme/mood endorsement.
+Safe record results/a3-35-concrete-cues.json; prior failed run/clip records retained, raw audio ignored/private.
+No more generation under this request. No source/parameter change or app restart; existing review session preserved.
+Read-only health models/LM initialized; model listing advertisesacestep/acestep-v15-xl-turbo; no internal conditioning trace.
+Read-onlyGET counts recorded separately; no claimed proof that accepted flags were applied internally.
+Updated test/provider docs, evidence index/contribution row and handoff to reflect failed live concrete-cue result.
+Runtime/tests unchanged from148-test/4CI-pass code; evidence-only verifier/coverage/whitespace checks follow.
+#35 stays open/#37 draft; do not turn WAV/metadata success into genre acceptance.
+Next: deliberate genre-only control and service-conditioning inspection if requested; no automatic retries/replacements.
+
+
+## Genre guidance follow-up — 2026-10-30 America/Denver
+User asks what would help genre fidelity; inspected current caption/provider path and primary ACE-Step guides.
+Latest concrete-cue code e62fe17 remains unheard; no source changes or new provider generation this turn.
+Recommended sequence: listen to focused genre/instrument/rhythm descriptions first, then test title/mood character within recognizable genre.
+Genre-only control can distinguish prompt/theme interference from a required XL-Turbo/service limitation if concrete cues still fail.
+Use human genre recognition, not BPM/hash/green tests, as acceptance; avoid extra jobs or unsupported model/CFG changes.
+Prior stop condition remains respected; no automatic replay of exhausted two-job run. Review app/session preserved.
+
+## Local review launch — 2026-10-30 America/Denver
+Published draftPR37 head e62fe17; all4 exact-head CI PASS, local148 tests PASS.
+Concrete-cue review appPID20778/exec53812 at http://localhost:8001/; keep running for Joshua.
+Normal launcher, inherited existing private settings; HTTP200/configured-role labels and visible empty UI verified, no generation.
+Use localhost8001 for separate cookies; original127.0.0.1:8000/PID19826 remains untouched on666d44b.
+Review tab11 and original tab10 preserved; screenshot /private/tmp/jukebox-genre-review-ready.png.
+This operational note is local/uncommitted; code/tests match e62fe17. Final cue quality remains unverified; no more automated calls.
+
+
+## Session — #35 genre fidelity revision, 2026-10-30 America/Denver
+Codex for Joshua; isolated branch codex/a3-35-genre-fidelity from PR37 head666d44b.
+PR37 returned to draft; genre quality remains unresolved, coordinate via issue35 comments6539398333/6539419735.
+Exact reported cases: Iced Coffee / Heavy Metal / Angsty; Yellow Sundress / Rap / Upbeat.
+Original app clips were dungeon-like and wind-led, respectively; Latin okay/country good, other inputs unknown.
+Enabled supported music-LM thinking + caption enhancement; compact genre-first captions keep512-char limit.
+Immutable9871e7b live:2 music/7polls/2downloads,0art/text/speech/retry, both30s full non-silent WAVs.
+Joshua listened and replied "Neither is convincing"; both genre checks FAIL, record a3-35-genre-fidelity.json.
+Stop condition reached; no retries/replacement/extra generation. Theme/mood not separately endorsed.
+Final offline-only revision adds concrete arrangement cues for bare Metal/Heavy Metal and Rap/Hip-hop aliases.
+Detailed/freeform styles/blends keep their own direction; mood/theme shape dynamics/motifs; no BPM table.
+Vocal delivery follows style; duration/lyrics/batch/WAV/language flag/seed behavior preserved.
+Public schema/dependencies/frozen probes/starter prompt/samples untouched; #27/#26/#29 untouched.
+Original user serverPID19826/session98442 on8000 unchanged; review server20389 stopped before editing empty review build.
+Final full locked148 tests/verifier/coverage/whitespace PASS; final cue version remains unheard.
+Do not claim genre acceptance or copy9871e7b evidence to the final cue version.
+Next: full checks, publish same draftPR37; make final offline-only review build available, then deliberate listening validation.
+
+## Session — #35 genre controls, 2026-10-30 America/Denver
+Codex for Joshua; branch codex/a3-35-genre-controls from main1faacd0, explicit user claim/assignment #35.
+Claim6539128210 coordinates providers.submit_music and music prompts/tests; no duplicate work on #26/#29/#27.
+Removed production-only probe80BPM/Cmajor/4/4 constraints; server infers metadata from style/mood; duration stays explicit.
+Strengthened instrumental/vocal groove/tempo/rhythm instructions; no genre lookup table, UI/schema change or dependency.
+Deployed schema inspected232eda8e... (no typed release JSON); health LM initialized; matched pinned upstream optional fields.
+Preserved original starter prompt and frozen probe fixture; existing model/batch/steps/lyrics/retry flags unchanged.
+Regression: four style/mode cases fail on baseline and pass patch; full146 locked tests and verifier104/coverage PASS.
+Docs APP_CONTRACTS/SERVICE_CONTRACTS/TEST_RESULTS updated; bounded real compatibility/listening completed below.
+Bounded #35 comparison on ddf9e61 completed2 music/4poll/2download, zero art/text/speech/retry; original inputs/audio reused.
+This is separate from Preethi's #27 budget; do not edit her branch. Local review server stays stopped.
+New30/20s WAVs fully decoded; service reported97BPM/3 and120BPM/4 (metadata, not audio measurement).
+Joshua listened and confirmed "Yes, clearer genre/rhythm difference" for these two clips; safe record a3-35-genre-comparison.json.
+Raw media remains ignored/private; original probe/starter prompt/schema/assets unchanged.
+Next: publish focused PR, request eligible independent review, normal merge when ready; keep #35 open for integrated-main check.
+No self-approval, direct-main push or universal quality claim.
+
+## Preserved main notes
+
 ## Session — A3-09 README slice, 2026-10-30 America/Denver
 prse4479 (A3-09 lead). Claim on #9: branch codex/a3-09-readme-findings from main 81042a1, README-only +50 (failure/recovery observed results, R29 design choice, R30 limitation).
 PR #34 reviews: Joshua requested two P2 factual corrections — capacity slots are shared across browser sessions (not per-session), and the retry guarantee is per requested stage (not one generation per action) — plus one non-blocking toolchain qualification (129-test figure historical; Node optional). All batched in this commit; head frozen for re-review by Joshua (reported zero-commit) or Mike. No source/test changes, no provider calls, no .env involvement. #9 stays open for vocal/DJ/reference/results sections; R31 team wording verification happens in the PR review.

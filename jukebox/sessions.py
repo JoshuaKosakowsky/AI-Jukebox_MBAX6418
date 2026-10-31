@@ -57,22 +57,32 @@ def cover_prompt(track: Track) -> str:
             "Use an original visual composition, no lettering, logos or copied album artwork.")
 
 
+def _music_caption(track: Track, performance: str) -> str:
+    # ACE-Step consumes an audio caption, not a chat instruction. Genre leads;
+    # retain all three user inputs within its documented 512-character limit.
+    # Duration and lyrics have their own structured fields in the same request.
+    style = track.settings.style.casefold().replace("-", " ")
+    # Listening failed for bare Metal/Rap labels even with LM planning enabled.
+    # Give common exact labels concrete sonic cues. Detailed/freeform styles
+    # (including blends) keep their own direction; these are defaults, not rules.
+    if style in {"heavy metal", "metal"}:
+        arrangement = ("Riff-led metal: heavily distorted electric guitars, palm-muted chugs, "
+                       "electric bass, forceful acoustic drums and double-kick accents.")
+    elif style in {"rap", "hip hop"}:
+        arrangement = ("Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, "
+                       "sparse repeating hook and room for rhythmic vocal flow.")
+    else:
+        arrangement = "Genre-led groove, tempo, instruments and production;"
+    return (f"{track.settings.style}. {performance} Mood: {track.settings.mood}. "
+            f"Theme: {track.title}. {arrangement} Theme/mood shape dynamics and motifs.")
+
+
 def music_prompt(track: Track) -> str:
-    return ("Compose an original instrumental song; no vocals and no lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable instrumental piece that matches this style and mood.")
+    return _music_caption(track, "Instrumental; no vocals.")
 
 
 def vocal_music_prompt(track: Track) -> str:
-    return ("Compose an original song with expressive sung vocals that perform the provided lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable vocal piece that matches this style and mood.")
+    return _music_caption(track, "Style-matched vocals, supplied lyrics.")
 
 
 def lyrics_prompt(track: Track) -> str:
