@@ -156,20 +156,74 @@ def _validate_wav_structure(content: bytes) -> None:
     data_offset, data_size = data
     if format_tag != 1 or not 1 <= channels <= 8:
         raise SessionFailure(422, "The WAV reference must be uncompressed PCM.")
-    if not 1 <= sample_rate <= 384_000 or byte_rate <= 0 or block_align <= 0 or bits not in (8, 16, 24, 32):
+    if not 1 <= sample_rate <= 384_000 or bits not in (8, 16, 24, 32):
         raise SessionFailure(422, "The WAV reference could not be read.")
+    # PCM alignment must be internally coherent; the header is not allowed to
+    # under- or over-state the real byte/packet rates (a forged byte_rate field
+    # must not shift the duration calculation).
+    if byte_rate != sample_rate * channels * bits // 8 or block_align != channels * bits // 8:
+        raise SessionFailure(422, "The WAV reference has an inconsistent audio header.")
     if data_size < 1:
         raise SessionFailure(422, "The WAV reference contains no audio data.")
     if data_offset + data_size > len(content):
         raise SessionFailure(422, "The WAV reference is truncated.")
-    duration = data_size / byte_rate
+    # Duration from the physical frame count, per the coherent header.
+    frames = data_size // block_align
+    duration = frames / sample_rate
     if not MIN_REFERENCE_SECONDS <= duration <= MAX_REFERENCE_SECONDS:
         raise SessionFailure(
             422, f"Reference audio must be {MIN_REFERENCE_SECONDS}-{MAX_REFERENCE_SECONDS} seconds.")
 
 
+# MPEG audio frame tables (bitrate in kbps), keyed by [version_group][layer]
+# where version_group 3 = MPEG-1 and 2 = MPEG-2/-2.5, layer 1 = III, 2 = II,
+# 3 = I. Index 0 = free/bad and 15 = bad are rejected by the length lookup.
+_MPEG_BITRATES = {
+    1: {1: (0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320),
+         2: (0, 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384),
+         3: (0, 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448)},
+    2: {1: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160),
+         2: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160),
+         3: (0, 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256)},
+}
+_MPEG_SAMPLE_RATES = {3: (44100, 48000, 32000), 2: (22050, 24000, 16000), 0: (11025, 12000, 8000)}
+
+
+def _mpeg_frame_length(header: bytes) -> int | None:
+    """Return the exact byte length of the MPEG frame starting at `header`.
+
+    None means the four header bytes do not describe a decodable frame
+    (invalid sync/version/layer, free or reserved bitrate, reserved sample
+    rate). The caller must also verify that the whole frame is present.
+    """
+    if len(header) < 4 or header[0] != 0xFF or (header[1] & 0xE0) != 0xE0:
+        return None
+    version = (header[1] >> 3) & 3      # 3 = MPEG-1, 2 = MPEG-2, 0 = MPEG-2.5
+    layer = (header[1] >> 1) & 3        # 1 = Layer III, 2 = Layer II, 3 = Layer I
+    if version == 1 or layer == 0:
+        return None
+    bitrate_index = header[2] >> 4
+    sample_index = (header[2] >> 2) & 3
+    if bitrate_index in (0, 15) or sample_index == 3:
+        return None
+    version_group = 1 if version == 3 else 2
+    kbps = _MPEG_BITRATES[version_group][layer][bitrate_index]
+    sample_rate = _MPEG_SAMPLE_RATES[version][sample_index]
+    padding = (header[2] >> 1) & 1
+    if layer == 3:  # Layer I
+        return (12 * kbps * 1000 // sample_rate + padding) * 4
+    if version_group == 1:  # MPEG-1 Layer II/III
+        return 144 * kbps * 1000 // sample_rate + padding
+    return 72 * kbps * 1000 // sample_rate + padding  # MPEG-2/-2.5 Layer II/III
+
+
 def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
-    """Require a parseable ID3v2 tag and at least one reachable MPEG frame."""
+    """Require a parseable ID3v2 tag and at least one COMPLETE MPEG frame.
+
+    A frame only counts when its position has a decodable header AND the
+    header's computed frame length is entirely present in the upload -
+    partial sync bytes never pass.
+    """
     skip = 0
     if id3:
         if len(content) < 10:
@@ -184,9 +238,9 @@ def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
         if 10 + tag_size > len(content):
             raise SessionFailure(422, "The MP3 reference is truncated.")
         skip = 10 + tag_size
-    scan_limit = min(len(content) - 2, skip + 65_536)
-    for index in range(skip, scan_limit):
-        if content[index] == 0xFF and (content[index + 1] & 0xE0) == 0xE0 and (content[index + 1] & 0x06) != 0:
+    for index in range(skip, max(skip, len(content) - 3)):
+        frame_length = _mpeg_frame_length(content[index : index + 4])
+        if frame_length is not None and index + frame_length <= len(content):
             return
     raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
 

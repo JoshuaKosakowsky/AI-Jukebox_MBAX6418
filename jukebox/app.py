@@ -55,10 +55,14 @@ def _extract_file_part(raw: bytes, content_type: str) -> bytes:
     def on_header_end():
         if current is not None:
             current["headers"][header_field.decode("latin-1").strip().lower()] = bytes(header_value)
-
-    def on_headers_finished():
+        # Buffers accumulate ACROSS headers otherwise: a part whose second
+        # header (e.g. Content-Type) precedes Content-Disposition would merge
+        # keys and lose the disposition, changing acceptance by header order.
         header_field.clear()
         header_value.clear()
+
+    def on_headers_finished():
+        pass
 
     def on_part_data(data, start, end):
         if current is not None:

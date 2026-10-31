@@ -758,3 +758,23 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
+
+## A3-06 review round 3: complete-frame MP3, header-order parity, coherent PCM (PR #26 head)
+
+Joshua (round 3) and Matt (Issue #5/#6 workflow) independently reproduced three further upload-validation
+defects on the round-2 head; all three fixed with regressions (165 tests, verifier 99 files, gate PASS):
+
+1. MP3 validation now requires a COMPLETE frame, not a sync: the frame length is computed from the
+   header (MPEG version/layer bitrate and sample-rate tables, padding) and the upload must physically
+   contain those bytes. Three-byte and four-byte headers with no payload, with or without an ID3 tag,
+   are 422; a 417-byte synthetic MPEG-1 Layer III frame (128 kbps / 44.1 kHz) is the positive control.
+2. Multipart part headers no longer accumulate across headers (each header ends with a buffer clear,
+   not the part end), so a part whose Content-Type precedes Content-Disposition validates exactly like
+   the reverse order (regression posts the identical WAV in both orders).
+3. WAV headers must be internally coherent PCM: byte_rate == sample_rate*channels*bits//8 and
+   block_align == channels*bits//8; duration derives from the physical frame count, so a forged
+   byte-rate field cannot bypass the 60-second limit (regression alters only bytes 28:32 of a real
+   61 s WAV and expects 422 both ways).
+
+Scope unchanged: no-read route, snapshot invisibility, one-shot consumption, session isolation,
+no-disk multipart, and live Chatterbox MP3/WAV acceptance still pending after #5 integration.

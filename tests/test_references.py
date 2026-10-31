@@ -35,9 +35,10 @@ def wav_bytes(seconds=2.0, rate=8000, marker=b"\x01\x00"):
 
 def mp3_bytes(seconds_hint=2):
     # Structural MP3 fingerprint: an ID3v2 header declaring zero tag bytes, then
-    # minimal valid-looking MPEG-1 Layer III frame headers with stub payloads.
-    # Validation is structural (reachable frame required), not a full decode.
-    frame = b"\xff\xfb\x90\x00" + b"\x00" * 26
+    # complete synthetic MPEG-1 Layer III frames (417 bytes each: header
+    # declaring 128 kbps / 44.1 kHz plus the full payload the header implies).
+    # Validation is structural (header length + physical presence), not a decode.
+    frame = b"\xff\xfb\x90\x00" + b"\x00" * 413
     return b"ID3\x04\x00\x00\x00\x00\x00\x00" + frame * max(1, seconds_hint * 7)
 
 
@@ -177,6 +178,48 @@ class ReferenceHttpTests(unittest.TestCase):
                 + b"\x03\x00\x01\x00\x44\xac\x00\x00\x88\x58\x01\x00\x02\x00\x20\x00" \
                 + b"data" + (8000).to_bytes(4, "little") + b"\x00" * 8000
             self.assertEqual(self.upload(client, float_wav).status_code, 422)
+
+    def test_incomplete_mp3_frames_are_rejected(self):
+        three_byte = b"\xff\xfb\x00"
+        four_byte_no_payload = b"\xff\xfb\x90\x00"  # implies a 417-byte frame
+        id3_then_header = b"ID3\x04\x00\x00\x00\x00\x00\x00" + three_byte
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            for content in (three_byte, four_byte_no_payload, id3_then_header):
+                self.assertEqual(self.upload(client, content, filename="voice.mp3",
+                                             media_type="audio/mpeg").status_code, 422,
+                                 f"accepted incomplete MP3 ({len(content)} bytes)")
+
+    def test_complete_single_mpeg_frame_is_accepted(self):
+        frame = b"\xff\xfb\x90\x00" + b"\x00" * 413  # 128 kbps/44.1 kHz -> 417-byte frame, fully present
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, frame, filename="voice.mp3",
+                                         media_type="audio/mpeg").status_code, 201)
+
+    def test_multipart_header_order_does_not_change_acceptance(self):
+        body = wav_bytes(seconds=2, rate=8000)
+        boundary = b"X-boundary"
+        dispo_first = (b"--" + boundary + b"\r\n"
+                       b'Content-Disposition: form-data; name="file"; filename="voice.wav"\r\n'
+                       b"Content-Type: audio/wav\r\n\r\n" + body + b"\r\n--" + boundary + b"--\r\n")
+        type_first = (b"--" + boundary + b"\r\n"
+                      b"Content-Type: audio/wav\r\n"
+                      b'Content-Disposition: form-data; name="file"; filename="voice.wav"\r\n\r\n'
+                      + body + b"\r\n--" + boundary + b"--\r\n")
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            header = {"Content-Type": "multipart/form-data; boundary=X-boundary"}
+            self.assertEqual(client.post("/api/references/speech", content=dispo_first,
+                                         headers=header).status_code, 201)
+            self.assertEqual(client.post("/api/references/speech", content=type_first,
+                                         headers=header).status_code, 201)
+
+    def test_wav_byte_rate_forgery_cannot_bypass_duration_limit(self):
+        honest_61s = wav_bytes(seconds=61, rate=8000)
+        forged = bytearray(honest_61s)
+        forged[28:32] = (32000).to_bytes(4, "little")  # byte_rate 16000 -> 32000 only
+        self.assertEqual(len(forged), len(honest_61s))
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, honest_61s).status_code, 422)
+            self.assertEqual(self.upload(client, bytes(forged)).status_code, 422)
 
 
 class ReferenceStoreTests(unittest.TestCase):
