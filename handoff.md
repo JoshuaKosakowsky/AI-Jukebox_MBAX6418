@@ -1,7 +1,11 @@
 # Agent handoff
 
 ## Session
-2026-10-30 America/Denver (MDT); Hermes for MSpanny. Task: A3-06 temporary reference voices (R15/R16 provider layer; #6 lead, claimed, label status: in progress).
+2026-10-30 America/Denver (MDT); Hermes for MSpanny (Mike). Task: A3-06 review round 2 (PR #26; #6 lead: Mike, backup jovi1214; #5 by Matt; issue #6 label status: in progress). Joshua's independent review found two upload-path defects: multipart bodies rolled to framework temp files (1 MB spool boundary; oversized bodies spooled before being rejected) and header-only/truncated audio accepted (a WAV declaring 16,000 frames with zero frame bytes; a bare 3-byte b"ID3"). Both fixed on this head with regressions (144 tests, verifier 72 files, gate PASS):
+- Multipart is parsed fully in memory (python-multipart callbacks over a capped raw stream; content-length and stream caps abort at 5 MB + 64 KB overhead before parsing; the framework form parser is never used). New regressions mock tempfile.SpooledTemporaryFile and tempfile.TemporaryFile to raise, proving no disk touch for multi-MB and oversized uploads.
+- WAV validation is structural: real RIFF/WAVE with a PCM fmt chunk and a physically present non-empty data chunk; declared data overrunning the upload is truncated; duration derives from the real data chunk; trailing metadata after data is tolerated; non-PCM and chunk-less WAVs are rejected.
+- MP3 validation requires an ID3v2 header whose declared size fits the upload plus at least one reachable MPEG audio frame; bare ID3, tag-only and truncated MP3s are rejected.
+- Docs updated: APP_CONTRACTS route table + TEST_RESULTS round section. Live Chatterbox acceptance of real MP3/WAV references stays blocked on #5 (unchanged, honest scope).
 
 ## Constraints
 Task branch + reviewed PR only; no main/protection/assignment changes. No uploads/voice references committed; no live class call until #5 integration (Chatterbox reference path is schema-inspected only). Branch/PR: codex/a3-06-reference-voices.

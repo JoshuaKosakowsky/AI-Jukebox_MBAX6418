@@ -60,7 +60,7 @@ Example empty snapshot (the current GET /api/session response):
 | DELETE /api/references/speech/{reference_id} | discard one temporary voice reference; 404 if unknown |
 | POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
 | GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
-| POST /api/references/speech | multipart `file`; validate MP3/WAV fingerprints (magic bytes), size (max 5 MB) and WAV duration (1-60 s); store in session memory only and return 201 `{id, media_type}` |
+| POST /api/references/speech | multipart `file`, parsed fully in memory (no temp files or disk spooling); validate real WAV (RIFF/WAVE, PCM fmt, physical non-empty data chunk) or MP3 (ID3v2 tag plus a reachable MPEG frame); max 5 MB (stream-aborted / 422 before parse); WAV 1-60 s; store in session memory only and return 201 `{id, media_type}` |
 
 | GET /api/contracts | unchanged v1 shared JSON Schema |
 | GET /api/openapi.json | actual current API specification, including request bodies |

@@ -582,3 +582,26 @@ Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
+\n## A3-06 review round 2: no-disk multipart + structural audio validation (PR #26 head)
+
+Following Joshua's independent review (CHANGES_REQUESTED: multipart temp-file spooling and
+header-only/truncated audio accepted), the upload path was reworked and hardened:
+
+1. Multipart bodies are parsed fully in memory (python-multipart callbacks over a
+   capped raw stream, content-length and stream-caps abort at 5 MB + overhead)
+   - the framework form parser and its 1 MB disk spooling are never used. Both
+tempfile.SpooledTemporaryFile and tempfile.TemporaryFile are mocked to raise in
+the new regressions, proving no disk touch for multi-MB and oversized uploads.
+2. WAV validation is now structural (byte walk of RIFF chunks): PCM fmt chunk and
+a physically present, non-empty data chunk are required; declared data that
+overruns the upload is rejected as truncated; duration is derived from the real
+data chunk; trailing metadata bytes after the data chunk are tolerated. Non-PCM
+and chunk-less files are rejected.
+3. MP3 validation requires an ID3v2 header whose declared size fits the upload,
+plus at least one reachable MPEG audio frame (frame sync within 64 KB after the
+tag); bare ID3, tag-only and truncated MP3s are rejected.
+
+Evidence: 16 reference tests (7 new regressions) plus the full offline suite:
+144 tests, verifier 72 files, coverage 36 requirements / 11 tasks / 19 cases,
+all PASS. Live Chatterbox acceptance of real MP3/WAV references stays pending
+on #5 integration (unchanged, honest scope).
