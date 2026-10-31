@@ -185,6 +185,64 @@ requested styles. See [inputs/results](results/main-instrumental-acceptance.json
 This completes the instrumental/library and cover-pairing milestone. Vocals, the
 AI DJ queue, reference voices, approved samples and ZIP/release acceptance remain.
 
+## Failure and recovery - observed results (2026-10-30)
+
+Two real failure and recovery cases were exercised through the normal launcher
+(`python scripts/dev.py --port 8010`) with the real class services and a real
+browser on main `2a19ecf`. Expected vs actual:
+
+| Case | Expected | Actual | Result |
+|---|---|---|---|
+| Busy music capacity | A fast burst of five 60-second instrumental submissions fills the two app-side music slots; the next music request is rejected with a safe, understandable error and no job is created | UI showed `Song draft created, but the instrumental request failed: Music generation is busy. Try again shortly.`; the rejected track kept its succeeded cover and had **no** music job; after both in-flight jobs finished, an explicit **Generate instrumental** click succeeded | PASS, live |
+| Music service not configured | Launching with the music endpoint unset shows a clear configuration state and a usable path forward; the app still creates covers | UI showed `Music — Missing settings`, the button read `Create song draft & cover`, and the post-create notice explained how to enable instrumentals; a real FLUX cover still generated | PASS, live |
+| Recovery from missing configuration | Restoring the music endpoint, restarting and re-creating the identical song works | Re-created track finished both cover and music jobs and played | PASS, live |
+
+All five generated tracks decoded to five **unique** 60-second, 48 kHz stereo
+WAV files with five **unique** matching 512x512 PNG covers (distinct sha256 in
+the record). These are live normal-launch observations; the earlier focused
+retry-control checks in docs/TEST_RESULTS.md used an offline MockTransport
+harness and are labelled as offline there.
+
+Evidence: [results/a3-08-normal-launch-recovery.json](results/a3-08-normal-launch-recovery.json),
+screenshots: [failure/music not configured](results/a3-08-failure-music-not-configured.jpg),
+[recovered 5-track library](results/a3-08-recovery-library.jpg),
+[recovered track](results/a3-08-recovery-success.jpg).
+
+![Recovered track with matching cover](results/a3-08-recovery-success.jpg)
+
+### Tested design choice: deliberate retry, never automatic resubmission
+
+Recovery in this app is deliberately manual. A rejected request creates no
+job, so the UI restores the affected control instead of auto-retrying; **Resume
+check** continues polling/downloading the SAME provider task (it never submits a
+new generation), and a page reload never resubmits an in-flight or failed
+request. The guarantee is per requested stage: a rejected stage is never
+automatically resubmitted. One UI action may intentionally request several
+stages — Create song starts a separate cover and music job, and vocal creation
+also requests lyrics — so this prevents duplicate/paid work without implying a
+single-request budget per action. In the 2026-10-30 live session, four music
+submissions, one capacity-rejected request (which made no provider call) and
+one explicit recovery submission produced five playable instrumentals; covers
+were generated separately.
+
+### Investigated limitation: capacity guard depends on explicit retry
+
+The app allows at most two simultaneous music generations (and two covers, one
+lyrics job) per running app process, with the slots shared across browser
+sessions: jobs from another session can make a request in an otherwise idle
+session return busy. A request arriving while both slots are occupied is
+rejected with a safe 429 and requires a deliberate retry, so a very fast burst
+of submissions can temporarily fail with `Music generation is busy` even though
+no provider limit was hit. This is by design (no queueing, no duplicate jobs),
+documented in the UI, and recoverable; the trade-off is that a rapid clicker
+must retry explicitly rather than seeing queued tasks.
+
+As of the 2026-10-30 rehearsal on main `2a19ecf`, the local offline gate
+needed git >= 2.40 (Apple git 2.39.3 lacks `git hook run --to-stdin`) and a
+modern Node for the optional frontend probe (the probe is skipped when Node is
+absent; an installed obsolete Node can fail it — Node is not an app
+requirement). CI always runs the current suite green.
+
 ## Development and verification
 
 For a Git checkout, install local guards once:
