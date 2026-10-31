@@ -1,0 +1,1139 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-31",
+  "timezone": "America/Denver",
+  "tester": "Codex for JoshuaKosakowsky",
+  "tested_main": "25f86179f82cad2f323a81970a27fc76dbdb22ae",
+  "scope": "Isolated real-browser regression, synthetic providers only; not normal-launch/live acceptance",
+  "real_provider_requests": 0,
+  "method": [
+    "Production app, routes, store, adapters and frontend from main snapshot",
+    "Explicit synthetic Settings; no .env or inherited credentials used",
+    "Every provider HTTP request intercepted by httpx.MockTransport",
+    "Browser UI actions through in-app browser; read-only DOM observations",
+    "Test-only HTML banner and muted media-event observer",
+    "Deterministic active-slot injection for capacity rejection; not real concurrency"
+  ],
+  "source_identity": {
+    "tracked_files": 118,
+    "byte_identical_files": 112,
+    "crlf_only_differences": [
+      ".env.example",
+      ".gitattributes",
+      ".gitignore",
+      "results/a3-05-final-acceptance.txt",
+      "tests/frontend_dj_probe.cjs",
+      "tests/frontend_retry_probe.cjs"
+    ],
+    "app_sha256": {
+      "jukebox/__init__.py": "5a186e8007ec0eb3ea8945bba6350339a4a6a4bfe716db7701b09dd39d0efa8e",
+      "jukebox/__main__.py": "08c6b323001c40a4bb3fdff8ce483daa79f7740e134f71e703159e05610a9de2",
+      "jukebox/app.py": "e67331676bcb13d4a8060487d3d08724faa62b9ef562e5c0d7c4ec96db628151",
+      "jukebox/config.py": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+      "jukebox/contracts.py": "aa2865347a6dc00ee57dc461e2ae252a2efc5aa92d3fd5be26e96a502b9000a1",
+      "jukebox/providers.py": "273f6dd8fe6039eb8ff71dd56880f4d42c050c9eb619fba00bc550565ab41106",
+      "jukebox/samples.py": "52e2933161287cca3e3e85da66e03a3ebfb54fcbdfe9fc7d9ecff902f3ad298d",
+      "jukebox/sessions.py": "442c1373c065a8183f46aa747cb4c8ea27035c06ba92e050c0dec1b737fd29d5",
+      "jukebox/web/app.js": "061242a23d556aab97a7ed85347da3289f158dadb0185be0a2439e15086ba8ae",
+      "jukebox/web/index.html": "f0db8516104ac189f1468a948db0e2881067a931be8dffbb60e63606aae199f3",
+      "jukebox/web/style.css": "26b54c4a0e15b5392bc13cef54b8db0d0bdd828100e9620eb19beb29bc4372dc"
+    },
+    "app_bytes_unchanged": true,
+    "env_file_present": false
+  },
+  "checks": [
+    {
+      "check": "Empty session disables queue playback",
+      "result": "PASS"
+    },
+    {
+      "check": "Two instrumental cards have distinct audio and cover references",
+      "result": "PASS"
+    },
+    {
+      "check": "DJ start pauses manual players",
+      "result": "PASS"
+    },
+    {
+      "check": "First speech pause retains position",
+      "result": "PASS"
+    },
+    {
+      "check": "Automatic transition reaches second track speech",
+      "result": "PASS"
+    },
+    {
+      "check": "Second speech pause retains position",
+      "result": "PASS"
+    },
+    {
+      "check": "Music pause retains position and resume advances it",
+      "result": "PASS"
+    },
+    {
+      "check": "Natural queue end stops playback",
+      "result": "PASS"
+    },
+    {
+      "check": "Reload retains two cards and queue",
+      "result": "PASS"
+    },
+    {
+      "check": "Cached replay and reload make no provider requests",
+      "result": "PASS"
+    },
+    {
+      "check": "Manual playback suppressed during DJ ownership",
+      "result": "PASS"
+    },
+    {
+      "check": "Skip during music advances to next introduction",
+      "result": "PASS"
+    },
+    {
+      "check": "Skip during speech finishes last queued track",
+      "result": "PASS"
+    },
+    {
+      "check": "Unexpected returned model gets fixed safe error; no vocal submission",
+      "result": "PASS"
+    },
+    {
+      "check": "Explicit lyrics retry recovers vocal card",
+      "result": "PASS"
+    },
+    {
+      "check": "Failed introduction falls back to track music",
+      "result": "PASS"
+    },
+    {
+      "check": "Failed introduction persists through reload without automatic retry",
+      "result": "PASS"
+    },
+    {
+      "check": "Cover and music busy rejection restore controls",
+      "result": "PASS"
+    },
+    {
+      "check": "Failed replacements preserve every existing media reference",
+      "result": "PASS"
+    },
+    {
+      "check": "Explicit DJ retry recovers and adds one text/speech request",
+      "result": "PASS"
+    },
+    {
+      "check": "Resume busy rejection restores control without provider calls",
+      "result": "PASS"
+    },
+    {
+      "check": "Resume polls existing job without resubmission",
+      "result": "PASS"
+    },
+    {
+      "check": "Successful retries replace only targeted media",
+      "result": "PASS"
+    },
+    {
+      "check": "All final cards ready with no remaining recovery controls",
+      "result": "PASS"
+    },
+    {
+      "check": "Actual production responses record exactly three intended 429s",
+      "result": "PASS"
+    },
+    {
+      "check": "Observed media events have no overlap or media/window errors",
+      "result": "PASS"
+    },
+    {
+      "check": "All injected faults and capacity slots released",
+      "result": "PASS"
+    }
+  ],
+  "browser_observations": {
+    "initial": {
+      "count": "0 tracks",
+      "playDisabled": true
+    },
+    "created": [
+      {
+        "audio": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "cover": "/api/media/34a2da7a-5c9b-40dd-85ee-9bbd0b0a9e1c",
+        "id": "9469d5d8-061f-4c3e-8882-77c1f070a508",
+        "title": "OFFLINE Main A"
+      },
+      {
+        "audio": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "cover": "/api/media/fe558e3f-2b9c-42fe-8652-4b2727519eb8",
+        "id": "28e6cc5d-9ee6-417a-9cb0-c5f50c131c52",
+        "title": "OFFLINE Main B"
+      }
+    ],
+    "speechPause": {
+      "dj": [
+        {
+          "paused": true,
+          "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+          "time": 0.083764
+        }
+      ],
+      "manual": [
+        {
+          "paused": true,
+          "time": 0.955391
+        },
+        {
+          "paused": true,
+          "time": 0
+        }
+      ],
+      "status": "Paused during DJ speech (OFFLINE Main A)."
+    },
+    "speechPauseHeld": {
+      "paused": true,
+      "time": 0.083764
+    },
+    "musicPause": {
+      "paused": true,
+      "status": "Paused during music (OFFLINE Main B).",
+      "time": 7.875656
+    },
+    "secondSpeechPause": {
+      "paused": true,
+      "status": "Paused during DJ speech (OFFLINE Main B).",
+      "time": 2.597919
+    },
+    "secondSpeechHeld": {
+      "paused": true,
+      "time": 2.597919
+    },
+    "musicHeld": {
+      "paused": true,
+      "time": 7.875656
+    },
+    "musicResumed": {
+      "paused": false,
+      "status": "Now playing OFFLINE Main B",
+      "time": 8.120391
+    },
+    "endFirst": {
+      "paused": true,
+      "queue": "1. OFFLINE Main A2. OFFLINE Main B",
+      "status": "Ready. 2 songs queued \u2014 press Play.",
+      "time": 10
+    },
+    "reloaded": {
+      "count": "2 tracks",
+      "queue": "1. OFFLINE Main A2. OFFLINE Main B",
+      "status": "Ready. 2 songs queued \u2014 press Play."
+    },
+    "manualDuringDJ": [
+      {
+        "id": "",
+        "paused": true,
+        "time": 0
+      },
+      {
+        "id": "",
+        "paused": true,
+        "time": 0
+      },
+      {
+        "id": "dj-audio",
+        "paused": false,
+        "time": 5.837713
+      }
+    ],
+    "skipDuringSpeech": {
+      "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+      "status": "DJ is speaking about OFFLINE Main B\u2026"
+    },
+    "beforeMusicSkip": {
+      "status": "Now playing OFFLINE Main A",
+      "time": 0.030866
+    },
+    "afterMusicSkip": {
+      "status": "DJ is speaking about OFFLINE Main B\u2026",
+      "time": 0.094809
+    },
+    "afterSpeechSkip": {
+      "paused": true,
+      "status": "Queue finished. Press Play to hear it again."
+    },
+    "lyricsFailure": "OFFLINE Vocal C\n\nSynthetic vocal \u00b7 Calm\n\nNew matching cover ready\n\nNo vocal yet\n\nThe text service returned an unexpected model instead of 'cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit'.\n\nRetry lyrics\n\nSong draft \u00b7 lyrics and vocal generation pending.\n\nGenerate new coverGenerate vocal songAdd to DJ queue",
+    "markerVisible": false,
+    "vocalRecovered": "OFFLINE Vocal C\n\nSynthetic vocal \u00b7 Calm\n\nNew matching cover ready\n\nVocal track ready\n\nAI lyrics ready\n\nLyrics\nGenerate new lyrics\nGenerate new coverGenerate new vocal songAdd to DJ queue",
+    "failedIntroduction": "OFFLINE Vocal C\n\nSynthetic vocal \u00b7 Calm\n\nNew matching cover ready\n\nVocal track ready\n\nAI lyrics ready\n\nLyrics\nGenerate new lyrics\nGenerate new coverGenerate new vocal songIn DJ queueRetry DJ introduction",
+    "failedIntroPlayback": {
+      "paused": false,
+      "src": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+      "status": "Now playing OFFLINE Vocal C"
+    },
+    "failedIntroReload": true,
+    "preservedBeforeFault": [
+      {
+        "audio": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "cover": "/api/media/34a2da7a-5c9b-40dd-85ee-9bbd0b0a9e1c",
+        "title": "OFFLINE Main A"
+      },
+      {
+        "audio": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "cover": "/api/media/fe558e3f-2b9c-42fe-8652-4b2727519eb8",
+        "title": "OFFLINE Main B"
+      },
+      {
+        "audio": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "cover": "/api/media/2dc4369c-d156-4632-bc9b-84d071500931",
+        "title": "OFFLINE Vocal C"
+      }
+    ],
+    "cover429Restored": true,
+    "music429Restored": true,
+    "failedReplacementMedia": [
+      {
+        "audio": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "cover": "/api/media/34a2da7a-5c9b-40dd-85ee-9bbd0b0a9e1c",
+        "title": "OFFLINE Main A"
+      },
+      {
+        "audio": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "cover": "/api/media/fe558e3f-2b9c-42fe-8652-4b2727519eb8",
+        "title": "OFFLINE Main B"
+      },
+      {
+        "audio": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "cover": "/api/media/2dc4369c-d156-4632-bc9b-84d071500931",
+        "title": "OFFLINE Vocal C"
+      }
+    ],
+    "replacementErrors": [
+      "OFFLINE Main A\n\nSynthetic piano \u00b7 Calm\n\nThe class service is temporarily unavailable.\n\nInstrumental track ready\n\nRetry coverGenerate new instrumentalIn DJ queue",
+      "OFFLINE Main B\n\nSynthetic funk \u00b7 Bright\n\nNew matching cover ready\n\nThe class service timed out. Check the existing job before retrying.\n\nGenerate new coverResume checkGenerate new instrumentalIn DJ queue"
+    ],
+    "explicitSpeechRetryGone": true,
+    "resume429Restored": true,
+    "resumeAfterReleaseEnabled": true,
+    "finalCards": [
+      "OFFLINE Main ASynthetic piano \u00b7 CalmNew matching cover readyInstrumental track readyGenerate new coverGenerate new instrumentalIn DJ queue",
+      "OFFLINE Main BSynthetic funk \u00b7 BrightNew matching cover readyInstrumental track readyGenerate new coverGenerate new instrumentalIn DJ queue",
+      "OFFLINE Vocal CSynthetic vocal \u00b7 CalmNew matching cover readyVocal track readyAI lyrics readyLyricsOriginal offline lyrics\nAn entirely synthetic songGenerate new lyricsGenerate new coverGenerate new vocal songIn DJ queue"
+    ],
+    "finalMedia": [
+      {
+        "audio": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "cover": "/api/media/df320f2c-eb64-4b47-9080-bc37118d1f65",
+        "title": "OFFLINE Main A"
+      },
+      {
+        "audio": "/api/media/7d6ebac2-3c6f-4896-9d4b-38852f1a93d0",
+        "cover": "/api/media/fe558e3f-2b9c-42fe-8652-4b2727519eb8",
+        "title": "OFFLINE Main B"
+      },
+      {
+        "audio": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "cover": "/api/media/2dc4369c-d156-4632-bc9b-84d071500931",
+        "title": "OFFLINE Vocal C"
+      }
+    ]
+  },
+  "counter_checkpoints": {
+    "after-resume-reject": {
+      "/v1/images/generations": 4,
+      "/release_task": 4,
+      "/query_result": 4,
+      "/v1/audio": 3,
+      "/v1/chat/completions": 6,
+      "dj_text": 4,
+      "/v1/audio/speech": 4,
+      "lyrics": 2
+    },
+    "before-resume": {
+      "/v1/images/generations": 4,
+      "/release_task": 4,
+      "/query_result": 4,
+      "/v1/audio": 3,
+      "/v1/chat/completions": 6,
+      "dj_text": 4,
+      "/v1/audio/speech": 4,
+      "lyrics": 2
+    },
+    "capacity-reject": {
+      "/v1/images/generations": 3,
+      "/release_task": 3,
+      "/query_result": 3,
+      "/v1/audio": 3,
+      "/v1/chat/completions": 5,
+      "dj_text": 3,
+      "/v1/audio/speech": 3,
+      "lyrics": 2
+    },
+    "diagnostic": {
+      "/v1/images/generations": 3,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2,
+      "/v1/chat/completions": 3,
+      "dj_text": 2,
+      "/v1/audio/speech": 2,
+      "lyrics": 1
+    },
+    "paused": {
+      "/v1/images/generations": 2,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2,
+      "/v1/chat/completions": 2,
+      "dj_text": 2,
+      "/v1/audio/speech": 2
+    },
+    "reload": {
+      "/v1/images/generations": 2,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2,
+      "/v1/chat/completions": 2,
+      "dj_text": 2,
+      "/v1/audio/speech": 2
+    },
+    "replay": {
+      "/v1/images/generations": 2,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2,
+      "/v1/chat/completions": 2,
+      "dj_text": 2,
+      "/v1/audio/speech": 2
+    },
+    "speech-failed": {
+      "/v1/images/generations": 3,
+      "/release_task": 3,
+      "/query_result": 3,
+      "/v1/audio": 3,
+      "/v1/chat/completions": 5,
+      "dj_text": 3,
+      "/v1/audio/speech": 3,
+      "lyrics": 2
+    },
+    "start": {
+      "/v1/images/generations": 2,
+      "/release_task": 2,
+      "/query_result": 2,
+      "/v1/audio": 2,
+      "/v1/chat/completions": 1,
+      "dj_text": 1,
+      "/v1/audio/speech": 1
+    }
+  },
+  "provider_and_browser_evidence": {
+    "counts": {
+      "/v1/images/generations": 5,
+      "/release_task": 4,
+      "/query_result": 5,
+      "/v1/audio": 4,
+      "/v1/chat/completions": 6,
+      "dj_text": 4,
+      "/v1/audio/speech": 4,
+      "lyrics": 2
+    },
+    "events": [
+      {
+        "type": "play",
+        "element": "Play OFFLINE Main A",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "Play OFFLINE Main A",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0.000778,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "Play OFFLINE Main A",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0.955391,
+        "paused": true,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0.000101,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0.083764,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0.150069,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0.150302,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 6.7e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 8.5e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 2.597919,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 2.67007,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 2.670298,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 6.1e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 7.875656,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 7.950079,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 7.950354,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 7.9e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "Play OFFLINE Main A",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0,
+        "paused": true,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "Play OFFLINE Main A",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0,
+        "paused": true,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 4.6e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 4.8e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/2e0e66de-4cb6-44ce-a07c-554295e6a95c",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 6.2e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 6,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/61f4eb74-9b49-47e3-97a4-b6f2669d4850",
+        "time": 0.000145,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 7.9e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/1545f696-a48f-4528-b49c-a5bb9f0e1859",
+        "time": 7.8e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/40e291a9-85cd-4f36-997b-4ea61c442ce9",
+        "time": 7.1e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "play",
+        "element": "dj-audio",
+        "src": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "time": 0,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "playing",
+        "element": "dj-audio",
+        "src": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "time": 5.8e-05,
+        "paused": false,
+        "error": null,
+        "playingCount": 1
+      },
+      {
+        "type": "pause",
+        "element": "dj-audio",
+        "src": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      },
+      {
+        "type": "ended",
+        "element": "dj-audio",
+        "src": "/api/media/31758d62-2a9e-4e60-941c-2ff05edd890a",
+        "time": 10,
+        "paused": true,
+        "error": null,
+        "playingCount": 0
+      }
+    ],
+    "posts": [
+      {
+        "path": "/api/tracks",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/9469d5d8-061f-4c3e-8882-77c1f070a508/music",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/28e6cc5d-9ee6-417a-9cb0-c5f50c131c52/music",
+        "status": 202
+      },
+      {
+        "path": "/api/playback/queue",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/queue",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/start",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/pause",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/resume",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/phase",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/pause",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/resume",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/phase",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/pause",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/resume",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/start",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/phase",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/start",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/phase",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/tracks",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/b053bbd2-799f-47ee-8450-b1a63e33c99f/lyrics",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/b053bbd2-799f-47ee-8450-b1a63e33c99f/lyrics",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/b053bbd2-799f-47ee-8450-b1a63e33c99f/music",
+        "status": 202
+      },
+      {
+        "path": "/api/playback/queue",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/start",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/phase",
+        "status": 200
+      },
+      {
+        "path": "/api/playback/advance",
+        "status": 200
+      },
+      {
+        "path": "/api/tracks/9469d5d8-061f-4c3e-8882-77c1f070a508/cover",
+        "status": 429
+      },
+      {
+        "path": "/api/tracks/28e6cc5d-9ee6-417a-9cb0-c5f50c131c52/music",
+        "status": 429
+      },
+      {
+        "path": "/api/tracks/9469d5d8-061f-4c3e-8882-77c1f070a508/cover",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/28e6cc5d-9ee6-417a-9cb0-c5f50c131c52/music",
+        "status": 202
+      },
+      {
+        "path": "/api/playback/speech",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/28e6cc5d-9ee6-417a-9cb0-c5f50c131c52/music/resume",
+        "status": 429
+      },
+      {
+        "path": "/api/tracks/28e6cc5d-9ee6-417a-9cb0-c5f50c131c52/music/resume",
+        "status": 202
+      },
+      {
+        "path": "/api/tracks/9469d5d8-061f-4c3e-8882-77c1f070a508/cover",
+        "status": 202
+      }
+    ],
+    "control": {
+      "bad_model": false,
+      "art_fail": false,
+      "speech_fail": false,
+      "poll_fail": false
+    },
+    "held": [],
+    "real_provider_requests": 0
+  },
+  "cleanup": {
+    "server_stopped": true,
+    "port_8175_closed": true
+  },
+  "limitations": [
+    "Synthetic 10-second PCM music, 6-second PCM speech and solid-color PNGs; no listening or quality judgment",
+    "No voice-reference upload/chooser or unmerged PR #26 exercised",
+    "No real class-service success, genre fidelity, cover lettering, sample approval or release ZIP claim",
+    "One browser session; event observation is not an acoustic overlap measurement",
+    "Some captured status punctuation is mojibake in the exported observation text; screenshots preserve rendered UI"
+  ]
+}
