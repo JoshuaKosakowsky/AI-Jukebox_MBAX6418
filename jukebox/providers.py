@@ -120,15 +120,20 @@ class ClassProviders:
     def _payload(self, role):
         return deepcopy(PROBES[role]["request"])
 
+    _KNOWN_FINISH = ("stop", "length", "content_filter", "tool_calls")
+
     def _chat(self, prompt: str, max_tokens: int | None, kind: str) -> str:
         """Shared Qwen chat call whose failure messages name the exact guard.
 
-        Safe diagnostic metadata only: returned/expected model ids and the
-        finish_reason are not credentials or raw content, so they can appear
-        in the fixed SafeError message that reaches the UI. This is what lets
-        a bounded live run distinguish an unexpected model, an empty
-        (reasoning-only) completion, or a truncated (non-stop) completion
-        instead of collapsing them into one generic error.
+        Only WHITELISTED metadata may be echoed into the SafeError message
+        that reaches the UI and the public session snapshot: a model id is
+        echoed only when it is a bounded string, and a finish label only when
+        it is one of a fixed set. Any other provider value (an object, a
+        huge blob, a reasoning dump) is replaced by a fixed label, so a
+        misbehaving service can never inject raw content through the error
+        path. Distinct fixed labels still let a bounded live run distinguish
+        an unexpected model, an empty (reasoning-only) completion, or a
+        truncated (non-stop) completion.
         """
         payload = self._payload("text")
         payload["messages"] = [{"role": "user", "content": prompt}]
@@ -138,16 +143,25 @@ class ClassProviders:
         try:
             choice = data["choices"][0]
             model = data.get("model")
-            if model != PROBES["text"]["request"]["model"]:
-                fail("invalid_response", f"The text service returned model {model!r} instead of the expected {PROBES['text']['request']['model']!r}.")
-            content = choice["message"].get("content")
+            expected = PROBES["text"]["request"]["model"]
+            if model != expected:
+                if isinstance(model, str) and len(model) <= 80:
+                    fail("invalid_response", f"The text service returned model {model!r} instead of the expected {expected!r}.")
+                fail("invalid_response", f"The text service returned an unexpected model instead of {expected!r}.")
+            message = choice["message"]
+            if not isinstance(message, dict):
+                fail("invalid_response", f"The text service returned no {kind} content.")
+            content = message.get("content")
             finish = choice.get("finish_reason")
             if not isinstance(content, str) or not content.strip():
-                fail("invalid_response", f"The text service returned no {kind} content (finish_reason={finish!r}).")
+                detail = f" (finish_reason={finish!r})" if isinstance(finish, str) and finish in self._KNOWN_FINISH else ""
+                fail("invalid_response", f"The text service returned no {kind} content{detail}.")
             if finish != "stop":
-                fail("invalid_response", f"The text service ended the {kind} with finish_reason {finish!r} instead of 'stop'.")
+                detail = f"finish_reason {finish!r}" if isinstance(finish, str) and finish in self._KNOWN_FINISH else "an unexpected finish reason"
+                fail("invalid_response", f"The text service ended the {kind} with {detail} instead of 'stop'.")
+            assert isinstance(content, str)  # guarded above: non-empty string
             return content
-        except (KeyError, IndexError, TypeError, ValueError):
+        except (AttributeError, KeyError, IndexError, TypeError, ValueError):
             fail("invalid_response", f"The text service returned an invalid {kind} response.")
 
     def text(self, prompt: str) -> str:

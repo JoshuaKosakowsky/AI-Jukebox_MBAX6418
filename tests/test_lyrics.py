@@ -159,6 +159,35 @@ class VocalStoreTests(unittest.TestCase):
         self.session.tracks[track.id] = track
         return track
 
+    def test_marker_model_metadata_never_reaches_the_session_snapshot(self):
+        # The review repro: a synthetic MODEL OBJECT must not be
+        # repr-interpolated into the SafeError that lands in the public
+        # session snapshot after generate_lyrics.
+        import httpx
+        from jukebox.providers import ClassProviders
+        env = {"JUKEBOX_TEXT_ENDPOINT": "http://dobolyi.com:9001/v1",
+               "JUKEBOX_TEXT_API_KEY": "private-offline-marker"}
+
+        def reply(request):
+            return httpx.Response(200, json={"model": {"debug": "PRIVATE-MARKER"},
+                                             "choices": [{"finish_reason": "stop",
+                                                          "message": {"content": "ok"}}]})
+
+        providers = ClassProviders(Settings.load(None, env), transport=httpx.MockTransport(reply))
+        try:
+            track = self.vocal_track()
+            job = self.store.queue_lyrics(self.session, track.id)
+            self.store.generate_lyrics(self.session, job.id, providers)
+        finally:
+            providers.close()
+        failed = self.session.jobs[job.id]
+        self.assertEqual(failed.state.value, "failed")
+        self.assertIsNotNone(failed.error)
+        self.assertNotIn("PRIVATE-MARKER", failed.error.message)
+        self.assertNotIn("{", failed.error.message)
+        snapshot = self.store.snapshot(self.session)
+        self.assertNotIn("PRIVATE-MARKER", str(snapshot.model_dump(mode="json")))
+
     def test_queue_lyrics_validations_have_no_side_effects(self):
         instrumental = Track(title="Instr", settings=SongSettings(style="Piano", mood="Calm", duration_seconds=30))
         self.session.tracks[instrumental.id] = instrumental

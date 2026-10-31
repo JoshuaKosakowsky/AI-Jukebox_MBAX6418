@@ -193,6 +193,44 @@ class ProviderTests(unittest.TestCase):
                     self.make(reply).text("Hi")
                 self.assertIn(case["needle"], caught.exception.error.message)
 
+    def test_non_string_provider_metadata_never_reaches_error_messages(self):
+        # An object-valued model id must not be repr-interpolated into the
+        # SafeError that flows to the UI and the public session snapshot.
+        expected = PROBES["text"]["request"]["model"]
+        cases = [
+            {"model": {"debug": "PRIVATE-MARKER"}, "choices": [{"finish_reason": "stop",
+                                                                "message": {"content": "ok"}}],
+             "needle": "unexpected model"},
+            {"model": expected, "finish_reason": {"debug": "PRIVATE-MARKER"},
+             "choices": [{"message": {"content": "ok"}}], "needle": "unexpected finish"},
+        ]
+        for case in cases:
+            with self.subTest(case=str(case["needle"])):
+                case_model = case["model"]
+                finish = case.get("finish_reason", "stop")
+                def reply(request, case_model=case_model, finish=finish, case=case):
+                    return httpx.Response(200, json={"model": case_model,
+                                                     "choices": [{"finish_reason": finish,
+                                                                  "message": case["choices"][0]["message"]}]})
+                with self.assertRaises(ProviderFailure) as caught:
+                    self.make(reply).text("Hi")
+                message = caught.exception.error.message
+                self.assertIn(case["needle"], message)
+                self.assertNotIn("PRIVATE-MARKER", message)
+
+    def test_malformed_message_shape_raises_provider_failure_not_attribute_error(self):
+        expected = PROBES["text"]["request"]["model"]
+        # message=[] is a malformed shape the previous parser rejected with
+        # ProviderFailure(invalid_response); the refactored parser must not
+        # regress into an AttributeError (500) on it.
+        def reply(request):
+            return httpx.Response(200, json={"model": expected,
+                                             "choices": [{"finish_reason": "stop", "message": []}]})
+        with self.assertRaises(ProviderFailure) as caught:
+            self.make(reply).text("Hi")
+        self.assertEqual(caught.exception.error.code, "invalid_response")
+        self.assertNotIn("AttributeError", caught.exception.error.message)
+
     def test_reasoning_content_is_not_confused_with_final_content(self):
         expected = PROBES["text"]["request"]["model"]
         def reply(request):
