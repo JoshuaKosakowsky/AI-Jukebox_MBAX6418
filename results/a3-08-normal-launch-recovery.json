@@ -1,0 +1,84 @@
+{
+  "title": "A3-08 normal-launch failure and recovery evidence",
+  "date": "2026-10-30 America/Denver (MDT, UTC-06:00)",
+  "tester": "prse4479 (A3-08 lead) via Hermes agent on her workstation",
+  "environment": {
+    "os": "macOS 26.6 (Apple silicon arm64)",
+    "browser": "real local Google Chrome driven through the app's normal entrypoint",
+    "launcher": "python scripts/dev.py --port 8010 (uv run --locked; exact uv.lock deps)",
+    "port": 8010,
+    "base_commit": "2a19ecf (main; includes vocal merge #21, sample merge #23 and retry-control fix merge #30)",
+    "services": {
+      "text": {"endpoint": "http://dobolyi.com:9001/v1", "model": "cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit"},
+      "art": {"endpoint": "http://dobolyi.com:9006/v1", "model": "black-forest-labs/FLUX.2-klein-4B"},
+      "music": {"endpoint": "http://dobolyi.com:9007/v1", "model": "acestep/acestep-v15-xl-turbo"},
+      "speech": {"endpoint": "http://dobolyi.com:9008/v1", "model": "chatterbox-v3"}
+    },
+    "key_origin": "class key from local gitignored .env; all four /v1/models probes returned HTTP 200 before the run",
+    "covers": "AT-02, AT-10 (browser), AT-12 (review); R07, R22, R23, R24, R25"
+  },
+  "case1_capacity_rejection": {
+    "scenario": "Real UI busy-capacity failure and recovery on the normal launcher with real class services. A fast user burst fills both app-side music slots; the next music request is rejected by the app guard with a safe error; after capacity frees, a deliberate retry succeeds.",
+    "inputs": [
+      {"track": 1, "title": "Golden Hour Canyon", "style": "Orchestral cinematic", "mood": "Triumphant uplifting", "duration_seconds": 60},
+      {"track": 2, "title": "Neon Alley Nights", "style": "Synthwave bass", "mood": "Energetic and mysterious", "duration_seconds": 60},
+      {"track": 3, "title": "Paper Lanterns", "style": "Solo piano ballad", "mood": "Bright and bold", "duration_seconds": 60},
+      {"track": 4, "title": "Midnight Express", "style": "Jazz quartet swing", "mood": "Bright and bold", "duration_seconds": 60},
+      {"track": 5, "title": "Solar Flare", "style": "Psychedelic rock", "mood": "Bright and bold", "duration_seconds": 60}
+    ],
+    "observed_failure": {
+      "mechanism": "App-side music capacity guard (jukebox/sessions.py MAX_ACTIVE_MUSIC = 2). Track 5's POST /api/tracks/5/music arrived while tracks 3 and 4 held both slots; no provider request was made for it.",
+      "ui_error_verbatim": "Song draft created, but the instrumental request failed: Music generation is busy. Try again shortly.",
+      "job_evidence": "Track 5 (Solar Flare) had cover job succeeded and NO music job after the rejection; tracks 1-4 had music jobs succeeded/running.",
+      "no_duplication": "The rejected POST created no job; submission counters and job list confirm no automatic retry."
+    },
+    "recovery": {
+      "action": "Waited until every music job reached a terminal state (slots free), then clicked the card's Generate instrumental button (deliberate explicit retry; page was not reloaded).",
+      "observed": "Notice 'Instrumental requested for Solar Flare.'; music job then succeeded; audio present; all 5 library tracks playable.",
+      "screenshots": ["results/a3-08-recovery-library.jpg"]
+    },
+    "media_evidence": {
+      "note": "All media decoded from the app's own /api/media responses in the browser session; sha256 via WebCrypto; WAV parsed chunk-wise.",
+      "covers": "5 unique 512x512 PNG files (distinct sha256), 787271 bytes each",
+      "audio": "5 unique WAV files (distinct sha256), 11520078 bytes each, 2 ch 48000 Hz, 60.0 seconds each",
+      "cover_hashes": ["b7a72a49d8f933becbb7", "1d1d723373c01369f9ea", "57d9479a96b2713dbb9d", "9a20fb4d8a1b26f266b8", "f6fc87741e364391414e"],
+      "audio_hashes_prefix": ["677c2fe4d7471fc48190", "31ef3d2bbc23f7a99d8f", "4ce2ae5d7762db137c45", "435a215773641d637331", "3a48d0e1f410f5ba0659"]
+    }
+  },
+  "case2_missing_configuration": {
+    "scenario": "Deterministic failure on the normal launcher: music service not configured. The UI explains the gap and the recovery (fix .env, restart, recreate) works with real services.",
+    "inputs": {
+      "env_state": "JUKEBOX_MUSIC_ENDPOINT / API_KEY left at REPLACE_ placeholders (treated as missing); text/art/speech real",
+      "song": {"title": "Desert Drive", "style": "Acoustic folk", "mood": "Wistful and warm", "duration_seconds": 30}
+    },
+    "observed_failure": {
+      "status_ui_verbatim": "Music — Missing settings; 'The app is running. Some service settings are missing.'",
+      "help_verbatim": "Covers are ready. Add the music service to the server’s .env and restart the app to generate instrumentals.",
+      "create_button": "Create song draft & cover",
+      "post_create_notice_verbatim": "Song draft and cover created. Instrumental generation needs the music service configured — add it to the server’s .env and restart the app.",
+      "job_evidence": "Cover job succeeded (real FLUX call); no music job created; track has cover and no audio.",
+      "screenshots": ["results/a3-08-failure-music-not-configured.jpg"]
+    },
+    "recovery": {
+      "action": "Restored JUKEBOX_MUSIC_* to the real endpoint/key in .env, restarted the app, re-created the identical song in the UI.",
+      "observed": "All four services reported configured; notice 'Song created. Generating its instrumental and matching cover…'; cover and music jobs both succeeded; track playable.",
+      "screenshots": ["results/a3-08-recovery-success.jpg"]
+    }
+  },
+  "safeguards_audit": {
+    "R07": "No paid features and no app request to port 9000: config allowlist (jukebox/config.py) accepts only http(s)://dobolyi.com with role ports 9001/9006/9007/9008, path /v1, no userinfo/query/fragment; tests/test_runtime.py rejects doboly.com:9000, embedded credentials, wrong hosts and paths. Grep over tracked tree: port 9000 appears only in docs and in the rejecting test. PASS.",
+    "R23": "Credentials stay server-side and absent from Git/archives/browser code: .env is gitignored (verify_repo.py forbids .env/.env.* except example, class-endpoints.txt, *.pem/*.key, private dirs, archives); git history scan shows only .env.example ever tracked; secret-pattern scan of all 77 tracked files found only SHA-256 hashes in evidence/record files and uv.lock package hashes (not credentials); /api/status returns only configured/missing never values. PASS.",
+    "R24": "No user uploads or voice-reference recordings committed: no uploads/voice_references/recordings dirs tracked; history scan clean; media outside assets/samples is forbidden by verify_repo.py. PASS.",
+    "R25": "No bundled third-party media: only class-generated sample assets ship under assets/samples/ (Moonlit candidate: WAV + PNG with provenance manifest and sha256 records); results/ holds screenshots/JSON only; *.mp3/*.wav/etc ignored except assets/samples. PASS."
+  },
+  "local_suite_environment_note": {
+    "finding": "On this workstation (Apple git 2.39.3 + system node v6.10.1), python scripts/dev.py --check reports 8 failures: 7 in test_git_hooks.py ('git hook run --to-stdin' requires git >= 2.40) and 1 in test_frontend.FrontendRetryBehaviorTests (frontend_retry_probe.cjs uses modern JS; node 6 cannot parse it). These are environment-tooling failures, not code regressions: CI (Windows/Linux runners with modern git/node) runs the same suite green.",
+    "verification": "Full rerun with modern toolchains PASSED: verify_repo 77 files, readiness 36/11/19, 129 tests OK (exit 0). git 2.44.1 built locally from source with NO_GETTEXT via config.mak (command-line flag was silently ignored); node 22.14.0 darwin-arm64 portable; both only on PATH for that run, system tools untouched.",
+    "team_note": "macOS contributors need git >= 2.40 and node >= 18 for the offline gate; consider documenting in TESTING.md. Homebrew unusable on this machine (locks dir permissions), so portable/scratch toolchains are the workaround."
+  },
+  "excluded": [
+    "No vocals/DJ/reference-voice flows exercised (not on main).",
+    "No session-limits tests in this run (separate acceptance AT-06 covers them).",
+    "No ZIP/release acceptance; submission remains NOT READY."
+  ]
+}
