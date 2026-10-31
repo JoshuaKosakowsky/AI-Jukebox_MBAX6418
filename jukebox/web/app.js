@@ -299,6 +299,9 @@ async function load() {
       list.append(item);
     }
     document.querySelector("#summary").textContent = status.configured ? "All four services are configured." : "The app is running. Some service settings are missing.";
+    if (status.sample_library?.error) {
+      document.querySelector("#summary").textContent += ` ${status.sample_library.error}`;
+    }
     refreshConfigurationCopy();
     createButton.disabled = submitting || !artConfigured;
     renderLibrary(session);

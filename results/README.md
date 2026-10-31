@@ -27,7 +27,7 @@ two real normal-launch music/cover requests, browser checks and Joshua's listeni
 confirmation on 7cc9645. main-instrumental-library.jpg is the actual browser view.
 Raw clips/images stay ignored under results/raw; they are not approved sample assets.
 
-Desert Drive candidate: [desert-candidate-preview.png](desert-candidate-preview.png)
+Desert Drive candidate: [desert-candidate-preview.jpg](desert-candidate-preview.jpg)
 shows the original retained pair in a muted local preview; [provenance and selection
 notes](../assets/samples/README.md#desert-drive-candidate-for-jovi-7) include the known cover-lettering limitation. Not final library/ZIP acceptance.
 

@@ -89,7 +89,8 @@ def lyrics_prompt(track: Track) -> str:
 class SessionStore:
     """One store per app process; no files, uploads or provider identifiers are persisted."""
 
-    def __init__(self):
+    def __init__(self, sample_library=()):
+        self.sample_library = tuple(sample_library)
         self.sessions: dict[str, Session] = {}
         self.lock = RLock()
 
@@ -103,7 +104,17 @@ class SessionStore:
             if session is None:
                 if len(self.sessions) >= MAX_SESSIONS:
                     raise SessionFailure(429, "Session capacity reached. Try again later.", retryable=True)
+                if self._media_bytes() > MAX_MEDIA_BYTES or len(self.sample_library) > MAX_TRACKS:
+                    raise SessionFailure(429, "Session media capacity reached. Try again after another session expires.", retryable=True)
                 session = Session()
+                for sample in self.sample_library:
+                    audio_id, cover_id = uuid4(), uuid4()
+                    audio = MediaRef(id=audio_id, url=f"/api/media/{audio_id}", content_type=sample.audio.content_type)
+                    cover = MediaRef(id=cover_id, url=f"/api/media/{cover_id}", content_type=sample.cover.content_type)
+                    track = Track.model_validate({**sample.track.model_dump(), "audio": audio, "cover": cover})
+                    session.tracks[track.id] = track
+                    session.media[audio_id] = sample.audio
+                    session.media[cover_id] = sample.cover
                 self.sessions[session.token] = session
             session.touched = now
             return session
@@ -126,6 +137,13 @@ class SessionStore:
 
     def _active_count(self, kind):
         return sum(1 for value in self.sessions.values() for (_, active_kind) in value.active if active_kind == kind)
+
+    def _media_bytes(self):
+        # Catalog bytes are immutable and shared between sessions. Count them
+        # once, including samples replaced in every session but retained for new ones.
+        media = [item for sample in self.sample_library for item in (sample.audio, sample.cover)]
+        media.extend(item for session in self.sessions.values() for item in session.media.values())
+        return sum({id(item.content): len(item.content) for item in media}.values())
 
     def queue_cover(self, session, track_id):
         with self.lock:
@@ -226,7 +244,7 @@ class SessionStore:
         try:
             image = providers.cover(cover_prompt(track))
             with self.lock:
-                used = sum(len(media.content) for value in self.sessions.values() for media in value.media.values())
+                used = self._media_bytes()
                 if used + len(image.content) > MAX_MEDIA_BYTES:
                     raise ProviderFailure(SafeError(code="generation_failed", message="Session media capacity reached. Existing covers are preserved."))
                 identifier = uuid4()
@@ -353,7 +371,7 @@ class SessionStore:
                 session.jobs[job_id] = job
             audio = providers.download_music(result)
             with self.lock:
-                used = sum(len(media.content) for value in self.sessions.values() for media in value.media.values())
+                used = self._media_bytes()
                 if used + len(audio.content) > MAX_MEDIA_BYTES:
                     raise ProviderFailure(SafeError(code="generation_failed", message="Session media capacity reached. Existing tracks are preserved."))
                 identifier = uuid4()
