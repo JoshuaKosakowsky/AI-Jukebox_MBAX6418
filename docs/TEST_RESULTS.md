@@ -648,6 +648,39 @@ remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
 
 
+## A3-03 normal-launch vocal acceptance attempt - 2026-10-30 America/Denver
+
+Tester: JoshuaKosakowsky directing Codex. Clean main
+`770ce6203937a6adcb26c63a8b405d4e44d12478`, normal
+`python scripts/dev.py --port 8180`, existing ignored class settings, real
+browser form and production providers. No fixture harness or app changes.
+
+| Input/check | Expected | Actual |
+|---|---|---|
+| Morning Signal / Acoustic indie pop / Hopeful and upbeat / 30 s / Vocal | Qwen lyrics, ACE-Step vocal audio, matching FLUX art | FAIL: art succeeded; lyrics failed with `invalid_response`, "The text service returned no complete lyrics." No music job or audio followed. |
+| Failed-job recovery UI | Explicit lyrics retry available without resubmission | Retry lyrics is enabled; no retry was clicked. No recovery success is claimed. |
+| Reload failed draft | Same track/cover/jobs, no automatic generation | PASS: before/after public session snapshots are identical: one succeeded art job, one failed text job, zero music jobs. |
+| Browser console | No uncaught frontend errors | PASS: no error/warning entries observed. |
+
+Exactly one vocal form submission was made, bounded to one lyrics request, one
+automatic cover and at most one music submission. The music stage was never
+reached. Public job counts and the single-call production implementation support
+these counts; no raw provider wire trace was captured. There was no speech,
+reference upload, automatic retry, music generation or human listening.
+
+The lyrics parser uses one safe error for unexpected model, missing/empty
+content or a completion whose finish reason is not `stop`. The raw provider
+response was not retained, so this run does **not** establish which guard failed.
+Next diagnosis should capture only safe completion metadata in a separately
+bounded attempt; do not infer a token-budget fix from this generic error.
+
+[Safe record](../results/vocal-live-failure-record.json) and
+[actual failure view](../results/vocal-live-failure.jpg). Generated cover bytes
+remain ignored under results/raw; they are not an approved sample.
+**AT-04 failed; #3 remains open. Submission NOT READY.** This adds live failure
+evidence; the earlier offline vocal/browser checks retain their original scope.
+
+
 ## A3-08 retry-control correction - 2026-10-30 America/Denver
 
 On main 770ce62, rejected cover, instrumental and resume POSTs leave their
