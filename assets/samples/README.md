@@ -19,6 +19,23 @@ samples distinct; verify all three through the normal launcher and exact final
 GitHub ZIP before closing #7. The loader below supplies the integration path;
 the candidate record itself does not approve the final set or change the manifest. [Asset preview](../../results/moonlit-candidate-preview.jpg).
 
+## Desert Drive candidate for jovi (#7)
+
+[Audio](desert-drive.wav), [cover](desert-drive.png), and
+[candidate/provenance record](desert-drive.candidate.json) package the second
+retained acceptance track: 20 seconds, Upbeat funk, Energetic and optimistic.
+The original title is Desert Drive (previous chat shorthand Desert Dawn was incorrect).
+Audio/cover hashes match the original acceptance; full decoding and muted local
+preview play/pause/resume passed. Joshua's original listening confirmation is
+attributed as prior evidence; no new listening or generation is claimed.
+
+The original cover says **DESSERT DRIIVE** and has distorted small lettering.
+Jovi should consider that known limitation when selecting the final samples;
+this candidate preserves the original media rather than silently editing it.
+If selected, its `sample` object is ready for the manifest. Final sample-library
+and independent ZIP checks remain pending; manifest.json is unchanged.
+[Actual local preview](../../results/desert-candidate-preview.jpg).
+
 ## Final sample records
 
 For each of three entries in manifest.json record: id, title, audio and cover

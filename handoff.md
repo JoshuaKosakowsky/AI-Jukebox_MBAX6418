@@ -1,5 +1,20 @@
 # Agent handoff
 
+## Session — final contribution review head, 2026-10-30 America/Denver
+Codex for Joshua; PR24 preparation c7c5504, final mainca9fc83 after protected PR25 merge.
+Preethi renewed exact45d24bd approval; #25 merged normally with four green checks; candidate remains unselected/#7 open.
+Followed planned merge order, then final-synced #24; only handoff conflict, preserving both tasks' notes.
+All three original Mike rows remain byte-for-byte, every main row retained exactly once (including candidate review credit).
+Against main only CONTRIBUTIONS +3 rows and this handoff differ; runtime/tests/contracts/dependencies/assets/evidence equal main.
+Safeguards/coverage/whitespace/source+credit equivalence recorded on PR; no new tests for documentation-only work.
+No new provider calls/listening, sample approval, credentials, dependency or ownership changes.
+Joshua now contributes to #24 and cannot approve; request eligible Preethi/Matt/Jovi and freeze this head for review.
+Mike retains author/implementation/review credit and can focus on #26 validation and #29 safe diagnostics.
+Do not merge without final current-head approval, passing required checks and resolved conversations.
+Next: publish final checked head, request eligible review, normal merge once ready; do not push during review.
+
+## Preserved preparation and main notes (current facts above supersede historical status)
+
 ## Session — contribution-record reconciliation, 2026-10-30 America/Denver
 Codex for Joshua; PR24 pre-head5c436d1, mainfed0add. Mike retains author credit and all three original rows.
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/24#issuecomment-6538295333
@@ -16,6 +31,22 @@ No new tests for docs-only reconciliation. Ownership/protection unchanged; #3/#5
 Next: publish this preparation head, await #25 merge, do one final main sync, then request eligible current-head review.
 
 ## Preserved merged-main notes (current facts above supersede historical status)
+
+## Session — final sample review follow-through, 2026-10-30 America/Denver
+Codex for Joshua; PR25 pre-head6276b29, required mainfed0add after normal PR28 merge.
+Preethi approved6276b29 and independently verified source hashes/decoded media/provenance; Mike approved a prior package.
+Main update required handoff-only conflict resolution; preserved candidate and failed-vocal evidence/notes.
+Confirmed original cover visually: exact generated lettering is DESSERT DRIIVE; corrected two JSON note strings and README.
+No artwork/audio/preview edit or new generation; title/settings/source hashes/timestamps/request reconstruction remain unchanged.
+Added one related packaging/review credit row; no attribution to new listening or final sample approval.
+App/tests/contracts/dependencies match current main; approved manifest remains unchanged and candidate unselected.
+Validation: verifier/coverage/whitespace, full WAV/PNG/JPEG decode, media hashes and provenance-equivalence recorded on PR.
+Normal protection dismisses the old-head approval after this required push; request fresh eligible review and freeze.
+Do not self-approve, bypass protection, silently select samples or close #7.
+No new class-service calls, keys, uploaded voice references, assignment changes or app behavior changes.
+Next: publish checked head, eligible reviewer verifies narrow delta, normal merge when approval and CI are current.
+
+## Preserved task and main notes (current facts above supersede historical status)
 
 ## Session — shared integration and independent review follow-through
 2026-10-30 America/Denver; Codex for Joshua. PRs #25/#28 sync, pre-heads 4d724c2/e42e5de.
@@ -51,6 +82,37 @@ Mike/Preethi requested for independent review. Main's #22 merge also retains the
 Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. PR #25 reconciliation while Mike/Preethi are available.
+## State and completed work
+Mike approved #31 and this PR's prior 4d41b9a head; #31 merged normally at main 31dc9e4.
+Merged that main into #25; resolved only handoff conflict while preserving candidate/loader/prse notes.
+Corrected Mike's non-blocking screenshot filename: original JPEG bytes renamed .png -> .jpg, references updated.
+WAV/cover bytes, sample/provenance objects and approved manifest unchanged; no sample selection or generation.
+Current PR app/tests/contracts/dependencies match main; loader implementation remains the independently reviewed #31 code.
+## Validation and remaining review
+Verifier/coverage/whitespace, media/provenance/preview byte checks and full decode recorded in PR; new-head CI required.
+Previous current-head approval will need renewal after this push; Preethi requested as eligible zero-commit reviewer.
+No self-approval or protection changes; #7's final three samples/normal-main/ZIP acceptance stay open.
+## Current parallel work
+Joshua owns #27 integration with loader seams; no new provider generation in that integration.
+Mike can fix #29 then #26; Preethi may take claimed #5 browser acceptance afterward using existing backup coverage.
+Do not duplicate Matt's active/unpublished acceptance; coordinate exact head and request budget first.
+## Next
+1. Preethi reviews the small #25 sync/rename delta, then normal protected merge after green CI.
+2. Jovi retains final sample selection; retain original media instead of regenerating on agent switches.
+3. Follow #27 integration handoff; no assignment change was made in this task.
+
+## Preserved historical task notes (superseded where noted above)
+
+## Session
+## Preserved candidate notes
+
+2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #25, Desert Drive candidate packaging.
+## Repository state
+Branch codex/desert-drive-sample-candidate; pre-sync 2cb5e01; merged main c6e1273 after normal #32 approval/merge.
+## Work and decisions
+Resolved only documentation/index/handoff integration conflicts; preserved both branches' evidence and prior notes.
+
 2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #28.
 
 ## Preserved clarification task notes
@@ -135,6 +197,8 @@ Assignments already permit backup work and any zero-commit reviewer; no ownershi
 2. Preserve remaining vocal/DJ/reference/sample acceptance gaps; submission NOT READY.
 3. Use current issue handoffs for coordination; final sample selection/ZIP remain with Jovi.
 ## References
+PR #25; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
+
 PR #28; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
 
 PR #22; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
@@ -142,6 +206,33 @@ PR #22; merged #32; current draft #27 diagnosis and reviewer coordination on Git
 ## Preserved prior task notes
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: review Mase's latest update, then prepare #25 for Jovi.
+## Constraints
+MSpanny = Mike; mase7919/Mase = Matt. Protected PR/review workflow; no self-approval or assignments changed.
+No new generation, class calls, media edits, listening or final sample selection.
+## Repository state
+Branch codex/desert-drive-sample-candidate; pre-handoff 7ac548d, synchronized with main 2a19ecf.
+Resolved only handoff/results index conflicts; app/tests/dependencies/contracts match current main.
+## Work completed and decisions
+Mase #27 2cdfe38 removes one handoff marker only; CI 4/4 green, playback findings/draft remain.
+Preserved Desert Drive's original WAV/PNG/candidate record/preview byte-for-byte, including DESSERT DRIVE lettering disclosure.
+Preserved both candidate and Windows ZIP evidence indexes; manifest remains empty and unchanged.
+#30 retry fix is integrated; #22 audit is separate and awaiting review. Mike's #24/#26/#29 remain unchanged.
+## Validation
+Rechecked original acceptance SHA-256s, full WAV frame data and PNG decode; results reported on #25's checked head.
+Locked suite/verifier/coverage/whitespace and conflict-marker scan run before push; no live/browser/listening rerun claimed.
+Prior candidate preview/listening remain historical, with their original tester/scope in the untouched provenance.
+## Blockers and unchecked areas
+Jovi or another eligible zero-commit teammate must review the current head before normal merge.
+Candidate packaging does not select an approved sample, populate the manifest, load it in-app or satisfy final ZIP acceptance.
+#3 live vocals, #5/#6 DJ/references and full #8/#7/#10 acceptance remain; submission NOT READY.
+## Next steps
+1. Jovi/eligible teammate reviews #25 current head; merge normally after approval, current CI and resolved conversations.
+2. Jovi selects the final three pairs and implements/verifies the sample library; reuse retained media.
+3. Preserve #22/#24 credit/evidence when reconciling later PRs; do not rerun class generation on session changes.
+## References
+assets/samples/desert-drive.candidate.json; results/main-instrumental-acceptance.json; PR #25; issue #7.
+
 2026-10-30 America/Denver; Codex for Joshua. Task: bounded live vocal acceptance after PR triage.
 ## Constraints
 MSpanny = Mike; mase7919/Mase = Matt. Mike leads #3/#6; Matt #5; assignments unchanged.

@@ -27,6 +27,10 @@ two real normal-launch music/cover requests, browser checks and Joshua's listeni
 confirmation on 7cc9645. main-instrumental-library.jpg is the actual browser view.
 Raw clips/images stay ignored under results/raw; they are not approved sample assets.
 
+Desert Drive candidate: [desert-candidate-preview.jpg](desert-candidate-preview.jpg)
+shows the original retained pair in a muted local preview; [provenance and selection
+notes](../assets/samples/README.md#desert-drive-candidate-for-jovi-7) include the known cover-lettering limitation. Not final library/ZIP acceptance.
+
 Offline retry variants: [a3-08-retry-variants.json](a3-08-retry-variants.json),
 [cover screenshot](cover-retry-disabled.png), [resume screenshot](resume-retry-disabled.png).
 See [reproduction and limitations](../docs/RECOVERY_AUDIT.md#cover-retry-and-resume-variants-on-main-e2b1e52-2026-10-29); no app fix or live acceptance claimed.
