@@ -64,5 +64,8 @@ records a limited two-clip listening improvement. Broader user app testing then
 found metal/rap unsuitable; [planning revision](a3-35-genre-fidelity.json) records
 those exact inputs and two bounded music-only requests on 9871e7b. Both decode
 fully, but Joshua judged neither genre convincing: both FAIL. The subsequent
-concrete-cue caption revision is offline-only; no further generation in this run. Neither record establishes
+[concrete-cue comparison](a3-35-concrete-cues.json), explicitly requested by Joshua,
+used exactly two more music submissions on e62fe17; both decoded fully, but
+Joshua again judged neither genre convincing. Previous run records are preserved;
+no further generation in this new run. Neither record establishes
 general genre fidelity, integrated-main browser or final sample acceptance.

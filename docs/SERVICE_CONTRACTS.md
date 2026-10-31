@@ -139,9 +139,13 @@ and country good. That broader feedback leaves #35 unresolved; the planning
 revision has a [separate bounded record](../results/a3-35-genre-fidelity.json):
 two accepted requests and complete 30-second WAV decodes. Joshua's verdict was
 **"Neither is convincing"**, so both genre checks fail. Returned prompts echoed
-the inputs; no internal caption-rewrite trace was captured. The final concrete
-arrangement-cue revision is offline tested only and has not been generated or
-listened to. #35 stays open and PR #37 stays draft.
+the inputs; no internal caption-rewrite trace was captured. The concrete
+arrangement-cue revision was then tested in a newly authorized two-clip run on
+e62fe17 ([record](../results/a3-35-concrete-cues.json)); both decoded fully but
+Joshua again judged **"Neither is convincing."** The advertised model is
+`acestep/acestep-v15-xl-turbo` and health reports both models/LM initialized;
+these read-only facts do not verify internal prompt/flag conditioning. No
+further generation in that run. #35 stays open and PR #37 stays draft.
 
 ## Speech: Chatterbox V3, port 9008
 

@@ -830,3 +830,32 @@ The caption limits, aliases and freeform-style preservation have offline
 regressions. Final full locked check: **148 tests PASS**, verifier/coverage/
 whitespace PASS, including actual startup and Node handler checks.
 **This concrete-cue version has no live/listening acceptance yet.**
+
+
+### Concrete-cue listening comparison — 2026-10-30 America/Denver
+
+Joshua explicitly requested one new Iced Coffee metal clip and one Yellow
+Sundress rap clip using the latest cues. This was a new bounded authorization,
+separate from the earlier stopped/failed planning-only run. Immutable code head
+**e62fe17**; production music_prompt + ClassProviders, **2 music submissions,
+6 polls, 2 downloads; 0 art/text/speech/retries**. No source changes or app restart.
+
+Both30s instrumentals used the original exact title/style/mood inputs and the
+concrete guitar/riff/drum versus hip-hop kick/bass/snare/hi-hat cues. Both fully
+decoded as non-silent48kHz stereo PCM16. Joshua listened and replied **"Neither
+is convincing." Both genre checks FAIL again.** No theme/mood endorsement is
+inferred, and generation stops at the two requested clips.
+
+[Safe concrete-cue record](../results/a3-35-concrete-cues.json) preserves exact
+submitted captions/flags, counts, hashes and attributed listening. Earlier
+failed clips/records are retained; no seed-matched causal comparison is claimed.
+Raw media stays ignored/private and was rendered in chat for listening.
+
+Read-only discovery afterward: health reports music and LM initialized; model
+listing advertises `acestep/acestep-v15-xl-turbo`. This establishes advertised
+configuration, not internal prompt/flag application. Returned captions echoed
+submitted prompts; no internal conditioning trace exists here. Next useful
+investigation is a genre-only control and service-conditioning verification,
+not a claim that more prompt words already solved it. #35 stays open/#37 draft.
+No extra generation, retries, cover changes, full-suite rerun or integrated-main
+acceptance in this comparison. Runtime/tests remain the148-test checked code.
