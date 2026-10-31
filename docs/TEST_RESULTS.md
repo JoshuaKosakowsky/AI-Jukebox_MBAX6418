@@ -740,3 +740,27 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
+
+
+## A3-35 genre-conditioning correction — 2026-10-30 America/Denver
+
+Joshua/Codex, branch codex/a3-35-genre-controls from main1faacd0; Refs #35.
+Production inherited80BPM/C Major/4/4 from the historical piano probe for every
+style. Removed only those three fields and strengthened instrumental/vocal
+prompts to request genre-characteristic groove/tempo/rhythm/instruments. No
+manual genre mapping, new dependency, public schema or model switch.
+
+- New production-store + real-adapter/MockTransport regression covers contrasting
+  ambient/drum-and-bass styles in instrumental and vocal modes. All four cases
+  fail on baseline because fixed fields are sent, and pass after the correction.
+  Duration/lyrics/batch/WAV/remaining flags and frozen probe immutability checked.
+- Full locked offline suite:146 tests PASS, repository104 files and coverage36/11/19 PASS.
+- Read-only deployed schema/health plus matching upstream source inspected;
+  missing metadata is supported and music LM reports initialized. It may add
+  planning time even with thinking=false. No generation occurred in discovery.
+
+The bounded follow-up comparison will use at most2 music submissions, no other
+services or retries, reusing the recorded ambient-piano/upbeat-funk inputs and
+original outputs as baselines. Actual results belong in a separate safe record;
+no improved musical-quality or human listening result is claimed here yet.
+Preethi's #27 test and its eight-request budget are separate and untouched.

@@ -1,5 +1,21 @@
 # Agent handoff
 
+## Session — #35 genre controls, 2026-10-30 America/Denver
+Codex for Joshua; branch codex/a3-35-genre-controls from main1faacd0, explicit user claim/assignment #35.
+Claim6539128210 coordinates providers.submit_music and music prompts/tests; no duplicate work on #26/#29/#27.
+Removed production-only probe80BPM/Cmajor/4/4 constraints; server infers metadata from style/mood; duration stays explicit.
+Strengthened instrumental/vocal groove/tempo/rhythm instructions; no genre lookup table, UI/schema change or dependency.
+Deployed schema inspected232eda8e... (no typed release JSON); health LM initialized; matched pinned upstream optional fields.
+Preserved original starter prompt and frozen probe fixture; existing model/batch/steps/lyrics/retry flags unchanged.
+Regression: four style/mode cases fail on baseline and pass patch; full146 locked tests and verifier104/coverage PASS.
+Docs APP_CONTRACTS/SERVICE_CONTRACTS/TEST_RESULTS updated; musical quality and actual changed-request compatibility pending.
+Next bounded #35 comparison: two music-only calls, zero art/text/speech, no retries; stop on failure; original tracks reused as baselines.
+This is separate from Preethi's #27 budget; do not edit her branch. Local review server stays stopped.
+Next: commit checked implementation, record bounded comparison honestly, publish focused PR and request independent review.
+#35 stays open until listening comparison; no self-approval, direct-main push or automatic quality claim.
+
+## Preserved main notes
+
 ## Session — A3-09 README slice, 2026-10-30 America/Denver
 prse4479 (A3-09 lead). Claim on #9: branch codex/a3-09-readme-findings from main 81042a1, README-only +50 (failure/recovery observed results, R29 design choice, R30 limitation).
 PR #34 reviews: Joshua requested two P2 factual corrections — capacity slots are shared across browser sessions (not per-session), and the retry guarantee is per requested stage (not one generation per action) — plus one non-blocking toolchain qualification (129-test figure historical; Node optional). All batched in this commit; head frozen for re-review by Joshua (reported zero-commit) or Mike. No source/test changes, no provider calls, no .env involvement. #9 stays open for vocal/DJ/reference/results sections; R31 team wording verification happens in the PR review.

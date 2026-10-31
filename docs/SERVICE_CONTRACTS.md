@@ -90,6 +90,31 @@ Duration range 10-600 seconds is documented upstream, not exhaustively verified
 here. Vocals, AI lyrics, user-selected settings and musical quality remain feature
 checks. Do not invent an OpenAI /v1/audio/generations request for this deployment.
 
+### Production genre conditioning (#35)
+
+The frozen probe above describes one slow piano example. Production music
+requests omit its `bpm`, `key_scale` and `time_signature` fields so every style
+is not forced to 80 BPM, C Major and 4/4. The requested duration, supplied lyrics,
+single-output batch, WAV format, eight steps and existing thinking/CoT flags stay
+unchanged. Both instrumental and vocal prompts explicitly request a groove,
+tempo, rhythm and instrumentation characteristic of the selected style/mood.
+
+The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
+defaults BPM to null and key/meter to empty. The
+[API documentation](https://ace-step.github.io/ACE-Step-1.5/en/API#_4-create-generation-task)
+explains that missing metadata may be inferred by the music service's own 5Hz
+LM even with `thinking=false`; supplied duration still takes precedence. This
+can add planning latency within the existing music task, not a separate Qwen
+request. No model switch, extra submission or automatic retry is introduced.
+
+On 2026-10-30 the deployed `/openapi.json` still omitted the release-task JSON
+body; its raw SHA-256 was `232eda8eba8b7f1d574a0ccc2c5a9db8023ba27347b64ec60356361bbadb3bf9`.
+A read-only `/health` check reported `llm_initialized=true`. These are discovery
+observations, not generation/quality acceptance. The original probe fixture
+remains unchanged. Actual request compatibility and human genre/rhythm quality
+need the separately recorded bounded comparison; offline tests alone cannot
+establish better sounding music.
+
 ## Speech: Chatterbox V3, port 9008
 
 POST /v1/audio/speech with model=chatterbox-v3, input="Welcome to the jukebox."

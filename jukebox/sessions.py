@@ -63,7 +63,7 @@ def music_prompt(track: Track) -> str:
             f"Musical style: {track.settings.style}\n"
             f"Mood: {track.settings.mood}\n"
             f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable instrumental piece that matches this style and mood.")
+            "Match this style and mood through its characteristic groove, tempo, rhythm and instruments.")
 
 
 def vocal_music_prompt(track: Track) -> str:
@@ -72,7 +72,7 @@ def vocal_music_prompt(track: Track) -> str:
             f"Musical style: {track.settings.style}\n"
             f"Mood: {track.settings.mood}\n"
             f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable vocal piece that matches this style and mood.")
+            "Match this style and mood through its characteristic groove, tempo, rhythm and instruments.")
 
 
 def lyrics_prompt(track: Track) -> str:

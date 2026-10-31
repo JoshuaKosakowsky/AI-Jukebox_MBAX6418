@@ -189,6 +189,9 @@ the frozen service-probes.json defaults and exposes:
 - cover(prompt) -> decoded PNG bytes/MIME; the baseline requests one 512x512 cover.
 - speech(text) -> decoded PCM WAV bytes/MIME, default voice omitted.
 - submit_music(prompt, duration_seconds=10, lyrics="[Instrumental]") -> MusicTicket.
+  Production omits the probe's fixed BPM/key/meter so ACE-Step can infer them
+  from the selected style/mood; duration, lyrics and one-output/no-retry bounds
+  are unchanged. See SERVICE_CONTRACTS.md for the documented deviation.
 - poll_music(ticket) -> running or succeeded with a private download path; status
   2 becomes a safe generation_failed error. Success parses the JSON string array,
   matches task ID and verifies XL Turbo. Each invocation performs only one poll.

@@ -1,18 +1,20 @@
 """Offline instrumental music integration through real HTTP routes and the store; no class-service calls."""
 from concurrent.futures import ThreadPoolExecutor
 import io
+import json
 from threading import Event
 import unittest
 from unittest.mock import Mock, patch
 from uuid import uuid4
 import wave
 
+import httpx
 from fastapi.testclient import TestClient
 
 from jukebox.app import create_app
 from jukebox.config import Settings
 from jukebox.contracts import MediaRef, Playback, SafeError, SongSettings, Track
-from jukebox.providers import MediaBytes, MusicPoll, MusicTicket, ProviderFailure
+from jukebox.providers import ClassProviders, MediaBytes, MusicPoll, MusicTicket, PROBES, ProviderFailure
 from jukebox.sessions import SESSION_COOKIE, SessionFailure, SessionStore
 
 
@@ -86,6 +88,51 @@ class MusicStoreTests(unittest.TestCase):
         self.assertEqual(providers.submit_music.call_args.kwargs["duration_seconds"], 15)
         self.assertEqual(providers.submit_music.call_count, 1)
         self.assertEqual(providers.download_music.call_count, 1)
+
+    def test_genre_requests_leave_tempo_key_and_meter_to_the_music_service(self):
+        submissions = []
+        def reply(request):
+            if request.url.path == "/release_task":
+                submissions.append(json.loads(request.content))
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": {"task_id": f"ticket-{len(submissions)}"}})
+            if request.url.path == "/query_result":
+                ticket = json.loads(request.content)["task_id_list"][0]
+                result = json.dumps([{"file": "/v1/audio?path=fixture.wav",
+                                     "dit_model": "acestep-v15-xl-turbo", "status": 1}])
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": [{"task_id": ticket, "status": 1, "result": result}]})
+            self.assertEqual(request.url.path, "/v1/audio")
+            return httpx.Response(200, content=wav_bytes(), headers={"content-type": "audio/wav"})
+
+        provider = ClassProviders(art_music_settings(), transport=httpx.MockTransport(reply))
+        self.addCleanup(provider.close)
+        baseline = json.dumps(PROBES["music"]["request"], sort_keys=True)
+        for mode in ("instrumental", "vocal"):
+            for style, mood, duration in (("Slow ambient piano", "Reflective", 20),
+                                           ("Fast drum and bass", "Energetic", 30)):
+                with self.subTest(mode=mode, style=style):
+                    lyrics = "Original test lyrics\nAnother original line" if mode == "vocal" else None
+                    item = Track(title="Genre comparison", settings=SongSettings(
+                        style=style, mood=mood, duration_seconds=duration, mode=mode), lyrics=lyrics)
+                    self.session.tracks[item.id] = item
+                    job = self.store.queue_music(self.session, item.id)
+                    before = len(submissions)
+                    self.store.generate_music(self.session, job.id, provider)
+                    self.assertEqual(self.session.jobs[job.id].state.value, "succeeded")
+                    self.assertIsNotNone(self.session.tracks[item.id].audio)
+                    self.assertEqual(len(submissions), before + 1)
+                    payload = submissions[-1]
+                    self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload),
+                                    "A genre request must not inherit the slow-piano probe constraints")
+                    for value in (style, mood, item.title, "groove", "tempo"):
+                        self.assertIn(value, payload["prompt"])
+                    expected = {k: v for k, v in PROBES["music"]["request"].items()
+                                if k not in {"bpm", "key_scale", "time_signature"}}
+                    expected.update(prompt=payload["prompt"], audio_duration=duration,
+                                    lyrics=lyrics if mode == "vocal" else "[Instrumental]")
+                    self.assertEqual(payload, expected)
+        self.assertEqual(json.dumps(PROBES["music"]["request"], sort_keys=True), baseline)
 
     def test_bounded_polling_advances_progress_then_attaches_ready_audio(self):
         item = self.add_track()
