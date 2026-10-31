@@ -16,9 +16,11 @@ to main. Joshua/the team handles invitations and lead/contributor assignments.
    acceptance checks and the merge; contributors co-implement and are the
    natural first-review pool. Before publication, record it in PLAN.md;
    afterward use GitHub issues.
-2. Branch from current main (`codex/<task>` or `type/slug`). Keep one substantial
-   PR active per contributor. A broad milestone can have several focused child
-   issues/PRs; avoid long-lived dependent branches unless merge order is explicit.
+2. Branch each task from current main (`codex/<task>` or `type/slug`).
+   Independent tasks may have concurrent PRs from the same contributor.
+   Keep each PR focused; coordinate overlapping files or shared interfaces and
+   record dependencies/merge order where needed. Waiting for one PR's review
+   must not hold up unrelated work.
 3. Implement the smallest useful behavior. Fix related small problems in that
    change. Open separate work for independent bugs or scope/interface changes,
    not every typo, missing import or straightforward local correction.

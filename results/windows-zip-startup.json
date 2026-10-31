@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-29",
+  "tester": "JoshuaKosakowsky via Codex",
+  "scope": "early Windows ZIP startup rehearsal; not independent final release acceptance",
+  "candidate_sha": "7b9dd2b2702d7280a231cdcbfbd1afad136f3f56",
+  "archive_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/7b9dd2b2702d7280a231cdcbfbd1afad136f3f56.zip",
+  "archive_sha256": "ffca71b88e7875985a95095043bac5dd93c5907021bb82f5e5b9c183086c1415",
+  "archive_bytes": 330089,
+  "archive_entries": 79,
+  "git_metadata_present": false,
+  "private_env_in_archive": false,
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "launcher_python": "3.14.7",
+    "app_python": "3.12.14",
+    "uv": "0.12.19",
+    "new_environment": "LOCALAPPDATA/AI-Jukebox_MBAX6418/174993ef9128"
+  },
+  "missing_configuration": {
+    "launch_command": "python scripts/dev.py",
+    "browser": "All four roles show Missing settings; create is disabled; Refresh status remains connected with zero tracks.",
+    "screenshot": "windows-zip-missing-settings.jpg"
+  },
+  "placeholder_configuration": {
+    "setup": "Copy .env.example unchanged to .env, restart with python scripts/dev.py",
+    "http": {
+      "/api/health": {
+        "status": 200,
+        "body": {
+          "status": "ok",
+          "contract_version": 1
+        }
+      },
+      "/api/status": {
+        "status": 200,
+        "body": {
+          "services": {
+            "text": "missing",
+            "art": "missing",
+            "music": "missing",
+            "speech": "missing"
+          },
+          "configured": false,
+          "connectivity_checked": false,
+          "generation_available": false,
+          "cover_generation_available": false,
+          "music_generation_available": false
+        }
+      },
+      "/api/session": {
+        "status": 200,
+        "body": {
+          "contract_version": 1,
+          "tracks": [],
+          "jobs": [],
+          "playback": {
+            "state": "idle",
+            "queue": [],
+            "index": 0,
+            "current_track_id": null,
+            "paused_from": null
+          }
+        }
+      }
+    },
+    "browser": "All four roles remain Missing settings; create disabled; empty library; no console errors."
+  },
+  "invalid_configuration": {
+    "command": "python scripts/dev.py",
+    "input": "Synthetic invalid art endpoint and synthetic key; no real credentials",
+    "exit_code": 2,
+    "diagnostic": "Invalid art endpoint. Use the documented class host, port and /v1 base URL.",
+    "endpoint_and_key_redacted": true,
+    "traceback": false
+  },
+  "cleanup": {
+    "temporary_private_env_removed": true,
+    "rehearsal_ports_8000_and_8001_closed": true,
+    "original_private_configuration_untouched": true
+  },
+  "archive_inventory": {
+    "files": 65,
+    "unchanged_files": 65,
+    "git_metadata_present": false,
+    "private_env_present": false
+  },
+  "configured_recovery": {
+    "command": "python scripts/dev.py --port 8001",
+    "private_configuration": "Existing local class settings supplied server-side in a temporary .env; values not recorded.",
+    "http_checks": {
+      "health_status": 200,
+      "all_four_roles_configured": true,
+      "connectivity_checked": false,
+      "tracks": 0,
+      "jobs": 0
+    },
+    "browser": "All four roles Configured; generation control enabled; Refresh status and reload remain connected with zero tracks; no console errors.",
+    "screenshot": "windows-zip-configured.jpg"
+  },
+  "generation": {
+    "deliberate_submissions": 0,
+    "provider_connectivity_checked": false,
+    "media_generated": false
+  },
+  "limitations": [
+    "Existing Windows Python, current Git, internet access and cached Python 3.12 were available; this was not a clean operating system.",
+    "Developer-directed startup/configuration rehearsal only; not a different teammate's final independent ZIP acceptance.",
+    "No vocal, DJ, reference-voice, approved-sample, generation/playback or release acceptance performed in this rehearsal.",
+    "ZIP source remained byte-identical; only temporary .env and runtime caches were added."
+  ],
+  "case_scope": {
+    "AT-16": "Partial startup/configuration rehearsal only; independent installer and all required features/samples remain unverified.",
+    "AT-18": "Exact current-main archive identity and source bytes recorded; not a submission freeze or final acceptance."
+  }
+}

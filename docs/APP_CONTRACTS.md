@@ -38,7 +38,7 @@ Playback's single phase prevents representing speech and music as independently
 playing flags. The browser controller in A3-05 must still enforce sequencing,
 pause/skip and no overlap; model validation is not a playback test.
 
-Example empty snapshot (the current GET /api/session response):
+Example empty snapshot (GET /api/session when no samples are registered):
 
 ```json
 {"contract_version":1,"tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
@@ -51,7 +51,7 @@ Example empty snapshot (the current GET /api/session response):
 | GET / | cover form, configuration and session library |
 | GET /static/app.js, /static/style.css | same-origin frontend assets only |
 | GET /api/health | local process health, contract version; no provider health claim |
-| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available, music_generation_available and lyrics_generation_available based on configured services |
+| GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available, music_generation_available and lyrics_generation_available based on configured services; sample_library contains count and a fixed safe error or null |
 | GET /api/session | this browser's SessionSnapshot, including track-specific art/music jobs |
 | POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
@@ -64,7 +64,7 @@ Example empty snapshot (the current GET /api/session response):
 
 The session dependency issues a random HttpOnly, SameSite=Strict cookie. Do not
 put the token in URLs, browser JavaScript, snapshots or logs. Use the same origin
-and retain cookies on API requests. Unknown/expired cookies create empty sessions;
+and retain cookies on API requests. Unknown/expired cookies create sessions seeded from the approved sample catalog;
 missing track/media IDs return 404, duplicate active requests 409 and capacity
 limits 429. Missing art configuration returns a safe 502 without creating a draft.
 
@@ -150,10 +150,33 @@ Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained)
 20 tracks/100 jobs per session, two active covers, two active music and one
 active text (lyrics) job app-wide, 64 MB total retained media. Capacity failures
 do not enqueue work or orphan new tracks.
-The single-process launcher owns this memory; restart clears it. No persistence,
-upload, fixtures or alternate generation provider is added to the normal launcher.
+The single-process launcher owns this memory; restart clears generated session data
+and reloads the approved sample catalog. No generated-data persistence, upload,
+fixtures or alternate generation provider is added to the normal launcher.
 Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
+
+## Approved sample catalog (A3-07 loader)
+
+`create_app` reads/validates `assets/samples/manifest.json` once with no provider
+requests. `SessionStore(sample_library=())` keeps its existing no-argument behavior;
+new sessions seed ordinary ready `Track` objects, no jobs, and fresh session-local
+media IDs. Manifest track IDs stay stable across sessions/restarts. Existing
+snapshots, cookies, media ownership and v1 schema are unchanged. Existing sessions
+retain their sample replacements until expiry; a new session gets original bytes.
+
+The additive status object is `"sample_library": {"count": 0, "error": null}` for
+an empty catalog. Bad metadata or assets produces count 0 and one fixed safe error,
+shown in the setup summary; generated-song routes remain available. No paths or
+parser exceptions are returned. Catalog edits need restart. Runtime accepts 0-3
+records; final sample selection/provenance and exactly-three release acceptance
+remain #7's responsibility. See [record requirements](../assets/samples/README.md).
+
+Catalog audio/cover bytes are immutable and shared between sessions; the common
+media-budget calculation counts each retained bytes object once, including catalog
+bytes no longer referenced by a session. The 64 MB cap and per-session track cap
+apply before allocations; seeding never creates provider work or a second store.
+Only approved manifest entries load, never unregistered candidate files.
 
 ## Adapter boundary
 
