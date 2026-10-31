@@ -276,6 +276,10 @@ class SessionStore:
                 raise SessionFailure(409, "This track already has its DJ introduction.")
             if (track_id, "speech") in session.active:
                 raise SessionFailure(409, "DJ commentary is already being generated for this track.")
+            if self._active_count("speech") >= MAX_ACTIVE_SPEECH:
+                raise SessionFailure(429, "DJ commentary is busy. Try again shortly.", retryable=True)
+            if len(session.jobs) >= MAX_JOBS:
+                raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
             queue = session.playback.queue
             try:
                 position = queue.index(track_id)

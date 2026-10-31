@@ -353,6 +353,42 @@ class DjTests(unittest.TestCase):
         self.assertEqual(client.post("/api/playback/speech",
                                      json={"track_id": str(_uuid.uuid4())}).status_code, 404)
 
+    def test_explicit_speech_request_rejects_capacity_without_job_or_provider_calls(self):
+        recorders = FailingSpeechRecorders()
+        client, _ = self.make_client(recorders)
+        track_id, _ = self.create_track(client)
+        before = client.get("/api/session").json()
+        for limit, value in (("MAX_ACTIVE_SPEECH", 0), ("MAX_JOBS", len(before["jobs"]))):
+            with self.subTest(limit=limit), patch("jukebox.sessions." + limit, value):
+                response = client.post("/api/playback/speech", json={"track_id": track_id})
+                self.assertEqual(response.status_code, 429)
+                self.assertEqual(client.get("/api/session").json(), before)
+                self.assertEqual(recorders.text_calls, 0)
+                self.assertEqual(recorders.speech_calls, 0)
+        self.assertEqual(client.post("/api/playback/speech", json={"track_id": track_id}).status_code, 202)
+        self.assertEqual(recorders.text_calls, 1)
+        self.assertEqual(recorders.speech_calls, 1)
+
+    def test_explicit_speech_capacity_is_global_across_sessions(self):
+        recorders = FailingSpeechRecorders()
+        client, store = self.make_client(recorders)
+        first_id, _ = self.create_track(client, "First session")
+        first_cookie = client.cookies.get(SESSION_COOKIE)
+        client.cookies.clear()
+        second_id, _ = self.create_track(client, "Second session")
+        second_cookie = client.cookies.get(SESSION_COOKIE)
+        with patch("jukebox.sessions.MAX_ACTIVE_SPEECH", 1), patch.object(store, "generate_dj_speech", return_value=None) as generate:
+            client.cookies.clear()
+            client.cookies.set(SESSION_COOKIE, first_cookie)
+            self.assertEqual(client.post("/api/playback/speech", json={"track_id": first_id}).status_code, 202)
+            client.cookies.clear()
+            client.cookies.set(SESSION_COOKIE, second_cookie)
+            before = client.get("/api/session").json()
+            self.assertEqual(client.post("/api/playback/speech", json={"track_id": second_id}).status_code, 429)
+            self.assertEqual(client.get("/api/session").json(), before)
+            self.assertEqual(store._active_count("speech"), 1)
+            self.assertEqual(generate.call_count, 1)
+
     def test_paused_advance_resumes_with_next_song_introduction(self):
         """Skip while paused during music: the queue advances exactly one
         track, stays paused, and Resume plays the NEXT song's DJ introduction

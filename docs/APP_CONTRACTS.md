@@ -190,6 +190,10 @@ services configured; all return the updated `Playback`)
 - `POST /api/playback/resume` — back to `playing` with the phase restored
   from `paused_from` (resume continues mid-speech or mid-music).
 
+Explicit `POST /api/playback/speech` retries obey the same app-wide two-active-
+speech and per-session 100-job limits before allocating a job. Capacity rejection
+returns a fixed safe 429 without changing tracks/jobs or invoking providers.
+
 ### Commentary generation (`GenerationJob.kind: "speech"`)
 
 One job per transition, attached to the UPCOMING track: Qwen `text()` is
