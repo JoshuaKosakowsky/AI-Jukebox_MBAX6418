@@ -147,6 +147,25 @@ Joshua again judged **"Neither is convincing."** The advertised model is
 these read-only facts do not verify internal prompt/flag conditioning. No
 further generation in that run. #35 stays open and PR #37 stays draft.
 
+### Shared-path audit and title-free controls (#35)
+
+The [shared-conditioning audit](../results/a3-35-shared-conditioning.json) checks
+arbitrary genres through local HTTP/store/provider capture and two real title-free
+controls. Both20s piano/DnB controls used the same requested/reported DiT seed;
+Joshua confirmed **"Both match their descriptions."** Two formatter calls also
+returned different genre-aware captions, with some added musical choices.
+This establishes a limited ability to follow prompts, not uniform genre fidelity
+or the cause of prior metal/rap failures. Formatting and music rendering are
+separate observations; formatter output was not forwarded to the audio jobs.
+
+Official pinned source passes request.prompt to the inference caption and
+preserves original_prompt separately for result metadata. Echoing the original
+prompt is therefore expected, not evidence that enhancement did not occur.
+The remote implementation is not attested by that source inspection. The app's
+request/media path passed the checked cross-genre regressions; no production
+behavior changed during this audit. A within-genre caption-template comparison
+remains proposed; no additional requests were made after the bounded two-job run.
+
 ## Speech: Chatterbox V3, port 9008
 
 POST /v1/audio/speech with model=chatterbox-v3, input="Welcome to the jukebox."

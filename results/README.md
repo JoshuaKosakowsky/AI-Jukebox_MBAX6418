@@ -69,3 +69,10 @@ used exactly two more music submissions on e62fe17; both decoded fully, but
 Joshua again judged neither genre convincing. Previous run records are preserved;
 no further generation in this new run. Neither record establishes
 general genre fidelity, integrated-main browser or final sample acceptance.
+
+
+Shared music-path audit: [a3-35-shared-conditioning.json](a3-35-shared-conditioning.json)
+records three offline freeform-genre route/media cases and a bounded live test
+(2 music-service format calls +2 music jobs,0 other services/retries). Joshua
+confirmed both title-free piano/DnB controls match their descriptions. This
+limited positive result preserves earlier metal/rap failures; #35 stays open.

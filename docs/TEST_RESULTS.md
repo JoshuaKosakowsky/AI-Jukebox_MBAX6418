@@ -859,3 +859,50 @@ investigation is a genre-only control and service-conditioning verification,
 not a claim that more prompt words already solved it. #35 stays open/#37 draft.
 No extra generation, retries, cover changes, full-suite rerun or integrated-main
 acceptance in this comparison. Runtime/tests remain the148-test checked code.
+
+
+### Shared music request path and service controls — 2026-10-30 America/Denver
+
+Joshua requested an investigation across genres. Isolated branch
+codex/a3-35-shared-conditioning from2874e2c; runtime unchanged. New local route
+regression drives HTTP -> SessionStore -> real ClassProviders/MockTransport for
+Baroque chamber strings, jazz waltz and acoustic bluegrass. Full input settings
+reach the music wire, each distinct decoded fixture attaches to its own track,
+and reload/media reads make no extra submissions. **149 locked tests PASS**,
+including Node/startup checks; no live genre acceptance from these fixtures.
+
+Pinned official source maps request.prompt to GenerationParams.caption and
+forwards thinking/CoT flags. It separately preserves original_prompt for the
+result response, so an unchanged prompt echo is not evidence of ignored
+conditioning. This is an upstream source trace, not remote-code attestation.
+Deployed schema raw232eda8e remains unchanged and has no typed release body;
+inventory reports default/loadedXL Turbo and initialized5Hz4B LM.
+
+Bounded live diagnostic on immutable **088db31**: **2 music-service format_input
+calls,2 music submissions,6 polls,2 downloads;0 art/Qwen9001/speech/retries**.
+Two20s instrumental, title/theme-free captions: solo acoustic grand piano and
+fast breakbeat-driven drum and bass. Production adapter controls were preserved
+except the explicit diagnostic seed641835/use_random_seed=false; both results
+reported that seed. No production seed/default, app/session or parameter change.
+
+Formatter responses distinguished the targets (81 vs176 BPM) and rewrote both
+captions. It also added unspecified piano and melancholic mood to DnB; this
+shows added choices, not definitive violation of the acoustic-piano exclusion.
+Formatted captions/lyrics were NOT forwarded into music generation; exact lyrics
+normalization was not captured beyond the unchanged-marker boolean. Formatter
+metadata is not the music job metadata or a measured audio tempo.
+
+Both music WAVs fully decoded non-silent48kHz stereoPCM16, exactly20s, with
+different PCM hashes. The music jobs reported46 vs200 BPM (response metadata).
+Joshua listened and directly confirmed **"Both match their descriptions"** for
+these two controls. This establishes limited prompt-following capability, not
+all-genre quality, a single causal fix, or resolution of the metal/rap failures.
+Fixed DiT seed does not control every LM sampling source. No further generation.
+
+[Safe exact audit record](../results/a3-35-shared-conditioning.json) includes
+prompts, formatter text, controls/counts, hashes, source references and listening.
+Raw audio remains ignored/private. No request-loss or media-mispairing defect
+was found in the checked app path; the remote internal conditioning trace is
+unavailable. Next comparison: same genre and request controls, current template
+vs a concise musical description. That comparison is proposed, not executed.
+#35 stays open and #37 draft. No universal genre fix or integrated-main acceptance.

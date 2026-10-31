@@ -9,13 +9,18 @@ Added offline HTTP->store->actual ClassProviders/MockTransport regression for st
 Verified correct distinct media attachments and reload/no-resubmit;35 focused music tests PASS. No app code change.
 Deployed schema raw232eda8e unchanged, release JSON body absent; pinned official parser supports prompt aliascaption.
 Inventory advertises loaded/defaultXLturbo + initialized5Hz4B LM; this does not prove internal conditioning.
-Bounded planned audit: max2 music-service format_input calls +2 music submissions (20s instrumental).
+Bounded live audit on088db31:2 music-service format_input calls +2 music submissions (20s instrumental).
 Genre-only solo acoustic piano vs drum-and-bass captions; same seed diagnostic override, no titles/themes/presets.
 Zeroart/Qwen9001/speech/retry, stop request/validation/accounting failure; poll/download same jobs only.
 Prior generation limits stay historical; this is separately assigned shared-path audit, not feature acceptance.
-Full locked149 tests/verifier107/coverage36-11-19 PASS; bounded live diagnostic pending.
+Full locked149 tests/coverage36-11-19 PASS; live2format+2music/6polls/2downloads completed,0other services/retries.
+Both requested/reported DiT seeds641835; different full decoded20s WAVs. Joshua: "Both match their descriptions."
+Formatter distinguishes81/176BPM captions, adds unspecified piano/melancholy toDnB; not definitive acoustic-ban violation.
+Original-caption echo is expected upstream; no internal remote trace or isolated cause of earlier failures.
 Official source maps request.prompt -> GenerationParams.caption and forwards LM flags; original_prompt is separately retained for results.
-Next: complete official source trace, run bounded probe, record safe evidence and user listening; fix only proven shared defects.
+Safe recorda3-35-shared-conditioning.json + source links/docs updated; no new runtime changes or per-genre presets.
+Next: publish evidence to same draftPR37; within-genre caption-template comparison remains proposed, not executed.
+No further generation under this completed two-job diagnostic; #35 open, no universal-quality/main acceptance claim.
 
 
 ## Session — #35 concrete-cue clips, 2026-10-30 America/Denver
