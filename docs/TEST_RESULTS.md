@@ -849,3 +849,54 @@ deliberate request, and the active-speech limit applies across browser sessions.
 Full locked checks: 162 tests PASS (159 prior + 2 HTTP + 1 optional Node probe),
 repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
 Joshua contributes here and cannot supply independent approval. #5 stays open.
+
+
+## A3-08 normal-launch failure and recovery - 2026-10-30 America/Denver
+
+Tester: prse4479 (A3-08 lead) via Hermes agent on her workstation; macOS 26.6
+(Apple silicon), real local Google Chrome, launcher `python scripts/dev.py
+--port 8010` (uv run --locked) on main `2a19ecf`. AT-02/AT-10/AT-12 scope.
+Local gitignored `.env` supplied all four class endpoints (dobolyi.com ports
+9001/9006/9007/9008); every `/v1/models` probe returned HTTP 200 with the
+expected model before generation. Models used: Qwen3.6-35B-A3B-AWQ-4bit,
+FLUX.2-klein-4B, acestep-v15-xl-turbo, chatterbox-v3.
+
+Case 1 (capacity rejection, live): a fast burst of five 60-second instrumental
+submissions filled both app-side music slots; the fifth music request was
+rejected by the app guard (no provider request) and the UI showed the safe
+error verbatim:
+
+> Song draft created, but the instrumental request failed: Music generation is
+> busy. Try again shortly.
+
+The rejected track kept its succeeded cover and NO music job (no duplicate
+submission). After both in-flight music jobs reached terminal state, the
+card's Generate instrumental button was clicked explicitly (no reload) and the
+music job succeeded — all five tracks playable.
+
+Case 2 (missing configuration, deterministic): launched with music left at
+REPLACE_ placeholders. UI showed "Music — Missing settings" and the create
+button read "Create song draft & cover"; the help text and post-create notice
+explained exactly how to enable instrumentals. A real FLUX cover still
+succeeded. Recovery: restored the music endpoint/key, restarted, re-created
+the identical song — cover and music jobs both succeeded and the track played.
+
+Decoded media (from the app's own /api/media in the browser session): 5 unique
+512x512 PNG covers and 5 unique 60.0 s 48 kHz stereo WAV files (distinct
+sha256 each; full hashes in the record). Byte counts are identical only because
+durations are identical.
+
+[Safe structured record](../results/a3-08-normal-launch-recovery.json),
+[screenshots](../results/a3-08-failure-music-not-configured.jpg),
+[recovery library](../results/a3-08-recovery-library.jpg),
+[recovery success](../results/a3-08-recovery-success.jpg).
+
+Suite note for macOS contributors: this workstation's Apple git 2.39.3 and
+system node v6.10.1 fail 7 git-hook tests (`git hook run --to-stdin` needs
+git >= 2.40) and the Node frontend probe (needs node >= 18) — environment
+tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
+(NO_GETTEXT local build) and node 22.14.0 (arm64) on PATH: verify_repo PASS
+(77 files), readiness PASS (36/11/19), 129 tests OK (exit 0).
+
+No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
+here; #8 stays open for those, and submission remains NOT READY.
