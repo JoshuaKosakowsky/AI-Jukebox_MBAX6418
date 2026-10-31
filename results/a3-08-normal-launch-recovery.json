@@ -39,6 +39,7 @@
     },
     "media_evidence": {
       "note": "All media decoded from the app's own /api/media responses in the browser session; sha256 via WebCrypto; WAV parsed chunk-wise.",
+      "hash_scope": "Stored hash values are 20-character SHA-256 prefixes, not complete SHA-256 digests.",
       "covers": "5 unique 512x512 PNG files (distinct sha256), 787271 bytes each",
       "audio": "5 unique WAV files (distinct sha256), 11520078 bytes each, 2 ch 48000 Hz, 60.0 seconds each",
       "cover_hashes": ["b7a72a49d8f933becbb7", "1d1d723373c01369f9ea", "57d9479a96b2713dbb9d", "9a20fb4d8a1b26f266b8", "f6fc87741e364391414e"],
@@ -77,7 +78,7 @@
     "team_note": "macOS contributors need git >= 2.40 and node >= 18 for the offline gate; consider documenting in TESTING.md. Homebrew unusable on this machine (locks dir permissions), so portable/scratch toolchains are the workaround."
   },
   "excluded": [
-    "No vocals/DJ/reference-voice flows exercised (not on main).",
+    "No vocals/DJ/reference-voice flows exercised. Vocal code is on main (#21), with live acceptance failed/pending (#28); DJ/reference code remains unmerged.",
     "No session-limits tests in this run (separate acceptance AT-06 covers them).",
     "No ZIP/release acceptance; submission remains NOT READY."
   ]
