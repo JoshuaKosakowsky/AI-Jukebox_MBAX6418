@@ -1,5 +1,34 @@
 # Agent handoff
 
+## Session — isolated main browser regression, 2026-10-31 America/Denver
+Codex for Joshua; branch codex/main-browser-regression; tested main 25f86179f82cad2f323a81970a27fc76dbdb22ae.
+## Constraints
+Synthetic providers only; no class calls, credentials, app fixes, Mike/Matt branch edits or ownership changes.
+Joshua retains #35 genre work; #36 cover lettering remains unclaimed by Joshua.
+## Repository state
+Clean GitHub-derived clone used; original OneDrive checkout left untouched after its mmap failure.
+This evidence branch is independent of #26/reference work and #38 coordination docs.
+## Work completed and decisions
+Real-browser checks exercised integrated DJ controls, vocal diagnostics/retry and failed replacements/recovery.
+Added manual harness, safe observations/counters/events, two actual screenshots and one focused report/index link.
+No production app/tests/contracts/dependencies/CI/protection/approved samples changed.
+## Validation
+27 recorded browser checks PASS; 56 media events, max one playing element, no observed media/window errors.
+Replay/reload added no requests; three real 429 responses restored controls; resume did not resubmit music.
+All app snapshot bytes match tested main; six non-app files have EOL-only differences, recorded explicitly.
+No .env loaded; every provider request mocked; harness stopped and loopback port 8175 closed.
+Locked checks PASS: verifier123 files, coverage36/11/19, 189 tests (one optional skip), whitespace clean.
+Exact-head CI outcome and review link are recorded on the evidence PR when published.
+## Blockers and unchecked areas
+Synthetic/muted media, injected capacity; not normal-launch/live/listening, #26, sample or final ZIP acceptance.
+Parent #3/#5/#8 remain open; prior failed live vocal evidence and submission NOT READY status remain.
+## Next steps
+Eligible zero-commit teammate reviews this evidence PR; merge normally after green checks/approval.
+Mike continues #26 independently; coordinate remaining real acceptance with feature leads, without duplicate generation.
+## References
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6546111979
+Details: [main browser regression](docs/MAIN_BROWSER_REGRESSION.md); preserved prior notes follow.
+
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
 No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.

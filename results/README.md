@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Integrated-main offline browser regression (2026-10-31):
+[27-check record](main-browser-regression.json),
+[paused playback](main-browser-paused.png),
+[recovered library](main-browser-recovered.png).
+[Method, findings and reproduction](../docs/MAIN_BROWSER_REGRESSION.md) distinguish
+synthetic browser coverage from live acceptance. No class calls or app changes.
+
 Moonlit sample candidate: [moonlit-candidate-preview.jpg](moonlit-candidate-preview.jpg)
 shows the retained media in a muted local asset preview. Provenance and
 selection/integration notes are in [the sample guide](../assets/samples/README.md);
