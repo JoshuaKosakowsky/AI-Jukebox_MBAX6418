@@ -6,8 +6,9 @@ each with new matching covers.** The browser creates new ACE-Step music and FLUX
 artwork from a title/theme, style, mood and duration. Instrumental songs play
 the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
 sings them into a playable track. Everything stays paired with the correct
-track across page reloads and plays inline. DJ playback, reference
-uploads and approved sample songs are not built yet.
+track across page reloads and plays inline. Registered sample songs load locally
+without service settings or regeneration. The approved sample set is still pending;
+DJ playback and reference uploads are not built yet.
 
 Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
 Team workflow is active: task branches and reviewed PRs for every change.
@@ -50,6 +51,20 @@ Do not expose this development server publicly; deployment authentication is not
 implemented. A wrong class endpoint produces a safe role-only terminal error;
 fix .env and restart. No provider requests or generation happen on startup or on
 Refresh status. Configured means values were supplied, not that a service is reachable.
+
+## Bundled sample library
+
+The app loads approved entries from [assets/samples/manifest.json](assets/samples/manifest.json)
+at startup and adds ready tracks, covers and any vocal lyrics to each new session.
+Playback needs no class-service settings. Reloading retains the session; restarting
+clears generated tracks and reloads the registered samples. Manifest edits require
+an app restart. Unregistered candidate files are never added automatically.
+
+The approved manifest is currently empty, so this version opens with an empty
+library. Jovi owns selection of the three final class-generated samples; see the
+[record and asset requirements](assets/samples/README.md). A broken registered
+asset shows a safe setup warning and leaves song creation available. This loader
+and its synthetic browser rehearsal do not complete sample or ZIP acceptance.
 
 ## Configure class services
 

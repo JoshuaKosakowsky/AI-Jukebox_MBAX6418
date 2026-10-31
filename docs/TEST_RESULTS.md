@@ -851,6 +851,39 @@ repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
 Joshua contributes here and cannot supply independent approval. #5 stays open.
 
 
+## A3-07 sample-library loader - 2026-10-30 America/Denver
+
+Branch `codex/a3-07-sample-loader`, based on main `2a19ecf`. Tester: Codex for
+Joshua. Refs #7, R17/R18 and AT-11 (loader component only). The approved manifest
+and existing class-generated candidate files remain unchanged; no samples selected.
+
+| Check / input | Expected | Actual |
+|---|---|---|
+| Offline catalog + HTTP/session regressions | Validate bounded files/provenance; seed ready tracks without jobs; preserve isolation/reload/expiry/caps | PASS, 16 new tests: empty/unregistered, instrumental/vocal metadata and exact bytes, safe malformed/missing/oversized manifests, missing/corrupt/truncated/wrong-size media, invalid durations, traversal/escaping symlinks/aliases/duplicates, budget, track caps, session isolation/reseeding and generation/replacement alongside samples |
+| Locked `python scripts/dev.py --check` | Repository safeguards, coverage and existing regressions pass | PASS, 145 tests; coverage 36 requirements / 11 tasks / 19 cases |
+| Normal `python scripts/dev.py --port 8013` in an isolated source copy with three synthetic 60-second silent WAVs / solid 512px covers | Local ready samples without service settings or provider substitutes | PASS, three correctly paired cards, all three playable, decoded covers, expandable vocal lyrics; HTTP three tracks / zero jobs; no class-service settings or requests |
+| First fixture play -> pause -> resume | Time advances, pause holds, resume continues | PASS, 3.494188 seconds playing -> 3.505433 paused and held -> 6.447209 resumed; no media errors |
+| Reload same browser | No duplication, same IDs/URLs, no automatic playback | PASS, all three track IDs/audio URLs/cover URLs unchanged; all players paused |
+| Restart with one missing registered cover | Safe all-or-nothing warning; app stays connected | PASS, zero samples and fixed warning, no filesystem/private marker exposed; HTTP regression separately confirms configured song creation still succeeds |
+| Restart with unchanged approved empty manifest | Existing empty-library behavior, no warning | PASS, zero tracks; App connected; normal missing-settings summary |
+
+[Safe browser record](../results/sample-loader-browser.json) and
+[actual fixture screenshot](../results/sample-loader-fixture.jpg). Fixture media
+and manifest stayed in a temporary copy, never in Git. No live generation,
+third-party media, user recordings or human listening. All rehearsal servers stopped.
+This verifies the loader mechanism through the normal entrypoint, not class-media
+quality/provenance acceptance. Jovi still selects three songs; merged-main and exact
+final GitHub ZIP sample playback/AT-11 acceptance remain pending. Submission NOT READY.
+
+Existing cover/music/vocal/runtime HTTP scenarios explicitly use an empty catalog
+fixture so registering real approved samples does not change their inputs. The
+loader HTTP suite retains real temporary manifests and verifies creation alongside
+loaded tracks plus session-local replacement with original catalog bytes preserved.
+All 28 existing HTTP cases also passed from the isolated source copy with the
+three-entry synthetic manifest present; their explicit fixtures keep them independent
+of Jovi's eventual selection. The approved tracked manifest remained unchanged.
+
+
 ## A3-08 normal-launch failure and recovery - 2026-10-30 America/Denver
 
 Tester: prse4479 (A3-08 lead) via Hermes agent on her workstation; macOS 26.6
@@ -929,3 +962,25 @@ or approved sample selection. No raw generated text/audio or keys retained in Gi
 verifies speech attachment through real adapters and HTTP/store orchestration;
 it is **not** normal-launch browser/control/listening or integrated-main acceptance.
 Matt still owns that remaining AT-07/AT-09 work; #5 stays open and #27 stays draft.
+
+
+## A3-05 integration with merged sample loader - 2026-10-30 America/Denver
+
+Joshua merged #31 normally at main 31dc9e4 after Mike's eligible current-head
+approval and green checks. Integrated that main into #27 from 81daed3;
+APP_CONTRACTS/TEST_RESULTS conflicts preserve both records, application seams
+otherwise merged cleanly. DJ speech attachment now uses common _media_bytes,
+including immutable catalog bytes retained after session references disappear.
+Its new cap regression fails the pre-integration sum-of-session-media method
+and passes after correction. Existing DJ HTTP fixtures explicitly isolate their
+catalog so later approved-manifest registration cannot change their inputs.
+
+Separate real-HTTP offline test loads two synthetic temporary manifest samples,
+queues/introduces both, verifies correct original audio/cover pairing, validates
+speech bytes, checks non-thinking DJ calls and rejects foreign speech access;
+a fresh session receives original samples without another session's speech/jobs.
+Providers remain offline mocks; no class requests or new media generation here.
+Locked checks PASS: **183 tests**, repository safeguards, coverage 36/11/19 and
+whitespace. Prior real-adapter evidence retains its original scope. Normal-launch
+browser/control/listening and integrated-main feature acceptance remain pending;
+Matt/Preethi should claim one coordinated tester/head rather than duplicate runs.

@@ -113,6 +113,7 @@ def app_fixture(recorders):
     from jukebox.app import create_app
     from jukebox.providers import ClassProviders
     patches = [
+        patch("jukebox.app.load_samples", return_value=()),
         patch.object(ClassProviders, "cover", return_value=png("navy")),
         patch.object(ClassProviders, "submit_music", side_effect=recorders.submit_music),
         patch.object(ClassProviders, "poll_music", side_effect=recorders.poll_music),
