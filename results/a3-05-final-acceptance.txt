@@ -53,7 +53,7 @@ PASS scenario 9/10: final job accounting identical after all passes | {'art': 2,
 PASS scenario 10: clean end-of-queue after all passes | Ready. 2 songs queued — press Play.
 audio elements during DJ-play + manual attempt: [{'id': '?', 'src': '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', 'paused': True}, {'id': '?', 'src': '6f59ff53-d024-4501-b46f-5b8afd3195dd', 'paused': True}, {'id': 'dj-audio', 'src': '6e38ff7e-78e1-4c70-a2bb-a56b8699aa02', 'paused': False}] | dj: 6e38ff7e-78e1-4c70-a2bb-a56b8699aa02 False
 PASS exclusivity A: manual player suppressed while DJ music plays | manual-alive=False dj-paused=False
-PASS exclusivity A: suppression notice shown | The DJ queue controls playback, including while paused. Use Queue & DJ controls 
+PASS exclusivity A: suppression notice shown | The DJ queue controls playback, including while paused. Use Queue & DJ controls
 dir-2 pre-manual state: Ready. 2 songs queued — press Play.
 PASS exclusivity B: manual playback works while the DJ is idle | harbor-manual-paused=False
 dir-2 post-manual dj state: Ready. 2 songs queued — press Play.

@@ -1019,9 +1019,15 @@ browser/control/listening and integrated-main feature acceptance remain pending;
 Matt/Preethi should claim one coordinated tester/head rather than duplicate runs.
 ## A3-05 final normal-launch acceptance and human listening - 2026-10-30 America/Denver
 
-Final authorized live acceptance run. Tester: Preethi (prse4479) via the
-driver at the current repo, exact PR head `b7d97a01282c05119cb023929e36aadab689f7ba`,
-normal launcher `python scripts/dev.py --port 8000`, real class providers.
+Final authorized live acceptance run. Tester of record: Preethi (prse4479),
+the Issue #5 backup designated by mase7919's authorization; her COMMENTED
+design/test review is supporting evidence, not approval. The automated
+acceptance driver was executed on the Issue #5 lead's Windows machine
+(profile `C:\Users\matty`); recorded media/screenshot paths identify that
+machine, not the physical operator — operator identity beyond machine
+ownership is not independently provable from the artifacts. Exact PR head
+`b7d97a01282c05119cb023929e36aadab689f7ba`, normal launcher
+`python scripts/dev.py --port 8000`, real class providers.
 Two real instrumentals (Solar Tide, Twilight Harbor) and covers were created
 through the normal UI and played as an exactly two-song queue with the DJ.
 
@@ -1046,7 +1052,12 @@ through the normal UI and played as an exactly two-song queue with the DJ.
   pass (final accounting identical: art=2, music=2, speech=2).
 - **Provider accounting: exactly 8 authorized submissions** (2 ACE-Step + 2
   FLUX + 2 Qwen + 2 Chatterbox), zero automatic retries, verified 4x across
-  replay/reload. No errors on console/page/network.
+  replay/reload. No unexpected console/page/network errors; one recorded
+  media cancellation (`net::ERR_ABORTED` on the Twilight Harbor music re-fetch)
+  is the expected browser cancel from a navigation/source change — the same
+  media played to completion in pass 1 (event log: 12.0 s `ended`); classified
+  in `results/a3-05-final-acceptance-evidence.json`
+  (`recorded_media_cancellations`), retained raw.
 
 AT-07 (queue with sequenced DJ introduction-before-music and controls) and
 AT-09 (DJ playback controls: pause/resume/skip over both phases with

@@ -1,5 +1,5 @@
 {
-  "mode": "FINAL acceptance - normal launcher (scripts/dev.py --port 8000), real class providers",
+  "mode": "FINAL acceptance - normal launcher (scripts/dev.py --port 8000), real class providers; tester of record: prse4479 (Issue #5 backup, designated by mase7919; not formal approval)",
   "commit": "b7d97a01282c05119cb023929e36aadab689f7ba",
   "base": "http://127.0.0.1:8000",
   "checks": [
@@ -249,14 +249,15 @@
       "detail": "manual-paused=[True, True] dj-paused=False"
     },
     {
-      "check": "no console/page/network errors",
+      "check": "no UNEXPECTED console/page/network errors (recorded cancellations classified, see recorded_media_cancellations)",
       "pass": true,
-      "detail": "[]"
+      "detail": "0 unexpected app/browser errors; 1 recorded media cancellation (ERR_ABORTED) = expected src-change/reload abort"
     }
   ],
   "screenshots": [
-    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-final.png",
-    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-exclusive-a.png"
+    "results/a3-05-final-acceptance-inrun.png",
+    "results/a3-05-final-acceptance-exclusive.png",
+    "results/a3-05-final-acceptance-end.png"
   ],
   "console_errors": [
     "REQFAIL http://127.0.0.1:8000/api/media/6f59ff53-d024-4501-b46f-5b8afd3195dd net::ERR_ABORTED"
@@ -272,5 +273,27 @@
     "source": "Explicit confirmation provided by Matt after the final acceptance run; recorded by the agent, not an independent evaluation.",
     "recorded_by": "agent (evidence commit)",
     "date": "2026-10-30 America/Denver"
-  }
+  },
+  "provenance": {
+    "tester_of_record": "prse4479 — designated sole tester by mase7919's authorization brief; her COMMENTED design/test review is supporting evidence, not approval",
+    "executor": "Automated acceptance driver (dj_live_live.py, supplied by the issue agent) executed under mase7919's authorization",
+    "machine_environment": "Issue #5 lead's Windows machine (profile C:\\Users\\matty); normal launcher scripts/dev.py --port 8000; real class .env; recorded media/screenshot paths identify this machine, NOT the physical operator — operator identity beyond machine ownership is not independently provable from the artifacts",
+    "tooling_supplier": "Driver + readiness checks prepared by the agent and rehearsed 50/50 on fixtures before the live run",
+    "checks_recorder": "The driver recorded all 50 checks in-session (this JSON + results/a3-05-final-acceptance.txt)",
+    "human_listening": "Matt (mase7919), Issue #5 lead — separate from automated execution; confirmed both introductions meet the quality standard"
+  },
+  "screenshot_origin_paths": [
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-final.png  (-> inrun)",
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\a3-05-harness\\dj-rehearsal-exclusive-a.png  (-> exclusive)",
+    "C:\\Users\\matty\\AppData\\Local\\Temp\\jukebox-audit2\\results\\a3-05-final-acceptance-end.png  (written directly)"
+  ],
+  "recorded_media_cancellations": [
+    {
+      "url": "http://127.0.0.1:8000/api/media/6f59ff53-d024-4501-b46f-5b8afd3195dd",
+      "kind": "net::ERR_ABORTED (client-side request cancellation)",
+      "media_role": "Twilight Harbor music audio (MediaRef 6f59ff53...)",
+      "classification": "EXPECTED cancellation: the same media demonstrably played to completion in pass 1 (event log: playing -> ended at 12.0 s; transcript line 12); the abort is the standard browser cancellation of a re-fetch when a navigation (reload scenarios 8/10) or a media source change (skips) occurs. It did not interrupt playback and produced no app-level error; retained raw, not erased.",
+      "evidence": "results/a3-05-final-acceptance.txt line 12 (events) + line 54 (media refs); server returned no error (client-side cancel)"
+    }
+  ]
 }
