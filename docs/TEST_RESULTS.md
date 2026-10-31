@@ -900,3 +900,32 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
+
+
+## A3-05 Qwen correction - 2026-10-30 America/Denver
+
+Codex for Joshua, coordinated on #27 with the exact provider/DJ call-site claim;
+base c06cd0b. No competing published provider claim/commit was found; Matt retains
+readiness/acceptance and Mike's #29 lyrics diagnostics are untouched.
+The deployed chat request schema accepts chat_template_kwargs; the model owner's
+non-thinking instructions specify enable_thinking=false. Added an optional
+thinking keyword to text(), opted only the DJ into false. Probe defaults, the DJ
+prompt/model/192-token budget/temperature/stream and strict final-text checks stay
+unchanged. No new dependency, schema or frontend change.
+
+| Verification | Actual |
+|---|---|
+| Production provider/store regression, default Qwen returns null/length until direct mode is selected | Fails on baseline DJ call; passes with the fix, exactly one text + one speech request, speech attaches |
+| Exact payload/default isolation and incomplete/wrong-model/malformed-output regressions | PASS; opt-in is correctly encoded, subsequent default probe unchanged, final content only, bad output rejected without retry |
+| Full locked `python scripts/dev.py --check` | PASS, 165 tests (162 prior + 3 new); repository/coverage/whitespace pass |
+| Two retained class tracks seeded in memory, production FastAPI/TestClient routes, real Qwen and Chatterbox | PASS; first/transition text completes at 36/52 tokens (165/248 characters), stop, expected model; two speech jobs succeed and attach to correct tracks |
+| Read/decode both speech routes | PASS; PCM16 mono 24 kHz, 7.96/10.88 seconds; final Qwen text sent unchanged, no voice override |
+| HTTP reload and queue replay | PASS; identical tracks/jobs, cached speech reused, zero additional provider requests |
+
+Exactly **2 text + 2 speech requests**, no retries or ACE-Step/FLUX. The original
+class-generated Moonlit/Desert assets were retained inputs, not new generation
+or approved sample selection. No raw generated text/audio or keys retained in Git.
+[Safe verification](../results/a3-05-qwen-fix-verification.json). This fixes and
+verifies speech attachment through real adapters and HTTP/store orchestration;
+it is **not** normal-launch browser/control/listening or integrated-main acceptance.
+Matt still owns that remaining AT-07/AT-09 work; #5 stays open and #27 stays draft.

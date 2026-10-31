@@ -120,11 +120,14 @@ class ClassProviders:
     def _payload(self, role):
         return deepcopy(PROBES[role]["request"])
 
-    def text(self, prompt: str) -> str:
+    def text(self, prompt: str, *, thinking: bool | None = None) -> str:
+        """Return final text; omitted thinking preserves the frozen probe request."""
         if not prompt.strip():
             raise ValueError("Text prompt is required")
         payload = self._payload("text")
         payload["messages"] = [{"role": "user", "content": prompt}]
+        if thinking is not None:
+            payload["chat_template_kwargs"] = {"enable_thinking": thinking}
         data = self._json("text", PROBES["text"]["path"], payload)
         try:
             choice = data["choices"][0]

@@ -42,6 +42,7 @@ class DjRecorders:
 
     def __init__(self):
         self.prompts = []
+        self.thinking_modes = []
         self.spoken_inputs = []
         self.commentary = ("Welcome to the jukebox. This next song is called "
                            "Moonlit Reflection, an ambient piano piece. Sit back and enjoy.")
@@ -59,7 +60,8 @@ class DjRecorders:
     def download_music(self, result):
         return MediaBytes(wav_bytes(), "audio/wav")
 
-    def text(self, prompt):
+    def text(self, prompt, *, thinking=None):
+        self.thinking_modes.append(thinking)
         self.prompts.append(prompt)
         if self.fail_text:
             raise RuntimeError("offline private failure")
@@ -89,7 +91,8 @@ class FailingSpeechRecorders(DjRecorders):
         self.text_calls = 0
         self.speech_calls = 0
 
-    def text(self, prompt):
+    def text(self, prompt, *, thinking=None):
+        self.thinking_modes.append(thinking)
         self.text_calls += 1
         self.prompts.append(prompt)
         if self.fail_text_mode:
@@ -195,6 +198,7 @@ class DjTests(unittest.TestCase):
         self.assertIsNotNone(track["speech"], "commentary speech must attach to the track")
         self.assertTrue(track["speech"]["content_type"].startswith("audio/"))
         self.assertEqual(len(recorders.prompts), 1)
+        self.assertEqual(recorders.thinking_modes, [False])
         prompt = recorders.prompts[0]
         self.assertIn("Moonlit Reflection", prompt)
         self.assertIn("Ambient piano", prompt)

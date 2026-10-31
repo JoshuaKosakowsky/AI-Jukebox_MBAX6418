@@ -506,7 +506,9 @@ class SessionStore:
                     code="generation_failed",
                     message="DJ commentary could not be started. The song plays without an introduction.",
                     retryable=False))
-            text = providers.text(prompt)
+            # DJ speech needs the final introduction within the small output
+            # budget, rather than spending that budget on model reasoning.
+            text = providers.text(prompt, thinking=False)
             if not text.strip():
                 raise ProviderFailure(SafeError(
                     code="generation_failed",

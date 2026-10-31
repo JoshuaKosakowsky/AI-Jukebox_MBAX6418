@@ -196,10 +196,14 @@ returns a fixed safe 429 without changing tracks/jobs or invoking providers.
 
 ### Commentary generation (`GenerationJob.kind: "speech"`)
 
-One job per transition, attached to the UPCOMING track: Qwen `text()` is
+One job per transition, attached to the UPCOMING track: Qwen `text(thinking=False)` is
 called once with a prompt that includes the song title, style, mood,
 instrumental/vocal mode and the prior song's title for transition context,
-then Chatterbox `speech()` is called once with exactly that text. The speech
+then Chatterbox `speech()` is called once with exactly that text. The DJ-only
+opt-in selects the documented non-thinking chat template at the same 192-token
+limit, so reasoning does not consume the introduction's final-output budget.
+The generic `text(prompt)` probe and separate `lyrics()` request stay unchanged;
+complete-output/model checks still reject truncated or invalid output. The speech
 payload comes from the committed service probe, which has NO `voice`
 parameter — the default voice is used by omission (R14). The audio attaches to
 `track.speech`; the Qwen commentary text stays server-private

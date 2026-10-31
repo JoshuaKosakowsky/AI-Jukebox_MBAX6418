@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — Joshua Qwen-fix support (2026-10-30 America/Denver)
+User explicitly requested help on #27 and coordination with Matt; pre-change head c06cd0b.
+Claim posted: #27 issuecomment-6537399622; exact seam/budget follow-up issuecomment-6537415884.
+No newer competing published provider commit/claim; no Matt acknowledgment claimed. Matt retains draft/readiness and acceptance.
+Read current deployed ChatCompletionRequest schema and official Qwen3.6/quantization non-thinking guidance.
+Added optional ClassProviders.text(thinking=None); default preserves frozen probe, DJ calls thinking=False.
+Only request delta is chat_template_kwargs.enable_thinking=false; original model/prompt/192-token/temperature/stream retained.
+Strict model/nonempty-final/stop validation and no-auto-retry stay; Mike's lyrics method/#29 unchanged.
+Changed providers.py, one sessions.py call, provider/DJ tests, contracts/test docs, safe evidence and this handoff.
+165 locked tests PASS (3 new); provider/store regression fails on old DJ call and passes with the fix.
+New live task used exactly 2 Qwen + 2 default Chatterbox, no retries/music/art; first/transition jobs succeeded.
+Qwen returned complete final content at 36/52 tokens. Speech fully decoded: PCM16 mono 24 kHz, 7.96/10.88 s.
+Retained class music/covers were seeded in memory; TestClient drove production routes; replay/reload added no calls.
+No raw text/audio or credentials retained in Git; schema fingerprint and safe facts in results/a3-05-qwen-fix-verification.json.
+Scope: real-adapter/HTTP-store correction, NOT normal scripts/dev.py browser/control/listening or full acceptance.
+Next: Matt pulls current head, avoids a duplicate provider fix, updates author summary and completes bounded normal-launch AT-07/09.
+Eligible zero-commit Mike/Jovi/prse review after Matt readiness; Joshua contributes and cannot approve. #5 remains open.
+No ownership/protection change or new dependency/schema/frontend change; final checks/CI recorded in PR.
+Prior failed runs/diagnoses and Matt/prse notes are preserved below as history.
+
 ## Session — Joshua returned-blocker support (2026-10-30 America/Denver)
 PR #27, pre-change c4404dd. Matt retains lead and draft/readiness control; Joshua already contributes and cannot approve.
 Bounded diagnostic completed: exactly 1 Qwen + 1 Chatterbox, no retries/music/art or acceptance rerun.
