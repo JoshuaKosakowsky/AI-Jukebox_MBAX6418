@@ -216,24 +216,32 @@ Recovery in this app is deliberately manual. A rejected request creates no
 job, so the UI restores the affected control instead of auto-retrying; **Resume
 check** continues polling/downloading the SAME provider task (it never submits a
 new generation), and a page reload never resubmits an in-flight or failed
-request. This keeps one user action = at most one generation and prevents
-duplicate/paid work when the class services are busy. The 2026-10-30 live
-session demonstrated this: five successful submissions, one rejected request,
-and exactly one recovery submission.
+request. The guarantee is per requested stage: a rejected stage is never
+automatically resubmitted. One UI action may intentionally request several
+stages — Create song starts a separate cover and music job, and vocal creation
+also requests lyrics — so this prevents duplicate/paid work without implying a
+single-request budget per action. In the 2026-10-30 live session, four music
+submissions, one capacity-rejected request (which made no provider call) and
+one explicit recovery submission produced five playable instrumentals; covers
+were generated separately.
 
 ### Investigated limitation: capacity guard depends on explicit retry
 
 The app allows at most two simultaneous music generations (and two covers, one
-lyrics job) per session. A request arriving while both slots are occupied is
+lyrics job) per running app process, with the slots shared across browser
+sessions: jobs from another session can make a request in an otherwise idle
+session return busy. A request arriving while both slots are occupied is
 rejected with a safe 429 and requires a deliberate retry, so a very fast burst
 of submissions can temporarily fail with `Music generation is busy` even though
 no provider limit was hit. This is by design (no queueing, no duplicate jobs),
 documented in the UI, and recoverable; the trade-off is that a rapid clicker
 must retry explicitly rather than seeing queued tasks.
 
-macOS contributors should also note the local offline gate needs git >= 2.40
-and node >= 18 (Apple git 2.39.3 and system node v6 fail 8 environment-dependent
-tests; CI runs the same 129-test suite green).
+As of the 2026-10-30 rehearsal on main `2a19ecf`, the local offline gate
+needed git >= 2.40 (Apple git 2.39.3 lacks `git hook run --to-stdin`) and a
+modern Node for the optional frontend probe (the probe is skipped when Node is
+absent; an installed obsolete Node can fail it — Node is not an app
+requirement). CI always runs the current suite green.
 
 ## Development and verification
 
