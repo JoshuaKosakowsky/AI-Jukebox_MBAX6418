@@ -31,6 +31,16 @@ Desert Drive candidate: [desert-candidate-preview.png](desert-candidate-preview.
 shows the original retained pair in a muted local preview; [provenance and selection
 notes](../assets/samples/README.md#desert-drive-candidate-for-jovi-7) include the known cover-lettering limitation. Not final library/ZIP acceptance.
 
+
+A3-08 normal-launch failure/recovery evidence: [a3-08-normal-launch-recovery.json](a3-08-normal-launch-recovery.json)
+records two live normal-launcher AT-10 cases (real UI busy-capacity rejection
+then explicit retry; missing-music-configuration error then fix/restart/recreate)
+with five unique decoded 60 s WAV/PNG pairs. Screenshots:
+[failure/music not configured](a3-08-failure-music-not-configured.jpg),
+[recovered 5-track library](a3-08-recovery-library.jpg),
+[recovery success](a3-08-recovery-success.jpg). No vocals/DJ/reference flows
+or release acceptance.
+
 Early Windows ZIP startup evidence: [windows-zip-startup.json](windows-zip-startup.json)
 records the exact GitHub archive identity, untouched source comparison and
 missing/placeholder/invalid/configured checks on main 7b9dd2b. The actual browser
