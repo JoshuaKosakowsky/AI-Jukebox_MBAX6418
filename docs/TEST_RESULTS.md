@@ -551,10 +551,61 @@ rejected card's Generate lyrics re-enables after the holder completes and a
 Refresh status (no reload); and a mid-chain reload (lyrics job held, then
 released) leaves submit_music at zero — no auto-continuation after reload.
 
+## A3-06 temporary reference voices - 2026-10-30 America/Denver
+
+Tester: MSpanny directing Hermes. Branch codex/a3-06-reference-voices; base
+main 7d003c6 (post-#21 merge). Scope: R15/R16 provider-layer work per the issue
+handoff — temporary MP3/WAV references, validation, cleanup/recovery and
+default-voice fallback. Final DJ integration/acceptance stays blocked on #5.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Suite passing; coverage retained | PASS, 137 tests (128 baseline + 9 new), verifier 71 files, coverage 36/11/19 |
+| Multipart MP3 and WAV uploads over real HTTP | 201 {id, media_type}; validated fingerprints; bytes never in snapshots | PASS, audio/wav and audio/mpeg accepted; reference id and bytes absent from every snapshot dump |
+| Rejections: non-audio bytes, truncated RIFF, >5 MB (patched), WAV outside 1-60 s | 422 before any storage | PASS for all four cases; zero tracks/jobs created |
+| Consumption and cleanup | take_reference consumes exactly once; DELETE works; unknown/foreign ids 404; session expiry drops references | PASS through real HTTP and store-level tests; GET on the reference path is 405 (no read route) |
+| Provider: speech without reference | Frozen probe payload byte-identical | PASS (MockTransport, same probe input) |
+| Provider: speech with reference | Same request plus ref_audio base64 data URI; WAV decodes | PASS (MockTransport) |
+| Dependency | python-multipart added (0.0.32) to locked env for multipart parsing | pyproject/uv.lock updated; `uv run --locked` installs it |
+
+Design: references are session-scoped memory only — never in the session
+snapshot (no contract change), never on disk, no read route, consumed once by a
+speech job, expired with the session. Validation uses content fingerprints, not
+client-declared types. The Chatterbox reference path (ref_audio as a base64
+data URI in the frozen JSON request) is schema-inspected only; live class
+verification is required before AT-08 closes and remains pending (no .env on
+this machine; #5 integration will provide the normal-entrypoint flow, after
+which MP3 AND WAV variants must be demonstrated live). No uploads or voice
+references are committed, per the repo safeguards.
+
 Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
+
+## A3-06 review round 2: no-disk multipart + structural audio validation (PR #26 head)
+
+Following Joshua's independent review (CHANGES_REQUESTED: multipart temp-file spooling and
+header-only/truncated audio accepted), the upload path was reworked and hardened:
+
+1. Multipart bodies are parsed fully in memory (python-multipart callbacks over a
+   capped raw stream, content-length and stream-caps abort at 5 MB + overhead)
+   - the framework form parser and its 1 MB disk spooling are never used. Both
+tempfile.SpooledTemporaryFile and tempfile.TemporaryFile are mocked to raise in
+the new regressions, proving no disk touch for multi-MB and oversized uploads.
+2. WAV validation is now structural (byte walk of RIFF chunks): PCM fmt chunk and
+a physically present, non-empty data chunk are required; declared data that
+overruns the upload is rejected as truncated; duration is derived from the real
+data chunk; trailing metadata bytes after the data chunk are tolerated. Non-PCM
+and chunk-less files are rejected.
+3. MP3 validation requires an ID3v2 header whose declared size fits the upload,
+plus at least one reachable MPEG audio frame (frame sync within 64 KB after the
+tag); bare ID3, tag-only and truncated MP3s are rejected.
+
+Evidence: 16 reference tests (7 new regressions) plus the full offline suite:
+144 tests, verifier 72 files, coverage 36 requirements / 11 tasks / 19 cases,
+all PASS. Live Chatterbox acceptance of real MP3/WAV references stays pending
+on #5 integration (unchanged, honest scope).
 
 ## A3-05 default AI DJ queue - 2026-10-30 America/Denver
 
@@ -1003,6 +1054,25 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
 
+## A3-06 review round 3: complete-frame MP3, header-order parity, coherent PCM (PR #26 head)
+
+Joshua (round 3) and Matt (Issue #5/#6 workflow) independently reproduced three further upload-validation
+defects on the round-2 head; all three fixed with regressions (165 tests, verifier 99 files, gate PASS):
+
+1. MP3 validation now requires a COMPLETE frame, not a sync: the frame length is computed from the
+   header (MPEG version/layer bitrate and sample-rate tables, padding) and the upload must physically
+   contain those bytes. Three-byte and four-byte headers with no payload, with or without an ID3 tag,
+   are 422; a 417-byte synthetic MPEG-1 Layer III frame (128 kbps / 44.1 kHz) is the positive control.
+2. Multipart part headers no longer accumulate across headers (each header ends with a buffer clear,
+   not the part end), so a part whose Content-Type precedes Content-Disposition validates exactly like
+   the reverse order (regression posts the identical WAV in both orders).
+3. WAV headers must be internally coherent PCM: byte_rate == sample_rate*channels*bits//8 and
+   block_align == channels*bits//8; duration derives from the physical frame count, so a forged
+   byte-rate field cannot bypass the 60-second limit (regression alters only bytes 28:32 of a real
+   61 s WAV and expects 422 both ways).
+
+Scope unchanged: no-read route, snapshot invisibility, one-shot consumption, session isolation,
+no-disk multipart, and live Chatterbox MP3/WAV acceptance still pending after #5 integration.
 
 ## A3-05 Qwen correction - 2026-10-30 America/Denver
 

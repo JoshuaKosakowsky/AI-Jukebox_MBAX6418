@@ -1,5 +1,6 @@
 """Bounded, process-local sessions and cover/music jobs shared with song orchestration."""
 from dataclasses import dataclass, field
+import io
 import secrets
 from threading import RLock
 import time
@@ -19,6 +20,13 @@ MAX_ACTIVE_TEXT = 1
 MAX_ACTIVE_SPEECH = 2
 MAX_QUEUE = MAX_TRACKS
 MAX_MEDIA_BYTES = 64_000_000
+# Reference-voice bounds: temporary uploaded MP3/WAV clips for Chatterbox DJ
+# speech. Kept in session memory only (never disk, snapshot or archives),
+# consumed once by a speech job, expired with the session.
+MAX_REFERENCES = 4
+MAX_REFERENCE_BYTES = 5_000_000
+MIN_REFERENCE_SECONDS = 1
+MAX_REFERENCE_SECONDS = 60
 # Operational music bounds: the class server's 20 MB response cap limits a
 # 48 kHz/16-bit/stereo WAV to roughly 104 seconds, and 60 seconds leaves safe
 # margin for headers/overhead while staying well within the global media budget.
@@ -40,6 +48,9 @@ class Session:
     tracks: dict[UUID, Track] = field(default_factory=dict)
     jobs: dict[UUID, GenerationJob] = field(default_factory=dict)
     media: dict[UUID, MediaBytes] = field(default_factory=dict)
+    # Temporary voice references: browser uploads -> server-private bytes used
+    # once by a speech job. Never exposed in snapshots, never written to disk.
+    references: dict[UUID, MediaBytes] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
     # Each entry is one in-flight job (track id, job kind); a track may have an
     # art job and a music job running at the same time.
@@ -91,6 +102,152 @@ def lyrics_prompt(track: Track) -> str:
             "no section headings, no song title, no commentary. English.")
 
 
+def validate_reference_audio(content: bytes) -> str:
+    """Return the canonical media type of a REAL MP3/WAV file, or raise.
+
+    Byte-level structural validation only: WAV must be RIFF/WAVE with a
+    full PCM fmt chunk and a physically present, non-empty data chunk;
+    MP3 must start with a valid ID3v2 tag (or a frame immediately) and
+    contain at least one reachable MPEG audio frame. Header-only or
+    truncated uploads are rejected here rather than trusted from their
+    bytes. Never echoes content; safe messages only.
+    """
+    if content.startswith(b"RIFF") and content[8:12] == b"WAVE":
+        _validate_wav_structure(content)
+        return "audio/wav"
+    if content.startswith(b"ID3"):
+        _validate_mp3_structure(content, id3=True)
+        return "audio/mpeg"
+    if len(content) >= 2 and content[0] == 0xFF and (content[1] & 0xE0) == 0xE0:
+        _validate_mp3_structure(content, id3=False)
+        return "audio/mpeg"
+    raise SessionFailure(422, "Reference must be an MP3 or WAV audio file.")
+
+
+def _validate_wav_structure(content: bytes) -> None:
+    """Require a real PCM WAV: RIFF/WAVE, fmt chunk, physical data chunk."""
+    if len(content) < 12:
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    offset = 12
+    fmt = None
+    data = None
+    found_data = False
+    while offset + 8 <= len(content):
+        chunk_id = content[offset : offset + 4]
+        size = int.from_bytes(content[offset + 4 : offset + 8], "little")
+        payload = offset + 8
+        if payload + size > len(content):
+            if found_data:
+                # Tolerated trailing bytes after the keep-audio chunk (some
+                # writers append metadata); the required structure is intact.
+                break
+            raise SessionFailure(422, "The WAV reference is truncated.")
+        if chunk_id == b"fmt ":
+            fmt = content[payload : payload + size]
+        elif chunk_id == b"data":
+            data = (payload, size)
+            found_data = True
+        offset = payload + size + (size & 1)  # RIFF pads odd sizes
+    if fmt is None or data is None:
+        raise SessionFailure(422, "The WAV reference is missing required chunks.")
+    if len(fmt) < 16:
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    format_tag = int.from_bytes(fmt[0:2], "little")
+    channels = int.from_bytes(fmt[2:4], "little")
+    sample_rate = int.from_bytes(fmt[4:8], "little")
+    byte_rate = int.from_bytes(fmt[8:12], "little")
+    block_align = int.from_bytes(fmt[12:14], "little")
+    bits = int.from_bytes(fmt[14:16], "little")
+    data_offset, data_size = data
+    if format_tag != 1 or not 1 <= channels <= 8:
+        raise SessionFailure(422, "The WAV reference must be uncompressed PCM.")
+    if not 1 <= sample_rate <= 384_000 or bits not in (8, 16, 24, 32):
+        raise SessionFailure(422, "The WAV reference could not be read.")
+    # PCM alignment must be internally coherent; the header is not allowed to
+    # under- or over-state the real byte/packet rates (a forged byte_rate field
+    # must not shift the duration calculation).
+    if byte_rate != sample_rate * channels * bits // 8 or block_align != channels * bits // 8:
+        raise SessionFailure(422, "The WAV reference has an inconsistent audio header.")
+    if data_size < 1:
+        raise SessionFailure(422, "The WAV reference contains no audio data.")
+    if data_offset + data_size > len(content):
+        raise SessionFailure(422, "The WAV reference is truncated.")
+    # Duration from the physical frame count, per the coherent header.
+    frames = data_size // block_align
+    duration = frames / sample_rate
+    if not MIN_REFERENCE_SECONDS <= duration <= MAX_REFERENCE_SECONDS:
+        raise SessionFailure(
+            422, f"Reference audio must be {MIN_REFERENCE_SECONDS}-{MAX_REFERENCE_SECONDS} seconds.")
+
+
+# MPEG audio frame tables (bitrate in kbps), keyed by [version_group][layer]
+# where version_group 3 = MPEG-1 and 2 = MPEG-2/-2.5, layer 1 = III, 2 = II,
+# 3 = I. Index 0 = free/bad and 15 = bad are rejected by the length lookup.
+_MPEG_BITRATES = {
+    1: {1: (0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320),
+         2: (0, 32, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 384),
+         3: (0, 32, 64, 96, 128, 160, 192, 224, 256, 288, 320, 352, 384, 416, 448)},
+    2: {1: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160),
+         2: (0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160),
+         3: (0, 32, 48, 56, 64, 80, 96, 112, 128, 144, 160, 176, 192, 224, 256)},
+}
+_MPEG_SAMPLE_RATES = {3: (44100, 48000, 32000), 2: (22050, 24000, 16000), 0: (11025, 12000, 8000)}
+
+
+def _mpeg_frame_length(header: bytes) -> int | None:
+    """Return the exact byte length of the MPEG frame starting at `header`.
+
+    None means the four header bytes do not describe a decodable frame
+    (invalid sync/version/layer, free or reserved bitrate, reserved sample
+    rate). The caller must also verify that the whole frame is present.
+    """
+    if len(header) < 4 or header[0] != 0xFF or (header[1] & 0xE0) != 0xE0:
+        return None
+    version = (header[1] >> 3) & 3      # 3 = MPEG-1, 2 = MPEG-2, 0 = MPEG-2.5
+    layer = (header[1] >> 1) & 3        # 1 = Layer III, 2 = Layer II, 3 = Layer I
+    if version == 1 or layer == 0:
+        return None
+    bitrate_index = header[2] >> 4
+    sample_index = (header[2] >> 2) & 3
+    if bitrate_index in (0, 15) or sample_index == 3:
+        return None
+    version_group = 1 if version == 3 else 2
+    kbps = _MPEG_BITRATES[version_group][layer][bitrate_index]
+    sample_rate = _MPEG_SAMPLE_RATES[version][sample_index]
+    padding = (header[2] >> 1) & 1
+    if layer == 3:  # Layer I
+        return (12 * kbps * 1000 // sample_rate + padding) * 4
+    if version_group == 1:  # MPEG-1 Layer II/III
+        return 144 * kbps * 1000 // sample_rate + padding
+    return 72 * kbps * 1000 // sample_rate + padding  # MPEG-2/-2.5 Layer II/III
+
+
+def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
+    """Require a parseable ID3v2 tag and at least one COMPLETE MPEG frame.
+
+    A frame only counts when its position has a decodable header AND the
+    header's computed frame length is entirely present in the upload -
+    partial sync bytes never pass.
+    """
+    skip = 0
+    if id3:
+        if len(content) < 10:
+            raise SessionFailure(422, "The MP3 reference is truncated.")
+        version = content[3:5]
+        if version[0] == 0xFF or version[1] == 0xFF:
+            raise SessionFailure(422, "The MP3 reference could not be read.")
+        size_bytes = content[6:10]
+        tag_size = 0
+        for byte in size_bytes:
+            tag_size = (tag_size << 7) | (byte & 0x7F)
+        if 10 + tag_size > len(content):
+            raise SessionFailure(422, "The MP3 reference is truncated.")
+        skip = 10 + tag_size
+    for index in range(skip, max(skip, len(content) - 3)):
+        frame_length = _mpeg_frame_length(content[index : index + 4])
+        if frame_length is not None and index + frame_length <= len(content):
+            return
+    raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
 def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> str:
     """Song-specific spoken commentary for Qwen (default ChatGPT-style text).
 
@@ -671,3 +828,34 @@ class SessionStore:
             if media is None:
                 raise SessionFailure(404, "Media not found in this session.")
             return media
+
+    def upload_reference(self, session, content: bytes):
+        """Validate and store one temporary MP3/WAV voice reference.
+
+        Returns (id, normalized media type). The bytes live only in session
+        memory; they are consumed once by a speech job, deleted explicitly, or
+        dropped with the session. Nothing here touches disk, the snapshot or
+        Git (uploads are excluded from archives by the repo safeguards).
+        """
+        with self.lock:
+            if len(content) > MAX_REFERENCE_BYTES:
+                raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
+            media_type = validate_reference_audio(content)
+            if len(session.references) >= MAX_REFERENCES:
+                raise SessionFailure(429, "Too many reference uploads in this session. Delete one before uploading again.", retryable=True)
+            identifier = uuid4()
+            session.references[identifier] = MediaBytes(content, media_type)
+            session.touched = time.monotonic()
+            return identifier, media_type
+
+    def take_reference(self, session, identifier):
+        """Consume a reference exactly once; the speech job that uses it removes it."""
+        with self.lock:
+            return session.references.pop(identifier, None)
+
+    def drop_reference(self, session, identifier):
+        with self.lock:
+            if identifier not in session.references:
+                raise SessionFailure(404, "Reference not found in this session.")
+            del session.references[identifier]
+            session.touched = time.monotonic()

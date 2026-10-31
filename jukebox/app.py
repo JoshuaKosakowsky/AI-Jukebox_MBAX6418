@@ -6,14 +6,96 @@ from uuid import UUID
 from fastapi import BackgroundTasks, Depends, FastAPI, Query, Request, Response
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from multipart import MultipartParser
+from multipart.multipart import parse_options_header
+from python_multipart.exceptions import MultipartParseError
 from pydantic import Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .config import ROOT, Settings
 from .contracts import GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
-from .sessions import MAX_MEDIA_BYTES, SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
-from .samples import load_samples, SampleLibraryError
+from .samples import SampleLibraryError, load_samples
+from .sessions import (MAX_MEDIA_BYTES, MAX_REFERENCE_BYTES, SESSION_COOKIE, SESSION_SECONDS,
+                       SessionFailure, SessionStore)
+
+
+# Room for the multipart boundary, part headers and trailing CRLF beyond the
+# file-size cap; the parser itself enforces this total via max_size.
+MULTIPART_OVERHEAD = 64 * 1024
+
+
+def _extract_file_part(raw: bytes, content_type: str) -> bytes:
+    """Pull the single 'file' part bytes out of an in-memory multipart body.
+
+    Parsing happens entirely in memory through python-multipart callbacks:
+    no temp files are ever created, so oversized or malformed uploads cannot
+    spool to disk. Raises on anything but exactly one named 'file' part.
+    """
+    if not content_type.lower().startswith("multipart/form-data"):
+        raise ValueError("not multipart")
+    _, options = parse_options_header(content_type)
+    boundary = options.get(b"boundary")
+    if not boundary:
+        raise ValueError("missing boundary")
+    parts: list[dict] = []
+    current: dict | None = None
+    header_field = bytearray()
+    header_value = bytearray()
+
+    def on_part_begin():
+        nonlocal current
+        current = {"headers": {}, "data": bytearray()}
+
+    def on_header_field(data, start, end):
+        header_field.extend(data[start:end])
+
+    def on_header_value(data, start, end):
+        header_value.extend(data[start:end])
+
+    def on_header_end():
+        if current is not None:
+            current["headers"][header_field.decode("latin-1").strip().lower()] = bytes(header_value)
+        # Buffers accumulate ACROSS headers otherwise: a part whose second
+        # header (e.g. Content-Type) precedes Content-Disposition would merge
+        # keys and lose the disposition, changing acceptance by header order.
+        header_field.clear()
+        header_value.clear()
+
+    def on_headers_finished():
+        pass
+
+    def on_part_data(data, start, end):
+        if current is not None:
+            current["data"].extend(data[start:end])
+
+    def on_part_end():
+        if current is not None:
+            parts.append(current)
+
+    parser = MultipartParser(
+        boundary,
+        {
+            "on_part_begin": on_part_begin,
+            "on_header_field": on_header_field,
+            "on_header_value": on_header_value,
+            "on_header_end": on_header_end,
+            "on_headers_finished": on_headers_finished,
+            "on_part_data": on_part_data,
+            "on_part_end": on_part_end,
+        },
+        max_size=MAX_REFERENCE_BYTES + MULTIPART_OVERHEAD,
+    )
+    parser.write(raw)
+    parser.finalize()
+    if len(parts) != 1:
+        raise ValueError("expected one file part")
+    headers = parts[0]["headers"]
+    disposition = headers.get("content-disposition", b"")
+    _, disp_options = parse_options_header(disposition)
+    if disp_options.get(b"name") != b"file" or not disp_options.get(b"filename"):
+        raise ValueError("expected a named file part")
+    return bytes(parts[0]["data"])
 
 
 class NewCoverTrack(Model):
@@ -218,6 +300,37 @@ def create_app(settings: Settings | None = None):
     def media(media_id: UUID, current=Depends(browser_session)):
         image = store.get_media(current, media_id)
         return Response(image.content, media_type=image.content_type)
+
+    @app.post("/api/references/speech", status_code=201)
+    async def upload_speech_reference(request: Request, current=Depends(browser_session)):
+        # Temporary MP3/WAV voice reference: bytes are validated and kept in
+        # session memory only; never persisted, never in the snapshot, never
+        # served back to the browser. The multipart body is parsed in memory
+        # (no temp files, no disk spooling) with a hard capped stream.
+        declared = request.headers.get("content-length")
+        if declared:
+            try:
+                declared_length = int(declared)
+            except ValueError:
+                declared_length = None
+            if declared_length is not None and declared_length > MAX_REFERENCE_BYTES + MULTIPART_OVERHEAD:
+                raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
+        raw = bytearray()
+        async for chunk in request.stream():
+            raw.extend(chunk)
+            if len(raw) > MAX_REFERENCE_BYTES + MULTIPART_OVERHEAD:
+                raise SessionFailure(422, f"Reference audio must be {MAX_REFERENCE_BYTES // 1_000_000} MB or smaller.")
+        try:
+            content = _extract_file_part(bytes(raw), request.headers.get("content-type", ""))
+        except (MultipartParseError, ValueError, KeyError, IndexError, UnicodeDecodeError):
+            raise SessionFailure(422, "The multipart upload could not be read.")
+        identifier, media_type = store.upload_reference(current, content)
+        return {"id": str(identifier), "media_type": media_type}
+
+    @app.delete("/api/references/speech/{reference_id}", status_code=204)
+    def delete_speech_reference(reference_id: UUID, current=Depends(browser_session)):
+        store.drop_reference(current, reference_id)
+        return Response(status_code=204)
 
     @app.get("/api/contracts")
     def contracts():

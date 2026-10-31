@@ -332,6 +332,69 @@ Mike/Preethi requested for independent review. Main's #22 merge also retains the
 Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
 
 ## Session
+2026-10-30/31 America/Denver; Hermes for MSpanny (Mike). Task: A3-06 review rounds (PR #26; #6 lead: Mike, backup jovi1214; #5 by Matt; issue #6 label status: in progress). Round 2 (Joshua): multipart temp-file spooling + header-only/truncated audio accepted — fixed, no-disk in-memory multipart and structural WAV/MP3 checks. Round 3 (Joshua + Matt, independent, same three findings): (1) incomplete MP3 frames accepted (3/4-byte headers with no payload) — now complete-frame validation via header-derived frame length with physical-presence bound; (2) multipart part acceptance depended on header order (buffers accumulated across headers) — per-header buffer clears, parity regression; (3) WAV duration trusted a forgeable byte_rate — coherent PCM alignment required and duration from real frame count. Suite: 165 tests (20 reference; +4 round-3 regressions), verifier 99 files, coverage 36/11/19, gate PASS; CI 4/4 green on the reconciled head. Live MP3/WAV Chatterbox acceptance stays blocked on #5 (unchanged, honest scope).
+- Multipart is parsed fully in memory (python-multipart callbacks over a capped raw stream; content-length and stream caps abort at 5 MB + 64 KB overhead before parsing; the framework form parser is never used). New regressions mock tempfile.SpooledTemporaryFile and tempfile.TemporaryFile to raise, proving no disk touch for multi-MB and oversized uploads.
+- WAV validation is structural: real RIFF/WAVE with a PCM fmt chunk and a physically present non-empty data chunk; declared data overrunning the upload is truncated; duration derives from the real data chunk; trailing metadata after data is tolerated; non-PCM and chunk-less WAVs are rejected.
+- MP3 validation requires an ID3v2 header whose declared size fits the upload plus at least one reachable MPEG audio frame; bare ID3, tag-only and truncated MP3s are rejected.
+- Docs updated: APP_CONTRACTS route table + TEST_RESULTS round section. Live Chatterbox acceptance of real MP3/WAV references stays blocked on #5 (unchanged, honest scope).
+
+## Constraints
+Task branch + reviewed PR only; no main/protection/assignment changes. No uploads/voice references committed; no live class call until #5 integration (Chatterbox reference path is schema-inspected only). Branch/PR: codex/a3-06-reference-voices.
+
+## Repository state
+Branch from main e2b1e52 (includes merged #21 vocals and #23 Moonlit candidate). No other open PR touches jukebox/app.py, sessions.py, providers.py, tests/test_references.py or pyproject/uv.lock. #20/#22/#24/#25 open; #3 live acceptance still pending (no .env).
+
+## Work completed and decisions
+- POST /api/references/speech (multipart file) + DELETE /api/references/speech/{id}; session-scoped memory-only store (Session.references), magic-byte sniffing (WAV/MP3), 5 MB cap, WAV 1-60 s duration validation; take_reference consumes exactly once; expiry deletes with session; references invisible to GET /api/session (no contract change); no read route (GET=405).
+- ClassProviders.speech(text, reference=...) appends ref_audio as base64 data URI to the frozen probe request; no-reference path byte-identical; python-multipart 0.0.32 added to locked env (pyproject + uv.lock).
+- Tests: tests/test_references.py (3 HTTP + 3 store + 2 provider = 8 test methods, 9 collected with sub-suite) — validation, isolation, capacity, consumption, expiry, snapshot invisibility, probe equality, data-URI payload.
+- Docs: APP_CONTRACTS routes + "Temporary reference voices (interface for #5)" section + adapter bullet; README API note; TEST_RESULTS A3-06 offline section; this handoff.
+
+## Validation
+python scripts/dev.py --check PASS on this branch: verifier 71 files, coverage 36/11/19, all 137 tests (128 prior + 9 new). No live class-service calls; Chatterbox reference path still schema-inspected-only (needs .env for AT-08 acceptance; #5 supplies the normal-entrypoint flow).
+
+## Blockers and unchecked areas
+Final #6 acceptance blocked on #5 (DJ queue) — interface documented in APP_CONTRACTS for prse/Matt. Live MP3+WAV reference verification pending (.env + #5). MP3 duration not decoded at upload (documented). PR not yet opened.
+
+## Next steps
+1. Open the PR (Refs #6; honest: offline-only, live pending), request review from Matt/prse.
+2. On merge: coordinate with #5 (prse4479/Matt) — the speech job consumes take_reference; UI upload control lands with the DJ flow.
+3. Live acceptance when .env exists: upload a real MP3 AND WAV reference, generate Chatterbox speech with each, verify decoded WAV + default-voice fallback; record in TEST_RESULTS; then close #6 checks.
+
+## References
+Issue #6; docs/ISSUES.md A3-06 brief (R15/R16, AT-08); docs/SERVICE_CONTRACTS.md (schema-inspected reference paths); docs/APP_CONTRACTS.md; tests/test_references.py.
+
+### Session (Codex for Joshua, consolidated #20/#23)
+2026-10-29 America/Denver; Codex for Joshua. Shared integration handoff for PR #20 ZIP evidence and #23 Moonlit candidate.
+### Constraints
+Protected reviews/checks unchanged; concurrent independent PRs authorized. Preserve prse's #5/#8/#9 and jovi's #7/#10 ownership.
+### Repository state
+Branches codex/windows-zip-startup (#20) and codex/moonlit-sample-candidate (#23), each reconciled against main 7d003c6.
+Main includes Mike's #21; live vocal/listening acceptance still remains on #3. Audit/review records stay in PR #22.
+Both branches use this same consolidated handoff to avoid conflicting status rewrites on the next merge.
+### Work completed and decisions
+#20 preserves the original 7b9dd2b ZIP identity/65-file startup rehearsal alongside Mike's vocal evidence; no new ZIP acceptance claimed.
+#23 retains the original Moonlit WAV/PNG, hashes/provenance and candidate status; final manifest/library/ZIP acceptance still belongs to jovi.
+The Moonlit preview index entry belongs to #23's results README; #20 keeps only its ZIP evidence additions.
+Reconciliation changes docs/handoff only; inherited application code matches main. No prse task or assignment is taken over.
+### Validation
+Merged-main baseline: 128 tests and four CI checks passed; prior media decoding/preview and ZIP observations retain their original scope.
+Run python scripts/dev.py --check and git diff --check for each reconciled head; exact results/head IDs are posted on #20/#23.
+No class-service generation, new media, credentials or user uploads were introduced during reconciliation.
+### Blockers and unchecked areas
+Fresh review is required after these updates; request MSpanny on both heads and keep normal protection in force.
+No published prse branch/PR was affected; unpublished local work is not visible. Her task ownership remains unchanged.
+#3 live vocal acceptance, #8 instrumental fix, DJ/reference features, final samples and independent ZIP remain incomplete; NOT READY.
+### Next steps
+1. Mike re-reviews the updated #20/#23 heads; merge normally only after eligible approval and green CI.
+2. Recheck the remaining PR against main after the first merge; retain all distinct evidence and task notes.
+3. Continue normal-launch vocal acceptance on main; prse's feature/recovery work and jovi's sample/ZIP work can proceed separately.
+### References
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/20
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/23
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/22
+
+### Session (Codex for Joshua, PR #22; current facts)
 2026-10-30/31 America/Denver; Hermes for MSpanny (Mike). Task: A3-03 lyrics parser diagnostics (#3 lead; follow-up to Joshua's failed live run, PR #28). Branch codex/a3-03-lyrics-diagnostics. Rounds: (1) distinct guard labels; (2) whitelisted metadata + malformed message=[] fix; (3) per Joshua's re-review of 086ac6b: returned model ids are NEVER echoed (fixed unexpected-model message — a length bound is not a whitelist; short-string marker regression through provider AND session snapshot), and #27's text(..., thinking=False) DJ call absorbed into the _chat refactor (chat_template_kwargs added only when thinking is not None; probe-identical defaults preserved). Suite 189 tests, verifier 118 files, coverage 36/11/19, gate PASS, CI green. AT-04 live root-cause remains pending class .env; no token-budget/schema guesses.
 
 ## Constraints
