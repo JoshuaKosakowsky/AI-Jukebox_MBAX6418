@@ -37,6 +37,8 @@ attribution. A component entry does not claim the whole feature is complete.
 | 2026-10-30 | JoshuaKosakowsky | A3-08 rejected-control correction | Delivered focused cover/music/resume control restoration, actual-handler regressions and offline browser recovery evidence; #30 merged normally at 2a19ecf after Mike's approval and green checks. Broader #8 acceptance remains open. | [PR #30](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/30), [safe record](../results/retry-control-fix.json) |
 | 2026-10-30 | MSpanny (Mike) | PR #30 independent review | Independently reproduced the Node probe failing on baseline and passing on the patch, checked guards/evidence scope, and approved exact head 62506de without blockers. | [PR #30 review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/30) |
 
+| 2026-10-30 | JoshuaKosakowsky | PR #32 independent review/integration | Inspected evidence-only diff, JSON and three screenshots; verifier/coverage/whitespace and 4/4 exact-head CI passed. Approved and merged normally at c6e1273; no new live reproduction or full #8 closure claimed. | [Review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/32#pullrequestreview-5720369420) |
+
 Whole-app features and independent deployment remain incomplete; component entries
 above claim only their recorded scope.
 Add their evidence as the team delivers them.
