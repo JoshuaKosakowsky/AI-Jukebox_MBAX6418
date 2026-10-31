@@ -49,7 +49,7 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | JoshuaKosakowsky (lead); contributors unassigned | 01 | See issue |
 | [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | mase7919 (lead); prse4479 (contributor / backup) | 02, 04 | See issue |
 | [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | MSpanny (lead); jovi1214 (contributor / backup) | 05 | See issue |
-| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); MSpanny (contributor / backup) | 02, 03, 04 | See issue |
+| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); MSpanny (backup); prse4479/Preethi (contributor) | 02, 03, 04 | See issue |
 | [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | prse4479 (lead); mase7919 (contributor / backup) | 01; continuous | See issue |
 | [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | prse4479 (lead); mase7919 (contributor / backup) | 01; continuous | See issue |
 | [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | jovi1214 (lead); MSpanny (contributor / backup) | 03, 05-09, GH | See issue |
