@@ -1,5 +1,26 @@
 # Agent handoff
 
+## Session — shared integration and independent review follow-through
+2026-10-30 America/Denver; Codex for Joshua. PRs #25/#28 sync, pre-heads 4d724c2/e42e5de.
+Main is 9d84dab after protected #33 merge under Preethi's final-head1490da1 approval and 4/4 CI PASS.
+Canonical credentials/live guide is now on main; Preethi independently reported all four roles configured, no new generation.
+Merged current main into these two evidence branches; resolved only handoff/index overlaps, retaining both tasks' notes/links.
+Runtime/tests/contracts/dependencies and approved manifest remain identical to current main.
+Original Desert Drive candidate media/provenance/preview and failed vocal evidence/media retain their exact prior bytes.
+No sample approval, successful vocal claim, new generation, credential copying or ownership change.
+Independent #26 review on Mike's new57fd24a: 161 locked tests/verifier99/coverage36-11-19 PASS.
+Original disk-spooling and header-only WAV fixed; three blockers remain: incomplete MP3 accepted,
+valid multipart header order rejected, and inconsistent WAV byte_rate bypasses60s cap.
+Review: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5720684891
+#24 credit delta remains sound; Mike asked to resolve only CONTRIBUTIONS overlap while retaining both sides.
+No Joshua commits on #24/#26; independent re-review remains available. #29 safe-diagnostics findings still pending.
+#27 remains Matt's draft; coordinate existing budget/tester before any live acceptance, no duplicate requests.
+This sync needs fresh eligible review after green CI; do not self-approve or bypass protection.
+Next: publish both frozen heads, request review, merge normally when ready. #3/#5/#6/#7 acceptance remains open.
+Verifier/coverage/whitespace/source/media-equivalence results are recorded on each PR; no new tests for prose sync.
+
+## Preserved task and main notes (current facts above supersede historical status)
+
 ## Session — final live-run guide refinement
 2026-10-30 America/Denver; Codex for Joshua. PR #33, pre-update 408c6cb; merged current main 976d98d (#22).
 Resolved only handoff overlap, retaining both tasks. Runtime/provider/test code remains current main.
@@ -13,6 +34,8 @@ Mike/Preethi requested for independent review. Main's #22 merge also retains the
 Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #28.
+
 ## Preserved clarification task notes
 
 2026-10-30 America/Denver; Codex for Joshua. Task: shared credential/live-rerun clarification for Mike/everyone.
@@ -51,6 +74,8 @@ Main is 31dc9e4 after normal #31 merge under Mike's exact-head approval; #7 fina
 #25 is synchronized at 4d724c2, 4/4 CI green, awaiting fresh eligible review after main sync and JPEG filename correction.
 #27 is integrated at bee7209 with 183 tests/4 CI checks PASS; draft/readiness and coordinated browser/listening work remain.
 ## This branch
+Merged current main into #28; only handoff conflict resolved, all evidence/loader/prse notes retained.
+
 Merged current main into #22; only handoff conflict resolved, all evidence/loader/prse notes retained.
 Runtime/tests/contracts/dependencies match main. Original historical/failed evidence media and JSON unchanged.
 Safeguards, coverage, whitespace, source-equivalence and final current-head CI/review status recorded on PR.
@@ -65,6 +90,12 @@ Next: eligible current-head review, then normal merge; no self-approval. Submiss
 
 ## Session
 ## Preserved prior evidence task notes
+
+2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #28, failed vocal acceptance evidence.
+## Repository state
+Branch codex/a3-03-live-acceptance; pre-sync 0bb7fea; merged main c6e1273 after normal #32 approval/merge.
+## Work and decisions
+Resolved only documentation/index/handoff integration conflicts; preserved both branches' evidence and prior notes.
 
 2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #22, historical recovery audit and integration status.
 ## Repository state
@@ -87,11 +118,40 @@ Assignments already permit backup work and any zero-commit reviewer; no ownershi
 2. Preserve remaining vocal/DJ/reference/sample acceptance gaps; submission NOT READY.
 3. Use current issue handoffs for coordination; final sample selection/ZIP remain with Jovi.
 ## References
+PR #28; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
+
 PR #22; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
 
 ## Preserved prior task notes
 
 ## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: bounded live vocal acceptance after PR triage.
+## Constraints
+MSpanny = Mike; mase7919/Mase = Matt. Mike leads #3/#6; Matt #5; assignments unchanged.
+One form request only: at most one lyrics, cover and music submission; no retry on uncertainty.
+## Repository state
+Clean tested main 770ce62; branch codex/a3-03-live-acceptance contains evidence/docs only.
+#20 merged; #22 149090c fixes names/ownership and awaits review; #26 requests changes; #24 sync requested.
+## Work completed and decisions
+Normal launcher + real browser form: Morning Signal / Acoustic indie pop / Hopeful and upbeat / 30 s / Vocal.
+Cover succeeded; lyrics returned safe invalid_response; zero music jobs/audio. No second generation attempted.
+Before/after reload snapshots identical; Retry lyrics enabled; no browser error/warning entries observed.
+Saved public JSON and actual card screenshot; raw generated cover ignored, no user recordings or keys committed.
+## Validation
+AT-04 FAIL; precise parser guard unknown because raw provider response/finish metadata was not retained.
+Source rejects unexpected model, empty content or non-stop completion; no speculative budget/schema change.
+Final repository/coverage/whitespace checks recorded in the PR; no application code/dependency changes.
+Earlier independent #26 checks: 137 tests; #22 reconciliation: 128 tests, both CI 4/4 green at review.
+## Blockers and unchecked areas
+#3 live vocal/playback/listening acceptance still blocked. No music, speech or reference calls in this run.
+#26 upload findings, draft #27 DJ, #8 control fixes, sample library and final ZIP remain; NOT READY.
+## Next steps
+1. Mike diagnoses #3 using safe response metadata in a separately bounded run; retain this failed case.
+2. Mike fixes #26 and synchronizes #24; Matt finalizes #27 readiness; eligible teammates review #22.
+3. Preserve current claim/ownership and coordinate shared files; do not repeat generation merely to refresh context.
+## References
+results/vocal-live-failure-record.json; docs/TEST_RESULTS.md; issue #3; PRs #20/#22/#24/#26/#27.
+
 2026-10-30 America/Denver; Codex for Joshua. Task: new-push/review triage and protected integration.
 ## Constraints
 MSpanny = Mike; mase7919/Mase = Matt. Protected reviews/checks; no assignment changes or class calls.
