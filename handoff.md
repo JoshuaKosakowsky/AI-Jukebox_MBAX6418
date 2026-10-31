@@ -1,5 +1,23 @@
 # Agent handoff
 
+## Session — #35 shared-conditioning audit, 2026-10-30 America/Denver
+Codex for Joshua; isolated branchcodex/a3-35-shared-conditioning from2874e2c, same draftPR37 task.
+User explicitly requests shared path/service prompt-following investigation across genres; no new per-genre presets.
+Claim/budget issue35 comment6539628063; original user review app/source remains untouched.
+Source trace: browser settings -> HTTP Track -> store prompt -> production adapter; exact titles/styles/moods retained.
+Added offline HTTP->store->actual ClassProviders/MockTransport regression for strings/jazz-waltz/bluegrass.
+Verified correct distinct media attachments and reload/no-resubmit;35 focused music tests PASS. No app code change.
+Deployed schema raw232eda8e unchanged, release JSON body absent; pinned official parser supports prompt aliascaption.
+Inventory advertises loaded/defaultXLturbo + initialized5Hz4B LM; this does not prove internal conditioning.
+Bounded planned audit: max2 music-service format_input calls +2 music submissions (20s instrumental).
+Genre-only solo acoustic piano vs drum-and-bass captions; same seed diagnostic override, no titles/themes/presets.
+Zeroart/Qwen9001/speech/retry, stop request/validation/accounting failure; poll/download same jobs only.
+Prior generation limits stay historical; this is separately assigned shared-path audit, not feature acceptance.
+Full locked149 tests/verifier107/coverage36-11-19 PASS; bounded live diagnostic pending.
+Official source maps request.prompt -> GenerationParams.caption and forwards LM flags; original_prompt is separately retained for results.
+Next: complete official source trace, run bounded probe, record safe evidence and user listening; fix only proven shared defects.
+
+
 ## Session — #35 concrete-cue clips, 2026-10-30 America/Denver
 Codex for Joshua; explicit new user request for one Iced Coffee metal and one Yellow Sundress rap clip.
 Immutable tested sourcee62fe17, branchcodex/a3-35-genre-fidelity; same draftPR37 remote branchcodex/a3-35-genre-controls.

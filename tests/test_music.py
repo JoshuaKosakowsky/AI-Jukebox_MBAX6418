@@ -1,5 +1,6 @@
 """Offline instrumental music integration through real HTTP routes and the store; no class-service calls."""
 from concurrent.futures import ThreadPoolExecutor
+import base64
 import io
 import json
 from threading import Event
@@ -534,6 +535,55 @@ class MusicHttpTests(unittest.TestCase):
 
     def client(self, settings=None):
         return TestClient(create_app(settings or Settings.load(None, {})), base_url="http://localhost")
+
+    def test_freeform_genres_reach_provider_wire_and_keep_their_own_audio(self):
+        submissions, media = [], {}
+        def reply(request):
+            if request.url.port == 9006:
+                return httpx.Response(200, json={"data": [{"b64_json":
+                    base64.b64encode(png("blue").content).decode()}]})
+            if request.url.path == "/release_task":
+                submissions.append(json.loads(request.content))
+                ticket = str(len(submissions))
+                # Distinct fully decoded fixtures detect swapped/shared media,
+                # independently of their user-visible labels.
+                media[ticket] = wav_bytes()[:-2] + int(ticket).to_bytes(2, "little")
+                return httpx.Response(200, json={"code": 200, "error": None, "data": {"task_id": ticket}})
+            if request.url.path == "/query_result":
+                ticket = json.loads(request.content)["task_id_list"][0]
+                result = json.dumps([{"file": f"/v1/audio?path={ticket}",
+                                     "dit_model": "acestep-v15-xl-turbo", "status": 1}])
+                return httpx.Response(200, json={"code": 200, "error": None,
+                    "data": [{"task_id": ticket, "status": 1, "result": result}]})
+            self.assertEqual(request.url.path, "/v1/audio")
+            return httpx.Response(200, content=media[request.url.params["path"]],
+                                  headers={"content-type": "audio/wav"})
+
+        provider = ClassProviders(art_music_settings(), transport=httpx.MockTransport(reply))
+        cases = [("Glass Atrium", "Baroque chamber strings", "Restrained", 15),
+                 ("Fogbound", "Jazz waltz with brushed drums", "Intimate", 25),
+                 ("Mountain Steps", "Acoustic bluegrass", "Playful", 35)]
+        with patch("jukebox.app.ClassProviders", return_value=provider):
+            with self.client(art_music_settings()) as client:
+                for title, style, mood, seconds in cases:
+                    created = client.post("/api/tracks", json=body(title, style, mood, seconds))
+                    self.assertEqual(created.status_code, 202)
+                    track_id = created.json()["track_id"]
+                    self.assertEqual(client.post(f"/api/tracks/{track_id}/music", json={}).status_code, 202)
+                    payload = submissions[-1]
+                    for value in (title, style, mood):
+                        self.assertIn(value, payload["prompt"])
+                    self.assertEqual(payload["audio_duration"], seconds)
+                    self.assertEqual(payload["lyrics"], "[Instrumental]")
+                    self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload))
+                snapshot = client.get("/api/session").json()
+                self.assertEqual([t["settings"]["style"] for t in snapshot["tracks"]], [c[1] for c in cases])
+                self.assertTrue(all(j["state"] == "succeeded" for j in snapshot["jobs"]))
+                for index, track in enumerate(snapshot["tracks"], 1):
+                    self.assertEqual(client.get(track["audio"]["url"]).content, media[str(index)])
+                client.get("/")
+                self.assertEqual(client.get("/api/session").json(), snapshot)
+                self.assertEqual(len(submissions), len(cases), "Reload/media reads must not submit new jobs")
 
     def test_create_and_two_songs_with_covers_and_audio_survive_reload(self):
         covers = [png("blue"), png("orange")]
