@@ -1,0 +1,106 @@
+{
+  "tested_main": "e2b1e525ae80a6d5b338fd37ca039a3100fcf50b",
+  "date": "2026-10-29 America/Denver",
+  "tester": "JoshuaKosakowsky directing Codex",
+  "mode": "Real app/browser, OFFLINE MockTransport synthetic PNG/WAV; not normal launch or live acceptance",
+  "fault_injection": "Manual harness seeds target failure and reserves two queued slots without scheduling blockers, then audit-only release explicitly runs those jobs. Exercises real production capacity guards with deterministic contention; not real provider concurrency/timing.",
+  "source_files_byte_identical": 71,
+  "real_provider_requests": 0,
+  "browser": {
+    "cover": {
+      "before": true,
+      "afterReject": false,
+      "afterReleaseRefresh": false,
+      "afterReload": true
+    },
+    "resume": {
+      "before": true,
+      "afterReject": false,
+      "afterReleaseRefresh": false,
+      "afterReload": true,
+      "finalText": "OFFLINE target\n\nOffline fixture \u00b7 Audit\n\nNew matching cover ready\n\nInstrumental track ready\n\nGenerate new coverGenerate new instrumental"
+    }
+  },
+  "cover": {
+    "before_release": {
+      "case": "cover",
+      "released": false,
+      "counts": {
+        "/v1/images/generations": 4
+      },
+      "jobs": 6,
+      "active": 2,
+      "target": "6988c65a-1bfc-48b4-8d3b-f2b6c8dc8016"
+    },
+    "after_release": {
+      "case": "cover",
+      "released": true,
+      "counts": {
+        "/v1/images/generations": 6
+      },
+      "jobs": 6,
+      "active": 0,
+      "target": "6988c65a-1bfc-48b4-8d3b-f2b6c8dc8016"
+    },
+    "after_reload_explicit_retry": {
+      "case": "cover",
+      "released": true,
+      "counts": {
+        "/v1/images/generations": 7
+      },
+      "jobs": 7,
+      "active": 0,
+      "target": "6988c65a-1bfc-48b4-8d3b-f2b6c8dc8016"
+    },
+    "finding": "P2 Retry cover stays disabled after busy rejection and capacity release/refresh",
+    "workaround": "Reload then explicitly Retry cover; succeeds. Rejection/refresh create no provider request."
+  },
+  "resume": {
+    "before_release": {
+      "case": "resume",
+      "released": false,
+      "counts": {
+        "/v1/images/generations": 3,
+        "/release_task": 1,
+        "/query_result": 1
+      },
+      "jobs": 6,
+      "active": 2,
+      "target": "cfe390fa-b8f5-4e88-b5a3-84059fd943a2"
+    },
+    "after_release": {
+      "case": "resume",
+      "released": true,
+      "counts": {
+        "/v1/images/generations": 3,
+        "/release_task": 3,
+        "/query_result": 3,
+        "/v1/audio": 2
+      },
+      "jobs": 6,
+      "active": 0,
+      "target": "cfe390fa-b8f5-4e88-b5a3-84059fd943a2"
+    },
+    "after_reload_explicit_resume": {
+      "case": "resume",
+      "released": true,
+      "counts": {
+        "/v1/images/generations": 3,
+        "/release_task": 3,
+        "/query_result": 4,
+        "/v1/audio": 3
+      },
+      "jobs": 7,
+      "active": 0,
+      "target": "cfe390fa-b8f5-4e88-b5a3-84059fd943a2"
+    },
+    "finding": "P2 Resume check stays disabled after busy rejection and capacity release/refresh",
+    "workaround": "Reload then explicitly Resume check; succeeds using retained ticket, no new music submission."
+  },
+  "limitations": [
+    "No new human listening or live class service tests.",
+    "No application fix; prse owns #8 and coordinates shared frontend with Matt.",
+    "Initial rejection status inferred from real capacity guard and observed safe busy notice; HTTP response status was not separately captured by browser tooling."
+  ],
+  "harness_stopped": true
+}

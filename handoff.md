@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — DJ main reconciliation, Joshua, 2026-10-30 America/Denver
+Task: remove current-main integration blocker from existing #27 draft; pre-head bee7209, main9d84dab.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6538108304
+Only handoff conflicts required resolution; retained DJ, Qwen, loader, recovery and shared configuration notes.
+Runtime/tests/contracts/dependencies/approved manifest unchanged from bee7209; original DJ evidence/media unchanged.
+Shared credential/live-run guide from #33 and recovery evidence from #22 now present on this branch.
+#33 merged normally after Preethi approved1490da1 and CI4/4 passed; no new configuration requirement introduced.
+Current #25/#28 heads6276b29/66daf4f are green and frozen for eligible independent review.
+Mike's #26 head57fd24a has 161 passing tests/green CI but three reproduced validation/parser blockers;
+#29 safe diagnostic findings and #24 one-file credit integration conflict remain with Mike.
+Joshua stays zero-commit reviewer on #24/#26/#29; Matt retains #27 lead, draft state and readiness.
+No provider calls, new credentials, sample selection, reference UI implementation or ownership changes here.
+Normal-launch DJ browser/control/listening acceptance remains separately coordinated with Matt/Preethi.
+Prior real-adapter HTTP/store correction and offline fixtures do not establish that missing acceptance.
+Verifier/coverage/whitespace, exact source equivalence and locked-suite/CI outcomes recorded on PR.
+Next: publish checked head, stop integration edits, let eligible zero-commit reviewer inspect code/evidence.
+Never self-approve or merge this contributor PR; do not turn a docs sync into repeated live generation.
+
+## Preserved task and merged-main notes (current facts above supersede historical status)
+
 ## Session — Joshua integration lane (2026-10-30 America/Denver)
 User has Mike and Preethi available; asks how to split work and whether to reassign. No assignees changed.
 Mike approved exact #31 cc90d293 and #25 4d41b9a. Merged #31 normally at main 31dc9e4; #7 remains open.
@@ -207,7 +227,130 @@ before building adapters.
 
 ## Preserved prse recovery handoff from main c6e1273
 
+## Preserved merged-main notes
+
+## Session — final live-run guide refinement
+2026-10-30 America/Denver; Codex for Joshua. PR #33, pre-update 408c6cb; merged current main 976d98d (#22).
+Resolved only handoff overlap, retaining both tasks. Runtime/provider/test code remains current main.
+Refined primary safe check to Python stdlib GET /api/status services of the actual running app.
+This avoids checking a second process's configuration or creating a Windows long-path uv environment just for status.
+Source ROOT, inherited precedence, missing-role names and separate process diagnostics remain explained.
+Normal-launch dummy/placeholder check rehearsals and repo checks recorded in PR; no actual credentials/provider calls used.
+Tagged team message already delivered on #3, cross-linked #5/#8, with guide/PR links; update its command to match.
+Guide is documentation only: no extra file/permission gate, no task-budget reset, no A3-03 pass claim.
+Mike/Preethi requested for independent review. Main's #22 merge also retains the authorized Preethi #7 plan entry.
+Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
+
 ## Session
+## Preserved clarification task notes
+
+2026-10-30 America/Denver; Codex for Joshua. Task: shared credential/live-rerun clarification for Mike/everyone.
+Branch codex/a3-live-run-clarification from main 31dc9e4; no application changes or new live generation.
+## Work and decisions
+Read config.py, launcher, status/routes, .env.example and AT-04/R10 requirements; do not assume remote teammates' settings.
+README links a canonical TESTING credentials/live guide; AGENTS points future agents there.
+Guide explains source-root .env + inherited overrides, safe role-only check, checkout/process/worktree differences.
+Clarifies all-four aggregate flags versus vocal text/art/music needs, dummy fixtures, browser-session isolation and real evidence.
+One coordinated bounded tester; valid existing config is sufficient, no extra .env/approval gate; prior task limits still apply.
+Includes normal-launch vocal path, stop/no-duplicate submission, media/browser/listening and exact safe blocker reporting.
+No keys/raw config printed/copied, no provider requests, no budgets/ownership/protection changes in this docs task.
+## Verification
+Cross-checked every supported variable/command against current source and existing config tests.
+Safe command rehearsed with all-placeholder and one dummy configured role; only labels printed, marker absent, no provider calls.
+Repo safeguards/coverage/whitespace pass; runtime/tests/contracts/dependencies unchanged; no new tests for prose-only changes.
+## Remaining
+Primary team message delivered on #3 tagging Mike/Matt/Preethi/Jovi; cross-linked #5/#8.
+Message: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6537867158
+Request eligible independent docs review; attach guide/PR to the delivered message once published. Agents can use the message now.
+Do not claim that configuration or this clarification completes A3-03; current code/review findings and AT-04 still apply.
+No collaborator credentials or successful normal-live evidence was inspected on their machines.
+
+## Preserved prior handoff from main
+
+## Session
+
+
+## Preserved merged integration notes
+
+2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #22.
+## Current facts
+User explicitly added Preethi/prse4479 to #7; confirmed Jovi remains lead, Mike backup (3 assignees).
+Assignment/comment: issue #7 issuecomment-6537704666; retained-file confirmation precedes third-candidate preparation.
+Main is 31dc9e4 after normal #31 merge under Mike's exact-head approval; #7 final selection/ZIP still open.
+#25 is synchronized at 4d724c2, 4/4 CI green, awaiting fresh eligible review after main sync and JPEG filename correction.
+#27 is integrated at bee7209 with 183 tests/4 CI checks PASS; draft/readiness and coordinated browser/listening work remain.
+## This branch
+Merged current main into #22; only handoff conflict resolved, all evidence/loader/prse notes retained.
+Runtime/tests/contracts/dependencies match main. Original historical/failed evidence media and JSON unchanged.
+Safeguards, coverage, whitespace, source-equivalence and final current-head CI/review status recorded on PR.
+## Next work lanes
+Joshua handles integration/returned findings and independent review of Mike/Preethi code.
+Mike finishes current review work, fixes #29 safe parsing and #26 local upload validation; those heads remain unchanged.
+Preethi reviews #25 and can claim third-sample preparation; #5 acceptance uses existing backup coverage with Matt handoff.
+No duplicate live runs; no new generation, assignment beyond authorized #7 addition, or protection changes here.
+Next: eligible current-head review, then normal merge; no self-approval. Submission NOT READY.
+
+## Preserved historical task notes (current facts above supersede older status)
+
+## Session
+## Preserved prior evidence task notes
+
+2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #22, historical recovery audit and integration status.
+## Repository state
+Branch codex/a3-08-recovery-audit; pre-sync 89a28a6; merged main c6e1273 after normal #32 approval/merge.
+## Work and decisions
+Resolved documentation/index/handoff conflicts; preserved evidence and prior notes.
+Clarified #32 hash-prefix/vocal-implementation wording without changing observations; added its independent review credit.
+Runtime source, tests, contracts, dependencies and hooks match current main; no new behavior in this sync.
+Candidate assets and approved manifest unchanged; failed/historical observations retain their original tester and scope.
+## Validation
+Verifier, coverage, whitespace, source-equivalence and exact-head CI recorded on the PR; no new app/live/browser claim.
+## Blockers and current routing
+Own #22/#25/#28/#31 await eligible teammate review; no returned findings on them. Broaden pool beyond Mike/Jovi.
+Mike #26/#29 still need their two requested corrections; #24 needs author sync and fresh approval.
+Matt #27 draft: old retry/exclusivity fixes rechecked separately; real DJ Qwen exhausted 192 tokens with no content.
+Separate bounded diagnosis used 1 text + 1 speech request, no retries/music/art; Chatterbox PCM decode passed.
+Assignments already permit backup work and any zero-commit reviewer; no ownership/protection changes.
+## Next steps
+1. Review this exact head after green CI; merge only via normal protected approval.
+2. Preserve remaining vocal/DJ/reference/sample acceptance gaps; submission NOT READY.
+3. Use current issue handoffs for coordination; final sample selection/ZIP remain with Jovi.
+## References
+PR #22; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
+
+## Preserved prior task notes
+
+## Session
+2026-10-30 America/Denver; Codex for Joshua. Task: new-push/review triage and protected integration.
+## Constraints
+MSpanny = Mike; mase7919/Mase = Matt. Protected reviews/checks; no assignment changes or class calls.
+## Repository state
+#30 merged normally at main 2a19ecf after Mike approved exact 62506de and CI 4/4 passed.
+#22 reconciled with main; pre-handoff 149090c. Historical audit remains, with current correction status linked.
+## Work completed and decisions
+Mike's #30 approval independently reproduced baseline failure/patched success; recorded its review credit.
+Updated PLAN/audit status and preserved #20 ZIP, #22 historical probes, #23 candidate and distinct review records.
+Matt's new #27 74ebc0b adds partial live evidence only; AT-07/09 correctly remain failed/incomplete.
+Posted qualification request: writing status is not successful Qwen/Chatterbox evidence; job accounting and both spoken introductions are unverified.
+#27's 895a616 cleanup remains verified fixed; manual-player/DJ overlap remains open. No additional live run performed.
+## Validation
+#30 approved head: 129 locked tests, verifier 77, coverage 36/11/19; CI 4/4 green before normal merge.
+#22 final checked head: tests/verifier/coverage/whitespace reported in its follow-up comment; app source matches merged main.
+Prior #29 review: 131 tests; arbitrary error metadata + malformed-message findings remain. Prior #27: 151 tests.
+No test servers started this session; no credentials, uploads, generated media or new listening.
+## Blockers and unchecked areas
+#22/#28 await independent review; #24 still needs Mike's main sync/fresh approval; #26/#29 unchanged with requested changes.
+#25 Desert Drive remains a candidate awaiting review; manifest/library incomplete. #3 live acceptance failed; submission NOT READY.
+## Next steps
+1. Eligible teammate reviews current #22; reconcile remaining task branches with current main under normal protection.
+2. Mike fixes #26/#29 and syncs #24; Matt syncs #27, fixes overlap and qualifies incomplete evidence before readiness.
+3. Preserve #8's broader acceptance, #7 sample library and independent final ZIP requirements; no automatic new generation.
+## References
+PRs #22/#24/#25/#26/#27/#28/#29/#30; docs/RECOVERY_AUDIT.md; results/retry-control-fix.json.
+
+
+## Preserved loader integration notes
+
 2026-10-30 America/Denver; Codex for Joshua. Catch-up and current-main reconciliation of PR #31.
 ## Repository state
 Branch codex/a3-07-sample-loader; pre-sync head 49c24ec; new main c6e1273 (normal protected merge of #32).

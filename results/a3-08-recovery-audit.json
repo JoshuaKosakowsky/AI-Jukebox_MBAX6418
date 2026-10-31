@@ -1,0 +1,340 @@
+{
+  "date": "2026-10-29 America/Denver",
+  "tester": "JoshuaKosakowsky directing Codex",
+  "base_sha": "7b9dd2b2702d7280a231cdcbfbd1afad136f3f56",
+  "mode": "Offline MockTransport and real browser; not normal-launch/live class acceptance",
+  "source_integrity": {
+    "unchanged_archived_files": 65,
+    "private_env_loaded": false
+  },
+  "real_provider_requests": 0,
+  "poll_interval_seconds": 0.1,
+  "normal_poll_interval_seconds": 3,
+  "backend": [
+    {
+      "case": "poll_timeout_resume",
+      "result": "PASS",
+      "submissions": 1,
+      "failed_attempts": 2,
+      "counts": {
+        "/v1/images/generations": 1,
+        "/release_task": 1,
+        "/query_result": 3,
+        "/v1/audio": 1
+      },
+      "private_state_cleaned": true
+    },
+    {
+      "case": "download_timeout_resume",
+      "result": "PASS",
+      "submissions": 1,
+      "failed_attempts": 1,
+      "counts": {
+        "/v1/images/generations": 1,
+        "/release_task": 1,
+        "/query_result": 2,
+        "/v1/audio": 2
+      },
+      "private_state_cleaned": true
+    },
+    {
+      "case": "uncertain_submit",
+      "result": "PASS",
+      "resume_status": 409,
+      "rejection_side_effects": false,
+      "submissions_after_explicit_new_request": 2
+    },
+    {
+      "case": "failed_replacements_preserve_assets",
+      "result": "PASS",
+      "invalid_audio_keeps_track": true,
+      "cover_503_keeps_track": true,
+      "explicit_cover_retry_succeeds": true,
+      "audio_still_available": true
+    },
+    {
+      "case": "foreign_download_rejected_before_request",
+      "result": "PASS",
+      "downloads": 0
+    },
+    {
+      "case": "capacity_rejection_then_api_retry",
+      "result": "PASS",
+      "busy_status": 429,
+      "rejection_side_effects": false,
+      "retry_after_capacity_freed": 202
+    },
+    {
+      "case": "session_and_public_file_boundaries",
+      "result": "PASS",
+      "foreign_resume_and_media": 404,
+      "cross_origin_post": 403,
+      "private_files": 404
+    }
+  ],
+  "browser": {
+    "capacity_rejection": {
+      "beforeRelease": {
+        "cards": [
+          {
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": true,
+                "label": "Generating\u00e2\u20ac\u00a6"
+              }
+            ],
+            "title": "OFFLINE busy A"
+          },
+          {
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": true,
+                "label": "Generating\u00e2\u20ac\u00a6"
+              }
+            ],
+            "title": "OFFLINE busy B"
+          },
+          {
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": true,
+                "label": "Generate instrumental"
+              }
+            ],
+            "title": "OFFLINE retry target"
+          }
+        ],
+        "notice": "Music generation is busy. Try again shortly."
+      },
+      "afterReleaseAndRefresh": {
+        "cards": [
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new instrumental"
+              }
+            ],
+            "title": "OFFLINE busy A"
+          },
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new instrumental"
+              }
+            ],
+            "title": "OFFLINE busy B"
+          },
+          {
+            "audio": false,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": true,
+                "label": "Generate instrumental"
+              }
+            ],
+            "title": "OFFLINE retry target"
+          }
+        ],
+        "notice": "Music generation is busy. Try again shortly."
+      },
+      "afterReloadAndExplicitRetry": {
+        "cards": [
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new instrumental"
+              }
+            ],
+            "title": "OFFLINE busy A"
+          },
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new instrumental"
+              }
+            ],
+            "title": "OFFLINE busy B"
+          },
+          {
+            "audio": true,
+            "buttons": [
+              {
+                "disabled": false,
+                "label": "Generate new cover"
+              },
+              {
+                "disabled": false,
+                "label": "Generate new instrumental"
+              }
+            ],
+            "title": "OFFLINE retry target"
+          }
+        ],
+        "notice": "Instrumental requested for OFFLINE retry target."
+      }
+    },
+    "cover_503_recovery": {
+      "before": {
+        "audio": "/api/media/65b0ae47-31ed-46c0-872a-6b1d2f74afca",
+        "cover": "/api/media/48607951-e048-4ab3-9d06-d06f918eae23"
+      },
+      "after503": {
+        "audio": "/api/media/65b0ae47-31ed-46c0-872a-6b1d2f74afca",
+        "buttons": [
+          {
+            "disabled": false,
+            "label": "Retry cover"
+          },
+          {
+            "disabled": false,
+            "label": "Generate new instrumental"
+          }
+        ],
+        "cover": "/api/media/48607951-e048-4ab3-9d06-d06f918eae23",
+        "privateMarkerVisible": false,
+        "statuses": [
+          "The class service is temporarily unavailable.",
+          "Instrumental ready"
+        ]
+      },
+      "afterExplicitRetry": {
+        "audio": "/api/media/65b0ae47-31ed-46c0-872a-6b1d2f74afca",
+        "buttons": [
+          {
+            "disabled": false,
+            "label": "Generate new cover"
+          },
+          {
+            "disabled": false,
+            "label": "Generate new instrumental"
+          }
+        ],
+        "cover": "/api/media/f416a09f-f65b-4755-8b56-45db58f9c38c",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ]
+      }
+    },
+    "poll_timeout_recovery": {
+      "before": {
+        "audio": "/api/media/65b0ae47-31ed-46c0-872a-6b1d2f74afca",
+        "buttons": [
+          {
+            "disabled": false,
+            "label": "Generate new cover"
+          },
+          {
+            "disabled": false,
+            "label": "Generate new instrumental"
+          }
+        ],
+        "cover": "/api/media/f416a09f-f65b-4755-8b56-45db58f9c38c",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ]
+      },
+      "failed": {
+        "audio": "/api/media/65b0ae47-31ed-46c0-872a-6b1d2f74afca",
+        "buttons": [
+          {
+            "disabled": false,
+            "label": "Generate new cover"
+          },
+          {
+            "disabled": false,
+            "label": "Resume check"
+          },
+          {
+            "disabled": false,
+            "label": "Generate new instrumental"
+          }
+        ],
+        "cover": "/api/media/f416a09f-f65b-4755-8b56-45db58f9c38c",
+        "privateMarkerVisible": false,
+        "statuses": [
+          "New matching cover ready",
+          "The class service timed out. Check the existing job before retrying."
+        ]
+      },
+      "recovered": {
+        "audio": "/api/media/05ae2ee8-a776-4031-836f-9b49b5de61e9",
+        "buttons": [
+          {
+            "disabled": false,
+            "label": "Generate new cover"
+          },
+          {
+            "disabled": false,
+            "label": "Generate new instrumental"
+          }
+        ],
+        "cover": "/api/media/f416a09f-f65b-4755-8b56-45db58f9c38c",
+        "notice": "Resumed the previous generation check for OFFLINE retry target. No new music request was submitted.",
+        "statuses": [
+          "New matching cover ready",
+          "Instrumental ready"
+        ]
+      }
+    },
+    "timeout_counter_delta": {
+      "/release_task": 1,
+      "/query_result": 2,
+      "/v1/audio": 1
+    },
+    "console_errors_observed": []
+  },
+  "finding": {
+    "priority": "P2",
+    "summary": "Instrumental retry stays disabled after a 429 even after capacity frees and Refresh status succeeds.",
+    "workaround": "Reload the page, then explicitly retry the affected track.",
+    "application_fix_made": false
+  },
+  "limits": [
+    "Synthetic PNG/WAV fixtures only; no listening or style-match assessment.",
+    "Faults injected through MockTransport outside the normal launcher; not AT-10 live/normal-launch completion.",
+    "No vocals, DJ, voice-reference, sample or release acceptance.",
+    "Existing source and teammate assignments unchanged; #8 remains open."
+  ]
+}
