@@ -15,7 +15,7 @@ from jukebox.app import create_app
 from jukebox.config import Settings
 from jukebox.contracts import MediaRef, Playback, SafeError, SongSettings, Track
 from jukebox.providers import ClassProviders, MediaBytes, MusicPoll, MusicTicket, PROBES, ProviderFailure
-from jukebox.sessions import SESSION_COOKIE, SessionFailure, SessionStore
+from jukebox.sessions import SESSION_COOKIE, SessionFailure, SessionStore, music_prompt, vocal_music_prompt
 
 
 def wav_bytes():
@@ -109,11 +109,11 @@ class MusicStoreTests(unittest.TestCase):
         self.addCleanup(provider.close)
         baseline = json.dumps(PROBES["music"]["request"], sort_keys=True)
         for mode in ("instrumental", "vocal"):
-            for style, mood, duration in (("Slow ambient piano", "Reflective", 20),
-                                           ("Fast drum and bass", "Energetic", 30)):
+            for title, style, mood, duration in (("Iced Coffee", "Heavy Metal", "Angsty", 30),
+                                                 ("Yellow Sundress", "Rap", "Upbeat", 30)):
                 with self.subTest(mode=mode, style=style):
                     lyrics = "Original test lyrics\nAnother original line" if mode == "vocal" else None
-                    item = Track(title="Genre comparison", settings=SongSettings(
+                    item = Track(title=title, settings=SongSettings(
                         style=style, mood=mood, duration_seconds=duration, mode=mode), lyrics=lyrics)
                     self.session.tracks[item.id] = item
                     job = self.store.queue_music(self.session, item.id)
@@ -127,12 +127,26 @@ class MusicStoreTests(unittest.TestCase):
                                     "A genre request must not inherit the slow-piano probe constraints")
                     for value in (style, mood, item.title, "groove", "tempo"):
                         self.assertIn(value, payload["prompt"])
+                    self.assertTrue(payload["prompt"].startswith(style))
+                    self.assertTrue(payload["thinking"], "Sparse genre inputs need music-LM planning")
+                    self.assertTrue(payload["use_cot_caption"], "Enhance the caption within the same music task")
+                    self.assertFalse(payload["use_cot_language"])
                     expected = {k: v for k, v in PROBES["music"]["request"].items()
                                 if k not in {"bpm", "key_scale", "time_signature"}}
                     expected.update(prompt=payload["prompt"], audio_duration=duration,
-                                    lyrics=lyrics if mode == "vocal" else "[Instrumental]")
+                                    lyrics=lyrics if mode == "vocal" else "[Instrumental]",
+                                    thinking=True, use_cot_caption=True)
                     self.assertEqual(payload, expected)
         self.assertEqual(json.dumps(PROBES["music"]["request"], sort_keys=True), baseline)
+
+    def test_music_captions_keep_all_maximum_length_inputs_within_documented_limit(self):
+        item = Track(title="t" * 120, settings=SongSettings(style="s" * 120, mood="m" * 120,
+                                                           duration_seconds=30))
+        for caption in (music_prompt(item), vocal_music_prompt(item)):
+            with self.subTest(caption=caption):
+                self.assertLessEqual(len(caption), 512)
+                for value in (item.title, item.settings.style, item.settings.mood):
+                    self.assertIn(value, caption)
 
     def test_bounded_polling_advances_progress_then_attaches_ready_audio(self):
         item = self.add_track()

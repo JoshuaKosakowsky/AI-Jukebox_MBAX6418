@@ -57,22 +57,21 @@ def cover_prompt(track: Track) -> str:
             "Use an original visual composition, no lettering, logos or copied album artwork.")
 
 
+def _music_caption(track: Track, performance: str) -> str:
+    # ACE-Step consumes an audio caption, not a chat instruction. Genre leads;
+    # retain all three user inputs within its documented 512-character limit.
+    # Duration and lyrics have their own structured fields in the same request.
+    return (f"{track.settings.style}. {performance} Mood: {track.settings.mood}. "
+            f"Theme: {track.title}. "
+            "Genre-led groove, tempo, instruments and production; theme/mood shape dynamics and motifs.")
+
+
 def music_prompt(track: Track) -> str:
-    return ("Compose an original instrumental song; no vocals and no lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Match this style and mood through its characteristic groove, tempo, rhythm and instruments.")
+    return _music_caption(track, "Instrumental; no vocals.")
 
 
 def vocal_music_prompt(track: Track) -> str:
-    return ("Compose an original song with expressive sung vocals that perform the provided lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Match this style and mood through its characteristic groove, tempo, rhythm and instruments.")
+    return _music_caption(track, "Style-matched vocals, supplied lyrics.")
 
 
 def lyrics_prompt(track: Track) -> str:

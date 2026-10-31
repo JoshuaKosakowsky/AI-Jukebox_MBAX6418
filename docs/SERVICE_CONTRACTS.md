@@ -94,18 +94,29 @@ checks. Do not invent an OpenAI /v1/audio/generations request for this deploymen
 
 The frozen probe above describes one slow piano example. Production music
 requests omit its `bpm`, `key_scale` and `time_signature` fields so every style
-is not forced to 80 BPM, C Major and 4/4. The requested duration, supplied lyrics,
-single-output batch, WAV format, eight steps and existing thinking/CoT flags stay
-unchanged. Both instrumental and vocal prompts explicitly request a groove,
-tempo, rhythm and instrumentation characteristic of the selected style/mood.
+is not forced to 80 BPM, C Major and 4/4. Duration, supplied lyrics,
+single-output batch, WAV format and eight turbo steps remain explicit.
+
+Production now sets **`thinking=true`, `use_cot_caption=true`**: ACE-Step's own
+5Hz music LM enhances the sparse style/mood/theme caption and plans semantic
+audio codes before DiT rendering. This replaces the probe's direct-DiT fast path;
+`use_cot_language=false` remains unchanged, and no separate Qwen job is added.
+Both modes use a compact genre-first audio caption, retaining all three full
+120-character user inputs within the documented 512-character caption limit.
+Theme/mood shape dynamics and motifs while genre guides groove, tempo,
+instruments and production. Vocal phrasing follows the style rather than
+universally requiring sung delivery; instrumental lyrics remain `[Instrumental]`.
+There is no genre/BPM lookup table, model switch or fixed seed.
 
 The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
-defaults BPM to null and key/meter to empty. The
+supports both flags and optional BPM/key/meter. The
 [API documentation](https://ace-step.github.io/ACE-Step-1.5/en/API#_4-create-generation-task)
-explains that missing metadata may be inferred by the music service's own 5Hz
-LM even with `thinking=false`; supplied duration still takes precedence. This
-can add planning latency within the existing music task, not a separate Qwen
-request. No model switch, extra submission or automatic retry is introduced.
+describes music-LM caption enhancement/audio-code planning and recommends
+`thinking=true` for quality. Supplied duration takes precedence over inferred
+metadata. The [inference guide](https://ace-step.github.io/ACE-Step-1.5/en/INFERENCE)
+documents the caption limit. Planning can add latency within the existing
+music task and deadline; no extra submission or automatic retry is introduced.
+Supported settings are a hypothesis for better genre fidelity, not proof of it.
 
 On 2026-10-30 the deployed `/openapi.json` still omitted the release-task JSON
 body; its raw SHA-256 was `232eda8eba8b7f1d574a0ccc2c5a9db8023ba27347b64ec60356361bbadb3bf9`.
@@ -116,7 +127,10 @@ then completed two music-only requests and full WAV decodes. Returned metadata
 was 97 BPM in 3/4 for ambient piano and 120 BPM in 4/4 for upbeat funk; these are service
 metadata, not measured audio tempos. Joshua confirmed clearer genre/rhythm
 contrast for those two clips. This is adapter/listening evidence, not a new
-normal-launch/browser acceptance or a guarantee for all genres.
+normal-launch/browser acceptance or a guarantee for all genres. Subsequent user
+app testing on 666d44b found heavy metal and rap unsuitable, Latin only okay,
+and country good. That broader feedback leaves #35 unresolved; the planning
+revision needs separate listening evidence.
 
 ## Speech: Chatterbox V3, port 9008
 

@@ -775,3 +775,32 @@ Raw audio remains ignored under results/raw, not approved sample media.
 This verifies changed-request compatibility and a limited listening comparison;
 normal-launch/browser checking on integrated main and broad genre quality remain
 unchecked. Preethi's #27 test and budget were separate and untouched.
+
+
+### Broader user feedback and planning revision — #35 / PR #37
+
+Joshua tested the normal app running PR head 666d44b and reported:
+
+- **Iced Coffee / Heavy Metal / Angsty**: not metal; sounded like upbeat dungeon
+  music from a video game.
+- **Yellow Sundress / Rap / Upbeat**: sounded like wind-instrument snake-charming
+  music rather than the expected rap.
+- Latin was only okay; country worked well (exact title/mood not recorded).
+
+These are attributed user observations, not automated genre classification.
+Duration and mode for those attempts were not supplied; no missing vocals are
+inferred. The original two-clip endorsement is retained with its narrow scope.
+#35 remains unresolved, and PR #37 was returned to draft while revising.
+
+The revision enables documented ACE-Step caption enhancement and semantic
+planning, replacing generic chat-style prompts with compact genre-first audio
+captions. Theme/mood guide musical motifs/dynamics; vocal delivery follows the
+style instead of always requiring singing. Maximum allowed title/style/mood
+inputs all fit the documented 512-character caption limit without truncation.
+Four Heavy Metal/Rap x instrumental/vocal request cases and two caption-limit
+cases fail before and pass after the change; these verify request wiring, not
+musical quality. Existing duration/lyrics/single-job/batch/probe invariants hold. Full locked
+`python scripts/dev.py --check`: **147 tests PASS**, verifier105 files and
+coverage36 requirements/11 tasks/19 cases PASS; Node and startup checks included.
+
+Live revision comparison and human genre/vibe judgment: **pending**.

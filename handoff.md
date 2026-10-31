@@ -1,5 +1,23 @@
 # Agent handoff
 
+## Session — #35 genre fidelity revision, 2026-10-30 America/Denver
+Codex for Joshua; isolated branch codex/a3-35-genre-fidelity from PR37 head666d44b.
+PR37 returned to draft; new user app feedback means broad genre fidelity remains unresolved.
+Iced Coffee / Heavy Metal / Angsty sounded like upbeat dungeon music; Yellow Sundress / Rap / Upbeat sounded like wind-led snake-charming music.
+Latin only okay, country good; exact other inputs and original duration/mode unavailable.
+Original ambient/funk two-clip endorsement retained with its limited scope.
+Enabled supported ACE-Step thinking + caption enhancement in one music task; no extra Qwen job/retry/model switch.
+Genre-first audio captions retain full style/mood/theme within512 chars; theme/mood shape dynamics/motifs.
+Vocal delivery follows style; original lyrics, duration, batch, WAV and language flag unchanged.
+Shared v1 schema/dependencies/frozen probes/starter prompt/approved samples unchanged.
+Regression: four genre/mode + two max-caption cases red before/green after; focused56 tests PASS.
+Full locked147 tests/verifier105/coverage36-11-19 PASS; no new provider calls yet.
+Bounded2-example live comparison pending; exact chosen30s instrumental cases posted on issue35.
+Keep original user serverPID19826/session98442 on8000 intact, sourced from prior worktree666d44b.
+Do not edit #27/#26/#29 or borrow their generation budget; revision stays within claimed #35.
+Next: full checks, immutable code commit, at most2 music-only jobs/no retries/stop failure, user listening, update same PR37.
+
+
 ## Session — #35 genre controls, 2026-10-30 America/Denver
 Codex for Joshua; branch codex/a3-35-genre-controls from main1faacd0, explicit user claim/assignment #35.
 Claim6539128210 coordinates providers.submit_music and music prompts/tests; no duplicate work on #26/#29/#27.

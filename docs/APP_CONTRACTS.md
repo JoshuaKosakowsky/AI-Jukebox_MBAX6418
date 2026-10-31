@@ -129,6 +129,14 @@ orders). Track status becomes ready only when audio is attached; a music
 failure leaves the prior status, cover and audio untouched and is reported
 through the job's SafeError. Provider tickets and media bytes stay server-side.
 
+Music captions put the selected genre first and use theme/mood to shape musical
+motifs and dynamics. Both modes retain full inputs within ACE-Step's documented
+512-character caption limit. Production enables music-LM caption enhancement and
+semantic planning (`use_cot_caption=true`, `thinking=true`); tempo/key/meter are
+inferred rather than copied from the piano probe. This adds no text-service job,
+retry or public object change. Genre fidelity remains a human listening check;
+see [provider conditioning](SERVICE_CONTRACTS.md#production-genre-conditioning-35).
+
 ## Vocal songs and lyrics (A3-03)
 
 Vocal tracks use the same store/route pattern: /api/tracks accepts
