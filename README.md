@@ -132,6 +132,10 @@ and source archives. Never commit uploads, voice references or third-party media
    music; the set stops cleanly after the final track. Reloading the page
    keeps the queue and position and never regenerates commentary.
 
+Individual song players act independently when the DJ queue is idle. While the
+queue is active or paused, those players are paused or prevented from starting;
+use the Queue & DJ controls until the queue finishes.
+
 Art and music settings are required for those controls; other services may
 remain missing. With art configured but not music, the create button makes a
 song draft with cover only and explains how to enable instrumentals; with

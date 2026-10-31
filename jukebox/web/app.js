@@ -666,7 +666,7 @@ document.addEventListener("play", (event) => {
   if (!el || el.tagName !== "AUDIO" || el === djAudio || !djActive) return;
   el.pause();
   notice.textContent =
-    "The DJ queue is playing — pause or skip it first to hear individual songs.";
+    "The DJ queue controls playback, including while paused. Use Queue & DJ controls until the queue finishes.";
 }, true);
 
 async function djStart() {

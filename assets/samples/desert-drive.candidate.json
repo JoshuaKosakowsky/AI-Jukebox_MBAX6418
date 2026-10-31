@@ -1,0 +1,140 @@
+{
+  "status": "candidate; jovi selection and sample-library/ZIP acceptance pending",
+  "prepared_on": "2026-10-29 America/Denver",
+  "prepared_by": "JoshuaKosakowsky directing Codex",
+  "sample": {
+    "id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+    "title": "Desert Drive",
+    "audio": "assets/samples/desert-drive.wav",
+    "cover": "assets/samples/desert-drive.png",
+    "instrumental": true,
+    "lyrics": null,
+    "generated_at": "2026-10-29",
+    "generation_notes": "Class-generated during normal-launch 2026-10-28 America/Denver acceptance on main 7cc9645: Upbeat funk, Energetic and optimistic, 20 seconds, instrumental. UTC generation date; exact time bounds below. Original retained audio/art reused byte-for-byte; no new generation. Cover has original DESSERT DRIIVE lettering; Jovi selection pending.",
+    "generated_with": {
+      "music": "ACE-Step 1.5 XL Turbo",
+      "cover": "FLUX.2 klein 4B"
+    }
+  },
+  "provenance": {
+    "source_main": "7cc96458fa4c99120380379d46b96592d3a3934e",
+    "original_track_id": "0404a2fd-dcfe-4659-b7ad-218ec52815a6",
+    "settings": {
+      "style": "Upbeat funk",
+      "mood": "Energetic and optimistic",
+      "duration_seconds": 20,
+      "mode": "instrumental"
+    },
+    "submitted_at_utc": "2026-10-29T03:53:47.907Z",
+    "ready_observed_at_utc": "2026-10-29T03:54:27.103Z",
+    "source_record": "results/main-instrumental-acceptance.json",
+    "source_record_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/blob/7b9dd2b2702d7280a231cdcbfbd1afad136f3f56/results/main-instrumental-acceptance.json",
+    "human_listening": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-10-28 America/Denver",
+      "confirmation": "Both play and broadly match",
+      "scope": "Prior direct confirmation of both original clips; Desert Drive was audible, instrumental and broadly matched upbeat funk. No new listening claimed."
+    },
+    "cover_inspection": "Original vivid retro illustration: red convertible, desert road/palms, traveler and warm sunset colors; energetic driving theme. Generated title says DESSERT DRIIVE and smaller lettering is distorted. Original bytes retained; flag for selection rather than silently correct/regenerate.",
+    "request_reconstruction": {
+      "basis": "Reconstructed from frozen provider defaults plus original settings and unchanged production prompts; not a separately captured wire log.",
+      "music": {
+        "prompt": "Compose an original instrumental song; no vocals and no lyrics.\nSong title and theme: Desert Drive\nMusical style: Upbeat funk\nMood: Energetic and optimistic\nApproximate length: 20 seconds.\nCreate a cohesive, playable instrumental piece that matches this style and mood.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": false,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "bpm": 80,
+        "key_scale": "C Major",
+        "time_signature": "4",
+        "audio_format": "wav"
+      },
+      "cover": {
+        "model": "black-forest-labs/FLUX.2-klein-4B",
+        "prompt": "Create original square album cover art for this song.\nSong title and theme: Desert Drive\nMusical style: Upbeat funk\nMood: Energetic and optimistic\nReflect this song's theme, musical style and mood in the imagery and colors. Use an original visual composition, no lettering, logos or copied album artwork.",
+        "n": 1,
+        "size": "512x512",
+        "num_inference_steps": 4,
+        "response_format": "b64_json",
+        "output_format": "png"
+      }
+    }
+  },
+  "validation": {
+    "audio": {
+      "file": "desert-drive.wav",
+      "duration_seconds": 20.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "frames": 960000,
+      "bytes": 3840078,
+      "peak": 0.891266,
+      "rms": 0.176626,
+      "sha256": "6402d2f1b3cb730d9af6f98c2bae0c71596377c116cd2b9af0c6c225c989aa26"
+    },
+    "cover": {
+      "file": "desert-drive.png",
+      "format": "PNG",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 787271,
+      "sha256": "423fe5d2daf1ddb4b4c0270295d1bbafe10627d6456d7da1b92f668efe37c9ab"
+    },
+    "current_full_pcm_decode": {
+      "frames": 960000,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "duration_seconds": 20.0,
+      "pcm_peak": 0.891266,
+      "pcm_rms": 0.176626
+    },
+    "byte_identical_to_original_acceptance_files": true,
+    "new_generation_requests": 0,
+    "current_candidate_browser_playback": {
+      "result": "pass",
+      "mode": "local static asset preview, muted; not app sample library or final ZIP acceptance",
+      "observations": {
+        "decoded": {
+          "coverHeight": 512,
+          "coverWidth": 512,
+          "duration": 20,
+          "error": null,
+          "muted": true,
+          "readyState": 4
+        },
+        "playing": {
+          "error": null,
+          "paused": false,
+          "time": 8.610447
+        },
+        "paused": {
+          "paused": true,
+          "time": 8.6282
+        },
+        "pauseHeld": {
+          "paused": true,
+          "time": 8.6282
+        },
+        "resumed": {
+          "error": null,
+          "paused": false,
+          "time": 13.442612
+        }
+      },
+      "screenshot": "results/desert-candidate-preview.jpg"
+    },
+    "final_manifest_updated": false,
+    "sample_library_integration": "pending",
+    "final_github_zip_check": "pending",
+    "png_full_decode": true,
+    "png_mode": "RGB",
+    "png_metadata": {}
+  }
+}
