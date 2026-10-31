@@ -818,3 +818,34 @@ the initial simultaneous-tab setup was discarded and cover rerun from scratch.
 [actual fixed target card](../results/retry-control-fixed.jpg). No .env,
 class-service requests, user recordings or human listening. These are focused
 offline recovery checks; #8's broader normal-launch acceptance stays open.
+
+
+## A3-05 returned-blocker diagnosis and retry limits - 2026-10-30 America/Denver
+
+Codex for Joshua, diagnostic against Matt's draft c4404dd. Explicit separate
+bounded task: at most one Qwen text + one Chatterbox default-voice request,
+no retries, ACE-Step or FLUX. Existing private class settings stayed server-side.
+The production DJ prompt reached the expected Qwen model but returned no string
+content, finish_reason `length`, and exactly 192 completion tokens (the request
+limit; 105 prompt / 297 total). The text guard correctly rejected it. This pins
+the failure stage for this check, not a sufficient replacement token budget.
+
+Independent speech check with a fixed short original sentence passed: audio/wav,
+PCM format 1, mono, 24 kHz, 16 bit, 95,040 frames / 3.96 s, complete PCM decode.
+No raw text/audio retained. [Safe facts](../results/a3-05-provider-diagnostic.json).
+No additional generation; no normal-launch/browser/human listening acceptance.
+
+Offline actual-function Node probes verify Matt's fixes: stale retry after Pause
+is ignored, permission rejection remains pending until user interrupt, DJ start
+pauses existing manual audio, manual start is blocked during DJ ownership and
+allowed while idle. The committed executable probe fails on old 2cdfe38 at the
+stale-timer check. These are function checks, not browser observations.
+
+The explicit DJ-introduction endpoint omitted the shared speech/job limits.
+Added pre-allocation 429 guards for MAX_ACTIVE_SPEECH and MAX_JOBS. Two HTTP
+regressions fail on the original method and pass with the guards: rejected
+requests change no snapshot or provider counters, recovering capacity allows a
+deliberate request, and the active-speech limit applies across browser sessions.
+Full locked checks: 162 tests PASS (159 prior + 2 HTTP + 1 optional Node probe),
+repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
+Joshua contributes here and cannot supply independent approval. #5 stays open.

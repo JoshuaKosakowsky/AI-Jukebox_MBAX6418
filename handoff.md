@@ -1,5 +1,23 @@
 # Agent handoff
 
+## Session — Joshua returned-blocker support (2026-10-30 America/Denver)
+PR #27, pre-change c4404dd. Matt retains lead and draft/readiness control; Joshua already contributes and cannot approve.
+Bounded diagnostic completed: exactly 1 Qwen + 1 Chatterbox, no retries/music/art or acceptance rerun.
+Qwen matched model but returned no string content, finish_reason length, 192/192 completion tokens; fixed text guard rejected it.
+Independent default speech accepted/fully decoded: PCM16 mono 24 kHz, 3.96 s. No raw text/audio or secrets retained.
+Safe permanent record: results/a3-05-provider-diagnostic.json; posted exact facts to #27.
+Offline actual-function probes verify Matt's stale timer, permission and manual/DJ exclusivity corrections; no browser/listening claim.
+Found/fixed explicit request_dj_speech bypass of MAX_ACTIVE_SPEECH/MAX_JOBS; guarded before allocation with safe 429s.
+Added 2 real-HTTP cap/isolation/no-side-effect regressions and optional executable Node playback probe.
+Baseline checks fail as expected; patched locked suite 162 PASS; verifier/coverage/whitespace and final CI reported in PR.
+No provider payload/model/token-budget or shared schema changes; no additional live requests in this support task.
+Main now c6e1273 after Joshua independently approved/merged evidence-only #32; this branch still needs author main sync.
+Own #22/#25/#28/#31 were synchronized; eligible Matt/prse review requests added to unblock that separate queue.
+Next: Matt corrects the Qwen request against documented deployed contract, preserves complete-output validation, updates stale PR body/handoff.
+Then bounded normal-launch DJ/control/listening acceptance and eligible zero-commit review; #5 and submission NOT READY.
+Coordinate _media_bytes with loader #31 and reference interfaces with #26; do not guess unmerged seams.
+Preserve the older implementation/live-failure entries below as history; newer observations above supersede their pending claims.
+
 ## Session — Joshua integration check (2026-10-30 America/Denver)
 Local recheck of 2f872b4 found one missing djReady stub in the merged #30
 retry probe; corrected only that test fixture, not the DJ implementation.
