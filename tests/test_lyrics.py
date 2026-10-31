@@ -56,6 +56,12 @@ def body(title="Moonlit lake", style="Ambient piano", mood="Reflective", mode="v
 
 
 class VocalHttpTests(unittest.TestCase):
+    def setUp(self):
+        # Generation scenarios own their library fixture, independently of shipped samples.
+        catalog = patch("jukebox.app.load_samples", return_value=())
+        catalog.start()
+        self.addCleanup(catalog.stop)
+
     def test_vocal_request_uses_qwen_lyrics_and_the_real_lyrics_in_acestep_request(self):
         with patch("jukebox.providers.ClassProviders.cover", return_value=png("blue")), \
              patch("jukebox.providers.ClassProviders.lyrics", return_value=LYRICS) as lyrics, \

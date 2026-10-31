@@ -1,23 +1,39 @@
 # Delivery plan - Assignment 3
 
-**Current state:** instrumental generation and matching covers are integrated
-through [PR #18](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/18)
-at main `7cc9645`. Normal-launch browser acceptance passed with two real songs,
-correct covers, playback/pause/resume, generation during playback, reload retention
-and Joshua's listening confirmation. A3-01/02/04 and GitHub setup are complete;
-A3-03 (vocals) and A3-05 (DJ queue) can proceed. A3-08/09 continue alongside them.
-Samples, reference voices, the DJ flow and independent ZIP/release acceptance
-remain pending. Evidence: [main acceptance](results/main-instrumental-acceptance.json)
-and [test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
+**Current state:** runtime/contracts, instrumental generation/playback and matching
+covers are accepted (A3-01/02/04). Mike's vocal implementation (#21) is merged;
+A3-03 stays open for real-class normal-launch vocal/browser/listening acceptance.
+Main `2a19ecf` includes #30's rejected-control correction, #23's Moonlit candidate
+and #20's ZIP-startup evidence. The final sample library remains unfinished.
+Matt leads draft #27 for the A3-05 default DJ queue; Mike leads A3-03
+acceptance and A3-06 reference voices after A3-05 integration. Matt/prse provide
+reciprocal backup coverage for A3-05/08/09; Mike/jovi for A3-03/06/07/10.
+Eligible teammates can review across the pairings provided the reviewer has
+no commits on the PR. #8's three rejected controls are corrected on main; broader
+normal-launch recovery acceptance remains open. #3's live attempt failed; #29's diagnostic follow-up still needs its safe-error review findings addressed.
+Prse retains A3-08 recovery/safeguards and A3-09 documentation; coordinate shared
+frontend edits and any unpublished A3-05 work with Matt. Jovi retains A3-07
+samples and A3-10 independent ZIP/submission. Our #20 ZIP rehearsal and #22
+offline audit are supporting evidence, not final feature/release acceptance.
+Evidence: [main acceptance](results/main-instrumental-acceptance.json) and
+[test results](docs/TEST_RESULTS.md). Full submission remains **NOT READY**.
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
 up to two contributors). Any teammate without commits on a PR may review
 and approve; the approving reviewer or the issue lead merges.
 GitHub issues hold the current assignments; the table reflects the accepted team.
-Contributor slots remain open for the expected six-person team.
+Before editing, claim the specific piece/branch/files on its issue; check existing
+claims and PRs. Backups can claim unclaimed work or continue an explicit handoff,
+without taking over an active claim. On stopping, push the branch and leave the
+commit, completed/remaining checks, blockers and next step; update handoff.md.
+Assignees are coverage, not reserved reviewers; anyone without PR commits may
+review. Keep branches still during review and preserve all required checks.
 
 ## Coverage and ownership
+
+**Names:** `MSpanny` is **Mike**; `mase7919` (Mase) is **Matt**.
+Mike leads A3-03/A3-06; Matt leads A3-05. Live issues remain authoritative.
 
 [acceptance.json](docs/acceptance.json) maps every brief requirement R01-R36 to a
 work item and acceptance case. [ISSUES.md](docs/ISSUES.md) preserves each issue's
@@ -29,14 +45,14 @@ a task or PR closes. Team chooses owners; integration owner: **unassigned**.
 |---|---|---|---|
 | [A3-01](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/1) Startup and service contracts | JoshuaKosakowsky (lead); contributors pending | None | See issue |
 | [A3-02](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/2) Playable instrumental UI flow | mase7919 (lead); contributors unassigned | 01 | See issue |
-| [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | jovi1214 (lead); contributors unassigned | 02 | See issue |
+| [A3-03](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3) Vocal songs and AI lyrics | MSpanny (lead); jovi1214 (contributor / backup) | 02 | See issue |
 | [A3-04](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/4) New matching covers | JoshuaKosakowsky (lead); contributors unassigned | 01 | See issue |
-| [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | prse4479 (lead); contributors unassigned | 02, 04 | See issue |
-| [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | mase7919 (lead); contributors unassigned | 05 | See issue |
-| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); contributors unassigned | 02, 03, 04 | See issue |
-| [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | prse4479 (lead); contributors unassigned | 01; continuous | See issue |
-| [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | prse4479 (lead); contributors unassigned | 01; continuous | See issue |
-| [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | jovi1214 (lead); contributors unassigned | 03, 05-09, GH | See issue |
+| [A3-05](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5) Default DJ queue and controls | mase7919 (lead); prse4479 (contributor / backup) | 02, 04 | See issue |
+| [A3-06](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6) MP3/WAV reference DJ | MSpanny (lead); jovi1214 (contributor / backup) | 05 | See issue |
+| [A3-07](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/7) Three ready sample tracks | jovi1214 (lead); MSpanny (backup); prse4479/Preethi (contributor) | 02, 03, 04 | See issue |
+| [A3-08](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8) Failure recovery and safeguards | prse4479 (lead); mase7919 (contributor / backup) | 01; continuous | See issue |
+| [A3-09](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9) Verified report and evidence | prse4479 (lead); mase7919 (contributor / backup) | 01; continuous | See issue |
+| [A3-10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10) Independent ZIP and submission | jovi1214 (lead); MSpanny (contributor / backup) | 03, 05-09, GH | See issue |
 | [A3-GH](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/11) Public GitHub/protection | Joshua (lead); contributors unassigned | Publication verification | See issue |
 
 ## Demonstrate progress early
