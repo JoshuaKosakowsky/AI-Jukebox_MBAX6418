@@ -17,6 +17,8 @@ MAX_JOBS = 100
 MAX_ACTIVE_COVERS = 2
 MAX_ACTIVE_MUSIC = 2
 MAX_ACTIVE_TEXT = 1
+MAX_ACTIVE_SPEECH = 2
+MAX_QUEUE = MAX_TRACKS
 MAX_MEDIA_BYTES = 64_000_000
 # Reference-voice bounds: temporary uploaded MP3/WAV clips for Chatterbox DJ
 # speech. Kept in session memory only (never disk, snapshot or archives),
@@ -56,6 +58,9 @@ class Session:
     # Server-private ACE-Step submission tickets retained for the job's polls;
     # never exposed to the browser, snapshots or logs.
     tickets: dict[UUID, MusicTicket] = field(default_factory=dict)
+    # Server-private Qwen commentary texts for speech jobs (evidence/internal
+    # use only; never in snapshots, logs or the browser).
+    speech_prompts: dict[UUID, str] = field(default_factory=dict)
     touched: float = field(default_factory=time.monotonic)
 
 
@@ -243,6 +248,29 @@ def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
         if frame_length is not None and index + frame_length <= len(content):
             return
     raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
+def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> str:
+    """Song-specific spoken commentary for Qwen (default ChatGPT-style text).
+
+    The prompt carries the queued song's title, style, mood and vocal mode plus
+    transition context from the previous song; the result is spoken by
+    Chatterbox's default voice. No user content or credentials are included.
+    """
+    if prior is None or position == 0:
+        transition = "This is the first song of the set."
+    elif position == total - 1:
+        transition = f"After {prior.title}, this is our final song."
+    else:
+        transition = f"After {prior.title}, the set continues."
+    mode = "vocal song" if track.settings.mode == "vocal" else "instrumental"
+    return ("You are the jukebox DJ. Write 2-4 short, natural spoken sentences "
+            "that introduce the next song for an automated radio show. Speak as "
+            "a friendly radio DJ. Plain speech only: no stage directions, no "
+            "sound effects, no section headings, no song titles in quotes.\n"
+            f"{transition}\n"
+            f"Song title and theme: {track.title}\n"
+            f"Musical style: {track.settings.style}\n"
+            f"Mood: {track.settings.mood}\n"
+            f"Type: {mode}.")
 
 
 class SessionStore:
@@ -358,6 +386,186 @@ class SessionStore:
             session.active.add((track_id, "text"))
             return job
 
+    # ---- AI DJ queue -------------------------------------------------------
+
+    def queue_playback(self, session, track_id):
+        """Append one playable track to the DJ queue (one entry per track)."""
+        with self.lock:
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            if session.tracks[track_id].audio is None:
+                raise SessionFailure(409, "Add this track to the DJ queue once its audio is ready.")
+            if track_id in session.playback.queue:
+                raise SessionFailure(409, "This track is already in the DJ queue.")
+            if len(session.playback.queue) >= MAX_QUEUE:
+                raise SessionFailure(429, "The DJ queue is full. Remove entries before adding more.")
+            session.playback = Playback.model_validate({**session.playback.model_dump(),
+                                                        "queue": [*session.playback.queue, track_id]})
+            return session.playback
+
+    def _queue_dj_speech(self, session, track_id, prior, position, total):
+        """Create the commentary job for one track, best-effort.
+
+        Silent skips (job already exists, commentary busy, session at its
+        generation limit) keep the set flowing: commentary is an enhancement,
+        never a blocker. The speech attaches to the TRACK itself, so a stale
+        completion of a long-skipped track can never play while another track
+        is current.
+        """
+        with self.lock:
+            track = session.tracks[track_id]
+            if track.speech is not None or (track_id, "speech") in session.active:
+                return None
+            # A previously REQUESTED introduction that FAILED must never be
+            # silently resubmitted by replay, reload, polling or automatic
+            # advancement: the failure is terminal for the session and stays
+            # visible on its job record, music continues best-effort, and the
+            # only retry path is an explicit user action (request_dj_speech).
+            # Otherwise a transient provider failure would re-spend the
+            # Qwen/Chatterbox budget on every replay.
+            latest = next((job for job in reversed(list(session.jobs.values()))
+                           if job.track_id == track_id and job.kind == "speech"), None)
+            if latest is not None and latest.state == JobState.FAILED:
+                return None
+            if self._active_count("speech") >= MAX_ACTIVE_SPEECH or len(session.jobs) >= MAX_JOBS:
+                return None
+            job = GenerationJob(track_id=track_id, kind="speech")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "speech"))
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, total)
+            return job
+
+    def request_dj_speech(self, session, track_id):
+        """Explicit user retry for a failed or absent DJ introduction.
+
+        The only path that creates a NEW speech job after a failure; it is
+        never called automatically (replay/reload/advance all skip via
+        _queue_dj_speech). A track with commentary already attached or with a
+        speech job already in flight rejects the request.
+        """
+        with self.lock:
+            if track_id not in session.tracks:
+                raise SessionFailure(404, "Track not found in this session.")
+            track = session.tracks[track_id]
+            if track.speech is not None:
+                raise SessionFailure(409, "This track already has its DJ introduction.")
+            if (track_id, "speech") in session.active:
+                raise SessionFailure(409, "DJ commentary is already being generated for this track.")
+            if self._active_count("speech") >= MAX_ACTIVE_SPEECH:
+                raise SessionFailure(429, "DJ commentary is busy. Try again shortly.", retryable=True)
+            if len(session.jobs) >= MAX_JOBS:
+                raise SessionFailure(429, "This session has reached its generation limit. Start a new session to continue.")
+            queue = session.playback.queue
+            try:
+                position = queue.index(track_id)
+            except ValueError:
+                position, queue_length = 0, 1
+            else:
+                queue_length = len(queue)
+            prior_id = queue[position - 1] if position > 0 else None
+            prior = session.tracks[prior_id] if prior_id is not None else None
+            job = GenerationJob(track_id=track_id, kind="speech")
+            session.jobs[job.id] = job
+            session.active.add((track_id, "speech"))
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length)
+            return job
+
+    def start_playback(self, session):
+        """Start the queue at its first entry and request its DJ introduction."""
+        with self.lock:
+            if not session.playback.queue:
+                raise SessionFailure(409, "Add songs to the DJ queue before starting.")
+            if session.playback.state != "idle":
+                raise SessionFailure(409, "Playback is already active. Pause it or skip ahead instead.")
+            first = session.playback.queue[0]
+            session.playback = Playback.model_validate({**session.playback.model_dump(), "state": "speaking",
+                                                        "index": 0, "current_track_id": first})
+        job = self._queue_dj_speech(session, first, None, 0, len(session.playback.queue))
+        return session.playback, job
+
+    def advance_playback(self, session):
+        """Advance to the next queue entry (skip or natural end of a song).
+
+        Idle at the end of the queue with the queue kept for another play;
+        otherwise the new current track gets its introduction speech request.
+        A paused advance stays paused.
+        """
+        with self.lock:
+            queue, index = session.playback.queue, session.playback.index
+            if session.playback.state == "idle":
+                raise SessionFailure(409, "Playback is not active.")
+            if index + 1 >= len(queue):
+                session.playback = Playback.model_validate(
+                    {**session.playback.model_dump(), "state": "idle", "index": 0,
+                     "current_track_id": None,
+                     # Advancing from a paused queue past the LAST track must
+                     # clear the paused phase too — the idle state carrying
+                     # paused_from violated the contract (500).
+                     "paused_from": None})
+                return session.playback, None
+            previous = session.tracks[queue[index]]
+            next_id = queue[index + 1]
+            was_paused = session.playback.state == "paused"
+            session.playback = Playback.model_validate(
+                {**session.playback.model_dump(),
+                 "state": "paused" if was_paused else "speaking",
+                 "index": index + 1, "current_track_id": next_id,
+                 # A paused advance stays paused on the NEW track, and the
+                 # phase it would resume in is ALWAYS "speaking": the new
+                 # track's DJ introduction comes before its music, even if
+                 # the user paused during the PREVIOUS track's music.
+                 # Preserving the old track's phase here made Resume land in
+                 # "playing" and silently bypass the new track's
+                 # introduction. The paused state MUST carry paused_from
+                 # (contract validator).
+                 "paused_from": "speaking" if was_paused else None})
+        job = self._queue_dj_speech(session, next_id, previous, index + 1, len(session.playback.queue))
+        return session.playback, job
+
+    def set_phase(self, session, phase, track_id=None):
+        """Record the transition speech -> music (or back) made by the player.
+
+        The optional track_id makes the transition STALE-SAFE: a phase
+        recorded for a track the user has already skipped past (an automatic
+        speech-ended response arriving AFTER a Skip changed the current
+        track) is rejected with 409 instead of silently flipping the NEW
+        track's phase — otherwise a skipped track's speech phase could be
+        consumed by the wrong track and the introduction would never play.
+        """
+        if phase not in ("speaking", "playing"):
+            raise SessionFailure(422, "Playback phase must be speaking or playing.")
+        with self.lock:
+            if session.playback.state not in ("speaking", "playing"):
+                raise SessionFailure(409, "No active playback to transition.")
+            if track_id is not None and session.playback.current_track_id != track_id:
+                raise SessionFailure(409, "The current track changed while playback was transitioning. Refresh and continue.")
+            session.playback = Playback.model_validate({**session.playback.model_dump(), "state": phase})
+            return session.playback
+
+    def pause_playback(self, session, phase, track_id=None):
+        if phase not in ("speaking", "playing"):
+            raise SessionFailure(422, "Paused playback must record its phase as speaking or playing.")
+        with self.lock:
+            if session.playback.state not in ("speaking", "playing"):
+                raise SessionFailure(409, "Playback is not active.")
+            # The pause raced an automatic advance: the claimed phase belongs
+            # to the OLD track. Preserve the pause intent (the user pressed
+            # Pause) but record the phase that is true for the CURRENT track,
+            # so Resume cannot resume the wrong phase of the new track.
+            if track_id is not None and session.playback.current_track_id != track_id:
+                phase = session.playback.state
+            session.playback = Playback.model_validate(
+                {**session.playback.model_dump(), "state": "paused", "paused_from": phase})
+            return session.playback
+
+    def resume_playback(self, session):
+        with self.lock:
+            if session.playback.state != "paused":
+                raise SessionFailure(409, "Playback is not paused.")
+            session.playback = Playback.model_validate(
+                {**session.playback.model_dump(), "state": session.playback.paused_from, "paused_from": None})
+            return session.playback
+
     def resume_music(self, session, failed_job_id, track_id):
         """Continue polling/downloading an existing submitted task without creating a new one.
 
@@ -451,6 +659,60 @@ class SessionStore:
         finally:
             with self.lock:
                 session.active.discard((job.track_id, "text"))
+                session.touched = time.monotonic()
+
+    def generate_dj_speech(self, session, job_id, providers):
+        """One deliberate Qwen commentary -> Chatterbox default-voice speech.
+
+        The spoken intro attaches to its OWN track (track.speech), so a job
+        that completes after the user has skipped elsewhere can never play out
+        of turn: the browser only plays the CURRENT track's speech. A failure
+        is recorded on the job and the set continues without commentary.
+        """
+        with self.lock:
+            job = session.jobs[job_id]
+            job = job.transition(JobState.RUNNING, progress=.3)
+            session.jobs[job_id] = job
+            track = session.tracks[job.track_id]
+            prompt = session.speech_prompts.get(job_id, "")
+        try:
+            if not prompt:
+                raise ProviderFailure(SafeError(
+                    code="generation_failed",
+                    message="DJ commentary could not be started. The song plays without an introduction.",
+                    retryable=False))
+            # DJ speech needs the final introduction within the small output
+            # budget, rather than spending that budget on model reasoning.
+            text = providers.text(prompt, thinking=False)
+            if not text.strip():
+                raise ProviderFailure(SafeError(
+                    code="generation_failed",
+                    message="DJ commentary came back empty. The song plays without an introduction.",
+                    retryable=False))
+            audio = providers.speech(text)
+            with self.lock:
+                used = self._media_bytes()
+                if used + len(audio.content) > MAX_MEDIA_BYTES:
+                    raise ProviderFailure(SafeError(
+                        code="generation_failed", message="Session media capacity reached. The song plays without an introduction."))
+                identifier = uuid4()
+                reference = MediaRef(id=identifier, url=f"/api/media/{identifier}", content_type=audio.content_type)
+                current = session.tracks[job.track_id]
+                updated = Track.model_validate({**current.model_dump(), "speech": reference})
+                session.media[identifier] = audio
+                session.tracks[current.id] = updated
+                session.jobs[job.id] = job.transition(JobState.SUCCEEDED)
+                session.speech_prompts.pop(job_id, None)
+        except Exception as exc:
+            error = exc.error if isinstance(exc, ProviderFailure) else SafeError(
+                code="internal_error",
+                message="DJ commentary could not be generated. The song plays without an introduction.",
+                retryable=True)
+            with self.lock:
+                session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
+        finally:
+            with self.lock:
+                session.active.discard((job.track_id, "speech"))
                 session.touched = time.monotonic()
 
     def generate_music(self, session, job_id, providers, resume_from=None):

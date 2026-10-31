@@ -1,0 +1,85 @@
+{
+  "record": "A3-05 live acceptance — two authorized runs (both FAIL; acceptance NOT claimed)",
+  "date_utc": "2026-10-30",
+  "runs": [
+    {
+      "run": 1,
+      "record_original": {
+        "commit_tested": "895a61677d607f347e713636a449e16f2b817499 (draft PR #27)",
+        "environment": "normal launcher: scripts/dev.py --port 8000, locked venv; real class services at dobolyi.com:9001/9006/9007/9008; server-side .env only (keys never exposed)",
+        "generation_observed_live": {
+          "art": "2 covers created via normal UI (both rendered on cards)",
+          "music": "2 ACE-Step instrumentals created via normal UI (both played through the DJ player)",
+          "text": "2 Qwen writing phases observed in the UI",
+          "speech": "2 Chatterbox speech jobs entered at each transition; audible verification pending"
+        },
+        "playback_observed": {
+          "sequence": "writing(C) -> playing(C) [~13.6 s] -> writing(H) -> playing(H) [~13.6 s] -> idle",
+          "automatic_advance": true,
+          "single_audio_element_no_overlap": true,
+          "distinct_media_sources": 3
+        },
+        "inconclusive_or_not_covered": [
+          "DJ speaking phase never sampled; controls/replay/reload not executed; exact accounting obstructed by a stale session cookie in the harness; no screenshots; human listening PENDING"
+        ],
+        "at07": "FAIL (incomplete evidence)",
+        "at09": "FAIL (incomplete evidence)",
+        "authorization_limits_respected": true
+      },
+      "retrospective_note": "Run 2's live evidence (speech jobs completed but track.speech never attached; no introduction audio in either pass) strongly indicates Run 1 exhibited the SAME underlying defect — its '3 distinct media sources' and absent speaking-phase samples are consistent with the speech job failing server-side in both runs. The Run 1 claim that 'speech media refs created' was not independently confirmed and is now superseded: the introductions never attached in either run."
+    },
+    {
+      "run": 2,
+      "date_utc": "2026-10-30",
+      "commit_tested": "f3a565d9eeb21b7310a210005b8e78e14d4d2437 (draft PR #27, Stage-1 exclusivity fix included)",
+      "environment": "normal launcher: scripts/dev.py --port 8000, locked venv; real class services; corrected driver (page-context session reads, track-ID identity checks, audio event instrumentation, 150ms sampler)",
+      "prerequisites": {
+        "main_at_start": "2a19ecf (unchanged)",
+        "ci": "4/4 green on f3a565d",
+        "real_config": "all four services live-probed HTTP 200, keys server-side only",
+        "readiness_check": "PASS (no generation)",
+        "session_instrumentation": "working through the page context"
+      },
+      "tracks": [
+        {"title": "Solar Tide", "style": "Ambient guitar", "mood": "Golden and open", "duration_s": 12},
+        {"title": "Twilight Harbor", "style": "Warm piano", "mood": "Gentle and calm", "duration_s": 12}
+      ],
+      "confirmed_live": [
+        "Both tracks generated through the normal UI with REAL ACE-Step audio (2,304,078 bytes each) and REAL FLUX covers (787,271 bytes each); all 4 creation jobs SUCCEEDED",
+        "Both covers and both songs serve real media through the app's own media route",
+        "Queue playback: writing phase -> music for both tracks, automatic advancement, clean end, no overlap, single audio element",
+        "DJ speaking phase: exactly ONE 150ms sample observed (the brief window before the speech job failed and music started)",
+        "Music-only playback is fully sequential (event-level loadstart/playing/ended per song, 12s each)"
+      ],
+      "defect_found": {
+        "id": "A3-05-live-speech-attachment",
+        "observation": "Both speech jobs entered and the job list shows 2 speech entries after pass 1, BUT track.speech stayed None for BOTH tracks; the DJ introduction never played; events show only the two music sources; replay RE-CREATED the speech jobs (2 -> 4), i.e. the failed attachment bypassed the commentary cache and triggered extra Qwen+Chatterbox submissions",
+        "mechanism": "The speech job path (sessions.generate_dj_speech) failed before attaching the speech MediaRef - most plausibly at the real-provider adapter boundary (Qwen text validation or Chatterbox WAV validation in providers._wav). The engine then correctly fell back to music-only (best-effort design), but the controller's replay path treats a missing track.speech as 'generate the introduction', which is correct for a first failure and wrong under a persistent adapter failure (it re-submits on every replay)",
+        "exact_adapter_cause": "NOT DETERMINED - the server swallows provider errors into the job record and the session cookie was not preserved for post-run forensics; pinning it needs one diagnostic Qwen+Chatterbox adapter call, which is NOT authorized by the current budget",
+        "first_run_correlation": "Strongly consistent with Run 1's missing speaking phases and 3-of-4 media sources"
+      },
+      "request_accounting": {
+        "authorized": {"FLUX": 2, "ACE-Step": 2, "Qwen": 2, "Chatterbox": 2, "total": 8},
+        "observed": {
+          "FLUX": 2,
+          "ACE-Step": 2,
+          "Qwen": 4,
+          "Chatterbox": 4,
+          "total": 12
+        },
+        "budget_status": "EXCEEDED for Qwen/Chatterbox (4 each vs 2 authorized): the pass used 2+2 intended; the replay control test - authorized as a no-additional-generation pass - triggered 2+2 MORE because the speech-attachment failure voided the commentary cache. No retry was performed; the run aborted at the first control step after this was detected. This is reported as a defect consequence, not an authorized increase."
+      },
+      "control_tests": "NOT completed - the driver aborted after detecting the speech-attachment failure (pause/resume/skip/reload/exclusivity passes were not run on this session)",
+      "at07": "FAIL - real Qwen/Chatterbox end-to-end introduces broken: no speech media attached, no introduction audible; default-voice behavior unverifiable in this state",
+      "at09": "FAIL (partial) - music-only sequencing, auto-advance, single-element no-overlap verified; speech-phase controls and reload/exclusivity paths not acceptance-verifiable while introductions never attach",
+      "human_listening": "PENDING - no speech audio exists to listen to",
+      "screenshots": "not captured (driver aborted at the first control step)",
+      "action_taken": "Stopped. No retry, no further generation, no code changes during the run. Server stopped, evidence recorded."
+    }
+  ],
+  "defect_correction_proposal": [
+    "1. Diagnostic (one Qwen + one Chatterbox adapter call, separate authorization): capture the exact failure (finish_reason / model echo / WAV header|frames / content-type) at the providers.text or providers.speech boundary and fix the adapter validation to accept the REAL service contract.",
+    "2. Replay/cache guard: the controller should not re-submit commentary on replay for a track whose speech job already FAILED (distinguish 'never requested' from 'requested and failed') - prevents the budget-amplifying regeneration; regression-tested.",
+    "3. Verify the fixed flow with one more bounded live run (fresh 2+2+2+2 authorization), including the control matrix and listening."
+  ]
+}

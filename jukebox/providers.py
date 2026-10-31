@@ -120,20 +120,59 @@ class ClassProviders:
     def _payload(self, role):
         return deepcopy(PROBES[role]["request"])
 
-    def text(self, prompt: str) -> str:
-        if not prompt.strip():
-            raise ValueError("Text prompt is required")
+    _KNOWN_FINISH = ("stop", "length", "content_filter", "tool_calls")
+
+    def _chat(self, prompt: str, max_tokens: int | None, kind: str, *, thinking: bool | None = None) -> str:
+        """Shared Qwen chat call whose failure messages name the exact guard.
+
+        The SafeError that reaches the UI and the public session snapshot is
+        built from FIXED text only: the locally known expected model id and a
+        small set of known finish labels (stop/length/content_filter/
+        tool_calls) may appear; a returned model id or any other provider
+        value is NEVER echoed (an arbitrary string is a potential marker
+        leak, a bounded length does not make it safe). Distinct fixed labels
+        still let a bounded live run distinguish an unexpected model, an
+        empty (reasoning-only) completion, or a truncated (non-stop)
+        completion. Omitted thinking preserves the frozen probe payload.
+        """
         payload = self._payload("text")
         payload["messages"] = [{"role": "user", "content": prompt}]
+        if max_tokens is not None:
+            payload["max_completion_tokens"] = max_tokens
+        if thinking is not None:
+            payload["chat_template_kwargs"] = {"enable_thinking": thinking}
         data = self._json("text", PROBES["text"]["path"], payload)
         try:
             choice = data["choices"][0]
-            result = choice["message"]["content"]
-            if data.get("model") != PROBES["text"]["request"]["model"] or not isinstance(result, str) or not result.strip() or choice.get("finish_reason") != "stop":
-                raise ValueError()
-            return result
-        except (KeyError, IndexError, TypeError, ValueError):
-            fail("invalid_response", "The text service returned no complete text.")
+            model = data.get("model")
+            expected = PROBES["text"]["request"]["model"]
+            if model != expected:
+                # FIXED message: the returned model id is never echoed (any
+                # arbitrary string from the service, however short, is a
+                # potential marker leak); only the locally known expected id
+                # may appear.
+                fail("invalid_response", f"The text service returned an unexpected model instead of {expected!r}.")
+            message = choice["message"]
+            if not isinstance(message, dict):
+                fail("invalid_response", f"The text service returned no {kind} content.")
+            content = message.get("content")
+            finish = choice.get("finish_reason")
+            if not isinstance(content, str) or not content.strip():
+                detail = f" (finish_reason={finish!r})" if isinstance(finish, str) and finish in self._KNOWN_FINISH else ""
+                fail("invalid_response", f"The text service returned no {kind} content{detail}.")
+            if finish != "stop":
+                detail = f"finish_reason {finish!r}" if isinstance(finish, str) and finish in self._KNOWN_FINISH else "an unexpected finish reason"
+                fail("invalid_response", f"The text service ended the {kind} with {detail} instead of 'stop'.")
+            assert isinstance(content, str)  # guarded above: non-empty string
+            return content
+        except (AttributeError, KeyError, IndexError, TypeError, ValueError):
+            fail("invalid_response", f"The text service returned an invalid {kind} response.")
+
+    def text(self, prompt: str, *, thinking: bool | None = None) -> str:
+        """Return final text; omitted thinking preserves the frozen probe request."""
+        if not prompt.strip():
+            raise ValueError("Text prompt is required")
+        return self._chat(prompt, None, "text", thinking=thinking)
 
     def lyrics(self, prompt: str) -> str:
         """Song lyrics from Qwen; same endpoint/model as text() with a token
@@ -142,18 +181,7 @@ class ClassProviders:
         live evidence (A3-03 acceptance), not a guessed payload."""
         if not prompt.strip():
             raise ValueError("Lyrics prompt is required")
-        payload = self._payload("text")
-        payload["messages"] = [{"role": "user", "content": prompt}]
-        payload["max_completion_tokens"] = 512
-        data = self._json("text", PROBES["text"]["path"], payload)
-        try:
-            choice = data["choices"][0]
-            result = choice["message"]["content"]
-            if data.get("model") != PROBES["text"]["request"]["model"] or not isinstance(result, str) or not result.strip() or choice.get("finish_reason") != "stop":
-                raise ValueError()
-            return result
-        except (KeyError, IndexError, TypeError, ValueError):
-            fail("invalid_response", "The text service returned no complete lyrics.")
+        return self._chat(prompt, 512, "lyrics")
 
     def cover(self, prompt: str) -> MediaBytes:
         if not prompt.strip():

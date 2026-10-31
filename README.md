@@ -124,6 +124,17 @@ and source archives. Never commit uploads, voice references or third-party media
    media reference changes. If the class service reports the music task
    itself failed, it is not endlessly resumable — Generate new instrumental
    is the only way forward.
+5. Add playable songs to the **Queue & DJ** panel and press **Play queue**: Qwen
+   writes a short spoken introduction for each queued song, Chatterbox speaks
+   it with its default voice, and the music follows automatically — speech and
+   music never overlap because one persistent player element drives the whole
+   timeline sequentially. Pause, Resume and Skip work during speech AND during
+   music; the set stops cleanly after the final track. Reloading the page
+   keeps the queue and position and never regenerates commentary.
+
+Individual song players act independently when the DJ queue is idle. While the
+queue is active or paused, those players are paused or prevented from starting;
+use the Queue & DJ controls until the queue finishes.
 
 Art and music settings are required for those controls; other services may
 remain missing. With art configured but not music, the create button makes a
@@ -185,8 +196,12 @@ requested styles. See [inputs/results](results/main-instrumental-acceptance.json
 
 ![Two real generated songs on merged main](results/main-instrumental-library.jpg)
 
-This completes the instrumental/library and cover-pairing milestone. Vocals, the
-AI DJ queue, reference voices, approved samples and ZIP/release acceptance remain.
+This completes the instrumental/library and cover-pairing milestone. The
+A3-05 default AI DJ queue is implemented and offline-verified in a real
+browser against fixture providers (sequencing, skip/pause in both phases,
+reload without regeneration); real Qwen/Chatterbox live acceptance is still
+pending. Vocals, reference voices, approved samples and ZIP/release
+acceptance remain.
 
 ## Failure and recovery - observed results (2026-10-30)
 
@@ -264,10 +279,9 @@ The required aggregate check remains named test. These checks do not establish
 full feature or release acceptance. Repository-only Git checks require a checkout;
 the normal app also launches from source without .git.
 
-The next feature task A3-05 implements the single playback controller and real
-speech/music sequencing (A3-06 adds MP3/WAV reference voices on top of it).
-Review [app contracts](docs/APP_CONTRACTS.md) before
-building dependent work.
+The A3-05 playback controller and speech/music sequencing are implemented on
+`codex/a3-05-dj-queue` (offline-verified; live acceptance pending),
+with A3-06 adding MP3/WAV reference voices on top of it.
 
 ## Project guides and delivery
 
@@ -278,17 +292,19 @@ building dependent work.
 - [GitHub/protection](docs/GITHUB_SETUP.md), [completion record](docs/CONTRIBUTIONS.md).
 
 Final delivery needs custom instrumental/vocal songs and AI lyrics, new matching
-covers, a session library, track-specific spoken DJ commentary with default and
-MP3/WAV reference voices, play/pause/skip and automatic sequencing without overlap.
+covers, a session library, spoken DJ commentary with the default voice (the
+A3-05 queue is implemented; live class acceptance pending) and, later, MP3/WAV
+reference voices, with play/pause/skip and automatic sequencing without overlap.
 It also needs three actual class-generated samples with provenance, progress/error
 recovery, evidence/design findings and an independent exact-GitHub-ZIP installation.
 See the complete brief; this paragraph does not replace it.
 
 **Submission NOT READY.** Instrumental generation/playback and matching covers
-have passed acceptance. Vocals, DJ sequencing, reference uploads, samples and
-independent deployment remain incomplete. Freeze a merged main SHA, download
-that GitHub ZIP and follow docs/TESTING.md with a different teammate. Submit the public repo URL,
-that commit and that same ZIP on Canvas; keep it public through grading.
+have passed acceptance. Vocals, live-class DJ sequencing acceptance, reference
+uploads, samples and independent deployment remain incomplete. Freeze a merged
+main SHA, download that GitHub ZIP and follow docs/TESTING.md with a different
+teammate. Submit the public repo URL, that commit and that same ZIP on Canvas;
+keep it public through grading.
 
 Adapted from [Assignment 2](https://github.com/JoshuaKosakowsky/Course-Assistant_MBAX6418)
 at 1a19c33ab9929dd2796ac7a5ea53247602a0cd32; its RAG stack is not assumed here.
