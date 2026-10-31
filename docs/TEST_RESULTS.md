@@ -723,7 +723,7 @@ the identical song — cover and music jobs both succeeded and the track played.
 
 Decoded media (from the app's own /api/media in the browser session): 5 unique
 512x512 PNG covers and 5 unique 60.0 s 48 kHz stereo WAV files (distinct
-sha256 each; full hashes in the record). Byte counts are identical only because
+sha256 prefixes each; stored prefixes in the record). Byte counts are identical only because
 durations are identical.
 
 [Safe structured record](../results/a3-08-normal-launch-recovery.json),
