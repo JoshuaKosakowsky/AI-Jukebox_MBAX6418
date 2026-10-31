@@ -1,6 +1,48 @@
 # Agent handoff
 
+## Session — final live-run guide refinement
+2026-10-30 America/Denver; Codex for Joshua. PR #33, pre-update 408c6cb; merged current main 976d98d (#22).
+Resolved only handoff overlap, retaining both tasks. Runtime/provider/test code remains current main.
+Refined primary safe check to Python stdlib GET /api/status services of the actual running app.
+This avoids checking a second process's configuration or creating a Windows long-path uv environment just for status.
+Source ROOT, inherited precedence, missing-role names and separate process diagnostics remain explained.
+Normal-launch dummy/placeholder check rehearsals and repo checks recorded in PR; no actual credentials/provider calls used.
+Tagged team message already delivered on #3, cross-linked #5/#8, with guide/PR links; update its command to match.
+Guide is documentation only: no extra file/permission gate, no task-budget reset, no A3-03 pass claim.
+Mike/Preethi requested for independent review. Main's #22 merge also retains the authorized Preethi #7 plan entry.
+Next: publish final guide/head, finalize message and check CI; no self-approval or direct-main push.
+
 ## Session
+## Preserved clarification task notes
+
+2026-10-30 America/Denver; Codex for Joshua. Task: shared credential/live-rerun clarification for Mike/everyone.
+Branch codex/a3-live-run-clarification from main 31dc9e4; no application changes or new live generation.
+## Work and decisions
+Read config.py, launcher, status/routes, .env.example and AT-04/R10 requirements; do not assume remote teammates' settings.
+README links a canonical TESTING credentials/live guide; AGENTS points future agents there.
+Guide explains source-root .env + inherited overrides, safe role-only check, checkout/process/worktree differences.
+Clarifies all-four aggregate flags versus vocal text/art/music needs, dummy fixtures, browser-session isolation and real evidence.
+One coordinated bounded tester; valid existing config is sufficient, no extra .env/approval gate; prior task limits still apply.
+Includes normal-launch vocal path, stop/no-duplicate submission, media/browser/listening and exact safe blocker reporting.
+No keys/raw config printed/copied, no provider requests, no budgets/ownership/protection changes in this docs task.
+## Verification
+Cross-checked every supported variable/command against current source and existing config tests.
+Safe command rehearsed with all-placeholder and one dummy configured role; only labels printed, marker absent, no provider calls.
+Repo safeguards/coverage/whitespace pass; runtime/tests/contracts/dependencies unchanged; no new tests for prose-only changes.
+## Remaining
+Primary team message delivered on #3 tagging Mike/Matt/Preethi/Jovi; cross-linked #5/#8.
+Message: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6537867158
+Request eligible independent docs review; attach guide/PR to the delivered message once published. Agents can use the message now.
+Do not claim that configuration or this clarification completes A3-03; current code/review findings and AT-04 still apply.
+No collaborator credentials or successful normal-live evidence was inspected on their machines.
+
+## Preserved prior handoff from main
+
+## Session
+
+
+## Preserved merged integration notes
+
 2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #22.
 ## Current facts
 User explicitly added Preethi/prse4479 to #7; confirmed Jovi remains lead, Mike backup (3 assignees).

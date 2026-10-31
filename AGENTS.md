@@ -24,6 +24,10 @@ Follow direct user instructions first. This guide applies throughout the repo.
   PR may review/approve/request changes, and the approving reviewer or the lead merges.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.
+- For “.env-backed live rerun” or missing-key questions, use
+  [credentials and live acceptance](docs/TESTING.md#credentials-and-live-acceptance).
+  Check the intended checkout/process safely; distinguish configured settings
+  from successful real-feature evidence. A literal `.env` file is not required.
 - No user uploads or voice references in Git/archives; no bundled third-party
   music, lyrics, art or voice samples. Required class-generated samples must ship.
 - Use the four required class services in docs/ASSIGNMENT.md. No paid features

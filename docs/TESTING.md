@@ -37,6 +37,118 @@ live feature acceptance; browser playback, reference voices and the independent
 ZIP still require their specific cases. Rerun passing checks for relevant changes
 or open risk rather than generating media repeatedly.
 
+## Credentials and live acceptance
+
+A “.env-backed live rerun” means verifying the assigned workflow against the real
+class services using private server configuration. A literal `.env` file is not
+an A3-03 / AT-04 acceptance requirement. This app supports the repo-root `.env`
+and inherited environment variables; it does not fetch a secrets manager itself.
+An external secret tool works only if it supplies the supported variables to the
+same app process. Existing valid configuration can be used without creating a
+second credential file or asking for the keys again.
+
+### Check configuration without making provider requests
+
+Work in the intended A3 checkout/extraction, containing `jukebox/`,
+`pyproject.toml` and `scripts/dev.py`. Identify its branch/commit where Git is
+available. The chat's working folder or a different Assignment folder may not
+be that checkout. Each clone/worktree has its own ignored files: Git pull does
+not transfer `.env`, and a private file on one teammate's machine does not
+configure another machine.
+
+`jukebox/config.py` loads `.env` relative to the application source root, not
+the terminal's current directory. It then overlays the process environment;
+environment values win, including empty/example values that mask a valid file.
+The supported names are:
+
+| Role | Endpoint variable | Key variable |
+|---|---|---|
+| Text / lyrics | `JUKEBOX_TEXT_ENDPOINT` | `JUKEBOX_TEXT_API_KEY` |
+| Cover art | `JUKEBOX_ART_ENDPOINT` | `JUKEBOX_ART_API_KEY` |
+| Music | `JUKEBOX_MUSIC_ENDPOINT` | `JUKEBOX_MUSIC_API_KEY` |
+| DJ speech | `JUKEBOX_SPEECH_ENDPOINT` | `JUKEBOX_SPEECH_API_KEY` |
+
+For an already running app, inspect Service setup or use this Python-standard-
+library check against its **actual local port** (replace 8000 if necessary):
+
+```powershell
+python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/status', timeout=5))['services'])"
+```
+
+This prints only configured/missing role labels loaded by that running server;
+it makes no provider calls and needs no separate uv environment/package install.
+Do not replace it with an environment dump, `.env` contents, keys, auth headers
+or raw configuration objects. Inspect the source-root file's existence and
+inherited variable presence without printing their values. In a diagnostic using
+the project's locked Python, `Settings.load().public_status()` is also safe, but
+it describes **that new process**, which may have different settings from the
+running app. `Settings.load(None, {})` deliberately means no file and no inherited
+variables; it is an offline fixture, not a check of real credentials.
+
+Use the normal `python scripts/dev.py --port 8000` launcher in the intended
+checkout. It selects a short environment path on Windows; don't create a second
+long-path .venv just to check status. An already running server may have started
+from another checkout or terminal. After configuration/code changes, restart the
+intended server; Refresh status does not reload settings. Restart clears generated
+session data, so preserve needed evidence first. A parent terminal's variables do
+not automatically reach a process started elsewhere or earlier. Importing config
+in an agent's different checkout does not inspect the running server's environment.
+
+For missing roles, reuse the authorized existing local private configuration,
+or obtain the class settings through the approved private class/team channel.
+Copy `.env.example` only when `.env` is absent; never overwrite valid settings.
+Check inherited placeholders and the documented endpoint/port allowlist before
+concluding that the key is missing. A diagnostic harness may explicitly load
+an existing private file with `Settings.load(path)`; that harness alone is not
+normal-launch/browser acceptance. Do not invent an unsupported launcher flag.
+
+### Configured is different from verified
+
+- `services` and the role-specific availability flags mean settings were loaded,
+  not that authentication, connectivity or generation succeeded. Startup and
+  Refresh status do not call providers. The aggregate `configured` requires all
+  four roles; legacy `generation_available=false` is not the per-feature gate.
+- A3-03's normal vocal-create flow needs **text, art and music**. Missing DJ speech
+  settings alone do not block that flow. DJ testing separately needs text/speech
+  and playable tracks. Bundled sample playback needs no provider credentials.
+- A models-list HTTP 200, an open UI, offline/MockTransport tests, CI success or
+  a standalone adapter call does not establish a completed live browser feature.
+- Read existing evidence in the **same browser session** before submitting again.
+  A fresh HTTP client or another browser profile has a different library; its
+  empty `/api/session` response does not show that the original run made no calls.
+  Do not print or post session cookies to investigate that difference.
+
+### Complete the assigned A3-03 check
+
+First check the current issue/PR findings and existing run evidence. Available
+credentials do not resolve a parser defect or turn a failed run into a pass.
+Coordinate one tester, exact checkout/head, inputs and finite request budget in
+#3; other agents may check their configuration without all starting new runs.
+Use the already authorized task scope; this terminology is not an extra file or
+approval gate. Prior explicit stop/budget limits still apply.
+
+For a single normal-browser vocal-create attempt, plan at most one Qwen lyrics
+request, one ACE-Step music submission and its one automatic FLUX cover. Polling
+and downloading the same confirmed music task are different from submitting a
+new task. Stop on failure or uncertain submission and record the safe stage/error;
+do not repeatedly click Generate. Fix/review the cause before a separately scoped
+retry. Never remove model/completeness checks just to obtain a success label.
+
+AT-04 requires **Qwen AI lyrics -> playable ACE-Step vocal song using the selected
+settings**, in live/browser modes. Verify through `python scripts/dev.py` and the
+actual form: lyrics and music jobs succeed, real audio fully decodes and plays,
+a listener confirms sung vocals, and title/style/mood/duration/mode and the new
+matching cover stay associated with the correct track. Record reload retention
+without another generation. Use the related cover/library cases for their own
+acceptance; don't close other issues from this one run.
+
+Report the tested head, normal launch/port, configuration source **type** (no
+values), role labels, inputs, actual stage/job results, submission counts, media
+checks, browser/listening observations, safe evidence paths and remaining gaps.
+If blocked, name the exact missing variable **names** or failing safe stage; do
+not ask users to paste keys. Keep #3 open until its required live/browser evidence
+is actually satisfied. No successful live run is claimed by this guide.
+
 ## Deliberate service contract probes
 
 The four live requests are frozen in [SERVICE_CONTRACTS.md](SERVICE_CONTRACTS.md)
