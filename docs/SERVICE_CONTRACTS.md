@@ -106,7 +106,13 @@ Both modes use a compact genre-first audio caption, retaining all three full
 Theme/mood shape dynamics and motifs while genre guides groove, tempo,
 instruments and production. Vocal phrasing follows the style rather than
 universally requiring sung delivery; instrumental lyrics remain `[Instrumental]`.
-There is no genre/BPM lookup table, model switch or fixed seed.
+For the two bare genre labels that failed listening, captions add explicit sonic
+cues: distorted guitar riffs/bass/drums for Metal/Heavy Metal, and kick/bass,
+snare, hi-hats and a sparse hook for Rap/Hip-hop. Matching is limited to common
+exact labels (case insensitive, hyphen/space aliases); detailed/freeform styles
+and blends retain their own direction. These editorial defaults address the
+reported cases rather than pretending that labels alone worked. There is no
+fixed genre/BPM table, model switch or fixed seed.
 
 The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
 supports both flags and optional BPM/key/meter. The
@@ -130,7 +136,12 @@ contrast for those two clips. This is adapter/listening evidence, not a new
 normal-launch/browser acceptance or a guarantee for all genres. Subsequent user
 app testing on 666d44b found heavy metal and rap unsuitable, Latin only okay,
 and country good. That broader feedback leaves #35 unresolved; the planning
-revision needs separate listening evidence.
+revision has a [separate bounded record](../results/a3-35-genre-fidelity.json):
+two accepted requests and complete 30-second WAV decodes. Joshua's verdict was
+**"Neither is convincing"**, so both genre checks fail. Returned prompts echoed
+the inputs; no internal caption-rewrite trace was captured. The final concrete
+arrangement-cue revision is offline tested only and has not been generated or
+listened to. #35 stays open and PR #37 stays draft.
 
 ## Speech: Chatterbox V3, port 9008
 

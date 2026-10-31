@@ -61,9 +61,20 @@ def _music_caption(track: Track, performance: str) -> str:
     # ACE-Step consumes an audio caption, not a chat instruction. Genre leads;
     # retain all three user inputs within its documented 512-character limit.
     # Duration and lyrics have their own structured fields in the same request.
+    style = track.settings.style.casefold().replace("-", " ")
+    # Listening failed for bare Metal/Rap labels even with LM planning enabled.
+    # Give common exact labels concrete sonic cues. Detailed/freeform styles
+    # (including blends) keep their own direction; these are defaults, not rules.
+    if style in {"heavy metal", "metal"}:
+        arrangement = ("Riff-led metal: heavily distorted electric guitars, palm-muted chugs, "
+                       "electric bass, forceful acoustic drums and double-kick accents.")
+    elif style in {"rap", "hip hop"}:
+        arrangement = ("Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, "
+                       "sparse repeating hook and room for rhythmic vocal flow.")
+    else:
+        arrangement = "Genre-led groove, tempo, instruments and production;"
     return (f"{track.settings.style}. {performance} Mood: {track.settings.mood}. "
-            f"Theme: {track.title}. "
-            "Genre-led groove, tempo, instruments and production; theme/mood shape dynamics and motifs.")
+            f"Theme: {track.title}. {arrangement} Theme/mood shape dynamics and motifs.")
 
 
 def music_prompt(track: Track) -> str:

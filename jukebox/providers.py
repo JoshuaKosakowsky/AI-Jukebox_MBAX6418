@@ -189,8 +189,8 @@ class ClassProviders:
         # every song. Missing metadata lets ACE-Step infer it from the prompt.
         for field in ("bpm", "key_scale", "time_signature"):
             payload.pop(field, None)
-        # Sparse style/mood inputs need the music service's caption enhancement
-        # and semantic audio planning, not the probe's direct-DiT fast path.
+        # Enable the supported music-LM caption enhancement and semantic audio
+        # planning path. Audible genre fidelity still needs listening evidence.
         payload.update(prompt=prompt, audio_duration=duration_seconds, lyrics=lyrics,
                        thinking=True, use_cot_caption=True)
         data = self._json("music", "/release_task", payload)

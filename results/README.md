@@ -57,3 +57,12 @@ A3-03 live vocal failure: [vocal-live-failure-record.json](vocal-live-failure-re
 and [actual browser card](vocal-live-failure.jpg) record one real normal-launch
 attempt on main 770ce62. Cover succeeded, lyrics failed validation, and no music
 was submitted. Reload retained the draft without retrying. AT-04 remains failed.
+
+
+Genre follow-up #35: [initial ambient/funk comparison](a3-35-genre-comparison.json)
+records a limited two-clip listening improvement. Broader user app testing then
+found metal/rap unsuitable; [planning revision](a3-35-genre-fidelity.json) records
+those exact inputs and two bounded music-only requests on 9871e7b. Both decode
+fully, but Joshua judged neither genre convincing: both FAIL. The subsequent
+concrete-cue caption revision is offline-only; no further generation in this run. Neither record establishes
+general genre fidelity, integrated-main browser or final sample acceptance.

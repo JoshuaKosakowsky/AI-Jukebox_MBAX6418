@@ -797,10 +797,36 @@ planning, replacing generic chat-style prompts with compact genre-first audio
 captions. Theme/mood guide musical motifs/dynamics; vocal delivery follows the
 style instead of always requiring singing. Maximum allowed title/style/mood
 inputs all fit the documented 512-character caption limit without truncation.
-Four Heavy Metal/Rap x instrumental/vocal request cases and two caption-limit
-cases fail before and pass after the change; these verify request wiring, not
+Four Heavy Metal/Rap x instrumental/vocal request cases and two initial
+caption-limit cases fail before and pass after the planning change; these verify request wiring, not
 musical quality. Existing duration/lyrics/single-job/batch/probe invariants hold. Full locked
 `python scripts/dev.py --check`: **147 tests PASS**, verifier105 files and
 coverage36 requirements/11 tasks/19 cases PASS; Node and startup checks included.
 
-Live revision comparison and human genre/vibe judgment: **pending**.
+Revision comparison on immutable code commit **9871e7b**: exactly **2 music
+submissions, 7 polls, 2 downloads; 0 art/text/speech/retries**. Both user title/style/mood
+examples completed as 30-second instrumentals (chosen test duration/mode, not
+inferred original settings). Full non-silent 48 kHz stereo PCM16 decode passed.
+The service reported 143 BPM / G major / 4 for metal and 100 BPM / D major / 4
+for rap; these are response metadata, not measured beats or genre judgments.
+The returned prompt echoed the request and no internal planning/rewriting trace
+was captured; accepted flags alone do not prove the audible result.
+
+[Safe revision record](../results/a3-35-genre-fidelity.json) includes exact prompts,
+flags, counts, timing and hashes; raw clips remain ignored/private and were shown
+to Joshua. His direct listening verdict: **"Neither is convincing." Both genre
+checks FAIL.** No separate theme/mood endorsement was supplied. Stop condition
+reached: no retries, replacements or further automated generation in this run.
+Normal-launch/main-browser and vocal/rap delivery acceptance remain unverified.
+
+Following that failure, the final offline revision supplies concrete arrangement
+cues for exact bare Metal/Heavy Metal and Rap/Hip-hop labels: distorted electric
+guitar riffs, palm-muted chugs, electric bass and forceful/double-kick drums for
+metal; kick/bass, snare backbeat, syncopated hi-hats and a sparse hook with room
+for vocal flow for rap. These are deliberate app defaults for the two reported
+failures, not universal genre definitions. Detailed/freeform styles and blends
+retain their own instructions. Theme/mood still shape dynamics and motifs.
+The caption limits, aliases and freeform-style preservation have offline
+regressions. Final full locked check: **148 tests PASS**, verifier/coverage/
+whitespace PASS, including actual startup and Node handler checks.
+**This concrete-cue version has no live/listening acceptance yet.**

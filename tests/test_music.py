@@ -125,9 +125,12 @@ class MusicStoreTests(unittest.TestCase):
                     payload = submissions[-1]
                     self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload),
                                     "A genre request must not inherit the slow-piano probe constraints")
-                    for value in (style, mood, item.title, "groove", "tempo"):
+                    for value in (style, mood, item.title):
                         self.assertIn(value, payload["prompt"])
                     self.assertTrue(payload["prompt"].startswith(style))
+                    for cue in (("distorted electric guitars", "drums") if style == "Heavy Metal"
+                                else ("Hip-hop beat", "snare", "hi-hats")):
+                        self.assertIn(cue, payload["prompt"])
                     self.assertTrue(payload["thinking"], "Sparse genre inputs need music-LM planning")
                     self.assertTrue(payload["use_cot_caption"], "Enhance the caption within the same music task")
                     self.assertFalse(payload["use_cot_language"])
@@ -140,13 +143,26 @@ class MusicStoreTests(unittest.TestCase):
         self.assertEqual(json.dumps(PROBES["music"]["request"], sort_keys=True), baseline)
 
     def test_music_captions_keep_all_maximum_length_inputs_within_documented_limit(self):
-        item = Track(title="t" * 120, settings=SongSettings(style="s" * 120, mood="m" * 120,
-                                                           duration_seconds=30))
-        for caption in (music_prompt(item), vocal_music_prompt(item)):
-            with self.subTest(caption=caption):
-                self.assertLessEqual(len(caption), 512)
-                for value in (item.title, item.settings.style, item.settings.mood):
-                    self.assertIn(value, caption)
+        for style in ("s" * 120, "Heavy Metal", "Hip-hop", "Heavy" + " " * 110 + "Metal"):
+            item = Track(title="t" * 120, settings=SongSettings(style=style, mood="m" * 120,
+                                                               duration_seconds=30))
+            for caption in (music_prompt(item), vocal_music_prompt(item)):
+                with self.subTest(style=style, caption=caption):
+                    self.assertLessEqual(len(caption), 512)
+                    for value in (item.title, item.settings.style, item.settings.mood):
+                        self.assertIn(value, caption)
+
+    def test_bare_genre_cues_match_aliases_without_overriding_detailed_styles(self):
+        for style, cue in ((" HEAVY-METAL ", "distorted electric guitars"),
+                           ("Metal", "distorted electric guitars"), ("HIP HOP", "snare")):
+            item = Track(title="Theme", settings=SongSettings(style=style, mood="Moody", duration_seconds=30))
+            self.assertIn(cue, music_prompt(item))
+        for style in ("Rap with flute and hand drums", "Country metal blend", "Rapture synths"):
+            item = Track(title="Theme", settings=SongSettings(style=style, mood="Moody", duration_seconds=30))
+            caption = music_prompt(item)
+            self.assertIn(style, caption)
+            self.assertNotIn("Hip-hop beat:", caption)
+            self.assertNotIn("Riff-led metal:", caption)
 
     def test_bounded_polling_advances_progress_then_attaches_ready_audio(self):
         item = self.add_track()

@@ -130,7 +130,9 @@ failure leaves the prior status, cover and audio untouched and is reported
 through the job's SafeError. Provider tickets and media bytes stay server-side.
 
 Music captions put the selected genre first and use theme/mood to shape musical
-motifs and dynamics. Both modes retain full inputs within ACE-Step's documented
+motifs and dynamics. Bare Metal/Heavy Metal and Rap/Hip-hop labels gain concrete
+arrangement cues; detailed/freeform styles and blends keep their own direction.
+Both modes retain full inputs within ACE-Step's documented
 512-character caption limit. Production enables music-LM caption enhancement and
 semantic planning (`use_cot_caption=true`, `thinking=true`); tempo/key/meter are
 inferred rather than copied from the piano probe. This adds no text-service job,
