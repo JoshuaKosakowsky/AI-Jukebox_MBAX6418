@@ -51,3 +51,9 @@ missing/placeholder/invalid/configured checks on main 7b9dd2b. The actual browse
 views are [missing settings](windows-zip-missing-settings.jpg) and
 [configured](windows-zip-configured.jpg). This developer-directed rehearsal
 does not satisfy independent final ZIP or feature acceptance.
+
+
+A3-03 live vocal failure: [vocal-live-failure-record.json](vocal-live-failure-record.json)
+and [actual browser card](vocal-live-failure.jpg) record one real normal-launch
+attempt on main 770ce62. Cover succeeded, lyrics failed validation, and no music
+was submitted. Reload retained the draft without retrying. AT-04 remains failed.

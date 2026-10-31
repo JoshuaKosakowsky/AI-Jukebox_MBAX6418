@@ -1,5 +1,21 @@
 # Agent handoff
 
+## Session — final sample review follow-through, 2026-10-30 America/Denver
+Codex for Joshua; PR25 pre-head6276b29, required mainfed0add after normal PR28 merge.
+Preethi approved6276b29 and independently verified source hashes/decoded media/provenance; Mike approved a prior package.
+Main update required handoff-only conflict resolution; preserved candidate and failed-vocal evidence/notes.
+Confirmed original cover visually: exact generated lettering is DESSERT DRIIVE; corrected two JSON note strings and README.
+No artwork/audio/preview edit or new generation; title/settings/source hashes/timestamps/request reconstruction remain unchanged.
+Added one related packaging/review credit row; no attribution to new listening or final sample approval.
+App/tests/contracts/dependencies match current main; approved manifest remains unchanged and candidate unselected.
+Validation: verifier/coverage/whitespace, full WAV/PNG/JPEG decode, media hashes and provenance-equivalence recorded on PR.
+Normal protection dismisses the old-head approval after this required push; request fresh eligible review and freeze.
+Do not self-approve, bypass protection, silently select samples or close #7.
+No new class-service calls, keys, uploaded voice references, assignment changes or app behavior changes.
+Next: publish checked head, eligible reviewer verifies narrow delta, normal merge when approval and CI are current.
+
+## Preserved task and main notes (current facts above supersede historical status)
+
 ## Session — shared integration and independent review follow-through
 2026-10-30 America/Denver; Codex for Joshua. PRs #25/#28 sync, pre-heads 4d724c2/e42e5de.
 Main is 9d84dab after protected #33 merge under Preethi's final-head1490da1 approval and 4/4 CI PASS.
@@ -65,6 +81,8 @@ Branch codex/desert-drive-sample-candidate; pre-sync 2cb5e01; merged main c6e127
 ## Work and decisions
 Resolved only documentation/index/handoff integration conflicts; preserved both branches' evidence and prior notes.
 
+2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #28.
+
 ## Preserved clarification task notes
 
 2026-10-30 America/Denver; Codex for Joshua. Task: shared credential/live-rerun clarification for Mike/everyone.
@@ -103,6 +121,8 @@ Main is 31dc9e4 after normal #31 merge under Mike's exact-head approval; #7 fina
 #25 is synchronized at 4d724c2, 4/4 CI green, awaiting fresh eligible review after main sync and JPEG filename correction.
 #27 is integrated at bee7209 with 183 tests/4 CI checks PASS; draft/readiness and coordinated browser/listening work remain.
 ## This branch
+Merged current main into #28; only handoff conflict resolved, all evidence/loader/prse notes retained.
+
 Merged current main into #22; only handoff conflict resolved, all evidence/loader/prse notes retained.
 Runtime/tests/contracts/dependencies match main. Original historical/failed evidence media and JSON unchanged.
 Safeguards, coverage, whitespace, source-equivalence and final current-head CI/review status recorded on PR.
@@ -117,6 +137,12 @@ Next: eligible current-head review, then normal merge; no self-approval. Submiss
 
 ## Session
 ## Preserved prior evidence task notes
+
+2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #28, failed vocal acceptance evidence.
+## Repository state
+Branch codex/a3-03-live-acceptance; pre-sync 0bb7fea; merged main c6e1273 after normal #32 approval/merge.
+## Work and decisions
+Resolved only documentation/index/handoff integration conflicts; preserved both branches' evidence and prior notes.
 
 2026-10-30 America/Denver; Codex for Joshua. Catch-up: PR #22, historical recovery audit and integration status.
 ## Repository state
@@ -140,6 +166,8 @@ Assignments already permit backup work and any zero-commit reviewer; no ownershi
 3. Use current issue handoffs for coordination; final sample selection/ZIP remain with Jovi.
 ## References
 PR #25; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
+
+PR #28; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
 
 PR #22; merged #32; current draft #27 diagnosis and reviewer coordination on GitHub.
 
@@ -172,6 +200,33 @@ Candidate packaging does not select an approved sample, populate the manifest, l
 3. Preserve #22/#24 credit/evidence when reconciling later PRs; do not rerun class generation on session changes.
 ## References
 assets/samples/desert-drive.candidate.json; results/main-instrumental-acceptance.json; PR #25; issue #7.
+
+2026-10-30 America/Denver; Codex for Joshua. Task: bounded live vocal acceptance after PR triage.
+## Constraints
+MSpanny = Mike; mase7919/Mase = Matt. Mike leads #3/#6; Matt #5; assignments unchanged.
+One form request only: at most one lyrics, cover and music submission; no retry on uncertainty.
+## Repository state
+Clean tested main 770ce62; branch codex/a3-03-live-acceptance contains evidence/docs only.
+#20 merged; #22 149090c fixes names/ownership and awaits review; #26 requests changes; #24 sync requested.
+## Work completed and decisions
+Normal launcher + real browser form: Morning Signal / Acoustic indie pop / Hopeful and upbeat / 30 s / Vocal.
+Cover succeeded; lyrics returned safe invalid_response; zero music jobs/audio. No second generation attempted.
+Before/after reload snapshots identical; Retry lyrics enabled; no browser error/warning entries observed.
+Saved public JSON and actual card screenshot; raw generated cover ignored, no user recordings or keys committed.
+## Validation
+AT-04 FAIL; precise parser guard unknown because raw provider response/finish metadata was not retained.
+Source rejects unexpected model, empty content or non-stop completion; no speculative budget/schema change.
+Final repository/coverage/whitespace checks recorded in the PR; no application code/dependency changes.
+Earlier independent #26 checks: 137 tests; #22 reconciliation: 128 tests, both CI 4/4 green at review.
+## Blockers and unchecked areas
+#3 live vocal/playback/listening acceptance still blocked. No music, speech or reference calls in this run.
+#26 upload findings, draft #27 DJ, #8 control fixes, sample library and final ZIP remain; NOT READY.
+## Next steps
+1. Mike diagnoses #3 using safe response metadata in a separately bounded run; retain this failed case.
+2. Mike fixes #26 and synchronizes #24; Matt finalizes #27 readiness; eligible teammates review #22.
+3. Preserve current claim/ownership and coordinate shared files; do not repeat generation merely to refresh context.
+## References
+results/vocal-live-failure-record.json; docs/TEST_RESULTS.md; issue #3; PRs #20/#22/#24/#26/#27.
 
 2026-10-30 America/Denver; Codex for Joshua. Task: new-push/review triage and protected integration.
 ## Constraints

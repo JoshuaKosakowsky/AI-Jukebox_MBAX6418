@@ -1,0 +1,144 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "tester": "JoshuaKosakowsky directing Codex",
+  "tested_main": "770ce6203937a6adcb26c63a8b405d4e44d12478",
+  "entrypoint": "python scripts/dev.py --port 8180",
+  "scope": "One real normal-launch vocal request through the browser form; no fixtures or alternate providers",
+  "inputs": {
+    "title": "Morning Signal",
+    "style": "Acoustic indie pop",
+    "mood": "Hopeful and upbeat",
+    "duration_seconds": 30,
+    "mode": "vocal"
+  },
+  "expected": "Qwen lyrics, ACE-Step vocal audio and matching FLUX cover; retained and playable in browser",
+  "actual": "FLUX cover succeeded; Qwen lyrics failed validation with invalid_response; no music job or audio created",
+  "request_bounds": {
+    "maximum_text_requests": 1,
+    "maximum_art_requests": 1,
+    "maximum_music_submissions": 1,
+    "observed_text_jobs": 1,
+    "observed_art_jobs": 1,
+    "observed_music_jobs": 0,
+    "automatic_retries": false,
+    "note": "Job counts observed from public session; production methods submit once per job. No raw provider wire trace was captured."
+  },
+  "before_reload": {
+    "contract_version": 1,
+    "jobs": [
+      {
+        "error": null,
+        "id": "af809eb2-4257-48e5-820f-25af9619ce10",
+        "kind": "art",
+        "progress": 1,
+        "state": "succeeded",
+        "track_id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1"
+      },
+      {
+        "error": {
+          "code": "invalid_response",
+          "message": "The text service returned no complete lyrics.",
+          "retryable": false
+        },
+        "id": "bd2208b6-0078-4957-ae31-92da7ae20477",
+        "kind": "text",
+        "progress": 0.3,
+        "state": "failed",
+        "track_id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1"
+      }
+    ],
+    "playback": {
+      "current_track_id": null,
+      "index": 0,
+      "paused_from": null,
+      "queue": [],
+      "state": "idle"
+    },
+    "tracks": [
+      {
+        "audio": null,
+        "cover": {
+          "content_type": "image/png",
+          "id": "f7daf71f-f34a-428f-b6d6-1d14f37c9196",
+          "url": "/api/media/f7daf71f-f34a-428f-b6d6-1d14f37c9196"
+        },
+        "created_at": "2026-10-30T13:51:29.213197Z",
+        "dj_text": null,
+        "id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1",
+        "lyrics": null,
+        "settings": {
+          "duration_seconds": 30,
+          "mode": "vocal",
+          "mood": "Hopeful and upbeat",
+          "style": "Acoustic indie pop"
+        },
+        "speech": null,
+        "status": "generating",
+        "title": "Morning Signal"
+      }
+    ]
+  },
+  "after_reload": {
+    "contract_version": 1,
+    "jobs": [
+      {
+        "error": null,
+        "id": "af809eb2-4257-48e5-820f-25af9619ce10",
+        "kind": "art",
+        "progress": 1,
+        "state": "succeeded",
+        "track_id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1"
+      },
+      {
+        "error": {
+          "code": "invalid_response",
+          "message": "The text service returned no complete lyrics.",
+          "retryable": false
+        },
+        "id": "bd2208b6-0078-4957-ae31-92da7ae20477",
+        "kind": "text",
+        "progress": 0.3,
+        "state": "failed",
+        "track_id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1"
+      }
+    ],
+    "playback": {
+      "current_track_id": null,
+      "index": 0,
+      "paused_from": null,
+      "queue": [],
+      "state": "idle"
+    },
+    "tracks": [
+      {
+        "audio": null,
+        "cover": {
+          "content_type": "image/png",
+          "id": "f7daf71f-f34a-428f-b6d6-1d14f37c9196",
+          "url": "/api/media/f7daf71f-f34a-428f-b6d6-1d14f37c9196"
+        },
+        "created_at": "2026-10-30T13:51:29.213197Z",
+        "dj_text": null,
+        "id": "b8f7c2c1-22d5-4af1-b55c-2126b91bced1",
+        "lyrics": null,
+        "settings": {
+          "duration_seconds": 30,
+          "mode": "vocal",
+          "mood": "Hopeful and upbeat",
+          "style": "Acoustic indie pop"
+        },
+        "speech": null,
+        "status": "generating",
+        "title": "Morning Signal"
+      }
+    ]
+  },
+  "reload_snapshot_identical": true,
+  "browser_console_errors": [],
+  "diagnosis_limits": [
+    "The parser maps unexpected model, missing/empty content and finish_reason other than stop to the same safe error.",
+    "Raw provider response/finish metadata was not captured, so the precise failed guard is unknown.",
+    "No retry or token-budget change was attempted; no ACE-Step generation, speech, reference upload, playback or human listening occurred."
+  ],
+  "acceptance": "AT-04 failed; issue #3 stays open; full submission NOT READY"
+}

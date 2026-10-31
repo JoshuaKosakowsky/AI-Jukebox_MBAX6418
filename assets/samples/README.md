@@ -29,7 +29,7 @@ Audio/cover hashes match the original acceptance; full decoding and muted local
 preview play/pause/resume passed. Joshua's original listening confirmation is
 attributed as prior evidence; no new listening or generation is claimed.
 
-The original cover says **DESSERT DRIVE** and has distorted small lettering.
+The original cover says **DESSERT DRIIVE** and has distorted small lettering.
 Jovi should consider that known limitation when selecting the final samples;
 this candidate preserves the original media rather than silently editing it.
 If selected, its `sample` object is ready for the manifest. Final sample-library

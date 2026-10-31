@@ -10,7 +10,7 @@
     "instrumental": true,
     "lyrics": null,
     "generated_at": "2026-10-29",
-    "generation_notes": "Class-generated during normal-launch 2026-10-28 America/Denver acceptance on main 7cc9645: Upbeat funk, Energetic and optimistic, 20 seconds, instrumental. UTC generation date; exact time bounds below. Original retained audio/art reused byte-for-byte; no new generation. Cover has original DESSERT DRIVE lettering; Jovi selection pending.",
+    "generation_notes": "Class-generated during normal-launch 2026-10-28 America/Denver acceptance on main 7cc9645: Upbeat funk, Energetic and optimistic, 20 seconds, instrumental. UTC generation date; exact time bounds below. Original retained audio/art reused byte-for-byte; no new generation. Cover has original DESSERT DRIIVE lettering; Jovi selection pending.",
     "generated_with": {
       "music": "ACE-Step 1.5 XL Turbo",
       "cover": "FLUX.2 klein 4B"
@@ -35,7 +35,7 @@
       "confirmation": "Both play and broadly match",
       "scope": "Prior direct confirmation of both original clips; Desert Drive was audible, instrumental and broadly matched upbeat funk. No new listening claimed."
     },
-    "cover_inspection": "Original vivid retro illustration: red convertible, desert road/palms, traveler and warm sunset colors; energetic driving theme. Generated title says DESSERT DRIVE and smaller lettering is distorted. Original bytes retained; flag for selection rather than silently correct/regenerate.",
+    "cover_inspection": "Original vivid retro illustration: red convertible, desert road/palms, traveler and warm sunset colors; energetic driving theme. Generated title says DESSERT DRIIVE and smaller lettering is distorted. Original bytes retained; flag for selection rather than silently correct/regenerate.",
     "request_reconstruction": {
       "basis": "Reconstructed from frozen provider defaults plus original settings and unchanged production prompts; not a separately captured wire log.",
       "music": {
