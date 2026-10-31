@@ -68,27 +68,31 @@ The supported names are:
 | Music | `JUKEBOX_MUSIC_ENDPOINT` | `JUKEBOX_MUSIC_API_KEY` |
 | DJ speech | `JUKEBOX_SPEECH_ENDPOINT` | `JUKEBOX_SPEECH_API_KEY` |
 
-From that source folder, this prints only the app root, file-existence boolean
-and configured/missing role labels; it makes no provider calls:
+For an already running app, inspect Service setup or use this Python-standard-
+library check against its **actual local port** (replace 8000 if necessary):
 
 ```powershell
-python -m uv run --locked python -c "from jukebox.config import ROOT, Settings; print('App root:', ROOT); print('Root .env exists:', (ROOT / '.env').is_file()); print(Settings.load().public_status())"
+python -c "import json, urllib.request; print(json.load(urllib.request.urlopen('http://127.0.0.1:8000/api/status', timeout=5))['services'])"
 ```
 
-If uv was installed as a standalone executable, use `uv run --locked` instead
-of `python -m uv run --locked`. Do not replace the safe status call with an
-environment dump, `.env` contents, keys, auth headers or raw configuration objects.
-`Settings.load(None, {})` deliberately means no file and no inherited variables;
-it is an offline-test fixture, not a check of the real application's credentials.
+This prints only configured/missing role labels loaded by that running server;
+it makes no provider calls and needs no separate uv environment/package install.
+Do not replace it with an environment dump, `.env` contents, keys, auth headers
+or raw configuration objects. Inspect the source-root file's existence and
+inherited variable presence without printing their values. In a diagnostic using
+the project's locked Python, `Settings.load().public_status()` is also safe, but
+it describes **that new process**, which may have different settings from the
+running app. `Settings.load(None, {})` deliberately means no file and no inherited
+variables; it is an offline fixture, not a check of real credentials.
 
-Also inspect the **running** app's Service setup or `/api/status` at its actual
-local port. The CLI above describes a new process; an already running server
-may have started from another checkout or terminal environment. Use the normal
-`python scripts/dev.py --port 8000` launcher in the intended checkout. After
-configuration/code changes, restart the intended server; Refresh status does
-not reload settings. Restart clears generated session data, so preserve any
-needed evidence first. A parent terminal's variables do not automatically reach
-an agent or server process that was started elsewhere or earlier.
+Use the normal `python scripts/dev.py --port 8000` launcher in the intended
+checkout. It selects a short environment path on Windows; don't create a second
+long-path .venv just to check status. An already running server may have started
+from another checkout or terminal. After configuration/code changes, restart the
+intended server; Refresh status does not reload settings. Restart clears generated
+session data, so preserve needed evidence first. A parent terminal's variables do
+not automatically reach a process started elsewhere or earlier. Importing config
+in an agent's different checkout does not inspect the running server's environment.
 
 For missing roles, reuse the authorized existing local private configuration,
 or obtain the class settings through the approved private class/team channel.
