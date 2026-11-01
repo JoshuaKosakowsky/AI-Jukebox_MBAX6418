@@ -1,5 +1,19 @@
 # Agent handoff
 
+## Session — PR #26 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; explicit user request to reconcile #26/#40 for clean commits.
+Local integration branch codex/pr26-sync-nov1 from approved head926613d; merge current maincb818ae.
+Scope remains #6 reference upload/provider component; no feature expansion or ownership change.
+Resolved only handoff.md by retaining both original task notes and incoming #41 failed-vocal evidence notes.
+Main's new failed-vocal JSON/TEST_RESULTS section retained exactly; prior evidence/provenance remains intact.
+Runtime/tests/contracts/dependencies/assets/CI/protection must remain byte-identical to 926613d.
+No new generation, real voice uploads, credentials, visual/listening or parent acceptance in this sync.
+Locked python scripts/dev.py --check PASS: 212 tests,0 skips; verifier120, coverage36-11-19 and whitespace PASS.
+Python3.12.14/Git2.53/Node available; startup and real handler probes included; no provider calls.
+Joshua contributes the reconciliation and cannot approve the new head; fresh eligible review: Matt/prse4479/Jovi; Matt has an earlier change-request review.
+Old approval will be invalidated by the necessary push; no review dismissal or protection bypass.
+Next: finish checks, push existing PR branch, freeze for eligible review; parent issue stays open.
+
 ## Session — A3-06 round 5, 2026-11-01 America/Denver
 Hermes for MSpanny (Mike); PR #26 (#6 lead: Mike). Joshua's 05:09 review of frozen head d35d4b1 confirmed the round-4 dual-data fix and found two related WAV gaps: a SECOND coherent fmt chunk after the audio (16 kHz) halved the computed duration (61 s -> ~30.5 s, 201) and data-before-fmt was accepted though Python's wave reader rejects it; plus a fixture nit (RIFF length over-counted by 16, tests/test_references.py:232). Fixed: the chunk walker now rejects multiple fmt chunks ("contains multiple format chunks") and data preceding fmt ("places audio data before its format chunk"); the round-4 fixture sizes RIFF as file length minus 8; two new regressions reproduce the review's exact bytes (61 s + 16 kHz second fmt -> 422; data-first -> 422) with a 3 s positive control (201). Gate PASS: 212 tests (23 reference), verifier 119 files, coverage 36/11/19. PR body updated; head re-pushed and frozen for mase7919 re-review per the issue pool. Refs #6.
 
@@ -8,6 +22,9 @@ Hermes for MSpanny (Mike); PR #26 (#6 lead: Mike; #5 by Matt). Joshua's 22:06 re
 
 ## CROSS-CUTTING STATE (2026-10-31, for any fresh session)
 Main tip `25f8617` (contains #27 DJ queue + #29 lyrics diagnostics, both merged). Open PRs: #26 (MSpanny, round-4 pushed `d35d4b1`, CI green, MERGEABLE, awaiting mase7919 re-review — NO work pending from us), #40 (MSpanny, cover-lettering fix for #36, 190 tests, APPROVED by Joshua 05:09Z, awaiting merge), #37/#38/#39 (Joshua's: music-genre conditioning, docs refresh, browser regression — not ours). The class `.env` EXISTS at the repo root (4 services configured; endpoint typos fixed). The bounded A3-03 live rerun (plan posted on #3) is HOLDING for the user's go-ahead — do NOT run live generation without it. Known environment quirk: this Hermes chat uses the class LLM gateway (dobolyi.com:9000) and very large session contexts intermittently 400 with `json_invalid` 'Invalid control character' — sessions that start failing should be replaced with a fresh one (state lives in git/GitHub, not the session).
+
+## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
 
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.

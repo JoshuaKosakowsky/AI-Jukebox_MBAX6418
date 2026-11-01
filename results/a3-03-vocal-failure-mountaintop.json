@@ -1,0 +1,36 @@
+{
+  "record": "A3-03 second failed vocal acceptance attempt (spontaneous run, no deliberate capture)",
+  "date": "2026-10-31 America/Denver (evening; exact clock time NOT logged - access logging disabled on the running server)",
+  "observer": "MSpanny directing Hermes agent; app UI observed at localhost:8000",
+  "running_head": {
+    "branch": "codex/a3-06-reference-voices",
+    "commit": "926613db36dd8e5e95845cb5313e70d80ca436e8",
+    "main_ancestor": "25f86179f82cad2f323a81970a27fc76dbdb22ae",
+    "note": "App code included main's #21 vocal chain, #27 DJ queue and #29 safe-diagnostics fix; the #40 wordless cover-prompt change was NOT present (unmerged)."
+  },
+  "entrypoint": "python -m jukebox --port 8000 (normal local launcher), real class services configured via ignored .env; no fixtures, no alternate providers",
+  "scope": "One real normal-entrypoint vocal request through the browser UI; no retry, no automatic retries observed; spontaneous run - no capture tooling was active",
+  "inputs": {
+    "title": "Mountaintop Adventure",
+    "mode": "vocal (derived: a lyrics job was created, and lyrics run only for vocal tracks)",
+    "style": "NOT RECORDED",
+    "mood": "NOT RECORDED",
+    "duration_seconds": "NOT RECORDED"
+  },
+  "expected": "Qwen lyrics, ACE-Step vocal audio and a matching FLUX cover, retained and playable in the library",
+  "actual": "FLUX cover job succeeded (correct lettering in this instance - a single observation, not a typography guarantee per #36). Qwen lyrics job FAILED: class response finish_reason='length' (token cap) with no usable content; the app surfaced only its fixed #29-safe diagnostic and never the raw provider response. No vocal audio created.",
+  "observed_ui_diagnostic": "The text service returned no lyrics content (finish_reason='length').",
+  "request_bounds": {
+    "maximum_text_requests": 1,
+    "maximum_art_requests": 1,
+    "maximum_music_submissions": 1,
+    "observed_text_jobs": 1,
+    "observed_art_jobs": 1,
+    "observed_music_jobs": "NOT LOGGED - cannot confirm whether a music job was created",
+    "automatic_retries": false,
+    "note": "No raw provider wire trace was captured (uvicorn access_log=False). Exact request payloads, clock timestamps and the public session snapshot are unrecoverable. The replacement local server runs with access logging enabled so a successor run records exact inputs/outputs."
+  },
+  "public_snapshot": "NOT CAPTURED - the server instance was replaced after the run; only the user-visible fixed diagnostic and outcome report above were preserved",
+  "screenshot": "not yet attached; browser-held track card may still exist (see PR thread)",
+  "meaning": "Confirms the #3 open failure mode persists on a current head through the normal entrypoint with real services: the class Qwen lyrics endpoint returns finish_reason='length' without usable content. This is a FAILURE observation, not a pass - AT-04/R10 stay open. The bounded diagnosis/rerun plan on #3 remains separately authorized and holding for the user's go-ahead; no new budget was created by this record."
+}
