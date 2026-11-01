@@ -1,5 +1,34 @@
 # Test results and evidence
 
+## PR #44 main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex; previous PR head `fde309e80c81b955ac7abffcc07f3c4dedaff28d`,
+merged main `226f0ae44883fe5dc80abe10ad4ea8953cc4acdb` on isolated branch
+`codex/pr44-sync-nov1` for existing `codex/a3-03-direct-lyrics` / PR #44.
+
+- Only merge conflict: `handoff.md`; retained both parents' complete histories
+  in order. Test results merged automatically; both inherited evidence strands
+  remain, with this reconciliation recorded separately.
+- App/provider/test/contract/script/asset/dependency/hook/CI/protection files are
+  byte-identical to previous PR head `fde309e`. Incoming #42 release runbook and
+  evidence blobs match main exactly. PR scope against main remains its original
+  seven files; no additional runtime behavior was introduced by reconciliation.
+- `python scripts/dev.py --check`: PASS, verifier 122 tracked files; coverage
+  structure 36 requirements / 11 tasks / 19 cases; 215 offline tests run, one
+  platform symlink skip. `git diff --check` and staged whitespace check PASS.
+- Existing lyrics regressions still pin the non-thinking request, unchanged
+  512-token budget, strict safe response guards, and MockTransport route/store
+  chain with synthetic audio and no reload resubmission. This is offline proof,
+  not successful real-class vocals or listening acceptance.
+
+Fresh exact-head approval is required: Mike's earlier approval was dismissed
+after his sync push, and both Mike and Joshua now contribute to this PR.
+Matt/Preethi/Jovi are eligible zero-commit reviewers. JoshKozy stays COMMENT-only
+until policy adoption and approval-gateway enablement. No new service requests,
+recordings, generation, assignment/protection changes or live budget spent.
+Issue #3 / R10 / AT-04 stays open for coordinated normal-launch vocal/browser
+and human listening acceptance after normal protected integration.
+
 ## A3-03 lyrics direct-response candidate - 2026-11-01 America/Denver
 
 Joshua directing Codex; macOS, Python 3.12.14; branch
@@ -895,6 +924,34 @@ generation/playback, vocal, DJ, reference-voice, sample or release acceptance wa
 performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
+
+## A3-10 release-gate mechanics rehearsal - 2026-11-01 America/Denver
+
+Tester: MSpanny directing Hermes. Preparation only — **not** a final freeze or
+independent acceptance (Jovi keeps lead; a different teammate must run the
+final install). Ran the release-gate mechanics against the CURRENT main ZIP
+(`cb818ae595f399f2455464de58ec5acdaa27d8fc`), downloaded from the exact GitHub
+archive URL, and recorded the gate's diagnostics as the open-blocker list.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Archive identity | Exact 40-SHA URL archive; recorded sha256/bytes/entries | PASS: 10,980,156 bytes; sha256 `c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48`; 133 entries = 14 dirs + 119 files |
+| Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
+| No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
+| Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY, exit 1): `Missing public_access_checked_at`; `Independent ZIP installer must differ from candidate preparer`; all 19 AT-cases unverified; `AT-16 must identify the actual independent ZIP installer as tester`; ≥2 team rows with contribution+review evidence; three distinct approved samples with distinct audio/cover. Exact command + verbatim output are embedded in the record for reproducibility; independently re-run on 2026-11-01 against the same ZIP, the gate output is byte-identical (trailing newline included) with exit 1 |
+
+Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
+the current tree. Per review feedback the person identifiers are canonical
+(`installed_by == prepared_by == "MSpanny"` by design so the installer-
+separation fence fires), no placeholder prose is left in gate-read fields
+(nonempty text would suppress `Missing ...` diagnostics), and the record embeds
+the exact gate command and verbatim output. The captured NOT READY diagnostics
+are precisely the final freeze's remaining gates — the same open items tracked
+in #3/#6/#7 plus the independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure
+(preflight, then independent install, then the final PASS gate).
+No provider request, connectivity check or generation was performed.
 
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
 

@@ -1,5 +1,26 @@
 # Agent handoff
 
+## Session — PR #44 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; existing PR branch codex/a3-03-direct-lyrics; pre-handoff head `fde309e`.
+Isolated branch codex/pr44-sync-nov1; merged current protected main `226f0ae` normally.
+User authorized this integration while Mike reviews #45; claim is PR44 comment6565518830.
+Resolved only handoff.md markers, preserving both parents' complete histories in order.
+docs/TEST_RESULTS.md merged automatically; added this session and an accurate reconciliation record.
+Application/providers/tests/contracts/scripts/assets/dependencies/hooks/CI/protection identical to `fde309e`.
+Incoming release runbook/evidence blobs retained exactly; original seven-file PR scope preserved vs main.
+Only runtime delta vs main remains lyrics `_chat(..., thinking=False)` with existing512-token cap.
+No model/prompt/guard/probe/schema changes, new class calls, live rerun budget or generated media.
+Locked `python scripts/dev.py --check` PASS: verifier122 files, coverage36/11/19, 215 tests (one symlink skip).
+Both parent histories and source/evidence equivalence checked; staged/working whitespace PASS.
+Current tests are offline regressions; no new browser, successful real vocal or human listening acceptance claimed.
+Mike's old approval on e92fb1a was dismissed after his main-sync push; he now contributes to this PR.
+Joshua also contributes; neither supplies fresh approval. Eligible pool: mase7919/prse4479/jovi1214.
+JoshKozy remains COMMENT-only pending normal #45 adoption and separate approval-gateway enablement.
+Next: push this reconciliation to existing PR44, refresh its description, freeze and request eligible reviews.
+Then normal protected merge; Mike coordinates the separately bounded AT-04 vocal/browser/listening check.
+Issue #3 / R10 remains open; no PR45 changes, assignments, review dismissals or protection bypass here.
+Preserve inherited entries below as historical observations; use this entry for current review eligibility/state.
+
 ## Session — A3-03 direct lyrics support, 2026-11-01 America/Denver
 Codex for Joshua; branch codex/a3-03-direct-lyrics, base main cb818ae595f399f2455464de58ec5acdaa27d8fc.
 User requested help for Mike's #3; Mike remains lead and owns the coordinated live acceptance.
@@ -19,6 +40,9 @@ Environment: Python3.12.14, uv0.12.19, modern Git2.53; local loopback tests only
 Historical evidence/media, sample manifest, other PR heads and assignments untouched.
 Next: publish this focused PR, freeze its reviewed head, request eligible zero-contribution Mike review.
 After normal protected integration, Mike coordinates one tester/head/budget for live AT-04/browser/listening; #3 remains open.
+
+## Session — A3-10 rehearsal prep, 2026-11-01 America/Denver
+Hermes for MSpanny (Mike); issue #10 backup (lead Jovi). Claimed unclaimed prep piece: release-gate mechanics rehearsal + submission runbook. Ran identity/integrity checks on the current-main GitHub ZIP (cb818ae: 10,980,156 B, sha256 c4ea863a…, 119 files == 119 tracked, 0 extras, no .git, no .env) and the --release gate (check_readiness.py), which correctly returned NOT READY listing the exact open blockers: all 19 AT-cases unverified, independent installer required (AT-16 tester != preparer), ≥2-team rows with contribution+review evidence, 3 distinct approved samples with audio/cover. Deliverables on branch codex/a3-10-rehearsal-prep: results/a3-10-rehearsal-prep.json, TEST_RESULTS section, docs/SUBMISSION_RUNBOOK.md (freeze procedure: preconditions → candidate SHA → exact ZIP → gate → independent installer → records). No provider requests or generation; ZIP identity will change at real freeze. Round 2 (Joshua CR on #42): canonical person IDs (installed_by==prepared_by by design so the installer fence fires), removed placeholder prose (Missing public_access_checked_at now reported), exact gate command + verbatim output embedded in the record (exit 1, NOT READY diagnostics verbatim; independently re-run byte-identical including the trailing newline), runbook split into preflight (NOT READY expected) → independent install → external record → final PASS gate, with --template flow and the frozen-candidate rule; references marked required, launch text fixed. Refs #10.
 
 ## Session — PR #26 main reconciliation, 2026-11-01 America/Denver
 Codex for Joshua; explicit user request to reconcile #26/#40 for clean commits.
