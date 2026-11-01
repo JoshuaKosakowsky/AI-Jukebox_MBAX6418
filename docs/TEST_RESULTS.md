@@ -1345,3 +1345,26 @@ caption/controls, counts, source links and limits. Corrected diagnostic was chec
 OFFLINE against the documented response shape, missing/different seed stop paths
 and one-shot accounting guards, with zero network calls. A fresh pair remains
 unexecuted after the stop; prior failures stay failed, #35 open / PR37 draft.
+
+
+### Corrected caption pair — 2026-11-01 America/Denver
+
+Joshua explicitly authorized a fresh two-clip comparison after the stopped run:
+"Run the corrected two-clip comparison." New claim/budget: PR37 comment6561353866;
+source **2eb81db**, runtime identical to the193-test checked c97045f. Earlier
+one-job stop remains preserved separately; this is not a retry of that record.
+
+Exactly **2 music submissions /6 polls /2 downloads;0 format/art/text/speech/retries**.
+Both20s instrumentals use Heavy Metal / Angsty context: A is the actual Iced Coffee
+app caption; B is the previously proposed concise musical description without
+the title/context wrapper. The actual captured requests differ **only in prompt**;
+all other fields match, including seed641835/use_random_seed=false. Both results
+reported the requested seed. No production defaults or app caption changes.
+
+Both WAVs fully decoded, non-silent48kHz stereoPCM16, exactly20s, with distinct PCM.
+These checks establish complete media and controlled requests, not genre quality.
+Clips were rendered inline for Joshua; **human genre/mood judgment is pending**.
+A fixed requested DiT seed does not control every LM sampling source; this single
+pair changes the whole caption and cannot isolate title alone or prove all-genre
+fidelity. [Exact corrected-pair record](../results/a3-35-caption-ab-v2.json).
+No more generation under this completed run; #35 open / PR37 draft.

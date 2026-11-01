@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — #35 corrected caption pair, 2026-11-01 America/Denver
+Codex for Joshua; same codex/a3-35-caption-ab-nov1 / draft PR37, issue35 stays open.
+User explicitly authorized “Run the corrected two-clip comparison” after prior stopped run.
+Claim/budget PR37 comment6561353866; immutable tested source2eb81db, runtimec97045f.
+Corrected driver reads seed_value/nested metas; source-shape/stop/accounting guards passed offline.
+Actual2 music submissions/6 polls/2 downloads,0format/art/text/speech/retries; run complete.
+Both20s Iced Coffee/Heavy Metal/Angsty instrumentals: current app caption A vs concise description B.
+Captured requests differ only in prompt; both requested/reported seed641835, diagnostic use_random_seed=false.
+No production caption/default/seed/model/preset/dependency change; main DJ/Qwen fixes preserved.
+Both full non-silent48kHz stereoPCM16 WAVs decoded; distinct PCM is not genre evidence.
+Both clips rendered inline in chat; Joshua asked for metal recognition, preference and angsty mood.
+Human listening PENDING; do not infer genre or universal quality from media/metadata checks.
+Same requested DiT seed does not control every LM sample; entire caption varies, not title alone.
+Safe result results/a3-35-caption-ab-v2.json; stopped a3-35-caption-ab.json preserved unchanged.
+Raw WAV/private recovery tickets ignored under results/raw; no provider identifiers/routes or keys in evidence.
+Runtime193 tests/0skips and prior source4CI PASS remain applicable; evidence-only checks follow.
+No app restart, normal-launch/main acceptance, self-approval or issue closure; no more live calls.
+Next: preserve listening verdict, publish evidence to existing draft PR37, decide on general caption change only if supported.
+
+
 ## Session — #35 caption A/B stopped, 2026-11-01 America/Denver
 Codex for Joshua; user explicitly assigned “Work #35”; same draft PR37, issue stays open.
 Isolated codex/a3-35-caption-ab-nov1, integrated maincb818ae; immutable sourcec97045f.

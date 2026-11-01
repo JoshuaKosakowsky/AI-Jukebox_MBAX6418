@@ -1,0 +1,165 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "2eb81db34fa3ca20e01dfeba16b2a4b0e6f19f3f",
+  "base_main": "cb818ae595f399f2455464de58ec5acdaa27d8fc",
+  "authorization": "User explicitly approved a fresh pair: Run the corrected two-clip comparison. New v2 budget is separate from the preserved stopped run. Public coordination: PR37 comment6561353866.",
+  "scope": "Production adapter caption comparison; not normal-launch or integrated-main acceptance.",
+  "started_at_utc": "2026-11-01T17:26:29.157110+00:00",
+  "limits": {
+    "music_submissions": 2,
+    "polls": 40,
+    "downloads": 2,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0,
+    "deadline_seconds": 300
+  },
+  "counts": {
+    "music_submissions": 2,
+    "polls": 6,
+    "downloads": 2,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "track_context": {
+    "title": "Iced Coffee",
+    "style": "Heavy Metal",
+    "mood": "Angsty",
+    "duration_seconds": 20,
+    "mode": "instrumental"
+  },
+  "comparison": "Only request.prompt differs. A retains the application title/context wrapper; B replaces the entire caption with the previously proposed concise musical description. This does not isolate title alone.",
+  "diagnostic_seed_override": {
+    "seed": 641835,
+    "use_random_seed": false,
+    "production_defaults_changed": false
+  },
+  "offline_verification": {
+    "command": "python scripts/dev.py --check",
+    "tests_passed": 193,
+    "skipped": 0,
+    "runtime_checked_commit": "c97045fd1ba4dcbb4da1a991072e275bf6e5f26b",
+    "exact_source_ci": "4/4 PASS on2eb81db",
+    "verifier_files": 124,
+    "coverage": "36/11/19 PASS"
+  },
+  "harness_sha256": "34a5aabd8f09f0750661c622ec3d2409b23c9543d52bccc9ff297c545bd06cae",
+  "results": [
+    {
+      "case": "A-current-app",
+      "input_caption": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Riff-led metal: heavily distorted electric guitars, palm-muted chugs, electric bass, forceful acoustic drums and double-kick accents. Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T17:26:29.167618+00:00",
+      "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
+      "human_genre_judgment": "PENDING",
+      "request": {
+        "prompt": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Riff-led metal: heavily distorted electric guitars, palm-muted chugs, electric bass, forceful acoustic drums and double-kick accents. Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav",
+        "seed": 641835,
+        "use_random_seed": false
+      },
+      "reported_seed": 641835,
+      "reported_seed_matches": true,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 167,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "6e2e44bedcc8fe0a39e77fccf68d49043980aee61d4d007e25bb4e4d0e5795e7",
+        "pcm_sha256": "ab804e29154b49eba1b32b950907080ade9822d3c28070f7e725dd478fffc333",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.201261
+      },
+      "completed_at_utc": "2026-11-01T17:26:37.414561+00:00"
+    },
+    {
+      "case": "B-concise-description",
+      "input_caption": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
+      "started_at_utc": "2026-11-01T17:26:37.414748+00:00",
+      "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
+      "human_genre_judgment": "PENDING",
+      "request": {
+        "prompt": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav",
+        "seed": 641835,
+        "use_random_seed": false
+      },
+      "reported_seed": 641835,
+      "reported_seed_matches": true,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 136,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "2e8301c58beea276ad5808d758dabfaf5de97179e39c5df7e9fb0cc4f142ea65",
+        "pcm_sha256": "5f60ec6c4e33699d7578c862cae1eb22542def5dd1fb6fae71cea9f547291522",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.177744
+      },
+      "completed_at_utc": "2026-11-01T17:26:45.627770+00:00"
+    }
+  ],
+  "human_listening": {
+    "status": "PENDING",
+    "tester": "JoshuaKosakowsky",
+    "method": "Both full clips rendered inline in chat, A=current app caption and B=concise musical description; asked for metal recognition and angsty mood judgment."
+  },
+  "limitations": [
+    "A shared requested DiT seed does not control every LM sampling source or establish deterministic generation.",
+    "One pair cannot establish causality or all-genre fidelity.",
+    "Returned metadata and different PCM hashes are not human genre recognition.",
+    "Prior metal/rap failures and piano/DnB passes remain historical, not results for this run."
+  ],
+  "status": "COMPLETED_AND_DECODED; HUMAN_GENRE_JUDGMENT_PENDING",
+  "non_prompt_request_fields_identical": true,
+  "completed_at_utc": "2026-11-01T17:26:45.628052+00:00",
+  "counts_scope": "This fresh explicitly approved run only. Earlier stopped run remains separately recorded as1 submission/3polls/0downloads; no historical counts are reset.",
+  "comparison_controls_verified": {
+    "only_differing_request_fields": [
+      "prompt"
+    ],
+    "requested_seed": 641835,
+    "both_reported_seeds_match": true,
+    "duration_seconds": 20,
+    "lyrics": "[Instrumental]",
+    "production_defaults_unchanged": true
+  },
+  "prior_stopped_record": "a3-35-caption-ab.json",
+  "outcome": "Both jobs completed, full non-silent WAV decoding and request-control comparison passed. Human genre/mood judgment pending; no quality fix established.",
+  "pcm_hashes_differ": true
+}

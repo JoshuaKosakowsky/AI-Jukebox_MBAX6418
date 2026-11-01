@@ -83,3 +83,10 @@ c97045f records1 completed music job /3 polls /0 downloads. A diagnostic checked
 `seed` instead of the documented `seed_value` and stopped before the second job.
 Corrected response-shape/stop guards pass offline. No audio or genre verdict;
 this does not establish a music-service failure or resolve #35.
+
+
+Corrected within-genre pair: [caption A/B v2](a3-35-caption-ab-v2.json) on2eb81db,
+explicitly authorized after the stopped run. Exactly2 music jobs /6 polls /2
+downloads,0other services/retries; only the caption differs. Both returned the
+requested seed and fully decoded20s. Clips rendered for Joshua; human metal/mood
+judgment pending. No broad-genre or integrated-main acceptance claimed.
