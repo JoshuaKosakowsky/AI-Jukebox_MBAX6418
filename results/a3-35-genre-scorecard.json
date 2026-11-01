@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "7ebd8610f7e45fa74598bbac2813fc55f38ab2ad",
+  "round": 1,
+  "authorization": "User deferred metal and requested other-genre tests with three quality categories; bounded four-job plan PR37 comment6561798384.",
+  "scope": "Production music_prompt/ClassProviders, one20s instrumental sample per style. Not normal-launch/browser/vocal or release acceptance.",
+  "categories": {
+    "good_to_go": {
+      "label": "Good to go",
+      "criteria": "Recognizable requested genre and mood; acceptable to use in the assessed clip."
+    },
+    "minor_improvement": {
+      "label": "Minor improvement",
+      "criteria": "Recognizable genre, but some detail, mood or consistency needs improvement."
+    },
+    "major_update": {
+      "label": "Major update / completely misses mark",
+      "criteria": "Substantially wrong, unconvincing or unusable for the requested style/mood."
+    }
+  },
+  "rating_policy": "Only Joshua listening assigns categories. Null means not yet rated, not a fourth grade. One clip is provisional; no genre-wide guarantee or automatic tuning/retry.",
+  "deferred_limitations": [
+    {
+      "genre": "Heavy metal/deathcore (Joshua tested target)",
+      "category": "major_update",
+      "work_state": "DEFERRED_BY_USER",
+      "reason": "Repeated failed listening, latest D: Still misses the target. User requested a future revisit and broader genre assessment now.",
+      "source_record": "a3-35-deathcore-candidate.json",
+      "new_generation": 0
+    }
+  ],
+  "seed_policy": "Unmodified production defaults. No seed/use_random_seed overrides; reported seeds are optional service metadata, not quality judgments.",
+  "started_at_utc": "2026-11-01T18:07:50.968823+00:00",
+  "limits": {
+    "music_submissions": 4,
+    "polls": 60,
+    "downloads": 4,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0,
+    "deadline_seconds": 300
+  },
+  "counts": {
+    "music_submissions": 4,
+    "polls": 8,
+    "downloads": 4,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "count_policy": "Persist attempted request count before I/O; uncertain calls are never repeated.",
+  "planned_cases": [
+    {
+      "case": "country",
+      "title": "Backroad Sunrise",
+      "settings": {
+        "style": "Country",
+        "mood": "Warm and hopeful",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Country. Instrumental; no vocals. Mood: Warm and hopeful. Theme: Backroad Sunrise. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "swing-jazz",
+      "title": "After Hours",
+      "settings": {
+        "style": "Swing jazz",
+        "mood": "Laid-back and intimate",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Swing jazz. Instrumental; no vocals. Mood: Laid-back and intimate. Theme: After Hours. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "house",
+      "title": "Neon Crosswalk",
+      "settings": {
+        "style": "House",
+        "mood": "Upbeat and uplifting",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "House. Instrumental; no vocals. Mood: Upbeat and uplifting. Theme: Neon Crosswalk. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "hip-hop-beat",
+      "title": "Yellow Sundress",
+      "settings": {
+        "style": "Rap",
+        "mood": "Upbeat",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Rap. Instrumental; no vocals. Mood: Upbeat. Theme: Yellow Sundress. Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, sparse repeating hook and room for rhythmic vocal flow. Theme/mood shape dynamics and motifs."
+    }
+  ],
+  "results": [
+    {
+      "case": "country",
+      "title": "Backroad Sunrise",
+      "settings": {
+        "style": "Country",
+        "mood": "Warm and hopeful",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Country. Instrumental; no vocals. Mood: Warm and hopeful. Theme: Backroad Sunrise. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:07:50.978436+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "minor_improvement",
+      "human_notes": "Sounds like it has funk in it.",
+      "request": {
+        "prompt": "Country. Instrumental; no vocals. Mood: Warm and hopeful. Theme: Backroad Sunrise. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2173953892,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 81,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "65d24016319dd4e50e9dfba021407227d68c5eab0032da2c0ebb59d3995b4c1e",
+        "pcm_sha256": "7bb641c5ad83c299b89914c9c5c8a252fa38fae4338f591a622b5a375761a6a8",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.145621
+      },
+      "completed_at_utc": "2026-11-01T18:07:55.631291+00:00"
+    },
+    {
+      "case": "swing-jazz",
+      "title": "After Hours",
+      "settings": {
+        "style": "Swing jazz",
+        "mood": "Laid-back and intimate",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Swing jazz. Instrumental; no vocals. Mood: Laid-back and intimate. Theme: After Hours. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:07:55.632265+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": "No notes.",
+      "request": {
+        "prompt": "Swing jazz. Instrumental; no vocals. Mood: Laid-back and intimate. Theme: After Hours. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2208265448,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 136,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "7302467e7edcef057fb7079511eb0a8846b6b7dd108b40fd509bb7d589053875",
+        "pcm_sha256": "1068d65c4486865836348223fc200fd923625a9576d14e3df275125a533763f7",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.146327
+      },
+      "completed_at_utc": "2026-11-01T18:08:00.372018+00:00"
+    },
+    {
+      "case": "house",
+      "title": "Neon Crosswalk",
+      "settings": {
+        "style": "House",
+        "mood": "Upbeat and uplifting",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "House. Instrumental; no vocals. Mood: Upbeat and uplifting. Theme: Neon Crosswalk. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:08:00.372386+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "minor_improvement",
+      "human_notes": "Does not hit the BPM in my head; desired BPM and direction were not specified.",
+      "request": {
+        "prompt": "House. Instrumental; no vocals. Mood: Upbeat and uplifting. Theme: Neon Crosswalk. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 267599685,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 125,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "f9edf594824066b04de3c5c8d5316327fb8ef66b9020efcdd0199a66ce2c38ed",
+        "pcm_sha256": "4fffe04b11bc6c1dc66e78d098f30423c8f2a940e1e022d704b0af1de528808b",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.136931
+      },
+      "completed_at_utc": "2026-11-01T18:08:04.937177+00:00"
+    },
+    {
+      "case": "hip-hop-beat",
+      "title": "Yellow Sundress",
+      "settings": {
+        "style": "Rap",
+        "mood": "Upbeat",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Rap. Instrumental; no vocals. Mood: Upbeat. Theme: Yellow Sundress. Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, sparse repeating hook and room for rhythmic vocal flow. Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:08:04.937558+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": "User: \"I can hear a rap/hip hop lyric behind this.\" Instrumental assessment only; no vocal acceptance inferred.",
+      "request": {
+        "prompt": "Rap. Instrumental; no vocals. Mood: Upbeat. Theme: Yellow Sundress. Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, sparse repeating hook and room for rhythmic vocal flow. Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2783429629,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 91,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "19d8eb5450a5a7e541d6f668af1bfce303950b455cd0b484cf1f1fb1a2e37249",
+        "pcm_sha256": "2208908cd7d2e964f3de669c7a3f4da470b44cf7674d573d353f86ef04c4d9c9",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.165924
+      },
+      "completed_at_utc": "2026-11-01T18:08:09.452264+00:00"
+    }
+  ],
+  "human_listening": {
+    "status": "COMPLETE",
+    "tester": "JoshuaKosakowsky",
+    "method": "All four complete20s clips rendered inline in chat; asked Joshua for one of the three categories and brief notes for each.",
+    "response": "Country, minor improvement; sounds like it has \"funk\" in it.\nSwing Jazz, good to go; no notes on this\nHouse; minor improvement; doesn't hit the BPM in my head.\nhip-hop, good to go, I can hear a rap/hip hop lyric behind this",
+    "rating_recorded_at_utc": "2026-11-01T18:15:08.069367+00:00"
+  },
+  "offline_source_checks": "193 locked tests/0skips; source7ebd861 CI4/4 PASS. No runtime changes for this round.",
+  "harness_sha256": "fae0b68d0e33ef1388989c3b2ecd30f2ad78f8e09ca62ae36a00e851d288d89f",
+  "limitations": [
+    "One sample per style and one duration cannot establish broad consistency.",
+    "Only instrumental sound is assessed; no rapped/sung vocals or lyrical message.",
+    "Different captions/titles/moods and production random seeds make this quality sampling, not a causal A/B.",
+    "Decoded audio, returned metadata and green tests do not assign a quality category."
+  ],
+  "status": "COMPLETED_AND_RATED",
+  "non_prompt_request_fields_identical": true,
+  "distinct_pcm_count": 4,
+  "completed_at_utc": "2026-11-01T18:08:09.452788+00:00",
+  "driver_offline_checks": {
+    "network_calls": 0,
+    "passed": [
+      "Four jobs use exact unmodified production payloads, no fixed metadata/seed overrides.",
+      "Full decode, distinct fixture pairing and no automatic quality assignment.",
+      "Missing optional reported seed remains unknown, not a false mismatch.",
+      "First rejected submission stops further jobs.",
+      "Explicit execution and existing-output guards prevent accidental/repeated calls."
+    ]
+  },
+  "workflow_decision": "Metal/deathcore target deferred at user request; broader genre assessment continues. A major rating does not trigger automatic repair or generation. Revisit tracked in #35 with failed records retained.",
+  "round_rating_counts": {
+    "good_to_go": 2,
+    "minor_improvement": 2,
+    "major_update": 0
+  },
+  "follow_ups": [
+    {
+      "case": "country",
+      "work": "Reduce unwanted funk influence; no new prompt/runtime change or generation made."
+    },
+    {
+      "case": "house",
+      "work": "Clarify desired tempo before changing controls; do not infer slower/faster or a numeric BPM from this feedback."
+    },
+    {
+      "case": "hip-hop-beat",
+      "work": "Good to go applies to instrumental beat only, not a rapped-vocal flow."
+    }
+  ]
+}

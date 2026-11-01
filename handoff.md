@@ -1,5 +1,28 @@
 # Agent handoff
 
+## Session — #35 broader genre scorecard, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-35-caption-ab-nov1 / PR37; immutable tested source7ebd861.
+User explicitly deferred metal/deathcore as a known limitation for a future revisit; other genres continue now.
+Metal heavier target: Major update / completely misses mark, work DEFERRED; failed D evidence preserved, #35 open.
+Matt notified via PR37 comment6561798384 to defer active metal tuning; Joshua retains #35, no reassignment.
+New user-authorized round1 max4 music jobs,20s instrumentals: Country, Swing jazz, House, Rap/Hip-hop beat.
+Inputs exact in results/a3-35-genre-scorecard.json; actual production caption/adapter, no runtime/seed overrides.
+Actual4 submissions/8 polls/4downloads,0format/art/text/speech/retries; all full non-silent48kHz stereoPCM16,20s.
+No new provider settings, dependencies, artist mappings, public schema or app UI category feature.
+Three quality categories defined; ratings only from Joshua, one sample/style provisional, no automatic tuning.
+Four clips rendered; Joshua rated Swing jazz/Hip-hop beat GOOD TO GO, Country/House MINOR IMPROVEMENT.
+Country has unwanted funk influence; House tempo feel mismatches intent, target BPM/direction unspecified.
+Hip-hop rating applies to instrumental beat, not actual rapped/sung vocals; all scores remain one-clip provisional.
+Added structured scorecard; results README table, main README known limitation, provider/test docs and handoff updated.
+Original requests/audio/failure records retained; raw media/private task recovery refs ignored.
+Offline driver success/optional-metadata/first-failure/replay/grade guards PASS; zero network in those checks.
+Source193 tests/0skips +4CI PASS; no runtime changes; final evidence-only safeguards128/coverage36-11-19/whitespace PASS.
+No normal-launch/main/browser, vocal/rap delivery or universal genre/release acceptance claimed.
+Next: publish rated scorecard; seek eligible independent review of partial controls change with known limits; keep35 open.
+No completed all-genre fix claimed; metal deferral should not require more tuning before unrelated progress.
+No further generation under completed round1 budget; old stop/budget limits preserved.
+
+
 ## Session — #35 explicit deathcore target, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-35-caption-ab-nov1 / draft PR37; #35 remains open.
 User explicitly authorized “Generate the one deathcore clip”; new max1 job, claim PR37 comment6561605112.

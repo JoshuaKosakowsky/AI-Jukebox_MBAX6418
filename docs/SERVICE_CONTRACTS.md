@@ -139,8 +139,11 @@ and blends retain their own direction. These editorial defaults address the
 reported cases, but have not passed the user's genre listening checks. There is
 no fixed genre/BPM table, model switch or fixed seed. The style input already
 accepts a subgenre, instruments and rhythm in free text; the UI now explains
-that option. Joshua's heavier references narrow his next listening target to
+that option. Joshua's heavier references narrowed the assessed target to
 deathcore traits rather than making the general Metal label a personal preset.
+After its failed listening check, Joshua deferred further metal/deathcore tuning
+for a future revisit. Broader genre assessment continues using the
+[three-category scorecard](../results/README.md#genre-listening-scorecard).
 
 The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
 supports both flags and optional BPM/key/meter. The

@@ -105,3 +105,35 @@ on2c77732,1 music job /2 polls /1 download,0other services/retries. Actual produ
 caption with clarified style/mood, planning on / rewriting off; full20s WAV decode.
 Joshua listened and replied "Still misses the target": heavier-target FAIL.
 No finer per-trait diagnosis or all-genre conclusion; no further generation.
+
+
+## Genre listening scorecard
+
+Joshua's three categories describe the assessed instrumental clips. One20s
+sample per style is provisional; a positive category does not establish every
+song, subgenre, vocal mode or integrated-main flow. Joshua rated round1: two Good to go and two Minor improvement. Only human
+listening assigns a quality grade; completed files, hashes and service metadata do not.
+
+| Category | Meaning |
+|---|---|
+| Good to go | Recognizable requested genre/mood, acceptable to use in this sample. |
+| Minor improvement | Recognizable, with some detail, mood or consistency needing work. |
+| Major update / completely misses mark | Substantially wrong or unconvincing for the requested sound. |
+
+<!-- genre-scorecard:start -->
+| Style / assessed target | Category | Notes / work status |
+|---|---|---|
+| Country | Minor improvement | Some unwanted funk influence. |
+| Swing jazz | Good to go | No notes. |
+| House | Minor improvement | Tempo feel needs work; desired BPM not specified. |
+| Rap/Hip-hop instrumental | Good to go | Beat suitable for rap/hip-hop lyrics; vocals untested. |
+| Heavy metal/deathcore (Joshua's tested heavier target) | Major update / completely misses mark | Known limitation; tuning deferred for a future revisit. |
+<!-- genre-scorecard:end -->
+
+[Machine-readable scorecard and exact round1 evidence](a3-35-genre-scorecard.json):
+source7ebd861,4 music submissions/8 polls/4downloads,0other services/retries.
+Unmodified production seed defaults; four full non-silent48kHz stereoPCM16 WAVs,
+20s each. Raw clips rendered in chat and retained privately under results/raw.
+Metal's earlier [failed heavier case](a3-35-deathcore-candidate.json) is preserved;
+its deferral is a user priority decision, not a repaired or closed issue. No
+further generation under the completed round1 budget.

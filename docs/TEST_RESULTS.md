@@ -1460,3 +1460,32 @@ duration and other controls and use retained D as context. That is a hypothesis,
 not an executed/authorized follow-up or proof that planning caused the failure.
 No new generation under the completed budget; no model/service capability limit
 is established by these cases. #35 stays open / PR37 draft.
+
+
+### Genre scorecard round1; metal tuning deferred — 2026-11-01 America/Denver
+
+Joshua requested that metal/deathcore be recorded as a known lacking point for
+a future revisit, while other genres are assessed in three categories: Good to
+go; Minor improvement; Major update / completely misses mark. The failed heavier
+target is in the last category, with active tuning deferred. Its evidence and
+#35 remain open; no classification of every metal subgenre or demand claim.
+Matt notified to defer active metal work; no assignment or runtime change.
+
+Bounded new round1, claim PR37 comment6561798384, immutable source7ebd861:
+Country / Backroad Sunrise / Warm and hopeful; Swing jazz / After Hours /
+Laid-back and intimate; House / Neon Crosswalk / Upbeat and uplifting; Rap
+instrumental / Yellow Sundress / Upbeat. Actual music_prompt/ClassProviders,
+20s each, thinking=true/use_cot_caption=false, **production seed defaults with
+no fixed-seed override**. Captured non-prompt request fields match across cases.
+
+Completed **4 music submissions /8 polls /4 downloads;0 format/art/text/speech/retries**.
+All four fully decoded non-silent48kHz stereoPCM16, exactly20s; clips rendered in
+chat. **Joshua's ratings:** Country = Minor improvement (funk influence); Swing
+jazz = Good to go (no notes); House = Minor improvement (tempo differs from his
+intended feel; target BPM/direction unspecified); Rap/Hip-hop instrumental = Good
+to go (can hear rap/hip-hop lyrics over the beat; no actual vocal claim).
+Categories are not inferred from media/metadata. Three quality grades plus an
+unrated state for future cases; one sample per style is provisional and
+not a causal A/B, vocal test, integrated-main or release acceptance. No automatic
+repair/regeneration after a low score. [Exact scorecard](../results/a3-35-genre-scorecard.json).
+No further calls under the completed round1 budget; previous runs stay separate.
