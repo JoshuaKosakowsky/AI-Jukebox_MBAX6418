@@ -14,6 +14,7 @@ from PIL import Image
 
 from jukebox.app import create_app
 from jukebox.config import Settings
+from jukebox.contracts import Track
 from jukebox.providers import MediaBytes
 from jukebox.samples import ERROR_MESSAGE, SampleLibraryError, load_samples
 from jukebox.sessions import MAX_MEDIA_BYTES, SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
@@ -291,3 +292,55 @@ class SampleHttpTests(unittest.TestCase):
             store.create_cover_track(session, "New", next(iter(session.tracks.values())).settings)
         self.assertEqual(len(session.tracks), 2)
         self.assertFalse(session.jobs)
+
+    def test_dj_speech_counts_catalog_retained_after_session_media_are_gone(self):
+        catalog = load_samples(self.root, max_bytes=MAX_MEDIA_BYTES)
+        store = SessionStore(catalog)
+        session = store.resolve(None)
+        session.media.clear()
+        session.tracks.clear()
+        track = Track(title="DJ catalog capacity", settings=catalog[0].track.settings)
+        session.tracks[track.id] = track
+        job = store.request_dj_speech(session, track.id)
+        size = sum(len(s.audio.content) + len(s.cover.content) for s in catalog)
+        providers = Mock(text=Mock(return_value="Short introduction"),
+                         speech=Mock(return_value=MediaBytes(b"new-speech", "audio/wav")))
+        with patch("jukebox.sessions.MAX_MEDIA_BYTES", size):
+            store.generate_dj_speech(session, job.id, providers)
+        self.assertEqual(session.jobs[job.id].state, "failed")
+        self.assertEqual(session.jobs[job.id].error.code, "generation_failed")
+        self.assertIsNone(session.tracks[track.id].speech)
+        self.assertFalse(session.media)
+        self.assertEqual(store._media_bytes(), size)
+
+    def test_loaded_samples_use_dj_queue_without_altering_original_media_or_other_sessions(self):
+        settings = Settings.load(None, {
+            "JUKEBOX_TEXT_ENDPOINT": "http://dobolyi.com:9001/v1", "JUKEBOX_TEXT_API_KEY": "offline-fixture-only",
+            "JUKEBOX_SPEECH_ENDPOINT": "http://dobolyi.com:9008/v1", "JUKEBOX_SPEECH_API_KEY": "offline-fixture-only"})
+        speech = load_samples(self.root, max_bytes=MAX_MEDIA_BYTES)[0].audio
+        with patch("jukebox.providers.ClassProviders.text", return_value="Short introduction") as text, \
+             patch("jukebox.providers.ClassProviders.speech", return_value=speech) as spoken:
+            with TestClient(create_app(settings), base_url="http://localhost") as client:
+                before = client.get("/api/session").json()
+                for track in before["tracks"]:
+                    self.assertEqual(client.post("/api/playback/queue", json={"track_id": track["id"]}).status_code, 200)
+                for index, track in enumerate(before["tracks"]):
+                    path = "/api/playback/start" if index == 0 else "/api/playback/advance"
+                    self.assertEqual(client.post(path, json={}).status_code, 200)
+                    current = client.get("/api/session").json()["tracks"][index]
+                    self.assertEqual(current["audio"], track["audio"])
+                    self.assertEqual(current["cover"], track["cover"])
+                    self.assertEqual(client.get(current["speech"]["url"]).content, speech.content)
+                    self.assertEqual(client.post("/api/playback/phase", json={"phase": "playing", "track_id": track["id"]}).status_code, 200)
+                completed = client.get("/api/session").json()
+                self.assertEqual([j["state"] for j in completed["jobs"]], ["succeeded", "succeeded"])
+                self.assertEqual(text.call_count, 2)
+                self.assertEqual(spoken.call_count, 2)
+                self.assertTrue(all(call.kwargs == {"thinking": False} for call in text.call_args_list))
+                client.cookies.clear()
+                fresh = client.get("/api/session").json()
+                self.assertEqual(len(fresh["tracks"]), 2)
+                self.assertTrue(all(t["speech"] is None for t in fresh["tracks"]))
+                self.assertFalse(fresh["jobs"])
+                self.assertEqual(client.get(completed["tracks"][0]["speech"]["url"]).status_code, 404)
+        self.provider_request.assert_not_called()

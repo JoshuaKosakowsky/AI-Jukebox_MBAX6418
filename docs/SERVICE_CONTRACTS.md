@@ -48,6 +48,26 @@ and finish_reason=stop. Ignore unknown extra response fields. Do not depend on
 reasoning fields or expose them. JSON-mode lyrics, structured output and DJ
 prompt behavior have not been tested; this call does not verify those formats.
 
+### DJ direct-response mode (verified 2026-10-30)
+
+The DJ opts into `ClassProviders.text(prompt, thinking=False)`, which adds only
+`"chat_template_kwargs": {"enable_thinking": false}` to the baseline request.
+The deployed `/openapi.json` exposes this object on `ChatCompletionRequest`;
+[Qwen's model-owner guidance](https://huggingface.co/Qwen/Qwen3.6-35B-A3B#instruct-or-non-thinking-mode)
+and the [quantization owner's card](https://huggingface.co/cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit#instruct-or-non-thinking-mode)
+document that control for non-thinking responses. No prompt soft-switch or
+server setting is assumed. Omitted `thinking` preserves the exact original
+probe payload; lyrics retain their separate existing request and budget.
+
+The DJ keeps its original prompt, model, 192-token limit, temperature and
+non-streaming behavior. Model match, nonempty string content and
+`finish_reason=stop` remain mandatory; incomplete output is never accepted.
+Two real first/transition requests completed in 36/52 tokens, then two real
+default-voice speech requests attached decodable PCM WAVs through production
+HTTP/store code. Replay used cached speech with no extra requests. This was
+TestClient integration with retained class tracks seeded in memory, not the
+normal launcher/browser or listening acceptance. [Safe evidence](../results/a3-05-qwen-fix-verification.json).
+
 ## Covers: FLUX, port 9006
 
 POST /v1/images/generations with model black-forest-labs/FLUX.2-klein-4B,

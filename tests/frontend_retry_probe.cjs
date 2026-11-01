@@ -18,6 +18,8 @@ async function check(label, endpoint, configured) {
   let refreshes = 0;
   const context = vm.createContext({node: element, artConfigured: configured,
     musicConfigured: configured, textConfigured: true, notice: {},
+    // DJ availability is outside this focused cover/music/resume probe.
+    djReady: () => false,
     request: async path => { requests.push(path); if (rejected) throw new Error('Busy'); return {}; },
     syncAfterMutation: async () => { refreshes++; }});
   vm.runInContext(statusSource + cardSource + ';globalThis.build = buildTrackCard;', context);

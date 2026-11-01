@@ -1,0 +1,54 @@
+{
+  "scope": "Bounded adapter diagnosis only, not normal-launch/browser/listening or acceptance",
+  "head": "c4404ddf04313ae4c9cfd37dccdcdfaf7a7fd12d",
+  "requests": {
+    "text": 1,
+    "speech": 1,
+    "music": 0,
+    "art": 0
+  },
+  "no_retries": true,
+  "text_response": {
+    "expected_model_matches": true,
+    "content_is_string": false,
+    "content_nonempty": false,
+    "content_characters": 0,
+    "finish_reason": "length",
+    "reasoning_present": false,
+    "usage": {
+      "prompt_tokens": 105,
+      "total_tokens": 297,
+      "completion_tokens": 192
+    }
+  },
+  "text_result": {
+    "code": "invalid_response",
+    "message": "The text service returned no complete text."
+  },
+  "text_elapsed_seconds": 1.247,
+  "speech_response": {
+    "bytes": 190124,
+    "mime": "audio/wav",
+    "riff_wave": true,
+    "format_code": 1,
+    "channels": 1,
+    "sample_rate": 24000,
+    "bits": 16,
+    "full_pcm_decode": true,
+    "frames": 95040,
+    "duration_seconds": 3.96
+  },
+  "speech_result": "accepted",
+  "speech_elapsed_seconds": 1.765,
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "claim": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6537218983",
+  "result_comment": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/27#issuecomment-6537241747",
+  "raw_text_or_audio_retained": false,
+  "accepted_live_feature": false,
+  "remaining": [
+    "Documented Qwen request correction and complete-output validation",
+    "Normal-launch live DJ/control/listening acceptance",
+    "Independent eligible review; Matt author readiness"
+  ]
+}

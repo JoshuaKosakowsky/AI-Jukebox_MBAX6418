@@ -249,3 +249,8 @@ input:focus-visible { outline:3px solid #b8f3d7; outline-offset:2px; }
   .track { grid-template-columns:1fr; gap:12px; }
   .cover { max-width:320px; width:100%; margin:auto; }
 }
+.dj { margin-top:34px; }
+.dj-queue { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0; }
+.dj-queue li { border:1px solid #30483d; border-radius:999px; padding:4px 12px; font-size:13px; }
+.dj-queue li.current { border-color:#6fbf8f; background:rgba(111,191,143,.12); }
+.dj-controls { display:flex; gap:10px; margin:14px 0 6px; }
