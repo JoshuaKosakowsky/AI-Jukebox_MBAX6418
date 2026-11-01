@@ -1,5 +1,28 @@
 # Agent handoff
 
+## Session — #35 broader genre rounds2-3, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-35-more-genre-evidence from frozen PR37 head7c953a7; no parent code changes.
+User requested more genres/keep going; task max16 music jobs, plan PR37 comment6562044562.
+Round2 Funk/Blues/Reggae/Salsa/strings/R&B/Pop/DnB:8 jobs/17polls/8downloads.
+Round3 Classic/Punk rock/Disco/Techno/Trance/Ambient/Afrobeats/Reggaeton:8 jobs/16polls/8downloads.
+Task16/33/16,0format/art/text/speech/retries; complete, no further calls under this cap.
+Actual production captions/adapter/seed defaults; all full non-silent48kHz stereoPCM16,20s; source7c953a7.
+Joshua rated all20 scorecard samples:10 GOOD TO GO,8 MINOR,2 MAJOR, plus separately deferred metal/deathcore.
+Major new work: Classic rock (funk/Donkey Kong-like), Punk rock (worst so far; no finer trait diagnosis).
+Minor new notes: Funk bass, synthetic strings/Pop, Pop catchiness, Wii-like Techno, Afrobeats drums, Reggaeton steelpan preference.
+Trance good rating has listener unfamiliarity caveat; steelpan is a case preference, not a universal genre rule.
+New round JSONs carry independent counts/hashes/verdicts; round1 ratings/requests/counters/media unchanged.
+Scorecard index/readable table, root README known limits, TEST_RESULTS/handoff updated; no runtime/test/schema/dependency changes.
+Draft evidence PR43 is stacked on37 to preserve37's review head; all ratings now complete, parent integration pending.
+Raw20 individual WAVs/4 samplers and safe JSON backups in OneDrive ignored results/raw/genre-scorecard-2026-11-01-7c953a7.
+No credentials/provider tickets copied to backup; original OneDrive tracked worktree unchanged.
+Four private86s listening samplers retain bit-identical source PCM with2s silence gaps; zero extra generation.
+Driver8-job/failure/replay/next-batch guards PASS offline; source193 tests/0skips +4CI PASS.
+Evidence integrity/safeguards130/coverage36-11-19/whitespace PASS; no full-genre/vocal/main/release acceptance claimed.
+Next: publish final ratings, update43/35 and inform37 reviewers; keep43 queued for parent integration; prioritize major rock follow-ups.
+No automatic retuning, sample-manifest selection or more jobs; metal tuning remains deferred per user.
+
+
 ## Session — #35 broader genre scorecard, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-35-caption-ab-nov1 / PR37; immutable tested source7ebd861.
 User explicitly deferred metal/deathcore as a known limitation for a future revisit; other genres continue now.

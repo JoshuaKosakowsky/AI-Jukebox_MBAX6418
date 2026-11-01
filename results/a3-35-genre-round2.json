@@ -1,0 +1,572 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "7c953a712754138c4373c13fde8b75579e367cef",
+  "round": 2,
+  "authorization": "User explicitly requested more genre generation and broader coverage; new task max16 jobs split into rounds2/3 of8 each, separately announced on PR37; prior budgets remain historical. Exact plan/coordination: PR37 comment6562044562.",
+  "scope": "Production music_prompt/ClassProviders, one20s instrumental sample per style. Not normal-launch/browser/vocal or release acceptance.",
+  "categories": {
+    "good_to_go": {
+      "label": "Good to go",
+      "criteria": "Recognizable requested genre and mood; acceptable to use in the assessed clip."
+    },
+    "minor_improvement": {
+      "label": "Minor improvement",
+      "criteria": "Recognizable genre, but some detail, mood or consistency needs improvement."
+    },
+    "major_update": {
+      "label": "Major update / completely misses mark",
+      "criteria": "Substantially wrong, unconvincing or unusable for the requested style/mood."
+    }
+  },
+  "rating_policy": "Only Joshua listening assigns categories. Null means not yet rated, not a fourth grade. One clip is provisional; no genre-wide guarantee or automatic tuning/retry.",
+  "deferred_limitations": [
+    {
+      "genre": "Heavy metal/deathcore (Joshua tested target)",
+      "category": "major_update",
+      "work_state": "DEFERRED_BY_USER",
+      "reason": "Repeated failed listening, latest D: Still misses the target. User requested a future revisit and broader genre assessment now.",
+      "source_record": "a3-35-deathcore-candidate.json",
+      "new_generation": 0
+    }
+  ],
+  "seed_policy": "Unmodified production defaults. No seed/use_random_seed overrides; reported seeds are optional service metadata, not quality judgments.",
+  "started_at_utc": "2026-11-01T18:26:12.229151+00:00",
+  "limits": {
+    "music_submissions": 8,
+    "polls": 120,
+    "downloads": 8,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0,
+    "deadline_seconds": 300
+  },
+  "counts": {
+    "music_submissions": 8,
+    "polls": 17,
+    "downloads": 8,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "count_policy": "Persist attempted request count before I/O; uncertain calls are never repeated.",
+  "planned_cases": [
+    {
+      "case": "funk",
+      "title": "Pocket Change",
+      "settings": {
+        "style": "Funk",
+        "mood": "Playful and groovy",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Funk. Instrumental; no vocals. Mood: Playful and groovy. Theme: Pocket Change. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "blues",
+      "title": "Last Train Home",
+      "settings": {
+        "style": "Blues",
+        "mood": "Soulful and reflective",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Blues. Instrumental; no vocals. Mood: Soulful and reflective. Theme: Last Train Home. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "reggae",
+      "title": "Sunday Breeze",
+      "settings": {
+        "style": "Reggae",
+        "mood": "Relaxed and sunny",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Reggae. Instrumental; no vocals. Mood: Relaxed and sunny. Theme: Sunday Breeze. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "salsa",
+      "title": "Havana After Dark",
+      "settings": {
+        "style": "Salsa",
+        "mood": "Lively and celebratory",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Salsa. Instrumental; no vocals. Mood: Lively and celebratory. Theme: Havana After Dark. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "classical-strings",
+      "title": "First Snow",
+      "settings": {
+        "style": "Classical string quartet",
+        "mood": "Gentle and contemplative",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Classical string quartet. Instrumental; no vocals. Mood: Gentle and contemplative. Theme: First Snow. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "r-and-b",
+      "title": "Velvet Evening",
+      "settings": {
+        "style": "Contemporary R&B",
+        "mood": "Smooth and intimate",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Contemporary R&B. Instrumental; no vocals. Mood: Smooth and intimate. Theme: Velvet Evening. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "pop",
+      "title": "Open Windows",
+      "settings": {
+        "style": "Pop",
+        "mood": "Bright and optimistic",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Pop. Instrumental; no vocals. Mood: Bright and optimistic. Theme: Open Windows. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    },
+    {
+      "case": "drum-and-bass",
+      "title": "Night Express",
+      "settings": {
+        "style": "Drum and bass",
+        "mood": "Fast and energetic",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Drum and bass. Instrumental; no vocals. Mood: Fast and energetic. Theme: Night Express. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs."
+    }
+  ],
+  "results": [
+    {
+      "case": "funk",
+      "title": "Pocket Change",
+      "settings": {
+        "style": "Funk",
+        "mood": "Playful and groovy",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Funk. Instrumental; no vocals. Mood: Playful and groovy. Theme: Pocket Change. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:12.238933+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "minor_improvement",
+      "human_notes": "Needs more bass.",
+      "request": {
+        "prompt": "Funk. Instrumental; no vocals. Mood: Playful and groovy. Theme: Pocket Change. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2967695015,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 94,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "73279d4ab8fe08843d883f0c6c1540416dcaa6b1e14b6383668e8141b9044d1b",
+        "pcm_sha256": "3b552fda646bd360bcc6f862701c04344d7f6f7d2914b7d63da0ecdd16811db4",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.203934
+      },
+      "completed_at_utc": "2026-11-01T18:26:17.266115+00:00"
+    },
+    {
+      "case": "blues",
+      "title": "Last Train Home",
+      "settings": {
+        "style": "Blues",
+        "mood": "Soulful and reflective",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Blues. Instrumental; no vocals. Mood: Soulful and reflective. Theme: Last Train Home. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:17.266919+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": null,
+      "request": {
+        "prompt": "Blues. Instrumental; no vocals. Mood: Soulful and reflective. Theme: Last Train Home. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 3850706407,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 125,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "62a6eb4153529189ec2e5eed584a9a1e29a29bec0aeaf16f12d0020d5598e3b4",
+        "pcm_sha256": "a3025c7dfd3b15cc665f2f2098e9bc85a343fdcc1f8f765820fa0a3928406cd0",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.108849
+      },
+      "completed_at_utc": "2026-11-01T18:26:21.974001+00:00"
+    },
+    {
+      "case": "reggae",
+      "title": "Sunday Breeze",
+      "settings": {
+        "style": "Reggae",
+        "mood": "Relaxed and sunny",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Reggae. Instrumental; no vocals. Mood: Relaxed and sunny. Theme: Sunday Breeze. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:21.974360+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": null,
+      "request": {
+        "prompt": "Reggae. Instrumental; no vocals. Mood: Relaxed and sunny. Theme: Sunday Breeze. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 3289949183,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 81,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "d42d25eba1d737a0672b529d64126807ad7a35ff0d4194eb18dadc4dac1c96cf",
+        "pcm_sha256": "9db6b45c641486aa0de7ccc3c094c1e245e1ff200be5fd59a8689dd81ab02816",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.145182
+      },
+      "completed_at_utc": "2026-11-01T18:26:26.534794+00:00"
+    },
+    {
+      "case": "salsa",
+      "title": "Havana After Dark",
+      "settings": {
+        "style": "Salsa",
+        "mood": "Lively and celebratory",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Salsa. Instrumental; no vocals. Mood: Lively and celebratory. Theme: Havana After Dark. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:26.535172+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": null,
+      "request": {
+        "prompt": "Salsa. Instrumental; no vocals. Mood: Lively and celebratory. Theme: Havana After Dark. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2819380467,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 200,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "80b143968c5c15779ee96b2a5d13e7e8869539814aa4a736dd82b1c93536ca0a",
+        "pcm_sha256": "a813212eb31ee2d7b7879e89ccfc181113e164b7f64a87f210769633a312d4fc",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.123549
+      },
+      "completed_at_utc": "2026-11-01T18:26:31.260012+00:00"
+    },
+    {
+      "case": "classical-strings",
+      "title": "First Snow",
+      "settings": {
+        "style": "Classical string quartet",
+        "mood": "Gentle and contemplative",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Classical string quartet. Instrumental; no vocals. Mood: Gentle and contemplative. Theme: First Snow. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:31.260476+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "minor_improvement",
+      "human_notes": "Too synthetic.",
+      "request": {
+        "prompt": "Classical string quartet. Instrumental; no vocals. Mood: Gentle and contemplative. Theme: First Snow. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 1637361887,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 120,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "c5d593962a7d1bf366b842dc73ed90b3539f9d3c8ae4720b4cdde54cacb2f2fc",
+        "pcm_sha256": "3df87bb59fc5ab69570bc5b3e19819852fa14b0934df5ca96a3a7db7a0b284b3",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.155142
+      },
+      "completed_at_utc": "2026-11-01T18:26:35.943533+00:00"
+    },
+    {
+      "case": "r-and-b",
+      "title": "Velvet Evening",
+      "settings": {
+        "style": "Contemporary R&B",
+        "mood": "Smooth and intimate",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Contemporary R&B. Instrumental; no vocals. Mood: Smooth and intimate. Theme: Velvet Evening. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:35.943961+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": null,
+      "request": {
+        "prompt": "Contemporary R&B. Instrumental; no vocals. Mood: Smooth and intimate. Theme: Velvet Evening. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 2603994527,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 86,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "01c3eeceb27ba153453f3d6069ab087f38c4a87772f7400789b1a95eae4a7f8f",
+        "pcm_sha256": "3bc9c64136d6b139d9ae7e20988a7ec8310365966b77010c2dc27c0bce29da01",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.150205
+      },
+      "completed_at_utc": "2026-11-01T18:26:43.602180+00:00"
+    },
+    {
+      "case": "pop",
+      "title": "Open Windows",
+      "settings": {
+        "style": "Pop",
+        "mood": "Bright and optimistic",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Pop. Instrumental; no vocals. Mood: Bright and optimistic. Theme: Open Windows. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:43.602576+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "minor_improvement",
+      "human_notes": "Too synthetic and not catchy enough.",
+      "request": {
+        "prompt": "Pop. Instrumental; no vocals. Mood: Bright and optimistic. Theme: Open Windows. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 1745586909,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 115,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "4b48ed286eefa9f2bbcec50f7b64378a58d97afcbde1ea1f7329500a92fed531",
+        "pcm_sha256": "841002a2fe4785e1e6d18828bd9ff4604e8c3c76f739df1cd5a0e2e6f5366e9b",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.136794
+      },
+      "completed_at_utc": "2026-11-01T18:26:48.217484+00:00"
+    },
+    {
+      "case": "drum-and-bass",
+      "title": "Night Express",
+      "settings": {
+        "style": "Drum and bass",
+        "mood": "Fast and energetic",
+        "duration_seconds": 20,
+        "mode": "instrumental"
+      },
+      "input_caption": "Drum and bass. Instrumental; no vocals. Mood: Fast and energetic. Theme: Night Express. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+      "started_at_utc": "2026-11-01T18:26:48.217959+00:00",
+      "technical_status": "COMPLETED_AND_DECODED",
+      "category": "good_to_go",
+      "human_notes": null,
+      "request": {
+        "prompt": "Drum and bass. Instrumental; no vocals. Mood: Fast and energetic. Theme: Night Express. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "submission_confirmed": true,
+      "reported_seed": 289726453,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 176,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "1fa10baf8fdf2cd0b33436de5f44264bf44551ae33e95047de5ec67a15ef896e",
+        "pcm_sha256": "471afced4838b7a71f3f2240bd05ba8d48625055ad5dc29794f4b4d73394f83f",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.1378
+      },
+      "completed_at_utc": "2026-11-01T18:26:53.165533+00:00"
+    }
+  ],
+  "human_listening": {
+    "status": "COMPLETE",
+    "tester": "JoshuaKosakowsky",
+    "method": "All eight complete20s round2 clips rendered inline in chat; asked Joshua for G/M/X category and optional notes.",
+    "response": "funk, m, needs more bass\nblues, g\nreggae, g\nsalsa, g\nclassical, m, too synth\nr&b, g\npop, m, to synthetic and not \"catchy\" enough\ndrum&bass, g",
+    "rating_recorded_at_utc": "2026-11-01T18:41:28.055804+00:00"
+  },
+  "offline_source_checks": "193 locked tests/0skips; source7c953a7 CI4/4 PASS. No runtime changes for this round.",
+  "harness_sha256": "6d4f06df38d1476420eef12907d2c18a046770cbec3c9d53a62185bb2439f650",
+  "limitations": [
+    "One sample per style and one duration cannot establish broad consistency.",
+    "Only instrumental sound is assessed; no rapped/sung vocals or lyrical message.",
+    "Different captions/titles/moods and production random seeds make this quality sampling, not a causal A/B.",
+    "Decoded audio, returned metadata and green tests do not assign a quality category."
+  ],
+  "status": "COMPLETED_AND_RATED",
+  "non_prompt_request_fields_identical": true,
+  "distinct_pcm_count": 8,
+  "completed_at_utc": "2026-11-01T18:26:53.166058+00:00",
+  "counts_scope": "Round2 only; part of the new16-job task, separate from round1 and earlier historical/metal runs.",
+  "task_budget": {
+    "rounds": [
+      2,
+      3
+    ],
+    "music_submissions": 16,
+    "polls": 240,
+    "downloads": 16,
+    "other_services": 0,
+    "retries": 0
+  },
+  "frozen_runtime_review_head": "PR37 at7c953a7, unchanged by this data-only branch.",
+  "driver_offline_checks": {
+    "network_calls": 0,
+    "checks": [
+      "Eight-job/default-payload/full-decode path",
+      "No automatic quality grading",
+      "First rejected submission stops further requests",
+      "Replay/execution guards",
+      "Round3 requires previous batch technical completion, including after human rating"
+    ]
+  },
+  "round_rating_counts": {
+    "good_to_go": 5,
+    "minor_improvement": 3,
+    "major_update": 0
+  }
+}

@@ -121,13 +121,29 @@ listening assigns a quality grade; completed files, hashes and service metadata 
 | Major update / completely misses mark | Substantially wrong or unconvincing for the requested sound. |
 
 <!-- genre-scorecard:start -->
-| Style / assessed target | Category | Notes / work status |
-|---|---|---|
-| Country | Minor improvement | Some unwanted funk influence. |
-| Swing jazz | Good to go | No notes. |
-| House | Minor improvement | Tempo feel needs work; desired BPM not specified. |
-| Rap/Hip-hop instrumental | Good to go | Beat suitable for rap/hip-hop lyrics; vocals untested. |
-| Heavy metal/deathcore (Joshua's tested heavier target) | Major update / completely misses mark | Known limitation; tuning deferred for a future revisit. |
+| Style / assessed target | Category | Notes / work status | Round |
+|---|---|---|---|
+| Country | Minor improvement | Sounds like it has funk in it. | 1 |
+| Swing jazz | Good to go | No notes. | 1 |
+| House | Minor improvement | Does not hit the BPM in my head; desired BPM and direction were not specified. | 1 |
+| Rap/Hip-hop instrumental | Good to go | User: "I can hear a rap/hip hop lyric behind this." Instrumental assessment only; no vocal acceptance inferred. | 1 |
+| Funk | Minor improvement | Needs more bass. | 2 |
+| Blues | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Reggae | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Salsa | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Classical string quartet | Minor improvement | Too synthetic. | 2 |
+| Contemporary R&B | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Pop | Minor improvement | Too synthetic and not catchy enough. | 2 |
+| Drum and bass | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Classic rock | Major update / completely misses mark | Sounded like funk and Donkey Kong Jungle. | 3 |
+| Punk rock | Major update / completely misses mark | The worst so far; no finer per-trait diagnosis supplied. | 3 |
+| Disco | Good to go | Clip completed; not yet quality-rated. | 3 |
+| Techno | Minor improvement | Sounds off, like Nintendo Wii music. | 3 |
+| Trance | Good to go | Listener is not familiar with the genre. | 3 |
+| Ambient | Good to go | Clip completed; not yet quality-rated. | 3 |
+| Afrobeats | Minor improvement | Needs more drums. | 3 |
+| Reggaeton | Minor improvement | Wants more Caribbean steel drum/pan sound. | 3 |
+| Heavy metal/deathcore (Joshua tested target) | Major update / completely misses mark | Known limitation; tuning deferred for a future revisit. | Historical |
 <!-- genre-scorecard:end -->
 
 [Machine-readable scorecard and exact round1 evidence](a3-35-genre-scorecard.json):
@@ -137,3 +153,12 @@ Unmodified production seed defaults; four full non-silent48kHz stereoPCM16 WAVs,
 Metal's earlier [failed heavier case](a3-35-deathcore-candidate.json) is preserved;
 its deferral is a user priority decision, not a repaired or closed issue. No
 further generation under the completed round1 budget.
+
+
+<!-- genre-rounds-summary:start -->
+Across rounds1-3: **20 sampled styles**, **20 rated**, **0 awaiting ratings**,
+plus the separately deferred heavy metal/deathcore target. No quality category is
+assigned automatically. Round1: [original record/index](a3-35-genre-scorecard.json);
+round2: [eight additional styles](a3-35-genre-round2.json);
+round3: [eight further styles](a3-35-genre-round3.json).
+<!-- genre-rounds-summary:end -->
