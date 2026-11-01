@@ -287,6 +287,9 @@ with A3-06 adding MP3/WAV reference voices on top of it.
 - [Full requirement map](docs/acceptance.json), [testing](docs/TESTING.md),
   [observed results](docs/TEST_RESULTS.md), [A2 lessons](docs/A2_LESSONS.md).
 - [GitHub/protection](docs/GITHUB_SETUP.md), [completion record](docs/CONTRIBUTIONS.md).
+- Disclosed Hermes reviewer: [setup](docs/HERMES_SETUP.md),
+  [separate review-only instructions](docs/HERMES_REVIEWER.md),
+  [eligibility policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
 
 Final delivery needs custom instrumental/vocal songs and AI lyrics, new matching
 covers, a session library, spoken DJ commentary with the default voice (the

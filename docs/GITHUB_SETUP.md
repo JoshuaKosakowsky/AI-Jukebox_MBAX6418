@@ -29,6 +29,14 @@ are audit records, not permission for future exceptions. An unavailable reviewer
 independently verified-as-resolved review may be dismissed under CONTRIBUTING's
 documented procedure by someone with actual permission; other protections remain.
 
+The disclosed Hermes/JoshKozy exception in [CONTRIBUTING](../CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy)
+changes review eligibility at project level, not the protection configuration.
+Both accounts belong to Joshua. It takes effect only from protected main after
+normal teammate review; Hermes cannot approve its own authority change. Keep
+the required approval count at one and every setting above intact. Hermes never
+merges or administers the repository. [Setup and identity checks](HERMES_SETUP.md)
+are separate from adopting the policy; collaborator/account changes are manual.
+
 ## Local guards
 
 Configure core.hooksPath=.githooks, core.longpaths=true and jukebox.allowPush=true

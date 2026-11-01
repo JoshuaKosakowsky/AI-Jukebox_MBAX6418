@@ -4,6 +4,9 @@ These task briefs are published as GitHub issues linked in [PLAN](../PLAN.md).
 The issues own status, lead and contributors; keep each brief's scope and
 acceptance checks when updating work. Acceptance IDs are defined once in
 [acceptance.json](acceptance.json).
+Review eligibility follows [CONTRIBUTING](../CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy),
+including its named disclosed Hermes/JoshKozy exception after adoption on main.
+That role is not an additional assignee or teammate; all task scopes remain.
 Split a large task into focused child PRs without dropping its user outcome.
 A3-08 and A3-09 run throughout the build; they are not final cleanup phases.
 

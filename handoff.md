@@ -1,5 +1,34 @@
 # Agent handoff
 
+## Session — disclosed Hermes reviewer setup, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/disclosed-hermes-reviewer from protected main cb818ae.
+## Constraints
+Docs/setup instructions only; preserve protection, app/tests/contracts/assets and existing PR heads.
+No account/access changes, Hermes repair/login, generation, invitations or automatic schedule edits.
+## Repository state
+Named JoshKozy role belongs to Joshua and becomes eligible only after normal protected policy adoption on main.
+Hermes cannot approve its own authority/profile changes; ordinary eligible teammate review is needed for this PR.
+## Work completed and decisions
+Added distinct HERMES_REVIEWER instructions and HERMES_SETUP steps; linked canonical exception across root guides.
+Review role may inspect/offline-test and post disclosed reviews, never implement/commit/push/merge or edit handoff.
+Explicitly allow separate Hermes review of primary-account contributions; no extra human/teammate credit.
+Setup requires scoped app user authorization as JoshKozy, isolated workspace/tools and credential-free test runner.
+## Validation
+PASS: verifier121 files, coverage36/11/19, whitespace and10-file markdown-only scope; runtime/tests unchanged.
+Live protection readback equals the saved baseline in every field; unavailable-reviewer exception text unchanged.
+JoshKozy permission readback is read; no permission was changed. Authenticated review submission is untested.
+Installed hermes --help reports missing dependency environment and directs hermes pm repair; not executed.
+## Blockers and unchecked areas
+Hermes profile/connector capabilities, scoped JoshKozy authentication and actual posting are not configured/verified.
+Owner manually grants needed collaborator access, sets up scoped tools and completes COMMENT-only smoke test.
+Actual teammate contribution/review, independent deployment and live acceptance remain required; NOT READY.
+## Next steps
+Eligible teammate reviews policy PR; merge normally. Load role in fresh Hermes session and verify identity/capabilities.
+After smoke review and adoption, allow eligible approvals; coordinate Dot without duplicate technical reviews.
+## References
+[Setup](docs/HERMES_SETUP.md), [reviewer prompt](docs/HERMES_REVIEWER.md), [policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
+Existing #38/#39 and Mike's feature branches are untouched; preserve inherited notes below.
+
 ## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
 Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
 
