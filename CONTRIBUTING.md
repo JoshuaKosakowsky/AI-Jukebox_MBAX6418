@@ -110,6 +110,11 @@ contributed to, only under these conditions:
   waived. The reviewer never edits code/docs, merges, dismisses another review,
   changes assignments/protection or calls generation services.
 
+This role applies only to Joshua's dedicated `jukebox-reviewer` profile on
+JoshKozy. Classmates' Hermes coding agents continue under the normal contributor
+workflow on their own accounts; reading HERMES_REVIEWER.md does not assign the
+review-only role. The agent software name does not determine permissions.
+
 This is a project-policy exception for a disclosed automated reviewer, not a
 general exception for Joshua's other accounts or coding agents. Ordinary
 teammate reviews remain welcome. The assignment's actual teammate contribution,

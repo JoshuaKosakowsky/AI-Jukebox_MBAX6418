@@ -6,6 +6,12 @@ The [policy](../CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy) and
 [separate reviewer prompt](HERMES_REVIEWER.md) define the exception. This guide
 does not configure an account, grant access or activate an automation by itself.
 
+These steps configure only Joshua's separate `jukebox-reviewer` profile on
+JoshKozy. They do not apply to classmates' Hermes coding agents. Do not replace
+a teammate's normal profile, tools, credentials or instructions with this role.
+Reading either guide does not select the reviewer role; root AGENTS.md remains
+the default contributor guide for all other agents.
+
 ## 1. Adopt the policy and give the reviewer access
 
 An existing eligible teammate must review the policy PR, then merge it normally

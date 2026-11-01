@@ -1,0 +1,50 @@
+{
+  "record": "A3-10 rehearsal mechanics against current main (PREP ONLY - not a final freeze and not independent acceptance)",
+  "date": "2026-11-01 America/Denver",
+  "prepared_by": "MSpanny",
+  "installed_by": "MSpanny",
+  "tested_commit": "cb818ae595f399f2455464de58ec5acdaa27d8fc",
+  "repository_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418",
+  "archive_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/cb818ae595f399f2455464de58ec5acdaa27d8fc.zip",
+  "archive_sha256": "c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48",
+  "archive_bytes": 10980156,
+  "environment": "Darwin macOS; Python 3.12 (locked repo .venv); uv 0.12.19 on PATH",
+  "launch_command": "python scripts/dev.py",
+  "metadata": {
+    "purpose": "Rehearse the A3-10 release-gate mechanics against the CURRENT main ZIP and record the exact gate input/output plus the open freeze blockers. NOT a final freeze; NOT independent acceptance (Jovi keeps lead; the final installer must be a different teammate).",
+    "why_same_installer": "installed_by intentionally equals prepared_by (both 'MSpanny'): this rehearsal is not an independent installation, so the gate must emit the installer-separation fence. The final freeze record replaces these fields with the distinct preparer/installer and adds team rows.",
+    "why_missing_fields": "public_access_checked_at and every per-case check entry are intentionally ABSENT: they are not true yet, and the gate should report them as missing rather than being satisfied by nonempty placeholder prose.",
+    "identity_note": "Archive identity (sha256/bytes/entries/files) verified locally against the exact GitHub source ZIP; the gate's archive comparison reported no content errors (every tracked file byte-identical). This identity belongs to cb818ae only; the final freeze re-downloads the final SHA."
+  },
+  "gate_command": "python scripts/check_readiness.py --release --evidence results/a3-10-rehearsal-prep.json --archive /tmp/a3-10-candidate.zip",
+  "gate_output": "NOT READY: Missing public_access_checked_at\nNOT READY: Independent ZIP installer must differ from candidate preparer\nNOT READY: AT-01: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-02: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-03: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-04: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-05: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-06: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-07: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-08: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-09: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-10: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-11: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-12: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-13: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-14: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-15: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-16: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-17: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-18: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-19: not verified (blocked/skipped/not-run are not passes)\nNOT READY: AT-16 must identify the actual independent ZIP installer as tester\nNOT READY: List the actual team (at least two distinct teammates)\nNOT READY: Candidate preparer and installer must be identified team members\nNOT READY: Three distinct approved sample tracks are required\nNOT READY: Samples need three distinct audio/cover paths\n",
+  "identity_checks": {
+    "total_entries": 133,
+    "directory_entries": 14,
+    "files_entries_minus_dirs": 119,
+    "tracked_files_git_ls_tree": 119,
+    "files_match_tracked": true,
+    "zip_extras_not_tracked": 0,
+    "git_metadata_present": false,
+    "private_env_in_archive": false,
+    "env_example_present": true,
+    "source": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/cb818ae595f399f2455464de58ec5acdaa27d8fc.zip; downloaded and hashed locally 2026-11-01"
+  },
+  "generation": {
+    "deliberate_submissions": 0,
+    "provider_connectivity_checked": false,
+    "media_generated": false
+  },
+  "limitations": [
+    "Mechanics rehearsal only: proves the identity checks and gate wiring; the gate is EXPECTED to refuse this candidate because the final acceptance cases, approved samples, team/installer records are not complete yet.",
+    "The archive identity (sha256/bytes/entries) will NOT be the final submission identity: the freeze uses the final merged main SHA, re-downloaded at freeze time.",
+    "Archive is ~10.98 MB (includes candidate sample media/screenshots) vs 330 KB for #20's early ZIP - the tree grew with tracked evidence media; expected.",
+    "macOS rehearsal only; the real independent install can be on any OS by a teammate with zero commits on the final candidate PRs."
+  ],
+  "case_scope": {
+    "AT-16": "NOT PASSED here - no independent installer; rehearsed only that the gate emits the installer-separation fence.",
+    "AT-17": "NOT PASSED here - no normal-entrypoint feature run claimed.",
+    "AT-18": "Identity mechanics verified against cb818ae (files/entries/bytes/sha256, no .git, no .env); the final archive identity is recorded at freeze time."
+  },
+  "gate_exit_code": 1
+}

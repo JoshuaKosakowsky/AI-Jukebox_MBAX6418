@@ -4,8 +4,12 @@ Follow direct user instructions first. This guide applies throughout the repo.
 
 ## Role dispatch
 
-The default role below is a contributing agent. A separately launched Hermes
-reviewer authenticated as `JoshKozy` instead follows
+The default role below is a contributing agent, including classmates' Hermes
+coding agents acting through their own GitHub accounts. Using Hermes or reading
+the linked reviewer document does not change that role.
+
+Only Joshua's separately launched `jukebox-reviewer` profile, authenticated as
+`JoshKozy`, instead follows
 [HERMES_REVIEWER.md](docs/HERMES_REVIEWER.md) for its role, workflow and handoff.
 It may inspect/test and post disclosed reviews, but never edits tracked files,
 including this guide or handoff.md. Its review is its handoff. Contributing
@@ -32,7 +36,7 @@ Read the adopted policy from protected main before using its approval exception.
   Joshua/the team to arrange; do not add people or change assignments in this task.
   The PR author cannot approve their own PR. Ordinary reviewers must have no PR
   commits; the only named automated exception is the disclosed Hermes/JoshKozy
-  role in CONTRIBUTING.md. Hermes never merges. The eligible approving teammate,
+  role in CONTRIBUTING.md. That JoshKozy reviewer never merges. The eligible approving teammate,
   issue lead or already-authorized merge coordinator handles protected merges.
 - Credentials stay server-side in environment variables or ignored `.env`.
   No keys in browser code, logs, errors, screenshots, docs, chat, GitHub or archives.

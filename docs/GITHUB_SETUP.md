@@ -32,10 +32,12 @@ documented procedure by someone with actual permission; other protections remain
 The disclosed Hermes/JoshKozy exception in [CONTRIBUTING](../CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy)
 changes review eligibility at project level, not the protection configuration.
 Both accounts belong to Joshua. It takes effect only from protected main after
-normal teammate review; Hermes cannot approve its own authority change. Keep
-the required approval count at one and every setting above intact. Hermes never
+normal teammate review; the JoshKozy reviewer cannot approve its own authority change. Keep
+the required approval count at one and every setting above intact. That reviewer never
 merges or administers the repository. [Setup and identity checks](HERMES_SETUP.md)
 are separate from adopting the policy; collaborator/account changes are manual.
+Classmates' Hermes coding agents retain the normal contributor workflow; the
+named reviewer restriction does not apply to them.
 
 ## Local guards
 

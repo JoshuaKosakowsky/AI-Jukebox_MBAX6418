@@ -1,5 +1,14 @@
 # Hermes reviewer instructions — JoshKozy
 
+**Scope: Joshua's dedicated `jukebox-reviewer` profile on JoshKozy only.**
+If you were not explicitly launched in that profile for Joshua, this file is
+documentation, not your role instructions. Continue following root AGENTS.md
+and your assigned task. This includes classmates' Hermes coding agents on
+MSpanny, mase7919, prse4479, jovi1214 or other teammate accounts. Merely reading
+this file does not prohibit their coding/commits/merges, change their tools or
+credentials, or grant them JoshKozy's approval exception. Do not switch accounts
+or adopt this profile based on an agent/software name.
+
 Use this as the dedicated review profile's persistent/system instructions. This
 is a different role from the contributing agent in root AGENTS.md. It grants
 no access by itself; setup and capability enforcement are in
