@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "ac529fd52859bd1ebffe4ce3134f5f86adbec3d3",
+  "base_main": "cb818ae595f399f2455464de58ec5acdaa27d8fc",
+  "authorization": "User explicitly approved: Run the one-clip test. New one-job scope, separate from completed A/B pair. Public coordination: PR37 comment6561439418.",
+  "scope": "Production adapter caption comparison; not normal-launch or integrated-main acceptance.",
+  "started_at_utc": "2026-11-01T17:33:43.458177+00:00",
+  "limits": {
+    "music_submissions": 1,
+    "polls": 20,
+    "downloads": 1,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0,
+    "deadline_seconds": 300
+  },
+  "counts": {
+    "music_submissions": 1,
+    "polls": 2,
+    "downloads": 1,
+    "format": 0,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "track_context": {
+    "title": "Iced Coffee",
+    "style": "Heavy Metal",
+    "mood": "Angsty",
+    "duration_seconds": 20,
+    "mode": "instrumental"
+  },
+  "comparison": "Compare one new clip against retained B from a3-35-caption-ab-v2.json; only use_cot_caption changes to false. Same caption, thinking=true, duration, seed and other controls. No new baseline generation.",
+  "diagnostic_seed_override": {
+    "seed": 641835,
+    "use_random_seed": false,
+    "production_defaults_changed": false
+  },
+  "offline_verification": {
+    "command": "python scripts/dev.py --check",
+    "tests_passed": 193,
+    "skipped": 0,
+    "runtime_checked_commit": "c97045fd1ba4dcbb4da1a991072e275bf6e5f26b",
+    "exact_source_ci": "4/4 PASS onac529fd",
+    "verifier_files": 125,
+    "coverage": "36/11/19 PASS"
+  },
+  "harness_sha256": "be85d56f63442433e5b3360ac6a50b83da8fa53f965ce2e3a47e429d129c5193",
+  "results": [
+    {
+      "case": "C-caption-rewrite-off",
+      "input_caption": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
+      "started_at_utc": "2026-11-01T17:33:43.467840+00:00",
+      "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
+      "human_genre_judgment": "PARTIAL: user says C is leaning more metal; full genre/mood acceptance unconfirmed.",
+      "request": {
+        "prompt": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
+        "lyrics": "[Instrumental]",
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav",
+        "seed": 641835,
+        "use_random_seed": false
+      },
+      "reported_seed": 641835,
+      "reported_seed_matches": true,
+      "reported_model_matches": true,
+      "prompt_echo_matches": true,
+      "service_metadata_not_audio_measurement": {
+        "bpm": 143,
+        "duration": 20.0
+      },
+      "audio": {
+        "sha256": "d3cbdc14ba35b78b3729f9537e0b6e8f1bb13fbfad35d70be33bf921daa2ba13",
+        "pcm_sha256": "2b3c8ad886308797373e62c87f1e7d2824290f50ffb6b2dc32dc1f7c99733c91",
+        "bytes": 3840078,
+        "duration_seconds": 20.0,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.187697
+      },
+      "completed_at_utc": "2026-11-01T17:33:48.129447+00:00"
+    }
+  ],
+  "human_listening": {
+    "status": "PARTIAL_IMPROVEMENT; FULL_ACCEPTANCE_NOT_CONFIRMED",
+    "tester": "JoshuaKosakowsky",
+    "method": "Listened to C with retained B rendered inline in chat.",
+    "response_excerpt": "They are both better, C is leaning more metal",
+    "scope": "C is closer to metal. No explicit full metal recognition, sustained heavy riff/bass/drum impact or angsty-mood acceptance; no all-genre conclusion."
+  },
+  "limitations": [
+    "A shared requested DiT seed does not control every LM sampling source or establish deterministic generation.",
+    "One pair cannot establish causality or all-genre fidelity.",
+    "Returned metadata and different PCM hashes are not human genre recognition.",
+    "Prior metal/rap failures and piano/DnB passes remain historical, not results for this run.",
+    "Retained B and new C were generated at different times; matching the DiT seed does not control every LM sampling source. Partial relative improvement is not a causal proof or complete genre acceptance."
+  ],
+  "status": "COMPLETED_AND_DECODED; HUMAN_REPORTS_PARTIAL_IMPROVEMENT",
+  "baseline_record": "a3-35-caption-ab-v2.json, case B-concise-description",
+  "differing_request_fields_from_retained_baseline": [
+    "use_cot_caption"
+  ],
+  "completed_at_utc": "2026-11-01T17:33:48.130931+00:00",
+  "outcome": "One-flag control completed. User reports partial improvement toward metal with rewriting disabled; no general production fix or broad-genre acceptance established.",
+  "baseline": {
+    "record": "a3-35-caption-ab-v2.json",
+    "case": "B-concise-description",
+    "audio_sha256": "2e8301c58beea276ad5808d758dabfaf5de97179e39c5df7e9fb0cc4f142ea65",
+    "retained_not_regenerated": true,
+    "historical_human_verdict": "FAIL metal in the original A/B listening; no retroactive pass inferred from latest relative-improvement comment."
+  },
+  "production_change": "None. Await detailed user steering before deciding on a shared-caption/default revision; no more generation under this completed one-job run."
+}

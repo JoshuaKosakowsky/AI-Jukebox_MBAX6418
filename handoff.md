@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — #35 caption-rewrite-off control, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-35-caption-ab-nov1 / draft PR37; #35 open.
+User explicitly authorized “Run the one-clip test”; new max1 job, claim PR37 comment6561439418.
+Immutable sourceac529fd, same runtime as193-test checkedc97045f; all4 source CI PASS.
+Only request change from retained B: use_cot_caption=false; thinking stays true, same exact caption/20s/seed/other fields.
+No regenerated baseline; retained B WAV hash matches original safe record.
+Actual1 music submission/2 polls/1 download,0format/art/text/speech/retries; completed, no further calls.
+Full non-silent48kHz stereoPCM16 WAV, exactly20s; requested/reported seed641835.
+C and retained B rendered inline. Joshua: “They are both better, C is leaning more metal”.
+Record partial improvement only; full metal, sustained heavy riff/bass/drum impact and angsty-mood acceptance unconfirmed.
+Earlier A/B FAIL verdict stays historical; no retroactive pass, universal quality or causal proof.
+Source inference824-828 shows caption rewrite path; deployed internals/LM randomness remain unobserved.
+User refers to a steering message; checked current chat history, no separate text visible yet; asked for missing text.
+Do not change production caption/default while awaiting that steering; no additional generation authorized here.
+Safe record results/a3-35-literal-caption.json, TEST_RESULTS/index updated; prior records/media retained.
+Raw audio/private recovery ticket ignored; no provider identifiers/routes or auth data in safe evidence.
+Evidence-only safeguards/coverage/whitespace checks follow; no runtime/tests/contracts/dependency changes.
+Next: publish scoped result, incorporate missing steering, decide on shared conditioning revision without genre-specific guesswork.
+
+
 ## Session — #35 corrected caption pair, 2026-11-01 America/Denver
 Codex for Joshua; same codex/a3-35-caption-ab-nov1 / draft PR37, issue35 stays open.
 User explicitly authorized “Run the corrected two-clip comparison” after prior stopped run.

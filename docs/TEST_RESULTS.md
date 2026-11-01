@@ -1382,3 +1382,26 @@ all controls fixed, disables only caption rewriting, retains `thinking=true`,
 and compares one new clip against retained B. **Not run; fresh authorization
 required after the completed two-job budget.** No production change is justified
 from the failed pair alone; #35 remains open / PR37 draft.
+
+
+### Caption rewriting disabled: one control — 2026-11-01 America/Denver
+
+Joshua explicitly authorized "Run the one-clip test"; claim PR37 comment6561439418,
+immutable source **ac529fd** (same runtime as193-test checked c97045f;4/4 source CI PASS).
+Exactly **1 music submission /2 polls /1 download;0 format/art/text/speech/retries**.
+Compared against retained B audio, not a regenerated baseline. The request uses
+B's exact concise metal caption and all the same controls except
+**use_cot_caption=false**; thinking stays true,20s instrumental, requested/reported
+seed641835. Exact request-field comparison confirms only that flag differs.
+
+C fully decoded non-silent48kHz stereoPCM16, exactly20s. Both C and retained B
+were rendered in chat. Joshua: **"They are both better, C is leaning more metal"**.
+Record **partial relative improvement**, with full recognizable-metal, sustained
+heavy riff/bass/drum impact and angsty mood acceptance still unconfirmed. The
+prior A/B FAIL verdict remains historical; it is not retroactively converted to a
+pass. [Safe one-flag record](../results/a3-35-literal-caption.json).
+
+This suggests a shared conditioning setting worth evaluating; one retained-control
+comparison does not prove causality or all-genre quality. Same DiT seed does not
+control every LM sample. No production flag/caption/default change or further
+generation. Detailed user steering is pending; #35 stays open / PR37 draft.

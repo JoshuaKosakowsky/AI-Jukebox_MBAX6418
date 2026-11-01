@@ -91,3 +91,10 @@ downloads,0other services/retries; only the caption differs. Both returned the
 requested seed and fully decoded20s. Joshua judged both FAIL: A has the better rhythm; B starts heavier then
 turns light/happy. Neither delivers the expected heavy riff/bass impact.
 No broad-genre or integrated-main acceptance claimed.
+
+
+Caption-rewrite-off control: [one-flag record](a3-35-literal-caption.json) onac529fd,
+1 music job /2 polls /1 download,0other services/retries. Exact retained B caption
+and controls except use_cot_caption=false; thinking stays true. Joshua reports
+C "leaning more metal"; partial improvement, full genre/mood acceptance unconfirmed.
+Production settings unchanged; earlier failed records retained.
