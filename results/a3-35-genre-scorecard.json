@@ -345,14 +345,14 @@
   ],
   "record_scope": "Round1 exact evidence/ratings retained, plus an index and aggregate of the additional independent round records.",
   "combined_assessment": {
-    "state": "AWAITING_ADDITIONAL_RATINGS",
+    "state": "ALL_SAMPLES_RATED",
     "sampled_style_count": 20,
-    "rated_style_count": 4,
-    "unrated_style_count": 16,
+    "rated_style_count": 20,
+    "unrated_style_count": 0,
     "rating_counts": {
-      "good_to_go": 2,
-      "minor_improvement": 2,
-      "major_update": 0
+      "good_to_go": 10,
+      "minor_improvement": 8,
+      "major_update": 2
     },
     "generation_counts": {
       "music_submissions": 20,

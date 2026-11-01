@@ -127,22 +127,22 @@ listening assigns a quality grade; completed files, hashes and service metadata 
 | Swing jazz | Good to go | No notes. | 1 |
 | House | Minor improvement | Does not hit the BPM in my head; desired BPM and direction were not specified. | 1 |
 | Rap/Hip-hop instrumental | Good to go | User: "I can hear a rap/hip hop lyric behind this." Instrumental assessment only; no vocal acceptance inferred. | 1 |
-| Funk | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Blues | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Reggae | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Salsa | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Classical string quartet | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Contemporary R&B | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Pop | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Drum and bass | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 2 |
-| Classic rock | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Punk rock | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Disco | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Techno | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Trance | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Ambient | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Afrobeats | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
-| Reggaeton | Awaiting Joshua rating | Clip completed; not yet quality-rated. | 3 |
+| Funk | Minor improvement | Needs more bass. | 2 |
+| Blues | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Reggae | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Salsa | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Classical string quartet | Minor improvement | Too synthetic. | 2 |
+| Contemporary R&B | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Pop | Minor improvement | Too synthetic and not catchy enough. | 2 |
+| Drum and bass | Good to go | Clip completed; not yet quality-rated. | 2 |
+| Classic rock | Major update / completely misses mark | Sounded like funk and Donkey Kong Jungle. | 3 |
+| Punk rock | Major update / completely misses mark | The worst so far; no finer per-trait diagnosis supplied. | 3 |
+| Disco | Good to go | Clip completed; not yet quality-rated. | 3 |
+| Techno | Minor improvement | Sounds off, like Nintendo Wii music. | 3 |
+| Trance | Good to go | Listener is not familiar with the genre. | 3 |
+| Ambient | Good to go | Clip completed; not yet quality-rated. | 3 |
+| Afrobeats | Minor improvement | Needs more drums. | 3 |
+| Reggaeton | Minor improvement | Wants more Caribbean steel drum/pan sound. | 3 |
 | Heavy metal/deathcore (Joshua tested target) | Major update / completely misses mark | Known limitation; tuning deferred for a future revisit. | Historical |
 <!-- genre-scorecard:end -->
 
@@ -156,7 +156,7 @@ further generation under the completed round1 budget.
 
 
 <!-- genre-rounds-summary:start -->
-Across rounds1-3: **20 sampled styles**, **4 rated**, **16 awaiting ratings**,
+Across rounds1-3: **20 sampled styles**, **20 rated**, **0 awaiting ratings**,
 plus the separately deferred heavy metal/deathcore target. No quality category is
 assigned automatically. Round1: [original record/index](a3-35-genre-scorecard.json);
 round2: [eight additional styles](a3-35-genre-round2.json);

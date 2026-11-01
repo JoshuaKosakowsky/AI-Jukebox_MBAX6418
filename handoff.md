@@ -1,23 +1,26 @@
 # Agent handoff
 
 ## Session — #35 broader genre rounds2-3, 2026-11-01 America/Denver
-Codex for Joshua; branch codex/a3-35-more-genre-evidence from frozen PR37 head7c953a7.
-User explicitly requests more genres/keep going; finite new task max16 music jobs in two8-job batches.
-Plan PR37 comment6562044562; preserve37's current code-review head, use stacked data-only PR.
-Round2 Funk/Blues/Reggae/Salsa/Classical string quartet/R&B/Pop/Drum and bass:8 jobs/17polls/8downloads.
-Round3 Classic rock/Punk rock/Disco/Techno/Trance/Ambient/Afrobeats/Reggaeton:8 jobs/16polls/8downloads.
-New task total16 jobs/33polls/16downloads,0format/art/text/speech/retries; complete, no further calls.
-Actual production captions/adapter,20s instrumentals, settings/seed defaults unchanged; all full non-silent48kHz stereoPCM16.
-All16 clips rendered inline, two batch-rating questions pending; no new quality grades inferred.
-Scorecard now indexes20 sampled styles across three rounds plus deferred metal/deathcore historical target.
-Round1 ratings/counters/requests/audio remain exact; new JSON rounds carry separate counts, source and hashes.
-Updated results README combined table, TEST_RESULTS and handoff; no app/provider/test/schema/dependency changes.
-New data-only PR should target37's branch while37 unmerged; keep37 at7c953a7 for Matt/Preethi review.
-Metal tuning remains deferred per user; Country/House minor notes and Swing jazz/Hip-hop good ratings unchanged.
-Driver8-job/full-decode/failure/replay/next-batch guards PASS offline; zero network for those checks.
-Source193 tests/0skips +4CI PASS; final evidence integrity/safeguards130/coverage36-11-19/whitespace PASS.
-Next: record new batch ratings, publish separate evidence PR, keep original code review moving.
-No automated retuning, new sample-manifest selection or full-genre/main/vocal/release acceptance claimed.
+Codex for Joshua; codex/a3-35-more-genre-evidence from frozen PR37 head7c953a7; no parent code changes.
+User requested more genres/keep going; task max16 music jobs, plan PR37 comment6562044562.
+Round2 Funk/Blues/Reggae/Salsa/strings/R&B/Pop/DnB:8 jobs/17polls/8downloads.
+Round3 Classic/Punk rock/Disco/Techno/Trance/Ambient/Afrobeats/Reggaeton:8 jobs/16polls/8downloads.
+Task16/33/16,0format/art/text/speech/retries; complete, no further calls under this cap.
+Actual production captions/adapter/seed defaults; all full non-silent48kHz stereoPCM16,20s; source7c953a7.
+Joshua rated all20 scorecard samples:10 GOOD TO GO,8 MINOR,2 MAJOR, plus separately deferred metal/deathcore.
+Major new work: Classic rock (funk/Donkey Kong-like), Punk rock (worst so far; no finer trait diagnosis).
+Minor new notes: Funk bass, synthetic strings/Pop, Pop catchiness, Wii-like Techno, Afrobeats drums, Reggaeton steelpan preference.
+Trance good rating has listener unfamiliarity caveat; steelpan is a case preference, not a universal genre rule.
+New round JSONs carry independent counts/hashes/verdicts; round1 ratings/requests/counters/media unchanged.
+Scorecard index/readable table, root README known limits, TEST_RESULTS/handoff updated; no runtime/test/schema/dependency changes.
+Draft evidence PR43 is stacked on37 to preserve37's review head; all ratings now complete, parent integration pending.
+Raw20 individual WAVs/4 samplers and safe JSON backups in OneDrive ignored results/raw/genre-scorecard-2026-11-01-7c953a7.
+No credentials/provider tickets copied to backup; original OneDrive tracked worktree unchanged.
+Four private86s listening samplers retain bit-identical source PCM with2s silence gaps; zero extra generation.
+Driver8-job/failure/replay/next-batch guards PASS offline; source193 tests/0skips +4CI PASS.
+Evidence integrity/safeguards130/coverage36-11-19/whitespace PASS; no full-genre/vocal/main/release acceptance claimed.
+Next: publish final ratings, update43/35 and inform37 reviewers; keep43 queued for parent integration; prioritize major rock follow-ups.
+No automatic retuning, sample-manifest selection or more jobs; metal tuning remains deferred per user.
 
 
 ## Session — #35 broader genre scorecard, 2026-11-01 America/Denver

@@ -149,7 +149,8 @@ mode — the mode is chosen at creation and kept on the track.
 
 Music quality varies by style. The tested heavy metal/deathcore target is a
 known limitation: it missed the requested sound in listening checks, and further
-tuning is deferred for a future revisit. Other genres are being assessed as
+tuning is deferred for a future revisit. The20-style listening round also flags
+Classic rock and Punk rock as major quality issues. All assessed clips are rated
 Good to go, Minor improvement, or Major update / completely misses mark in the
 [genre listening scorecard](results/README.md#genre-listening-scorecard). These
 are provisional ratings of specific instrumental clips, not guarantees for

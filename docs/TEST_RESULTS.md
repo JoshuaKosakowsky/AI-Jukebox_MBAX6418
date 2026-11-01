@@ -1508,8 +1508,16 @@ Punk rock, Disco, Techno, Trance, Ambient, Afrobeats and Reggaeton:
 retries or replacements; no more calls under the completed task budget.
 
 All16 WAVs fully decoded non-silent48kHz stereoPCM16, exactly20s. All clips rendered
-inline; human ratings are pending and will use the existing three categories.
-Together with round1 this is20 sampled styles, plus the historical deferred metal
+inline and Joshua rated all16. Round2: Good to go = Blues, Reggae, Salsa, R&B,
+Drum and bass; Minor improvement = Funk (bass presence), Classical strings
+(too synthetic), Pop (too synthetic/not catchy enough). Round3: Good to go =
+Disco, Trance (listener unfamiliar with genre), Ambient; Minor improvement =
+Techno (off/Wii-like), Afrobeats (drums), Reggaeton (requested steelpan sound);
+Major update = Classic rock (funk/Donkey Kong Jungle-like), Punk rock (worst so
+far; no finer trait diagnosis). Steelpan is a user preference for this case,
+not a new universal genre rule or production mapping.
+Together with round1 this is20 rated samples:10 Good to go,8 Minor improvement,
+2 Major update, plus the historical deferred metal
 target; not an exhaustive survey, consistency guarantee or vocal/main acceptance.
 [Round2 exact record](../results/a3-35-genre-round2.json),
 [round3 exact record](../results/a3-35-genre-round3.json),
@@ -1517,4 +1525,5 @@ target; not an exhaustive survey, consistency guarantee or vocal/main acceptance
 Provider/runtime/tests/contracts/dependencies and previous per-case evidence are
 unchanged. Driver eight-job, no-auto-grading, first-failure, replay and next-batch
 prerequisite checks passed offline with zero network. Source193 tests/0skips and
-4/4 CI remain the code validation; evidence-only checks follow.
+4/4 CI remain the code validation; evidence safeguards130/coverage/whitespace and
+retained request/audio integrity PASS. No automated quality tuning followed.

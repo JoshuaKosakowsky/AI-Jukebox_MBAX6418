@@ -157,8 +157,8 @@
       "input_caption": "Funk. Instrumental; no vocals. Mood: Playful and groovy. Theme: Pocket Change. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:12.238933+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Needs more bass.",
       "request": {
         "prompt": "Funk. Instrumental; no vocals. Mood: Playful and groovy. Theme: Pocket Change. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -204,7 +204,7 @@
       "input_caption": "Blues. Instrumental; no vocals. Mood: Soulful and reflective. Theme: Last Train Home. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:17.266919+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Blues. Instrumental; no vocals. Mood: Soulful and reflective. Theme: Last Train Home. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -251,7 +251,7 @@
       "input_caption": "Reggae. Instrumental; no vocals. Mood: Relaxed and sunny. Theme: Sunday Breeze. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:21.974360+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Reggae. Instrumental; no vocals. Mood: Relaxed and sunny. Theme: Sunday Breeze. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -298,7 +298,7 @@
       "input_caption": "Salsa. Instrumental; no vocals. Mood: Lively and celebratory. Theme: Havana After Dark. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:26.535172+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Salsa. Instrumental; no vocals. Mood: Lively and celebratory. Theme: Havana After Dark. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -345,8 +345,8 @@
       "input_caption": "Classical string quartet. Instrumental; no vocals. Mood: Gentle and contemplative. Theme: First Snow. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:31.260476+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Too synthetic.",
       "request": {
         "prompt": "Classical string quartet. Instrumental; no vocals. Mood: Gentle and contemplative. Theme: First Snow. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -392,7 +392,7 @@
       "input_caption": "Contemporary R&B. Instrumental; no vocals. Mood: Smooth and intimate. Theme: Velvet Evening. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:35.943961+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Contemporary R&B. Instrumental; no vocals. Mood: Smooth and intimate. Theme: Velvet Evening. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -439,8 +439,8 @@
       "input_caption": "Pop. Instrumental; no vocals. Mood: Bright and optimistic. Theme: Open Windows. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:43.602576+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Too synthetic and not catchy enough.",
       "request": {
         "prompt": "Pop. Instrumental; no vocals. Mood: Bright and optimistic. Theme: Open Windows. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -486,7 +486,7 @@
       "input_caption": "Drum and bass. Instrumental; no vocals. Mood: Fast and energetic. Theme: Night Express. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:26:48.217959+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Drum and bass. Instrumental; no vocals. Mood: Fast and energetic. Theme: Night Express. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -523,9 +523,11 @@
     }
   ],
   "human_listening": {
-    "status": "PENDING",
+    "status": "COMPLETE",
     "tester": "JoshuaKosakowsky",
-    "method": "All eight complete20s round2 clips rendered inline in chat; asked Joshua for G/M/X category and optional notes."
+    "method": "All eight complete20s round2 clips rendered inline in chat; asked Joshua for G/M/X category and optional notes.",
+    "response": "funk, m, needs more bass\nblues, g\nreggae, g\nsalsa, g\nclassical, m, too synth\nr&b, g\npop, m, to synthetic and not \"catchy\" enough\ndrum&bass, g",
+    "rating_recorded_at_utc": "2026-11-01T18:41:28.055804+00:00"
   },
   "offline_source_checks": "193 locked tests/0skips; source7c953a7 CI4/4 PASS. No runtime changes for this round.",
   "harness_sha256": "6d4f06df38d1476420eef12907d2c18a046770cbec3c9d53a62185bb2439f650",
@@ -535,7 +537,7 @@
     "Different captions/titles/moods and production random seeds make this quality sampling, not a causal A/B.",
     "Decoded audio, returned metadata and green tests do not assign a quality category."
   ],
-  "status": "COMPLETED_AND_DECODED; HUMAN_RATINGS_PENDING",
+  "status": "COMPLETED_AND_RATED",
   "non_prompt_request_fields_identical": true,
   "distinct_pcm_count": 8,
   "completed_at_utc": "2026-11-01T18:26:53.166058+00:00",
@@ -561,5 +563,10 @@
       "Replay/execution guards",
       "Round3 requires previous batch technical completion, including after human rating"
     ]
+  },
+  "round_rating_counts": {
+    "good_to_go": 5,
+    "minor_improvement": 3,
+    "major_update": 0
   }
 }

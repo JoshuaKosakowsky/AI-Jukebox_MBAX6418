@@ -157,8 +157,8 @@
       "input_caption": "Classic rock. Instrumental; no vocals. Mood: Driving and confident. Theme: Highway Echoes. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:27:48.423529+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "major_update",
+      "human_notes": "Sounded like funk and Donkey Kong Jungle.",
       "request": {
         "prompt": "Classic rock. Instrumental; no vocals. Mood: Driving and confident. Theme: Highway Echoes. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -204,8 +204,8 @@
       "input_caption": "Punk rock. Instrumental; no vocals. Mood: Rebellious and urgent. Theme: Deadline Sprint. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:27:53.131141+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "major_update",
+      "human_notes": "The worst so far; no finer per-trait diagnosis supplied.",
       "request": {
         "prompt": "Punk rock. Instrumental; no vocals. Mood: Rebellious and urgent. Theme: Deadline Sprint. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -251,7 +251,7 @@
       "input_caption": "Disco. Instrumental; no vocals. Mood: Joyful and danceable. Theme: Mirrorball Avenue. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:27:57.747647+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Disco. Instrumental; no vocals. Mood: Joyful and danceable. Theme: Mirrorball Avenue. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -298,8 +298,8 @@
       "input_caption": "Techno. Instrumental; no vocals. Mood: Hypnotic and driving. Theme: Concrete Pulse. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:28:04.337192+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Sounds off, like Nintendo Wii music.",
       "request": {
         "prompt": "Techno. Instrumental; no vocals. Mood: Hypnotic and driving. Theme: Concrete Pulse. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -345,8 +345,8 @@
       "input_caption": "Trance. Instrumental; no vocals. Mood: Euphoric and uplifting. Theme: Skyline Lift. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:28:09.265090+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "good_to_go",
+      "human_notes": "Listener is not familiar with the genre.",
       "request": {
         "prompt": "Trance. Instrumental; no vocals. Mood: Euphoric and uplifting. Theme: Skyline Lift. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -378,7 +378,8 @@
         "peak": 0.891266,
         "rms": 0.198243
       },
-      "completed_at_utc": "2026-11-01T18:28:14.286809+00:00"
+      "completed_at_utc": "2026-11-01T18:28:14.286809+00:00",
+      "rating_qualification": "Good to go is retained, with listener genre-familiarity limitation."
     },
     {
       "case": "ambient",
@@ -392,7 +393,7 @@
       "input_caption": "Ambient. Instrumental; no vocals. Mood: Spacious and peaceful. Theme: Slow Orbit. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:28:14.287231+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
+      "category": "good_to_go",
       "human_notes": null,
       "request": {
         "prompt": "Ambient. Instrumental; no vocals. Mood: Spacious and peaceful. Theme: Slow Orbit. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
@@ -439,8 +440,8 @@
       "input_caption": "Afrobeats. Instrumental; no vocals. Mood: Warm and danceable. Theme: Golden Hour Steps. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:28:19.314793+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Needs more drums.",
       "request": {
         "prompt": "Afrobeats. Instrumental; no vocals. Mood: Warm and danceable. Theme: Golden Hour Steps. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -486,8 +487,8 @@
       "input_caption": "Reggaeton. Instrumental; no vocals. Mood: Confident and upbeat. Theme: Midnight Boardwalk. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T18:28:24.265871+00:00",
       "technical_status": "COMPLETED_AND_DECODED",
-      "category": null,
-      "human_notes": null,
+      "category": "minor_improvement",
+      "human_notes": "Wants more Caribbean steel drum/pan sound.",
       "request": {
         "prompt": "Reggaeton. Instrumental; no vocals. Mood: Confident and upbeat. Theme: Midnight Boardwalk. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -519,13 +520,16 @@
         "peak": 0.891266,
         "rms": 0.102426
       },
-      "completed_at_utc": "2026-11-01T18:28:29.112577+00:00"
+      "completed_at_utc": "2026-11-01T18:28:29.112577+00:00",
+      "preference_scope": "Steelpan is the listener\u2019s requested sound for this case, not an app-wide genre rule."
     }
   ],
   "human_listening": {
-    "status": "PENDING",
+    "status": "COMPLETE",
     "tester": "JoshuaKosakowsky",
-    "method": "All eight complete20s round3 clips rendered inline in chat; asked Joshua for G/M/X category and optional notes."
+    "method": "All eight complete20s round3 clips rendered inline in chat; asked Joshua for G/M/X category and optional notes.",
+    "response": "classic rock, x, that sounded like funk and Donkey Kong Jungle\npunk rock, x, the worst so far\ndisco, g\ntechno, m, sounds off, like the Nintendo Wii Music almost.\ntrance, g, not familiar with genre though\nambient, g\nafrobeats, m, needs more drum\nreggaeton, m, needs more carribean steel drum/pan",
+    "rating_recorded_at_utc": "2026-11-01T18:41:28.056691+00:00"
   },
   "offline_source_checks": "193 locked tests/0skips; source7c953a7 CI4/4 PASS. No runtime changes for this round.",
   "harness_sha256": "dcfb6dd67f653f1c434005ef69db7bf67ed5403c29e28e482aea37ecba6418b6",
@@ -535,7 +539,7 @@
     "Different captions/titles/moods and production random seeds make this quality sampling, not a causal A/B.",
     "Decoded audio, returned metadata and green tests do not assign a quality category."
   ],
-  "status": "COMPLETED_AND_DECODED; HUMAN_RATINGS_PENDING",
+  "status": "COMPLETED_AND_RATED",
   "non_prompt_request_fields_identical": true,
   "distinct_pcm_count": 8,
   "completed_at_utc": "2026-11-01T18:28:29.113096+00:00",
@@ -561,5 +565,10 @@
       "Replay/execution guards",
       "Round3 requires previous batch technical completion, including after human rating"
     ]
+  },
+  "round_rating_counts": {
+    "good_to_go": 3,
+    "minor_improvement": 3,
+    "major_update": 2
   }
 }
