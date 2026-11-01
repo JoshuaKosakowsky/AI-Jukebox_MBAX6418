@@ -1,5 +1,8 @@
 # Agent handoff
 
+## Session
+2026-10-31 America/Denver; Hermes for MSpanny (Mike). Task: issue #36 cover-lettering fix. Branch codex/cover-lettering-fix from main 25f8617 (post-#29 merge). Changed: jukebox/sessions.py cover_prompt now leads with a wordless artwork direction (no words/typography/captions/logos/titles drawn, title expressed visually) replacing the weak no-lettering tail and the "album cover" framing; tests/test_covers.py gained a static guard (prompt starts with the no-text instruction, forbidden lettering needles present, title/style/mood retained, 'album cover' gone). Frozen art probe + original starter prompt + retry/replacement behavior untouched. Suite: 190 tests (1 new), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness unproven offline by design (#36's FLUX visual eval is a separately authorized live step; no budget spent). Docs: TEST_RESULTS #36 section; PR body honest scope; review requested from mase7919. Refs #36.
+
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
 No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.

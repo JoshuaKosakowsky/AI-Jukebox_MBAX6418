@@ -1125,3 +1125,19 @@ Issue #5's implementation and acceptance are complete; PR #27 is DRAFT and
 awaiting mase7919's readiness decision. Project-wide items outside Issue #5
 (vocal lyrics, reference voices, final approved samples, independent ZIP
 testing) remain open and are not claimed here.
+
+## #36 Wordless cover-art direction - 2026-10-31
+
+Issue #36 (repeatedly misspelled generated lettering, e.g. the Desert Drive
+"DESSERT DRIIVE" record and Joshua's b7d97a0 review): the production cover
+prompt now LEADS with a text-free artwork direction (no words/typography/
+captions/logos/titles drawn in the image, title expressed visually only),
+replacing the weaker "no lettering" tail and dropping the "album cover"
+framing that invited rendered title typography. The frozen art request probe
+(contracts/service-probes.json), the original starter prompt
+(docs/ASSIGNMENT.md), retry/replacement behavior and title/style/mood theme
+relation are all unchanged. Offline verification only: 190 tests (1 new static
+guard), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness is NOT
+yet established - per the issue, no prompt guarantees typography; the bounded
+FLUX visual evaluation remains a separately authorized live step (no provider
+request or generation budget was spent by this change).

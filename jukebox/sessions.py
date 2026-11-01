@@ -54,12 +54,13 @@ class Session:
 
 
 def cover_prompt(track: Track) -> str:
-    return ("Create original square album cover art for this song.\n"
+    return ("Create original square artwork for this song with no text or lettering anywhere in the image: "
+            "no words, no typography, no captions, no logos, no decorative letters, no titles drawn in it.\n"
             f"Song title and theme: {track.title}\n"
             f"Musical style: {track.settings.style}\n"
             f"Mood: {track.settings.mood}\n"
-            "Reflect this song's theme, musical style and mood in the imagery and colors. "
-            "Use an original visual composition, no lettering, logos or copied album artwork.")
+            "Represent the song's theme, style and mood through imagery, color and composition only; "
+            "express the title visually, never as written words.")
 
 
 def music_prompt(track: Track) -> str:
