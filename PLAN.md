@@ -1,31 +1,37 @@
 # Delivery plan - Assignment 3
 
 **Current state (2026-11-01):** runtime/contracts, instrumental playback and
-matching covers are accepted (A3-01/02/04). Main `cb818ae` includes the default
-DJ (#27), safe Qwen diagnostics (#29) and another failed vocal record (#41).
+matching covers are accepted (A3-01/02/04). Main `226f0ae` includes the default
+DJ (#27), safe Qwen diagnostics (#29), failed vocal evidence (#41), temporary
+reference upload/provider support (#26) and release-rehearsal preparation (#42).
 DJ branch evidence retains its tester/listening qualifications; integrated-main
 verification and checklist reconciliation remain on #5. Successful normal-launch
 vocal generation/listening is still unverified. Candidate lyrics fix #44 requests
-non-thinking output within the existing cap; it awaits Mike's review and does not
-establish the cause of the earlier failure or successful AT-04 acceptance.
+non-thinking output within the existing cap. Mike synchronized its head `fde309e`
+with main after his earlier approval; a new eligible reviewer is needed because
+Joshua and Mike now both contribute. It does not establish the earlier failure's
+cause or successful AT-04 acceptance; Mike retains the coordinated live run.
 
-Reference upload/provider #26 and wordless-cover prompt #40 are synchronized
-with main and await fresh eligible teammate review. Joshua contributed their
-reconciliation commits and cannot approve them. #26's final chooser/DJ wiring
-and real MP3/WAV/default-voice acceptance remain #6 follow-up work; #40's actual
-cover effectiveness remains unverified. Do not spend a new live budget from a
-merge or session change. Mike's release-preparation #42 has requested procedure
-and evidence corrections; the final independent ZIP is not yet ready.
+Reference component #26 merged at `356532f` after Matt's exact-head approval;
+the final chooser/DJ wiring and real MP3/WAV/default-voice acceptance remain #6
+follow-up work. Wordless-cover prompt #40 remains open for eligible review and
+integration; Joshua contributed and cannot approve it. Its real cover effectiveness
+is unverified. #42's corrected rehearsal/runbook merged at `226f0ae` after Joshua's
+exact-head review. Its pinned `cb818ae` ZIP is historical preparation evidence,
+not final independent acceptance. No merge or session change resets a live budget.
 
-Genre-controls #37 is ready for review, with evidence-only #43 stacked in draft.
+Genre-controls #37 remains unmerged, with evidence-only #43 stacked in draft.
 Twenty assessed instrumental styles have 10 good / 8 minor / 2 major ratings;
 classic rock and punk need work, and metal/deathcore tuning is deferred by Joshua.
 These are case-specific listening results, not all-genre or merged-main acceptance.
 The loader, retry fixes, recovery evidence, README slice and Moonlit/Desert Drive
 candidates are merged. The approved sample manifest is empty; #7 still needs three
-approved pairs. Mike's third-pair preparation awaits Preethi's retained originals;
-retained good-rated genre audio is a possible fallback but has no matching covers.
-Jovi retains selection; no sample approval or new generation is implied.
+approved pairs. Mike's third-pair preparation awaits Preethi's retained originals.
+Retained genre probes are diagnostic material, not approved showcase songs, and
+have no matching covers. Joshua's final-selection preference requires at least
+one finished vocal song with AI lyrics among the three samples; three generic
+instrumentals do not meet that preference. Jovi retains selection; no sample
+approval, packaging claim or new generation is implied.
 
 Live issues own assignments and claims. Remaining vocals, DJ/reference acceptance,
 samples, recovery/report evidence and independent final ZIP are required.
