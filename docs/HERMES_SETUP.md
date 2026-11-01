@@ -36,8 +36,11 @@ connector's separate authorization flow, sign in as JoshKozy, not the owner;
 use the app's Client ID and supported user-token flow. Do not use the app private
 key/installation token as a substitute for user authorization. If the supplied
 connector cannot accept app user tokens or perform that flow, report that
-capability gap before enabling posting; the verified CLI/runtime state here
-does not establish connector support. Official registration/authorization links
+capability gap before enabling posting. A connector is not mandatory: a supported
+app user-token flow can be completed outside Hermes and the scoped token supplied
+privately to its CLI process through GH_TOKEN. Tool/sandbox restrictions are still
+required. The verified CLI/runtime state here does not establish connector support.
+Official registration/authorization links
 are below. Do not guess
 Hermes connector flags or paste tokens into chat or tracked files.
 
@@ -97,7 +100,7 @@ For CLI-based tools, set these only in the **dedicated review process/terminal**
 
 ```powershell
 $env:GH_CONFIG_DIR = Join-Path $env:LOCALAPPDATA 'Hermes-JoshKozy\gh'
-$env:GH_HOST = 'github.com'
+Remove-Item Env:GH_HOST -ErrorAction SilentlyContinue
 $env:GH_REPO = 'JoshuaKosakowsky/AI-Jukebox_MBAX6418'
 ```
 
@@ -108,6 +111,14 @@ credentials. GH_TOKEN/GITHUB_TOKEN override stored CLI credentials; ensure no
 inherited primary-account token masks the selected review connection. Never
 print token values. `GH_CONFIG_DIR` isolates CLI config, not a separately
 configured MCP/browser connector; verify that connector's identity separately.
+
+Windows gh2.102.0 was observed resolving a shared-keyring login with an empty
+reviewer config when GH_HOST was set. With GH_HOST removed and token overrides
+cleared, the same empty config correctly required login. Therefore keep GH_HOST
+unset in this context and verify the credential source as well as the username.
+Separate config files can still use shared OS keyring entries; they are not
+proof of separate secret storage. Prefer the explicit scoped process token or
+a properly isolated OS identity/broker over another broad shared-keyring login.
 
 Run this through the **same connection Hermes will use**, before any posting:
 
@@ -120,6 +131,13 @@ Require login JoshKozy and the intended repository/account access. Verify scoped
 app permissions in installation settings as well; reading a public repo or an
 account-level permissions object does not prove the token cannot write code.
 Stop on a mismatch. Do not fix it by switching the writer's active login.
+Repository permissions.push describes account access; it may remain true with
+a restricted app token and is not a test for Contents write. Read back the app's
+actual grants. A 403/404 from a protection/collaborator endpoint can reflect
+insufficient visibility: report unreadable, not unprotected or non-collaborator.
+GET branches/main's protected flag can establish protection exists, not its
+complete settings. Obtain any missing settings from an authorized owner reader;
+do not grant Hermes administration merely to inspect them.
 
 A separate clone/config is organizational isolation, not an OS security boundary.
 For enforced file isolation use the professor's sandbox/tool restrictions, a

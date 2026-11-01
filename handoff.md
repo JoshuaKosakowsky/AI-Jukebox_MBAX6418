@@ -14,6 +14,8 @@ Review role may inspect/offline-test and post disclosed reviews, never implement
 Explicitly allow separate Hermes review of primary-account contributions; no extra human/teammate credit.
 Setup requires scoped app user authorization as JoshKozy, isolated workspace/tools and credential-free test runner.
 ## Validation
+Follow-up verified Windows gh2.102.0 GH_HOST fallback with empty config; setup now leaves GH_HOST unset.
+Local initializer corrected and retested without changing logins; 403/404 and account-vs-token guidance clarified.
 PASS: verifier121 files, coverage36/11/19, whitespace and10-file markdown-only scope; runtime/tests unchanged.
 Live protection readback equals the saved baseline in every field; unavailable-reviewer exception text unchanged.
 JoshKozy permission readback is read; no permission was changed. Authenticated review submission is untested.

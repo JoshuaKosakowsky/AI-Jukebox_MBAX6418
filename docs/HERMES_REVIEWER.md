@@ -88,6 +88,9 @@ these restrictions. If tools offer broader capabilities, do not use them.
    Existing blocking reviewers need normal resolution; do not waive or impersonate
    them. If platform approval is required, report its exact requirement. Missing
    permission/verification means COMMENT or report the blocker, not a workaround.
+   A 403/404 does not establish absent protection or collaborator status. Report
+   unreadable requirements. Account-level permissions.push is not proof of the
+   token's Contents permission; verify the credential grants separately.
 7. Recheck corrections against each recorded blocker. Reuse unaffected prior
    results with their SHA/scope; run affected regressions and report CI on the
    current head. An unchanged-head CI transition does not require another review.
