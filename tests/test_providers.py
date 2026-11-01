@@ -56,6 +56,53 @@ class ProviderTests(unittest.TestCase):
             return httpx.Response(200, json={"data": [{"b64_json": base64.b64encode(png_bytes()).decode()}]})
         self.assertEqual(self.make(reply).cover(PROBES["art"]["request"]["prompt"]).content, png_bytes())
 
+    def test_direct_lyrics_keeps_its_budget_and_does_not_change_the_default_probe(self):
+        baseline = json.dumps(PROBES["text"]["request"], sort_keys=True)
+        seen = []
+        final = "Original first line\nOriginal second line"
+
+        def reply(request):
+            payload = json.loads(request.content)
+            seen.append(payload)
+            expected = json.loads(baseline)
+            if len(seen) == 1:
+                expected.update(messages=[{"role": "user", "content": "Write original lyrics"}],
+                                max_completion_tokens=512, chat_template_kwargs={"enable_thinking": False})
+            self.assertEqual(payload, expected)
+            content = final if len(seen) == 1 else "CONTRACT_OK"
+            return httpx.Response(200, json={"model": expected["model"], "choices": [{
+                "finish_reason": "stop", "message": {"content": content, "reasoning_content": "PRIVATE-MARKER"}}]})
+
+        provider = self.make(reply)
+        self.assertEqual(provider.lyrics("Write original lyrics"), final)
+        self.assertEqual(provider.text(PROBES["text"]["request"]["messages"][0]["content"]), "CONTRACT_OK")
+        self.assertEqual(len(seen), 2)
+        self.assertEqual(json.dumps(PROBES["text"]["request"], sort_keys=True), baseline)
+
+    def test_direct_lyrics_rejects_unusable_results_without_retry(self):
+        model = PROBES["text"]["request"]["model"]
+        cases = [(model, "length", {"content": None, "reasoning_content": "PRIVATE-MARKER"}),
+                 (model, "length", {"content": "Truncated final lyrics"}),
+                 (model, "stop", {"content": "  "}),
+                 ("PRIVATE-MARKER", "stop", {"content": "Do not accept"}),
+                 (model, "stop", [])]
+        for returned_model, finish, message in cases:
+            with self.subTest(model=returned_model, finish=finish, message=message):
+                seen = []
+
+                def reply(request):
+                    seen.append(json.loads(request.content))
+                    self.assertEqual(seen[-1]["chat_template_kwargs"], {"enable_thinking": False})
+                    self.assertEqual(seen[-1]["max_completion_tokens"], 512)
+                    return httpx.Response(200, json={"model": returned_model, "choices": [{
+                        "finish_reason": finish, "message": message}]})
+
+                with self.assertRaises(ProviderFailure) as caught:
+                    self.make(reply).lyrics("Write original lyrics")
+                self.assertEqual(caught.exception.error.code, "invalid_response")
+                self.assertNotIn("PRIVATE-MARKER", caught.exception.error.message)
+                self.assertEqual(len(seen), 1)
+
     def test_nonthinking_text_opts_in_without_changing_budget_or_probe_defaults(self):
         seen = []
         def reply(request):

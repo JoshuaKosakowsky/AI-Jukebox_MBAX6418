@@ -1,5 +1,37 @@
 # Test results and evidence
 
+## A3-03 lyrics direct-response candidate - 2026-11-01 America/Denver
+
+Joshua directing Codex; macOS, Python 3.12.14; branch
+`codex/a3-03-direct-lyrics`, base `cb818ae595f399f2455464de58ec5acdaa27d8fc`.
+Refs #3 / R10 / AT-04. This is offline regression evidence, not live acceptance.
+
+The only runtime change makes lyrics explicitly request non-thinking output
+through the existing chat helper. The 512-token lyrics cap, model, prompt and
+strict response guards stay unchanged; the default 192-token probe and DJ stay
+unchanged. Three added tests cover:
+
+- Exact lyrics wire payload followed by the unchanged default text probe.
+- One attempt per unusable response (reasoning-only/length, truncated final,
+  blank final, wrong model or malformed message), safe failure and no retry.
+- Production HTTP routes/store/provider flow through MockTransport: final
+  lyrics attach, an explicit music action submits those lyrics once, synthetic
+  WAV bytes attach, private markers stay out of snapshots/music, and reloading
+  submits nothing. Cover generation is stubbed; no real song is synthesized.
+
+Before the fix, the route regression failed with the safe no-lyrics-content
+`finish_reason='length'` error and the request assertions failed for the missing
+control. The simulated response deliberately depends on that control; this is
+not a prediction of the live service or proof of the earlier failure's cause.
+After the fix, all three added tests PASS. `python scripts/dev.py --check` in
+the locked environment: verifier PASS (119 files), coverage structure PASS
+(36 requirements / 11 tasks / 19 cases), **192 tests PASS**, zero failures.
+Whitespace check PASS. No class-service requests, retries or human listening.
+
+Mike remains #3 lead. Successful normal-launch Qwen lyrics -> ACE-Step vocal
+audio, browser recovery and human listening remain pending in his coordinated
+live run. #3 stays open; historical failed-run records are unchanged.
+
 ## Local setup - 2026-10-15 America/Denver
 
 Scope: repository scaffold only. No service calls, generated samples, or app

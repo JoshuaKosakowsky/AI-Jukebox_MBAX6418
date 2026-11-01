@@ -141,10 +141,14 @@ lyrics in the lyrics field and a vocal-aware prompt; `queue_music` rejects a
 vocal track that still has no lyrics (409) and `generate_music` re-checks at
 submission time so a job can never silently fall back to the instrumental
 marker. One text job may run app-wide (MAX_ACTIVE_TEXT=1); art/music/text jobs
-for one track coexist. The lyrics token budget is raised to 512 for this call
-only (the 192-token probe budget was for a short reply marker); this deviation
-requires live A3-03 acceptance evidence, which is still pending (no class keys
-on the development machine).
+for one track coexist. Lyrics use a 512-token limit and explicitly request
+non-thinking output with `chat_template_kwargs.enable_thinking=false`, using
+the existing DJ direct-response control. The default 192-token text probe and
+its payload stay unchanged. Exact model, nonempty final content and
+`finish_reason=stop` remain required; reasoning-only or truncated replies fail
+without an automatic retry. Offline transport/route tests verify this candidate
+request correction; successful normal-launch A3-03 vocal and human listening
+acceptance remain pending.
 
 Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
 20 tracks/100 jobs per session, two active covers, two active music and one

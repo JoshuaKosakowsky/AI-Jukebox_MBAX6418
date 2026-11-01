@@ -1,21 +1,23 @@
 """Offline A3-03 vocal-song integration through real HTTP routes and the store.
 
-No class-service calls: text/art/music providers are mocked, mirroring the
-test_covers/test_music conventions. Live Qwen/ACE-Step evidence is recorded in
-docs/TEST_RESULTS.md from the deliberate acceptance run, not from these tests.
+No class-service calls: providers or their HTTP transport are mocked, mirroring
+the test_covers/test_music conventions. Live Qwen/ACE-Step evidence belongs in
+docs/TEST_RESULTS.md from deliberate acceptance runs, never from these tests.
 """
 import io
+import json
 import unittest
 from unittest.mock import Mock, patch
 import wave
 
+import httpx
 from fastapi.testclient import TestClient
 from PIL import Image
 
 from jukebox.app import create_app
 from jukebox.config import Settings
 from jukebox.contracts import GenerationJob, SafeError, SongSettings, Track
-from jukebox.providers import MediaBytes, MusicPoll, MusicTicket, ProviderFailure
+from jukebox.providers import ClassProviders, MediaBytes, MusicPoll, MusicTicket, PROBES, ProviderFailure
 from jukebox.sessions import SessionFailure, SessionStore
 from uuid import uuid4
 
@@ -61,6 +63,67 @@ class VocalHttpTests(unittest.TestCase):
         catalog = patch("jukebox.app.load_samples", return_value=())
         catalog.start()
         self.addCleanup(catalog.stop)
+
+    def test_direct_lyrics_reaches_vocal_music_without_reasoning_or_reload_resubmission(self):
+        chats, music = [], []
+        marker = "PRIVATE-REASONING-MARKER"
+
+        def reply(request):
+            if request.url.path == "/v1/chat/completions":
+                self.assertEqual(request.url.port, 9001)
+                payload = json.loads(request.content)
+                chats.append(payload)
+                self.assertEqual(payload["max_completion_tokens"], 512)
+                # Simulate the safe failure shape, not a live model prediction.
+                direct = payload.get("chat_template_kwargs", {}).get("enable_thinking") is False
+                return httpx.Response(200, json={"model": payload["model"], "choices": [{
+                    "finish_reason": "stop" if direct else "length",
+                    "message": {"content": LYRICS if direct else None, "reasoning_content": marker}}]})
+            self.assertEqual(request.url.port, 9007)
+            if request.url.path == "/release_task":
+                music.append(json.loads(request.content))
+                return httpx.Response(200, json={"code": 200, "data": {"task_id": "offline-vocal"}})
+            if request.url.path == "/query_result":
+                result = [{"file": "/v1/audio?path=offline", "dit_model": "acestep-v15-xl-turbo", "status": 1}]
+                return httpx.Response(200, json={"code": 200, "data": [{
+                    "task_id": "offline-vocal", "status": 1, "result": json.dumps(result)}]})
+            self.assertEqual(request.url.path, "/v1/audio")
+            return httpx.Response(200, content=wav_bytes(), headers={"content-type": "audio/wav"})
+
+        provider = ClassProviders(full_settings(), transport=httpx.MockTransport(reply))
+        self.addCleanup(provider.close)
+        with patch("jukebox.app.ClassProviders", return_value=provider), \
+             patch.object(provider, "cover", return_value=png("blue")):
+            with TestClient(create_app(full_settings()), base_url="http://localhost") as client:
+                created = client.post("/api/tracks", json=body())
+                self.assertEqual(created.status_code, 202)
+                track_id = created.json()["track_id"]
+                self.assertEqual(client.post(f"/api/tracks/{track_id}/lyrics", json={}).status_code, 202)
+                lyrics_snapshot = client.get("/api/session").json()
+                self.assertEqual(lyrics_snapshot["jobs"][-1]["state"], "succeeded",
+                                 lyrics_snapshot["jobs"][-1].get("error"))
+                self.assertEqual(lyrics_snapshot["tracks"][0]["lyrics"], LYRICS)
+                self.assertEqual(music, [], "Lyrics completion must not automatically submit music")
+                client.get("/")
+                self.assertEqual(client.get("/api/session").json(), lyrics_snapshot)
+                self.assertEqual(len(chats), 1)
+
+                self.assertEqual(client.post(f"/api/tracks/{track_id}/music", json={}).status_code, 202)
+                snapshot = client.get("/api/session").json()
+                self.assertEqual([j["state"] for j in snapshot["jobs"]], ["succeeded"] * 3)
+                self.assertEqual(snapshot["tracks"][0]["status"], "ready")
+                expected = {**PROBES["music"]["request"], "prompt": music[0]["prompt"],
+                            "audio_duration": 30, "lyrics": LYRICS}
+                self.assertEqual(music, [expected])
+                self.assertIn("Moonlit lake", music[0]["prompt"])
+                self.assertIn("vocals", music[0]["prompt"])
+                self.assertNotIn(marker, json.dumps(snapshot))
+                self.assertNotIn(marker, json.dumps(music))
+                self.assertNotIn("private-offline-marker", json.dumps(snapshot))
+                self.assertEqual(client.get(snapshot["tracks"][0]["audio"]["url"]).content, wav_bytes())
+                client.get("/")
+                self.assertEqual(client.get("/api/session").json(), snapshot)
+                self.assertEqual((len(chats), len(music)), (1, 1))
 
     def test_vocal_request_uses_qwen_lyrics_and_the_real_lyrics_in_acestep_request(self):
         with patch("jukebox.providers.ClassProviders.cover", return_value=png("blue")), \
