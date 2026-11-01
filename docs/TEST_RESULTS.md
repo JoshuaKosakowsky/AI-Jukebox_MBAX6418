@@ -864,6 +864,34 @@ performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
 
+## A3-10 release-gate mechanics rehearsal - 2026-11-01 America/Denver
+
+Tester: MSpanny directing Hermes. Preparation only — **not** a final freeze or
+independent acceptance (Jovi keeps lead; a different teammate must run the
+final install). Ran the release-gate mechanics against the CURRENT main ZIP
+(`cb818ae595f399f2455464de58ec5acdaa27d8fc`), downloaded from the exact GitHub
+archive URL, and recorded the gate's diagnostics as the open-blocker list.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Archive identity | Exact 40-SHA URL archive; recorded sha256/bytes/entries | PASS: 10,980,156 bytes; sha256 `c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48`; 133 entries = 14 dirs + 119 files |
+| Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
+| No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
+| Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY, exit 1): `Missing public_access_checked_at`; `Independent ZIP installer must differ from candidate preparer`; all 19 AT-cases unverified; `AT-16 must identify the actual independent ZIP installer as tester`; ≥2 team rows with contribution+review evidence; three distinct approved samples with distinct audio/cover. Exact command + verbatim output are embedded in the record for reproducibility; independently re-run on 2026-11-01 against the same ZIP, the gate output is byte-identical (trailing newline included) with exit 1 |
+
+Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
+the current tree. Per review feedback the person identifiers are canonical
+(`installed_by == prepared_by == "MSpanny"` by design so the installer-
+separation fence fires), no placeholder prose is left in gate-read fields
+(nonempty text would suppress `Missing ...` diagnostics), and the record embeds
+the exact gate command and verbatim output. The captured NOT READY diagnostics
+are precisely the final freeze's remaining gates — the same open items tracked
+in #3/#6/#7 plus the independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure
+(preflight, then independent install, then the final PASS gate).
+No provider request, connectivity check or generation was performed.
+
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
 
 Context: Joshua's bounded live vocal attempt on main 770ce62 (PR #28) failed
