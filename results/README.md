@@ -76,3 +76,10 @@ records three offline freeform-genre route/media cases and a bounded live test
 (2 music-service format calls +2 music jobs,0 other services/retries). Joshua
 confirmed both title-free piano/DnB controls match their descriptions. This
 limited positive result preserves earlier metal/rap failures; #35 stays open.
+
+
+Within-genre caption comparison: [stopped-run record](a3-35-caption-ab.json) on
+c97045f records1 completed music job /3 polls /0 downloads. A diagnostic checked
+`seed` instead of the documented `seed_value` and stopped before the second job.
+Corrected response-shape/stop guards pass offline. No audio or genre verdict;
+this does not establish a music-service failure or resolve #35.

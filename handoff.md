@@ -1,23 +1,25 @@
 # Agent handoff
 
-## Session — #35 caption A/B preparation, 2026-11-01 America/Denver
-Codex for Joshua; user explicitly assigned “Work #35”; PR37 remains draft.
-Isolated codex/a3-35-caption-ab-nov1 from36e21aa, integrating maincb818ae.
-Only TEST_RESULTS/handoff conflicted; preserved both genre history and merged-main evidence.
-Runtime merged automatically; retain DJ text(thinking=False) and safe Qwen guard diagnostics.
-No new genre presets, dependencies, probe/starter changes or production seed/default changes.
-Coordination/bounded plan: PR37 comment6561243200; no teammate competing claim found.
-Next diagnostic: two20s Iced Coffee/Heavy Metal/Angsty instrumentals, current vs concise caption.
-Same production controls; diagnostic seed641835/use_random_seed=false, prompt is only differing field.
-Max2music submissions,0format/art/text/speech/retries; stop first failure/uncertain accounting,5min deadline.
-This new user-assigned run is separate from completed historical runs and teammates' budgets.
-Use existing private Settings without logging values; raw WAVs ignored/private, safe evidence only in Git.
-Combined locked check PASS:193 tests,0 skips; verifier123/coverage36-11-19/whitespace PASS.
-No new runtime change beyond merging main; submit only after this source is committed.
-Human genre/mood listening pending; fixed DiT seed cannot control every LM sampling source.
-Prior metal/rap listening FAIL and piano/DnB PASS remain scoped to their recorded heads.
-No normal-launch/main acceptance or universal genre fix claimed; #35 stays open.
-Next: locked checks; immutable source commit; bounded pair and safe exact record, then human listening.
+## Session — #35 caption A/B stopped, 2026-11-01 America/Denver
+Codex for Joshua; user explicitly assigned “Work #35”; same draft PR37, issue stays open.
+Isolated codex/a3-35-caption-ab-nov1, integrated maincb818ae; immutable sourcec97045f.
+Only TEST_RESULTS/handoff conflicted; both histories retained; DJ/Qwen runtime merged cleanly.
+Combined locked193 tests PASS,0 skips; verifier123/coverage36-11-19/whitespace PASS.
+No new production caption/seed/model/default changes, presets, dependencies or probe/starter edits.
+Plan PR37 comment6561243200: max2music-only20s metal/angsty jobs, current vs concise caption.
+Diagnostic requested seed641835/use_random_seed=false; original budgets and other tasks untouched.
+Actual1 submission/3 polls/0 downloads,0 other services/retries; stop after first completed job.
+Production poll_music accepted the completed result; diagnostic incorrectly required top-level seed.
+Pinned upstream uses seed_value and nested metas; this is harness error, not established service failure.
+No raw response retained, so actual seed not recoverable; no B job/audio/listening/genre verdict.
+Safe record results/a3-35-caption-ab.json, TEST_RESULTS/index updated; no further live calls.
+Corrected local driver /private/tmp/a3_35_caption_ab.py reads documented fields; not executed live.
+Offline realistic-shape, missing/different seed, request-equality and one-shot guards PASS; zero network.
+Corrected driver also saves private ignored ticket for recovery; safe output excludes identifiers/routes.
+Prior metal/rap FAIL and piano/DnB PASS remain limited to their recorded heads.
+Fresh pair would need a new scoped run after the announced stop; do not silently retry this record.
+Next: publish exact evidence to PR37; current-head CI; obtain listening on a properly scoped fresh pair.
+No author approval, issue closure or main/browser/universal-quality acceptance claimed.
 
 
 ## Session — #35 shared-conditioning audit, 2026-10-30 America/Denver

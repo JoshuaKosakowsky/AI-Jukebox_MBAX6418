@@ -1316,3 +1316,32 @@ Issue #5's implementation and acceptance are complete; PR #27 is DRAFT and
 awaiting mase7919's readiness decision. Project-wide items outside Issue #5
 (vocal lyrics, reference voices, final approved samples, independent ZIP
 testing) remain open and are not claimed here.
+
+
+### Within-genre caption comparison stopped — 2026-11-01 America/Denver
+
+User assigned #35 again. Integrated main cb818ae into draft PR37; only test-results
+and handoff notes conflicted. DJ playback, Qwen diagnostic guards and all prior
+scoped genre results are retained. Combined locked checks on source **c97045f**:
+**193 tests PASS, zero skips**, verifier123 / coverage36-11-19 / whitespace PASS.
+No new production caption, seed, model, contract, dependency or genre preset change.
+
+Announced plan (PR37 comment6561243200): two20s Heavy Metal / Angsty instrumentals,
+current Iced Coffee caption vs the previously proposed concise description; only
+prompt changes, requested seed641835/use_random_seed=false for both. This is a
+harness-only seed override and cannot control every LM sampling source.
+
+**Run stopped after1 submission /3 polls /0 downloads;0 other services/retries.**
+Production poll_music accepted the first completed XL-Turbo job. The new diagnostic
+then required a top-level `seed`, which is the wrong metadata field. Pinned
+upstream cache output uses `seed_value` and nested `metas`; its store fallback
+can omit seed information. No raw response was retained, so the actual returned
+seed cannot be reconstructed here. This is a diagnostic defect, not evidence of
+a service seed mismatch or a failed music generation. No B job, replacement,
+audio download, human listening or musical-quality conclusion followed.
+
+[Exact stopped-run record](../results/a3-35-caption-ab.json) retains the submitted
+caption/controls, counts, source links and limits. Corrected diagnostic was checked
+OFFLINE against the documented response shape, missing/different seed stop paths
+and one-shot accounting guards, with zero network calls. A fresh pair remains
+unexecuted after the stop; prior failures stay failed, #35 open / PR37 draft.
