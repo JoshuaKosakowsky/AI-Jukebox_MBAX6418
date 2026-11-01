@@ -1442,9 +1442,21 @@ use_cot_caption=false; diagnostic seed641835/use_random_seed=false only.
 
 Exactly **1 music submission /2 polls /1 download;0 format/art/text/speech/retries**.
 Reported seed matches; full non-silent48kHz stereoPCM16 WAV decode, exactly20s.
-Clip D rendered inline; **human heavier-target judgment pending**. Whole caption
+Clip D rendered inline; Joshua replied **"Still misses the target." Heavier-target
+listening FAIL.** No finer per-trait diagnosis was supplied. Whole caption
 changes style/mood/context from retained C, so this is a new-target check rather
 than a single-factor causal comparison or all-genre acceptance. No reference
 recording, artist-name mapping or production fixed seed introduced.
 [Exact target record](../results/a3-35-deathcore-candidate.json).
 No further generation under this completed one-job run; #35 open / PR37 draft.
+
+
+D's failure leaves the shared candidate unaccepted for the requested heavier
+sound. Do not treat C's earlier relative improvement, decoded audio or green CI
+as a completed fix. Next step is an offline technical review with Matt of the
+captured request and semantic-code planning path. The frozen probe supports
+thinking=false; any later test of that single flag should keep D's exact caption,
+duration and other controls and use retained D as context. That is a hypothesis,
+not an executed/authorized follow-up or proof that planning caused the failure.
+No new generation under the completed budget; no model/service capability limit
+is established by these cases. #35 stays open / PR37 draft.

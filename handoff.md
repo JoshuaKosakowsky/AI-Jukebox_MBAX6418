@@ -10,12 +10,15 @@ Mood Angry, ominous and tense throughout; user band groups recorded in prior C r
 Actual1 music submission/2 polls/1 download,0format/art/text/speech/retries; run complete, no further calls.
 Full non-silent48kHz stereoPCM16 WAV,20s, requested/reported seed641835; media check is not genre acceptance.
 D clip rendered inline; asked Joshua for heavier instrumental weight/riff/drum/mood judgment throughout.
-Human listening PENDING; do not mark genre pass, issue complete or PR ready from decoded media alone.
+Joshua replied “Still misses the target”: HUMAN HEAVIER-TARGET FAIL; no finer per-trait diagnosis supplied.
 Whole caption/style/mood/context differ from C; not a one-factor causal comparison or all-genre evaluation.
 Safe results/a3-35-deathcore-candidate.json + TEST_RESULTS/index added; older records retained.
 Raw WAV/private recovery ticket ignored; no artist recording, band lookup, schema/dependency or fixed production seed.
 No source/app change beyond checked2c77732; final evidence-only safeguards127/coverage36-11-19/whitespace PASS.
-Next: record listening verdict, publish scoped evidence to same PR37; choose next step from actual result.
+Shared candidate remains unaccepted for the heavier target; do not turn C partial improvement/CI into a fix claim.
+Neutralized style hint wording to describe accepted input without promising a closer result.
+Next: publish failure evidence; request Matt offline review of exact request/semantic-code planning/deployed configuration.
+Possible later one-flag thinking=false test is a hypothesis only, not executed or authorized here.
 No main merge/self-approval, normal-launch/browser acceptance or further generation authorized by this completed run.
 
 

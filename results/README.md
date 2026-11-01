@@ -103,4 +103,5 @@ Production settings unchanged; earlier failed records retained.
 Explicit deathcore target: [Iced Coffee candidate](a3-35-deathcore-candidate.json)
 on2c77732,1 music job /2 polls /1 download,0other services/retries. Actual production
 caption with clarified style/mood, planning on / rewriting off; full20s WAV decode.
-Clip D rendered for Joshua; heavier-target listening pending, no all-genre claim.
+Joshua listened and replied "Still misses the target": heavier-target FAIL.
+No finer per-trait diagnosis or all-genre conclusion; no further generation.

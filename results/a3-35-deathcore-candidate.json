@@ -55,8 +55,8 @@
       "case": "D-explicit-deathcore",
       "input_caption": "Deathcore: low-tuned distorted guitar riffs, tight chugs, blast beats, double-kick drums and heavy breakdowns. Instrumental; no vocals. Mood: Angry, ominous and tense throughout. Theme: Iced Coffee. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T17:48:21.622087+00:00",
-      "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
-      "human_genre_judgment": "PENDING",
+      "status": "COMPLETED_AND_DECODED; HUMAN_HEAVIER_TARGET_FAIL",
+      "human_genre_judgment": "FAIL: user reports Still misses the target; no finer per-trait diagnosis provided.",
       "request": {
         "prompt": "Deathcore: low-tuned distorted guitar riffs, tight chugs, blast beats, double-kick drums and heavy breakdowns. Instrumental; no vocals. Mood: Angry, ominous and tense throughout. Theme: Iced Coffee. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -94,9 +94,11 @@
     }
   ],
   "human_listening": {
-    "status": "PENDING",
+    "status": "FAIL",
     "tester": "JoshuaKosakowsky",
-    "method": "Complete D clip rendered inline in chat; asked whether low-tuned riffs, double-kick/bass impact and angry/ominous mood meet the supplied heavier references throughout."
+    "method": "Complete D clip rendered inline in chat; asked whether low-tuned riffs, double-kick/bass impact and angry/ominous mood meet the supplied heavier references throughout.",
+    "response": "Still misses the target",
+    "scope": "Explicit heavier instrumental target only. No separate per-trait failure details or positive mood acceptance were supplied."
   },
   "limitations": [
     "A shared requested DiT seed does not control every LM sampling source or establish deterministic generation.",
@@ -104,14 +106,14 @@
     "Returned metadata and different PCM hashes are not human genre recognition.",
     "Prior metal/rap failures and piano/DnB passes remain historical, not results for this run."
   ],
-  "status": "COMPLETED_AND_DECODED; HUMAN_GENRE_JUDGMENT_PENDING",
+  "status": "COMPLETED_AND_DECODED; HUMAN_HEAVIER_TARGET_FAIL",
   "baseline_record": "a3-35-literal-caption.json, case C-caption-rewrite-off; historical context only",
   "differing_request_fields_from_retained_baseline": [
     "prompt"
   ],
   "completed_at_utc": "2026-11-01T17:48:26.366193+00:00",
   "counts_scope": "This approved one-job target check only. Prior stopped, A/B and caption-rewrite-control run counts remain separately preserved; no reset or borrowed budget.",
-  "outcome": "Actual production caption/adapter request completed and full non-silent20s WAV decoded. Human heavier-target acceptance pending; no genre-quality pass inferred.",
+  "outcome": "Request/media checks pass, but Joshua rejects the heavier instrumental target. Explicit deathcore cues with caption rewriting disabled did not meet the target in this case. Genre fidelity remains unresolved; no root cause or service capability limit isolated.",
   "comparison_limits": "Whole production caption differs from retained C in style detail, mood wording and theme/context wrapper. That is not a single-factor causal comparison or all-genre test, despite only the wire prompt field differing.",
   "listening_target_reference": "Personal band groups recorded in a3-35-literal-caption.json follow_up_user_steering; no reference recordings or band-name mapping used by app.",
   "production_runtime": {
@@ -119,5 +121,6 @@
     "thinking": true,
     "use_cot_caption": false,
     "request_overrides": "Diagnostic seed641835/use_random_seed=false only; no production fixed seed."
-  }
+  },
+  "next_action_proposed": "Offline technical review with instrumental lead Matt/mase7919 of the exact shared request and semantic-code planning path, plus deployed configuration/version evidence if available. No new generation, retries, model reinitialization or production setting change under this completed budget."
 }

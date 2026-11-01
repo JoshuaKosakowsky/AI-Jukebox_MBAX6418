@@ -122,8 +122,10 @@ still plans semantic audio codes, while the literal app caption is retained as
 the DiT description instead of being replaced by an LM-generated caption. This
 follows the [pinned inference path](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824).
 `use_cot_language=false` remains unchanged, and no separate Qwen job is added.
-The one-flag control was only a partial listening improvement; this draft is not
-accepted for all genres or on integrated main.
+The one-flag control was only a partial listening improvement. The later explicit
+deathcore candidate on2c77732 failed Joshua's heavier-target check ("Still misses
+the target"); disabling caption rewriting is not an accepted genre fix. This
+draft is not accepted for all genres or on integrated main.
 Both modes use a compact genre-first audio caption, retaining all three full
 120-character user inputs within the documented 512-character caption limit.
 Theme/mood shape dynamics and motifs while genre guides groove, tempo,
