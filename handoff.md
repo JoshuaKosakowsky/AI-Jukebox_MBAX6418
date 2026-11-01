@@ -1,5 +1,30 @@
 # Agent handoff
 
+## Session — PR39 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/main-browser-regression; pre-head eb27ae6; incoming main cb818ae.
+## Constraints
+Evidence/documentation integration only; no class calls, generation, browser rerun, app fixes or edits to Mike's branches.
+## Repository state
+Merged protected main into this PR; only handoff.md conflicted, and both complete note strands are retained below.
+## Work completed and decisions
+Original 27-check browser JSON, screenshots, helper and report remain byte-identical to eb27ae6.
+Incoming #41 failed-vocal JSON and TEST_RESULTS remain exact main bytes; no failure relabelled as success.
+Runtime/tests/contracts/dependencies/assets/CI/protection match main; original tested browser SHA stays 25f8617.
+#38 coordination refresh follows separately from main; neither PR depends on the other.
+## Validation
+Locked checks PASS:189 tests (one optional skip), verifier124 files, coverage36/11/19; whitespace clean.
+Five original evidence/helper/report files and incoming evidence byte-identical; both handoff histories retained in order.
+No new normal-launch, browser/listening, live-provider, reference-voice or final ZIP acceptance claimed.
+## Blockers and unchecked areas
+Parent #3/#5/#8 remain open; submission NOT READY. #26/#40 await eligible teammate review; #42 requested changes remains Mike's work.
+Joshua contributes and cannot approve this PR. #35 remains Joshua's lane; #36 is not newly claimed.
+## Next steps
+Push checked reconciliation, freeze head and request fresh eligible Matt/Preethi review; normal protected merge only.
+Keep all existing acceptance limits; coordinate one tester/head/budget for any later live run.
+## References
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/39#issuecomment-6562808198
+Original [browser report](docs/MAIN_BROWSER_REGRESSION.md); preserved browser and Mike handoffs follow.
+
 ## Session — isolated main browser regression, 2026-10-31 America/Denver
 Codex for Joshua; branch codex/main-browser-regression; tested main 25f86179f82cad2f323a81970a27fc76dbdb22ae.
 ## Constraints
@@ -28,6 +53,9 @@ Mike continues #26 independently; coordinate remaining real acceptance with feat
 ## References
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6546111979
 Details: [main browser regression](docs/MAIN_BROWSER_REGRESSION.md); preserved prior notes follow.
+
+## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
 
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
