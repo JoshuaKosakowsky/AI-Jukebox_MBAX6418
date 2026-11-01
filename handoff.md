@@ -1,5 +1,8 @@
 # Agent handoff
 
+## Session — A3-06 round 4, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); PR #26 (#6 lead: Mike; #5 by Matt). Joshua's 22:06 review of the synced head ab690f1 (branch synced through main #27/#29, 209 tests) found ONE defect: duplicate WAV `data` chunks bypassed the 60-second limit (the chunk walker kept only the LAST chunk, so a 61 s + 1 s dual-chunk file validated as ~1 s). Fixed: a second data chunk now 422s ("contains multiple data chunks"); regression reproduces Joshua's exact file (61 s + 1 s, corrected RIFF size → 422; single-chunk in-range still 201). Integrated suite: 210 tests (21 reference), verifier 119 files, coverage 36/11/19, gate PASS; invariants re-verified: default speech probe-identical, reference payload frozen data-URI schema, no disk/snapshot/read routes. Head frozen for mase7919 re-review per Joshua's 16:22 instructions. Refs #6.
+
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
 No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.

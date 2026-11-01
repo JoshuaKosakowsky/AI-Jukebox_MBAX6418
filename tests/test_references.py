@@ -221,6 +221,23 @@ class ReferenceHttpTests(unittest.TestCase):
             self.assertEqual(self.upload(client, honest_61s).status_code, 422)
             self.assertEqual(self.upload(client, bytes(forged)).status_code, 422)
 
+    def test_duplicate_data_chunks_cannot_bypass_duration_limit(self):
+        # A 61-second PCM WAV followed by a SECOND one-second data chunk (with
+        # a corrected RIFF size) reads as ~1 s if the walker keeps only the
+        # last chunk; RIFF allows exactly one data chunk, so reject it.
+        fmt = (b"\x01\x00" + b"\x01\x00" + (8000).to_bytes(4, "little")
+               + (16000).to_bytes(4, "little") + b"\x02\x00" + b"\x10\x00")
+        first = (b"data" + (976_000).to_bytes(4, "little") + b"\x01\x00" * 488_000)
+        second = (b"data" + (16_000).to_bytes(4, "little") + b"\x01\x00" * 8_000)
+        total = 4 + 8 + 16 + 8 + len(first) + 8 + len(second)
+        dual = (b"RIFF" + (total).to_bytes(4, "little") + b"WAVE"
+                + b"fmt " + (16).to_bytes(4, "little") + fmt + first + second)
+        assert isinstance(dual, bytes)
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, dual).status_code, 422)
+            # Valid single-data-chunk WAVs of any in-range duration still pass.
+            self.assertEqual(self.upload(client, wav_bytes(seconds=3, rate=8000)).status_code, 201)
+
 
 class ReferenceStoreTests(unittest.TestCase):
     def setUp(self):

@@ -145,6 +145,11 @@ def _validate_wav_structure(content: bytes) -> None:
         if chunk_id == b"fmt ":
             fmt = content[payload : payload + size]
         elif chunk_id == b"data":
+            if data is not None:
+                # A second data chunk makes duration ambiguous (the walker
+                # would silently use the LAST chunk and under-count); RIFF
+                # allows exactly one data chunk per WAV.
+                raise SessionFailure(422, "The WAV reference contains multiple data chunks.")
             data = (payload, size)
             found_data = True
         offset = payload + size + (size & 1)  # RIFF pads odd sizes
