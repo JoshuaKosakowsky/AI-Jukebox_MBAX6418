@@ -1,5 +1,8 @@
 # Agent handoff
 
+## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
+
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
 No newer Mike #26/#29 fixes or Matt readiness published at start; draft/readiness/ownership remain unchanged.

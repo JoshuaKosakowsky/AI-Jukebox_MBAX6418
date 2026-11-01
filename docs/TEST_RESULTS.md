@@ -860,6 +860,31 @@ remain ignored under results/raw; they are not an approved sample.
 **AT-04 failed; #3 remains open. Submission NOT READY.** This adds live failure
 evidence; the earlier offline vocal/browser checks retain their original scope.
 
+## A3-03 second failed vocal attempt: Mountaintop Adventure - 2026-10-31 America/Denver
+
+Tester: MSpanny directing Hermes; spontaneous run through the normal local
+launcher (`python -m jukebox --port 8000`) with real class services
+configured. Running head `926613db` (branch `codex/a3-06-reference-voices`,
+main `25f86179` ancestor — app code included the #21 vocal chain, #27 DJ and
+the #29 safe-diagnostics fix; the unmerged #40 cover-prompt change was NOT
+present). No fixtures, no retry, no deliberate capture (the server had
+`access_log=False`, so no wire trace, clock timestamps or session snapshot
+were recorded).
+
+| Input/check | Expected | Actual |
+|---|---|---|
+| Mountaintop Adventure / vocal mode (derived: a lyrics job ran; lyrics run only for vocal tracks; style/mood/duration NOT RECORDED) | Qwen lyrics, ACE-Step vocal, matching FLUX art, retained | FAIL: FLUX cover succeeded (correct lettering — single observation, not a typography guarantee per #36); Qwen lyrics failed with the fixed #29-safe diagnostic `The text service returned no lyrics content (finish_reason='length').`; no vocal audio created. Music job outcome not logged. |
+| Bounded calls | ≤1 text, ≤1 art, ≤1 music submission; no automatic retries | art 1 (succeeded), text 1 (failed), music not logged; retries 0 |
+
+The class Qwen endpoint again returned `finish_reason='length'` (token cap)
+with no usable content — the same #3 failure family as the #28 run, now
+observed on a current head through the normal entrypoint with the #29-safe
+diagnostic verbatim. This is a FAILURE observation, not a pass: **AT-04 still
+fails; #3 stays open.** The successor diagnosis/rerun (access-log-enabled
+server, exact request capture) remains the separately authorized bounded plan
+holding for go-ahead.
+
+[Safe record](../results/a3-03-vocal-failure-mountaintop.json)
 
 ## A3-08 retry-control correction - 2026-10-30 America/Denver
 
