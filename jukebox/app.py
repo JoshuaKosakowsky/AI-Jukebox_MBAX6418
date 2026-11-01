@@ -241,6 +241,12 @@ def create_app(settings: Settings | None = None):
     class QueueBody(Model):
         track_id: UUID
 
+    class VoiceBody(Model):
+        reference_id: UUID | None = None
+
+    class SpeechBody(VoiceBody):
+        track_id: UUID
+
     class PhaseBody(Model):
         phase: Literal["speaking", "playing"]
         track_id: UUID | None = None
@@ -251,7 +257,7 @@ def create_app(settings: Settings | None = None):
         return store.queue_playback(current, data.track_id)
 
     @app.post("/api/playback/speech", response_model=GenerationJob, status_code=202)
-    def playback_speech(data: QueueBody, tasks: BackgroundTasks = BackgroundTasks,
+    def playback_speech(data: SpeechBody, tasks: BackgroundTasks = BackgroundTasks,
                         current=Depends(browser_session)):
         """Explicit user retry for a failed/absent DJ introduction.
 
@@ -261,22 +267,24 @@ def create_app(settings: Settings | None = None):
         action, so provider budget cannot be re-spent by playback alone.
         """
         require_dj()
-        job = store.request_dj_speech(current, data.track_id)
+        job = store.request_dj_speech(current, data.track_id, data.reference_id)
         tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
         return job
 
     @app.post("/api/playback/start", response_model=Playback)
-    def playback_start(tasks: BackgroundTasks = BackgroundTasks, current=Depends(browser_session)):
+    def playback_start(data: VoiceBody | None = None, tasks: BackgroundTasks = BackgroundTasks,
+                       current=Depends(browser_session)):
         require_dj()
-        playback, job = store.start_playback(current)
+        playback, job = store.start_playback(current, data.reference_id if data else None)
         if job is not None:
             tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
         return playback
 
     @app.post("/api/playback/advance", response_model=Playback)
-    def playback_advance(tasks: BackgroundTasks = BackgroundTasks, current=Depends(browser_session)):
+    def playback_advance(data: VoiceBody | None = None, tasks: BackgroundTasks = BackgroundTasks,
+                         current=Depends(browser_session)):
         require_dj()
-        playback, job = store.advance_playback(current)
+        playback, job = store.advance_playback(current, data.reference_id if data else None)
         if job is not None:
             tasks.add_task(store.generate_dj_speech, current, job.id, app.state.providers)
         return playback

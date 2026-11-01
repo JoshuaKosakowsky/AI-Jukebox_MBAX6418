@@ -8,7 +8,8 @@ the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
 sings them into a playable track. Everything stays paired with the correct
 track across page reloads and plays inline. Registered sample songs load locally
 without service settings or regeneration. The approved sample set is still pending;
-DJ playback and reference uploads are not built yet.
+DJ playback and an optional MP3/WAV reference chooser are implemented; real
+reference-voice acceptance is still pending.
 
 Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
 Team workflow is active: task branches and reviewed PRs for every change.
@@ -126,11 +127,17 @@ and source archives. Never commit uploads, voice references or third-party media
    is the only way forward.
 5. Add playable songs to the **Queue & DJ** panel and press **Play queue**: Qwen
    writes a short spoken introduction for each queued song, Chatterbox speaks
-   it with its default voice, and the music follows automatically — speech and
+   it with the default voice or your optional MP3/WAV reference, and the music follows automatically — speech and
    music never overlap because one persistent player element drives the whole
    timeline sequentially. Pause, Resume and Skip work during speech AND during
    music; the set stops cleanly after the final track. Reloading the page
    keeps the queue and position and never regenerates commentary.
+   Select **Optional DJ reference voice** before playing to use your clip for
+   each new introduction (up to 5 MB; WAV 1–60 seconds). **Use default voice**
+   clears the choice. Cached/in-flight introductions keep their original voice;
+   recordings stay temporary, are forgotten on reload and never enter saved files.
+   A rejected clip does not silently fall back to the default voice. Choose another
+   clip or clear it, then retry; if automatic advance stopped, press **Resume**.
 
 Individual song players act independently when the DJ queue is idle. While the
 queue is active or paused, those players are paused or prevented from starting;
@@ -170,7 +177,8 @@ lyrics_generation_available separately from song generation; it reports
 configuration, not provider reachability. Temporary MP3/WAV DJ reference
 uploads are accepted at POST /api/references/speech (multipart `file`; magic-
 byte, size and WAV-duration validation; session memory only, consumed once, no
-read route; no UI yet — the DJ queue task #5 will use them). See the full
+read route). The Queue & DJ chooser sends a fresh one-shot upload for each new
+introduction, including explicit retries, and deletes unused uploads. See the full
 [app contracts and integration notes](docs/APP_CONTRACTS.md).
 
 The earlier [startup configuration view](results/startup-configured.jpg) shows
