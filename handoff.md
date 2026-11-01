@@ -1,3 +1,34 @@
+# Agent handoff
+
+## Session — PR38 integration-status reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/integration-catchup-oct31; pre-head f2a87d2; incoming main cb818ae.
+## Constraints
+Docs-only sync; no class calls/generation, app fixes, assignments, protection changes or edits to Mike's branches.
+## Repository state
+Main merged without conflict; both original docs handoff and Mike's failed-vocal notes remain below.
+#39 is independently synchronized at60a4fed; neither PR includes or depends on the other's unique files.
+## Work completed and decisions
+Refreshed PLAN against live issues/PRs; #29 merged, #26/#40 synced but needing fresh review, #44 awaiting Mike.
+Kept all prior contribution/review credit and clarified that Joshua's later #26 contribution prevents self-approval.
+#37 is ready; #43 draft has20 ratings (10 good/8 minor/2 major), with metal/deathcore tuning deferred.
+Approved samples remain empty; third-pair confirmation, actual acceptance and release remain outstanding.
+Incoming #41 record/TEST_RESULTS match main; runtime/tests/contracts/dependencies/assets/CI/protection match main.
+## Validation
+PASS: verifier119 files, coverage36/11/19, whitespace; delta limited to3 docs and both histories preserved.
+Shared unchanged main code passed189 locked tests (one optional skip) during this session's #39 reconciliation.
+No local suite repetition for this docs-only delta; exact-head CI runs the suite separately on this PR.
+## Blockers and unchecked areas
+No normal-launch/browser/listening/live reference or final ZIP acceptance performed; submission remains NOT READY.
+#42's requested corrections remain with Mike; #26/#40/#37 require eligible teammates, not Joshua/Dot approval.
+## Next steps
+Push checked sync, freeze the head and request fresh eligible Matt/Preethi review; normal protected merge only.
+After either docs PR merges, recheck the other against resulting main without changing historical evidence.
+## References
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/38#issuecomment-6562834666
+Live [issues](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues) own assignments/status.
+
+## Preserved history — current entry supersedes older status statements
+
 # Current merge follow-through - 2026-10-31 America/Denver
 
 Codex for Joshua. #29 merged normally at 25f86179f82cad2f323a81970a27fc76dbdb22ae from approved 02b85e2; all three review threads resolved, 4/4 head checks passed before merge.
@@ -51,6 +82,9 @@ Synthetic in-memory fixtures, empty/dummy Settings, MockTransport only. No serve
 ## Preserved earlier task notes (current facts above supersede historical status)
 
 # Agent handoff
+
+## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
 
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.

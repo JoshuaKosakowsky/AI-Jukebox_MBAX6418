@@ -1,26 +1,35 @@
 # Delivery plan - Assignment 3
 
-**Current state (2026-10-31):** runtime/contracts, instrumental playback and
-matching covers are accepted (A3-01/02/04). Main `a580756` now includes Matt's
-A3-05 default DJ queue (#27), normally merged after Mike's exact-head approval
-and green CI. Its retained 50-check live evidence is branch evidence; integrated
-main verification/checklist reconciliation remains on #5. The sample loader
-(#31), retry fixes (#30), instrumental recovery evidence (#32), README slice
-(#34) and Moonlit/Desert Drive candidates are merged; final samples remain unselected.
-Mike's #26 upload corrections are independently approved at bbf80bc, but the
-branch needs current-main DJ integration and Matt's fresh review. #29 diagnostics merged normally at main 25f8617 from independently approved
-02b85e2: fixed unexpected-model errors and DJ thinking=False payload behavior
-verified; 189 tests pass (1 optional skip). #26 needs a three-file main sync,
-combined offline checks and Matt re-review; keep its upload/provider scope.
-The DJ reference chooser and real MP3/WAV/default-voice acceptance remain a
-focused #6 follow-up after the component lands. #3's
-failed live-vocal evidence remains valid; successful integrated acceptance is pending.
-#35/#37 genre investigation remains open/draft: literal piano/DnB controls passed
-Joshua's listening; prior metal/rap failures remain failures. No universal quality
-claim or extra generation is implied. #36 cover lettering remains open.
-Live issues own lead/backup assignments and claims. Reference-voice acceptance,
-final three samples, remaining recovery/report evidence and independent final ZIP
-remain required. Full submission is **NOT READY**. Evidence: [test results](docs/TEST_RESULTS.md).
+**Current state (2026-11-01):** runtime/contracts, instrumental playback and
+matching covers are accepted (A3-01/02/04). Main `cb818ae` includes the default
+DJ (#27), safe Qwen diagnostics (#29) and another failed vocal record (#41).
+DJ branch evidence retains its tester/listening qualifications; integrated-main
+verification and checklist reconciliation remain on #5. Successful normal-launch
+vocal generation/listening is still unverified. Candidate lyrics fix #44 requests
+non-thinking output within the existing cap; it awaits Mike's review and does not
+establish the cause of the earlier failure or successful AT-04 acceptance.
+
+Reference upload/provider #26 and wordless-cover prompt #40 are synchronized
+with main and await fresh eligible teammate review. Joshua contributed their
+reconciliation commits and cannot approve them. #26's final chooser/DJ wiring
+and real MP3/WAV/default-voice acceptance remain #6 follow-up work; #40's actual
+cover effectiveness remains unverified. Do not spend a new live budget from a
+merge or session change. Mike's release-preparation #42 has requested procedure
+and evidence corrections; the final independent ZIP is not yet ready.
+
+Genre-controls #37 is ready for review, with evidence-only #43 stacked in draft.
+Twenty assessed instrumental styles have 10 good / 8 minor / 2 major ratings;
+classic rock and punk need work, and metal/deathcore tuning is deferred by Joshua.
+These are case-specific listening results, not all-genre or merged-main acceptance.
+The loader, retry fixes, recovery evidence, README slice and Moonlit/Desert Drive
+candidates are merged. The approved sample manifest is empty; #7 still needs three
+approved pairs. Mike's third-pair preparation awaits Preethi's retained originals;
+retained good-rated genre audio is a possible fallback but has no matching covers.
+Jovi retains selection; no sample approval or new generation is implied.
+
+Live issues own assignments and claims. Remaining vocals, DJ/reference acceptance,
+samples, recovery/report evidence and independent final ZIP are required.
+Full submission remains **NOT READY**. Evidence: [test results](docs/TEST_RESULTS.md).
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
