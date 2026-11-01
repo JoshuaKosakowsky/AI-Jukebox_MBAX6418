@@ -1405,3 +1405,27 @@ This suggests a shared conditioning setting worth evaluating; one retained-contr
 comparison does not prove causality or all-genre quality. Same DiT seed does not
 control every LM sample. No production flag/caption/default change or further
 generation. Detailed user steering is pending; #35 stays open / PR37 draft.
+
+
+### Listening target and shared candidate — 2026-11-01 America/Denver
+
+Joshua supplied the missing steering: heavier references Lorna Shore,
+Disembodied Tyrant, Whitechapel, Slaughter to Prevail and Chelsea Grin; metal
+references I Prevail, The Bride and Bad Omens; lighter acceptable references
+Three Days Grace, Sleep Token and Atreyu. These are his personal targets.
+For the next heavier check, use an explicit deathcore description emphasizing
+low-tuned distorted riffs/chugs, double-kick/blast-beat drums, heavy bass and
+breakdowns, with an angry/ominous mood maintained throughout. His initial generic
+Metal label did not specify that narrower target. No artist recording is an input.
+
+Draft shared adapter now sends **thinking=true/use_cot_caption=false** for both
+music modes. This retains literal captions for DiT according to the pinned source;
+C's relative improvement motivates the candidate but does not validate it across
+genres. Existing freeform style input gains a subgenre/instruments/rhythm hint;
+no new field, artist/genre mapping, dependency, fixed tempo/seed or provider job.
+Existing real-HTTP regressions now also cover detailed deathcore and boom-bap,
+checking exact inputs, planning-on/rewriting-off, correct media and no reload jobs.
+No music or other class-service generation for this revision; previous budgets
+are complete. Candidate full locked check:193 tests PASS,0skips; safeguards126 /
+coverage36-11-19 / whitespace PASS, including startup and Node probes. Full
+genre/mood and integrated-main acceptance unverified. #35 remains open / PR37 draft.

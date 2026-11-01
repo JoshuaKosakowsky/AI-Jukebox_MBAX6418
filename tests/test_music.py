@@ -133,13 +133,13 @@ class MusicStoreTests(unittest.TestCase):
                                 else ("Hip-hop beat", "snare", "hi-hats")):
                         self.assertIn(cue, payload["prompt"])
                     self.assertTrue(payload["thinking"], "Sparse genre inputs need music-LM planning")
-                    self.assertTrue(payload["use_cot_caption"], "Enhance the caption within the same music task")
+                    self.assertFalse(payload["use_cot_caption"], "Keep the supplied caption as the DiT description")
                     self.assertFalse(payload["use_cot_language"])
                     expected = {k: v for k, v in PROBES["music"]["request"].items()
                                 if k not in {"bpm", "key_scale", "time_signature"}}
                     expected.update(prompt=payload["prompt"], audio_duration=duration,
                                     lyrics=lyrics if mode == "vocal" else "[Instrumental]",
-                                    thinking=True, use_cot_caption=True)
+                                    thinking=True, use_cot_caption=False)
                     self.assertEqual(payload, expected)
         self.assertEqual(json.dumps(PROBES["music"]["request"], sort_keys=True), baseline)
 
@@ -562,7 +562,11 @@ class MusicHttpTests(unittest.TestCase):
         provider = ClassProviders(art_music_settings(), transport=httpx.MockTransport(reply))
         cases = [("Glass Atrium", "Baroque chamber strings", "Restrained", 15),
                  ("Fogbound", "Jazz waltz with brushed drums", "Intimate", 25),
-                 ("Mountain Steps", "Acoustic bluegrass", "Playful", 35)]
+                 ("Mountain Steps", "Acoustic bluegrass", "Playful", 35),
+                 ("Iced Coffee", "Deathcore: low-tuned distorted guitar riffs, tight chugs, blast beats, double-kick drums and heavy breakdowns",
+                  "Angry, ominous and tense throughout", 20),
+                 ("Yellow Sundress", "Boom-bap hip-hop: dry kick/snare backbeat, swung hi-hats and deep bass",
+                  "Upbeat", 20)]
         with patch("jukebox.app.ClassProviders", return_value=provider):
             with self.client(art_music_settings()) as client:
                 for title, style, mood, seconds in cases:
@@ -575,6 +579,8 @@ class MusicHttpTests(unittest.TestCase):
                         self.assertIn(value, payload["prompt"])
                     self.assertEqual(payload["audio_duration"], seconds)
                     self.assertEqual(payload["lyrics"], "[Instrumental]")
+                    self.assertTrue(payload["thinking"])
+                    self.assertFalse(payload["use_cot_caption"])
                     self.assertTrue({"bpm", "key_scale", "time_signature"}.isdisjoint(payload))
                 snapshot = client.get("/api/session").json()
                 self.assertEqual([t["settings"]["style"] for t in snapshot["tracks"]], [c[1] for c in cases])

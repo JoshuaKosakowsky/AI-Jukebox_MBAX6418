@@ -55,7 +55,7 @@
       "case": "C-caption-rewrite-off",
       "input_caption": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
       "started_at_utc": "2026-11-01T17:33:43.467840+00:00",
-      "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
+      "status": "COMPLETED_AND_DECODED; HUMAN_PARTIAL_IMPROVEMENT",
       "human_genre_judgment": "PARTIAL: user says C is leaning more metal; full genre/mood acceptance unconfirmed.",
       "request": {
         "prompt": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
@@ -121,5 +121,28 @@
     "retained_not_regenerated": true,
     "historical_human_verdict": "FAIL metal in the original A/B listening; no retroactive pass inferred from latest relative-improvement comment."
   },
-  "production_change": "None. Await detailed user steering before deciding on a shared-caption/default revision; no more generation under this completed one-job run."
+  "production_change": "None. Await detailed user steering before deciding on a shared-caption/default revision; no more generation under this completed one-job run.",
+  "follow_up_user_steering": {
+    "source": "Joshua supplied the previously missing listening references after the C judgment.",
+    "heavier_references": [
+      "Lorna Shore",
+      "Disembodied Tyrant",
+      "Whitechapel",
+      "Slaughter to Prevail",
+      "Chelsea Grin"
+    ],
+    "metal_references": [
+      "I Prevail",
+      "The Bride",
+      "Bad Omens"
+    ],
+    "lighter_acceptable_references": [
+      "Three Days Grace",
+      "Sleep Token",
+      "Atreyu"
+    ],
+    "interpretation": "Personal listening targets, not a universal taxonomy. Proposed explicit heavier style: deathcore with low-tuned distorted riffs/chugs, double-kick/blast-beat drums, bass weight and breakdowns; angry/ominous mood throughout.",
+    "implementation_direction": "Use the existing freeform style field; shared draft disables caption rewriting while keeping planning enabled. No band-name mapping or new input schema. Candidate itself is not live/listening accepted.",
+    "new_live_calls": 0
+  }
 }

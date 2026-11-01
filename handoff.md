@@ -1,5 +1,24 @@
 # Agent handoff
 
+## Session — #35 listening-target candidate, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-35-caption-ab-nov1, draft PR37; base6e01547, issue35 open.
+Missing steering arrived: heavier Lorna Shore/Disembodied Tyrant/Whitechapel/Slaughter to Prevail/Chelsea Grin.
+Metal examples I Prevail/The Bride/Bad Omens; lighter acceptable Three Days Grace/Sleep Token/Atreyu.
+Personal targets recorded, not universal genre boundaries; explicit deathcore description proposed for next check.
+Claim PR37 comment6561538521: common provider sends thinking=true/use_cot_caption=false for both modes.
+Pinned inference path retains literal caption; previous C was only a partial relative improvement, not final acceptance.
+Existing freeform style field gains accessible subgenre/instruments/rhythm hint; no new schema or artist mapping.
+Extended existing HTTP/provider regression with detailed deathcore/boom-bap alongside strings/jazz/bluegrass.
+Tests check exact style/mood/theme/duration, flags, unique media and no reload resubmit; no new test-only abstraction.
+Updated current APP/SERVICE contracts, TEST_RESULTS and C-record steering; original probe/starter unchanged.
+No new service/generation calls, dependencies, model/fixed-seed defaults, automatic retries or ownership changes.
+Previous two-job/one-job budgets remain complete; no extra music authorized by the list of bands.
+Candidate is offline-only until a separately scoped test; prior failed/partial records retain their verdicts.
+Full locked193 tests PASS,0skips; safeguards126/coverage36-11-19/whitespace PASS.
+No normal-launch/main/browser or all-genre quality acceptance claimed.
+Next: complete offline checks; publish candidate; one deliberately scoped new-target listening check if authorized.
+
+
 ## Session — #35 caption-rewrite-off control, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-35-caption-ab-nov1 / draft PR37; #35 open.
 User explicitly authorized “Run the one-clip test”; new max1 job, claim PR37 comment6561439418.

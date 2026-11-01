@@ -217,10 +217,11 @@ class ClassProviders:
         # every song. Missing metadata lets ACE-Step infer it from the prompt.
         for field in ("bpm", "key_scale", "time_signature"):
             payload.pop(field, None)
-        # Enable the supported music-LM caption enhancement and semantic audio
-        # planning path. Audible genre fidelity still needs listening evidence.
+        # Keep music-LM semantic planning while retaining our literal caption
+        # for DiT instead of replacing it with an LM-generated description.
+        # Audible genre fidelity still needs listening evidence.
         payload.update(prompt=prompt, audio_duration=duration_seconds, lyrics=lyrics,
-                       thinking=True, use_cot_caption=True)
+                       thinking=True, use_cot_caption=False)
         data = self._json("music", "/release_task", payload)
         try:
             task_id = data["data"]["task_id"]

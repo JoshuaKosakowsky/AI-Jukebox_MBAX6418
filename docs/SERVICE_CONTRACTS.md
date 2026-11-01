@@ -117,10 +117,13 @@ requests omit its `bpm`, `key_scale` and `time_signature` fields so every style
 is not forced to 80 BPM, C Major and 4/4. Duration, supplied lyrics,
 single-output batch, WAV format and eight turbo steps remain explicit.
 
-Production now sets **`thinking=true`, `use_cot_caption=true`**: ACE-Step's own
-5Hz music LM enhances the sparse style/mood/theme caption and plans semantic
-audio codes before DiT rendering. This replaces the probe's direct-DiT fast path;
+The current draft sets **`thinking=true`, `use_cot_caption=false`**: the music LM
+still plans semantic audio codes, while the literal app caption is retained as
+the DiT description instead of being replaced by an LM-generated caption. This
+follows the [pinned inference path](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824).
 `use_cot_language=false` remains unchanged, and no separate Qwen job is added.
+The one-flag control was only a partial listening improvement; this draft is not
+accepted for all genres or on integrated main.
 Both modes use a compact genre-first audio caption, retaining all three full
 120-character user inputs within the documented 512-character caption limit.
 Theme/mood shape dynamics and motifs while genre guides groove, tempo,
@@ -131,8 +134,11 @@ cues: distorted guitar riffs/bass/drums for Metal/Heavy Metal, and kick/bass,
 snare, hi-hats and a sparse hook for Rap/Hip-hop. Matching is limited to common
 exact labels (case insensitive, hyphen/space aliases); detailed/freeform styles
 and blends retain their own direction. These editorial defaults address the
-reported cases rather than pretending that labels alone worked. There is no
-fixed genre/BPM table, model switch or fixed seed.
+reported cases, but have not passed the user's genre listening checks. There is
+no fixed genre/BPM table, model switch or fixed seed. The style input already
+accepts a subgenre, instruments and rhythm in free text; the UI now explains
+that option. Joshua's heavier references narrow his next listening target to
+deathcore traits rather than making the general Metal label a personal preset.
 
 The [matching request model](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/api/http/release_task_models.py)
 supports both flags and optional BPM/key/meter. The

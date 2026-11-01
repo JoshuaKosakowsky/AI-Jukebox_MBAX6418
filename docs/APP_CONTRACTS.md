@@ -133,10 +133,12 @@ Music captions put the selected genre first and use theme/mood to shape musical
 motifs and dynamics. Bare Metal/Heavy Metal and Rap/Hip-hop labels gain concrete
 arrangement cues; detailed/freeform styles and blends keep their own direction.
 Both modes retain full inputs within ACE-Step's documented
-512-character caption limit. Production enables music-LM caption enhancement and
-semantic planning (`use_cot_caption=true`, `thinking=true`); tempo/key/meter are
-inferred rather than copied from the piano probe. This adds no text-service job,
-retry or public object change. Genre fidelity remains a human listening check;
+512-character caption limit. The draft keeps music-LM semantic planning enabled
+while disabling caption rewriting (`use_cot_caption=false`, `thinking=true`),
+so the supplied description is retained for DiT. Tempo/key/meter are inferred
+rather than copied from the piano probe. A style-field hint explains how to add
+a subgenre, instruments and rhythm; the existing freeform field/schema is unchanged.
+This adds no text-service job or retry. Genre fidelity remains a human listening check;
 see [provider conditioning](SERVICE_CONTRACTS.md#production-genre-conditioning-35).
 
 ## Vocal songs and lyrics (A3-03)

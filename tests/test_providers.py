@@ -139,7 +139,7 @@ class ProviderTests(unittest.TestCase):
             if request.url.path == "/release_task":
                 expected = {k: v for k, v in PROBES["music"]["request"].items()
                             if k not in {"bpm", "key_scale", "time_signature"}}
-                expected.update(thinking=True, use_cot_caption=True)
+                expected.update(thinking=True, use_cot_caption=False)
                 self.assertEqual(json.loads(request.content), expected)
                 return httpx.Response(200, json={"code": 200, "error": None, "data": {"task_id": "ticket"}})
             if request.url.path == "/query_result":
