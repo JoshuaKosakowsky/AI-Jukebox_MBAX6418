@@ -88,5 +88,6 @@ this does not establish a music-service failure or resolve #35.
 Corrected within-genre pair: [caption A/B v2](a3-35-caption-ab-v2.json) on2eb81db,
 explicitly authorized after the stopped run. Exactly2 music jobs /6 polls /2
 downloads,0other services/retries; only the caption differs. Both returned the
-requested seed and fully decoded20s. Clips rendered for Joshua; human metal/mood
-judgment pending. No broad-genre or integrated-main acceptance claimed.
+requested seed and fully decoded20s. Joshua judged both FAIL: A has the better rhythm; B starts heavier then
+turns light/happy. Neither delivers the expected heavy riff/bass impact.
+No broad-genre or integrated-main acceptance claimed.

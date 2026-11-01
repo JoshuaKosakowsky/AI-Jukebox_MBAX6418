@@ -11,13 +11,17 @@ Captured requests differ only in prompt; both requested/reported seed641835, dia
 No production caption/default/seed/model/preset/dependency change; main DJ/Qwen fixes preserved.
 Both full non-silent48kHz stereoPCM16 WAVs decoded; distinct PCM is not genre evidence.
 Both clips rendered inline in chat; Joshua asked for metal recognition, preference and angsty mood.
-Human listening PENDING; do not infer genre or universal quality from media/metadata checks.
+Joshua listened: BOTH FAIL metal; A better rhythm, B heavier start then light/happy.
+Expected heavy guitar riff/bass impact absent; no angsty-mood acceptance; no general prompt change justified.
 Same requested DiT seed does not control every LM sample; entire caption varies, not title alone.
 Safe result results/a3-35-caption-ab-v2.json; stopped a3-35-caption-ab.json preserved unchanged.
 Raw WAV/private recovery tickets ignored under results/raw; no provider identifiers/routes or keys in evidence.
-Runtime193 tests/0skips and prior source4CI PASS remain applicable; evidence-only checks follow.
+Runtime193 tests/0skips; currenteb914f1 all4CI PASS. Final evidence-only safeguards125/coverage/whitespace PASS.
 No app restart, normal-launch/main acceptance, self-approval or issue closure; no more live calls.
-Next: preserve listening verdict, publish evidence to existing draft PR37, decide on general caption change only if supported.
+Pinned inference.py824-828 replaces DiT caption with LM-generated caption when use_cot_caption=true.
+Hypothesis only: isolate that shared flag (false, thinking stays true) against retained B, max1 new clip if approved.
+No remote trace or causal proof; proposed flag test not executed/authorized by listening reply.
+Next: publish failure verdict/source finding; prepare exact one-flag diagnostic; no further calls without fresh scope.
 
 
 ## Session — #35 caption A/B stopped, 2026-11-01 America/Denver

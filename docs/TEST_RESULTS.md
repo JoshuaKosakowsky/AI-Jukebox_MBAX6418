@@ -1363,8 +1363,22 @@ reported the requested seed. No production defaults or app caption changes.
 
 Both WAVs fully decoded, non-silent48kHz stereoPCM16, exactly20s, with distinct PCM.
 These checks establish complete media and controlled requests, not genre quality.
-Clips were rendered inline for Joshua; **human genre/mood judgment is pending**.
+Clips were rendered inline for Joshua. **Both human genre checks FAIL.** A has
+the better metal rhythm; B starts heavier then turns light/happy. Neither has
+the expected heavy guitar riff and bass/double-bass impact; no positive angsty
+mood acceptance. This attributed judgment supersedes the initial pending status.
 A fixed requested DiT seed does not control every LM sampling source; this single
 pair changes the whole caption and cannot isolate title alone or prove all-genre
 fidelity. [Exact corrected-pair record](../results/a3-35-caption-ab-v2.json).
 No more generation under this completed run; #35 open / PR37 draft.
+
+
+Offline follow-up: pinned upstream [inference.py, lines824-828](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824)
+replaces the DiT input caption with LM-generated caption when `use_cot_caption`
+is true. That flag is enabled in both comparison requests; the original prompt
+echo does not expose that internal caption. This identifies a shared setting to
+isolate, not the remote cause. A proposed diagnostic holds B's exact caption and
+all controls fixed, disables only caption rewriting, retains `thinking=true`,
+and compares one new clip against retained B. **Not run; fresh authorization
+required after the completed two-job budget.** No production change is justified
+from the failed pair alone; #35 remains open / PR37 draft.

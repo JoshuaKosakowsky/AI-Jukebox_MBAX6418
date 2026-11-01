@@ -56,7 +56,7 @@
       "input_caption": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Riff-led metal: heavily distorted electric guitars, palm-muted chugs, electric bass, forceful acoustic drums and double-kick accents. Theme/mood shape dynamics and motifs.",
       "started_at_utc": "2026-11-01T17:26:29.167618+00:00",
       "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
-      "human_genre_judgment": "PENDING",
+      "human_genre_judgment": "FAIL: better metal rhythm than B, but not recognizable metal; expected heavy riff/bass impact missing.",
       "request": {
         "prompt": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Riff-led metal: heavily distorted electric guitars, palm-muted chugs, electric bass, forceful acoustic drums and double-kick accents. Theme/mood shape dynamics and motifs.",
         "lyrics": "[Instrumental]",
@@ -97,7 +97,7 @@
       "input_caption": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
       "started_at_utc": "2026-11-01T17:26:37.414748+00:00",
       "status": "COMPLETED_AND_DECODED; LISTENING_PENDING",
-      "human_genre_judgment": "PENDING",
+      "human_genre_judgment": "FAIL: heavier opening, then too light/happy; not recognizable metal or accepted angsty mood.",
       "request": {
         "prompt": "Angsty heavy metal instrumental, heavily distorted electric guitar riffs, palm-muted chugs, heavy electric bass, forceful acoustic drums and double-kick accents. Aggressive riff-led arrangement. No vocals.",
         "lyrics": "[Instrumental]",
@@ -135,9 +135,12 @@
     }
   ],
   "human_listening": {
-    "status": "PENDING",
+    "status": "FAIL_BOTH",
     "tester": "JoshuaKosakowsky",
-    "method": "Both full clips rendered inline in chat, A=current app caption and B=concise musical description; asked for metal recognition and angsty mood judgment."
+    "method": "Listened to the two complete clips rendered inline in chat.",
+    "response_excerpt": "B started off with a heavier metal tone, but then it got very \"light\" and to \"Happy\". A has a better metal \"rythm\", but neitehr are metal.",
+    "feedback_paraphrase": "A has the better metal rhythm; B begins heavier then becomes light/happy. Both lack the expected heavy metal guitar riff and heavy bass/double-bass impact. Neither is recognizably metal; no positive angsty-mood acceptance.",
+    "scope": "This A/B pair only; no causal or all-genre conclusion."
   },
   "limitations": [
     "A shared requested DiT seed does not control every LM sampling source or establish deterministic generation.",
@@ -145,7 +148,7 @@
     "Returned metadata and different PCM hashes are not human genre recognition.",
     "Prior metal/rap failures and piano/DnB passes remain historical, not results for this run."
   ],
-  "status": "COMPLETED_AND_DECODED; HUMAN_GENRE_JUDGMENT_PENDING",
+  "status": "COMPLETED_AND_DECODED; BOTH_HUMAN_GENRE_CHECKS_FAIL",
   "non_prompt_request_fields_identical": true,
   "completed_at_utc": "2026-11-01T17:26:45.628052+00:00",
   "counts_scope": "This fresh explicitly approved run only. Earlier stopped run remains separately recorded as1 submission/3polls/0downloads; no historical counts are reset.",
@@ -160,6 +163,13 @@
     "production_defaults_unchanged": true
   },
   "prior_stopped_record": "a3-35-caption-ab.json",
-  "outcome": "Both jobs completed, full non-silent WAV decoding and request-control comparison passed. Human genre/mood judgment pending; no quality fix established.",
-  "pcm_hashes_differ": true
+  "outcome": "Controlled requests and complete media pass. Both human genre checks FAIL. Concise wording alone did not produce an acceptable result in this pair; no general caption change justified.",
+  "pcm_hashes_differ": true,
+  "next_hypothesis_not_tested": {
+    "control": "use_cot_caption",
+    "proposed_change": "Diagnostic-only false, retaining thinking=true and the exact B caption,20s,seed and every other request field. Compare against retained B audio; at most1 new music submission, not a repeat pair.",
+    "reason": "Pinned upstream inference uses LM-generated caption for DiT when use_cot_caption=true. Disabling this isolates a shared caption-rewrite setting without adding per-genre presets.",
+    "official_source": "https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824",
+    "limits": "Hypothesis only, not remote implementation attestation or proof rewriting caused the failure. Not executed or authorized by the listening reply; no more generation under the completed two-job run."
+  }
 }
