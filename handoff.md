@@ -1,5 +1,28 @@
 # Agent handoff
 
+## Session — #6 reference chooser / DJ wiring, 2026-11-01 America/Denver
+Codex for Joshua; branch `codex/a3-06-reference-dj-ui`, base `226f0ae`, implementation checkpoint `1b9f5e3`.
+Checked live issue comments, PRs and published branches; no overlapping chooser claim found.
+Claim: issue #6 comment 6565088414; Mike remains lead and Jovi backup, no assignments changed.
+Mike's #44 lyrics / #7 sample lanes and provider.py, schema, payloads, CI/protection untouched.
+Changed app.py/sessions.py, web files, reference/frontend tests, README and contract/testing docs.
+Optional MP3/WAV chooser applies to new DJ intros, including advance and explicit Retry.
+Browser keeps the File only in page memory; fresh one-shot upload per new intro, unused id deleted.
+Clear/reload returns future jobs to default; cached/in-flight intros keep their original voice.
+Unknown/expired/used IDs reject before playback mutation; no silent default substitution.
+Job claims are atomic and private; recording/prompt cleanup covers success and all generation failures.
+Automatic-advance errors halt locally until explicit recovery; clear + Resume/Skip remains usable.
+Locked `python scripts/dev.py --check` PASS: 222 tests, one optional skip, verifier124, coverage36/11/19.
+Node production-function reference probe: eight scenarios PASS; full existing DJ/reference tests included.
+Synthetic normal-entrypoint browser: MP3, WAV, clear/default, invalid start, auto-advance recovery, reload PASS.
+Four synthetic speech calls `[audio/mpeg,audio/wav,default,default]`; zero class calls or real recordings.
+Fixture wrapper/files/preview live outside repo; evidence in docs/TEST_RESULTS.md; no release acceptance claimed.
+Whitespace and protected-file scope checks PASS; main still `226f0ae` at publication preparation.
+Published [PR #46](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/46) (Refs #6); final handoff update only after implementation checkpoint.
+Next: freeze for Mike/Matt eligible review and required CI; no self-approval or merge in this session.
+Then perform bounded real MP3/WAV/default normal-launch + listening acceptance on merged main; #6 stays open.
+Record the implementation completion row on merge. Preserve inherited entries below.
+
 ## Session — A3-10 rehearsal prep, 2026-11-01 America/Denver
 Hermes for MSpanny (Mike); issue #10 backup (lead Jovi). Claimed unclaimed prep piece: release-gate mechanics rehearsal + submission runbook. Ran identity/integrity checks on the current-main GitHub ZIP (cb818ae: 10,980,156 B, sha256 c4ea863a…, 119 files == 119 tracked, 0 extras, no .git, no .env) and the --release gate (check_readiness.py), which correctly returned NOT READY listing the exact open blockers: all 19 AT-cases unverified, independent installer required (AT-16 tester != preparer), ≥2-team rows with contribution+review evidence, 3 distinct approved samples with audio/cover. Deliverables on branch codex/a3-10-rehearsal-prep: results/a3-10-rehearsal-prep.json, TEST_RESULTS section, docs/SUBMISSION_RUNBOOK.md (freeze procedure: preconditions → candidate SHA → exact ZIP → gate → independent installer → records). No provider requests or generation; ZIP identity will change at real freeze. Round 2 (Joshua CR on #42): canonical person IDs (installed_by==prepared_by by design so the installer fence fires), removed placeholder prose (Missing public_access_checked_at now reported), exact gate command + verbatim output embedded in the record (exit 1, NOT READY diagnostics verbatim; independently re-run byte-identical including the trailing newline), runbook split into preflight (NOT READY expected) → independent install → external record → final PASS gate, with --template flow and the frozen-candidate rule; references marked required, launch text fixed. Refs #10.
 
