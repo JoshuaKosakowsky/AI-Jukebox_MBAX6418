@@ -1,7 +1,24 @@
 # Agent handoff
 
+## Session — PR #40 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; explicit user request to reconcile #26/#40 for clean commits.
+Local integration branch codex/pr40-sync-nov1 from approved heade463e3b; merge current maincb818ae.
+Scope remains #36 wordless cover prompt; no feature expansion or ownership change.
+Resolved only handoff.md by retaining both original task notes and incoming #41 failed-vocal evidence notes.
+Main's new failed-vocal JSON/TEST_RESULTS section retained exactly; prior evidence/provenance remains intact.
+Runtime/tests/contracts/dependencies/assets/CI/protection must remain byte-identical to e463e3b.
+No new generation, real voice uploads, credentials, visual/listening or parent acceptance in this sync.
+Locked python scripts/dev.py --check PASS: 190 tests,0 skips; verifier119, coverage36-11-19 and whitespace PASS.
+Python3.12.14/Git2.53/Node available; startup and real handler probes included; no provider calls.
+Joshua contributes the reconciliation and cannot approve the new head; fresh eligible review: Matt/prse4479/Jovi.
+Old approval will be invalidated by the necessary push; no review dismissal or protection bypass.
+Next: finish checks, push existing PR branch, freeze for eligible review; parent issue stays open.
+
 ## Session
 2026-10-31 America/Denver; Hermes for MSpanny (Mike). Task: issue #36 cover-lettering fix. Branch codex/cover-lettering-fix from main 25f8617 (post-#29 merge). Changed: jukebox/sessions.py cover_prompt now leads with a wordless artwork direction (no words/typography/captions/logos/titles drawn, title expressed visually) replacing the weak no-lettering tail and the "album cover" framing; tests/test_covers.py gained a static guard (prompt starts with the no-text instruction, forbidden lettering needles present, title/style/mood retained, 'album cover' gone). Frozen art probe + original starter prompt + retry/replacement behavior untouched. Suite: 190 tests (1 new), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness unproven offline by design (#36's FLUX visual eval is a separately authorized live step; no budget spent). Docs: TEST_RESULTS #36 section; PR body honest scope; review requested from mase7919. Cleanup: stray .pr-body-36.md draft removed from the tree before review (chore commit). Refs #36.
+
+## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
 
 ## Session — final DJ integration and clarity, 2026-10-30 America/Denver
 Codex for Joshua; PR27 pre-head0a05942, main81042a1 after normal #25/#28/#24 merges.
