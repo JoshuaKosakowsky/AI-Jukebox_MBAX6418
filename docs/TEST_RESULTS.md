@@ -607,6 +607,28 @@ Evidence: 16 reference tests (7 new regressions) plus the full offline suite:
 all PASS. Live Chatterbox acceptance of real MP3/WAV references stays pending
 on #5 integration (unchanged, honest scope).
 
+## A3-06 review rounds 4-5: duplicate-chunk and ordering hardening (PR #26 head)
+
+Following Joshua's round-4 (22:06, head ab690f1) and round-5 (05:09, head
+d35d4b1) independent reviews, one-format/one-data invariants were added to the
+WAV chunk walker (jukebox/sessions.py):
+
+1. A second `data` chunk is rejected 422 — the walker previously kept only the
+   LAST chunk, so a 61 s + 1 s dual-chunk file validated as ~1 s (round-4).
+2. A second `fmt ` chunk is rejected 422 — the walker previously used the LAST
+   fmt chunk, so a 61 s PCM file followed by a coherent 16 kHz fmt computed as
+   ~30.5 s and slipped past the 60-second limit (round-5).
+3. Audio `data` before the `fmt` chunk is rejected 422 (Python's wave reader
+   also rejects that ordering) (round-5).
+4. The round-4 fixture's RIFF length no longer over-counts the data-chunk
+   headers (RIFF size = actual file length minus 8).
+
+Regressions reproduce each review case exactly (61 s + 1 s dual data -> 422;
+61 s + 16 kHz second fmt -> 422; data-first -> 422) with a normal 3-second WAV
+positive control (201). Gate: `python scripts/dev.py --check` PASS — 212 tests
+(23 reference), verifier 119 files, coverage 36 requirements / 11 tasks /
+19 cases. Live Chatterbox acceptance of real MP3/WAV stays pending (unchanged).
+
 ## A3-05 default AI DJ queue - 2026-10-30 America/Denver
 
 Branch `codex/a3-05-dj-queue` (baseline main `e2b1e52`). Offline development

@@ -229,13 +229,44 @@ class ReferenceHttpTests(unittest.TestCase):
                + (16000).to_bytes(4, "little") + b"\x02\x00" + b"\x10\x00")
         first = (b"data" + (976_000).to_bytes(4, "little") + b"\x01\x00" * 488_000)
         second = (b"data" + (16_000).to_bytes(4, "little") + b"\x01\x00" * 8_000)
-        total = 4 + 8 + 16 + 8 + len(first) + 8 + len(second)
-        dual = (b"RIFF" + (total).to_bytes(4, "little") + b"WAVE"
-                + b"fmt " + (16).to_bytes(4, "little") + fmt + first + second)
+        body = (b"fmt " + (16).to_bytes(4, "little") + fmt + first + second)
+        dual = b"RIFF" + (len(body) + 4).to_bytes(4, "little") + b"WAVE" + body
         assert isinstance(dual, bytes)
         with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
             self.assertEqual(self.upload(client, dual).status_code, 422)
             # Valid single-data-chunk WAVs of any in-range duration still pass.
+            self.assertEqual(self.upload(client, wav_bytes(seconds=3, rate=8000)).status_code, 201)
+
+    def test_duplicate_fmt_chunks_cannot_bypass_duration_limit(self):
+        # A 61-second PCM WAV followed by a SECOND coherent format chunk at a
+        # higher sample rate: the walker would keep the LAST fmt, halve the
+        # computed duration and let the reference through; RIFF allows exactly
+        # one fmt chunk per WAV, so reject it.
+        fmt_8k = (b"\x01\x00" + b"\x01\x00" + (8000).to_bytes(4, "little")
+                  + (16000).to_bytes(4, "little") + b"\x02\x00" + b"\x10\x00")
+        fmt_16k = (b"\x01\x00" + b"\x01\x00" + (16000).to_bytes(4, "little")
+                   + (32000).to_bytes(4, "little") + b"\x02\x00" + b"\x10\x00")
+        data = b"data" + (976_000).to_bytes(4, "little") + b"\x01\x00" * 488_000
+        body = (b"fmt " + (16).to_bytes(4, "little") + fmt_8k + data
+                + b"fmt " + (16).to_bytes(4, "little") + fmt_16k)
+        dual_fmt = b"RIFF" + (len(body) + 4).to_bytes(4, "little") + b"WAVE" + body
+        assert isinstance(dual_fmt, bytes)
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, dual_fmt).status_code, 422)
+            self.assertEqual(self.upload(client, wav_bytes(seconds=3, rate=8000)).status_code, 201)
+
+    def test_data_before_format_chunk_is_rejected(self):
+        # Python's wave reader rejects audio data that precedes the format
+        # chunk; the structural validator must accept only the well-formed
+        # ordering (fmt before data).
+        fmt = (b"\x01\x00" + b"\x01\x00" + (8000).to_bytes(4, "little")
+               + (16000).to_bytes(4, "little") + b"\x02\x00" + b"\x10\x00")
+        data = b"data" + (48_000).to_bytes(4, "little") + b"\x01\x00" * 24_000  # 3 s
+        body = data + b"fmt " + (16).to_bytes(4, "little") + fmt
+        inverted = b"RIFF" + (len(body) + 4).to_bytes(4, "little") + b"WAVE" + body
+        assert isinstance(inverted, bytes)
+        with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            self.assertEqual(self.upload(client, inverted).status_code, 422)
             self.assertEqual(self.upload(client, wav_bytes(seconds=3, rate=8000)).status_code, 201)
 
 

@@ -143,6 +143,12 @@ def _validate_wav_structure(content: bytes) -> None:
                 break
             raise SessionFailure(422, "The WAV reference is truncated.")
         if chunk_id == b"fmt ":
+            if fmt is not None:
+                # A second format chunk makes the audio header ambiguous
+                # (the walker would use the LAST fmt and a higher sample
+                # rate could under-count the duration); RIFF allows exactly
+                # one fmt chunk per WAV.
+                raise SessionFailure(422, "The WAV reference contains multiple format chunks.")
             fmt = content[payload : payload + size]
         elif chunk_id == b"data":
             if data is not None:
@@ -150,6 +156,10 @@ def _validate_wav_structure(content: bytes) -> None:
                 # would silently use the LAST chunk and under-count); RIFF
                 # allows exactly one data chunk per WAV.
                 raise SessionFailure(422, "The WAV reference contains multiple data chunks.")
+            if fmt is None:
+                # Python's wave reader rejects audio data that precedes the
+                # format chunk; accept only the well-formed ordering.
+                raise SessionFailure(422, "The WAV reference places audio data before its format chunk.")
             data = (payload, size)
             found_data = True
         offset = payload + size + (size & 1)  # RIFF pads odd sizes
