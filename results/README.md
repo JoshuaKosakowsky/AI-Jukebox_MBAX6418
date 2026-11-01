@@ -98,3 +98,9 @@ Caption-rewrite-off control: [one-flag record](a3-35-literal-caption.json) onac5
 and controls except use_cot_caption=false; thinking stays true. Joshua reports
 C "leaning more metal"; partial improvement, full genre/mood acceptance unconfirmed.
 Production settings unchanged; earlier failed records retained.
+
+
+Explicit deathcore target: [Iced Coffee candidate](a3-35-deathcore-candidate.json)
+on2c77732,1 music job /2 polls /1 download,0other services/retries. Actual production
+caption with clarified style/mood, planning on / rewriting off; full20s WAV decode.
+Clip D rendered for Joshua; heavier-target listening pending, no all-genre claim.

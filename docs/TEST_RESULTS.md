@@ -1429,3 +1429,22 @@ No music or other class-service generation for this revision; previous budgets
 are complete. Candidate full locked check:193 tests PASS,0skips; safeguards126 /
 coverage36-11-19 / whitespace PASS, including startup and Node probes. Full
 genre/mood and integrated-main acceptance unverified. #35 remains open / PR37 draft.
+
+
+### Explicit heavier target: Iced Coffee deathcore — 2026-11-01 America/Denver
+
+Joshua authorized "Generate the one deathcore clip"; claim PR37 comment6561605112.
+Immutable candidate **2c77732**,193 locked tests/0skips and4CI PASS. Actual production
+music_prompt/ClassProviders,20s instrumental Iced Coffee, explicit deathcore style
+(low-tuned distorted riffs/chugs, blast beats, double-kick drums, heavy breakdowns),
+mood Angry, ominous and tense throughout. Shared candidate thinking=true /
+use_cot_caption=false; diagnostic seed641835/use_random_seed=false only.
+
+Exactly **1 music submission /2 polls /1 download;0 format/art/text/speech/retries**.
+Reported seed matches; full non-silent48kHz stereoPCM16 WAV decode, exactly20s.
+Clip D rendered inline; **human heavier-target judgment pending**. Whole caption
+changes style/mood/context from retained C, so this is a new-target check rather
+than a single-factor causal comparison or all-genre acceptance. No reference
+recording, artist-name mapping or production fixed seed introduced.
+[Exact target record](../results/a3-35-deathcore-candidate.json).
+No further generation under this completed one-job run; #35 open / PR37 draft.

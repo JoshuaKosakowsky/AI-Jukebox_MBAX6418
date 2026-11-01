@@ -1,5 +1,24 @@
 # Agent handoff
 
+## Session — #35 explicit deathcore target, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-35-caption-ab-nov1 / draft PR37; #35 remains open.
+User explicitly authorized “Generate the one deathcore clip”; new max1 job, claim PR37 comment6561605112.
+Immutable source2c77732:193 locked tests/0skips +4CI PASS, shared planning on / caption rewriting off.
+Actual production music_prompt/ClassProviders,20s Iced Coffee instrumental; diagnostic fixed seed only.
+Style Deathcore: low-tuned distorted riffs, tight chugs, blast beats, double-kick drums and heavy breakdowns.
+Mood Angry, ominous and tense throughout; user band groups recorded in prior C record steering.
+Actual1 music submission/2 polls/1 download,0format/art/text/speech/retries; run complete, no further calls.
+Full non-silent48kHz stereoPCM16 WAV,20s, requested/reported seed641835; media check is not genre acceptance.
+D clip rendered inline; asked Joshua for heavier instrumental weight/riff/drum/mood judgment throughout.
+Human listening PENDING; do not mark genre pass, issue complete or PR ready from decoded media alone.
+Whole caption/style/mood/context differ from C; not a one-factor causal comparison or all-genre evaluation.
+Safe results/a3-35-deathcore-candidate.json + TEST_RESULTS/index added; older records retained.
+Raw WAV/private recovery ticket ignored; no artist recording, band lookup, schema/dependency or fixed production seed.
+No source/app change beyond checked2c77732; final evidence-only safeguards127/coverage36-11-19/whitespace PASS.
+Next: record listening verdict, publish scoped evidence to same PR37; choose next step from actual result.
+No main merge/self-approval, normal-launch/browser acceptance or further generation authorized by this completed run.
+
+
 ## Session — #35 listening-target candidate, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-35-caption-ab-nov1, draft PR37; base6e01547, issue35 open.
 Missing steering arrived: heavier Lorna Shore/Disembodied Tyrant/Whitechapel/Slaughter to Prevail/Chelsea Grin.
