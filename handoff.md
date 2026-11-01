@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — #35 broader genre rounds2-3, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/a3-35-more-genre-evidence from frozen PR37 head7c953a7.
+User explicitly requests more genres/keep going; finite new task max16 music jobs in two8-job batches.
+Plan PR37 comment6562044562; preserve37's current code-review head, use stacked data-only PR.
+Round2 Funk/Blues/Reggae/Salsa/Classical string quartet/R&B/Pop/Drum and bass:8 jobs/17polls/8downloads.
+Round3 Classic rock/Punk rock/Disco/Techno/Trance/Ambient/Afrobeats/Reggaeton:8 jobs/16polls/8downloads.
+New task total16 jobs/33polls/16downloads,0format/art/text/speech/retries; complete, no further calls.
+Actual production captions/adapter,20s instrumentals, settings/seed defaults unchanged; all full non-silent48kHz stereoPCM16.
+All16 clips rendered inline, two batch-rating questions pending; no new quality grades inferred.
+Scorecard now indexes20 sampled styles across three rounds plus deferred metal/deathcore historical target.
+Round1 ratings/counters/requests/audio remain exact; new JSON rounds carry separate counts, source and hashes.
+Updated results README combined table, TEST_RESULTS and handoff; no app/provider/test/schema/dependency changes.
+New data-only PR should target37's branch while37 unmerged; keep37 at7c953a7 for Matt/Preethi review.
+Metal tuning remains deferred per user; Country/House minor notes and Swing jazz/Hip-hop good ratings unchanged.
+Driver8-job/full-decode/failure/replay/next-batch guards PASS offline; zero network for those checks.
+Source193 tests/0skips +4CI PASS; final evidence integrity/safeguards130/coverage36-11-19/whitespace PASS.
+Next: record new batch ratings, publish separate evidence PR, keep original code review moving.
+No automated retuning, new sample-manifest selection or full-genre/main/vocal/release acceptance claimed.
+
+
 ## Session — #35 broader genre scorecard, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-35-caption-ab-nov1 / PR37; immutable tested source7ebd861.
 User explicitly deferred metal/deathcore as a known limitation for a future revisit; other genres continue now.

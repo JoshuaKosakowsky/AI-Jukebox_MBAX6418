@@ -338,5 +338,34 @@
       "case": "hip-hop-beat",
       "work": "Good to go applies to instrumental beat only, not a rapped-vocal flow."
     }
-  ]
+  ],
+  "additional_round_records": [
+    "a3-35-genre-round2.json",
+    "a3-35-genre-round3.json"
+  ],
+  "record_scope": "Round1 exact evidence/ratings retained, plus an index and aggregate of the additional independent round records.",
+  "combined_assessment": {
+    "state": "AWAITING_ADDITIONAL_RATINGS",
+    "sampled_style_count": 20,
+    "rated_style_count": 4,
+    "unrated_style_count": 16,
+    "rating_counts": {
+      "good_to_go": 2,
+      "minor_improvement": 2,
+      "major_update": 0
+    },
+    "generation_counts": {
+      "music_submissions": 20,
+      "polls": 41,
+      "downloads": 20,
+      "format": 0,
+      "art": 0,
+      "text": 0,
+      "speech": 0,
+      "retries": 0
+    },
+    "counts_scope": "Rounds1-3 only, excluding older probes, metal and diagnostic runs.",
+    "deferred_historical_targets": 1,
+    "scope": "One20s instrumental per sampled style; all ratings are case-specific and provisional."
+  }
 }

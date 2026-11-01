@@ -1489,3 +1489,32 @@ unrated state for future cases; one sample per style is provisional and
 not a causal A/B, vocal test, integrated-main or release acceptance. No automatic
 repair/regeneration after a low score. [Exact scorecard](../results/a3-35-genre-scorecard.json).
 No further calls under the completed round1 budget; previous runs stay separate.
+
+
+### Broader scorecard rounds2-3 — 2026-11-01 America/Denver
+
+Joshua requested more genres and broader coverage. New task cap16 music jobs,
+plan PR37 comment6562044562, two batches of8; each max120polls/8downloads/5min,
+first provider/validation/accounting failure stops further task calls. Metal
+remains deferred. Code review head7c953a7 stays unchanged; this separate evidence
+branch is based on that head and changes data/docs only.
+
+Actual production music_prompt/ClassProviders and seed defaults,20s instrumental
+per style, thinking=true/use_cot_caption=false. No fixed seed/metadata override.
+Round2: Funk, Blues, Reggae, Salsa, Classical string quartet, Contemporary R&B,
+Pop and Drum and bass: **8 submissions/17polls/8downloads**. Round3: Classic rock,
+Punk rock, Disco, Techno, Trance, Ambient, Afrobeats and Reggaeton:
+**8 submissions/16polls/8downloads**. New task total **16/33/16**,0other services,
+retries or replacements; no more calls under the completed task budget.
+
+All16 WAVs fully decoded non-silent48kHz stereoPCM16, exactly20s. All clips rendered
+inline; human ratings are pending and will use the existing three categories.
+Together with round1 this is20 sampled styles, plus the historical deferred metal
+target; not an exhaustive survey, consistency guarantee or vocal/main acceptance.
+[Round2 exact record](../results/a3-35-genre-round2.json),
+[round3 exact record](../results/a3-35-genre-round3.json),
+[combined scorecard](../results/README.md#genre-listening-scorecard).
+Provider/runtime/tests/contracts/dependencies and previous per-case evidence are
+unchanged. Driver eight-job, no-auto-grading, first-failure, replay and next-batch
+prerequisite checks passed offline with zero network. Source193 tests/0skips and
+4/4 CI remain the code validation; evidence-only checks follow.
