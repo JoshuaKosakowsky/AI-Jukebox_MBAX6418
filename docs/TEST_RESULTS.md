@@ -791,6 +791,29 @@ performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
 
+## A3-10 release-gate mechanics rehearsal - 2026-11-01 America/Denver
+
+Tester: MSpanny directing Hermes. Preparation only — **not** a final freeze or
+independent acceptance (Jovi keeps lead; a different teammate must run the
+final install). Ran the release-gate mechanics against the CURRENT main ZIP
+(`cb818ae595f399f2455464de58ec5acdaa27d8fc`), downloaded from the exact GitHub
+archive URL, and recorded the gate's diagnostics as the open-blocker list.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Archive identity | Exact 40-SHA URL archive; recorded sha256/bytes/entries | PASS: 10,980,156 bytes; sha256 `c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48`; 133 entries = 14 dirs + 119 files |
+| Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
+| No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
+| Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY): all 19 AT-cases unverified; independent ZIP installer required (AT-16 tester must differ from preparer); team rows (≥2 distinct, contribution+review evidence) missing; three distinct approved samples with audio/cover missing |
+
+Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
+the current tree. The captured NOT READY diagnostics are precisely the final
+freeze's remaining gates — the same open items already tracked in #3/#6/#7 plus
+the final independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure.
+No provider request, connectivity check or generation was performed.
+
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
 
 Context: Joshua's bounded live vocal attempt on main 770ce62 (PR #28) failed
