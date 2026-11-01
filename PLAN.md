@@ -22,6 +22,9 @@ Joshua/the team will arrange invitations and lead/contributor assignments
 (up to 3 assignees per issue: one lead who owns acceptance and merge, plus
 up to two contributors). Any teammate without commits on a PR may review
 and approve; the approving reviewer or the issue lead merges.
+The named disclosed Hermes/JoshKozy reviewer may also approve under
+[CONTRIBUTING](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy) once adopted on
+main; it never merges and is not another teammate or issue owner.
 GitHub issues hold the current assignments; the table reflects the accepted team.
 Before editing, claim the specific piece/branch/files on its issue; check existing
 claims and PRs. Backups can claim unclaimed work or continue an explicit handoff,
