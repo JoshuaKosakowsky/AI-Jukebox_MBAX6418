@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — PR #45 sync after #46, 2026-11-01 America/Denver
+Codex for Joshua; existing branch codex/disclosed-hermes-reviewer; pre-handoff head `c566c91`.
+Local branch codex/pr45-role-scope-nov1; normal merge of current main `8d9be64` (PR46).
+User authorized the conflict fix; coordination claim is PR45 comment6565627409 for Mike's review.
+Only conflict was handoff.md; retained both parents' entire histories in order, including reference-DJ notes.
+README auto-merge retains main's reference-voice usage text and the PR's three reviewer links.
+Other eight policy/role documents remain byte-identical to c566c91; no authority or role expansion.
+Original ten-Markdown-file PR scope retained against main; all app/tests/contracts/assets/scripts,
+dependencies/hooks/CI/protection and incoming reference-voice evidence are byte-identical to main8d9be64.
+Locked `python scripts/dev.py --check` PASS: verifier126 files, coverage36/11/19, 222 tests (one symlink skip).
+Final handoff/docs verifier, full-history, policy-equivalence and whitespace checks PASS.
+No class calls, generation, recordings, credential/tool changes, issue assignments or protection edits.
+This synchronization does not activate the reviewer exception; #45 still needs normal teammate approval/merge.
+JoshKozy cannot approve this authority change and remains COMMENT-only pending policy/gateway prerequisites.
+Classmates' Hermes coding agents retain their normal contributor role; merely reading the reviewer file does not switch it.
+Mike has no PR45 commits and remains eligible; Matt/Preethi requests retained. Joshua cannot self-approve.
+Next: push to existing PR45, refresh exact head/base/validation in its description and freeze for Mike's review.
+Wait for required exact-head CI and eligible approval before normal protected merge; no merge performed here.
+Other open PR heads are untouched; recheck main at merge time. Preserve all inherited notes below.
+
 ## Session — #45 reviewer role boundary, 2026-11-01 America/Denver
 Codex for Joshua; PR branch codex/disclosed-hermes-reviewer; previous head `4efa015`.
 Local reconciliation branch codex/pr45-role-scope-nov1; merged protected main `226f0ae` normally.
@@ -51,6 +71,29 @@ After smoke review and adoption, allow eligible approvals; coordinate Dot withou
 ## References
 [Setup](docs/HERMES_SETUP.md), [reviewer prompt](docs/HERMES_REVIEWER.md), [policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
 Existing #38/#39 and Mike's feature branches are untouched; preserve inherited notes below.
+
+## Session — #6 reference chooser / DJ wiring, 2026-11-01 America/Denver
+Codex for Joshua; branch `codex/a3-06-reference-dj-ui`, base `226f0ae`, implementation checkpoint `1b9f5e3`.
+Checked live issue comments, PRs and published branches; no overlapping chooser claim found.
+Claim: issue #6 comment 6565088414; Mike remains lead and Jovi backup, no assignments changed.
+Mike's #44 lyrics / #7 sample lanes and provider.py, schema, payloads, CI/protection untouched.
+Changed app.py/sessions.py, web files, reference/frontend tests, README and contract/testing docs.
+Optional MP3/WAV chooser applies to new DJ intros, including advance and explicit Retry.
+Browser keeps the File only in page memory; fresh one-shot upload per new intro, unused id deleted.
+Clear/reload returns future jobs to default; cached/in-flight intros keep their original voice.
+Unknown/expired/used IDs reject before playback mutation; no silent default substitution.
+Job claims are atomic and private; recording/prompt cleanup covers success and all generation failures.
+Automatic-advance errors halt locally until explicit recovery; clear + Resume/Skip remains usable.
+Locked `python scripts/dev.py --check` PASS: 222 tests, one optional skip, verifier124, coverage36/11/19.
+Node production-function reference probe: eight scenarios PASS; full existing DJ/reference tests included.
+Synthetic normal-entrypoint browser: MP3, WAV, clear/default, invalid start, auto-advance recovery, reload PASS.
+Four synthetic speech calls `[audio/mpeg,audio/wav,default,default]`; zero class calls or real recordings.
+Fixture wrapper/files/preview live outside repo; evidence in docs/TEST_RESULTS.md; no release acceptance claimed.
+Whitespace and protected-file scope checks PASS; main still `226f0ae` at publication preparation.
+Published [PR #46](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/46) (Refs #6); final handoff update only after implementation checkpoint.
+Next: freeze for Mike/Matt eligible review and required CI; no self-approval or merge in this session.
+Then perform bounded real MP3/WAV/default normal-launch + listening acceptance on merged main; #6 stays open.
+Record the implementation completion row on merge. Preserve inherited entries below.
 
 ## Session — A3-10 rehearsal prep, 2026-11-01 America/Denver
 Hermes for MSpanny (Mike); issue #10 backup (lead Jovi). Claimed unclaimed prep piece: release-gate mechanics rehearsal + submission runbook. Ran identity/integrity checks on the current-main GitHub ZIP (cb818ae: 10,980,156 B, sha256 c4ea863a…, 119 files == 119 tracked, 0 extras, no .git, no .env) and the --release gate (check_readiness.py), which correctly returned NOT READY listing the exact open blockers: all 19 AT-cases unverified, independent installer required (AT-16 tester != preparer), ≥2-team rows with contribution+review evidence, 3 distinct approved samples with audio/cover. Deliverables on branch codex/a3-10-rehearsal-prep: results/a3-10-rehearsal-prep.json, TEST_RESULTS section, docs/SUBMISSION_RUNBOOK.md (freeze procedure: preconditions → candidate SHA → exact ZIP → gate → independent installer → records). No provider requests or generation; ZIP identity will change at real freeze. Round 2 (Joshua CR on #42): canonical person IDs (installed_by==prepared_by by design so the installer fence fires), removed placeholder prose (Missing public_access_checked_at now reported), exact gate command + verbatim output embedded in the record (exit 1, NOT READY diagnostics verbatim; independently re-run byte-identical including the trailing newline), runbook split into preflight (NOT READY expected) → independent install → external record → final PASS gate, with --template flow and the frozen-candidate rule; references marked required, launch text fixed. Refs #10.

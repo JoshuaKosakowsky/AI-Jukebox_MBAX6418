@@ -1,5 +1,38 @@
 # Test results and evidence
 
+## Reference-voice UI and DJ wiring — 2026-11-01 America/Denver
+
+Joshua/Codex, branch `codex/a3-06-reference-dj-ui`, base main `226f0ae`.
+Refs #6 / R15-R16 / AT-08; component regression evidence only. Real Chatterbox
+voice matching, reference-path service acceptance and human listening are unrun.
+
+- Locked `python scripts/dev.py --check`: PASS, 222 tests (one optional skip),
+  tracked-file verifier 124 files, coverage structure 36 requirements / 11 tasks /
+  19 cases. Whitespace check PASS. Default/provider payloads and shared schema unchanged.
+- Nine new HTTP/store tests: MP3/WAV -> start/advance/retry -> speech reference;
+  default omission; cross-session/missing/consumed IDs; rejected/busy/cached paths;
+  text/speech/media-capacity failures; expiry/delete; atomic claims and late job
+  completion after skip. References/prompts released; no upload read route/snapshot leak.
+- Production-function Node probe: eight scenarios for chooser/clear, fresh
+  one-shot uploads, no local filename transmission, passive reads, cached/failed
+  jobs, rejection cleanup, selection change during upload, coalesced auto/Skip,
+  and explicit recovery after an automatic-advance failure. No network.
+- Actual in-app browser through the normal `python -m jukebox --port 8126`
+  entrypoint, wrapped outside the repo with synthetic providers and outbound HTTP
+  blocked. Created four synthetic tracks using the form and queued them. Invalid
+  clip: rejected before speech. MP3 then WAV: recording provider observed
+  `audio/mpeg`, then `audio/wav`; cached first intro was not regenerated. Cleared
+  selection: next new intro used default. Bad clip on natural advance halted once;
+  clear + Resume recovered to default speech. Reload retained four queue entries,
+  cleared the reference chooser and made no new speech calls. Total synthetic
+  speech calls: four; reference types `[audio/mpeg, audio/wav, null, null]`.
+- No class requests, real recordings, samples, credentials or generated media
+  added. Synthetic files, launcher wrapper and preview remain outside the repo.
+  Restricted-sandbox FastAPI tests stalled; the same checks completed outside it.
+
+Next: eligible code review and protected merge, then bounded real MP3/WAV/default
+normal-launch and listening acceptance on integrated main before closing #6.
+
 ## Local setup - 2026-10-15 America/Denver
 
 Scope: repository scaffold only. No service calls, generated samples, or app
