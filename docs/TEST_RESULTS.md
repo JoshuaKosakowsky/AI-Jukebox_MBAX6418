@@ -805,13 +805,18 @@ archive URL, and recorded the gate's diagnostics as the open-blocker list.
 | Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
 | No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
 | Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
-| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY): all 19 AT-cases unverified; independent ZIP installer required (AT-16 tester must differ from preparer); team rows (≥2 distinct, contribution+review evidence) missing; three distinct approved samples with audio/cover missing |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY, exit 1): `Missing public_access_checked_at`; `Independent ZIP installer must differ from candidate preparer`; all 19 AT-cases unverified; `AT-16 must identify the actual independent ZIP installer as tester`; ≥2 team rows with contribution+review evidence; three distinct approved samples with distinct audio/cover. Exact command + verbatim output are embedded in the record for reproducibility |
 
 Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
-the current tree. The captured NOT READY diagnostics are precisely the final
-freeze's remaining gates — the same open items already tracked in #3/#6/#7 plus
-the final independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
-See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure.
+the current tree. Per review feedback the person identifiers are canonical
+(`installed_by == prepared_by == "MSpanny"` by design so the installer-
+separation fence fires), no placeholder prose is left in gate-read fields
+(nonempty text would suppress `Missing ...` diagnostics), and the record embeds
+the exact gate command and verbatim output. The captured NOT READY diagnostics
+are precisely the final freeze's remaining gates — the same open items tracked
+in #3/#6/#7 plus the independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure
+(preflight, then independent install, then the final PASS gate).
 No provider request, connectivity check or generation was performed.
 
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
