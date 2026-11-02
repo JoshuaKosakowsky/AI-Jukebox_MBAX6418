@@ -223,3 +223,41 @@ Code, assets or dependency changes after testing create a new candidate: rerun
 affected checks and independent ZIP installation. Documentation fixes that alter
 the candidate also change its SHA; recheck the final ZIP rather than submitting
 an archive that no longer matches the recorded version.
+
+## Default-only DJ audit (A3-05)
+
+Rehearse the three bundled tracks using synthetic transport only:
+
+```powershell
+uv run --locked python scripts/rehearse_default_dj.py
+```
+
+This explicitly tests sequential introductions, exact Qwen/Chatterbox SafeError
+capture, a hard stop before further provider I/O after failure, and cached replay.
+It makes zero class calls and does not establish live/browser acceptance.
+Windows users can set UV_PROJECT_ENVIRONMENT to a short LOCALAPPDATA directory,
+as the normal launcher does, before using uv directly.
+
+For an explicitly authorized live check, use a new state path outside the checkout:
+
+```powershell
+uv run --locked python scripts/run_default_dj_check.py --state C:/private-dj-check/state.json --env-file C:/private/class.env
+```
+
+Use the existing private configuration and normal browser on the printed port;
+never post its values. The launcher calls scripts/dev.py with only text/speech
+settings and an opt-in observer. Importing the observer alone does nothing.
+The hard ceiling is text3/speech3, art0/music0, no references or automatic retries.
+Use only the three bundled songs; queue them and press Play once. The browser
+owns automatic advancement. Never eagerly POST future start/advance requests.
+Observe speech->music->next speech; pause/resume in both phases and skip in both.
+Use cached replay for further controls/reload checks, with counts unchanged.
+If an introduction fails, stop: retain exact job/track/SafeError, provider stage,
+HTTP status, timestamps and partial counts. Do not reset the state or reuse a
+spent budget. Raw generated intro WAVs stay beside the private state, outside Git.
+These are default speech, not reference recordings or approved sample-library media.
+
+The tested main2be9625 result is [recorded separately](../results/a3-05-default-dj-live.json).
+A transient reference-voice stopped message during pending Skip resolved on its
+own; it is disclosed as a wording observation, not an introduction failure.
+Reference MP3/WAV acceptance remains under A3-06; do not duplicate that run.
