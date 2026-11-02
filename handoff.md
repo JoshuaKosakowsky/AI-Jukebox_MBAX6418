@@ -1,5 +1,27 @@
 # Agent handoff
 
+## Session — Independent ZIP/default-DJ packet prepared, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, source main `29c5de1` with passing CI.
+Owner clarified: default-DJ checklist only; keep existing voice-upload capability, do not request a recording.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10#issuecomment-6589829642
+Added docs/DEFAULT_DJ_ZIP_TEST.md with exact install/core/sample/control/listening steps and copyable return record.
+Prepared baseline ZIP pin29c5de1/hash/size from the current public archive audit; no independent result invented.
+Coordinator may retain that tested version despite a later docs merge, or explicitly select/re-pin another SHA.
+Plan: one installer, two custom songs, three default intros; proposed generation maximum text4/art2/music2/speech3.
+Single tester/budget must be coordinated before live calls; stop at first unexpected error/uncertain submission, no retries.
+Three bundled songs require no regeneration; same tester can check README and explain findings in their own words.
+Runbook now uses actual issue10 lead and source requirement: a different teammate can install even if they contributed code.
+Added README/testing pointers; original brief, app, contracts, dependencies, CI/protection and all-case gate unchanged.
+AT-08 is honestly outside this checklist, not-run; current all-case release gate still requires its MP3/WAV result.
+No default-only result may be presented as an all-case release PASS; full submission readiness is not claimed.
+Imported queued #58 completion and #8 closure notes; #8 remains closed, Mike/Matt work and assignments untouched.
+External candidate identity/blank release and teammate-return records prepared; installer null, all19 cases not-run.
+Local docs/link/coverage/scope/template/launcher-help and whitespace checks PASS; no app suite repeated for docs only.
+Fresh exact-head CI and eligible review required; this is preparation, not an independent acceptance result.
+Next: publish/freeze docs PR and request JoshKozy review; Joshua names an actual installer and coordinates the run.
+Return actual results/screenshots outside extraction; do not repackage the private .env or silently change the submitted ZIP.
+No generation, provider calls, real voice uploads, browser test or installation run performed in this session.
+
 ## Session — A3-08 acceptance reconciled and closed, 2026-11-02 America/Denver
 Codex for Joshua; reviewed main `29c5de17b0a0500f09bfbaa80badee7f22be741d`; main CI41529816531 passed.
 Owner requested #8 checklist reconciliation and closure only where fully supported; no implementation task started.
