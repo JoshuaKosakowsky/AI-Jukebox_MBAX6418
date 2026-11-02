@@ -1,5 +1,66 @@
 # Agent handoff
 
+## Session — PR #44 sync after #45/#46, 2026-11-01 America/Denver
+Codex for Joshua; PR branch codex/a3-03-direct-lyrics; pre-handoff head `512a7d1`.
+Local branch codex/pr44-sync-nov1; normal merge of current protected main `b4ec564`.
+Claim: PR44 comment6565928462. Matt's current COMMENT found the implementation sound and requested reconciliation.
+Resolved only docs/TEST_RESULTS.md and handoff.md conflicts; both complete parent histories retained in order.
+Added current reconciliation notes; inherited historical state/limits remain intact.
+Original provider/lyrics tests match512a7d1 Git blobs exactly; only runtime delta vs main remains thinking=False.
+Main's reference-voice UI/session code/tests, adopted reviewer policy and release evidence retained exactly.
+PR retains original seven-file scope; no authority/config/dependency/asset/CI/protection change relative to main.
+Locked `python scripts/dev.py --check` PASS: verifier126, coverage36/11/19, 225 tests (one platform symlink skip).
+Source/history/scope and staged/working whitespace checks PASS; Git-blob checks account for Windows line endings.
+No new class calls, live rerun budget, generated media, browser/listening acceptance or other PR branch changes.
+Policy #45 is adopted on main; owner's constrained JoshKozy gateway is configured for eligible review verdicts.
+That separately instructed reviewer must independently inspect this new exact head; this writer cannot self-approve.
+Mike and Joshua contribute; ordinary eligible pool remains Matt/Preethi/Jovi, with Matt re-review requested on publication.
+Next: push to existing PR44, refresh description/head/base/results, freeze and verify exact-head CI.
+Then eligible approval and normal merge; issue #3/R10/AT-04 stays open for bounded real vocal/browser/listening acceptance.
+No new authority to resume the paused #6 live run or launch a separate Hermes review worker in this reconciliation.
+Use this entry as current state; preserve all inherited notes below.
+
+## Session — PR #44 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; existing PR branch codex/a3-03-direct-lyrics; pre-handoff head `fde309e`.
+Isolated branch codex/pr44-sync-nov1; merged current protected main `226f0ae` normally.
+User authorized this integration while Mike reviews #45; claim is PR44 comment6565518830.
+Resolved only handoff.md markers, preserving both parents' complete histories in order.
+docs/TEST_RESULTS.md merged automatically; added this session and an accurate reconciliation record.
+Application/providers/tests/contracts/scripts/assets/dependencies/hooks/CI/protection identical to `fde309e`.
+Incoming release runbook/evidence blobs retained exactly; original seven-file PR scope preserved vs main.
+Only runtime delta vs main remains lyrics `_chat(..., thinking=False)` with existing512-token cap.
+No model/prompt/guard/probe/schema changes, new class calls, live rerun budget or generated media.
+Locked `python scripts/dev.py --check` PASS: verifier122 files, coverage36/11/19, 215 tests (one symlink skip).
+Both parent histories and source/evidence equivalence checked; staged/working whitespace PASS.
+Current tests are offline regressions; no new browser, successful real vocal or human listening acceptance claimed.
+Mike's old approval on e92fb1a was dismissed after his main-sync push; he now contributes to this PR.
+Joshua also contributes; neither supplies fresh approval. Eligible pool: mase7919/prse4479/jovi1214.
+JoshKozy remains COMMENT-only pending normal #45 adoption and separate approval-gateway enablement.
+Next: push this reconciliation to existing PR44, refresh its description, freeze and request eligible reviews.
+Then normal protected merge; Mike coordinates the separately bounded AT-04 vocal/browser/listening check.
+Issue #3 / R10 remains open; no PR45 changes, assignments, review dismissals or protection bypass here.
+Preserve inherited entries below as historical observations; use this entry for current review eligibility/state.
+
+## Session — A3-03 direct lyrics support, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/a3-03-direct-lyrics, base main cb818ae595f399f2455464de58ec5acdaa27d8fc.
+User requested help for Mike's #3; Mike remains lead and owns the coordinated live acceptance.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6562476780
+No competing published lyrics fix/claim found; no unpublished-work acknowledgment is assumed.
+Changed providers.py: lyrics opts into existing _chat(thinking=False), retaining its 512-token cap.
+Qwen model-owner/quantization docs support the control; default thinking is not a proven cause of the historical failure.
+Model/prompt/strict final-content/model/stop guards, default192-token probe, DJ and frozen service probes unchanged.
+Existing test_lyrics.py/test_providers.py gain three regressions; no schema, dependency or new production abstraction.
+Before-change route test failed with no lyrics content/length; exact-request assertions failed for missing control.
+After-change three focused regressions PASS; malformed/empty/truncated/wrong-model replies still fail once safely.
+MockTransport route/store flow passes final lyrics to one explicitly requested music job, attaches synthetic WAV, and reloads without resubmitting.
+Synthetic media and stubbed cover do not prove playable live vocals or human quality.
+APP_CONTRACTS/SERVICE_CONTRACTS and TEST_RESULTS describe the candidate and remaining acceptance honestly.
+Locked python scripts/dev.py --check: verifier119 PASS, coverage36/11/19 PASS, 192 tests OK; whitespace PASS.
+Environment: Python3.12.14, uv0.12.19, modern Git2.53; local loopback tests only, no class-service requests or retries.
+Historical evidence/media, sample manifest, other PR heads and assignments untouched.
+Next: publish this focused PR, freeze its reviewed head, request eligible zero-contribution Mike review.
+After normal protected integration, Mike coordinates one tester/head/budget for live AT-04/browser/listening; #3 remains open.
+
 ## Session — PR #45 sync after #46, 2026-11-01 America/Denver
 Codex for Joshua; existing branch codex/disclosed-hermes-reviewer; pre-handoff head `c566c91`.
 Local branch codex/pr45-role-scope-nov1; normal merge of current main `8d9be64` (PR46).
