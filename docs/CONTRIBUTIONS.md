@@ -55,6 +55,9 @@ Do not add a completion row merely for a planned/configured reviewer.
 
 | 2026-11-01 | JoshuaKosakowsky (implementation/integration); Joshua via Hermes/JoshKozy (separate automated review) | Antlercover and three-song main acceptance | PR49 merged normally at2be9625 after exact-head automated approval and four green checks; merged-main CI passed. All3 original song/cover pairs and AI lyrics verified through normal-launch HTTP/browser, full-duration playback and reload. Independent final ZIP remains pending. | [PR #49](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/49), [integrated-main evidence](../results/a3-07-integrated-main-library.json) |
 
+| 2026-11-01 | JoshuaKosakowsky (evidence/integration); Joshua via Hermes/JoshKozy (automated review) | Main sample acceptance integration | PR50 merged normally atd0bfd92 after exact452e967 approval and4 green checks. Preserved verified3-song playback on source2be9625; independent ZIP remains pending. | [PR #50](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/50), [main evidence](../results/a3-07-integrated-main-library.json) |
+| 2026-11-01 | JoshuaKosakowsky (test/helpers/integration); Joshua via Hermes/JoshKozy (automated review) | Default-only DJ evidence integration | PR51 merged normally ate541c97 after fresh exactb45dbd3 approval and4 green checks. Original three successful default intros and6-call budget remain on tested main2be9625; no reference acceptance or new style-quality claim. | [PR #51](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/51), [default-DJ evidence](../results/a3-05-default-dj-live.json) |
+
 Whole-app features and independent deployment remain incomplete; component entries
 above claim only their recorded scope.
 Add their evidence as the team delivers them.
