@@ -275,6 +275,14 @@ class FrontendLibraryGuardTests(unittest.TestCase):
 
 class FrontendRetryBehaviorTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which("node"), "Optional Node runtime is unavailable")
+    def test_reference_chooser_requests_cleanup_and_advance_races(self):
+        result = subprocess.run(
+            [shutil.which("node"), str(ROOT / "tests/frontend_reference_probe.cjs"),
+             str(ROOT / "jukebox/web/app.js")],
+            capture_output=True, text=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    @unittest.skipUnless(shutil.which("node"), "Optional Node runtime is unavailable")
     def test_dj_retry_permission_and_manual_audio_exclusivity(self):
         result = subprocess.run(
             [shutil.which("node"), str(ROOT / "tests/frontend_dj_probe.cjs"),
