@@ -1,0 +1,223 @@
+{
+  "date": "2026-11-02",
+  "timezone": "America/Denver",
+  "recorded_at_utc": "2026-11-02T18:11:16.864327+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "tested_main": "fcdda54c2a988ee6b254adb695ce14f453d9dc4d",
+  "launcher": "python scripts/dev.py --port 8031",
+  "method": "Actual in-app browser; normal launcher; bundled class-generated media; no fixture injection or source rewrites",
+  "configuration": {
+    "services": {
+      "text": "missing",
+      "art": "missing",
+      "music": "missing",
+      "speech": "missing"
+    },
+    "configured": false,
+    "connectivity_checked": false,
+    "generation_available": false,
+    "cover_generation_available": false,
+    "music_generation_available": false,
+    "lyrics_generation_available": false,
+    "sample_library": {
+      "count": 3,
+      "error": null
+    }
+  },
+  "real_provider_requests": 0,
+  "reference_uploads": 0,
+  "new_generation_jobs": 0,
+  "source_sha256": {
+    "jukebox/__init__.py": "5a186e8007ec0eb3ea8945bba6350339a4a6a4bfe716db7701b09dd39d0efa8e",
+    "jukebox/__main__.py": "08c6b323001c40a4bb3fdff8ce483daa79f7740e134f71e703159e05610a9de2",
+    "jukebox/app.py": "8e77ccf1bce706cbb0f79299cfb36a5f5d6cdad025e3189ca962a92312b3e3ef",
+    "jukebox/config.py": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+    "jukebox/contracts.py": "ad6e6df541254adb1ec3a65d1fc53a144c1a8713d85c98d3687eb3209f7024a2",
+    "jukebox/providers.py": "39e142e1b0defbc4f11ebf0b422abf55efb50d91bbdabd2a501942db6c5d57d6",
+    "jukebox/samples.py": "52e2933161287cca3e3e85da66e03a3ebfb54fcbdfe9fc7d9ecff902f3ad298d",
+    "jukebox/sessions.py": "3dee50f9513d5f488ccb7527979f275d3276b01299030c5b211388a4fb390dc0",
+    "jukebox/web/app.js": "975923077ade34948d64bcbb30a1c26d83cd8dfad5c3ad098de5ec3e21fb570a",
+    "jukebox/web/index.html": "2179561f8e0cb4f1430dbdd3a4507620363524246a6a9c16fc458a3102a70bd0",
+    "jukebox/web/style.css": "e24f6d350a9c004473e4601bdfab1da8b204315f56236130688097d3b3968635"
+  },
+  "observations": {
+    "before_reload": {
+      "createDisabled": true,
+      "djPlayDisabled": true,
+      "lyrics": [
+        {
+          "characters": 352,
+          "open": true
+        },
+        {
+          "characters": 568,
+          "open": true
+        }
+      ],
+      "media": [
+        {
+          "duration": 45,
+          "error": null,
+          "label": "Play Afterglow Avenue",
+          "paused": true,
+          "time": 15.000434
+        },
+        {
+          "duration": null,
+          "error": null,
+          "label": "Play Moonlit Reflection",
+          "paused": true,
+          "time": 0
+        },
+        {
+          "duration": null,
+          "error": null,
+          "label": "Play Antlercover",
+          "paused": true,
+          "time": 0
+        }
+      ],
+      "presentation": "playful",
+      "referenceValue": "",
+      "serviceLabels": "Lyrics & DJ text\nMissing settings\nCover artwork\nMissing settings\nMusic\nMissing settings\nDJ speech\nMissing settings",
+      "titles": [
+        "Afterglow Avenue",
+        "Moonlit Reflection",
+        "Antlercover"
+      ]
+    },
+    "after_reload": {
+      "createDisabled": true,
+      "djPlayDisabled": true,
+      "presentation": "playful",
+      "referenceValue": "",
+      "titles": [
+        "Afterglow Avenue",
+        "Moonlit Reflection",
+        "Antlercover"
+      ]
+    },
+    "initial_playing": [
+      {
+        "duration": 45,
+        "error": null,
+        "label": "Play Afterglow Avenue",
+        "paused": false,
+        "time": 0.134495
+      },
+      {
+        "duration": null,
+        "error": null,
+        "label": "Play Moonlit Reflection",
+        "paused": true,
+        "time": 0
+      },
+      {
+        "duration": null,
+        "error": null,
+        "label": "Play Antlercover",
+        "paused": true,
+        "time": 0
+      }
+    ],
+    "observed_end_before_replay": {
+      "duration": 45,
+      "error": null,
+      "paused": true,
+      "time": 45
+    },
+    "paused_replay": {
+      "duration": 45,
+      "error": null,
+      "paused": true,
+      "time": 15.000434
+    },
+    "final_session": {
+      "jobs": 0,
+      "tracks": [
+        {
+          "title": "Afterglow Avenue",
+          "mode": "vocal",
+          "status": "ready",
+          "has_lyrics": true
+        },
+        {
+          "title": "Moonlit Reflection",
+          "mode": "instrumental",
+          "status": "ready",
+          "has_lyrics": false
+        },
+        {
+          "title": "Antlercover",
+          "mode": "vocal",
+          "status": "ready",
+          "has_lyrics": true
+        }
+      ],
+      "presentation": "playful"
+    }
+  },
+  "screenshots": [
+    {
+      "path": "results/a3-09-current-dj.jpg",
+      "format": "JPEG",
+      "width": 1008,
+      "height": 794,
+      "sha256": "11ee8e9150388938b16cf890c9b578cac175737e177f368673a17ac2a19e27bb"
+    },
+    {
+      "path": "results/a3-09-current-library.jpg",
+      "format": "JPEG",
+      "width": 1265,
+      "height": 3384,
+      "sha256": "3b00058cc727519d51cc90250ed942959171ec85fbf5cbb60634cf7d958e32d3"
+    },
+    {
+      "path": "results/a3-09-current-lyrics.jpg",
+      "format": "JPEG",
+      "width": 1265,
+      "height": 712,
+      "sha256": "374413703e44afb4ecb9830e068c8392373a96340d800ce64d3e32098edbfb28"
+    }
+  ],
+  "checks": [
+    {
+      "check": "Three ready samples with correct cover/title pairs and two vocal lyric panels",
+      "result": "PASS"
+    },
+    {
+      "check": "Missing services shown; generation and DJ-play controls disabled",
+      "result": "PASS"
+    },
+    {
+      "check": "Afterglow local player progressed to observed 45-second end state; replay paused at 15 seconds",
+      "result": "PASS"
+    },
+    {
+      "check": "Playful presentation saved and retained across reload with three tracks",
+      "result": "PASS"
+    },
+    {
+      "check": "Same browser session snapshot contains zero generation jobs",
+      "result": "PASS"
+    },
+    {
+      "check": "Actual JPEG screenshots fully decode and use matching .jpg extensions",
+      "result": "PASS"
+    }
+  ],
+  "cleanup": {
+    "server_pid": 27136,
+    "server_stopped": true,
+    "loopback_port": 8031,
+    "temporary_browser_tab_closed": true
+  },
+  "limitations": [
+    "No generation or real DJ/reference-voice requests in this documentation run",
+    "No new human listening/quality rating; retained sample approvals remain separately sourced",
+    "Only Afterglow playback was exercised here; full three-track playback remains attributed to 2be9625",
+    "Screenshot captures illustrate visible UI; they do not prove a successful service call",
+    "Other samples may display 0:00 duration before their first Play loads media metadata",
+    "No independent teammate documentation sign-off, final ZIP or release acceptance"
+  ]
+}
