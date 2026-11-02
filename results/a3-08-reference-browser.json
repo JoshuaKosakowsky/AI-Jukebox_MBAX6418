@@ -1,0 +1,594 @@
+{
+  "record": "A3-08 synthetic browser reference upload/privacy/recovery regression",
+  "recorded_at_utc": "2026-11-02T21:16:30.357339+00:00",
+  "tester": "JoshuaKosakowsky directing Codex",
+  "tested_commit": "3f65954bf40589f0acdbcf3e2df4a94c205e50cf",
+  "source": "Exact detached main checkout, unmodified app/routes/frontend/providers; helper runs outside that checkout.",
+  "mode": "Manual OFFLINE harness, not normal launch or real AT-08 acceptance. Existing MockTransport harness with audit-only observer wrappers/routes, synthetic settings and muted media.",
+  "runtime_command": "python scripts/audit_reference_browser.py --source <credential-free checkout of 3f65954> --port 8176",
+  "class_provider_requests": 0,
+  "synthetic_provider_requests": {
+    "text": 5,
+    "speech": 4,
+    "music": 0,
+    "art": 0,
+    "text_failures": 1,
+    "speech_failures": 1
+  },
+  "fixtures": {
+    "wav": "In-memory generated 2s mono 8kHz 16-bit PCM, 32,044 bytes; no recorded voice.",
+    "mp3": "5,848-byte structural fixture: zero-length ID3v2 tag and14 complete MPEG frame envelopes with zero payload. Not a decodable/reference-voice quality claim.",
+    "invalid": "22 non-audio bytes with .wav filename; empty0 bytes; oversized5,000,001 bytes.",
+    "location": "All fixture files outside Git; no fixture audio or real recordings in evidence/archive."
+  },
+  "browser_observations": [
+    {
+      "id": "RP01",
+      "expected": "Reject empty clip, clear selection, default selected",
+      "actual": {
+        "case": "empty clip rejected locally",
+        "actual": "Choose a non-empty MP3 or WAV clip, 5 MB or smaller. Default voice is selected.",
+        "clearEnabled": false
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP02",
+      "expected": "Reject 5,000,001-byte clip, clear selection, default selected",
+      "actual": {
+        "case": "oversize clip rejected locally",
+        "actual": "Choose a non-empty MP3 or WAV clip, 5 MB or smaller. Default voice is selected.",
+        "clearEnabled": false
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP03",
+      "expected": "Nonempty malformed clip may be selected; content validation is deferred until use",
+      "actual": {
+        "case": "malformed file selection is deferred validation",
+        "actual": "Reference selected for new introductions. The clip is validated when used.",
+        "clearEnabled": true
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP04",
+      "expected": "HTTP422 and useful safe error, no silent default substitution, no provider call",
+      "actual": {
+        "case": "malformed reference rejected when introduction requested",
+        "voice": "Reference must be an MP3 or WAV audio file. No default-voice substitution was requested. Choose another clip or use Default voice, then retry.",
+        "queue": "Reference must be an MP3 or WAV audio file."
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP05",
+      "expected": "Valid WAV replaces malformed local selection",
+      "actual": {
+        "case": "valid WAV replaces malformed clip",
+        "actual": "Reference selected for new introductions. The clip is validated when used.",
+        "clearEnabled": true
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP06",
+      "expected": "Injected unexpected-model text failure creates explicit retry; no speech call",
+      "actual": {
+        "case": "synthetic text failure after valid WAV upload",
+        "voice": "Reference selected for new introductions. The clip is validated when used.",
+        "queue": "Now playing Afterglow Avenue"
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP07",
+      "expected": "Failure falls back to music; Pause and explicit Retry available; provider marker hidden",
+      "actual": {
+        "case": "failed introduction falls back to music with explicit retry",
+        "queue": "Paused during music (Afterglow Avenue).",
+        "retryEnabled": true,
+        "privateMarkerVisible": false
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP08",
+      "expected": "Explicit retry after clearing fault uses a fresh WAV upload and succeeds without restarting paused music",
+      "actual": {
+        "case": "explicit retry after text fault cleared",
+        "queue": "Paused during music (Afterglow Avenue).",
+        "retryButtons": 0
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP09",
+      "expected": "MP3 replaces local WAV selection without generation or playback changes",
+      "actual": {
+        "case": "MP3 replaces selected WAV without generating",
+        "actual": "Reference selected for new introductions. The clip is validated when used.",
+        "queue": "Paused during music (Afterglow Avenue)."
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP10",
+      "expected": "Injected speech failure retains paused queue and explicit retry; provider marker hidden",
+      "actual": {
+        "case": "synthetic MP3 speech failure",
+        "queue": "Paused during DJ speech (Moonlit Reflection).",
+        "retryButtons": 1,
+        "privateMarkerVisible": false
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP11",
+      "expected": "Explicit MP3 retry after clearing speech fault succeeds; retry button disappears",
+      "actual": {
+        "case": "explicit MP3 retry succeeds after speech fault cleared",
+        "queue": "Paused during DJ speech (Moonlit Reflection).",
+        "retryButtons": 0
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP12",
+      "expected": "Clear selects default for future introductions without changing current paused speech",
+      "actual": {
+        "case": "clear selected clip returns to default voice",
+        "actual": "Default Chatterbox voice selected for new introductions.",
+        "clearEnabled": false,
+        "queue": "Paused during DJ speech (Moonlit Reflection)."
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP13",
+      "expected": "A new local selection enables Clear without uploading",
+      "actual": {
+        "case": "select another fixture before reload",
+        "actual": "Reference selected for new introductions. The clip is validated when used.",
+        "clearEnabled": true
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP14",
+      "expected": "Reload forgets selected file, selects default and preserves paused queue",
+      "actual": {
+        "case": "reload forgets recording and keeps paused queue",
+        "voice": "Default Chatterbox voice selected.",
+        "clearEnabled": false,
+        "queue": "Paused during DJ speech (Moonlit Reflection).",
+        "queuedTitles": "1. Afterglow Avenue\n2. Moonlit Reflection"
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP15",
+      "expected": "Next uncached introduction uses default speech with no reference upload",
+      "actual": {
+        "case": "new introduction after reload uses default voice",
+        "voice": "Default Chatterbox voice selected.",
+        "queue": "Paused during DJ speech (Antlercover).",
+        "queuedTitles": "1. Afterglow Avenue\n2. Moonlit Reflection\n3. Antlercover"
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP16",
+      "expected": "Selecting another clip preserves the existing paused introduction",
+      "actual": {
+        "case": "selection preserves paused introduction",
+        "queue": "Paused during DJ speech (Antlercover).",
+        "voice": "Reference selected for new introductions. The clip is validated when used."
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP17",
+      "expected": "Skip reaches queue end",
+      "actual": {
+        "case": "skip reaches queue end",
+        "queue": "Queue finished. Press Play to hear it again."
+      },
+      "result": "PASS"
+    },
+    {
+      "id": "RP18",
+      "expected": "Replay uses cached introduction despite newly selected clip, with no additional upload/provider call",
+      "actual": {
+        "case": "cached replay with a new selected clip",
+        "queue": "Paused during DJ speech (Afterglow Avenue).",
+        "voice": "Reference selected for new introductions. The clip is validated when used."
+      },
+      "result": "PASS"
+    }
+  ],
+  "privacy_observation_method": "Observer records only sizes/MIME types/fixed-filename booleans. Audit endpoint probes real media/session HTTP routes via ASGITransport with the anonymous uploading session cookie held privately in helper memory; status/boolean results only are returned. Those probes are backend observations alongside actual UI actions, not browser navigation to hidden IDs.",
+  "privacy": {
+    "uploads": [
+      {
+        "bytes": 32044,
+        "media_type": "audio/wav"
+      },
+      {
+        "bytes": 32044,
+        "media_type": "audio/wav"
+      },
+      {
+        "bytes": 5848,
+        "media_type": "audio/mpeg"
+      },
+      {
+        "bytes": 5848,
+        "media_type": "audio/mpeg"
+      }
+    ],
+    "multipart": [
+      {
+        "fixed_reference_filename": true
+      },
+      {
+        "fixed_reference_filename": true
+      },
+      {
+        "fixed_reference_filename": true
+      },
+      {
+        "fixed_reference_filename": true
+      },
+      {
+        "fixed_reference_filename": true
+      }
+    ],
+    "speech": [
+      {
+        "reference_media_type": "audio/wav",
+        "result": "success"
+      },
+      {
+        "reference_media_type": "audio/mpeg",
+        "result": "failed"
+      },
+      {
+        "reference_media_type": "audio/mpeg",
+        "result": "success"
+      },
+      {
+        "reference_media_type": null,
+        "result": "success"
+      }
+    ],
+    "memory_totals": {
+      "references": 0,
+      "speech_references": 0,
+      "speech_prompts": 0,
+      "active": 0
+    },
+    "privacy_probes": [
+      {
+        "media_http_status": 404,
+        "snapshot_contains_id": false
+      },
+      {
+        "media_http_status": 404,
+        "snapshot_contains_id": false
+      },
+      {
+        "media_http_status": 404,
+        "snapshot_contains_id": false
+      },
+      {
+        "media_http_status": 404,
+        "snapshot_contains_id": false
+      }
+    ],
+    "network": {
+      "blocked_external_attempts": 0
+    },
+    "real_provider_requests": 0
+  },
+  "failure_checkpoints": {
+    "malformed": {
+      "uploads": [],
+      "multipart": [
+        {
+          "fixed_reference_filename": true
+        }
+      ],
+      "speech": [],
+      "memory_totals": {
+        "references": 0,
+        "speech_references": 0,
+        "speech_prompts": 0,
+        "active": 0
+      },
+      "privacy_probes": [],
+      "network": {
+        "blocked_external_attempts": 0
+      },
+      "real_provider_requests": 0
+    },
+    "text_failure": {
+      "uploads": [
+        {
+          "bytes": 32044,
+          "media_type": "audio/wav"
+        }
+      ],
+      "multipart": [
+        {
+          "fixed_reference_filename": true
+        },
+        {
+          "fixed_reference_filename": true
+        }
+      ],
+      "speech": [],
+      "memory_totals": {
+        "references": 0,
+        "speech_references": 0,
+        "speech_prompts": 0,
+        "active": 0
+      },
+      "privacy_probes": [
+        {
+          "media_http_status": 404,
+          "snapshot_contains_id": false
+        }
+      ],
+      "network": {
+        "blocked_external_attempts": 0
+      },
+      "real_provider_requests": 0
+    },
+    "speech_failure": {
+      "uploads": [
+        {
+          "bytes": 32044,
+          "media_type": "audio/wav"
+        },
+        {
+          "bytes": 32044,
+          "media_type": "audio/wav"
+        },
+        {
+          "bytes": 5848,
+          "media_type": "audio/mpeg"
+        }
+      ],
+      "multipart": [
+        {
+          "fixed_reference_filename": true
+        },
+        {
+          "fixed_reference_filename": true
+        },
+        {
+          "fixed_reference_filename": true
+        },
+        {
+          "fixed_reference_filename": true
+        }
+      ],
+      "speech": [
+        {
+          "reference_media_type": "audio/wav",
+          "result": "success"
+        },
+        {
+          "reference_media_type": "audio/mpeg",
+          "result": "failed"
+        }
+      ],
+      "memory_totals": {
+        "references": 0,
+        "speech_references": 0,
+        "speech_prompts": 0,
+        "active": 0
+      },
+      "privacy_probes": [
+        {
+          "media_http_status": 404,
+          "snapshot_contains_id": false
+        },
+        {
+          "media_http_status": 404,
+          "snapshot_contains_id": false
+        },
+        {
+          "media_http_status": 404,
+          "snapshot_contains_id": false
+        }
+      ],
+      "network": {
+        "blocked_external_attempts": 0
+      },
+      "real_provider_requests": 0
+    }
+  },
+  "no_respend": {
+    "before_reload": {
+      "/v1/chat/completions": 4,
+      "dj_text": 4,
+      "/v1/audio/speech": 3
+    },
+    "after_reload": {
+      "/v1/chat/completions": 4,
+      "dj_text": 4,
+      "/v1/audio/speech": 3
+    },
+    "before_cached_replay": {
+      "/v1/chat/completions": 5,
+      "dj_text": 5,
+      "/v1/audio/speech": 4
+    },
+    "after_cached_replay": {
+      "/v1/chat/completions": 5,
+      "dj_text": 5,
+      "/v1/audio/speech": 4
+    },
+    "all_comparisons_equal": true
+  },
+  "application_posts": [
+    {
+      "path": "/api/playback/queue",
+      "status": 200
+    },
+    {
+      "path": "/api/references/speech",
+      "status": 422
+    },
+    {
+      "path": "/api/references/speech",
+      "status": 201
+    },
+    {
+      "path": "/api/playback/start",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/phase",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/pause",
+      "status": 200
+    },
+    {
+      "path": "/api/references/speech",
+      "status": 201
+    },
+    {
+      "path": "/api/playback/speech",
+      "status": 202
+    },
+    {
+      "path": "/api/playback/queue",
+      "status": 200
+    },
+    {
+      "path": "/api/references/speech",
+      "status": 201
+    },
+    {
+      "path": "/api/playback/advance",
+      "status": 200
+    },
+    {
+      "path": "/api/references/speech",
+      "status": 201
+    },
+    {
+      "path": "/api/playback/speech",
+      "status": 202
+    },
+    {
+      "path": "/api/playback/queue",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/advance",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/advance",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/start",
+      "status": 200
+    },
+    {
+      "path": "/api/playback/pause",
+      "status": 200
+    }
+  ],
+  "media_events": {
+    "observed": 6,
+    "maximum_playing": 1,
+    "errors": [],
+    "scope": "Six sampled muted play/playing/pause events, not a full sequencing or listening acceptance run."
+  },
+  "product_findings": [],
+  "tooling_notes": [
+    "Initial file chooser+setFiles in a single call stalled for several minutes per upload. Opening the chooser and setting files in separate calls resolved this tooling delay; no app change.",
+    "One read-only DOM probe attempted an unavailable files property; selection evidence instead uses visible status, Clear state, actual screenshots and observed HTTP/provider behavior.",
+    "An attempted Pause after Skip was disabled because the queue correctly remained paused; observed state was used and no extra action was forced."
+  ],
+  "cleanup": {
+    "temporary_browser_tab_closed": true,
+    "audit_process_tree_stopped": true,
+    "port": 8176,
+    "port_closed": true,
+    "checked_at_utc": "2026-11-02T21:13:41.821494+00:00"
+  },
+  "acceptance_scope": {
+    "AT-10": "Additional synthetic browser error/recovery evidence only; earlier real normal-launch evidence remains separately attributed.",
+    "AT-12": "Reference non-exposure, fixed multipart filename and cleanup checks support browser/public-file safeguards; no general security certification.",
+    "AT-08": "NOT PASSED here; real default/MP3/WAV speech comparison and human listening remain Mike's pending work.",
+    "AT-16": "NOT RUN; this is not independent final ZIP installation."
+  },
+  "reproduction": [
+    "Create an unchanged credential-free checkout at the tested SHA; keep the manual helper/reports and fixtures separate. Do not copy .env or real recordings.",
+    "Use tests/test_references.py wav_bytes()/mp3_bytes() to make synthetic local fixtures outside Git; create empty, 22-byte malformed .wav and5,000,001-byte oversized files.",
+    "Run runtime_command in the locked environment. The reused audit_main_browser harness displays an OFFLINE banner, uses explicit synthetic settings/MockTransport and mutes audio; the extension guards DNS/connect against external destinations.",
+    "Use the actual chooser and existing sample queue controls for RP01-RP18. Browser chooser open and setFiles should occur in separate computer-use calls.",
+    "Inject only audit fixtures through POST /audit/control: bad_model true/false for the text failure, speech_fail true/false for the speech failure. Never replace actual provider settings or make class calls.",
+    "Read GET /audit/evidence and /audit/reference-evidence for safe counts, fixed filename booleans, memory totals and privacy probes. Do not log request bodies, cookies, private filenames, reference identifiers or bytes.",
+    "Compare counters around reload/cached replay, then close the temporary browser tab, stop only this audit process and verify its loopback port closes."
+  ],
+  "limitations": [
+    "Synthetic UI regression on pinned main, not normal entrypoint/live provider acceptance.",
+    "No real reference clips, human voice comparison, audio listening, expiry or in-flight replacement race acceptance.",
+    "Class credentials were neither loaded nor checked; fake configured labels in screenshots are harness settings.",
+    "No production app, shared contracts, media, dependencies, CI, protection or assignment changes. #6/#8/#10 remain open and submission NOT READY."
+  ],
+  "source_worktree_clean": true,
+  "git_source_sha256": {
+    "jukebox/app.py": "8e77ccf1bce706cbb0f79299cfb36a5f5d6cdad025e3189ca962a92312b3e3ef",
+    "jukebox/sessions.py": "eaf30ad6c8923aac2b2608f8d9209206ac3ba8ce3a6cb331dd263ce58e1c4e1e",
+    "jukebox/providers.py": "39e142e1b0defbc4f11ebf0b422abf55efb50d91bbdabd2a501942db6c5d57d6",
+    "jukebox/config.py": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+    "jukebox/web/app.js": "975923077ade34948d64bcbb30a1c26d83cd8dfad5c3ad098de5ec3e21fb570a",
+    "jukebox/web/index.html": "2179561f8e0cb4f1430dbdd3a4507620363524246a6a9c16fc458a3102a70bd0",
+    "scripts/audit_main_browser.py": "5639183145b42d8efebcc735a792ce434fdfc99936f226845975052a976302d8"
+  },
+  "manual_helper_sha256": "a08da15997e617d66891779302a3b5f7cfc8248602814e20344839d0c8d0f55f",
+  "screenshots": [
+    {
+      "path": "results/a3-08-reference-malformed.jpg",
+      "sha256": "da8499487cb57709da6f424c2cd01978424e7554e6595059f446bf32399ab08e",
+      "type": "Actual browser JPEG; synthetic harness, not a mockup"
+    },
+    {
+      "path": "results/a3-08-reference-default.jpg",
+      "sha256": "d0126459ee34d4d1db411e70d27928d48f6bc556e0235d0e776abc78c52f2c2a",
+      "type": "Actual browser JPEG; synthetic harness, not a mockup"
+    },
+    {
+      "path": "results/a3-08-reference-full.jpg",
+      "sha256": "91c26f789ca90d76b542382723085e309abac00d27469b50d62b6ee3466758e6",
+      "type": "Actual browser JPEG; synthetic harness, not a mockup"
+    }
+  ],
+  "local_validation": {
+    "locked_command": "python scripts/dev.py --check",
+    "unittest_run": 238,
+    "skipped": 1,
+    "result": "PASS",
+    "scaffold_tracked_staged_files": 175,
+    "coverage": {
+      "requirements": 36,
+      "tasks": 11,
+      "cases": 19
+    },
+    "whitespace": "PASS",
+    "image_full_decode": "All three JPEGs pass; matching extensions and unchanged original capture bytes",
+    "source_scope": "No production app/contracts/tests/dependencies/media/CI/protection differences against source main"
+  }
+}

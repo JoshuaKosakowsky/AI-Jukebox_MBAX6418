@@ -2032,3 +2032,44 @@ identity/Canvas delivery, Mike's #3/#6 evidence and R31 teammate report check ar
 not supplied here. Zero class/generation calls. #8/#10 stay open; submission
 remains NOT READY. A later main ZIP is a different candidate, even after this
 evidence-only PR; final testing must name its actual SHA and archive.
+
+## A3-08 reference browser privacy/recovery — 2026-11-02 America/Denver
+
+Joshua/Codex exercised actual browser controls against an unchanged main
+`3f65954bf40589f0acdbcf3e2df4a94c205e50cf` checkout using the existing offline
+MockTransport harness plus a [safe observer extension](../scripts/audit_reference_browser.py).
+This is **synthetic regression, not normal-launch/live AT-08 acceptance**.
+[Safe record, all18 observations and reproduction](../results/a3-08-reference-browser.json).
+
+| Check | Expected | Actual |
+|---|---|---|
+| Empty/oversized file | Reject locally and retain default voice | Both rejected with useful5MB/nonempty guidance; no upload/provider request |
+| Malformed nonempty clip | Validate on use; useful error without silent default | Upload422; no provider calls, safe message and explicit choose-another/default recovery |
+| WAV/text failure | Clean reference, hide private provider detail, allow explicit retry | All reference memory cleared; music fallback/pause and Retry available; marker absent; retry succeeds |
+| MP3/speech failure | Clean reference and preserve paused state; retry deliberately | All reference memory cleared; paused state retained; Retry succeeds after synthetic fault clears |
+| Select/replace/clear/reload | Changes affect future intros; reload forgets clip | WAV/MP3 selection/replacement and clear work; reload shows no selected clip/default voice with same paused queue |
+| Reload/cached replay | No duplicate uploads or generation | Counter comparisons unchanged; cached first intro reused despite a newly selected clip |
+| Default after reload | New intro without a reference | Last synthetic speech call has no reference; no fifth upload |
+| Private data boundary | Fixed multipart filename; refs not public or serialized | All5 multipart attempts use fixed filename; all4 accepted fixture IDs return404 via real media route and are absent from snapshots; unclaimed/claimed/prompts/active counts zero |
+
+Actual synthetic calls: text5 (one injected model failure), speech4 (one injected
+failure), music0/art0. **Class calls0**; explicit synthetic settings only; DNS/connect
+guard observed zero external attempts. WAV is generated2s PCM; MP3 is a structural
+frame fixture, not a real voice/decoder-quality claim. No reference bytes, private
+IDs, cookies or recordings are published. Media/session probes are backend HTTP
+observations alongside actual browser interactions; they do not alter app routes.
+
+No product defect found in this scope. The initial chooser bridge stalled until
+opening and file selection were split across tool calls; no app fix was needed.
+Six sampled muted media events had max1 playing and no observed errors; no full
+playback/listening claim. Actual screenshots: [malformed-file error](../results/a3-08-reference-malformed.jpg),
+[cleared/default voice](../results/a3-08-reference-default.jpg), [full offline view](../results/a3-08-reference-full.jpg).
+Temporary tab/process stopped and8176 closed. Source checkout stayed clean.
+Locked checks PASS:238 tests run/one Windows skip; scaffold175 files, coverage
+36 requirements/11 tasks/19 cases, JPEG full decodes and whitespace.
+
+Supports additional AT-10/AT-12 regression evidence. Mike's real reference-voice
+comparison/listening, R31 teammate report check and independent final ZIP remain
+pending. #6/#8/#10 stay open; submission NOT READY. No runtime/contracts/media/
+dependencies/CI/protection/assignment changes. The queued #57 completion credit
+is carried into this focused PR without creating another notes-only review.
