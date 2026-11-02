@@ -1880,3 +1880,23 @@ Moonlit Reflection advanced to13.338 s, paused and resumed13.560 s. Reload kept
 all3 tracks/media URLs and started paused. Locked `scripts/dev.py --check` PASS:
 230 tests run, one platform symlink skip; verifier151, coverage36/11/19; whitespace
 PASS. No generation occurred during catalog/browser checks.
+
+## A3-07 three songs on merged main — 2026-11-01 America/Denver
+
+PR49 merged normally at2be9625717c35b4bb586506562d0965c31143145 after
+Hermes/JoshKozy's exact-head approval and four green checks. Merged-main CI
+run41390292540 completed SUCCESS. A clean checkout of that exact main used the
+normal launcher on8026 with no .env and all four class-service roles missing.
+
+[Integrated-main evidence](../results/a3-07-integrated-main-library.json): all3
+512-square covers paired correctly, both original Qwen lyric texts expanded,
+Afterglow Avenue played45 s, Moonlit Reflection30 s and Antlercover60 s to their
+ends with no media errors. Deliberate replay/pause/resume and reload passed;
+all3 tracks and session media URLs remained. HTTP checks matched original
+WAV/PNG/lyrics, verified separate-session URLs and cross-session404, and repeated
+snapshots were identical with zero jobs. Full decoding passed; retained sample
+media28,282,047 B. No generation or new human listening was performed.
+
+This verifies R17/R18 and the integrated-main asset/browser portion of AT-11.
+Independent final GitHub ZIP acceptance remains pending; no DJ/reference-voice,
+other parent acceptance or submission readiness is claimed. No app code changed.
