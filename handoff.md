@@ -1,5 +1,21 @@
 # Agent handoff
 
+## Session — AT-04 evidence integration + listening PASS, 2026-11-02 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead. Branch `codex/a3-03-at04-evidence`,
+base origin/main `29c5de1`. Adds the REAL live-run records (base :8000, head
+a1a41d1) `results/a3-03-at04-live.json` (14/14 AT-04 checks PASS; Moonlit
+Rehearsal 30s vocal, Qwen lyrics 241 chars, WAV 5,760,078 B stereo 48 kHz)
+and `results/a3-06-at08-live.json` (AT-08 leg NOT passed: 2/3 speech jobs
+failed at app level) — NOT the :8010 fixture rehearsal copies. TEST_RESULTS.md
+new dated section + this entry. Human listening PASS posted on #3
+(issuecomment-6591393031): audio great, vocals follow written lyrics; cover
+no spelling mistakes, lettering not smooth (curation caveat). Local manifest
+updated. No app/tests/contracts/assets/CI changes; zero generation, uploads,
+credentials or budget. Closes #3 when merged (evidence fully integrated);
+#6 stays open for a NEW AT-08-only diagnostic leg (3 sequential intros,
+jobs-error capture) pending team/lead authorization. Gate must be PASS on
+this head; eligible review from mase7919 / prse4479 per issue pool.
+
 ## Session — A3-08 synthetic browser reference privacy, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-08-browser-privacy`, source main `3f65954` (main CI passed).
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6587859574

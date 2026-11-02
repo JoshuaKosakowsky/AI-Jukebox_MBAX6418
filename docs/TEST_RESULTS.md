@@ -1,5 +1,35 @@
 # Test results and evidence
 
+## AT-04 vocal acceptance + human listening evidence — 2026-11-02 America/Denver
+
+Hermes for MSpanny (Mike); #3 lead. Commits the real live-run evidence records
+from the authorized combined #3/#6 run (exact main head `a1a41d1`, CI green)
+into results/ — the :8000 normal-launch records, NOT the :8010 fixture
+rehearsal copies (kept out of Git). App/tests/contracts/assets/dependencies
+untouched; no new generation, uploads, credentials or budget.
+
+- `results/a3-03-at04-live.json` — AT-04 leg: 14/14 checks PASS as executed.
+  Track "Moonlit Rehearsal" (acoustic indie pop, hopeful/upbeat, 30 s vocal):
+  cover PNG + Qwen lyrics 241 chars + vocal WAV 5,760,078 B stereo 48 kHz,
+  30.0 s decoded. Real provider calls: art 1, text 1 (lyrics), music 1 = 3 of
+  the shared 13-request ceiling.
+- `results/a3-06-at08-live.json` — AT-08 leg record: reference uploads
+  validated/consumed privately; default-voice intro did NOT pass (2 of 3
+  speech jobs failed at app level; exact class-side diagnostic not captured).
+  This is a FAILURE record, not a pass; #6 stays open for an AT-08-only
+  diagnostic leg under a new authorization.
+
+**Human listening — PASS (2026-11-02 America/Denver, MSpanny):** retained
+audio sha256 `bf45f625ec77bd05…` / cover sha256 `62812834236e0e24…` / 241-char
+lyrics. Audio sounds great and the sung vocals follow the written lyrics
+well. Cover has NO spelling mistakes, caveat: lettering is not smooth
+(imperfect rendering) — recorded as a #7 curation note, not an AT-04 blocker.
+Listening record: [#3 comment](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6591393031).
+
+With this merge, #3's normal-launch real-output and human-listening evidence
+is fully integrated (issue checkboxes already confirmed); #6 remains open
+for the AT-08 diagnostic re-run.
+
 ## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
 
 Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,

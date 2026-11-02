@@ -1,0 +1,126 @@
+{
+ "mode": "A3-06 AT-08 reference-voice acceptance (combined run, leg B)",
+ "commit": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+ "base": "http://127.0.0.1:8000",
+ "started_utc": "2026-11-02T02:43:28.210504+00:00",
+ "finished_utc": "2026-11-02T02:43:52.941925+00:00",
+ "inputs": {
+  "queue": [
+   "Moonlit Rehearsal",
+   "Desert Drive",
+   "Glass Atrium"
+  ],
+  "voice_order": [
+   "default",
+   "mp3",
+   "wav"
+  ]
+ },
+ "stop_condition": "intro default stage clean: failed jobs: speech:failed; speech:failed",
+ "checks": [
+  {
+   "check": "invalid reference clip rejected (422)",
+   "pass": true,
+   "detail": "HTTP 422"
+  },
+  {
+   "check": "MP3 reference accepted (201)",
+   "pass": true,
+   "detail": "HTTP 201"
+  },
+  {
+   "check": "WAV reference accepted (201)",
+   "pass": true,
+   "detail": "HTTP 201"
+  },
+  {
+   "check": "reference ids stay private (absent from session)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reference media never served",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "leg B inst1 cover stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "inst1 music requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "inst1 music settled within deadline",
+   "pass": true,
+   "detail": "polls=6"
+  },
+  {
+   "check": "leg B inst1 music stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "leg B inst2 cover stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "inst2 music requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "inst2 music settled within deadline",
+   "pass": true,
+   "detail": "polls=6"
+  },
+  {
+   "check": "leg B inst2 music stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "queued d2f18dae",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "queued 8cee1ee0",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "queued 113abe86",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "intro settles (default) settled within deadline",
+   "pass": true,
+   "detail": "polls=2"
+  },
+  {
+   "check": "intro default stage clean",
+   "pass": false,
+   "detail": "failed jobs: speech:failed; speech:failed"
+  }
+ ],
+ "uploads": {
+  "mp3": {
+   "id": "cb8c4ce3-c7c1-496c-b808-4b36ba920a9b",
+   "media_type": "audio/mpeg"
+  },
+  "wav": {
+   "id": "dc47a798-058d-48d0-8d6c-27806cd07514",
+   "media_type": "audio/wav"
+  }
+ },
+ "speech_jobs": [],
+ "submissions_by_kind": null,
+ "fixture_stats": null,
+ "provider_call_accounting": "art2 + music2 + text3(commentary) + speech3 = 8 more; run total 13 = ceiling"
+}
