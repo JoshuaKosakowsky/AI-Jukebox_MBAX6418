@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Reference-voice browser privacy/recovery regression (2026-11-02, main `3f65954`):
+[safe18-observation record and reproduction](a3-08-reference-browser.json),
+[malformed upload](a3-08-reference-malformed.jpg), [clear/default](a3-08-reference-default.jpg),
+[full offline view](a3-08-reference-full.jpg). Actual UI with synthetic clips and
+MockTransport; class calls0. This does not establish real reference-voice quality,
+normal-launch/live AT-08 or independent final ZIP acceptance.
+
 Public GitHub ZIP preflight (2026-11-02, main `78fb007`):
 [safe archive/media/startup record and reproduction](a3-08-source-zip-preflight.json).
 All169 archived source files match Git, three selected songs/two vocals ship,

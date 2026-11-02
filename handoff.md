@@ -1,5 +1,27 @@
 # Agent handoff
 
+## Session — A3-08 synthetic browser reference privacy, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-08-browser-privacy`, source main `3f65954` (main CI passed).
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6587859574
+Imported the already-local #57 completion row/notes; actual browser source is a separate clean detached main checkout.
+Added a manual observer extension to the existing MockTransport harness; production files/return behavior unchanged.
+Eighteen recorded UI observations pass: empty/oversized/malformed rejection, WAV/MP3 replace/clear/reload and cached replay.
+Injected text/speech failures clean references; explicit retries recover; paused queue and safe messages are retained.
+Four accepted synthetic uploads remain404 on media HTTP, absent from snapshots; all reference memory totals zero.
+Five multipart attempts use the fixed reference filename; no cookies/IDs/bytes/real recordings enter public evidence.
+Synthetic calls text5/speech4, music0/art0; class calls0; external DNS/connect guard attempts0.
+MP3 fixture is structural only; WAV is generated2s PCM. No live reference quality or new listening acceptance.
+Reload/cached replay counts unchanged; default intro after reload carries no reference and makes no new upload.
+Six sampled muted media events max1 playing, no observed errors; this is not a full playback acceptance run.
+Initial upload bridge stalls resolved by separating chooser open/setFiles calls; no product defect or app fix found.
+Actual JPEGs, safe JSON, TEST_RESULTS/index updated; source app/contracts/tests/media/dependencies untouched.
+Temporary browser tab closed, only audit process tree stopped and8176 verified closed.
+Local locked checks PASS:238 tests/one skip, scaffold175, coverage36/11/19, JPEG decoding and whitespace.
+Exact-head PR CI and eligible review remain required before a normal protected merge.
+No protection, assignment, collaborator or reviewer-authority changes; Mike's live work and Matt's report check stay separate.
+Next: publish focused evidence/harness PR, request JoshKozy technical review, and keep #6/#8/#10 open.
+Real AT-08 comparison, R31 actual teammate verification and independent final ZIP remain pending; NOT READY.
+
 ## Session — PR57 merged; next-task notes queued locally, 2026-11-02 America/Denver
 Codex for Joshua; #56 merged first at `e6b23f7`, then #57 at `3f65954` through normal gates.
 #57 approved head `c5c2503`; JoshKozy fresh review5742857322; all four PR checks passed.
