@@ -349,9 +349,9 @@ the normal app also launches from source without .git.
   [eligibility policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
 
 Final delivery needs custom instrumental/vocal songs and AI lyrics, new matching
-covers, a session library, spoken DJ commentary with the default voice (the
-A3-05 queue is implemented; live class acceptance pending) and, later, MP3/WAV
-reference voices, with play/pause/skip and automatic sequencing without overlap.
+covers, a session library, spoken DJ commentary with the default voice
+(recorded live evidence above) and optional MP3/WAV reference voices (real voice
+comparison pending), with play/pause/skip and automatic sequencing without overlap.
 It also needs three actual class-generated samples with provenance, progress/error
 recovery, evidence/design findings and an independent exact-GitHub-ZIP installation.
 See the complete brief; this paragraph does not replace it.

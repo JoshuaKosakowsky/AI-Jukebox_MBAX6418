@@ -1,5 +1,48 @@
 # Agent handoff
 
+## Session — PR56 merged first; PR57 synced, 2026-11-02 America/Denver
+Codex for Joshua; owner requested Jovi's approved #56 merge before our #57.
+#56 head `13f309d` merged normally at `e6b23f7` after JoshKozy review5742744452 and four green checks.
+The authenticated writer is JoshuaKosakowsky; no admin override or protection/assignment change.
+Local `codex/a3-08-zip-safeguards` pre-sync head `9ce8a2f`; incoming main `e6b23f7`.
+Main imports Jovi's two test assertions without conflicts; their approved bytes remain unchanged.
+They verify post-failure reference non-exposure; existing internal assertions cover memory cleanup.
+Added a completion row for Jovi's actual #56 delivery and the disclosed automated review attribution.
+Only contribution/handoff notes are new during this sync; the ZIP JSON/report/screenshots remain historical.
+The audited archive is still main `78fb007`, SHA-256 f09cceacc3e1a0d2e0945b24468c9122264cf1fadd77a5961ab6fb06e9e2d396.
+No archive/startup/browser/listening result is newly claimed for the later merge.
+Local checks PASS: reference-DJ9 tests; scaffold170 files; coverage36/11/19; evidence/scope/table and whitespace.
+Fresh CI is required on the published sync; pushing dismisses #57's old approval by design.
+Next: request JoshKozy's exact-head re-review after CI; owner prompts the separate Hermes terminal.
+Merge #57 only after eligible fresh approval, green test, current main and resolved conversations.
+Keep Mike's #3/#6 live evidence and Matt's report verification separate; no new calls authorized here.
+#6/#8/#10 remain open; no real reference comparison or independent final ZIP acceptance supplied.
+Record #57's completed integration/review credit after its normal merge.
+
+## Session — A3-08 source-ZIP safeguards preflight, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-08-zip-safeguards`, source main `78fb007` (merged #55).
+Owner requested ZIP progress; claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6586892348
+Actual anonymous GitHub ZIP:31,174,755 bytes, full SHA/hash and reproduction in results/a3-08-source-zip-preflight.json.
+Existing archive gate compares all169 source files with pinned Git blobs; all match; CRC/path/mode/casefold checks pass.
+Excluded private/runtime path checks and bounded credential signatures have zero hits; example has8 placeholder settings.
+All4 retained WAV/PNG pairs decode and match candidate hashes; selected manifest still3 songs/two vocals.
+Desert Drive stays an unregistered class-generated candidate with its earlier cover-lettering limitation.
+Both selected UTF-8 lyric files equal manifest text; no new provenance or listening approval invented.
+Normal extracted ZIP launcher created a new locked20-package environment without .git/.env or eight service values.
+First smoke stopped on the external driver's Windows text encoding; explicit UTF-8 corrected it without app changes.
+Corrected11-GET smoke passes:3 ready tracks, identical media/lyrics, all4 roles missing and zero jobs.
+All169 extracted source files remain unchanged after launch; temporary process tree stopped and8032 closed.
+Incomplete release record correctly returns1 / NOT READY; all19 case entries deliberately left not-run, zero ZIP errors.
+README also fixes inherited pending-default-DJ wording from #55; reference comparison remains pending.
+Scope: safe JSON evidence, README, TEST_RESULTS, results index and this handoff; no app/tests/contracts/media edits.
+Zero class calls/generation/reference uploads; no credentials, protection, assignments or teammate branches changed.
+Local checks PASS: readiness18; samples18 with one Windows skip; scaffold/coverage and whitespace.
+Initial sandbox Temp permission errors resolved on the unsandboxed offline rerun; no product change.
+#8/#10 stay open; no final freeze, Canvas delivery, independent install or new browser/live acceptance claimed.
+Next: freeze/push this evidence branch and request JoshKozy's technical review; Joshua prompts separate Hermes.
+Keep Mike's #3/#6 evidence, Johanna's #56 cleanup tests and Matt's teammate report verification separate.
+Once core evidence closes, another actual teammate installs/tests the exact final GitHub ZIP for #10.
+
 ## Session — PR54 merged; report branch synced, 2026-11-02 America/Denver
 Codex for Joshua; owner authorized normal merge of reviewed #54 while changing Hermes's model provider.
 Johanna/jovi1214's blank-lyrics guard merged at `074b879` after exact `bfe7823` approval and four green PR checks.
