@@ -57,7 +57,7 @@ The deployed `/openapi.json` exposes this object on `ChatCompletionRequest`;
 and the [quantization owner's card](https://huggingface.co/cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit#instruct-or-non-thinking-mode)
 document that control for non-thinking responses. No prompt soft-switch or
 server setting is assumed. Omitted `thinking` preserves the exact original
-probe payload; lyrics retain their separate existing request and budget.
+probe payload; lyrics explicitly opt into the same control as described below.
 
 The DJ keeps its original prompt, model, 192-token limit, temperature and
 non-streaming behavior. Model match, nonempty string content and
@@ -67,6 +67,23 @@ default-voice speech requests attached decodable PCM WAVs through production
 HTTP/store code. Replay used cached speech with no extra requests. This was
 TestClient integration with retained class tracks seeded in memory, not the
 normal launcher/browser or listening acceptance. [Safe evidence](../results/a3-05-qwen-fix-verification.json).
+
+### Lyrics direct-response candidate (offline verified 2026-11-01)
+
+`ClassProviders.lyrics(prompt)` now explicitly sets
+`"chat_template_kwargs": {"enable_thinking": false}` using the existing chat
+helper. Qwen's linked model-owner guidance says the model thinks by default;
+the control requests final lyrics directly within the existing 512-token cap.
+The lyrics prompt, exact model, temperature, stream flag and strict final
+content/stop/model checks remain unchanged. No automatic retry is introduced.
+
+MockTransport tests verify the exact request, safe rejection of unusable
+responses, and one final-lyrics-to-music route/store flow with synthetic media.
+They do not prove the live server will complete lyrics or sing them. The failed
+Mountaintop Adventure run did not retain its exact request, so default thinking
+is a hypothesis rather than a demonstrated cause of that failure. Successful
+normal-launch vocal/browser/listening acceptance (AT-04) is still pending under
+Mike's coordinated #3 run; the original probe and historical records are intact.
 
 ## Covers: FLUX, port 9006
 

@@ -175,13 +175,13 @@ class ClassProviders:
         return self._chat(prompt, None, "text", thinking=thinking)
 
     def lyrics(self, prompt: str) -> str:
-        """Song lyrics from Qwen; same endpoint/model as text() with a token
+        """Final song lyrics from Qwen in explicit non-thinking mode, with a token
         budget sized for 10-60 second songs instead of the probe's short marker.
-        The raised budget is a deliberate, documented deviation that requires
-        live evidence (A3-03 acceptance), not a guessed payload."""
+        The request uses the DJ's supported direct-response control; live
+        evidence is still required for A3-03 acceptance."""
         if not prompt.strip():
             raise ValueError("Lyrics prompt is required")
-        return self._chat(prompt, 512, "lyrics")
+        return self._chat(prompt, 512, "lyrics", thinking=False)
 
     def cover(self, prompt: str) -> MediaBytes:
         if not prompt.strip():

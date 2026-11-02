@@ -1,5 +1,31 @@
 # Test results and evidence
 
+## PR #37 integration after the lyrics fix — 2026-11-01 America/Denver
+
+Joshua/Codex; previous head `a836c832ed953d20c275c8c2ff524570c1f5d849`,
+normal merge of protected main `7fb8e1c0cda83721cb41d307271c5ebf0078e0d6`
+(includes merged #44). Both complete handoff and test-result histories are retained;
+all historical evidence/media and frozen probes remain unchanged. Genre runtime
+functions are unchanged from the previous head, and main's lyrics non-thinking
+control and strict guards coexist with the genre music controls.
+
+The initial combined offline gate ran 229 tests and failed one incoming vocal
+wire assertion: it expected the original piano probe's BPM/key/meter and music
+thinking=False. Updated only that expected music payload to omit those three
+metadata fields and use thinking=True/use_cot_caption=False, as already required
+by #37. The full wire comparison, exact lyrics, safe final-content guards,
+reasoning/credential hygiene and no reload resubmission assertions remain.
+The frozen probe itself and the Qwen lyrics thinking=False control are unchanged.
+
+After correction, locked `python scripts/dev.py --check` PASS: **229 tests run,
+one platform symlink skip**, verifier **135 files**, coverage **36 requirements /
+11 tasks / 19 cases**. Final history/source/evidence/scope and whitespace checks
+PASS. Scope is the original 21 files plus `tests/test_lyrics.py`; no added runtime
+change beyond the existing PR. No class calls, generation, retuning, media or new
+browser/listening acceptance. #35 remains open with the recorded quality limits;
+child #43 stays unchanged/stacked and Mike's #3/#6 acceptance remains separate.
+Fresh published-head CI and the requested independent JoshKozy review precede merge.
+
 ## PR #37 genre-controls reconciliation — 2026-11-01 America/Denver
 
 Joshua/Codex; prior head `7c953a712754138c4373c13fde8b75579e367cef`, merged
@@ -20,6 +46,91 @@ The partial-controls scope and provisional ratings remain unchanged; metal is
 deferred and #35 stays open. Child #43 retains the completed20-style scorecard
 and its known rock/punk misses; it was not synchronized or retargeted here.
 Fresh exact-head review and CI are required before normal protected integration.
+
+## PR #44 combined-main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex, previous head `512a7d1724e3cf4fc77b2bf22ca74216fd098603`,
+merged main `b4ec564f6854d04d6282137b62a52f5e4e2f751f` (includes #46/#45)
+on isolated `codex/pr44-sync-nov1` for existing PR #44.
+
+- Resolved only `handoff.md` and this file; both parents' complete histories
+  preserved in order. APP_CONTRACTS merged automatically with both feature notes.
+- Original lyrics provider and regressions match previous-head Git blobs exactly.
+  Incoming reference-voice app/session/UI/tests, adopted reviewer policy and
+  release-preparation evidence match main; original seven-file PR scope retained.
+  No additional provider payload, schema, media, dependency, CI or protection change.
+- Locked `python scripts/dev.py --check`: PASS, **225 tests run, one platform
+  symlink skip**; verifier **126 files**, coverage **36 requirements / 11 tasks /
+  19 cases**. Combined suite includes lyrics and reference-DJ regressions together.
+  Full-history/source/scope checks and staged/working whitespace checks PASS.
+- This is offline integration evidence. No new service calls, generation,
+  browser or human listening evidence; #3/R10/AT-04 remains open for coordinated
+  normal-launch real vocal acceptance after protected integration.
+- Matt's COMMENT on512a7d1 found no implementation defect and requested this sync.
+  Fresh exact-head approval is still required. The adopted named JoshKozy role
+  and owner-configured gateway now permit eligible independently examined verdicts;
+  neither this writer nor Mike can supply ordinary approval of their own commits.
+
+## PR #44 main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex; previous PR head `fde309e80c81b955ac7abffcc07f3c4dedaff28d`,
+merged main `226f0ae44883fe5dc80abe10ad4ea8953cc4acdb` on isolated branch
+`codex/pr44-sync-nov1` for existing `codex/a3-03-direct-lyrics` / PR #44.
+
+- Only merge conflict: `handoff.md`; retained both parents' complete histories
+  in order. Test results merged automatically; both inherited evidence strands
+  remain, with this reconciliation recorded separately.
+- App/provider/test/contract/script/asset/dependency/hook/CI/protection files are
+  byte-identical to previous PR head `fde309e`. Incoming #42 release runbook and
+  evidence blobs match main exactly. PR scope against main remains its original
+  seven files; no additional runtime behavior was introduced by reconciliation.
+- `python scripts/dev.py --check`: PASS, verifier 122 tracked files; coverage
+  structure 36 requirements / 11 tasks / 19 cases; 215 offline tests run, one
+  platform symlink skip. `git diff --check` and staged whitespace check PASS.
+- Existing lyrics regressions still pin the non-thinking request, unchanged
+  512-token budget, strict safe response guards, and MockTransport route/store
+  chain with synthetic audio and no reload resubmission. This is offline proof,
+  not successful real-class vocals or listening acceptance.
+
+Fresh exact-head approval is required: Mike's earlier approval was dismissed
+after his sync push, and both Mike and Joshua now contribute to this PR.
+Matt/Preethi/Jovi are eligible zero-commit reviewers. JoshKozy stays COMMENT-only
+until policy adoption and approval-gateway enablement. No new service requests,
+recordings, generation, assignment/protection changes or live budget spent.
+Issue #3 / R10 / AT-04 stays open for coordinated normal-launch vocal/browser
+and human listening acceptance after normal protected integration.
+
+## A3-03 lyrics direct-response candidate - 2026-11-01 America/Denver
+
+Joshua directing Codex; macOS, Python 3.12.14; branch
+`codex/a3-03-direct-lyrics`, base `cb818ae595f399f2455464de58ec5acdaa27d8fc`.
+Refs #3 / R10 / AT-04. This is offline regression evidence, not live acceptance.
+
+The only runtime change makes lyrics explicitly request non-thinking output
+through the existing chat helper. The 512-token lyrics cap, model, prompt and
+strict response guards stay unchanged; the default 192-token probe and DJ stay
+unchanged. Three added tests cover:
+
+- Exact lyrics wire payload followed by the unchanged default text probe.
+- One attempt per unusable response (reasoning-only/length, truncated final,
+  blank final, wrong model or malformed message), safe failure and no retry.
+- Production HTTP routes/store/provider flow through MockTransport: final
+  lyrics attach, an explicit music action submits those lyrics once, synthetic
+  WAV bytes attach, private markers stay out of snapshots/music, and reloading
+  submits nothing. Cover generation is stubbed; no real song is synthesized.
+
+Before the fix, the route regression failed with the safe no-lyrics-content
+`finish_reason='length'` error and the request assertions failed for the missing
+control. The simulated response deliberately depends on that control; this is
+not a prediction of the live service or proof of the earlier failure's cause.
+After the fix, all three added tests PASS. `python scripts/dev.py --check` in
+the locked environment: verifier PASS (119 files), coverage structure PASS
+(36 requirements / 11 tasks / 19 cases), **192 tests PASS**, zero failures.
+Whitespace check PASS. No class-service requests, retries or human listening.
+
+Mike remains #3 lead. Successful normal-launch Qwen lyrics -> ACE-Step vocal
+audio, browser recovery and human listening remain pending in his coordinated
+live run. #3 stays open; historical failed-run records are unchanged.
 
 ## Reference-voice UI and DJ wiring — 2026-11-01 America/Denver
 
