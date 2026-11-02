@@ -12,7 +12,8 @@ Record actual selected styles and perceived energy; if timing is missed, disclos
 Budget unchanged: text4/art2/music2/speech3,11 total; single tester coordination and stop/no-retry rules unchanged.
 Human listening for new selector outputs remains pending; the current feedback is not substituted for the installer's judgment.
 README/TEST_RESULTS explain the boundary; voice uploads stay outside the checklist, capability and gate untouched.
-Asked Joshua which actual teammate should install; no person/assignment selected or changed by this edit.
+Joshua opened the independent test to Matt/Mike/Preethi/Johanna; one successful run suffices.
+First live-install claimant runs the shared11-request ceiling; others avoid duplicate generation. No GitHub assignee change.
 No class calls, uploads, generation, browser test or independent installation performed in this session.
 Local checks PASS: original JSON run fields preserved, three-clip feedback/unchanged11-request cap, scaffold176, coverage36/11/19 and whitespace.
 Fresh exact-head CI/review required after push; no app suite repeated locally for docs/evidence-only changes.

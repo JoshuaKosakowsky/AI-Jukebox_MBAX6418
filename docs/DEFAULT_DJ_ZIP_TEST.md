@@ -16,9 +16,13 @@ Execute the procedure yourself; do not just give me manual setup instructions.
 Read docs/DEFAULT_DJ_ZIP_TEST.md from PR #59's latest head, or main after it merges.
 Read the extracted ZIP's README and AGENTS.md; follow the ordinary contributor role.
 
+This test is open to Matt, Mike, Preethi and Johanna; one successful independent
+teammate run is sufficient. Do not wait for all four or launch four live runs.
 Identify the actual teammate you are acting for. Use that teammate's authenticated
 GitHub account for the claim/result; do not switch accounts or act as JoshKozy.
-Read current #10/#6 claims and coordinate the single installer before live calls.
+Read current #10/#6 claims and post your specific live-install claim on #10.
+Re-read claims before generation. If claims race, the earlier live-install claim
+runs; later claimants do only zero-call setup/sample checks and do not duplicate it.
 If another live run is active, continue only zero-call setup/sample checks.
 
 Download the exact candidate ZIP, verify its size/hash, extract into a fresh folder,
@@ -58,15 +62,22 @@ An agent without the necessary tools reports that blocker instead of claiming
 browser/installation success from code inspection or telling the human to do all
 the steps manually.
 
-## Before starting — Joshua coordinates
+## Before starting — one volunteer claims the run
 
-1. Name **one actual teammate other than Joshua** as installer and post the start
-   claim on [#10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10).
+1. **Any one of Matt/mase7919, Mike/MSpanny, Preethi/prse4479 or Johanna/jovi1214**
+   can claim the independent test on [#10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10).
+   Joshua opened it to all four; **one successful independent run is sufficient**.
+   Do not wait for everybody or make four tests a submission requirement.
+   The installer posts their name, exact candidate and this run's limits, then
+   rechecks the thread before generation. Only the first active live-install
+   claimant generates; later claimants avoid duplicate calls. Earlier stopped
+   runs or preparation-only claims are not a new active install claim.
    Previous code contributions do not disqualify them. They must use a clean ZIP
    extraction and the documentation, not their existing clone or developer files.
    JoshKozy/Hermes is another Joshua identity, not a different teammate.
-2. Confirm Mike is not running overlapping live acceptance. Agree on this new
-   run's limit before generation: **11 generation requests maximum, no retries**.
+2. Confirm Mike is not running overlapping live acceptance. The coordinated new
+   run's ceiling is **11 generation requests maximum, no retries**, not11 per
+   volunteer. Do not start another live run after one accepted record suffices.
    This packet makes no calls and does not renew any earlier spent allowance.
 3. Pin the candidate identity below. If choosing another merged SHA, replace the
    URL/hash/size before the test. Keep that version fixed throughout the run.
