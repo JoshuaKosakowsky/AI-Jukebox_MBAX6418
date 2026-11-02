@@ -32,6 +32,23 @@
       },
       "style": "Ambient piano",
       "mood": "Calm and reflective"
+    },
+    {
+      "id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "title": "Antlercover",
+      "audio": "assets/samples/antlercover.wav",
+      "cover": "assets/samples/antlercover.png",
+      "instrumental": false,
+      "lyrics": "Snow boots heavy on the linoleum floor\nI tuck my crown behind the office door\nCoffee steam rises in the cold gray light\nTrying to blend in, keeping it tight\nThe boss calls a meeting, I stand up straight\nPraying my antlers don’t meet his fate\nA gentle nod from Sarah down the hall\nShe sees the moose, not just the wall\nWe laugh at jokes that only we understand\nIn this small town across the land\nNo hunters here, just hearts beating true\nMy place is here, and so are you\nThe winter fades with a salsa beat\nWarm brass swells beneath my feet\nI am home, finally seen",
+      "style": "Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead",
+      "mood": "Hopeful",
+      "generated_at": "2026-11-01",
+      "generation_notes": "Owner-requested backup: Alaskan office moose fitting in during winter while avoiding hunters. Original Qwen lyrics, ACE-Step 60 s vocal and visual-only FLUX artwork generated via unchanged production adapters on 45b309a. Direct-adapter creation, not browser acceptance. Exact prompts, request payloads, UTC bounds and original full hashes in results/a3-07-antlercover-generation.json. Date here is America/Denver. Joshua listened and approved audio/artwork on 2026-11-01 America/Denver; selected as the third library song.",
+      "generated_with": {
+        "lyrics": "Qwen3.6-35B-A3B",
+        "music": "ACE-Step 1.5 XL Turbo",
+        "cover": "FLUX.2 klein 4B"
+      }
     }
   ]
 }

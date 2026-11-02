@@ -1,5 +1,40 @@
 # Agent handoff
 
+## Session — A3-07 Antlercover backup/selection, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-third-vocal-integration; source45b309a, runtime base03fb2ef.
+Owner requested a separate hopeful Latin Flare backup about an Alaskan office moose blending in over winter and avoiding hunters.
+Generated Antlercover60 s vocal through unchanged production adapters; custom story lyrics and visual-only cover prompts retained.
+Actual text1/art1/music1/speech0, polls4/download1, no automatic retries; all originals/full hashes and safe payloads retained.
+Original Qwen lyrics, ACE-Step WAV and wordless FLUX office-moose PNG fully decode; no second take was needed.
+Joshua listened and replied “Approve audio and artwork”; approved candidate added to the manifest as third selected song.
+Selected set: Afterglow Avenue45 s vocal + Moonlit Reflection30 s instrumental + Antlercover60 s vocal.
+Three entries/two vocals; original audio/cover/lyrics match HTTP; independent media URLs/cross-session404/reload no jobs PASS.
+Selected media28,282,047 B within64 MB; normal launcher on8026 has all4 class roles missing, so no calls during playback checks.
+Browser all3 covers/lyrics/playback/pause/resume/reload PASS; both vocals reached full duration without errors.
+Locked scripts/dev.py --check PASS:230 tests run,1 platform skip; verifier151, coverage36/11/19; whitespace PASS.
+Evidence: results/a3-07-three-song-library.json; next exact-head hosted CI and separate reviewer are still required.
+No runtime/schema/contracts/dependencies/CI/protection edits or changes to Mike's #3/#6 work.
+Mike's original Moonlit Rehearsal remains a possible later alternate; no replacement generation of his song was requested.
+Prior48 contribution/merge credit is included from the local follow-up; preserve separate automated-review attribution.
+Next: finish checks, publish focused sample PR and request JoshKozy's separate exact-head review; freeze branch.
+After normal merge verify all3 on integrated main; #7 remains open for that acceptance and the independent final GitHub ZIP.
+
+
+## Session — PR48 protected merge, 2026-11-01 America/Denver
+Codex for Joshua; follow-up branch codex/a3-07-third-vocal-integration from main03fb2ef.
+User explicitly authorized merging48 and requested feedback/next steps.
+Hermes/JoshKozy approved exact fdc66d6; four required/platform checks PASS; base=current main1fdc422;0 unresolved threads.
+Normal guarded merge produced03fb2ef28412079218d26b0a3b606fd20a23b25b; protection unchanged, no bypass.
+Main manifest verified: Afterglow Avenue45 s vocal + Moonlit Reflection30 s instrumental; #7 remains OPEN.
+Both selections have Joshua's approval and prior production/browser/HTTP evidence; no new media/listening/service calls here.
+Merged-main CI run41388299274 completed SUCCESS; exact merged SHA03fb2ef verified.
+Recorded actual implementation/automated-review/integration credit; this follow-up handoff is local pending the next #7 change.
+Mike's Moonlit Rehearsal original WAV/PNG/Qwen lyrics/full provenance remain unpublished at this check.
+Next: get his retained bundle, verify hashes, present it to Joshua for final listening/cover selection, then integrate/test all3.
+Do not regenerate Mike's piece or infer full hashes from public prefixes; preserve his source/credit and coordinate his separate #3/#6 work.
+Hermes can review the next exact ready head; final independent ZIP acceptance remains separate and pending.
+
+
 ## Session — A3-07 selected vocal/library integration, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-07-vocal-two-prep; runtime source afd93c2, protected main1fdc422.
 PR40 merged normally at1fdc422 after Matt's approval; four merged-main checks PASS (run41384144146).

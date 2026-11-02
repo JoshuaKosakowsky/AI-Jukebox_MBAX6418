@@ -51,6 +51,8 @@ Do not add a completion row merely for a planned/configured reviewer.
 
 | 2026-11-01 | MSpanny/Mike (implementation); mase7919/Matt (independent approval); JoshuaKosakowsky (integration) | Cover-prompt integration | PR40 merged normally at1fdc422; four merged-main checks passed. Wordless instruction is integrated; later Afterglow cover still rendered incorrect lettering, so universal effectiveness is not claimed. | [PR #40](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/40), [actual cover evidence](../results/a3-07-afterglow-cover-curation.json) |
 
+| 2026-11-01 | JoshuaKosakowsky (implementation/integration); Joshua via Hermes/JoshKozy (separate automated review) | Approved vocal and sample selections | PR48 merged normally at03fb2ef after exact-head automated approval and four green checks. Bundled approved Afterglow Avenue vocal/art/lyrics and retained Moonlit Reflection; 230 tests run with one skip, real browser and HTTP catalog checks passed. Two entries/one vocal; third sample and final ZIP pending. | [PR #48](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/48), [catalog evidence](../results/a3-07-selected-library-checks.json) |
+
 Whole-app features and independent deployment remain incomplete; component entries
 above claim only their recorded scope.
 Add their evidence as the team delivers them.
