@@ -1,0 +1,462 @@
+{
+  "record": "A3-08 public GitHub source-ZIP preflight; not final or independent acceptance",
+  "audited_at_utc": "2026-11-02T19:52:44.339388+00:00",
+  "tested_commit": "78fb0071cdf44b1fe2a49498c4727832f5ff00f9",
+  "prepared_by": "JoshuaKosakowsky directing Codex",
+  "repository_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418",
+  "archive_url": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/78fb0071cdf44b1fe2a49498c4727832f5ff00f9.zip",
+  "archive_sha256": "f09cceacc3e1a0d2e0945b24468c9122264cf1fadd77a5961ab6fb06e9e2d396",
+  "archive_bytes": 31174755,
+  "public_download": {
+    "authenticated": false,
+    "http_status": 200,
+    "transport": "curl HTTPS with redirect to GitHub codeload"
+  },
+  "method": "Pinned GitHub ZIP inspected before extraction; existing check_readiness.archive_errors compares file inventory and SHA-256 of every file with git show <SHA>:<path>. Extra path/mode/CRC, credential-pattern and media checks below are offline.",
+  "checks": {
+    "archive_integrity": {
+      "status": "PASS",
+      "file_count": 169,
+      "directory_count": 14,
+      "uncompressed_bytes": 37738896,
+      "all_files_match_pinned_git_blobs": true,
+      "crc_pass": true,
+      "unsafe_paths": 0,
+      "casefold_duplicates": 0,
+      "symlinks": 0,
+      "encrypted_entries": 0
+    },
+    "public_file_safeguards": {
+      "status": "PASS within stated scan scope",
+      "files_scanned": 169,
+      "prohibited_paths": [],
+      "credential_pattern_files": [],
+      "patterns": [
+        "OpenAI-style sk token",
+        "GitHub gh token",
+        "GitHub fine-grained PAT",
+        "PEM private-key header"
+      ],
+      "private_directories_checked": [
+        ".git",
+        ".venv",
+        "__pycache__",
+        "data",
+        "data_raw",
+        "generated",
+        "logs",
+        "node_modules",
+        "outputs",
+        "recordings",
+        "temp",
+        "tmp",
+        "uploads",
+        "user_uploads",
+        "voice_references"
+      ]
+    },
+    "setup_inputs": {
+      "status": "PASS",
+      "required_files_present_nonempty": [
+        "README.md",
+        "pyproject.toml",
+        "uv.lock",
+        ".python-version",
+        ".env.example",
+        "scripts/dev.py",
+        "jukebox/__main__.py",
+        "jukebox/app.py",
+        "jukebox/web/index.html",
+        "jukebox/web/app.js",
+        "jukebox/web/style.css",
+        "contracts/app.schema.json",
+        "docs/APP_CONTRACTS.md",
+        "docs/SERVICE_CONTRACTS.md",
+        "docs/ASSIGNMENT.md",
+        "docs/TESTING.md",
+        "docs/SUBMISSION_RUNBOOK.md",
+        "docs/acceptance.json",
+        "assets/samples/manifest.json"
+      ],
+      "example_service_settings": 8,
+      "example_values_all_placeholders": true,
+      "git_metadata_bundled": false,
+      "virtual_environment_bundled": false
+    },
+    "bundled_media": {
+      "status": "PASS",
+      "selected_tracks": 3,
+      "selected_vocals": 2,
+      "selected_instrumentals": 1,
+      "selected_audio_cover_bytes": 28282047,
+      "all_audio_paths_accounted_for": true,
+      "unregistered_candidate": "Desert Drive is retained class-generated media, not loaded by the manifest; its existing cover-lettering limitation remains. No new quality approval."
+    },
+    "extraction": {
+      "status": "PASS",
+      "files_byte_identical_after_extraction": 169,
+      "git_metadata_present": false,
+      "original_files_unchanged_after_launch": 169
+    },
+    "class_only_configuration_review": {
+      "status": "PASS for static configuration boundary only",
+      "source": "jukebox/config.py",
+      "source_sha256": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+      "allowed_class_ports": {
+        "text": 9001,
+        "art": 9006,
+        "music": 9007,
+        "speech": 9008
+      },
+      "observation": "Settings.load only accepts the documented class host and corresponding role port; .env.example contains eight placeholders. No paid service or port-9000 setting is introduced by this audit.",
+      "limitation": "Static review and missing-settings startup do not independently exercise every configured feature or establish full R07/AT-02/AT-12 completion."
+    }
+  },
+  "asset_inventory": [
+    {
+      "title": "Afterglow Avenue",
+      "selected_in_manifest": true,
+      "candidate_record": "assets/samples/afterglow-avenue.candidate.json",
+      "audio": {
+        "path": "assets/samples/afterglow-avenue.wav",
+        "bytes": 8640078,
+        "sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61",
+        "frames": 2160000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "duration_seconds": 45.0,
+        "all_pcm_frames_read": true
+      },
+      "cover": {
+        "path": "assets/samples/afterglow-avenue.png",
+        "bytes": 787271,
+        "sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067",
+        "format": "PNG",
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "digests_match_retained_candidate_record": true,
+      "class_services": {
+        "lyrics": "Qwen3.6-35B-A3B",
+        "music": "ACE-Step 1.5 XL Turbo",
+        "cover": "FLUX.2 klein 4B"
+      },
+      "lyrics": {
+        "path": "assets/samples/afterglow-avenue.lyrics.txt",
+        "bytes": 346,
+        "sha256": "bde21ab90752482d8f744a13ed79b0904809b6ceefbe194462b25e25aecea532",
+        "matches_manifest": true
+      }
+    },
+    {
+      "title": "Antlercover",
+      "selected_in_manifest": true,
+      "candidate_record": "assets/samples/antlercover.candidate.json",
+      "audio": {
+        "path": "assets/samples/antlercover.wav",
+        "bytes": 11520078,
+        "sha256": "6d3455c0240e0239793f050a1a59014db66f3d0c7a5e6de38e517c053eae87e3",
+        "frames": 2880000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "duration_seconds": 60.0,
+        "all_pcm_frames_read": true
+      },
+      "cover": {
+        "path": "assets/samples/antlercover.png",
+        "bytes": 787271,
+        "sha256": "a3480a609f9b8efd4eff651a1e404ac9203e75476241cf38abdef62ae7418cd4",
+        "format": "PNG",
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "digests_match_retained_candidate_record": true,
+      "class_services": {
+        "lyrics": "Qwen3.6-35B-A3B",
+        "music": "ACE-Step 1.5 XL Turbo",
+        "cover": "FLUX.2 klein 4B"
+      },
+      "lyrics": {
+        "path": "assets/samples/antlercover.lyrics.txt",
+        "bytes": 564,
+        "sha256": "57a662e4ef4404225f511f793083c169b7591b4d1d346af3c37549e4697538ab",
+        "matches_manifest": true
+      }
+    },
+    {
+      "title": "Desert Drive",
+      "selected_in_manifest": false,
+      "candidate_record": "assets/samples/desert-drive.candidate.json",
+      "audio": {
+        "path": "assets/samples/desert-drive.wav",
+        "bytes": 3840078,
+        "sha256": "6402d2f1b3cb730d9af6f98c2bae0c71596377c116cd2b9af0c6c225c989aa26",
+        "frames": 960000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "duration_seconds": 20.0,
+        "all_pcm_frames_read": true
+      },
+      "cover": {
+        "path": "assets/samples/desert-drive.png",
+        "bytes": 787271,
+        "sha256": "423fe5d2daf1ddb4b4c0270295d1bbafe10627d6456d7da1b92f668efe37c9ab",
+        "format": "PNG",
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "digests_match_retained_candidate_record": true,
+      "class_services": {
+        "music": "ACE-Step 1.5 XL Turbo",
+        "cover": "FLUX.2 klein 4B"
+      }
+    },
+    {
+      "title": "Moonlit Reflection",
+      "selected_in_manifest": true,
+      "candidate_record": "assets/samples/moonlit-reflection.candidate.json",
+      "audio": {
+        "path": "assets/samples/moonlit-reflection.wav",
+        "bytes": 5760078,
+        "sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "bits_per_sample": 16,
+        "duration_seconds": 30.0,
+        "all_pcm_frames_read": true
+      },
+      "cover": {
+        "path": "assets/samples/moonlit-reflection.png",
+        "bytes": 787271,
+        "sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818",
+        "format": "PNG",
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "digests_match_retained_candidate_record": true,
+      "class_services": {
+        "music": "ACE-Step 1.5 XL Turbo",
+        "cover": "FLUX.2 klein 4B"
+      }
+    }
+  ],
+  "class_generation_calls": 0,
+  "limitations": [
+    "Developer-directed preflight, not another teammate independently installing/testing the final ZIP.",
+    "No browser/listening or live generation/reference-voice tests; existing results keep their original tested commits.",
+    "Credential signatures and excluded paths are bounded checks, not proof that every possible secret is absent.",
+    "Hashes establish retained bytes; class provenance and owner listening approvals come from linked historical records, not from decoding.",
+    "This exact archive predates this evidence/docs PR. Later code/media/dependency changes require a new candidate/archive check."
+  ],
+  "release_gate": {
+    "status": "EXPECTED NOT READY",
+    "exit_code": 1,
+    "all_cases_left_not_run": 19,
+    "output": [
+      "NOT READY: Missing installed_by",
+      "NOT READY: Missing environment",
+      "NOT READY: Missing launch_command",
+      "NOT READY: AT-01: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-02: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-03: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-04: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-05: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-06: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-07: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-08: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-09: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-10: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-11: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-12: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-13: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-14: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-15: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-16: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-17: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-18: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: AT-19: not verified (blocked/skipped/not-run are not passes)",
+      "NOT READY: List the actual team (at least two distinct teammates)",
+      "NOT READY: Candidate preparer and installer must be identified team members"
+    ],
+    "archive_integrity_errors": [],
+    "independent_installer_recorded": false,
+    "interpretation": "All 19 cases were deliberately left not-run in this separate blank preflight record; this is not a statement that existing project evidence has failed. Missing installer/team/case records correctly prevent a release PASS. The actual ZIP has zero archive-integrity errors."
+  },
+  "normal_extracted_launch": {
+    "tested_commit": "78fb0071cdf44b1fe2a49498c4727832f5ff00f9",
+    "command": "python scripts/dev.py --port 8032",
+    "started_at_utc": "2026-11-02T19:54:26.367933+00:00",
+    "git_metadata_present": false,
+    "env_file_present": false,
+    "masked_service_variables": [
+      "JUKEBOX_TEXT_ENDPOINT",
+      "JUKEBOX_TEXT_API_KEY",
+      "JUKEBOX_ART_ENDPOINT",
+      "JUKEBOX_ART_API_KEY",
+      "JUKEBOX_MUSIC_ENDPOINT",
+      "JUKEBOX_MUSIC_API_KEY",
+      "JUKEBOX_SPEECH_ENDPOINT",
+      "JUKEBOX_SPEECH_API_KEY"
+    ],
+    "fresh_per_checkout_environment_this_attempt": false,
+    "checks": [
+      {
+        "title": "Afterglow Avenue",
+        "status": "ready",
+        "lyrics_match_manifest": true,
+        "served_audio_and_cover_match_archive_bytes": true
+      },
+      {
+        "title": "Moonlit Reflection",
+        "status": "ready",
+        "lyrics_match_manifest": true,
+        "served_audio_and_cover_match_archive_bytes": true
+      },
+      {
+        "title": "Antlercover",
+        "status": "ready",
+        "lyrics_match_manifest": true,
+        "served_audio_and_cover_match_archive_bytes": true
+      }
+    ],
+    "class_generation_calls": 0,
+    "request_method": "GET only",
+    "scope": "Developer-directed normal launch and local HTTP/media smoke; not browser/listening/live-generation or independent installation acceptance.",
+    "status_response": {
+      "services": {
+        "text": "missing",
+        "art": "missing",
+        "music": "missing",
+        "speech": "missing"
+      },
+      "configured": false,
+      "connectivity_checked": false,
+      "generation_available": false,
+      "cover_generation_available": false,
+      "music_generation_available": false,
+      "lyrics_generation_available": false,
+      "sample_library": {
+        "count": 3,
+        "error": null
+      }
+    },
+    "result": "PASS",
+    "port_closed_after_cleanup": true,
+    "finished_at_utc": "2026-11-02T19:54:30.719688+00:00",
+    "requests": [
+      {
+        "path": "/api/health",
+        "http_status": 200,
+        "bytes": 36
+      },
+      {
+        "path": "/",
+        "http_status": 200,
+        "bytes": 7593
+      },
+      {
+        "path": "/api/status",
+        "http_status": 200,
+        "bytes": 309
+      },
+      {
+        "path": "/api/session",
+        "http_status": 200,
+        "bytes": 2947
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 8640078
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 787271
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 5760078
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 787271
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 11520078
+      },
+      {
+        "path": "/api/media/<session-media-id>",
+        "http_status": 200,
+        "bytes": 787271
+      },
+      {
+        "path": "/api/session",
+        "http_status": 200,
+        "bytes": 2947
+      }
+    ],
+    "initial_attempt": {
+      "started_at_utc": "2026-11-02T19:53:31.784079+00:00",
+      "finished_at_utc": "2026-11-02T19:53:41.228822+00:00",
+      "fresh_per_checkout_environment_created": true,
+      "packages_installed": 20,
+      "application_started_successfully": true,
+      "http_smoke_completed": false,
+      "driver_issue": "External smoke script read UTF-8 manifest with Windows default encoding; Antlercover lyric equality failed. Corrected driver to explicit UTF-8 and reran using the same new locked environment. No app/archive changes.",
+      "port_closed_after_cleanup": true
+    }
+  },
+  "case_scope": {
+    "AT-12": "Review/ZIP component supports R23-R25: excluded private paths, bounded credential scan, all four audio files accounted for by retained class-sample provenance. No new browser/runtime-upload/privacy acceptance.",
+    "AT-11": "Packaging component only: three manifest songs, two vocal lyric files and all audio/covers present and byte-matched; no new listening/browser acceptance.",
+    "AT-16": "NOT PASSED: Joshua-directed install/HTTP smoke is not another teammate independently exercising core live/browser flows.",
+    "AT-18": "Public-access and exact-commit/archive identity component verified for this historical candidate only; no Canvas submission or final freeze claimed."
+  },
+  "reproduction": [
+    "Fetch GitHub main and fast-forward the unused local main reference; candidate must be an ancestor of local main for the existing gate.",
+    "Download archive_url anonymously with curl --fail --location; compare archive_sha256 and archive_bytes.",
+    "At the candidate checkout: python scripts/check_readiness.py --template <outside-repo>/record.json. Set tested_commit and the observed archive hash/URLs/preparer only; do not fabricate installed_by or acceptance passes.",
+    "Run python scripts/check_readiness.py --release --evidence <outside-repo>/record.json --archive <downloaded.zip>. Expected NOT READY for incomplete evidence, with no ZIP mismatch errors.",
+    "Existing scripts/check_readiness.py archive_errors(zip_path, tracked, blob_reader) performs the inventory/SHA-256 comparisons; tracked = git ls-tree -r --name-only <SHA>, blob_reader = git show <SHA>:<path>.",
+    "Before extraction inspect all ZIP entries: safe_path; casefold-unique names; no encrypted or symlink entries; ZipFile.testzip() returns None. Scan every file with the existing verify_repo.py credential signatures and prohibited-path categories recorded above; never print matched values.",
+    "Decode each assets/samples WAV with wave.readframes(nframes), checking full expected PCM byte count; load each corresponding PNG with Pillow.Image.load(); compare media hashes with its .candidate.json. Vocal .lyrics.txt UTF-8 text must equal manifest lyrics.",
+    "Extract under an external scratch directory only after the path checks. Compare all 169 extracted source files byte-for-byte with archive members. No Git metadata is present.",
+    "Remove the eight JUKEBOX_* service values from the child environment, confirm no .env in extraction, and run python scripts/dev.py --port 8032. GET health, root, status, session and all six sample media URLs; compare media bytes and UTF-8 lyrics to the archive/manifest. GET session again: zero jobs. Stop only that process tree and verify the port closes."
+  ],
+  "local_validation": {
+    "readiness_tests": {
+      "run": 18,
+      "result": "PASS"
+    },
+    "sample_tests": {
+      "run": 18,
+      "result": "PASS",
+      "skipped": 1,
+      "skip": "Windows optional symlink case"
+    },
+    "environment_note": "Initial sandbox run blocked three scratch-ZIP tests with Windows Temp PermissionError. Rerun outside the sandbox passed; no tracked code changed.",
+    "scaffold_and_coverage": "PASS: 170 tracked/staged files; 36 requirements, 11 tasks, 19 cases; git diff --check clean",
+    "full_application_suite": "Not repeated locally for evidence/docs-only change; normal PR CI required."
+  }
+}

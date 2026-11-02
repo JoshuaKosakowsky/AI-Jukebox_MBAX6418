@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Public GitHub ZIP preflight (2026-11-02, main `78fb007`):
+[safe archive/media/startup record and reproduction](a3-08-source-zip-preflight.json).
+All169 archived source files match Git, three selected songs/two vocals ship,
+and normal extracted-ZIP HTTP startup passes without Git metadata or class
+settings. Zero class calls. Developer-directed; independent final ZIP/live
+acceptance is still pending and the incomplete release record stays NOT READY.
+
 Current README/UI documentation (2026-11-02, main `fcdda54`):
 [safe normal-launch record](a3-09-current-ui.json),
 [full interface/library](a3-09-current-library.jpg),

@@ -1997,3 +1997,38 @@ pending. Mike's #3 published normal-browser vocal evidence/listening and #6 real
 reference comparison, remaining parent acceptance and independent final ZIP
 are not supplied by this task. Submission remains NOT READY. Historical tests
 retain their own commits; no earlier live allowance was reused.
+
+## A3-08 public GitHub source-ZIP preflight — 2026-11-02 America/Denver
+
+Joshua/Codex audited the anonymous GitHub ZIP of main
+`78fb0071cdf44b1fe2a49498c4727832f5ff00f9`. This is a developer-directed packaging
+preflight for #8/#10, not the final independent install. [Safe record and
+reproduction](../results/a3-08-source-zip-preflight.json).
+
+| Check | Expected | Actual |
+|---|---|---|
+| Public archive/identity | Exact main SHA; every source file matches Git | HTTP200 without authentication; 31,174,755 bytes; SHA-256 `f09cceacc3e1a0d2e0945b24468c9122264cf1fadd77a5961ab6fb06e9e2d396`; all169 files match pinned blobs |
+| Safe packaging | Safe paths, no private/runtime inputs or credential-pattern hits | CRC/path/mode/casefold checks pass; zero excluded paths or signature hits; .env.example has8 placeholders; no .git or bundled environment |
+| Samples/provenance | Three selected songs, two vocals, actual audio/art/lyrics | All selected media present; WAV full PCM reads and PNG decoding pass; hashes match retained candidate records; both UTF-8 lyric files equal manifest text; selected audio/art28,282,047 bytes |
+| Extra media | Every additional audio file explained | Desert Drive remains an unregistered class-generated candidate; audio/art decode and hashes match its record; existing cover-lettering limitation retained |
+| Extracted normal launch | README launcher without Git/private machine settings | New locked20-package environment starts; corrected HTTP smoke has11 GETs, three ready samples, identical audio/covers/lyrics, zero jobs, all4 services missing; all169 original source files unchanged; server stopped and8032 closed |
+| Release gate | Incomplete acceptance cannot pass | Exit1 / NOT READY for intentionally unfilled19-case/installer/team record; zero archive-integrity errors |
+
+The first HTTP smoke stopped on a UTF-8 decoding mistake in the external test
+driver after successful installation/startup. Explicit UTF-8 fixed the driver;
+the same unchanged ZIP/app then passed. No product defect or code fix resulted.
+Credential signatures are bounded checks, not a guarantee against every secret.
+Class provenance and listening approvals retain their original source records;
+hashing/decoding does not create new quality or human acceptance.
+
+Focused offline regressions PASS:18 readiness tests and18 sample tests (one
+Windows symlink skip). Initial sandbox Temp permission errors disappeared in
+the unsandboxed rerun; no tracked test/runtime changes. Scaffold/coverage and
+whitespace pass; normal full-suite PR CI is still required.
+
+This supports the archive/review portions of R23-R25/R33 and prepares R32/R34.
+AT-12 browser behavior, AT-16 independent live/browser deployment, final AT-18
+identity/Canvas delivery, Mike's #3/#6 evidence and R31 teammate report check are
+not supplied here. Zero class/generation calls. #8/#10 stay open; submission
+remains NOT READY. A later main ZIP is a different candidate, even after this
+evidence-only PR; final testing must name its actual SHA and archive.
