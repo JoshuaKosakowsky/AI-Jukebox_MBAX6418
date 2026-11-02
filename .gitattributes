@@ -18,3 +18,4 @@
 *.toml text eol=lf
 *.lock text eol=lf
 .python-version text eol=lf
+*.lyrics.txt text eol=lf

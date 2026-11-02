@@ -1,5 +1,202 @@
 # Test results and evidence
 
+## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
+
+Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,
+normal merge of main `aac3953475b624a8101fc44eeffe3289ae84bd2d` (#47)
+in isolated `codex/pr40-sync-nov1`. Only handoff.md conflicted; both parent note
+histories and inherited test/contribution evidence content are retained in order.
+Runtime/tests/contracts/frozen probes/schema/dependencies/CI/protection match
+c2817fc exactly; the wordless cover prompt and regression guard are unchanged.
+Main's sample inventory/README/media/manifest are retained unchanged. The PR keeps
+its original four-file scope against main.
+
+Locked `python scripts/dev.py --check`: **230 tests run, one platform symlink
+skip; PASS**, verifier **136 files**, coverage **36 requirements / 11 tasks /
+19 cases**. History/content, source/scope and whitespace checks PASS. No class
+calls, generation, new media, real visual/listening or parent acceptance. Mike's
+separate authorized #3/#6 run remains pinned to a1a41d1 with its shared13-request
+ceiling. Matt's eligible exact-head review is requested after publication and CI;
+reviewer authority/protection are unchanged. #36 remains open for the separately
+coordinated real-cover evaluation; prompt wording alone does not establish it.
+
+## PR #40 reconciliation with current main — 2026-11-02 America/Denver
+
+Hermes for MSpanny (Mike); PR #40 (#36 wordless cover-art direction). Normal
+merge of protected main a1a41d1 into branch head e394db5. Only handoff.md and
+this file conflicted; both complete histories retained. All app/test files
+auto-merged (cover_prompt wordless direction + #37 music captions + #44 lyrics
++ #46 reference voices coexist; no duplicate definitions). Locked
+`python scripts/dev.py --check` PASS: 230 tests (one optional platform
+symlink skip), verifier 135 files, coverage 36/11/19, whitespace clean. CI
+pending on the new head. No provider requests or generation in this sync;
+#36's bounded FLUX visual evaluation remains a separately authorized live step.
+
+## PR #37 integration after the lyrics fix — 2026-11-01 America/Denver
+
+Joshua/Codex; previous head `a836c832ed953d20c275c8c2ff524570c1f5d849`,
+normal merge of protected main `7fb8e1c0cda83721cb41d307271c5ebf0078e0d6`
+(includes merged #44). Both complete handoff and test-result histories are retained;
+all historical evidence/media and frozen probes remain unchanged. Genre runtime
+functions are unchanged from the previous head, and main's lyrics non-thinking
+control and strict guards coexist with the genre music controls.
+
+The initial combined offline gate ran 229 tests and failed one incoming vocal
+wire assertion: it expected the original piano probe's BPM/key/meter and music
+thinking=False. Updated only that expected music payload to omit those three
+metadata fields and use thinking=True/use_cot_caption=False, as already required
+by #37. The full wire comparison, exact lyrics, safe final-content guards,
+reasoning/credential hygiene and no reload resubmission assertions remain.
+The frozen probe itself and the Qwen lyrics thinking=False control are unchanged.
+
+After correction, locked `python scripts/dev.py --check` PASS: **229 tests run,
+one platform symlink skip**, verifier **135 files**, coverage **36 requirements /
+11 tasks / 19 cases**. Final history/source/evidence/scope and whitespace checks
+PASS. Scope is the original 21 files plus `tests/test_lyrics.py`; no added runtime
+change beyond the existing PR. No class calls, generation, retuning, media or new
+browser/listening acceptance. #35 remains open with the recorded quality limits;
+child #43 stays unchanged/stacked and Mike's #3/#6 acceptance remains separate.
+Fresh published-head CI and the requested independent JoshKozy review precede merge.
+
+## PR #37 genre-controls reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex; prior head `7c953a712754138c4373c13fde8b75579e367cef`, merged
+main `b4ec564f6854d04d6282137b62a52f5e4e2f751f` on isolated codex/pr37-sync-nov1.
+Only handoff.md conflicted. Both complete handoff, test-result and contribution
+histories survive in order; other files merged normally. Existing genre-request
+and caption functions are unchanged. Main's reference-voice code/tests, adopted
+role policy, schema and dependencies remain intact. All previous evidence blobs
+are preserved and the PR retains its original21-file scope.
+
+Locked `python scripts/dev.py --check`: PASS, **226 tests run, one platform
+symlink skip**; verifier **135 files**, coverage **36 requirements / 11 tasks /
+19 cases**. Combined genre/reference/DJ regressions pass. Final history/source/
+evidence/scope and staged/working whitespace checks pass. No new service requests,
+generation, retuning, media, browser or human listening observations.
+
+The partial-controls scope and provisional ratings remain unchanged; metal is
+deferred and #35 stays open. Child #43 retains the completed20-style scorecard
+and its known rock/punk misses; it was not synchronized or retargeted here.
+Fresh exact-head review and CI are required before normal protected integration.
+
+## PR #44 combined-main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex, previous head `512a7d1724e3cf4fc77b2bf22ca74216fd098603`,
+merged main `b4ec564f6854d04d6282137b62a52f5e4e2f751f` (includes #46/#45)
+on isolated `codex/pr44-sync-nov1` for existing PR #44.
+
+- Resolved only `handoff.md` and this file; both parents' complete histories
+  preserved in order. APP_CONTRACTS merged automatically with both feature notes.
+- Original lyrics provider and regressions match previous-head Git blobs exactly.
+  Incoming reference-voice app/session/UI/tests, adopted reviewer policy and
+  release-preparation evidence match main; original seven-file PR scope retained.
+  No additional provider payload, schema, media, dependency, CI or protection change.
+- Locked `python scripts/dev.py --check`: PASS, **225 tests run, one platform
+  symlink skip**; verifier **126 files**, coverage **36 requirements / 11 tasks /
+  19 cases**. Combined suite includes lyrics and reference-DJ regressions together.
+  Full-history/source/scope checks and staged/working whitespace checks PASS.
+- This is offline integration evidence. No new service calls, generation,
+  browser or human listening evidence; #3/R10/AT-04 remains open for coordinated
+  normal-launch real vocal acceptance after protected integration.
+- Matt's COMMENT on512a7d1 found no implementation defect and requested this sync.
+  Fresh exact-head approval is still required. The adopted named JoshKozy role
+  and owner-configured gateway now permit eligible independently examined verdicts;
+  neither this writer nor Mike can supply ordinary approval of their own commits.
+
+## PR #44 main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex; previous PR head `fde309e80c81b955ac7abffcc07f3c4dedaff28d`,
+merged main `226f0ae44883fe5dc80abe10ad4ea8953cc4acdb` on isolated branch
+`codex/pr44-sync-nov1` for existing `codex/a3-03-direct-lyrics` / PR #44.
+
+- Only merge conflict: `handoff.md`; retained both parents' complete histories
+  in order. Test results merged automatically; both inherited evidence strands
+  remain, with this reconciliation recorded separately.
+- App/provider/test/contract/script/asset/dependency/hook/CI/protection files are
+  byte-identical to previous PR head `fde309e`. Incoming #42 release runbook and
+  evidence blobs match main exactly. PR scope against main remains its original
+  seven files; no additional runtime behavior was introduced by reconciliation.
+- `python scripts/dev.py --check`: PASS, verifier 122 tracked files; coverage
+  structure 36 requirements / 11 tasks / 19 cases; 215 offline tests run, one
+  platform symlink skip. `git diff --check` and staged whitespace check PASS.
+- Existing lyrics regressions still pin the non-thinking request, unchanged
+  512-token budget, strict safe response guards, and MockTransport route/store
+  chain with synthetic audio and no reload resubmission. This is offline proof,
+  not successful real-class vocals or listening acceptance.
+
+Fresh exact-head approval is required: Mike's earlier approval was dismissed
+after his sync push, and both Mike and Joshua now contribute to this PR.
+Matt/Preethi/Jovi are eligible zero-commit reviewers. JoshKozy stays COMMENT-only
+until policy adoption and approval-gateway enablement. No new service requests,
+recordings, generation, assignment/protection changes or live budget spent.
+Issue #3 / R10 / AT-04 stays open for coordinated normal-launch vocal/browser
+and human listening acceptance after normal protected integration.
+
+## A3-03 lyrics direct-response candidate - 2026-11-01 America/Denver
+
+Joshua directing Codex; macOS, Python 3.12.14; branch
+`codex/a3-03-direct-lyrics`, base `cb818ae595f399f2455464de58ec5acdaa27d8fc`.
+Refs #3 / R10 / AT-04. This is offline regression evidence, not live acceptance.
+
+The only runtime change makes lyrics explicitly request non-thinking output
+through the existing chat helper. The 512-token lyrics cap, model, prompt and
+strict response guards stay unchanged; the default 192-token probe and DJ stay
+unchanged. Three added tests cover:
+
+- Exact lyrics wire payload followed by the unchanged default text probe.
+- One attempt per unusable response (reasoning-only/length, truncated final,
+  blank final, wrong model or malformed message), safe failure and no retry.
+- Production HTTP routes/store/provider flow through MockTransport: final
+  lyrics attach, an explicit music action submits those lyrics once, synthetic
+  WAV bytes attach, private markers stay out of snapshots/music, and reloading
+  submits nothing. Cover generation is stubbed; no real song is synthesized.
+
+Before the fix, the route regression failed with the safe no-lyrics-content
+`finish_reason='length'` error and the request assertions failed for the missing
+control. The simulated response deliberately depends on that control; this is
+not a prediction of the live service or proof of the earlier failure's cause.
+After the fix, all three added tests PASS. `python scripts/dev.py --check` in
+the locked environment: verifier PASS (119 files), coverage structure PASS
+(36 requirements / 11 tasks / 19 cases), **192 tests PASS**, zero failures.
+Whitespace check PASS. No class-service requests, retries or human listening.
+
+Mike remains #3 lead. Successful normal-launch Qwen lyrics -> ACE-Step vocal
+audio, browser recovery and human listening remain pending in his coordinated
+live run. #3 stays open; historical failed-run records are unchanged.
+
+## Reference-voice UI and DJ wiring — 2026-11-01 America/Denver
+
+Joshua/Codex, branch `codex/a3-06-reference-dj-ui`, base main `226f0ae`.
+Refs #6 / R15-R16 / AT-08; component regression evidence only. Real Chatterbox
+voice matching, reference-path service acceptance and human listening are unrun.
+
+- Locked `python scripts/dev.py --check`: PASS, 222 tests (one optional skip),
+  tracked-file verifier 124 files, coverage structure 36 requirements / 11 tasks /
+  19 cases. Whitespace check PASS. Default/provider payloads and shared schema unchanged.
+- Nine new HTTP/store tests: MP3/WAV -> start/advance/retry -> speech reference;
+  default omission; cross-session/missing/consumed IDs; rejected/busy/cached paths;
+  text/speech/media-capacity failures; expiry/delete; atomic claims and late job
+  completion after skip. References/prompts released; no upload read route/snapshot leak.
+- Production-function Node probe: eight scenarios for chooser/clear, fresh
+  one-shot uploads, no local filename transmission, passive reads, cached/failed
+  jobs, rejection cleanup, selection change during upload, coalesced auto/Skip,
+  and explicit recovery after an automatic-advance failure. No network.
+- Actual in-app browser through the normal `python -m jukebox --port 8126`
+  entrypoint, wrapped outside the repo with synthetic providers and outbound HTTP
+  blocked. Created four synthetic tracks using the form and queued them. Invalid
+  clip: rejected before speech. MP3 then WAV: recording provider observed
+  `audio/mpeg`, then `audio/wav`; cached first intro was not regenerated. Cleared
+  selection: next new intro used default. Bad clip on natural advance halted once;
+  clear + Resume recovered to default speech. Reload retained four queue entries,
+  cleared the reference chooser and made no new speech calls. Total synthetic
+  speech calls: four; reference types `[audio/mpeg, audio/wav, null, null]`.
+- No class requests, real recordings, samples, credentials or generated media
+  added. Synthetic files, launcher wrapper and preview remain outside the repo.
+  Restricted-sandbox FastAPI tests stalled; the same checks completed outside it.
+
+Next: eligible code review and protected merge, then bounded real MP3/WAV/default
+normal-launch and listening acceptance on integrated main before closing #6.
+
 ## Local setup - 2026-10-15 America/Denver
 
 Scope: repository scaffold only. No service calls, generated samples, or app
@@ -551,10 +748,83 @@ rejected card's Generate lyrics re-enables after the holder completes and a
 Refresh status (no reload); and a mid-chain reload (lyrics job held, then
 released) leaves submit_music at zero — no auto-continuation after reload.
 
+## A3-06 temporary reference voices - 2026-10-30 America/Denver
+
+Tester: MSpanny directing Hermes. Branch codex/a3-06-reference-voices; base
+main 7d003c6 (post-#21 merge). Scope: R15/R16 provider-layer work per the issue
+handoff — temporary MP3/WAV references, validation, cleanup/recovery and
+default-voice fallback. Final DJ integration/acceptance stays blocked on #5.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Suite passing; coverage retained | PASS, 137 tests (128 baseline + 9 new), verifier 71 files, coverage 36/11/19 |
+| Multipart MP3 and WAV uploads over real HTTP | 201 {id, media_type}; validated fingerprints; bytes never in snapshots | PASS, audio/wav and audio/mpeg accepted; reference id and bytes absent from every snapshot dump |
+| Rejections: non-audio bytes, truncated RIFF, >5 MB (patched), WAV outside 1-60 s | 422 before any storage | PASS for all four cases; zero tracks/jobs created |
+| Consumption and cleanup | take_reference consumes exactly once; DELETE works; unknown/foreign ids 404; session expiry drops references | PASS through real HTTP and store-level tests; GET on the reference path is 405 (no read route) |
+| Provider: speech without reference | Frozen probe payload byte-identical | PASS (MockTransport, same probe input) |
+| Provider: speech with reference | Same request plus ref_audio base64 data URI; WAV decodes | PASS (MockTransport) |
+| Dependency | python-multipart added (0.0.32) to locked env for multipart parsing | pyproject/uv.lock updated; `uv run --locked` installs it |
+
+Design: references are session-scoped memory only — never in the session
+snapshot (no contract change), never on disk, no read route, consumed once by a
+speech job, expired with the session. Validation uses content fingerprints, not
+client-declared types. The Chatterbox reference path (ref_audio as a base64
+data URI in the frozen JSON request) is schema-inspected only; live class
+verification is required before AT-08 closes and remains pending (no .env on
+this machine; #5 integration will provide the normal-entrypoint flow, after
+which MP3 AND WAV variants must be demonstrated live). No uploads or voice
+references are committed, per the repo safeguards.
+
 Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
+
+## A3-06 review round 2: no-disk multipart + structural audio validation (PR #26 head)
+
+Following Joshua's independent review (CHANGES_REQUESTED: multipart temp-file spooling and
+header-only/truncated audio accepted), the upload path was reworked and hardened:
+
+1. Multipart bodies are parsed fully in memory (python-multipart callbacks over a
+   capped raw stream, content-length and stream-caps abort at 5 MB + overhead)
+   - the framework form parser and its 1 MB disk spooling are never used. Both
+tempfile.SpooledTemporaryFile and tempfile.TemporaryFile are mocked to raise in
+the new regressions, proving no disk touch for multi-MB and oversized uploads.
+2. WAV validation is now structural (byte walk of RIFF chunks): PCM fmt chunk and
+a physically present, non-empty data chunk are required; declared data that
+overruns the upload is rejected as truncated; duration is derived from the real
+data chunk; trailing metadata bytes after the data chunk are tolerated. Non-PCM
+and chunk-less files are rejected.
+3. MP3 validation requires an ID3v2 header whose declared size fits the upload,
+plus at least one reachable MPEG audio frame (frame sync within 64 KB after the
+tag); bare ID3, tag-only and truncated MP3s are rejected.
+
+Evidence: 16 reference tests (7 new regressions) plus the full offline suite:
+144 tests, verifier 72 files, coverage 36 requirements / 11 tasks / 19 cases,
+all PASS. Live Chatterbox acceptance of real MP3/WAV references stays pending
+on #5 integration (unchanged, honest scope).
+
+## A3-06 review rounds 4-5: duplicate-chunk and ordering hardening (PR #26 head)
+
+Following Joshua's round-4 (22:06, head ab690f1) and round-5 (05:09, head
+d35d4b1) independent reviews, one-format/one-data invariants were added to the
+WAV chunk walker (jukebox/sessions.py):
+
+1. A second `data` chunk is rejected 422 — the walker previously kept only the
+   LAST chunk, so a 61 s + 1 s dual-chunk file validated as ~1 s (round-4).
+2. A second `fmt ` chunk is rejected 422 — the walker previously used the LAST
+   fmt chunk, so a 61 s PCM file followed by a coherent 16 kHz fmt computed as
+   ~30.5 s and slipped past the 60-second limit (round-5).
+3. Audio `data` before the `fmt` chunk is rejected 422 (Python's wave reader
+   also rejects that ordering) (round-5).
+4. The round-4 fixture's RIFF length no longer over-counts the data-chunk
+   headers (RIFF size = actual file length minus 8).
+
+Regressions reproduce each review case exactly (61 s + 1 s dual data -> 422;
+61 s + 16 kHz second fmt -> 422; data-first -> 422) with a normal 3-second WAV
+positive control (201). Gate: `python scripts/dev.py --check` PASS — 212 tests
+(23 reference), verifier 119 files, coverage 36 requirements / 11 tasks /
+19 cases. Live Chatterbox acceptance of real MP3/WAV stays pending (unchanged).
 
 ## A3-05 default AI DJ queue - 2026-10-30 America/Denver
 
@@ -791,6 +1061,34 @@ performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
 
+## A3-10 release-gate mechanics rehearsal - 2026-11-01 America/Denver
+
+Tester: MSpanny directing Hermes. Preparation only — **not** a final freeze or
+independent acceptance (Jovi keeps lead; a different teammate must run the
+final install). Ran the release-gate mechanics against the CURRENT main ZIP
+(`cb818ae595f399f2455464de58ec5acdaa27d8fc`), downloaded from the exact GitHub
+archive URL, and recorded the gate's diagnostics as the open-blocker list.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Archive identity | Exact 40-SHA URL archive; recorded sha256/bytes/entries | PASS: 10,980,156 bytes; sha256 `c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48`; 133 entries = 14 dirs + 119 files |
+| Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
+| No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
+| Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY, exit 1): `Missing public_access_checked_at`; `Independent ZIP installer must differ from candidate preparer`; all 19 AT-cases unverified; `AT-16 must identify the actual independent ZIP installer as tester`; ≥2 team rows with contribution+review evidence; three distinct approved samples with distinct audio/cover. Exact command + verbatim output are embedded in the record for reproducibility; independently re-run on 2026-11-01 against the same ZIP, the gate output is byte-identical (trailing newline included) with exit 1 |
+
+Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
+the current tree. Per review feedback the person identifiers are canonical
+(`installed_by == prepared_by == "MSpanny"` by design so the installer-
+separation fence fires), no placeholder prose is left in gate-read fields
+(nonempty text would suppress `Missing ...` diagnostics), and the record embeds
+the exact gate command and verbatim output. The captured NOT READY diagnostics
+are precisely the final freeze's remaining gates — the same open items tracked
+in #3/#6/#7 plus the independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure
+(preflight, then independent install, then the final PASS gate).
+No provider request, connectivity check or generation was performed.
+
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
 
 Context: Joshua's bounded live vocal attempt on main 770ce62 (PR #28) failed
@@ -913,7 +1211,6 @@ the initial simultaneous-tab setup was discarded and cover rerun from scratch.
 class-service requests, user recordings or human listening. These are focused
 offline recovery checks; #8's broader normal-launch acceptance stays open.
 
-
 ## A3-05 returned-blocker diagnosis and retry limits - 2026-10-30 America/Denver
 
 Codex for Joshua, diagnostic against Matt's draft c4404dd. Explicit separate
@@ -943,7 +1240,6 @@ deliberate request, and the active-speech limit applies across browser sessions.
 Full locked checks: 162 tests PASS (159 prior + 2 HTTP + 1 optional Node probe),
 repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
 Joshua contributes here and cannot supply independent approval. #5 stays open.
-
 
 ## A3-07 sample-library loader - 2026-10-30 America/Denver
 
@@ -976,7 +1272,6 @@ loaded tracks plus session-local replacement with original catalog bytes preserv
 All 28 existing HTTP cases also passed from the isolated source copy with the
 three-entry synthetic manifest present; their explicit fixtures keep them independent
 of Jovi's eventual selection. The approved tracked manifest remained unchanged.
-
 
 ## A3-08 normal-launch failure and recovery - 2026-10-30 America/Denver
 
@@ -1028,6 +1323,187 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
 
+## A3-06 review round 3: complete-frame MP3, header-order parity, coherent PCM (PR #26 head)
+
+Joshua (round 3) and Matt (Issue #5/#6 workflow) independently reproduced three further upload-validation
+defects on the round-2 head; all three fixed with regressions (165 tests, verifier 99 files, gate PASS):
+
+1. MP3 validation now requires a COMPLETE frame, not a sync: the frame length is computed from the
+   header (MPEG version/layer bitrate and sample-rate tables, padding) and the upload must physically
+   contain those bytes. Three-byte and four-byte headers with no payload, with or without an ID3 tag,
+   are 422; a 417-byte synthetic MPEG-1 Layer III frame (128 kbps / 44.1 kHz) is the positive control.
+2. Multipart part headers no longer accumulate across headers (each header ends with a buffer clear,
+   not the part end), so a part whose Content-Type precedes Content-Disposition validates exactly like
+   the reverse order (regression posts the identical WAV in both orders).
+3. WAV headers must be internally coherent PCM: byte_rate == sample_rate*channels*bits//8 and
+   block_align == channels*bits//8; duration derives from the physical frame count, so a forged
+   byte-rate field cannot bypass the 60-second limit (regression alters only bytes 28:32 of a real
+   61 s WAV and expects 422 both ways).
+
+Scope unchanged: no-read route, snapshot invisibility, one-shot consumption, session isolation,
+no-disk multipart, and live Chatterbox MP3/WAV acceptance still pending after #5 integration.
+
+## A3-35 genre-conditioning correction — 2026-10-30 America/Denver
+
+Joshua/Codex, branch codex/a3-35-genre-controls from main 1faacd0; Refs #35.
+Production inherited 80 BPM/C Major/4/4 from the historical piano probe for every
+style. Removed only those three fields and strengthened instrumental/vocal
+prompts to request genre-characteristic groove/tempo/rhythm/instruments. No
+manual genre mapping, new dependency, public schema or model switch.
+
+- New production-store + real-adapter/MockTransport regression covers contrasting
+  ambient/drum-and-bass styles in instrumental and vocal modes. All four cases
+  fail on baseline because fixed fields are sent, and pass after the correction.
+  Duration/lyrics/batch/WAV/remaining flags and frozen probe immutability checked.
+- Full locked offline suite: 146 tests PASS, repository 104 files and coverage 36/11/19 PASS.
+- Read-only deployed schema/health plus matching upstream source inspected;
+  missing metadata is supported and music LM reports initialized. It may add
+  planning time even with thinking=false. No generation occurred in discovery.
+
+Bounded real comparison on code commit ddf9e61: **2 music submissions, 4 polls,
+2 downloads, 0 art/text/speech/retries**, both successful. Reused recorded Moonlit
+Reflection (Ambient piano / Calm and reflective / 30 s) and Desert Drive (Upbeat
+funk / Energetic and optimistic / 20 s) settings; original class audio was retained
+as baseline, with no baseline regeneration. New WAVs fully decoded non-silent
+48 kHz stereo PCM16 at exactly 30/20 s. Service metadata returned 97 BPM in 3/4 and 120 BPM in 4/4
+respectively; these are reported metadata, not measured beat/tempo estimates.
+
+Joshua listened to the two new clips and directly confirmed: **"Yes, clearer
+genre/rhythm difference."** Scope is these two outputs. Safe exact counts,
+request controls, metadata, hashes and listening attribution are in
+[a3-35-genre-comparison.json](../results/a3-35-genre-comparison.json).
+Raw audio remains ignored under results/raw, not approved sample media.
+This verifies changed-request compatibility and a limited listening comparison;
+normal-launch/browser checking on integrated main and broad genre quality remain
+unchecked. Preethi's #27 test and budget were separate and untouched.
+
+### Broader user feedback and planning revision — #35 / PR #37
+
+Joshua tested the normal app running PR head 666d44b and reported:
+
+- **Iced Coffee / Heavy Metal / Angsty**: not metal; sounded like upbeat dungeon
+  music from a video game.
+- **Yellow Sundress / Rap / Upbeat**: sounded like wind-instrument snake-charming
+  music rather than the expected rap.
+- Latin was only okay; country worked well (exact title/mood not recorded).
+
+These are attributed user observations, not automated genre classification.
+Duration and mode for those attempts were not supplied; no missing vocals are
+inferred. The original two-clip endorsement is retained with its narrow scope.
+#35 remains unresolved, and PR #37 was returned to draft while revising.
+
+The revision enables documented ACE-Step caption enhancement and semantic
+planning, replacing generic chat-style prompts with compact genre-first audio
+captions. Theme/mood guide musical motifs/dynamics; vocal delivery follows the
+style instead of always requiring singing. Maximum allowed title/style/mood
+inputs all fit the documented 512-character caption limit without truncation.
+Four Heavy Metal/Rap x instrumental/vocal request cases and two initial
+caption-limit cases fail before and pass after the planning change; these verify request wiring, not
+musical quality. Existing duration/lyrics/single-job/batch/probe invariants hold. Full locked
+`python scripts/dev.py --check`: **147 tests PASS**, verifier105 files and
+coverage36 requirements/11 tasks/19 cases PASS; Node and startup checks included.
+
+Revision comparison on immutable code commit **9871e7b**: exactly **2 music
+submissions, 7 polls, 2 downloads; 0 art/text/speech/retries**. Both user title/style/mood
+examples completed as 30-second instrumentals (chosen test duration/mode, not
+inferred original settings). Full non-silent 48 kHz stereo PCM16 decode passed.
+The service reported 143 BPM / G major / 4 for metal and 100 BPM / D major / 4
+for rap; these are response metadata, not measured beats or genre judgments.
+The returned prompt echoed the request and no internal planning/rewriting trace
+was captured; accepted flags alone do not prove the audible result.
+
+[Safe revision record](../results/a3-35-genre-fidelity.json) includes exact prompts,
+flags, counts, timing and hashes; raw clips remain ignored/private and were shown
+to Joshua. His direct listening verdict: **"Neither is convincing." Both genre
+checks FAIL.** No separate theme/mood endorsement was supplied. Stop condition
+reached: no retries, replacements or further automated generation in this run.
+Normal-launch/main-browser and vocal/rap delivery acceptance remain unverified.
+
+Following that failure, the final offline revision supplies concrete arrangement
+cues for exact bare Metal/Heavy Metal and Rap/Hip-hop labels: distorted electric
+guitar riffs, palm-muted chugs, electric bass and forceful/double-kick drums for
+metal; kick/bass, snare backbeat, syncopated hi-hats and a sparse hook with room
+for vocal flow for rap. These are deliberate app defaults for the two reported
+failures, not universal genre definitions. Detailed/freeform styles and blends
+retain their own instructions. Theme/mood still shape dynamics and motifs.
+The caption limits, aliases and freeform-style preservation have offline
+regressions. Final full locked check: **148 tests PASS**, verifier/coverage/
+whitespace PASS, including actual startup and Node handler checks.
+**This concrete-cue version has no live/listening acceptance yet.**
+
+### Concrete-cue listening comparison — 2026-10-30 America/Denver
+
+Joshua explicitly requested one new Iced Coffee metal clip and one Yellow
+Sundress rap clip using the latest cues. This was a new bounded authorization,
+separate from the earlier stopped/failed planning-only run. Immutable code head
+**e62fe17**; production music_prompt + ClassProviders, **2 music submissions,
+6 polls, 2 downloads; 0 art/text/speech/retries**. No source changes or app restart.
+
+Both30s instrumentals used the original exact title/style/mood inputs and the
+concrete guitar/riff/drum versus hip-hop kick/bass/snare/hi-hat cues. Both fully
+decoded as non-silent48kHz stereo PCM16. Joshua listened and replied **"Neither
+is convincing." Both genre checks FAIL again.** No theme/mood endorsement is
+inferred, and generation stops at the two requested clips.
+
+[Safe concrete-cue record](../results/a3-35-concrete-cues.json) preserves exact
+submitted captions/flags, counts, hashes and attributed listening. Earlier
+failed clips/records are retained; no seed-matched causal comparison is claimed.
+Raw media stays ignored/private and was rendered in chat for listening.
+
+Read-only discovery afterward: health reports music and LM initialized; model
+listing advertises `acestep/acestep-v15-xl-turbo`. This establishes advertised
+configuration, not internal prompt/flag application. Returned captions echoed
+submitted prompts; no internal conditioning trace exists here. Next useful
+investigation is a genre-only control and service-conditioning verification,
+not a claim that more prompt words already solved it. #35 stays open/#37 draft.
+No extra generation, retries, cover changes, full-suite rerun or integrated-main
+acceptance in this comparison. Runtime/tests remain the148-test checked code.
+
+### Shared music request path and service controls — 2026-10-30 America/Denver
+
+Joshua requested an investigation across genres. Isolated branch
+codex/a3-35-shared-conditioning from2874e2c; runtime unchanged. New local route
+regression drives HTTP -> SessionStore -> real ClassProviders/MockTransport for
+Baroque chamber strings, jazz waltz and acoustic bluegrass. Full input settings
+reach the music wire, each distinct decoded fixture attaches to its own track,
+and reload/media reads make no extra submissions. **149 locked tests PASS**,
+including Node/startup checks; no live genre acceptance from these fixtures.
+
+Pinned official source maps request.prompt to GenerationParams.caption and
+forwards thinking/CoT flags. It separately preserves original_prompt for the
+result response, so an unchanged prompt echo is not evidence of ignored
+conditioning. This is an upstream source trace, not remote-code attestation.
+Deployed schema raw232eda8e remains unchanged and has no typed release body;
+inventory reports default/loadedXL Turbo and initialized5Hz4B LM.
+
+Bounded live diagnostic on immutable **088db31**: **2 music-service format_input
+calls,2 music submissions,6 polls,2 downloads;0 art/Qwen9001/speech/retries**.
+Two20s instrumental, title/theme-free captions: solo acoustic grand piano and
+fast breakbeat-driven drum and bass. Production adapter controls were preserved
+except the explicit diagnostic seed641835/use_random_seed=false; both results
+reported that seed. No production seed/default, app/session or parameter change.
+
+Formatter responses distinguished the targets (81 vs176 BPM) and rewrote both
+captions. It also added unspecified piano and melancholic mood to DnB; this
+shows added choices, not definitive violation of the acoustic-piano exclusion.
+Formatted captions/lyrics were NOT forwarded into music generation; exact lyrics
+normalization was not captured beyond the unchanged-marker boolean. Formatter
+metadata is not the music job metadata or a measured audio tempo.
+
+Both music WAVs fully decoded non-silent48kHz stereoPCM16, exactly20s, with
+different PCM hashes. The music jobs reported46 vs200 BPM (response metadata).
+Joshua listened and directly confirmed **"Both match their descriptions"** for
+these two controls. This establishes limited prompt-following capability, not
+all-genre quality, a single causal fix, or resolution of the metal/rap failures.
+Fixed DiT seed does not control every LM sampling source. No further generation.
+
+[Safe exact audit record](../results/a3-35-shared-conditioning.json) includes
+prompts, formatter text, controls/counts, hashes, source references and listening.
+Raw audio remains ignored/private. No request-loss or media-mispairing defect
+was found in the checked app path; the remote internal conditioning trace is
+unavailable. Next comparison: same genre and request controls, current template
+vs a concise musical description. That comparison is proposed, not executed.
+#35 stays open and #37 draft. No universal genre fix or integrated-main acceptance.
 
 ## A3-05 Qwen correction - 2026-10-30 America/Denver
 
@@ -1056,7 +1532,6 @@ or approved sample selection. No raw generated text/audio or keys retained in Gi
 verifies speech attachment through real adapters and HTTP/store orchestration;
 it is **not** normal-launch browser/control/listening or integrated-main acceptance.
 Matt still owns that remaining AT-07/AT-09 work; #5 stays open and #27 stays draft.
-
 
 ## A3-05 integration with merged sample loader - 2026-10-30 America/Denver
 
@@ -1150,3 +1625,338 @@ Issue #5's implementation and acceptance are complete; PR #27 is DRAFT and
 awaiting mase7919's readiness decision. Project-wide items outside Issue #5
 (vocal lyrics, reference voices, final approved samples, independent ZIP
 testing) remain open and are not claimed here.
+
+## #36 Wordless cover-art direction - 2026-10-31
+
+Issue #36 (repeatedly misspelled generated lettering, e.g. the Desert Drive
+"DESSERT DRIIVE" record and Joshua's b7d97a0 review): the production cover
+prompt now LEADS with a text-free artwork direction (no words/typography/
+captions/logos/titles drawn in the image, title expressed visually only),
+replacing the weaker "no lettering" tail and dropping the "album cover"
+framing that invited rendered title typography. The frozen art request probe
+(contracts/service-probes.json), the original starter prompt
+(docs/ASSIGNMENT.md), retry/replacement behavior and title/style/mood theme
+relation are all unchanged. Offline verification only: 190 tests (1 new static
+guard), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness is NOT
+yet established - per the issue, no prompt guarantees typography; the bounded
+FLUX visual evaluation remains a separately authorized live step (no provider
+request or generation budget was spent by this change).
+
+### Within-genre caption comparison stopped — 2026-11-01 America/Denver
+
+User assigned #35 again. Integrated main cb818ae into draft PR37; only test-results
+and handoff notes conflicted. DJ playback, Qwen diagnostic guards and all prior
+scoped genre results are retained. Combined locked checks on source **c97045f**:
+**193 tests PASS, zero skips**, verifier123 / coverage36-11-19 / whitespace PASS.
+No new production caption, seed, model, contract, dependency or genre preset change.
+
+Announced plan (PR37 comment6561243200): two20s Heavy Metal / Angsty instrumentals,
+current Iced Coffee caption vs the previously proposed concise description; only
+prompt changes, requested seed641835/use_random_seed=false for both. This is a
+harness-only seed override and cannot control every LM sampling source.
+
+**Run stopped after1 submission /3 polls /0 downloads;0 other services/retries.**
+Production poll_music accepted the first completed XL-Turbo job. The new diagnostic
+then required a top-level `seed`, which is the wrong metadata field. Pinned
+upstream cache output uses `seed_value` and nested `metas`; its store fallback
+can omit seed information. No raw response was retained, so the actual returned
+seed cannot be reconstructed here. This is a diagnostic defect, not evidence of
+a service seed mismatch or a failed music generation. No B job, replacement,
+audio download, human listening or musical-quality conclusion followed.
+
+[Exact stopped-run record](../results/a3-35-caption-ab.json) retains the submitted
+caption/controls, counts, source links and limits. Corrected diagnostic was checked
+OFFLINE against the documented response shape, missing/different seed stop paths
+and one-shot accounting guards, with zero network calls. A fresh pair remains
+unexecuted after the stop; prior failures stay failed, #35 open / PR37 draft.
+
+### Corrected caption pair — 2026-11-01 America/Denver
+
+Joshua explicitly authorized a fresh two-clip comparison after the stopped run:
+"Run the corrected two-clip comparison." New claim/budget: PR37 comment6561353866;
+source **2eb81db**, runtime identical to the193-test checked c97045f. Earlier
+one-job stop remains preserved separately; this is not a retry of that record.
+
+Exactly **2 music submissions /6 polls /2 downloads;0 format/art/text/speech/retries**.
+Both20s instrumentals use Heavy Metal / Angsty context: A is the actual Iced Coffee
+app caption; B is the previously proposed concise musical description without
+the title/context wrapper. The actual captured requests differ **only in prompt**;
+all other fields match, including seed641835/use_random_seed=false. Both results
+reported the requested seed. No production defaults or app caption changes.
+
+Both WAVs fully decoded, non-silent48kHz stereoPCM16, exactly20s, with distinct PCM.
+These checks establish complete media and controlled requests, not genre quality.
+Clips were rendered inline for Joshua. **Both human genre checks FAIL.** A has
+the better metal rhythm; B starts heavier then turns light/happy. Neither has
+the expected heavy guitar riff and bass/double-bass impact; no positive angsty
+mood acceptance. This attributed judgment supersedes the initial pending status.
+A fixed requested DiT seed does not control every LM sampling source; this single
+pair changes the whole caption and cannot isolate title alone or prove all-genre
+fidelity. [Exact corrected-pair record](../results/a3-35-caption-ab-v2.json).
+No more generation under this completed run; #35 open / PR37 draft.
+
+Offline follow-up: pinned upstream [inference.py, lines824-828](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824)
+replaces the DiT input caption with LM-generated caption when `use_cot_caption`
+is true. That flag is enabled in both comparison requests; the original prompt
+echo does not expose that internal caption. This identifies a shared setting to
+isolate, not the remote cause. A proposed diagnostic holds B's exact caption and
+all controls fixed, disables only caption rewriting, retains `thinking=true`,
+and compares one new clip against retained B. **Not run; fresh authorization
+required after the completed two-job budget.** No production change is justified
+from the failed pair alone; #35 remains open / PR37 draft.
+
+### Caption rewriting disabled: one control — 2026-11-01 America/Denver
+
+Joshua explicitly authorized "Run the one-clip test"; claim PR37 comment6561439418,
+immutable source **ac529fd** (same runtime as193-test checked c97045f;4/4 source CI PASS).
+Exactly **1 music submission /2 polls /1 download;0 format/art/text/speech/retries**.
+Compared against retained B audio, not a regenerated baseline. The request uses
+B's exact concise metal caption and all the same controls except
+**use_cot_caption=false**; thinking stays true,20s instrumental, requested/reported
+seed641835. Exact request-field comparison confirms only that flag differs.
+
+C fully decoded non-silent48kHz stereoPCM16, exactly20s. Both C and retained B
+were rendered in chat. Joshua: **"They are both better, C is leaning more metal"**.
+Record **partial relative improvement**, with full recognizable-metal, sustained
+heavy riff/bass/drum impact and angsty mood acceptance still unconfirmed. The
+prior A/B FAIL verdict remains historical; it is not retroactively converted to a
+pass. [Safe one-flag record](../results/a3-35-literal-caption.json).
+
+This suggests a shared conditioning setting worth evaluating; one retained-control
+comparison does not prove causality or all-genre quality. Same DiT seed does not
+control every LM sample. No production flag/caption/default change or further
+generation. Detailed user steering is pending; #35 stays open / PR37 draft.
+
+### Listening target and shared candidate — 2026-11-01 America/Denver
+
+Joshua supplied the missing steering: heavier references Lorna Shore,
+Disembodied Tyrant, Whitechapel, Slaughter to Prevail and Chelsea Grin; metal
+references I Prevail, The Bride and Bad Omens; lighter acceptable references
+Three Days Grace, Sleep Token and Atreyu. These are his personal targets.
+For the next heavier check, use an explicit deathcore description emphasizing
+low-tuned distorted riffs/chugs, double-kick/blast-beat drums, heavy bass and
+breakdowns, with an angry/ominous mood maintained throughout. His initial generic
+Metal label did not specify that narrower target. No artist recording is an input.
+
+Draft shared adapter now sends **thinking=true/use_cot_caption=false** for both
+music modes. This retains literal captions for DiT according to the pinned source;
+C's relative improvement motivates the candidate but does not validate it across
+genres. Existing freeform style input gains a subgenre/instruments/rhythm hint;
+no new field, artist/genre mapping, dependency, fixed tempo/seed or provider job.
+Existing real-HTTP regressions now also cover detailed deathcore and boom-bap,
+checking exact inputs, planning-on/rewriting-off, correct media and no reload jobs.
+No music or other class-service generation for this revision; previous budgets
+are complete. Candidate full locked check:193 tests PASS,0skips; safeguards126 /
+coverage36-11-19 / whitespace PASS, including startup and Node probes. Full
+genre/mood and integrated-main acceptance unverified. #35 remains open / PR37 draft.
+
+### Explicit heavier target: Iced Coffee deathcore — 2026-11-01 America/Denver
+
+Joshua authorized "Generate the one deathcore clip"; claim PR37 comment6561605112.
+Immutable candidate **2c77732**,193 locked tests/0skips and4CI PASS. Actual production
+music_prompt/ClassProviders,20s instrumental Iced Coffee, explicit deathcore style
+(low-tuned distorted riffs/chugs, blast beats, double-kick drums, heavy breakdowns),
+mood Angry, ominous and tense throughout. Shared candidate thinking=true /
+use_cot_caption=false; diagnostic seed641835/use_random_seed=false only.
+
+Exactly **1 music submission /2 polls /1 download;0 format/art/text/speech/retries**.
+Reported seed matches; full non-silent48kHz stereoPCM16 WAV decode, exactly20s.
+Clip D rendered inline; Joshua replied **"Still misses the target." Heavier-target
+listening FAIL.** No finer per-trait diagnosis was supplied. Whole caption
+changes style/mood/context from retained C, so this is a new-target check rather
+than a single-factor causal comparison or all-genre acceptance. No reference
+recording, artist-name mapping or production fixed seed introduced.
+[Exact target record](../results/a3-35-deathcore-candidate.json).
+No further generation under this completed one-job run; #35 open / PR37 draft.
+
+D's failure leaves the shared candidate unaccepted for the requested heavier
+sound. Do not treat C's earlier relative improvement, decoded audio or green CI
+as a completed fix. Next step is an offline technical review with Matt of the
+captured request and semantic-code planning path. The frozen probe supports
+thinking=false; any later test of that single flag should keep D's exact caption,
+duration and other controls and use retained D as context. That is a hypothesis,
+not an executed/authorized follow-up or proof that planning caused the failure.
+No new generation under the completed budget; no model/service capability limit
+is established by these cases. #35 stays open / PR37 draft.
+
+### Genre scorecard round1; metal tuning deferred — 2026-11-01 America/Denver
+
+Joshua requested that metal/deathcore be recorded as a known lacking point for
+a future revisit, while other genres are assessed in three categories: Good to
+go; Minor improvement; Major update / completely misses mark. The failed heavier
+target is in the last category, with active tuning deferred. Its evidence and
+#35 remain open; no classification of every metal subgenre or demand claim.
+Matt notified to defer active metal work; no assignment or runtime change.
+
+Bounded new round1, claim PR37 comment6561798384, immutable source7ebd861:
+Country / Backroad Sunrise / Warm and hopeful; Swing jazz / After Hours /
+Laid-back and intimate; House / Neon Crosswalk / Upbeat and uplifting; Rap
+instrumental / Yellow Sundress / Upbeat. Actual music_prompt/ClassProviders,
+20s each, thinking=true/use_cot_caption=false, **production seed defaults with
+no fixed-seed override**. Captured non-prompt request fields match across cases.
+
+Completed **4 music submissions /8 polls /4 downloads;0 format/art/text/speech/retries**.
+All four fully decoded non-silent48kHz stereoPCM16, exactly20s; clips rendered in
+chat. **Joshua's ratings:** Country = Minor improvement (funk influence); Swing
+jazz = Good to go (no notes); House = Minor improvement (tempo differs from his
+intended feel; target BPM/direction unspecified); Rap/Hip-hop instrumental = Good
+to go (can hear rap/hip-hop lyrics over the beat; no actual vocal claim).
+Categories are not inferred from media/metadata. Three quality grades plus an
+unrated state for future cases; one sample per style is provisional and
+not a causal A/B, vocal test, integrated-main or release acceptance. No automatic
+repair/regeneration after a low score. [Exact scorecard](../results/a3-35-genre-scorecard.json).
+No further calls under the completed round1 budget; previous runs stay separate.
+
+## A3-07 selected vocal and local library — 2026-11-01 America/Denver
+
+Afterglow Avenue was produced on `afd93c2` (runtime includes protected main
+`1fdc422`) through the normal launcher's real HTTP routes: Qwen lyrics, FLUX art
+and ACE-Step 45 s vocal. All three jobs succeeded. Original lyrics/audio and
+exact inputs/hashes are retained in [generation evidence](../results/a3-07-afterglow-generation.json).
+Joshua listened and replied “Approve the audio”; he then approved the wordless
+curated cover and Moonlit Reflection selection (“Approve both”).
+
+The first cover still showed incorrect lettering despite #40's wordless prompt.
+One separately bounded visual-only FLUX request produced the selected matching
+wordless residential scene; [curation evidence](../results/a3-07-afterglow-cover-curation.json)
+preserves the original PNG and exact prompt. Total new generation: text1/music1/
+art2/speech0, three polls/one download, no automatic retries. No production prompt
+or provider contract was changed; #36's general effectiveness remains unresolved.
+
+The two-entry manifest loads through the production loader: full PCM/PNG decode,
+15,974,698 retained media bytes, original audio/cover/lyrics verified through real
+HTTP, distinct session media URLs and cross-session404. Normal `scripts/dev.py`
+launch on8025 with all services missing: both covers/titles/modes appear, original
+lyrics expand, vocal play/pause/resume and instrumental playback to its30 s end
+work without media errors. Reload keeps both tracks/URLs and starts paused.
+[Catalog evidence](../results/a3-07-selected-library-checks.json) separates these
+checks from actual generation and human listening.
+
+Only two songs (one vocal) are packaged in this change. Mike's Moonlit Rehearsal
+original bundle is awaited for the second vocal; his reported listening is
+credited separately and does not substitute for Joshua's pending final check.
+No new calls were made for catalog checks or to replace Mike's run. Three-song
+integrated-main playback and independent final GitHub ZIP acceptance remain
+pending. #7 remains open; browser song-creation clicks were not performed.
+
+Catalog population exposed one old empty-library assumption in the rejected-reference
+HTTP test. It now compares the complete before/after snapshot, preserving the real
+safety assertion for empty or populated catalogs. Original `*.lyrics.txt` files
+use LF so Windows checkouts preserve the recorded returned-text hashes.
+
+Locked `python scripts/dev.py --check` PASS:230 tests run, one platform symlink
+skip; repository verifier145 files, coverage structure36/11/19 and whitespace PASS.
+
+## A3-07 Antlercover and three-song selection — 2026-11-01 America/Denver
+
+Joshua requested a hopeful Latin Flare song about an Alaskan moose working at a
+local company, fitting in over winter while avoiding hunters. Antlercover uses
+original Qwen lyrics, a60 s ACE-Step vocal and matching wordless FLUX office art.
+The exact source is45b309a (runtime base03fb2ef). Creation used unchanged direct
+production adapters with customized creative lyrics/art prompts, not app/browser
+song creation. [Generation evidence](../results/a3-07-antlercover-generation.json)
+retains exact safe request payloads, UTC bounds, original lyrics and full hashes.
+Actual calls: text1/art1/music1/speech0, four polls/one download, no automatic
+retries. All outputs fully decode and are retained unchanged. Joshua listened
+and confirmed “Approve audio and artwork”; no second take was needed.
+
+The manifest selects Afterglow Avenue45 s vocal, Moonlit Reflection30 s
+instrumental and Antlercover60 s vocal. Production loader/full decoding and actual
+normal-launch HTTP checks PASS: all ready, exact original audio/cover/lyrics,
+distinct session URLs, cross-session404, identical repeated snapshot and zero
+jobs. Selected media total28,282,047 bytes, within64 MB. All four class roles
+were unconfigured on port8026, so catalog checks did not call generation.
+[Three-song evidence](../results/a3-07-three-song-library.json) records actual
+browser observations separately from creation and owner listening.
+
+The earlier18 sample tests PASS with one platform symlink skip. Mike's original
+Moonlit Rehearsal remains a possible alternate; his media/run and #3/#6 work were
+not changed or repeated. Integrated-main three-song verification after reviewed
+merge, independent final GitHub ZIP acceptance and #7 closure remain pending.
+
+Actual browser on8026: all3 covers loaded512-square, both original lyric texts
+expanded, Antlercover reached60 s and Afterglow reached45 s without media errors;
+Moonlit Reflection advanced to13.338 s, paused and resumed13.560 s. Reload kept
+all3 tracks/media URLs and started paused. Locked `scripts/dev.py --check` PASS:
+230 tests run, one platform symlink skip; verifier151, coverage36/11/19; whitespace
+PASS. No generation occurred during catalog/browser checks.
+
+## A3-07 three songs on merged main — 2026-11-01 America/Denver
+
+PR49 merged normally at2be9625717c35b4bb586506562d0965c31143145 after
+Hermes/JoshKozy's exact-head approval and four green checks. Merged-main CI
+run41390292540 completed SUCCESS. A clean checkout of that exact main used the
+normal launcher on8026 with no .env and all four class-service roles missing.
+
+[Integrated-main evidence](../results/a3-07-integrated-main-library.json): all3
+512-square covers paired correctly, both original Qwen lyric texts expanded,
+Afterglow Avenue played45 s, Moonlit Reflection30 s and Antlercover60 s to their
+ends with no media errors. Deliberate replay/pause/resume and reload passed;
+all3 tracks and session media URLs remained. HTTP checks matched original
+WAV/PNG/lyrics, verified separate-session URLs and cross-session404, and repeated
+snapshots were identical with zero jobs. Full decoding passed; retained sample
+media28,282,047 B. No generation or new human listening was performed.
+
+This verifies R17/R18 and the integrated-main asset/browser portion of AT-11.
+Independent final GitHub ZIP acceptance remains pending; no DJ/reference-voice,
+other parent acceptance or submission readiness is claimed. No app code changed.
+
+## A3-05 default DJ on integrated main — 2026-11-01 America/Denver
+
+[Live/browser record](../results/a3-05-default-dj-live.json) pins main2be9625,
+normal launcher8028, actual existing three-song catalog and default voice.
+Only Qwen/Chatterbox were configured. All3 introductions succeeded: 11.4,10.72
+and13.44 s PCM WAVs, six HTTP200 responses, text3/speech3, art0/music0, no
+references, retries or guard intervention. The original production source is
+unchanged. Observational wrappers persisted attempts before I/O and retained
+safe stage/job/HTTP errors if any; no live introduction failed.
+
+Actual browser: pause/resume during speech and music, speech->music, automatic
+first-song advancement, skip during music and explicitly verified skip during
+active cached speech, end-of-queue, cached replay and reload all passed. The
+first attempted speech Skip reached the server after speech ended and is honestly
+classified as music Skip; the speech-specific check was then performed on a
+paused/resumed cached Antlercover intro at0.319 s. Provider counts remained3/3
+and job count3 throughout replay/reload. Sampled DOM states showed at most one
+playing element and no media errors; this is not continuous event recording.
+Browser console error/warning list was empty. The temporary stopped/reference
+message during pending Skip cleared without intervention; wording is noted.
+
+Owner heard the first clip and described it as relaxing/NPR-style/laid back,
+requesting selectable DJ options. That follow-up does not retroactively change
+this tested baseline. No new reference-voice result or cause for Mike's earlier
+failure is claimed. His previous13-request allowance is not reused.
+
+[Offline rehearsal](../results/a3-05-default-dj-rehearsal.json) separately proves
+sequential success and exact text/speech failure capture with zero class calls,
+including prevented further I/O after failure. Existing54 DJ/frontend/reference
+regressions PASS. Portable manual helpers are linked in docs/TESTING.md.
+Independent ZIP/release acceptance remains pending.
+
+## A3-05 DJ presentation styles — 2026-11-01 America/Denver
+
+Owner selected presentation styles after describing the default intro as laid
+back/NPR-like. [Feature evidence](../results/a3-05-dj-presentation-styles.json)
+records three options: Relaxed/Public Radio, Upbeat Radio, Playful. The preference
+is session-local, persists across reload and changes Qwen's commentary direction;
+it does not select a different Chatterbox voice. A separate additive preference
+endpoint leaves existing start/advance/reference bodies and provider schemas intact.
+
+Offline checks exercise all three exact prompt directions, unchanged default
+speech and reference-data payloads,192-token non-thinking text, strict preference
+validation, session isolation, cached replay without regeneration and in-flight
+prompt pinning. Changing style after failure creates no job; an explicit retry
+captures the new style. The production frontend handler is tested for saving,
+overlap prevention, error rollback and preservation of the selected reference.
+
+Actual normal-launch browser on8030 with all services missing: all options shown,
+Upbeat and Playful saved; Antlercover continued on the same media URL from0.150
+to5.921 s without errors while choosing styles. Reload retained Playful and the
+default-voice selection; all3 sample cards remained. No class calls were made.
+This is not a live comparison/listening claim for the new prompt styles. The
+separate six-request real default baseline stays attributed to its original main
+and does not establish results for this new prompt. Mike's6 reference work and
+independent final ZIP acceptance remain separate.
+
+Locked checks PASS:237 tests run, one platform symlink skip; verifier154 files,
+coverage36/11/19 and whitespace clean. Focused81 regressions also passed.

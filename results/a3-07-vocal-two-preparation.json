@@ -1,0 +1,86 @@
+{
+  "title": "Afterglow Avenue",
+  "status": "completed; historical preparation superseded by linked actual generation and curation",
+  "prepared_by": "Codex for JoshuaKosakowsky",
+  "prepared_at_utc": "2026-11-02T03:41:20.792412+00:00",
+  "source_main": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
+  "issue": 7,
+  "branch": "codex/a3-07-vocal-two-prep",
+  "draft_request": {
+    "title": "Afterglow Avenue",
+    "settings": {
+      "style": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence",
+      "mood": "Hopeful and warmly nostalgic; a late-night journey home",
+      "duration_seconds": 45,
+      "mode": "vocal"
+    }
+  },
+  "creative_brief": "An original sung synth-pop song about returning home through warm city lights. Give the short song a clear melodic identity and a resolved ending; no artist imitation or third-party lyrics.",
+  "lyrics_source": "Future original Qwen service response through the normal lyrics action; fixture text is never a candidate lyric",
+  "production_prompts": {
+    "lyrics": "Write original song lyrics for a new song.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nTarget length: about 45 seconds, roughly 11 short lines.\nReturn only the lyrics: original, plain, one line per verse line, no section headings, no song title, no commentary. English.",
+    "music": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence. Style-matched vocals, supplied lyrics. Mood: Hopeful and warmly nostalgic; a late-night journey home. Theme: Afterglow Avenue. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+    "cover": "Create original square artwork for this song with no text or lettering anywhere in the image: no words, no typography, no captions, no logos, no decorative letters, no titles drawn in it.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nRepresent the song's theme, style and mood through imagery, color and composition only; express the title visually, never as written words."
+  },
+  "music_controls": {
+    "audio_duration": 45,
+    "batch_size": 1,
+    "inference_steps": 8,
+    "thinking": true,
+    "use_cot_caption": false,
+    "use_cot_language": false,
+    "audio_format": "wav"
+  },
+  "class_models": {
+    "lyrics": "Qwen3.6-35B-A3B",
+    "music": "ACE-Step 1.5 XL Turbo",
+    "cover": "FLUX.2 klein 4B"
+  },
+  "returned_ai_lyrics": null,
+  "generated_audio": null,
+  "generated_cover": null,
+  "manifest_selected": false,
+  "coordination": {
+    "first_vocal": "Mike owns the separate authorized #3/#6 run on a1a41d168b1004132b6bac38f914d2eddff729bc",
+    "second_vocal": "Joshua owns this distinct sample preparation; confirm first-vocal result/style before live generation",
+    "artwork": "Wordless cover helper from merged PR40 is included in this source.",
+    "review_inventory": "PR #47 remains a separate frozen inventory change"
+  },
+  "future_live_budget": {
+    "status": "Spent once in the recorded run; this historical plan is not authorization to repeat it. One additional curated art request is recorded separately.",
+    "text": 1,
+    "art": 1,
+    "music": 1,
+    "speech": 0,
+    "retries": 0,
+    "polls_and_downloads": "Use existing bounded job polling, timeout and download limits"
+  },
+  "offline_validation": {
+    "method": "Production settings/prompts and ClassProviders through httpx.MockTransport only",
+    "result": "pass",
+    "simulated_requests": {
+      "lyrics": 1,
+      "cover": 1,
+      "music_submission": 1
+    },
+    "real_provider_requests": 0,
+    "lyrics_non_thinking_and_512_tokens": true,
+    "music_planning_with_literal_caption": true,
+    "no_inherited_piano_metadata": true,
+    "music_prompt_characters": 315,
+    "matching_cover_request_512_square": true,
+    "sample_media_created": false
+  },
+  "completion_checks": [
+    "Generate original class Qwen lyrics once after coordinated live authorization",
+    "Generate matching class artwork and ACE-Step vocal audio once, retaining full original output/provenance",
+    "Human listens for audible intelligible singing of the retained lyrics, genre/mood and a coherent ending",
+    "Inspect artwork association and rendered title; preserve originals",
+    "Retain exact head, safe settings, model/date, full file hashes and decoded media facts",
+    "Integrate only after curation, then verify normal-launch/reload and final ZIP sample playback"
+  ],
+  "actual_results": [
+    "results/a3-07-afterglow-generation.json",
+    "results/a3-07-afterglow-cover-curation.json"
+  ]
+}

@@ -31,11 +31,21 @@ let seeded = false;
 // changes, so playing audio on other tracks is never destroyed by a poll update.
 const previousTracks = new Map();
 let refreshInFlight;
+// Browser memory only: fresh one-shot upload for each newly requested intro.
+// Never persist the recording or its upload id across a page reload.
+let djVoiceFile = null;
+let djPresentationSaving = false;
 
-async function request(path, data) {
+async function request(path, data, withVoice = true) {
+  if (withVoice && data !== undefined && ["/api/playback/start", "/api/playback/advance",
+    "/api/playback/speech"].includes(path)) return requestDjWithVoice(path, data);
   const response = await fetch(path, data === undefined ? {} : {
     method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)
   });
+  return jsonResponse(response);
+}
+
+async function jsonResponse(response) {
   if (!response.ok) {
     // Only fixed server SafeError messages are displayed, never raw responses.
     const result = await response.json().catch(() => ({}));
@@ -44,6 +54,83 @@ async function request(path, data) {
     throw error;
   }
   return response.json();
+}
+
+async function changeDjPresentation() {
+  if (djPresentationSaving) return;
+  const select = document.querySelector("#dj-presentation");
+  const status = document.querySelector("#dj-presentation-status");
+  const previous = latestSession?.dj_presentation || "relaxed";
+  const chosen = select.value;
+  djPresentationSaving = true;
+  select.disabled = true;
+  try {
+    await djUserQueue(async () => {
+      latestSession = await request("/api/playback/presentation", {style: chosen}, false);
+      await syncAfterMutation();
+    });
+    status.textContent = "Style saved for new introductions. Existing introductions keep their wording.";
+  } catch (error) {
+    select.value = previous;
+    status.textContent = error.message;
+  } finally {
+    djPresentationSaving = false;
+    select.disabled = false;
+    if (latestSession) renderDj(latestSession);
+  }
+}
+
+function selectDjVoice() {
+  const input = document.querySelector("#dj-voice");
+  const file = input.files[0];
+  const status = document.querySelector("#dj-voice-status");
+  djVoiceFile = null;
+  if (file && (file.size === 0 || file.size > 5000000)) {
+    input.value = "";
+    status.textContent = "Choose a non-empty MP3 or WAV clip, 5 MB or smaller. Default voice is selected.";
+  } else {
+    djVoiceFile = file || null;
+    status.textContent = file ? "Reference selected for new introductions. The clip is validated when used."
+      : "Default Chatterbox voice selected.";
+  }
+  document.querySelector("#dj-voice-clear").disabled = !djVoiceFile;
+}
+
+function clearDjVoice() {
+  document.querySelector("#dj-voice").value = "";
+  djVoiceFile = null;
+  document.querySelector("#dj-voice-clear").disabled = true;
+  document.querySelector("#dj-voice-status").textContent = "Default Chatterbox voice selected for new introductions.";
+}
+
+async function requestDjWithVoice(path, data) {
+  const file = djVoiceFile; // Selection changes affect future requests, never this one.
+  const session = latestSession;
+  const pb = session && session.playback;
+  const id = path.endsWith("/speech") ? data.track_id : pb && pb.queue[path.endsWith("/start") ? 0 : pb.index + 1];
+  const track = session && session.tracks.find(item => item.id === id);
+  const job = session && session.jobs.filter(item => item.track_id === id && item.kind === "speech").at(-1);
+  // Cached, busy and failed introductions keep the existing no-respend rules.
+  // Only the explicit Retry action is allowed to replace a failed job.
+  if (!file || !track || track.speech || (job && (["queued", "running"].includes(job.state)
+    || (job.state === "failed" && !path.endsWith("/speech"))))) return request(path, data, false);
+  let referenceId;
+  try {
+    const body = new FormData();
+    // A fixed filename keeps the user's local filename out of the request.
+    body.append("file", file, "reference");
+    const upload = await jsonResponse(await fetch("/api/references/speech", {method: "POST", body}));
+    referenceId = upload.id;
+    return await request(path, {...data, reference_id: referenceId}, false);
+  } catch (error) {
+    document.querySelector("#dj-voice-status").textContent =
+      `${error.message} No default-voice substitution was requested. Choose another clip or use Default voice, then retry.`;
+    throw error;
+  } finally {
+    // A cached/raced/rejected intent may leave the upload unused. Consumed ids
+    // return 404; uncertain network failures remain bounded by session expiry.
+    if (referenceId) await fetch(`/api/references/speech/${referenceId}`, {method: "DELETE"}).catch(() => {});
+  }
 }
 
 function node(tag, text, className) {
@@ -647,7 +734,9 @@ async function djEngine() {
       }
     } catch (error) {
       // A transient network/409 failure must never kill the timeline loop;
-      // surface it and keep observing the server state.
+      // require a user recovery action instead of repeatedly uploading/retrying.
+      djHalted = true;
+      if (latestSession) renderDj(latestSession);
       document.querySelector("#dj-status").textContent = error.message;
       await djSleep(250);
     }
@@ -714,7 +803,9 @@ async function djResume() {
   djPhase = "idle";
   try {
     await djUserQueue(async () => {
-      await request("/api/playback/resume", {});
+      if (latestSession && latestSession.playback.state === "paused") {
+        await request("/api/playback/resume", {});
+      }
       await syncAfterMutation();
     });
   } catch (error) {
@@ -753,6 +844,9 @@ function djStatusIdleDone() {
 }
 
 function renderDj(session) {
+  const presentation = document.querySelector("#dj-presentation");
+  if (!djPresentationSaving) presentation.value = session.dj_presentation || "relaxed";
+  presentation.disabled = djPresentationSaving;
   latestSession = session;
   const pb = session.playback;
   const list = document.querySelector("#dj-queue");
@@ -775,9 +869,9 @@ function renderDj(session) {
   const resume = document.querySelector("#dj-resume");
   const skip = document.querySelector("#dj-skip");
   const available = djReady();
-  play.disabled = !available || pb.queue.length === 0 || pb.state !== "idle";
+  play.disabled = djPresentationSaving || !available || pb.queue.length === 0 || pb.state !== "idle";
   pause.disabled = !(pb.state === "speaking" || pb.state === "playing");
-  resume.disabled = pb.state !== "paused";
+  resume.disabled = pb.state !== "paused" && !(djHalted && pb.state !== "idle");
   skip.disabled = pb.state === "idle" || !available;
   const current = pb.current_track_id
     ? session.tracks.find(track => track.id === pb.current_track_id) : null;
@@ -790,6 +884,8 @@ function renderDj(session) {
   } else if (pb.state === "paused") {
     status.textContent = `Paused during ${pb.paused_from === "speaking" ? "DJ speech" : "music"}`
       + (current ? ` (${current.title})` : "") + ".";
+  } else if (djHalted) {
+    status.textContent = "DJ stopped. Check the reference voice message, then use Resume or Skip to continue.";
   } else if (pb.state === "speaking") {
     const speechJob = current && session.jobs
       .filter(job => job.track_id === current.id && job.kind === "speech").at(-1);
@@ -808,3 +904,7 @@ document.querySelector("#dj-play").addEventListener("click", djStart);
 document.querySelector("#dj-pause").addEventListener("click", djPause);
 document.querySelector("#dj-resume").addEventListener("click", djResume);
 document.querySelector("#dj-skip").addEventListener("click", djSkip);
+document.querySelector("#dj-presentation").addEventListener("change", changeDjPresentation);
+
+document.querySelector("#dj-voice").addEventListener("change", selectDjVoice);
+document.querySelector("#dj-voice-clear").addEventListener("click", clearDjVoice);

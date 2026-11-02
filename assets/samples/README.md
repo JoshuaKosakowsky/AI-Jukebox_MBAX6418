@@ -1,25 +1,68 @@
-# Three required sample tracks
+# Curated sample library
 
-No approved samples are registered in manifest.json yet. Actual class-generated
-audio/covers must play from the GitHub source ZIP; a generator script alone is insufficient.
+The manifest selects three Joshua-approved class-generated songs: **two vocals
+and one instrumental**. They play locally without service settings.
+[Integrated-main verification](../../results/a3-07-integrated-main-library.json)
+on2be9625 passed all three songs to their full duration, original lyric/cover
+pairing, pause/resume and reload. Independent final ZIP acceptance remains pending.
 
-## Moonlit Reflection candidate for jovi (#7)
+| Selection | Retained media and approval |
+|---|---|
+| Afterglow Avenue | 45 s hopeful synth-pop vocal; original Qwen lyrics, ACE-Step WAV and curated wordless FLUX cover. Joshua approved the audio, then the cover/selection on 2026-11-01 America/Denver. |
+| Moonlit Reflection | Original 30 s reflective ambient-piano instrumental and FLUX lake/pianist cover. Prior Joshua listening retained; final selection confirmed on 2026-11-01 America/Denver. |
+| Antlercover | 60 s hopeful Latin-flare vocal about an Alaskan office moose; original Qwen lyrics, ACE-Step WAV and wordless FLUX workplace artwork. Joshua listened and approved audio/artwork on 2026-11-01 America/Denver. |
+
+[Afterglow provenance](afterglow-avenue.candidate.json) links the exact production
+HTTP run, returned lyrics, source, model names and hashes. Actual Afterglow calls:
+text1/music1/art2/speech0, three music polls and one download, no automatic retries.
+The first app-generated cover still rendered incorrect lettering after #40 and is
+[preserved unchanged](../../results/afterglow-avenue-initial-cover.png). One separate
+visual-only FLUX request produced the selected wordless scene; app code is unchanged.
+This curation does not establish a general lettering fix for #36.
+
+[Antlercover provenance](antlercover.candidate.json) retains the owner's unusual
+story brief, precise music/lyrics/art prompts, original returned lyrics, class
+model names and full hashes. This separate backup used unchanged production
+adapters directly: text1/art1/music1/speech0, four polls/one download, no automatic
+retries. It is not evidence of browser song creation. Audio and artwork were
+approved by Joshua before adding the third entry.
+
+[Three-song checks](../../results/a3-07-three-song-library.json) record full
+production-loader decoding, exact HTTP media/lyrics and session isolation on the
+normal launcher with all generation services missing. The earlier
+[two-song checks](../../results/a3-07-selected-library-checks.json) remain historical
+evidence for the preceding selection. The later integrated-main record above
+verifies the merged three-song flow. #7 stays open for the remaining source-ZIP
+acceptance; no independent final ZIP pass is inferred.
+
+Mike's retained Moonlit Rehearsal is a possible later alternate; original files
+and final curation are still needed. This backup does not change his separate
+#3/#6 tasks or regenerate his work. Joshua coordinates current sample integration.
+Desert Drive remains an unselected instrumental alternate with its original
+lettering limitation. Historical inventory/genre scorecards support curation,
+not additional approved entries.
+
+A fourth sample needs a focused capacity change: the runtime accepts at most
+three entries and the release checker requires exactly three, within the existing
+64 MB media budget. Finish the core set before optional range additions.
+
+## Moonlit Reflection candidate (#7)
 
 [Audio](moonlit-reflection.wav), [cover](moonlit-reflection.png), and
-[candidate/provenance record](moonlit-reflection.candidate.json) are ready for
-selection. This is the original 30-second ambient-piano instrumental and matching
+[candidate/provenance record](moonlit-reflection.candidate.json) are selected by Joshua. This is the original 30-second ambient-piano instrumental
+and matching
 FLUX cover from main 7cc9645. Both hashes match the earlier acceptance record;
 full WAV/PNG decoding and a muted browser asset-preview play/pause/resume passed.
 Joshua's prior listening confirmation is attributed separately. No new media was generated.
 
 The candidate record's `sample` object has the fields needed for the final
-manifest. Jovi can review it, add that object to manifest.json if selected, and
-integrate its local audio/cover into the sample library. Keep the other two
+manifest. It is included in manifest.json with its original style and mood.
+Keep the other two
 samples distinct; verify all three through the normal launcher and exact final
 GitHub ZIP before closing #7. The loader below supplies the integration path;
 the candidate record itself does not approve the final set or change the manifest. [Asset preview](../../results/moonlit-candidate-preview.jpg).
 
-## Desert Drive candidate for jovi (#7)
+## Desert Drive candidate (#7)
 
 [Audio](desert-drive.wav), [cover](desert-drive.png), and
 [candidate/provenance record](desert-drive.candidate.json) package the second
@@ -30,10 +73,10 @@ preview play/pause/resume passed. Joshua's original listening confirmation is
 attributed as prior evidence; no new listening or generation is claimed.
 
 The original cover says **DESSERT DRIIVE** and has distorted small lettering.
-Jovi should consider that known limitation when selecting the final samples;
+The sample lead should consider that known limitation when selecting the final samples;
 this candidate preserves the original media rather than silently editing it.
 If selected, its `sample` object is ready for the manifest. Final sample-library
-and independent ZIP checks remain pending; manifest.json is unchanged.
+and independent ZIP checks remain pending; this alternate is not selected in manifest.json.
 [Actual local preview](../../results/desert-candidate-preview.jpg).
 
 ## Final sample records
@@ -51,7 +94,7 @@ voice references may be bundled. Temporary experiments stay in ignored generated
 ## Local manifest loader
 
 Only `manifest.json` selects samples; candidate records and directory contents
-are not scanned. After Jovi approves an entry, copy its `sample` object into
+are not scanned. After Joshua approves an entry, copy its `sample` object into
 `{"samples": [...]}` and restart the normal launcher. Use a stable UUID `id`,
 ISO calendar date `generated_at`, nonempty title/notes, boolean `instrumental`,
 and the exact class model names above. Instrumentals use `lyrics: null`; vocals

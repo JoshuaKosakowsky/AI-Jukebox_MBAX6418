@@ -9,8 +9,8 @@ close those issues or establish normal-launch/live acceptance.
 The [safe record](../results/main-browser-regression.json) contains individual
 checks, DOM observations, request-counter checkpoints, production POST statuses,
 56 media events and source hashes. Actual screenshots show
-[paused music](../results/main-browser-paused.png) and the
-[recovered library](../results/main-browser-recovered.png).
+[paused music](../results/main-browser-paused.jpg) and the
+[recovered library](../results/main-browser-recovered.jpg).
 
 ## Results and team findings
 
@@ -94,3 +94,24 @@ Invoke-RestMethod http://127.0.0.1:8175/audit/evidence
 The helper is manual only: it does not drive the browser, assert the complete
 matrix, or run in CI/startup. Capture observations/counters for any new run;
 this report describes the recorded run above. Stop with Ctrl+C when finished.
+
+## Integration note — 2026-11-02 America/Denver
+
+PR #39 now includes protected main `af08249`. The 27-case browser run above
+still describes tested main `25f8617`; it was not repeated on this reconciled
+head. Original JSON observations and the manual helper remain byte-identical.
+The two screenshot filenames now end in `.jpg` to match their original JPEG
+bytes; neither image was re-encoded or recaptured. Later evidence from main
+retains its own source attribution. No application, provider, contract, sample,
+CI or protection changes are introduced by this PR, and no real service calls
+or new live, reference-voice, listening or final-ZIP acceptance are claimed.
+
+Reconciliation validation: locked `python scripts/dev.py --check` passed
+237 tests with one platform skip; repository verifier passed 165 files and
+coverage structure passed 36 requirements / 11 tasks / 19 cases. All 11 original
+source hashes were verified against `25f8617`; both JPEGs fully decode and match
+their original bytes. A separate in-process helper smoke passed observer/root,
+synthetic cover/music/media and capacity rejection/release checks against the
+current runtime, with external socket connections blocked. Windows asyncio's
+internal loopback socketpair was allowed. That smoke started no HTTP server
+and does not repeat the recorded browser matrix. Whitespace checks passed.
