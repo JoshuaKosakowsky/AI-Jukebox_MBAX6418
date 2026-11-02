@@ -1,5 +1,13 @@
 # Agent handoff
 
+## Session — PR51 sync after PR50, 2026-11-01 America/Denver
+Codex for Joshua; approved51 head7ae7fb5; normal merge of protected main d0bfd92 (PR50).
+Only TEST_RESULTS and handoff conflicted; both complete parent histories retained, shared base once.
+Original default-DJ live source2be9625, six-request accounting, raw media policy and all helper logic unchanged.
+Incoming main's sample acceptance JSON/docs/contribution credit retained exactly; no new class calls or live rerun.
+Next: locked checks, publish sync, refresh exact-head approval if required, then protected merge51 before52.
+
+
 ## Session — A3-05 default-only DJ check, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-05-default-dj-acceptance, separate worktree from main2be9625; PR50 left untouched.
 Owner requested default-DJ test using bundled songs and exact failed-intro diagnostics, separate from Mike's6 reference work.
@@ -19,6 +27,28 @@ Mike's6 MP3/WAV tests remain separate; successful sequential baseline does not e
 Locked checks PASS:230 tests,1 platform skip; verifier156, coverage36/11/19; offline rehearsal and0-call launcher probes PASS.
 Published baseline in PR51; next implement requested three presentation styles on a fresh separate branch.
 No further live calls are implied. Default run budget is spent; independent ZIP/release and remaining project cases stay open.
+
+
+## Session — PR49 merge/main acceptance and team check, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-main-acceptance from exact protected main2be9625.
+User authorized merge49, verify all3 samples and check Matt/Mike before recommending next work.
+Normal guarded merge after JoshKozy exact fda81d7 approval,4 green checks,current base and0 unresolved threads.
+Merged-main CI41390292540 SUCCESS; no protection changes or bypass.
+Normal unconfigured launcher8026: all3 covers/metadata, both original lyrics,45/30/60 s full playback without media errors PASS.
+Antlercover replay/pause/resume and reload retention/stable session URLs PASS; no new generation or human listening.
+HTTP original media/lyrics, separate session URLs/cross-session404, repeat identical snapshot with0 jobs; full decode PASS.
+Evidence results/a3-07-integrated-main-library.json; selected media28,282,047 B; independent final ZIP pending and #7 stays open.
+Updated actual README/sample status, TEST_RESULTS and49 contribution/automated-review credit; no production changes.
+Local validation PASS:18 sample tests,1 platform skip; verifier152, coverage36/11/19, whitespace. Full merged-main suite passed in CI.
+Matt's latest published activity: review39 at03:20Z (Nov1 20:20 Denver), approval40 earlier; no newer5 test claim.
+Matt found39 evidence sound but branch conflicting/behind; nonblocking JPEG-inside-PNG filename mismatch also noted.
+Mike's latest candidate proposal03:37Z; last3/6 run STOPPED on default-intro failure,2/3 speech jobs failed; cause unverified.
+His driver burst is disclosed/corrected locally; new diagnostics/live-result files not published here; no new run or media branch found.
+Recommend next functional slice: Matt's remaining5 integrated-main default-DJ acceptance using bundled songs and sequential steps.
+Coordinate with Mike's separate6 MP3/WAV leg; first capture the exact default-intro error; no old13-request budget is reusable.
+No new DJ generation is authorized or performed in this sample verification. Future three intros cost up to text3+speech3.
+Independent safe parallel work: reconcile39 for8 (retain historic source; fix image suffix nit), then38/status and9 verified report.
+Next: publish/review this acceptance evidence; claim chosen next slice explicitly; keep source-ZIP/final release gaps visible.
 
 
 ## Session — A3-07 Antlercover backup/selection, 2026-11-01 America/Denver
