@@ -1960,3 +1960,40 @@ independent final ZIP acceptance remain separate.
 
 Locked checks PASS:237 tests run, one platform symlink skip; verifier154 files,
 coverage36/11/19 and whitespace clean. Focused81 regressions also passed.
+
+## A3-09 current README and UI report — 2026-11-02 America/Denver
+
+Joshua/Codex used the normal `python scripts/dev.py --port 8031` launcher on
+main `fcdda54c2a988ee6b254adb695ce14f453d9dc4d` in a clean isolated worktree.
+No .env existed; all eight class endpoint/key environment values were explicitly
+masked. `/api/status` reported all four roles missing, connectivity unchecked,
+and three valid catalog entries. No provider requests or generation jobs occurred.
+
+[Safe record](../results/a3-09-current-ui.json) and actual JPEG screenshots:
+[full interface/library](../results/a3-09-current-library.jpg),
+[lyrics/player](../results/a3-09-current-lyrics.jpg),
+[DJ presentation/reference chooser](../results/a3-09-current-dj.jpg).
+These illustrate current controls and retained class-generated media, not a new
+service run. Native media duration may show 0:00 before its first Play loads metadata.
+
+| Documentation/UI check | Input / expected | Actual |
+|---|---|---|
+| Configuration/creation | All roles missing; clear setup state and disabled generation/DJ controls | Four Missing settings labels; Create song, Add to DJ queue and Play queue disabled; existing three-track library available |
+| Samples and lyrics | Three ready pairs and two readable vocal lyric panels | Afterglow Avenue, Moonlit Reflection and Antlercover with correct artwork; both original lyric panels expanded |
+| Local player | Play existing Afterglow without class settings | Observed playing at 0.134 s, then paused at its 45 s end; replay was started and deliberately paused at 15.000 s; no media error. No new human quality/listening rating claimed |
+| Presentation/reload | Save Playful without generation; reload retains preference and samples | Save message, Playful retained, same three titles, empty reference selection; same browser snapshot had zero jobs |
+| Artifacts/cleanup | Actual images with matching extensions; no reference files or leftover server | Three JPEGs decoded and use .jpg; temporary browser tab closed, server PID 27136 stopped, port 8031 verified closed |
+
+README now names actual UI labels, distinguishes per-role requirements, lists
+runtime packages/locked versions, documents the temporary reference upload route
+and consolidates music/art/default-DJ inputs/expected/actual results with original
+source links. It removes superseded pending-DJ/sample statements, preserves
+Preethi's #34 recovery/design/limitation findings, and clarifies only the old
+absolute CI-green wording. No app, contract, dependency, sample or test changed.
+
+R26-R30 documentation components are updated; AT-13/14/15 are supported only to
+that scope. R31 actual teammate verification/findings in their own words is
+pending. Mike's #3 published normal-browser vocal evidence/listening and #6 real
+reference comparison, remaining parent acceptance and independent final ZIP
+are not supplied by this task. Submission remains NOT READY. Historical tests
+retain their own commits; no earlier live allowance was reused.

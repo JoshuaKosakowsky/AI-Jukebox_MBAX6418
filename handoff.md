@@ -1,5 +1,26 @@
 # Agent handoff
 
+## Session — A3-09 current README/UI report, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-09-current-report`, source main `fcdda54` after #38 merge.
+Owner requested #9 progress; scope README, TEST_RESULTS, evidence index, three screenshots, safe UI record and handoff.
+Normal launcher on 8031 used immutable current runtime with no .env and all eight service variables masked.
+Actual browser showed three ready samples, correct covers, both AI lyric panels and missing-service guards.
+Afterglow local playback reached observed 45 s end; replay paused at 15 s. No new human listening/quality rating.
+Playful presentation saved and survived reload with all three tracks; same browser session API showed zero jobs.
+Three actual JPEG captures use .jpg and fully decode; source app hashes match `fcdda54`.
+README corrects stale default-DJ/sample status, form labels, role configuration, upload-route and API-response wording.
+Expected/actual summary links original music, cover, default-DJ and failure records without implying reruns.
+Preethi's failure/design/limitation content is preserved; only the absolute CI-green note is clarified.
+No app/tests/contracts/dependencies/CI/protection/sample/assignment or teammate-branch changes.
+No class calls, new generation, reference uploads, model tuning or live acceptance rerun.
+Temporary browser tab closed; PID 27136 stopped; port 8031 confirmed closed.
+Docs checks PASS: verifier 169 files, coverage 36/11/19, screenshot decoding/hashes, source/scope/whitespace; exact-head CI pending.
+#9 stays open for actual teammate document/findings verification (R31) and remaining live evidence.
+Mike retains #3/#6; Johanna's separate #54 targets blank-lyrics validation, untouched by this task.
+Next: publish focused PR and request Hermes technical review plus Matt's teammate wording/findings check.
+Do not treat automated review as another teammate or independent final installer; no final ZIP certified.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6584372787
+
 ## Session — PR38 status refresh for review, 2026-11-02 America/Denver
 Codex for Joshua; local `codex/pr38-main-sync-nov2`, PR `codex/integration-catchup-oct31`.
 Pre-handoff head `9edf584`; incoming protected main `eb29bab` (merged #39; main CI passed).
