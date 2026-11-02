@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — PR #44 sync after #45/#46, 2026-11-01 America/Denver
+Codex for Joshua; PR branch codex/a3-03-direct-lyrics; pre-handoff head `512a7d1`.
+Local branch codex/pr44-sync-nov1; normal merge of current protected main `b4ec564`.
+Claim: PR44 comment6565928462. Matt's current COMMENT found the implementation sound and requested reconciliation.
+Resolved only docs/TEST_RESULTS.md and handoff.md conflicts; both complete parent histories retained in order.
+Added current reconciliation notes; inherited historical state/limits remain intact.
+Original provider/lyrics tests match512a7d1 Git blobs exactly; only runtime delta vs main remains thinking=False.
+Main's reference-voice UI/session code/tests, adopted reviewer policy and release evidence retained exactly.
+PR retains original seven-file scope; no authority/config/dependency/asset/CI/protection change relative to main.
+Locked `python scripts/dev.py --check` PASS: verifier126, coverage36/11/19, 225 tests (one platform symlink skip).
+Source/history/scope and staged/working whitespace checks PASS; Git-blob checks account for Windows line endings.
+No new class calls, live rerun budget, generated media, browser/listening acceptance or other PR branch changes.
+Policy #45 is adopted on main; owner's constrained JoshKozy gateway is configured for eligible review verdicts.
+That separately instructed reviewer must independently inspect this new exact head; this writer cannot self-approve.
+Mike and Joshua contribute; ordinary eligible pool remains Matt/Preethi/Jovi, with Matt re-review requested on publication.
+Next: push to existing PR44, refresh description/head/base/results, freeze and verify exact-head CI.
+Then eligible approval and normal merge; issue #3/R10/AT-04 stays open for bounded real vocal/browser/listening acceptance.
+No new authority to resume the paused #6 live run or launch a separate Hermes review worker in this reconciliation.
+Use this entry as current state; preserve all inherited notes below.
+
 ## Session — PR #44 main reconciliation, 2026-11-01 America/Denver
 Codex for Joshua; existing PR branch codex/a3-03-direct-lyrics; pre-handoff head `fde309e`.
 Isolated branch codex/pr44-sync-nov1; merged current protected main `226f0ae` normally.
@@ -40,6 +60,101 @@ Environment: Python3.12.14, uv0.12.19, modern Git2.53; local loopback tests only
 Historical evidence/media, sample manifest, other PR heads and assignments untouched.
 Next: publish this focused PR, freeze its reviewed head, request eligible zero-contribution Mike review.
 After normal protected integration, Mike coordinates one tester/head/budget for live AT-04/browser/listening; #3 remains open.
+
+## Session — PR #45 sync after #46, 2026-11-01 America/Denver
+Codex for Joshua; existing branch codex/disclosed-hermes-reviewer; pre-handoff head `c566c91`.
+Local branch codex/pr45-role-scope-nov1; normal merge of current main `8d9be64` (PR46).
+User authorized the conflict fix; coordination claim is PR45 comment6565627409 for Mike's review.
+Only conflict was handoff.md; retained both parents' entire histories in order, including reference-DJ notes.
+README auto-merge retains main's reference-voice usage text and the PR's three reviewer links.
+Other eight policy/role documents remain byte-identical to c566c91; no authority or role expansion.
+Original ten-Markdown-file PR scope retained against main; all app/tests/contracts/assets/scripts,
+dependencies/hooks/CI/protection and incoming reference-voice evidence are byte-identical to main8d9be64.
+Locked `python scripts/dev.py --check` PASS: verifier126 files, coverage36/11/19, 222 tests (one symlink skip).
+Final handoff/docs verifier, full-history, policy-equivalence and whitespace checks PASS.
+No class calls, generation, recordings, credential/tool changes, issue assignments or protection edits.
+This synchronization does not activate the reviewer exception; #45 still needs normal teammate approval/merge.
+JoshKozy cannot approve this authority change and remains COMMENT-only pending policy/gateway prerequisites.
+Classmates' Hermes coding agents retain their normal contributor role; merely reading the reviewer file does not switch it.
+Mike has no PR45 commits and remains eligible; Matt/Preethi requests retained. Joshua cannot self-approve.
+Next: push to existing PR45, refresh exact head/base/validation in its description and freeze for Mike's review.
+Wait for required exact-head CI and eligible approval before normal protected merge; no merge performed here.
+Other open PR heads are untouched; recheck main at merge time. Preserve all inherited notes below.
+
+## Session — #45 reviewer role boundary, 2026-11-01 America/Denver
+Codex for Joshua; PR branch codex/disclosed-hermes-reviewer; previous head `4efa015`.
+Local reconciliation branch codex/pr45-role-scope-nov1; merged protected main `226f0ae` normally.
+Resolved only handoff overlap by retaining both parent histories in order; no feature-code conflict.
+Clarified AGENTS, CONTRIBUTING, README and reviewer/setup guides: only Joshua's
+dedicated jukebox-reviewer profile authenticated as JoshKozy adopts the review-only role.
+Classmates' Hermes coding agents keep ordinary contributor instructions, tools and accounts.
+Reading HERMES_REVIEWER.md or using Hermes does not dispatch a role or grant its exception.
+Replaced broad shared-guide "Hermes never merges" restrictions with the named JoshKozy reviewer.
+Mike has no PR45 commits and is eligible; original Matt/Preethi requests remain valid.
+JoshKozy's COMMENT review on4efa015 identified stale-main conflict; normal reconciliation addresses it.
+No runtime/provider/schema/sample/dependency/CI/hook/protection changes relative to current main.
+No collaborator/issue assignment, credential, reviewer tool or class-service changes in this update.
+Actual restricted JoshKozy identity/COMMENT smoke reviews now verified on GitHub; earlier setup notes below are historical.
+Policy remains unmerged: no JoshKozy approvals enabled or authority to approve PR45 itself.
+Validation: docs verifier/coverage/whitespace, both handoff histories and docs-only scope checked before commit.
+Next: publish/freeze updated PR45 and request MSpanny alongside mase7919/prse4479 for eligible review.
+Exact-head CI required before normal protected merge; no self-approval or merge performed here.
+After adoption, separately finish reviewer approval gates; no teammate agent reconfiguration required.
+Preserve inherited entries below; scoped reviewer setup is separate from professor/model configuration.
+
+## Session — disclosed Hermes reviewer setup, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/disclosed-hermes-reviewer from protected main cb818ae.
+## Constraints
+Docs/setup instructions only; preserve protection, app/tests/contracts/assets and existing PR heads.
+No account/access changes, Hermes repair/login, generation, invitations or automatic schedule edits.
+## Repository state
+Named JoshKozy role belongs to Joshua and becomes eligible only after normal protected policy adoption on main.
+Hermes cannot approve its own authority/profile changes; ordinary eligible teammate review is needed for this PR.
+## Work completed and decisions
+Added distinct HERMES_REVIEWER instructions and HERMES_SETUP steps; linked canonical exception across root guides.
+Review role may inspect/offline-test and post disclosed reviews, never implement/commit/push/merge or edit handoff.
+Explicitly allow separate Hermes review of primary-account contributions; no extra human/teammate credit.
+Setup requires scoped app user authorization as JoshKozy, isolated workspace/tools and credential-free test runner.
+## Validation
+Follow-up verified Windows gh2.102.0 GH_HOST fallback with empty config; setup now leaves GH_HOST unset.
+Local initializer corrected and retested without changing logins; 403/404 and account-vs-token guidance clarified.
+PASS: verifier121 files, coverage36/11/19, whitespace and10-file markdown-only scope; runtime/tests unchanged.
+Live protection readback equals the saved baseline in every field; unavailable-reviewer exception text unchanged.
+JoshKozy permission readback is read; no permission was changed. Authenticated review submission is untested.
+Installed hermes --help reports missing dependency environment and directs hermes pm repair; not executed.
+## Blockers and unchecked areas
+Hermes profile/connector capabilities, scoped JoshKozy authentication and actual posting are not configured/verified.
+Owner manually grants needed collaborator access, sets up scoped tools and completes COMMENT-only smoke test.
+Actual teammate contribution/review, independent deployment and live acceptance remain required; NOT READY.
+## Next steps
+Eligible teammate reviews policy PR; merge normally. Load role in fresh Hermes session and verify identity/capabilities.
+After smoke review and adoption, allow eligible approvals; coordinate Dot without duplicate technical reviews.
+## References
+[Setup](docs/HERMES_SETUP.md), [reviewer prompt](docs/HERMES_REVIEWER.md), [policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
+Existing #38/#39 and Mike's feature branches are untouched; preserve inherited notes below.
+
+## Session — #6 reference chooser / DJ wiring, 2026-11-01 America/Denver
+Codex for Joshua; branch `codex/a3-06-reference-dj-ui`, base `226f0ae`, implementation checkpoint `1b9f5e3`.
+Checked live issue comments, PRs and published branches; no overlapping chooser claim found.
+Claim: issue #6 comment 6565088414; Mike remains lead and Jovi backup, no assignments changed.
+Mike's #44 lyrics / #7 sample lanes and provider.py, schema, payloads, CI/protection untouched.
+Changed app.py/sessions.py, web files, reference/frontend tests, README and contract/testing docs.
+Optional MP3/WAV chooser applies to new DJ intros, including advance and explicit Retry.
+Browser keeps the File only in page memory; fresh one-shot upload per new intro, unused id deleted.
+Clear/reload returns future jobs to default; cached/in-flight intros keep their original voice.
+Unknown/expired/used IDs reject before playback mutation; no silent default substitution.
+Job claims are atomic and private; recording/prompt cleanup covers success and all generation failures.
+Automatic-advance errors halt locally until explicit recovery; clear + Resume/Skip remains usable.
+Locked `python scripts/dev.py --check` PASS: 222 tests, one optional skip, verifier124, coverage36/11/19.
+Node production-function reference probe: eight scenarios PASS; full existing DJ/reference tests included.
+Synthetic normal-entrypoint browser: MP3, WAV, clear/default, invalid start, auto-advance recovery, reload PASS.
+Four synthetic speech calls `[audio/mpeg,audio/wav,default,default]`; zero class calls or real recordings.
+Fixture wrapper/files/preview live outside repo; evidence in docs/TEST_RESULTS.md; no release acceptance claimed.
+Whitespace and protected-file scope checks PASS; main still `226f0ae` at publication preparation.
+Published [PR #46](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/46) (Refs #6); final handoff update only after implementation checkpoint.
+Next: freeze for Mike/Matt eligible review and required CI; no self-approval or merge in this session.
+Then perform bounded real MP3/WAV/default normal-launch + listening acceptance on merged main; #6 stays open.
+Record the implementation completion row on merge. Preserve inherited entries below.
 
 ## Session — A3-10 rehearsal prep, 2026-11-01 America/Denver
 Hermes for MSpanny (Mike); issue #10 backup (lead Jovi). Claimed unclaimed prep piece: release-gate mechanics rehearsal + submission runbook. Ran identity/integrity checks on the current-main GitHub ZIP (cb818ae: 10,980,156 B, sha256 c4ea863a…, 119 files == 119 tracked, 0 extras, no .git, no .env) and the --release gate (check_readiness.py), which correctly returned NOT READY listing the exact open blockers: all 19 AT-cases unverified, independent installer required (AT-16 tester != preparer), ≥2-team rows with contribution+review evidence, 3 distinct approved samples with audio/cover. Deliverables on branch codex/a3-10-rehearsal-prep: results/a3-10-rehearsal-prep.json, TEST_RESULTS section, docs/SUBMISSION_RUNBOOK.md (freeze procedure: preconditions → candidate SHA → exact ZIP → gate → independent installer → records). No provider requests or generation; ZIP identity will change at real freeze. Round 2 (Joshua CR on #42): canonical person IDs (installed_by==prepared_by by design so the installer fence fires), removed placeholder prose (Missing public_access_checked_at now reported), exact gate command + verbatim output embedded in the record (exit 1, NOT READY diagnostics verbatim; independently re-run byte-identical including the trailing newline), runbook split into preflight (NOT READY expected) → independent install → external record → final PASS gate, with --template flow and the frozen-candidate rule; references marked required, launch text fixed. Refs #10.

@@ -175,6 +175,29 @@ not decoded at upload. The speech request stays the frozen probe shape and adds
 verification of the reference route is pending acceptance evidence and is
 required before AT-08 closes). Default voice remains the no-reference call.
 Multipart bodies are parsed fully in memory (no temp files or disk spooling).
+
+DJ start/advance accept an optional JSON `{reference_id: UUID}` (omitting the
+body or sending `{}` preserves default behavior). Explicit speech retry accepts
+`{track_id, reference_id?}`. An unknown, expired or consumed reference returns
+404 before changing playback or creating a job; it never requests default speech
+as a substitute. Under the session lock, a new job claims the upload exactly
+once into a private job-to-bytes map, bounded by the existing global two-active-
+speech-job limit. Success and every failure remove that map entry and private
+commentary prompt. A rejected/cached/busy/failed-skip intent leaves its unconsumed
+upload available for deletion or session expiry; no recording or reference id
+is added to the shared snapshot schema.
+
+The browser retains the selected File in page memory only, uploads it afresh for
+each new introduction and deletes any unused upload after the intent completes
+or fails. Selecting a file alone, polling, pause/resume and reload do not upload
+or generate. Natural advance belongs to the user-started queue and uses the
+current selection. Cached/in-flight introductions retain their original voice;
+failed ones still require the explicit Retry action. Clear selects default voice
+for future jobs; reload forgets the clip. Selection changes during an upload
+apply only to subsequent requests. On automatic-advance error the local timeline
+waits for user recovery (clear/change the clip, then Resume or Skip), avoiding
+repeated uploads or automatic retries. Resume also releases this local halt when
+server playback was not paused. No service payload or provider implementation changed.
 The single-process launcher owns this memory; restart clears generated session data
 and reloads the approved sample catalog. No generated-data persistence, upload,
 fixtures or alternate generation provider is added to the normal launcher; the only

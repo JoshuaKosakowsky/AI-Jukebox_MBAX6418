@@ -1,5 +1,29 @@
 # Test results and evidence
 
+## PR #44 combined-main reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex, previous head `512a7d1724e3cf4fc77b2bf22ca74216fd098603`,
+merged main `b4ec564f6854d04d6282137b62a52f5e4e2f751f` (includes #46/#45)
+on isolated `codex/pr44-sync-nov1` for existing PR #44.
+
+- Resolved only `handoff.md` and this file; both parents' complete histories
+  preserved in order. APP_CONTRACTS merged automatically with both feature notes.
+- Original lyrics provider and regressions match previous-head Git blobs exactly.
+  Incoming reference-voice app/session/UI/tests, adopted reviewer policy and
+  release-preparation evidence match main; original seven-file PR scope retained.
+  No additional provider payload, schema, media, dependency, CI or protection change.
+- Locked `python scripts/dev.py --check`: PASS, **225 tests run, one platform
+  symlink skip**; verifier **126 files**, coverage **36 requirements / 11 tasks /
+  19 cases**. Combined suite includes lyrics and reference-DJ regressions together.
+  Full-history/source/scope checks and staged/working whitespace checks PASS.
+- This is offline integration evidence. No new service calls, generation,
+  browser or human listening evidence; #3/R10/AT-04 remains open for coordinated
+  normal-launch real vocal acceptance after protected integration.
+- Matt's COMMENT on512a7d1 found no implementation defect and requested this sync.
+  Fresh exact-head approval is still required. The adopted named JoshKozy role
+  and owner-configured gateway now permit eligible independently examined verdicts;
+  neither this writer nor Mike can supply ordinary approval of their own commits.
+
 ## PR #44 main reconciliation — 2026-11-01 America/Denver
 
 Joshua/Codex; previous PR head `fde309e80c81b955ac7abffcc07f3c4dedaff28d`,
@@ -60,6 +84,39 @@ Whitespace check PASS. No class-service requests, retries or human listening.
 Mike remains #3 lead. Successful normal-launch Qwen lyrics -> ACE-Step vocal
 audio, browser recovery and human listening remain pending in his coordinated
 live run. #3 stays open; historical failed-run records are unchanged.
+
+## Reference-voice UI and DJ wiring — 2026-11-01 America/Denver
+
+Joshua/Codex, branch `codex/a3-06-reference-dj-ui`, base main `226f0ae`.
+Refs #6 / R15-R16 / AT-08; component regression evidence only. Real Chatterbox
+voice matching, reference-path service acceptance and human listening are unrun.
+
+- Locked `python scripts/dev.py --check`: PASS, 222 tests (one optional skip),
+  tracked-file verifier 124 files, coverage structure 36 requirements / 11 tasks /
+  19 cases. Whitespace check PASS. Default/provider payloads and shared schema unchanged.
+- Nine new HTTP/store tests: MP3/WAV -> start/advance/retry -> speech reference;
+  default omission; cross-session/missing/consumed IDs; rejected/busy/cached paths;
+  text/speech/media-capacity failures; expiry/delete; atomic claims and late job
+  completion after skip. References/prompts released; no upload read route/snapshot leak.
+- Production-function Node probe: eight scenarios for chooser/clear, fresh
+  one-shot uploads, no local filename transmission, passive reads, cached/failed
+  jobs, rejection cleanup, selection change during upload, coalesced auto/Skip,
+  and explicit recovery after an automatic-advance failure. No network.
+- Actual in-app browser through the normal `python -m jukebox --port 8126`
+  entrypoint, wrapped outside the repo with synthetic providers and outbound HTTP
+  blocked. Created four synthetic tracks using the form and queued them. Invalid
+  clip: rejected before speech. MP3 then WAV: recording provider observed
+  `audio/mpeg`, then `audio/wav`; cached first intro was not regenerated. Cleared
+  selection: next new intro used default. Bad clip on natural advance halted once;
+  clear + Resume recovered to default speech. Reload retained four queue entries,
+  cleared the reference chooser and made no new speech calls. Total synthetic
+  speech calls: four; reference types `[audio/mpeg, audio/wav, null, null]`.
+- No class requests, real recordings, samples, credentials or generated media
+  added. Synthetic files, launcher wrapper and preview remain outside the repo.
+  Restricted-sandbox FastAPI tests stalled; the same checks completed outside it.
+
+Next: eligible code review and protected merge, then bounded real MP3/WAV/default
+normal-launch and listening acceptance on integrated main before closing #6.
 
 ## Local setup - 2026-10-15 America/Denver
 
