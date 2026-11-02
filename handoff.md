@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — A3-05 default-only DJ check, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-05-default-dj-acceptance, separate worktree from main2be9625; PR50 left untouched.
+Owner requested default-DJ test using bundled songs and exact failed-intro diagnostics, separate from Mike's6 reference work.
+Claim issue5 comment6569457852; separate ceiling text3/speech3, art0/music0, no uploads/retries/resubmissions.
+Offline success/text-failure/speech-failure rehearsal PASS, zero class calls;54 existing DJ/frontend/reference tests PASS.
+Normal launcher8028 inherited only text/speech settings from existing private config; no .env copied or values exposed.
+All3 actual Qwen->Chatterbox jobs succeeded, six HTTP200s; default speech11.4/10.72/13.44 s fully decoded.
+Persisted observational guard captured jobs/roles/statuses and exact SafeError on failure; live stop=null, denied requests0.
+Browser speech->music, automatic advance, both pause/resume phases, music Skip, active cached speech Skip and queue end PASS.
+Initial speech-Skip attempt landed after speech ended; correctly classified as music Skip; cached speech-specific check separately verified.
+Replay/reload/cached controls retained3 successful jobs and text3/speech3; no new generation. Sampled playingCount<=1, no media/console errors.
+Pending Skip briefly showed stopped/reference wording then cleared without intervention; no runtime change made.
+Owner listened and described first clip as relaxing/NPR-style/laid back; selected presentation styles as the follow-up (not voice identities).
+results/a3-05-default-dj-live.json and rehearsal JSON retain actual source, counts, safe diagnostics and boundaries; raw TTS stays outside Git.
+Portable opt-in observer/rehearsal/normal-launch helper added; source app/contracts/frontend/dependencies/CI/protection/media unchanged.
+Mike's6 MP3/WAV tests remain separate; successful sequential baseline does not establish cause of his older failures.
+Next: finish local checks, publish focused evidence/helper PR for separate review; then implement Relaxed/Public Radio, Upbeat Radio and Playful presentation choices separately from6.
+No further live calls are implied. Default run budget is spent; independent ZIP/release and remaining project cases stay open.
+
+
 ## Session — A3-07 Antlercover backup/selection, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-07-third-vocal-integration; source45b309a, runtime base03fb2ef.
 Owner requested a separate hopeful Latin Flare backup about an Alaskan office moose blending in over winter and avoiding hunters.
