@@ -64,6 +64,12 @@ your default or uploaded reference voice. The choice stays in this browser
 session across reloads. Cached and in-progress introductions keep their original
 wording; choosing a style never regenerates them or interrupts music.
 
+Joshua listened to the three retained default-baseline introductions on
+2026-11-02 and reported, "The DJ is clear and sounds good to me." This approves
+those clips' clarity/voice; live Upbeat/Playful comparison remains untested.
+The [teammate ZIP procedure](docs/DEFAULT_DJ_ZIP_TEST.md) checks one new intro per
+style within its existing three-intro allowance, with actual human feedback.
+
 ## Bundled sample library
 
 The app loads approved entries from [assets/samples/manifest.json](assets/samples/manifest.json)

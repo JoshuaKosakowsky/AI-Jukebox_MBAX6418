@@ -30,7 +30,10 @@ if necessary. Never ask me to paste keys into chat or post them to GitHub.
 
 Perform every applicable step below: samples, new instrumental, new vocal/AI lyrics,
 matching covers, default-DJ queue, controls, automatic sequencing, cached replay
-and reload. Do not upload or request a voice recording. Do not edit the app.
+and reload. Use one uncached intro per presentation: Relaxed / Public Radio,
+Upbeat Radio, Playful. Change the selection during the preceding song's music,
+before its automatic advance; confirm the style saved. No extra intros or retries.
+Do not upload or request a voice recording. Do not edit the app.
 Reserve the expected generation allowance before each action and keep a ledger:
 text4/art2/music2/speech3 maximum,11 total, no retries or automatic resubmissions.
 Wait for each generation/job outcome before starting the next; no request bursts.
@@ -126,7 +129,14 @@ prepares the report. It does not assume it can hear or approve generated audio.
    bundled sample to the queue. Choose **Relaxed / Public Radio**. Leave the
    optional reference chooser empty; use **Use default voice** if a file was
    accidentally selected. Press **Play queue** once. Ask the teammate to hear the
-   three introductions and confirm intelligibility/upcoming-song fit. The agent
+   three introductions and confirm intelligibility/upcoming-song fit. After the
+   first intro finishes and its music starts, choose **Upbeat Radio** and confirm
+   the saved-style message before automatic advancement. During the second song's
+   music choose **Playful** and confirm it saved before the third intro is queued.
+   This gives one fresh intro per style, still using the default voice. If a style
+   change misses that timing, record the actual style; do not regenerate to repair
+   the test. Capture the human's actual impression of calm/energetic/playful delivery;
+   wording differences alone do not prove an audible energy change. The agent
    tests Pause/Resume during speech and music,
    then let the queue automatically advance and finish. Speech must precede music
    without overlapping playback. This first pass creates at most three intros.
@@ -178,6 +188,7 @@ Three bundled songs/covers/lyric panels: pass/fail/not run; actual:
 New instrumental + matching cover: pass/fail/not run; actual:
 New AI lyrics + sung vocal + matching cover: pass/fail/not run; actual:
 Default DJ: three intelligible, track-appropriate intros: pass/fail/not run; actual:
+Actual intro styles in order; human feedback on Relaxed / Upbeat / Playful energy:
 Pause/resume; automatic speech->music->next; no overlap: pass/fail/not run; actual:
 Cached replay; Skip in speech/music; reload retention: pass/fail/not run; actual:
 Voice upload comparison: NOT RUN — outside this checklist

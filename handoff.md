@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — Owner DJ feedback recorded; styles added to ZIP test, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, pre-change head `6ec67ee`, main `29c5de1`.
+Owner listened to the3 retained default-baseline clips and said "The DJ is clear and sounds good to me."
+Recorded exact feedback on issue5 and appended human_listening_followups to the baseline JSON with media hashes.
+Original run fields remain identical; audio still comes from source2be9625, not a new/current-style run.
+This confirms baseline clarity/voice only; no new song-fit, all-style, full-app or independent install approval invented.
+Confirmed implemented labels Relaxed / Public Radio, Upbeat Radio, Playful; prompts affect Qwen wording, same TTS speaker.
+Updated agent ZIP procedure to use one new intro per style, switching during prior music before automatic advance.
+Record actual selected styles and perceived energy; if timing is missed, disclose it without regenerating.
+Budget unchanged: text4/art2/music2/speech3,11 total; single tester coordination and stop/no-retry rules unchanged.
+Human listening for new selector outputs remains pending; the current feedback is not substituted for the installer's judgment.
+README/TEST_RESULTS explain the boundary; voice uploads stay outside the checklist, capability and gate untouched.
+Asked Joshua which actual teammate should install; no person/assignment selected or changed by this edit.
+No class calls, uploads, generation, browser test or independent installation performed in this session.
+Local checks PASS: original JSON run fields preserved, three-clip feedback/unchanged11-request cap, scaffold176, coverage36/11/19 and whitespace.
+Fresh exact-head CI/review required after push; no app suite repeated locally for docs/evidence-only changes.
+Next: freeze updated #59, retain JoshKozy review request and forward the agent procedure to the selected teammate.
+Installer uses fixed baseline29c5de1 or an explicitly re-pinned candidate; no silent archive/version replacement.
+Feedback: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6590638135
+
 ## Session — PR59 procedure made agent-executable, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, pre-update head `7dd3138`, main `29c5de1`.
 Owner requested the procedure itself direct teammates' AIs to do the actual work.
