@@ -119,7 +119,7 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">
-              DEFAULT AI DJ
+              AI DJ
             </p>
             <h2 id="dj-title">
               Queue &amp; DJ
@@ -131,6 +131,20 @@
         <p id="dj-status" role="status" aria-live="polite">
           Add playable songs from your library to the queue, then press Play.
         </p>
+        <div class="dj-voice">
+          <label for="dj-voice">Optional DJ reference voice
+            <input id="dj-voice" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav"
+                   aria-describedby="dj-voice-help dj-voice-status">
+          </label>
+          <button id="dj-voice-clear" type="button" disabled>Use default voice</button>
+          <p id="dj-voice-help" class="note">
+            Choose an MP3 or WAV, up to 5 MB (WAV: 1–60 seconds). Your clip stays
+            in this page and is uploaded temporarily for each new introduction.
+            Cached or in-progress introductions keep their original voice.
+            Clear it or reload to return to the default voice. Recordings are never saved.
+          </p>
+          <p id="dj-voice-status" role="status" aria-live="polite">Default Chatterbox voice selected.</p>
+        </div>
         <div class="dj-controls">
           <button id="dj-play" type="button" disabled>Play queue</button>
           <button id="dj-pause" type="button" disabled>Pause</button>
@@ -140,7 +154,7 @@
         <audio id="dj-audio" hidden></audio>
         <p class="note">
           Qwen writes a short introduction for each queued song; Chatterbox
-          speaks it with its default voice, then the music plays — speech and
+          speaks it with your selected reference or its default voice, then the music plays — speech and
           music never overlap. Pause and Skip work during speech and music, and
           the queue advances on its own after each song. Reloading the page
           keeps the queue and never generates new speech.

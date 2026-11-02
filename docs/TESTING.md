@@ -209,6 +209,16 @@ audio/image quality or ongoing GitHub access. Teammate review is still essential
 Keep the public repo accessible through grading. Submit its URL, that SHA and
 that exact GitHub ZIP per team on Canvas; the checker does not submit anything.
 
+For #6 / AT-08, `tests/test_reference_dj.py` exercises synthetic MP3/WAV uploads
+through start/advance/explicit retry into the existing speech provider interface,
+default voice, atomic one-shot ownership, isolation, expiry, failures and cleanup.
+`tests/frontend_reference_probe.cjs` executes the production chooser/request/FIFO
+functions without a network or class credentials. These are regression checks,
+not proof that a real reference changes the voice. On integrated main, run a
+bounded normal-launch MP3 and WAV comparison with default speech and a human
+listening check, including clear/reload and failed-clip recovery; record the exact
+SHA, safe observations and actual calls. Keep recordings out of Git/evidence/ZIP.
+
 Code, assets or dependency changes after testing create a new candidate: rerun
 affected checks and independent ZIP installation. Documentation fixes that alter
 the candidate also change its SHA; recheck the final ZIP rather than submitting

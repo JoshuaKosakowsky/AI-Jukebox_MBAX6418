@@ -14,6 +14,13 @@ No rankings, effort estimates, line counts or commit totals. Joint work can name
 multiple teammates and their roles. Anyone may correct missing or inaccurate
 attribution. A component entry does not claim the whole feature is complete.
 
+`JoshKozy` is Joshua's disclosed Hermes reviewer identity under
+[CONTRIBUTING](../CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy). Attribute
+completed activity as `JoshuaKosakowsky (Hermes via JoshKozy)` with its actual
+review link/SHA and validation. It is automated technical review, not another
+teammate, an independent human review, or independent deployment acceptance.
+Do not add a completion row merely for a planned/configured reviewer.
+
 | Completed | Teammate(s) | Work | Outcome | Evidence |
 |---|---|---|---|---|
 | 2026-10-16 | JoshuaKosakowsky | Setup and documentation | Local repository scaffold, safeguards, labels and streamlined collaboration guidance | Local commits `9d8ee0e`, `d742a90`, `ef79e73` |

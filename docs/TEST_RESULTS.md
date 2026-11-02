@@ -1,5 +1,59 @@
 # Test results and evidence
 
+## PR #37 genre-controls reconciliation — 2026-11-01 America/Denver
+
+Joshua/Codex; prior head `7c953a712754138c4373c13fde8b75579e367cef`, merged
+main `b4ec564f6854d04d6282137b62a52f5e4e2f751f` on isolated codex/pr37-sync-nov1.
+Only handoff.md conflicted. Both complete handoff, test-result and contribution
+histories survive in order; other files merged normally. Existing genre-request
+and caption functions are unchanged. Main's reference-voice code/tests, adopted
+role policy, schema and dependencies remain intact. All previous evidence blobs
+are preserved and the PR retains its original21-file scope.
+
+Locked `python scripts/dev.py --check`: PASS, **226 tests run, one platform
+symlink skip**; verifier **135 files**, coverage **36 requirements / 11 tasks /
+19 cases**. Combined genre/reference/DJ regressions pass. Final history/source/
+evidence/scope and staged/working whitespace checks pass. No new service requests,
+generation, retuning, media, browser or human listening observations.
+
+The partial-controls scope and provisional ratings remain unchanged; metal is
+deferred and #35 stays open. Child #43 retains the completed20-style scorecard
+and its known rock/punk misses; it was not synchronized or retargeted here.
+Fresh exact-head review and CI are required before normal protected integration.
+
+## Reference-voice UI and DJ wiring — 2026-11-01 America/Denver
+
+Joshua/Codex, branch `codex/a3-06-reference-dj-ui`, base main `226f0ae`.
+Refs #6 / R15-R16 / AT-08; component regression evidence only. Real Chatterbox
+voice matching, reference-path service acceptance and human listening are unrun.
+
+- Locked `python scripts/dev.py --check`: PASS, 222 tests (one optional skip),
+  tracked-file verifier 124 files, coverage structure 36 requirements / 11 tasks /
+  19 cases. Whitespace check PASS. Default/provider payloads and shared schema unchanged.
+- Nine new HTTP/store tests: MP3/WAV -> start/advance/retry -> speech reference;
+  default omission; cross-session/missing/consumed IDs; rejected/busy/cached paths;
+  text/speech/media-capacity failures; expiry/delete; atomic claims and late job
+  completion after skip. References/prompts released; no upload read route/snapshot leak.
+- Production-function Node probe: eight scenarios for chooser/clear, fresh
+  one-shot uploads, no local filename transmission, passive reads, cached/failed
+  jobs, rejection cleanup, selection change during upload, coalesced auto/Skip,
+  and explicit recovery after an automatic-advance failure. No network.
+- Actual in-app browser through the normal `python -m jukebox --port 8126`
+  entrypoint, wrapped outside the repo with synthetic providers and outbound HTTP
+  blocked. Created four synthetic tracks using the form and queued them. Invalid
+  clip: rejected before speech. MP3 then WAV: recording provider observed
+  `audio/mpeg`, then `audio/wav`; cached first intro was not regenerated. Cleared
+  selection: next new intro used default. Bad clip on natural advance halted once;
+  clear + Resume recovered to default speech. Reload retained four queue entries,
+  cleared the reference chooser and made no new speech calls. Total synthetic
+  speech calls: four; reference types `[audio/mpeg, audio/wav, null, null]`.
+- No class requests, real recordings, samples, credentials or generated media
+  added. Synthetic files, launcher wrapper and preview remain outside the repo.
+  Restricted-sandbox FastAPI tests stalled; the same checks completed outside it.
+
+Next: eligible code review and protected merge, then bounded real MP3/WAV/default
+normal-launch and listening acceptance on integrated main before closing #6.
+
 ## Local setup - 2026-10-15 America/Denver
 
 Scope: repository scaffold only. No service calls, generated samples, or app
@@ -551,10 +605,83 @@ rejected card's Generate lyrics re-enables after the holder completes and a
 Refresh status (no reload); and a mid-chain reload (lyrics job held, then
 released) leaves submit_music at zero — no auto-continuation after reload.
 
+## A3-06 temporary reference voices - 2026-10-30 America/Denver
+
+Tester: MSpanny directing Hermes. Branch codex/a3-06-reference-voices; base
+main 7d003c6 (post-#21 merge). Scope: R15/R16 provider-layer work per the issue
+handoff — temporary MP3/WAV references, validation, cleanup/recovery and
+default-voice fallback. Final DJ integration/acceptance stays blocked on #5.
+
+| Check / exact safe input | Expected | Actual |
+|---|---|---|
+| Locked offline command: python scripts/dev.py --check | Suite passing; coverage retained | PASS, 137 tests (128 baseline + 9 new), verifier 71 files, coverage 36/11/19 |
+| Multipart MP3 and WAV uploads over real HTTP | 201 {id, media_type}; validated fingerprints; bytes never in snapshots | PASS, audio/wav and audio/mpeg accepted; reference id and bytes absent from every snapshot dump |
+| Rejections: non-audio bytes, truncated RIFF, >5 MB (patched), WAV outside 1-60 s | 422 before any storage | PASS for all four cases; zero tracks/jobs created |
+| Consumption and cleanup | take_reference consumes exactly once; DELETE works; unknown/foreign ids 404; session expiry drops references | PASS through real HTTP and store-level tests; GET on the reference path is 405 (no read route) |
+| Provider: speech without reference | Frozen probe payload byte-identical | PASS (MockTransport, same probe input) |
+| Provider: speech with reference | Same request plus ref_audio base64 data URI; WAV decodes | PASS (MockTransport) |
+| Dependency | python-multipart added (0.0.32) to locked env for multipart parsing | pyproject/uv.lock updated; `uv run --locked` installs it |
+
+Design: references are session-scoped memory only — never in the session
+snapshot (no contract change), never on disk, no read route, consumed once by a
+speech job, expired with the session. Validation uses content fingerprints, not
+client-declared types. The Chatterbox reference path (ref_audio as a base64
+data URI in the frozen JSON request) is schema-inspected only; live class
+verification is required before AT-08 closes and remains pending (no .env on
+this machine; #5 integration will provide the normal-entrypoint flow, after
+which MP3 AND WAV variants must be demonstrated live). No uploads or voice
+references are committed, per the repo safeguards.
+
 Unchecked (honest): the class services were NOT called — the live Qwen lyrics
 and ACE-Step vocal run still requires the class .env (absent on this machine)
 and is the remaining evidence for AT-04 / issue closure. Audible listening in a
 headed browser and sample selection remain. Submission NOT READY.
+
+## A3-06 review round 2: no-disk multipart + structural audio validation (PR #26 head)
+
+Following Joshua's independent review (CHANGES_REQUESTED: multipart temp-file spooling and
+header-only/truncated audio accepted), the upload path was reworked and hardened:
+
+1. Multipart bodies are parsed fully in memory (python-multipart callbacks over a
+   capped raw stream, content-length and stream-caps abort at 5 MB + overhead)
+   - the framework form parser and its 1 MB disk spooling are never used. Both
+tempfile.SpooledTemporaryFile and tempfile.TemporaryFile are mocked to raise in
+the new regressions, proving no disk touch for multi-MB and oversized uploads.
+2. WAV validation is now structural (byte walk of RIFF chunks): PCM fmt chunk and
+a physically present, non-empty data chunk are required; declared data that
+overruns the upload is rejected as truncated; duration is derived from the real
+data chunk; trailing metadata bytes after the data chunk are tolerated. Non-PCM
+and chunk-less files are rejected.
+3. MP3 validation requires an ID3v2 header whose declared size fits the upload,
+plus at least one reachable MPEG audio frame (frame sync within 64 KB after the
+tag); bare ID3, tag-only and truncated MP3s are rejected.
+
+Evidence: 16 reference tests (7 new regressions) plus the full offline suite:
+144 tests, verifier 72 files, coverage 36 requirements / 11 tasks / 19 cases,
+all PASS. Live Chatterbox acceptance of real MP3/WAV references stays pending
+on #5 integration (unchanged, honest scope).
+
+## A3-06 review rounds 4-5: duplicate-chunk and ordering hardening (PR #26 head)
+
+Following Joshua's round-4 (22:06, head ab690f1) and round-5 (05:09, head
+d35d4b1) independent reviews, one-format/one-data invariants were added to the
+WAV chunk walker (jukebox/sessions.py):
+
+1. A second `data` chunk is rejected 422 — the walker previously kept only the
+   LAST chunk, so a 61 s + 1 s dual-chunk file validated as ~1 s (round-4).
+2. A second `fmt ` chunk is rejected 422 — the walker previously used the LAST
+   fmt chunk, so a 61 s PCM file followed by a coherent 16 kHz fmt computed as
+   ~30.5 s and slipped past the 60-second limit (round-5).
+3. Audio `data` before the `fmt` chunk is rejected 422 (Python's wave reader
+   also rejects that ordering) (round-5).
+4. The round-4 fixture's RIFF length no longer over-counts the data-chunk
+   headers (RIFF size = actual file length minus 8).
+
+Regressions reproduce each review case exactly (61 s + 1 s dual data -> 422;
+61 s + 16 kHz second fmt -> 422; data-first -> 422) with a normal 3-second WAV
+positive control (201). Gate: `python scripts/dev.py --check` PASS — 212 tests
+(23 reference), verifier 119 files, coverage 36 requirements / 11 tasks /
+19 cases. Live Chatterbox acceptance of real MP3/WAV stays pending (unchanged).
 
 ## A3-05 default AI DJ queue - 2026-10-30 America/Denver
 
@@ -790,6 +917,34 @@ generation/playback, vocal, DJ, reference-voice, sample or release acceptance wa
 performed here. Issue #10 stays blocked with jovi1214 as lead; full submission
 remains NOT READY. The evidence documents the tested 7b9dd2b ZIP, not a later
 candidate containing this documentation.
+
+## A3-10 release-gate mechanics rehearsal - 2026-11-01 America/Denver
+
+Tester: MSpanny directing Hermes. Preparation only — **not** a final freeze or
+independent acceptance (Jovi keeps lead; a different teammate must run the
+final install). Ran the release-gate mechanics against the CURRENT main ZIP
+(`cb818ae595f399f2455464de58ec5acdaa27d8fc`), downloaded from the exact GitHub
+archive URL, and recorded the gate's diagnostics as the open-blocker list.
+
+| Check | Expected | Actual |
+|---|---|---|
+| Archive identity | Exact 40-SHA URL archive; recorded sha256/bytes/entries | PASS: 10,980,156 bytes; sha256 `c4ea863a91b186e8f57dee6b3c8aa90beccad3c066041711e780a6154c89fe48`; 133 entries = 14 dirs + 119 files |
+| Tree parity | ZIP files == `git ls-tree` tracked files; no extras | PASS: 119 == 119, 0 extras |
+| No Git metadata / no private `.env` | Absent from archive | PASS: 0 `.git/` entries; 0 bare `.env`; `.env.example` present |
+| Archive integrity vs candidate | Byte-for-byte match of every tracked file | PASS: gate's archive comparison reported no content differences |
+| `--release` gate | MUST refuse the current incomplete state, listing exact gaps | PASS (expected NOT READY, exit 1): `Missing public_access_checked_at`; `Independent ZIP installer must differ from candidate preparer`; all 19 AT-cases unverified; `AT-16 must identify the actual independent ZIP installer as tester`; ≥2 team rows with contribution+review evidence; three distinct approved samples with distinct audio/cover. Exact command + verbatim output are embedded in the record for reproducibility; independently re-run on 2026-11-01 against the same ZIP, the gate output is byte-identical (trailing newline included) with exit 1 |
+
+Meaning: the identity/integrity mechanics and the stop-light work end-to-end on
+the current tree. Per review feedback the person identifiers are canonical
+(`installed_by == prepared_by == "MSpanny"` by design so the installer-
+separation fence fires), no placeholder prose is left in gate-read fields
+(nonempty text would suppress `Missing ...` diagnostics), and the record embeds
+the exact gate command and verbatim output. The captured NOT READY diagnostics
+are precisely the final freeze's remaining gates — the same open items tracked
+in #3/#6/#7 plus the independent installer and team records. [Safe record](../results/a3-10-rehearsal-prep.json).
+See [Submission runbook](../docs/SUBMISSION_RUNBOOK.md) for the freeze procedure
+(preflight, then independent install, then the final PASS gate).
+No provider request, connectivity check or generation was performed.
 
 ## A3-03 lyrics parser diagnostics - 2026-10-30 America/Denver
 
@@ -1028,6 +1183,25 @@ tooling only; CI runs the same 129-test suite green. Rerun with git 2.44.1
 No vocals/DJ/reference flows, session-limit cases or ZIP/release acceptance
 here; #8 stays open for those, and submission remains NOT READY.
 
+## A3-06 review round 3: complete-frame MP3, header-order parity, coherent PCM (PR #26 head)
+
+Joshua (round 3) and Matt (Issue #5/#6 workflow) independently reproduced three further upload-validation
+defects on the round-2 head; all three fixed with regressions (165 tests, verifier 99 files, gate PASS):
+
+1. MP3 validation now requires a COMPLETE frame, not a sync: the frame length is computed from the
+   header (MPEG version/layer bitrate and sample-rate tables, padding) and the upload must physically
+   contain those bytes. Three-byte and four-byte headers with no payload, with or without an ID3 tag,
+   are 422; a 417-byte synthetic MPEG-1 Layer III frame (128 kbps / 44.1 kHz) is the positive control.
+2. Multipart part headers no longer accumulate across headers (each header ends with a buffer clear,
+   not the part end), so a part whose Content-Type precedes Content-Disposition validates exactly like
+   the reverse order (regression posts the identical WAV in both orders).
+3. WAV headers must be internally coherent PCM: byte_rate == sample_rate*channels*bits//8 and
+   block_align == channels*bits//8; duration derives from the physical frame count, so a forged
+   byte-rate field cannot bypass the 60-second limit (regression alters only bytes 28:32 of a real
+   61 s WAV and expects 422 both ways).
+
+Scope unchanged: no-read route, snapshot invisibility, one-shot consumption, session isolation,
+no-disk multipart, and live Chatterbox MP3/WAV acceptance still pending after #5 integration.
 
 ## A3-35 genre-conditioning correction — 2026-10-30 America/Denver
 
