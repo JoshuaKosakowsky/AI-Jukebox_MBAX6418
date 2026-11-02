@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — Vocal sample 2 preparation, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-vocal-two-prep; base protected main `a1a41d1`.
+Joshua authorized normal #37 merge, Mike's corrected13-call run, and separate offline song preparation.
+PR37 merged at a1a41d168b1004132b6bac38f914d2eddff729bc; all4 merged-main CI checks pass (run41374290315).
+Owner go-ahead: issue3 comment6567163725; current issue3/6 handoffs now state the pinned head and shared budget.
+Mike owns the only live #3/#6 run: text4/art3/music3/speech3, zero retries; bounded polling/downloads remain within existing limits.
+He was asked to retain original Qwen lyrics/audio/art/provenance for possible #7 vocal candidate1 after listening/curation.
+Prepared Afterglow Avenue:45s vocal synth-pop, warm synths/bass/crisp drums, hopeful late-night homecoming theme.
+results/a3-07-vocal-two-preparation.json contains validated settings, exact current production prompts and proposed future3-request budget.
+Qwen output lyrics and sample media remain null; fixture lyrics and synthetic cover were used only in memory for offline checks.
+Three MockTransport requests PASS:512-token non-thinking lyrics,512-square cover,45s music using supplied lyrics and literal-caption genre controls.
+Real class requests=0; no speech, retries, media generation, manifest selection or credentials in this preparation.
+Future generation is separate from Mike's13 requests and waits for his result/head/style coordination; this session authorizes preparation only.
+Mike retains cover-prompt PR40 and his existing third-candidate preparation; refresh the draft cover prompt if40 lands before generation.
+PR47 stays frozen and separate; no changes to other branches, assignments, protection, schema or runtime code.
+Recorded37 integration/review credit with existing contribution history preserved.
+Offline plan checks PASS; repository verifier136, coverage36/11/19 and whitespace PASS; no runtime files changed.
+Next: inspect Mike's result, coordinate a distinct second vocal run, then retain/listen/curate the two vocals and selected instrumental.
+Preserve at least2 finished vocals for #7; additional showcase entries follow a separately reviewed capacity update.
+
 ## Session — PR #37 integration after #44, 2026-11-01 America/Denver
 Codex for Joshua; existing codex/a3-35-genre-controls / PR37; pre-handoff head `a836c83`.
 Isolated branch codex/pr37-sync-nov1; normal merge of protected main `7fb8e1c` (merged #44).
