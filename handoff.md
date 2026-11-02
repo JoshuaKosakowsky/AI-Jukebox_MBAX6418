@@ -1,5 +1,27 @@
 # Agent handoff
 
+## Session — PR38 status refresh for review, 2026-11-02 America/Denver
+Codex for Joshua; local `codex/pr38-main-sync-nov2`, PR `codex/integration-catchup-oct31`.
+Pre-handoff head `9edf584`; incoming protected main `eb29bab` (merged #39; main CI passed).
+Owner authorized progressing #38; docs-only reconciliation and fresh review, no protected-main bypass.
+Changed versus main: PLAN.md, docs/CONTRIBUTIONS.md and this handoff only.
+Resolved contribution/handoff conflicts while retaining all prior credit keys and both complete parent histories.
+PLAN now records merged lyrics/reference wiring, three approved songs/two vocals, default-DJ evidence and presentation choices.
+Original test-source attribution remains: samples/default-DJ `2be9625`, synthetic browser matrix `25f8617`.
+Published #3 listening/evidence, #6 real reference comparison, #8/#9 reconciliation and final independent ZIP remain pending.
+PLAN ownership mirrors existing issue leads for #7/#8/#9/#10; no GitHub assignments or active claims changed.
+Retained #26/#27/#29/#42 credit updates; added verified Preethi #32/#34, Joshua/Mike #44, Joshua #46 and #39 integration/review credit.
+The contributions table remains continuous; no ranking, effort estimate or planned-work credit was added.
+Local docs checks PASS: verifier 165 files, coverage structure 36 requirements/11 tasks/19 cases, whitespace.
+Scope, both-parent history, contribution-key retention and five-column table checks PASS.
+No local app-suite rerun for docs-only changes; the unchanged main runtime already passed CI; require fresh exact-head CI.
+No app/tests/contracts/dependencies/samples/CI/protection or reviewer-authority changes; no class calls or generation.
+Submission remains NOT READY. Earlier live budgets stay spent; no new listening/reference/ZIP result claimed.
+Next: push once, freeze head, confirm CI and request fresh Hermes/JoshKozy review; Joshua prompts the separate reviewer.
+Keep Mike's #3/#6 and Matt's remaining acceptance work separate; coordinate a single tester before new live calls.
+After mandatory evidence/report gaps close, arrange another teammate's exact GitHub-ZIP installation for #10.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/38#issuecomment-6582859884
+
 ## Session — PR39 reconciliation for review, 2026-11-02 America/Denver
 Codex for Joshua; local `codex/pr39-main-sync-nov2`, PR branch `codex/main-browser-regression`.
 Pre-handoff PR head `60a4fed`; incoming protected main `af08249`; clean isolated worktree used.
@@ -21,6 +43,28 @@ Parent #3/#5/#8 remain open; this evidence integration does not establish submis
 Next: push once, freeze exact head, check CI and request JoshKozy review; Joshua will prompt Hermes.
 Keep #38 status refresh separate and reconcile it against main after whichever evidence PR merges first.
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/39#issuecomment-6581954824
+## Session — PR38 re-review reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; PR38 branch codex/integration-catchup-oct31; local codex/pr38-main-sync-nov1.
+Prior head59d6ee5; merge protected main226f0ae after the authorized normal #42 merge.
+Scope: PLAN.md, docs/CONTRIBUTIONS.md and this handoff only versus main.
+No app/tests/contracts/dependencies/assets/CI/protection changes, assignments or class calls.
+Resolved handoff conflict by retaining both complete parent histories in order below.
+PLAN now records #26 upload/provider component and #42 rehearsal prep as merged.
+#6 chooser/DJ wiring and real MP3/WAV/default-voice acceptance remain required.
+#44 headfde309e needs a new eligible reviewer after Mike's sync; Joshua/Mike contribute.
+#37/#40 remain unmerged; #43 stays draft/stacked. Preserve all existing task ownership.
+Sample candidates/genre probes are not approved final samples; include a finished vocal per Joshua's preference.
+Recorded Mike/Matt/Joshua's verified #26 and #42 work without expanding component acceptance.
+Both parent handoff histories and incoming evidence files must retain their content.
+Validation PASS: 212 locked tests (one optional skip), verifier122 and coverage36/11/19.
+Scope/history/blob-equivalence and whitespace checks PASS; exact-head CI is recorded on the PR.
+No live/browser/listening/reference/final-ZIP acceptance claimed; submission remains NOT READY.
+#39 remains separate at60a4fed with its historical tested-main provenance; not updated here.
+Hermes/JoshKozy reviewed prior #38 as COMMENT and requested this reconciliation.
+#45 reviewer policy is still unmerged: Hermes re-review remains COMMENT-only until adopted/activated.
+Next: commit/push checked sync once, freeze and request fresh review on the exact head.
+Joshua will prompt Hermes in her own terminal; do not dispatch another Hermes worker.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/38#issuecomment-6564957000
 
 ## Session — Night stopping point, 2026-11-01 America/Denver
 Codex for Joshua; branch `codex/a3-night-handoff-20261101`, based on main `9db244b`.
@@ -44,6 +88,7 @@ Arrange a genuinely different teammate for #10's final exact GitHub ZIP installa
 Scoped reviewer automatic refresh is deferred until tomorrow; current eight-hour behavior remains unchanged.
 No test servers were started this session. Check ownership before stopping any existing listener.
 Next agent: fetch main, check current team claims, and preserve the original evidence source hashes.
+## Preserved PR38 history before this reconciliation
 
 ## Session — PR51 merged; PR52 ready for re-review, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-05-dj-presentation-styles; prior public head0fe135a; local prep b86d684.
@@ -59,7 +104,34 @@ Historical live source2be9625 and zero-call style evidence stay pinned; no retes
 Next: push52 reconciliation, freeze, confirm exact-head CI and renew JoshKozy request; owner requested re-review, not52 merge yet.
 Tomorrow: consider encrypted refresh-token support for the reviewer; current8-hour login remains unchanged and isolated from writer.
 After52 integrates, mandatory next gap is6 real MP3/WAV voice comparison; keep Mike's claim/availability in view.
+## Session — PR38 integration-status reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/integration-catchup-oct31; pre-head f2a87d2; incoming main cb818ae.
+## Constraints
+Docs-only sync; no class calls/generation, app fixes, assignments, protection changes or edits to Mike's branches.
+## Repository state
+Main merged without conflict; both original docs handoff and Mike's failed-vocal notes remain below.
+#39 is independently synchronized at60a4fed; neither PR includes or depends on the other's unique files.
+## Work completed and decisions
+Refreshed PLAN against live issues/PRs; #29 merged, #26/#40 synced but needing fresh review, #44 awaiting Mike.
+Kept all prior contribution/review credit and clarified that Joshua's later #26 contribution prevents self-approval.
+#37 is ready; #43 draft has20 ratings (10 good/8 minor/2 major), with metal/deathcore tuning deferred.
+Approved samples remain empty; third-pair confirmation, actual acceptance and release remain outstanding.
+Incoming #41 record/TEST_RESULTS match main; runtime/tests/contracts/dependencies/assets/CI/protection match main.
+## Validation
+PASS: verifier119 files, coverage36/11/19, whitespace; delta limited to3 docs and both histories preserved.
+Shared unchanged main code passed189 locked tests (one optional skip) during this session's #39 reconciliation.
+No local suite repetition for this docs-only delta; exact-head CI runs the suite separately on this PR.
+## Blockers and unchecked areas
+No normal-launch/browser/listening/live reference or final ZIP acceptance performed; submission remains NOT READY.
+#42's requested corrections remain with Mike; #26/#40/#37 require eligible teammates, not Joshua/Dot approval.
+## Next steps
+Push checked sync, freeze the head and request fresh eligible Matt/Preethi review; normal protected merge only.
+After either docs PR merges, recheck the other against resulting main without changing historical evidence.
+## References
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/38#issuecomment-6562834666
+Live [issues](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues) own assignments/status.
 
+## Preserved history — current entry supersedes older status statements
 
 ## Session — PR52 local sync preparation, 2026-11-01 America/Denver
 Codex for Joshua; original approved52 head0fe135a, merging reconciled51 contentb45dbd3 locally.
@@ -69,7 +141,16 @@ Do not publish this52 preparation until51 merges and the actual main merge commi
 No service calls or acceptance reruns; old source hashes and zero-call style evidence stay honest.
 Combined local checks PASS:237 tests run,1 platform skip; verifier160,coverage36/11/19,whitespace.
 Next: offline checks, finish51 protected merge, sync52 with actualmain, push and request fresh exact-head review.
+# Current merge follow-through - 2026-10-31 America/Denver
 
+Codex for Joshua. #29 merged normally at 25f86179f82cad2f323a81970a27fc76dbdb22ae from approved 02b85e2; all three review threads resolved, 4/4 head checks passed before merge.
+Docs branch codex/integration-catchup-oct31 synced with new main; app/tests/providers/contracts match main, no Mike-branch edits.
+#26 remains bbf80bc: merge-tree finds conflicts only sessions.py, TEST_RESULTS.md and handoff.md. Keep BOTH dj_prompt and reference validator blocks, plus both evidence strands.
+Mike's exact next-step handoff: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#issuecomment-6546007709
+#26 can merge as the declared upload/provider component after main sync, combined locked checks and Matt's renewed eligible review. Do not inflate its scope or waive Matt's blocking review.
+Parent #6 still needs private chooser/DJ consumption wiring and real MP3/WAV/default-voice/browser acceptance, in a focused follow-up. #3's successful live acceptance remains pending after diagnosis.
+No source edits, new generation, live calls or uploads. Previous 189-test exact-head review remains valid; docs sync gets verifier/coverage/whitespace checks, CI recorded on PR.
+Next: Mike syncs/checks/freezes #26; eligible review and normal merge; then #6 integration. Refresh live heads before continuing; #38 docs remains separate.
 
 ## Session — A3-05 selectable presentation styles, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-05-dj-presentation-styles; fresh base main2be9625, independent of frozen50/51.
@@ -87,7 +168,17 @@ Evidence results/a3-05-dj-presentation-styles.json pins normalized runtime/schem
 Next: finish full locked checks, publish separate feature PR and request JoshKozy review; coordinate additive snapshot field with6.
 No assignment/protection/dependency/CI changes; preserve pending50/51 and historical evidence on their exact original sources.
 After approved normal integration, evaluate style outputs with a separately bounded live comparison only if requested.
+# Current re-review update - 2026-10-31 America/Denver
 
+Codex for Joshua; independent #29 review, no commits on Mike's branch.
+Approved exact 02b85e232b0987fd86290ba7d8a98d2b306675da; remaining metadata/string threads resolved.
+189 locked tests (1 optional skip), verifier 118, coverage 36/11/19, whitespace and 4/4 exact-head CI PASS.
+Original object/short-string/finish/message probes now keep markers out of SafeError and public snapshots.
+Independent payload capture: default text probe-identical, DJ adds only thinking=False, lyrics adds only 512-token budget; frozen probe unchanged.
+PR #29 is APPROVED / MERGEABLE / CLEAN at review end. Kept open: this request was review; normal merge can proceed on frozen head.
+No app edits, live calls, credentials, new generation/listening or successful #3 acceptance claim. #26 integration/Matt review and #35/#37 draft investigation remain as below.
+This update is only on Joshua's docs PR #38; preserve #29's eligible exact-head approval. Refresh GitHub before any next action.
+Approval: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723737598
 
 ## Session — PR51 sync after PR50, 2026-11-01 America/Denver
 Codex for Joshua; approved51 head7ae7fb5; normal merge of protected main d0bfd92 (PR50).
@@ -255,6 +346,7 @@ Python3.12.14/Git2.53/Node available; startup and real handler probes included; 
 Joshua contributes the reconciliation and cannot approve the new head; fresh eligible review: Matt/prse4479/Jovi.
 Old approval will be invalidated by the necessary push; no review dismissal or protection bypass.
 Next: finish checks, push existing PR branch, freeze for eligible review; parent issue stays open.
+# Agent handoff
 
 ## Session
 2026-10-31 America/Denver; Hermes for MSpanny (Mike). Task: issue #36 cover-lettering fix. Branch codex/cover-lettering-fix from main 25f8617 (post-#29 merge). Changed: jukebox/sessions.py cover_prompt now leads with a wordless artwork direction (no words/typography/captions/logos/titles drawn, title expressed visually) replacing the weak no-lettering tail and the "album cover" framing; tests/test_covers.py gained a static guard (prompt starts with the no-text instruction, forbidden lettering needles present, title/style/mood retained, 'album cover' gone). Frozen art probe + original starter prompt + retry/replacement behavior untouched. Suite: 190 tests (1 new), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness unproven offline by design (#36's FLUX visual eval is a separately authorized live step; no budget spent). Docs: TEST_RESULTS #36 section; PR body honest scope; review requested from mase7919. Cleanup: stray .pr-body-36.md draft removed from the tree before review (chore commit). Refs #36.
@@ -662,14 +754,18 @@ Preserve inherited entries below; scoped reviewer setup is separate from profess
 Codex for Joshua; branch codex/disclosed-hermes-reviewer from protected main cb818ae.
 ## Session — PR39 main reconciliation, 2026-11-01 America/Denver
 Codex for Joshua; branch codex/main-browser-regression; pre-head eb27ae6; incoming main cb818ae.
+2026-10-31 America/Denver; Codex for Joshua. Catch-up, protected #27 merge and independent #26/#29 re-reviews.
 ## Constraints
 Docs/setup instructions only; preserve protection, app/tests/contracts/assets and existing PR heads.
 No account/access changes, Hermes repair/login, generation, invitations or automatic schedule edits.
 Evidence/documentation integration only; no class calls, generation, browser rerun, app fixes or edits to Mike's branches.
+No class calls/generation/credentials or protection changes. Preserve existing assignees and all failed/live/offline evidence scopes.
 ## Repository state
 Named JoshKozy role belongs to Joshua and becomes eligible only after normal protected policy adoption on main.
 Hermes cannot approve its own authority/profile changes; ordinary eligible teammate review is needed for this PR.
 Merged protected main into this PR; only handoff.md conflicted, and both complete note strands are retained below.
+Clean review clone: .assignment3-setup/catchup-20261031/repo in the shared workspace; original School checkout returned Git mmap failed, left untouched.
+Branch codex/integration-catchup-oct31 from current main a580756. #27 merged normally from 3522f63 with Mike approval; post-merge CI 4/4 PASS.
 ## Work completed and decisions
 Added distinct HERMES_REVIEWER instructions and HERMES_SETUP steps; linked canonical exception across root guides.
 Review role may inspect/offline-test and post disclosed reviews, never implement/commit/push/merge or edit handoff.
@@ -679,6 +775,9 @@ Original 27-check browser JSON, screenshots, helper and report remain byte-ident
 Incoming #41 failed-vocal JSON and TEST_RESULTS remain exact main bytes; no failure relabelled as success.
 Runtime/tests/contracts/dependencies/assets/CI/protection match main; original tested browser SHA stays 25f8617.
 #38 coordination refresh follows separately from main; neither PR depends on the other.
+#26 bbf80bc: independently rechecked all three round-three fixes plus disk-free bounds; approved and resolved Joshua's five old threads. Matt's separate old review remains his to renew.
+#29 086ac6b: object-model/finish and message=[] fixes pass; short model string PRIVATE-MARKER still reaches SafeError/public snapshot. Requested focused changes inline; no implementation commits on either Mike PR.
+PLAN now reflects merged DJ/loader/recovery/docs/candidates; contribution records combine review rounds and credit Matt/Mike's DJ implementation/review.
 ## Validation
 Follow-up verified Windows gh2.102.0 GH_HOST fallback with empty config; setup now leaves GH_HOST unset.
 Local initializer corrected and retested without changing logins; 403/404 and account-vs-token guidance clarified.
@@ -689,22 +788,31 @@ Installed hermes --help reports missing dependency environment and directs herme
 Locked checks PASS:189 tests (one optional skip), verifier124 files, coverage36/11/19; whitespace clean.
 Five original evidence/helper/report files and incoming evidence byte-identical; both handoff histories retained in order.
 No new normal-launch, browser/listening, live-provider, reference-voice or final ZIP acceptance claimed.
+#26 locked suite: 165 tests (1 optional skip), verifier 105, coverage 36/11/19; four independent HTTP probe groups PASS. #29: 151 tests (1 optional skip), verifier 104, same coverage; snapshot-boundary probe confirms remaining leak.
+Synthetic in-memory fixtures, empty/dummy Settings, MockTransport only. No server or live-provider process started. This branch changes documentation only; verifier/coverage/whitespace checks recorded on PR.
 ## Blockers and unchecked areas
 Hermes profile/connector capabilities, scoped JoshKozy authentication and actual posting are not configured/verified.
 Owner manually grants needed collaborator access, sets up scoped tools and completes COMMENT-only smoke test.
 Actual teammate contribution/review, independent deployment and live acceptance remain required; NOT READY.
 Parent #3/#5/#8 remain open; submission NOT READY. #26/#40 await eligible teammate review; #42 requested changes remains Mike's work.
 Joshua contributes and cannot approve this PR. #35 remains Joshua's lane; #36 is not newly claimed.
+#26/#29 must reconcile main's DJ/provider seams before merge; #26 needs Matt re-review, #29 fixed/allowlisted diagnostics. Do not echo arbitrary bounded strings.
+#3 successful live-vocal and merged-main DJ/reference acceptance, final samples/recovery/report/ZIP remain pending. #37 stays draft: literal piano/DnB pass does not erase prior metal/rap failures; #36 lettering remains open. NOT READY.
 ## Next steps
 Eligible teammate reviews policy PR; merge normally. Load role in fresh Hermes session and verify identity/capabilities.
 After smoke review and adoption, allow eligible approvals; coordinate Dot without duplicate technical reviews.
 Push checked reconciliation, freeze head and request fresh eligible Matt/Preethi review; normal protected merge only.
 Keep all existing acceptance limits; coordinate one tester/head/budget for any later live run.
+1. Mike: fix #29 short-string leak, preserve text(thinking=False) DJ behavior in merge; sync #26 and integrate its reference picker/speech path. Eligible reviewer verifies current heads.
+2. Matt/prse: integrated-main DJ/recovery verification with existing budget/claims, no duplicate generation. Jovi/prse/Mike: final three samples/acceptance; keep candidates distinct from approved manifest.
+3. Eligible teammate reviews this documentation handoff; refresh live GitHub before editing. Use this clean clone; investigate OneDrive mmap separately without deleting/resetting the original checkout.
 ## References
 [Setup](docs/HERMES_SETUP.md), [reviewer prompt](docs/HERMES_REVIEWER.md), [policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
 Existing #38/#39 and Mike's feature branches are untouched; preserve inherited notes below.
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/39#issuecomment-6562808198
 Original [browser report](docs/MAIN_BROWSER_REGRESSION.md); preserved browser and Mike handoffs follow.
+[DJ integration handoff](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6545567239)
+[#26 approval](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/26#pullrequestreview-5723606069); [#29 re-review](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/29#pullrequestreview-5723606184)
 
 ## Session — #6 reference chooser / DJ wiring, 2026-11-01 America/Denver
 Codex for Joshua; branch `codex/a3-06-reference-dj-ui`, base `226f0ae`, implementation checkpoint `1b9f5e3`.
@@ -728,6 +836,11 @@ Published [PR #46](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/
 Next: freeze for Mike/Matt eligible review and required CI; no self-approval or merge in this session.
 Then perform bounded real MP3/WAV/default normal-launch + listening acceptance on merged main; #6 stays open.
 Record the implementation completion row on merge. Preserve inherited entries below.
+## Preserved earlier task notes (current facts above supersede historical status)
+
+# Agent handoff
+
+## Preserved main history through 226f0ae
 
 ## Session — A3-10 rehearsal prep, 2026-11-01 America/Denver
 Hermes for MSpanny (Mike); issue #10 backup (lead Jovi). Claimed unclaimed prep piece: release-gate mechanics rehearsal + submission runbook. Ran identity/integrity checks on the current-main GitHub ZIP (cb818ae: 10,980,156 B, sha256 c4ea863a…, 119 files == 119 tracked, 0 extras, no .git, no .env) and the --release gate (check_readiness.py), which correctly returned NOT READY listing the exact open blockers: all 19 AT-cases unverified, independent installer required (AT-16 tester != preparer), ≥2-team rows with contribution+review evidence, 3 distinct approved samples with audio/cover. Deliverables on branch codex/a3-10-rehearsal-prep: results/a3-10-rehearsal-prep.json, TEST_RESULTS section, docs/SUBMISSION_RUNBOOK.md (freeze procedure: preconditions → candidate SHA → exact ZIP → gate → independent installer → records). No provider requests or generation; ZIP identity will change at real freeze. Round 2 (Joshua CR on #42): canonical person IDs (installed_by==prepared_by by design so the installer fence fires), removed placeholder prose (Missing public_access_checked_at now reported), exact gate command + verbatim output embedded in the record (exit 1, NOT READY diagnostics verbatim; independently re-run byte-identical including the trailing newline), runbook split into preflight (NOT READY expected) → independent install → external record → final PASS gate, with --template flow and the frozen-candidate rule; references marked required, launch text fixed. Refs #10.
