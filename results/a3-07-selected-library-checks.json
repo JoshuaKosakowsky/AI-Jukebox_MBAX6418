@@ -1,0 +1,70 @@
+{
+  "recorded_at_utc": "2026-11-02T04:10:05.543423+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "runtime_source": "afd93c242feee5ffda2d46abf4e0cc207009f9c7",
+  "runtime_base": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
+  "catalog_revision": "Working manifest and exact hashes below; runtime source unchanged",
+  "launcher": "python scripts/dev.py --port 8025",
+  "configuration": "All four generation roles missing; no .env in this checkout",
+  "catalog": [
+    {
+      "title": "Afterglow Avenue",
+      "mode": "vocal",
+      "audio_sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61",
+      "cover_sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067"
+    },
+    {
+      "title": "Moonlit Reflection",
+      "mode": "instrumental",
+      "audio_sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+      "cover_sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818"
+    }
+  ],
+  "retained_sample_media_bytes": 15974698,
+  "checks": {
+    "production_loader_full_pcm_and_png_decode": "PASS",
+    "http_original_audio_cover_and_lyrics_match": "PASS",
+    "independent_sessions_have_distinct_media_urls": "PASS",
+    "cross_session_media_requests": "404 for every audio/cover",
+    "repeat_session_snapshot": "identical, zero jobs",
+    "normal_browser_lyrics": "Original 11 lines displayed for Afterglow Avenue; no lyrics claimed for instrumental",
+    "normal_browser_vocal": "45 s duration, readyState4, no error; time advanced 0.122 to13.607; paused18.148; resumed18.384",
+    "normal_browser_instrumental": "30 s duration, readyState4, no error; played from0.117 to30 and ended paused",
+    "normal_browser_reload": "Both selected tracks/covers remain; stable session-owned audio URLs; both paused, no new generation",
+    "generation_requests_during_catalog_checks": 0
+  },
+  "human_approvals": {
+    "afterglow_audio": "Joshua: Approve the audio",
+    "afterglow_cover_and_moonlit_reflection_selection": "Joshua: Approve both",
+    "date": "2026-11-01 America/Denver",
+    "moonlit_reflection_listening": "Original prior Joshua confirmation retained and attributed; no new listening claimed"
+  },
+  "generation_totals_for_afterglow": {
+    "text": 1,
+    "music": 1,
+    "art": 2,
+    "speech": 0,
+    "music_polls": 3,
+    "downloads": 1,
+    "automatic_retries": 0
+  },
+  "limitations": [
+    "Two selected entries, only one packaged vocal: third song Moonlit Rehearsal original media is still awaited from Mike.",
+    "Integrated-main three-song acceptance and independent final GitHub ZIP acceptance remain pending.",
+    "Song creation used production HTTP routes on the normal launcher, not browser create clicks.",
+    "Initial app cover still had incorrect lettering after PR40; preserved unchanged. The selected visual-only curated FLUX cover is not evidence of a production prompt correction."
+  ],
+  "local_validation": {
+    "command": "python scripts/dev.py --check",
+    "tests_run": 230,
+    "skipped": 1,
+    "result": "PASS",
+    "verifier_files": 145,
+    "coverage_requirements_tasks_cases": [
+      36,
+      11,
+      19
+    ],
+    "diff_check": "PASS"
+  }
+}

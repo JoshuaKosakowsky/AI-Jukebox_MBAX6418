@@ -1,0 +1,42 @@
+{
+  "title": "Afterglow Avenue",
+  "purpose": "One separately bounded curated matching cover after inspecting original lettering",
+  "source_commit": "afd93c242feee5ffda2d46abf4e0cc207009f9c7",
+  "started_at_utc": "2026-11-02T03:57:00.499292+00:00",
+  "mode": "Direct real class art adapter; no production app prompt change",
+  "prompt": "Square cinematic illustration of a rain-washed residential avenue at blue hour. Warm amber light spills from home windows onto wet pavement. A small unbranded car and two distant silhouettes travel toward a welcoming home; power lines and tree silhouettes lead into the soft city glow. Hopeful, warmly nostalgic late-night homecoming. Palette of indigo, peach, muted magenta and amber, atmospheric music-inspired illustration. Full-bleed scene with blank building facades and no commercial storefronts. Pure visual imagery only: no lettering, typography, signs, logos, captions, labels or decorative text.",
+  "generated_with": "FLUX.2 klein 4B",
+  "attempts": {
+    "art": 1,
+    "text": 0,
+    "music": 0,
+    "speech": 0
+  },
+  "original_image_observation": "Original app-generated cover rendered title lettering that differs from Afterglow Avenue; retained unchanged as prior evidence",
+  "state": "generated_and_decoded",
+  "completed_at_utc": "2026-11-02T03:57:01.555100+00:00",
+  "original": {
+    "path": "results/afterglow-avenue-initial-cover.png",
+    "sha256": "08bea3e51d816f899d947d39cf9eeeeb734a23f0e45e156c73033edb04bd6be8"
+  },
+  "cover": {
+    "path": "assets/samples/afterglow-avenue.png",
+    "bytes": 787271,
+    "sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067",
+    "dimensions": [
+      512,
+      512
+    ]
+  },
+  "visual_inspection": {
+    "tester": "Codex for Joshua",
+    "method": "Direct visual inspection of the actual generated PNG",
+    "observation": "Wordless residential avenue, warm home windows, rainy pavement, car and distant figures; no visible title lettering; matches the homecoming mood",
+    "owner_selection": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve both",
+      "scope": "Wordless Afterglow Avenue cover and Moonlit Reflection instrumental selection for the intended two-vocal/one-instrumental library"
+    }
+  }
+}

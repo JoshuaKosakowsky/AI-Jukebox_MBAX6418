@@ -1,6 +1,6 @@
 {
   "title": "Afterglow Avenue",
-  "status": "authorized_for_one_bounded_live_generation",
+  "status": "completed; historical preparation superseded by linked actual generation and curation",
   "prepared_by": "Codex for JoshuaKosakowsky",
   "prepared_at_utc": "2026-11-02T03:41:20.792412+00:00",
   "source_main": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
@@ -47,7 +47,7 @@
     "review_inventory": "PR #47 remains a separate frozen inventory change"
   },
   "future_live_budget": {
-    "status": "Authorized by Joshua to produce this separate song now: one lyrics, one art and one music request; no retries or speech.",
+    "status": "Spent once in the recorded run; this historical plan is not authorization to repeat it. One additional curated art request is recorded separately.",
     "text": 1,
     "art": 1,
     "music": 1,
@@ -78,5 +78,9 @@
     "Inspect artwork association and rendered title; preserve originals",
     "Retain exact head, safe settings, model/date, full file hashes and decoded media facts",
     "Integrate only after curation, then verify normal-launch/reload and final ZIP sample playback"
+  ],
+  "actual_results": [
+    "results/a3-07-afterglow-generation.json",
+    "results/a3-07-afterglow-cover-curation.json"
   ]
 }

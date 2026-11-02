@@ -1806,3 +1806,43 @@ unrated state for future cases; one sample per style is provisional and
 not a causal A/B, vocal test, integrated-main or release acceptance. No automatic
 repair/regeneration after a low score. [Exact scorecard](../results/a3-35-genre-scorecard.json).
 No further calls under the completed round1 budget; previous runs stay separate.
+
+## A3-07 selected vocal and local library — 2026-11-01 America/Denver
+
+Afterglow Avenue was produced on `afd93c2` (runtime includes protected main
+`1fdc422`) through the normal launcher's real HTTP routes: Qwen lyrics, FLUX art
+and ACE-Step 45 s vocal. All three jobs succeeded. Original lyrics/audio and
+exact inputs/hashes are retained in [generation evidence](../results/a3-07-afterglow-generation.json).
+Joshua listened and replied “Approve the audio”; he then approved the wordless
+curated cover and Moonlit Reflection selection (“Approve both”).
+
+The first cover still showed incorrect lettering despite #40's wordless prompt.
+One separately bounded visual-only FLUX request produced the selected matching
+wordless residential scene; [curation evidence](../results/a3-07-afterglow-cover-curation.json)
+preserves the original PNG and exact prompt. Total new generation: text1/music1/
+art2/speech0, three polls/one download, no automatic retries. No production prompt
+or provider contract was changed; #36's general effectiveness remains unresolved.
+
+The two-entry manifest loads through the production loader: full PCM/PNG decode,
+15,974,698 retained media bytes, original audio/cover/lyrics verified through real
+HTTP, distinct session media URLs and cross-session404. Normal `scripts/dev.py`
+launch on8025 with all services missing: both covers/titles/modes appear, original
+lyrics expand, vocal play/pause/resume and instrumental playback to its30 s end
+work without media errors. Reload keeps both tracks/URLs and starts paused.
+[Catalog evidence](../results/a3-07-selected-library-checks.json) separates these
+checks from actual generation and human listening.
+
+Only two songs (one vocal) are packaged in this change. Mike's Moonlit Rehearsal
+original bundle is awaited for the second vocal; his reported listening is
+credited separately and does not substitute for Joshua's pending final check.
+No new calls were made for catalog checks or to replace Mike's run. Three-song
+integrated-main playback and independent final GitHub ZIP acceptance remain
+pending. #7 remains open; browser song-creation clicks were not performed.
+
+Catalog population exposed one old empty-library assumption in the rejected-reference
+HTTP test. It now compares the complete before/after snapshot, preserving the real
+safety assertion for empty or populated catalogs. Original `*.lyrics.txt` files
+use LF so Windows checkouts preserve the recorded returned-text hashes.
+
+Locked `python scripts/dev.py --check` PASS:230 tests run, one platform symlink
+skip; repository verifier145 files, coverage structure36/11/19 and whitespace PASS.

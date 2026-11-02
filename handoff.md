@@ -1,17 +1,24 @@
 # Agent handoff
 
-## Session — A3-07 live song and library integration, 2026-11-01 America/Denver
-Codex for Joshua; codex/a3-07-vocal-two-prep; incoming protected main1fdc422 (merged PR40).
-User explicitly authorized merging40, presenting Mike's retained vocal, producing Afterglow Avenue and integrating the three-song library.
-Merged40 normally after Matt's exact-head approval, four green checks and no unresolved threads.
-Normal merge of main into preparation branch; retained both handoff histories; runtime includes wordless cover helper unchanged.
-Refreshed Afterglow settings/prompts through production helpers and three MockTransport requests: PASS, zero real calls so far.
-Separate live ceiling: one Qwen lyrics request, one FLUX cover, one ACE-Step music submission; zero speech/retries.
-Use the normal launcher with private configuration and bounded job polling/downloads; persist intent before each request and stop on failure/uncertainty.
-Mike's old run is not repeated; retain his original Moonlit Rehearsal media/lyrics/hashes when published.
-Target core library: two vocal songs and Moonlit Reflection instrumental, each with matching class artwork and retained provenance.
-Final human listening and selected-library playback still pending; no existing candidate is relabeled or silently approved.
-Next: run the authorized separate song, get original Mike assets, then present audio and integrate/verify the catalog.
+## Session — A3-07 selected vocal/library integration, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-vocal-two-prep; runtime source afd93c2, protected main1fdc422.
+PR40 merged normally at1fdc422 after Matt's approval; four merged-main checks PASS (run41384144146).
+Generated Afterglow Avenue through real production HTTP on normal launcher:45 s synth-pop vocal, original346-char Qwen lyrics.
+Actual totals text1/music1/art2/speech0, polls3/download1, no automatic retries; no duplicate Mike generation.
+First cover still had incorrect lettering; retained original PNG. Separate visual-only FLUX curation yielded the selected wordless scene.
+Joshua approved Afterglow audio (“Approve the audio”), then its cover and Moonlit Reflection (“Approve both”).
+Manifest now selects these2 songs; candidate/provenance/lyrics/media and actual-run/curation/catalog evidence retained.
+Full decoding and exact HTTP bytes/lyrics PASS; selected media15,974,698 B, within64 MB budget.
+Normal-launch unconfigured browser: both covers/tracks, expanded lyrics, vocal pause/resume, instrumental end and reload PASS.
+No service calls during catalog checks; runtime/contracts/dependencies/CI/protection unchanged.
+Reference rejection test now compares unchanged full snapshots rather than assuming0 tracks; lyrics files preserve LF.
+Mike's Moonlit Rehearsal is confirmed for packaging in issue7 comment6568542507; original bundle still not published at this check.
+His reported private folder is not accessible here; do not infer full hashes or regenerate. Preserve his source a1a41d1/settings/credit.
+Locked scripts/dev.py --check PASS:230 tests run,1 platform skip; verifier145, coverage36/11/19; whitespace clean.
+Library remains2 entries/1 vocal; target3 entries/2 vocals. Joshua listening/cover selection for Mike's track still pending.
+Integrated-main three-song acceptance and independent final GitHub ZIP remain pending; #7 stays open.
+Next: retain/test/publish this available set, request JoshKozy's separate review; integrate Mike's original files when accessible.
+Then present Moonlit Rehearsal to Joshua, verify all3 through normal launch and final ZIP; no further generation budget implied.
 
 ## Session — Vocal sample 2 preparation, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-07-vocal-two-prep; base protected main `a1a41d1`.
