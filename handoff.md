@@ -16,7 +16,8 @@ Owner listened and described first clip as relaxing/NPR-style/laid back; selecte
 results/a3-05-default-dj-live.json and rehearsal JSON retain actual source, counts, safe diagnostics and boundaries; raw TTS stays outside Git.
 Portable opt-in observer/rehearsal/normal-launch helper added; source app/contracts/frontend/dependencies/CI/protection/media unchanged.
 Mike's6 MP3/WAV tests remain separate; successful sequential baseline does not establish cause of his older failures.
-Next: finish local checks, publish focused evidence/helper PR for separate review; then implement Relaxed/Public Radio, Upbeat Radio and Playful presentation choices separately from6.
+Locked checks PASS:230 tests,1 platform skip; verifier156, coverage36/11/19; offline rehearsal and0-call launcher probes PASS.
+Published baseline in PR51; next implement requested three presentation styles on a fresh separate branch.
 No further live calls are implied. Default run budget is spent; independent ZIP/release and remaining project cases stay open.
 
 

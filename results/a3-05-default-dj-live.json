@@ -485,8 +485,9 @@
   "raw_speech_retention": "Private files outside repository; original content hashes/durations above, no voice references or new sample media committed",
   "observer": {
     "path": "scripts/dj_default_observer.py",
-    "sha256": "762eeec09cf94dc4a1b1b771374069a8a23de83c74f262017574782c367512a9",
-    "scope": "Byte-identical observation code used by the test; importing it installs nothing. Guard did not intervene in this successful run."
+    "sha256_lf": "50a4520fbeac97a6170388bb8f9195b103d22f0e6a1281e83480add2db667ce7",
+    "original_file_sha256": "762eeec09cf94dc4a1b1b771374069a8a23de83c74f262017574782c367512a9",
+    "scope": "Same observation source as run copy; committed text uses normalized LF. Guard did not intervene; importing this module installs nothing."
   },
   "browser_observations": [
     {
@@ -617,5 +618,12 @@
     "Overlap observation is sampled DOM state (max one playing element), supported by production phase trace and offline regressions; not a continuous browser event recording.",
     "The temporary reference-voice stopped message during pending Skip resolved without intervention; wording is noted, no runtime edit made.",
     "Source-ZIP/independent final acceptance and submission readiness are not established."
-  ]
+  ],
+  "validation": {
+    "locked_checks": "PASS:230 tests run,1 platform symlink skip; verifier156, coverage36/11/19",
+    "focused_dj_frontend_reference_tests": 54,
+    "offline_rehearsal": "3 scenarios PASS;0 class calls",
+    "portable_launcher": "Startup/roles/3 samples with fake config PASS,0 calls; all4-config role masking PASS via isolated child-environment probe",
+    "whitespace": "PASS"
+  }
 }
