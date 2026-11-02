@@ -1,0 +1,99 @@
+{
+  "status": "selected; owner-approved audio and artwork; integrated-main and final ZIP acceptance pending",
+  "prepared_by": "JoshuaKosakowsky directing Codex",
+  "sample": {
+    "id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+    "title": "Antlercover",
+    "audio": "assets/samples/antlercover.wav",
+    "cover": "assets/samples/antlercover.png",
+    "instrumental": false,
+    "lyrics": "Snow boots heavy on the linoleum floor\nI tuck my crown behind the office door\nCoffee steam rises in the cold gray light\nTrying to blend in, keeping it tight\nThe boss calls a meeting, I stand up straight\nPraying my antlers don’t meet his fate\nA gentle nod from Sarah down the hall\nShe sees the moose, not just the wall\nWe laugh at jokes that only we understand\nIn this small town across the land\nNo hunters here, just hearts beating true\nMy place is here, and so are you\nThe winter fades with a salsa beat\nWarm brass swells beneath my feet\nI am home, finally seen",
+    "style": "Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead",
+    "mood": "Hopeful",
+    "generated_at": "2026-11-01",
+    "generation_notes": "Owner-requested backup: Alaskan office moose fitting in during winter while avoiding hunters. Original Qwen lyrics, ACE-Step 60 s vocal and visual-only FLUX artwork generated via unchanged production adapters on 45b309a. Direct-adapter creation, not browser acceptance. Exact prompts, request payloads, UTC bounds and original full hashes in results/a3-07-antlercover-generation.json. Date here is America/Denver. Joshua listened and approved audio/artwork on 2026-11-01 America/Denver; selected as the third library song.",
+    "generated_with": {
+      "lyrics": "Qwen3.6-35B-A3B",
+      "music": "ACE-Step 1.5 XL Turbo",
+      "cover": "FLUX.2 klein 4B"
+    }
+  },
+  "provenance": {
+    "generation_record": "results/a3-07-antlercover-generation.json",
+    "source_commit": "45b309a468d39aa1d4dba2ca706e625d535c32ab",
+    "media": {
+      "lyrics": {
+        "path": "assets/samples/antlercover.lyrics.txt",
+        "bytes": 564,
+        "sha256": "57a662e4ef4404225f511f793083c169b7591b4d1d346af3c37549e4697538ab"
+      },
+      "cover": {
+        "path": "assets/samples/antlercover.png",
+        "bytes": 787271,
+        "sha256": "a3480a609f9b8efd4eff651a1e404ac9203e75476241cf38abdef62ae7418cd4"
+      },
+      "audio": {
+        "path": "assets/samples/antlercover.wav",
+        "bytes": 11520078,
+        "sha256": "6d3455c0240e0239793f050a1a59014db66f3d0c7a5e6de38e517c053eae87e3"
+      }
+    },
+    "human_approval": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve audio and artwork",
+      "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+    }
+  },
+  "validation": {
+    "audio": {
+      "duration_seconds": 60.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "full_pcm_decode": true,
+      "peak": 0.891266,
+      "rms": 0.164743
+    },
+    "cover": {
+      "dimensions": [
+        512,
+        512
+      ],
+      "format": "PNG",
+      "full_decode": true
+    },
+    "human_listening": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve audio and artwork",
+      "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+    },
+    "manifest_selection": true,
+    "normal_browser": {
+      "result": "PASS",
+      "evidence": "results/a3-07-three-song-library.json",
+      "scope": "Working three-song catalog via normal unconfigured launcher; integrated-main/final ZIP pending"
+    },
+    "final_github_zip": "pending",
+    "cover_visual_inspection": {
+      "tester": "Codex for Joshua",
+      "method": "Direct visual inspection of actual PNG",
+      "observation": "Plaid-shirted moose seated at an office desk with coffee and friendly human coworkers; snowy Alaska-like mountains outside, orange-clad outdoor figures, warm light and colorful garlands; no visible lettering.",
+      "owner_approval": {
+        "tester": "JoshuaKosakowsky",
+        "date": "2026-11-01 America/Denver",
+        "confirmation": "Approve audio and artwork",
+        "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+      }
+    },
+    "temporary_three_entry_loader": {
+      "result": "PASS",
+      "entries": 3,
+      "vocal_entries": 2,
+      "retained_media_bytes": 28282047,
+      "production_manifest_changed": false,
+      "scope": "Offline structural compatibility and exact bytes, not final selection or normal-browser acceptance"
+    }
+  }
+}

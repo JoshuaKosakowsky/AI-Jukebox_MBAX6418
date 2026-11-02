@@ -1846,3 +1846,37 @@ use LF so Windows checkouts preserve the recorded returned-text hashes.
 
 Locked `python scripts/dev.py --check` PASS:230 tests run, one platform symlink
 skip; repository verifier145 files, coverage structure36/11/19 and whitespace PASS.
+
+## A3-07 Antlercover and three-song selection — 2026-11-01 America/Denver
+
+Joshua requested a hopeful Latin Flare song about an Alaskan moose working at a
+local company, fitting in over winter while avoiding hunters. Antlercover uses
+original Qwen lyrics, a60 s ACE-Step vocal and matching wordless FLUX office art.
+The exact source is45b309a (runtime base03fb2ef). Creation used unchanged direct
+production adapters with customized creative lyrics/art prompts, not app/browser
+song creation. [Generation evidence](../results/a3-07-antlercover-generation.json)
+retains exact safe request payloads, UTC bounds, original lyrics and full hashes.
+Actual calls: text1/art1/music1/speech0, four polls/one download, no automatic
+retries. All outputs fully decode and are retained unchanged. Joshua listened
+and confirmed “Approve audio and artwork”; no second take was needed.
+
+The manifest selects Afterglow Avenue45 s vocal, Moonlit Reflection30 s
+instrumental and Antlercover60 s vocal. Production loader/full decoding and actual
+normal-launch HTTP checks PASS: all ready, exact original audio/cover/lyrics,
+distinct session URLs, cross-session404, identical repeated snapshot and zero
+jobs. Selected media total28,282,047 bytes, within64 MB. All four class roles
+were unconfigured on port8026, so catalog checks did not call generation.
+[Three-song evidence](../results/a3-07-three-song-library.json) records actual
+browser observations separately from creation and owner listening.
+
+The earlier18 sample tests PASS with one platform symlink skip. Mike's original
+Moonlit Rehearsal remains a possible alternate; his media/run and #3/#6 work were
+not changed or repeated. Integrated-main three-song verification after reviewed
+merge, independent final GitHub ZIP acceptance and #7 closure remain pending.
+
+Actual browser on8026: all3 covers loaded512-square, both original lyric texts
+expanded, Antlercover reached60 s and Afterglow reached45 s without media errors;
+Moonlit Reflection advanced to13.338 s, paused and resumed13.560 s. Reload kept
+all3 tracks/media URLs and started paused. Locked `scripts/dev.py --check` PASS:
+230 tests run, one platform symlink skip; verifier151, coverage36/11/19; whitespace
+PASS. No generation occurred during catalog/browser checks.

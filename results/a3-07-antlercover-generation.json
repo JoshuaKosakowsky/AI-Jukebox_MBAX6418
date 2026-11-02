@@ -1,0 +1,176 @@
+{
+  "title": "Antlercover",
+  "tester": "Codex for JoshuaKosakowsky",
+  "started_at_utc": "2026-11-02T04:32:21.411095+00:00",
+  "source_commit": "45b309a468d39aa1d4dba2ca706e625d535c32ab",
+  "runtime_base": "03fb2ef28412079218d26b0a3b606fd20a23b25b",
+  "mode": "Direct production ClassProviders adapters with custom creative lyrics/art prompts; not app/browser creation acceptance",
+  "user_brief": {
+    "story": "A moose in Alaska working at a local company, fitting in over winter without attracting local hunters",
+    "genre": "Latin Flare",
+    "mood": "Hopeful"
+  },
+  "track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+  "settings": {
+    "style": "Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead",
+    "mood": "Hopeful",
+    "duration_seconds": 60,
+    "mode": "vocal"
+  },
+  "prompts": {
+    "lyrics": "Write original song lyrics for a new song.\nSong title and theme: Antlercover\nMusical style: Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead\nMood: Hopeful\nTarget length: about 60 seconds, roughly 15 short lines.\nReturn only the lyrics: original, plain, one line per verse line, no section headings, no song title, no commentary. English.\nOriginal story brief: An anthropomorphic moose in Alaska works at a small local company during the long winter. He earnestly tries to fit in with human coworkers, keeps his huge antlers discreet, and avoids attracting local hunters. Funny, odd and affectionate rather than scary. Give him concrete office moments (a desk, coffee, meetings or snow boots), a memorable hopeful refrain and a warm ending where he finds belonging. No graphic violence, no artist imitation and no borrowed lyrics.",
+    "music": "Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead. Style-matched vocals, supplied lyrics. Mood: Hopeful. Theme: Antlercover. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+    "cover": "Original square cinematic storybook illustration, full-bleed scene. A hopeful anthropomorphic Alaska moose with huge antlers wears a plaid office shirt and sits slightly awkwardly at a small company desk with an unmarked coffee mug. Friendly human coworkers welcome him; his antlers blend comically into a coat rack and winter branches. Large windows show snowy mountains, deep-blue winter dusk and a tiny distant pair of outdoor figures in orange parkas walking past without noticing him. Warm amber office light, vibrant coral and turquoise accents and festive paper garlands suggest a playful Latin salsa-pop rhythm against the snowy Alaska scene. Expressive kind face, charming absurdity, hopeful belonging, detailed painterly animation aesthetic. Pure wordless visual artwork: no lettering, typography, labels, writing, captions, signs, logos or readable marks anywhere. Blank papers and blank building facades."
+  },
+  "class_models": {
+    "lyrics": "Qwen3.6-35B-A3B",
+    "music": "ACE-Step 1.5 XL Turbo",
+    "cover": "FLUX.2 klein 4B"
+  },
+  "limits": {
+    "text": 1,
+    "art": 1,
+    "music": 1,
+    "speech": 0,
+    "polls": 100,
+    "downloads": 1
+  },
+  "attempts": {
+    "text": 1,
+    "art": 1,
+    "music": 1,
+    "speech": 0,
+    "polls": 4,
+    "downloads": 1
+  },
+  "safe_requests": [
+    {
+      "kind": "text",
+      "at_utc": "2026-11-02T04:32:21.473777+00:00",
+      "payload": {
+        "model": "cyankiwi/Qwen3.6-35B-A3B-AWQ-4bit",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write original song lyrics for a new song.\nSong title and theme: Antlercover\nMusical style: Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead\nMood: Hopeful\nTarget length: about 60 seconds, roughly 15 short lines.\nReturn only the lyrics: original, plain, one line per verse line, no section headings, no song title, no commentary. English.\nOriginal story brief: An anthropomorphic moose in Alaska works at a small local company during the long winter. He earnestly tries to fit in with human coworkers, keeps his huge antlers discreet, and avoids attracting local hunters. Funny, odd and affectionate rather than scary. Give him concrete office moments (a desk, coffee, meetings or snow boots), a memorable hopeful refrain and a warm ending where he finds belonging. No graphic violence, no artist imitation and no borrowed lyrics."
+          }
+        ],
+        "max_completion_tokens": 512,
+        "temperature": 0,
+        "stream": false,
+        "chat_template_kwargs": {
+          "enable_thinking": false
+        }
+      }
+    },
+    {
+      "kind": "art",
+      "at_utc": "2026-11-02T04:32:22.612288+00:00",
+      "payload": {
+        "model": "black-forest-labs/FLUX.2-klein-4B",
+        "prompt": "Original square cinematic storybook illustration, full-bleed scene. A hopeful anthropomorphic Alaska moose with huge antlers wears a plaid office shirt and sits slightly awkwardly at a small company desk with an unmarked coffee mug. Friendly human coworkers welcome him; his antlers blend comically into a coat rack and winter branches. Large windows show snowy mountains, deep-blue winter dusk and a tiny distant pair of outdoor figures in orange parkas walking past without noticing him. Warm amber office light, vibrant coral and turquoise accents and festive paper garlands suggest a playful Latin salsa-pop rhythm against the snowy Alaska scene. Expressive kind face, charming absurdity, hopeful belonging, detailed painterly animation aesthetic. Pure wordless visual artwork: no lettering, typography, labels, writing, captions, signs, logos or readable marks anywhere. Blank papers and blank building facades.",
+        "n": 1,
+        "size": "512x512",
+        "num_inference_steps": 4,
+        "response_format": "b64_json",
+        "output_format": "png"
+      }
+    },
+    {
+      "kind": "music",
+      "at_utc": "2026-11-02T04:32:24.051533+00:00",
+      "payload": {
+        "prompt": "Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead. Style-matched vocals, supplied lyrics. Mood: Hopeful. Theme: Antlercover. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+        "lyrics": "Snow boots heavy on the linoleum floor\nI tuck my crown behind the office door\nCoffee steam rises in the cold gray light\nTrying to blend in, keeping it tight\nThe boss calls a meeting, I stand up straight\nPraying my antlers don’t meet his fate\nA gentle nod from Sarah down the hall\nShe sees the moose, not just the wall\nWe laugh at jokes that only we understand\nIn this small town across the land\nNo hunters here, just hearts beating true\nMy place is here, and so are you\nThe winter fades with a salsa beat\nWarm brass swells beneath my feet\nI am home, finally seen",
+        "audio_duration": 60,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      }
+    },
+    {
+      "kind": "polls",
+      "at_utc": "2026-11-02T04:32:24.258190+00:00"
+    },
+    {
+      "kind": "polls",
+      "at_utc": "2026-11-02T04:32:27.361353+00:00"
+    },
+    {
+      "kind": "polls",
+      "at_utc": "2026-11-02T04:32:30.471716+00:00"
+    },
+    {
+      "kind": "polls",
+      "at_utc": "2026-11-02T04:32:33.576220+00:00"
+    },
+    {
+      "kind": "downloads",
+      "at_utc": "2026-11-02T04:32:33.762069+00:00"
+    }
+  ],
+  "media": {
+    "lyrics": {
+      "path": "assets/samples/antlercover.lyrics.txt",
+      "bytes": 564,
+      "sha256": "57a662e4ef4404225f511f793083c169b7591b4d1d346af3c37549e4697538ab"
+    },
+    "cover": {
+      "path": "assets/samples/antlercover.png",
+      "bytes": 787271,
+      "sha256": "a3480a609f9b8efd4eff651a1e404ac9203e75476241cf38abdef62ae7418cd4"
+    },
+    "audio": {
+      "path": "assets/samples/antlercover.wav",
+      "bytes": 11520078,
+      "sha256": "6d3455c0240e0239793f050a1a59014db66f3d0c7a5e6de38e517c053eae87e3"
+    }
+  },
+  "state": "generated_and_decoded",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "date": "2026-11-01 America/Denver",
+    "confirmation": "Approve audio and artwork",
+    "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+  },
+  "cover_selection": {
+    "tester": "JoshuaKosakowsky",
+    "date": "2026-11-01 America/Denver",
+    "confirmation": "Approve audio and artwork",
+    "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+  },
+  "manifest_selection": true,
+  "lyrics": "Snow boots heavy on the linoleum floor\nI tuck my crown behind the office door\nCoffee steam rises in the cold gray light\nTrying to blend in, keeping it tight\nThe boss calls a meeting, I stand up straight\nPraying my antlers don’t meet his fate\nA gentle nod from Sarah down the hall\nShe sees the moose, not just the wall\nWe laugh at jokes that only we understand\nIn this small town across the land\nNo hunters here, just hearts beating true\nMy place is here, and so are you\nThe winter fades with a salsa beat\nWarm brass swells beneath my feet\nI am home, finally seen",
+  "cover": {
+    "dimensions": [
+      512,
+      512
+    ],
+    "format": "PNG",
+    "full_decode": true
+  },
+  "audio": {
+    "duration_seconds": 60.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "full_pcm_decode": true,
+    "peak": 0.891266,
+    "rms": 0.164743
+  },
+  "completed_at_utc": "2026-11-02T04:32:35.253494+00:00",
+  "cover_visual_inspection": {
+    "tester": "Codex for Joshua",
+    "method": "Direct visual inspection of actual PNG",
+    "observation": "Plaid-shirted moose seated at an office desk with coffee and friendly human coworkers; snowy Alaska-like mountains outside, orange-clad outdoor figures, warm light and colorful garlands; no visible lettering.",
+    "owner_approval": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve audio and artwork",
+      "scope": "User listened and approved vocals, hopeful Latin feel, moose story and matching artwork; selected as the available third library song"
+    }
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "recorded_at_utc": "2026-11-02T04:36:04.803009+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "runtime_source": "45b309a468d39aa1d4dba2ca706e625d535c32ab",
+  "runtime_base": "03fb2ef28412079218d26b0a3b606fd20a23b25b",
+  "catalog_revision": "Working three-entry manifest and exact hashes below; production runtime unchanged",
+  "launcher": "python scripts/dev.py --port 8026",
+  "configured_services": {
+    "text": "missing",
+    "art": "missing",
+    "music": "missing",
+    "speech": "missing"
+  },
+  "catalog": [
+    {
+      "title": "Afterglow Avenue",
+      "mode": "vocal",
+      "duration_seconds": 45,
+      "audio_sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61",
+      "cover_sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067"
+    },
+    {
+      "title": "Moonlit Reflection",
+      "mode": "instrumental",
+      "duration_seconds": 30,
+      "audio_sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+      "cover_sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818"
+    },
+    {
+      "title": "Antlercover",
+      "mode": "vocal",
+      "duration_seconds": 60,
+      "audio_sha256": "6d3455c0240e0239793f050a1a59014db66f3d0c7a5e6de38e517c053eae87e3",
+      "cover_sha256": "a3480a609f9b8efd4eff651a1e404ac9203e75476241cf38abdef62ae7418cd4"
+    }
+  ],
+  "vocal_entries": 2,
+  "retained_media_bytes": 28282047,
+  "offline_loader": "PASS: original bytes, full PCM/PNG decode and metadata",
+  "http_checks": "PASS: original bytes/lyrics, all ready, separate URLs, cross-session404, repeat identical snapshot, zero jobs",
+  "browser": {
+    "result": "PASS",
+    "covers": "All three rendered at512x512 with matching accessible titles",
+    "lyrics": "Both original Qwen lyric texts expanded unchanged; instrumental has no lyrics disclosure",
+    "Antlercover": "60 s duration; played0.143 through60/ended paused, readyState4, no media error",
+    "Afterglow Avenue": "45 s duration; played0.130 through45/ended paused, no media error",
+    "Moonlit Reflection": "30 s duration; advanced0.116 to13.338, paused then resumed13.560, no media error",
+    "reload": "All3 selected tracks remain; all3 media URLs unchanged within session, all paused; no generation"
+  },
+  "human_approvals": {
+    "Antlercover": "Joshua: Approve audio and artwork",
+    "Afterglow Avenue": "Joshua: Approve the audio; Approve both",
+    "Moonlit Reflection": "Prior Joshua listening retained; final selection: Approve both"
+  },
+  "class_calls_for_this_candidate": {
+    "text": 1,
+    "art": 1,
+    "music": 1,
+    "speech": 0,
+    "polls": 4,
+    "downloads": 1,
+    "automatic_retries": 0
+  },
+  "catalog_check_generation_requests": 0,
+  "integrated_main_three_song_acceptance": "pending normal reviewed merge and verification",
+  "final_independent_github_zip": "pending",
+  "mike_candidate": "Original Moonlit Rehearsal remains a possible later alternate; no regeneration or changes to his work",
+  "local_validation": {
+    "command": "python scripts/dev.py --check",
+    "result": "PASS",
+    "tests_run": 230,
+    "skipped": 1,
+    "verifier_files": 151,
+    "coverage": [
+      36,
+      11,
+      19
+    ],
+    "whitespace": "PASS"
+  }
+}

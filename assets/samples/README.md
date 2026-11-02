@@ -1,14 +1,14 @@
 # Curated sample library
 
-The manifest selects two Joshua-approved class-generated samples. They play
-locally without service settings. The three-song target remains **two finished
-vocals plus one instrumental**; the second vocal is awaiting its original files.
+The manifest selects three Joshua-approved class-generated songs: **two vocals
+and one instrumental**. They play locally without service settings. Final
+integrated-main verification and independent ZIP acceptance remain pending.
 
 | Selection | Retained media and approval |
 |---|---|
 | Afterglow Avenue | 45 s hopeful synth-pop vocal; original Qwen lyrics, ACE-Step WAV and curated wordless FLUX cover. Joshua approved the audio, then the cover/selection on 2026-11-01 America/Denver. |
 | Moonlit Reflection | Original 30 s reflective ambient-piano instrumental and FLUX lake/pianist cover. Prior Joshua listening retained; final selection confirmed on 2026-11-01 America/Denver. |
-| Moonlit Rehearsal — pending | Mike's retained 30 s acoustic-indie-pop vocal is proposed for the third slot. Await original WAV, cover, Qwen lyrics and full provenance; no regeneration requested. Mike's prior listening is distinct from Joshua's pending final check. |
+| Antlercover | 60 s hopeful Latin-flare vocal about an Alaskan office moose; original Qwen lyrics, ACE-Step WAV and wordless FLUX workplace artwork. Joshua listened and approved audio/artwork on 2026-11-01 America/Denver. |
 
 [Afterglow provenance](afterglow-avenue.candidate.json) links the exact production
 HTTP run, returned lyrics, source, model names and hashes. Actual Afterglow calls:
@@ -18,18 +18,26 @@ The first app-generated cover still rendered incorrect lettering after #40 and i
 visual-only FLUX request produced the selected wordless scene; app code is unchanged.
 This curation does not establish a general lettering fix for #36.
 
-[Selected-library checks](../../results/a3-07-selected-library-checks.json) record
-full decoding, exact HTTP media/lyrics, isolated session URLs, actual browser
-playback/pause/resume and reload on the normal launcher with all services missing.
-These checks cover the two available selections. Integrated-main three-song and
-independent final GitHub ZIP acceptance remain pending; #7 stays open.
+[Antlercover provenance](antlercover.candidate.json) retains the owner's unusual
+story brief, precise music/lyrics/art prompts, original returned lyrics, class
+model names and full hashes. This separate backup used unchanged production
+adapters directly: text1/art1/music1/speech0, four polls/one download, no automatic
+retries. It is not evidence of browser song creation. Audio and artwork were
+approved by Joshua before adding the third entry.
 
-Joshua coordinates current curation/integration under the owner's explicit
-instruction. Mike keeps his separate #3/#6 run and source handoff. Preserve each
-contributor's source and evidence; don't repeat generation to replace missing files.
+[Three-song checks](../../results/a3-07-three-song-library.json) record full
+production-loader decoding, exact HTTP media/lyrics and session isolation on the
+normal launcher with all generation services missing. The earlier
+[two-song checks](../../results/a3-07-selected-library-checks.json) remain historical
+evidence for the preceding selection. #7 stays open until the integrated-main
+three-song flow and independent final GitHub ZIP acceptance are verified.
+
+Mike's retained Moonlit Rehearsal is a possible later alternate; original files
+and final curation are still needed. This backup does not change his separate
+#3/#6 tasks or regenerate his work. Joshua coordinates current sample integration.
 Desert Drive remains an unselected instrumental alternate with its original
-lettering limitation. The historical [inventory](../../results/a3-07-sample-inventory.json)
-and genre scorecard are supporting evidence, not additional approved entries.
+lettering limitation. Historical inventory/genre scorecards support curation,
+not additional approved entries.
 
 A fourth sample needs a focused capacity change: the runtime accepts at most
 three entries and the release checker requires exactly three, within the existing

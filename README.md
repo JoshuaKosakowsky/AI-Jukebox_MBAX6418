@@ -7,7 +7,8 @@ artwork from a title/theme, style, mood and duration. Instrumental songs play
 the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
 sings them into a playable track. Everything stays paired with the correct
 track across page reloads and plays inline. Registered sample songs load locally
-without service settings or regeneration. Two selected samples are bundled; the final three-song set is pending;
+without service settings or regeneration. Three selected samples are bundled,
+including two vocal songs;
 DJ playback and an optional MP3/WAV reference chooser are implemented; real
 reference-voice acceptance is still pending.
 
@@ -60,11 +61,12 @@ Playback needs no class-service settings. Reloading retains the session; restart
 clears generated tracks and reloads the registered samples. Manifest edits require
 an app restart. Unregistered candidate files are never added automatically.
 
-The manifest currently selects **Afterglow Avenue** (45 s synth-pop vocal) and
-**Moonlit Reflection** (30 s ambient-piano instrumental), approved by Joshua.
-The intended third entry is Mike's retained Moonlit Rehearsal vocal, pending its
-original files and final curation. The target remains three songs with at least
-two vocals; #7 and independent ZIP acceptance remain open. See the
+The manifest selects three Joshua-approved songs: **Afterglow Avenue** (45 s
+synth-pop vocal), **Moonlit Reflection** (30 s ambient-piano instrumental) and
+**Antlercover** (60 s hopeful Latin-flare vocal about an Alaskan office moose).
+Original AI lyrics and matching class artwork are bundled. Mike's retained
+Moonlit Rehearsal remains a possible later alternate. Integrated-main verification
+and independent ZIP acceptance remain open under #7. See the
 [record and asset requirements](assets/samples/README.md). A broken registered
 asset shows a safe setup warning and leaves song creation available. This loader
 and its synthetic browser rehearsal do not complete sample or ZIP acceptance.
