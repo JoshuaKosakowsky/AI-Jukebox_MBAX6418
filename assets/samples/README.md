@@ -1,9 +1,54 @@
-# Three required sample tracks
+# Curated sample library
 
 No approved samples are registered in manifest.json yet. Actual class-generated
 audio/covers must play from the GitHub source ZIP; a generator script alone is insufficient.
 
-## Moonlit Reflection candidate for jovi (#7)
+## Current selection target — 2026-11-01
+
+Joshua's project target is **at least three finished songs, including at least two
+vocal tracks with original Qwen-generated lyrics**, each with matching class-generated
+artwork. The assignment requires three samples; the two-vocal mix is the owner's
+additional curation requirement. More curated songs can showcase range after this
+core set is complete and the catalog supports additional entries.
+
+Joshua coordinates selection and manifest integration. Mike retains his #3/#6
+acceptance run and existing third-candidate preparation; coordinate source handoffs
+and exact candidate pieces before creating or packaging another song.
+
+[Current offline inventory](../../results/a3-07-sample-inventory.json) checks main
+`7fb8e1c`: both packaged instrumental pairs fully decode and match their original
+acceptance hashes. Both also load as ready tracks using the production loader in a
+temporary two-entry catalog. This is an offline validation, not a new listening,
+normal-launch library or final ZIP acceptance. The approved manifest stays empty.
+
+| Candidate/source | Available evidence | Selection step |
+|---|---|---|
+| Moonlit Reflection | Original 30 s ambient-piano WAV/PNG; prior Joshua listening; matching lake/pianist cover inspected | Preferred retained instrumental option, subject to final curation |
+| Desert Drive | Original 20 s upbeat-funk WAV/PNG; prior Joshua listening | Alternate instrumental; generated cover lettering differs from the title, so curate artwork before selection |
+| Genre scorecard in [PR #43](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/43) | 20 historical instrumental assessments, 10 rated Good to go; exact hashes/settings | Confirm retained source audio and matching artwork with Mike before packaging; these are additional range options |
+| Vocal candidate 1 | Mike's coordinated #3 acceptance is planned; no finished vocal candidate is packaged here yet | Retain original lyrics/audio/art and provenance from a successful run, then listen and inspect before selection |
+| Vocal candidate 2 | Separate sample piece to coordinate after the first vocal path is verified | Joshua prepares a contrasting style/theme with original AI lyrics and a matching class cover, without repeating Mike's run |
+
+Finish the three-song set first: two vocal performances plus one selected
+instrumental. A finished vocal sample must have intelligible sung performance of
+its retained AI lyrics, coherent musical structure/ending, suitable genre/mood,
+and matching artwork; a completed job or nonempty lyrics field alone is insufficient.
+Human listening and cover approval remain required for every selected entry.
+
+Retain the original safe prompts/settings, returned AI lyrics, model/date, full
+SHA-256 hashes and source commit with each chosen song. Populate `style` and `mood`
+from the original settings when copying a candidate into the manifest. Then verify
+all three through the normal launcher, replay/reload without provider calls, and
+the exact final GitHub ZIP. Keep temporary reference-voice clips out of the catalog.
+
+**Additional range:** the current runtime accepts at most three entries and the
+release checker requires exactly three. A fourth or later sample therefore needs a
+focused loader/release-gate change, relevant tests and documentation before selection.
+Retain the 64 MB shared-media budget and enough space for user-created tracks/DJ
+speech. Candidate files outside the manifest can remain available for curation.
+No new generation budget or sample approval follows from this inventory.
+
+## Moonlit Reflection candidate (#7)
 
 [Audio](moonlit-reflection.wav), [cover](moonlit-reflection.png), and
 [candidate/provenance record](moonlit-reflection.candidate.json) are ready for
@@ -13,13 +58,13 @@ full WAV/PNG decoding and a muted browser asset-preview play/pause/resume passed
 Joshua's prior listening confirmation is attributed separately. No new media was generated.
 
 The candidate record's `sample` object has the fields needed for the final
-manifest. Jovi can review it, add that object to manifest.json if selected, and
+manifest. The sample lead can review it, add that object to manifest.json if selected, and
 integrate its local audio/cover into the sample library. Keep the other two
 samples distinct; verify all three through the normal launcher and exact final
 GitHub ZIP before closing #7. The loader below supplies the integration path;
 the candidate record itself does not approve the final set or change the manifest. [Asset preview](../../results/moonlit-candidate-preview.jpg).
 
-## Desert Drive candidate for jovi (#7)
+## Desert Drive candidate (#7)
 
 [Audio](desert-drive.wav), [cover](desert-drive.png), and
 [candidate/provenance record](desert-drive.candidate.json) package the second
@@ -30,7 +75,7 @@ preview play/pause/resume passed. Joshua's original listening confirmation is
 attributed as prior evidence; no new listening or generation is claimed.
 
 The original cover says **DESSERT DRIIVE** and has distorted small lettering.
-Jovi should consider that known limitation when selecting the final samples;
+The sample lead should consider that known limitation when selecting the final samples;
 this candidate preserves the original media rather than silently editing it.
 If selected, its `sample` object is ready for the manifest. Final sample-library
 and independent ZIP checks remain pending; manifest.json is unchanged.
@@ -51,7 +96,7 @@ voice references may be bundled. Temporary experiments stay in ignored generated
 ## Local manifest loader
 
 Only `manifest.json` selects samples; candidate records and directory contents
-are not scanned. After Jovi approves an entry, copy its `sample` object into
+are not scanned. After Joshua approves an entry, copy its `sample` object into
 `{"samples": [...]}` and restart the normal launcher. Use a stable UUID `id`,
 ISO calendar date `generated_at`, nonempty title/notes, boolean `instrumental`,
 and the exact class model names above. Instrumentals use `lyrics: null`; vocals
