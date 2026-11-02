@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Integrated-main offline browser regression (2026-10-31):
+[27-check record](main-browser-regression.json),
+[paused playback](main-browser-paused.jpg),
+[recovered library](main-browser-recovered.jpg).
+[Method, findings and reproduction](../docs/MAIN_BROWSER_REGRESSION.md) distinguish
+synthetic browser coverage from live acceptance. No class calls or app changes.
+
 Moonlit sample candidate: [moonlit-candidate-preview.jpg](moonlit-candidate-preview.jpg)
 shows the retained media in a muted local asset preview. Provenance and
 selection/integration notes are in [the sample guide](../assets/samples/README.md);
@@ -57,3 +64,83 @@ A3-03 live vocal failure: [vocal-live-failure-record.json](vocal-live-failure-re
 and [actual browser card](vocal-live-failure.jpg) record one real normal-launch
 attempt on main 770ce62. Cover succeeded, lyrics failed validation, and no music
 was submitted. Reload retained the draft without retrying. AT-04 remains failed.
+
+
+Genre follow-up #35: [initial ambient/funk comparison](a3-35-genre-comparison.json)
+records a limited two-clip listening improvement. Broader user app testing then
+found metal/rap unsuitable; [planning revision](a3-35-genre-fidelity.json) records
+those exact inputs and two bounded music-only requests on 9871e7b. Both decode
+fully, but Joshua judged neither genre convincing: both FAIL. The subsequent
+[concrete-cue comparison](a3-35-concrete-cues.json), explicitly requested by Joshua,
+used exactly two more music submissions on e62fe17; both decoded fully, but
+Joshua again judged neither genre convincing. Previous run records are preserved;
+no further generation in this new run. Neither record establishes
+general genre fidelity, integrated-main browser or final sample acceptance.
+
+
+Shared music-path audit: [a3-35-shared-conditioning.json](a3-35-shared-conditioning.json)
+records three offline freeform-genre route/media cases and a bounded live test
+(2 music-service format calls +2 music jobs,0 other services/retries). Joshua
+confirmed both title-free piano/DnB controls match their descriptions. This
+limited positive result preserves earlier metal/rap failures; #35 stays open.
+
+
+Within-genre caption comparison: [stopped-run record](a3-35-caption-ab.json) on
+c97045f records1 completed music job /3 polls /0 downloads. A diagnostic checked
+`seed` instead of the documented `seed_value` and stopped before the second job.
+Corrected response-shape/stop guards pass offline. No audio or genre verdict;
+this does not establish a music-service failure or resolve #35.
+
+
+Corrected within-genre pair: [caption A/B v2](a3-35-caption-ab-v2.json) on2eb81db,
+explicitly authorized after the stopped run. Exactly2 music jobs /6 polls /2
+downloads,0other services/retries; only the caption differs. Both returned the
+requested seed and fully decoded20s. Joshua judged both FAIL: A has the better rhythm; B starts heavier then
+turns light/happy. Neither delivers the expected heavy riff/bass impact.
+No broad-genre or integrated-main acceptance claimed.
+
+
+Caption-rewrite-off control: [one-flag record](a3-35-literal-caption.json) onac529fd,
+1 music job /2 polls /1 download,0other services/retries. Exact retained B caption
+and controls except use_cot_caption=false; thinking stays true. Joshua reports
+C "leaning more metal"; partial improvement, full genre/mood acceptance unconfirmed.
+Production settings unchanged; earlier failed records retained.
+
+
+Explicit deathcore target: [Iced Coffee candidate](a3-35-deathcore-candidate.json)
+on2c77732,1 music job /2 polls /1 download,0other services/retries. Actual production
+caption with clarified style/mood, planning on / rewriting off; full20s WAV decode.
+Joshua listened and replied "Still misses the target": heavier-target FAIL.
+No finer per-trait diagnosis or all-genre conclusion; no further generation.
+
+
+## Genre listening scorecard
+
+Joshua's three categories describe the assessed instrumental clips. One20s
+sample per style is provisional; a positive category does not establish every
+song, subgenre, vocal mode or integrated-main flow. Joshua rated round1: two Good to go and two Minor improvement. Only human
+listening assigns a quality grade; completed files, hashes and service metadata do not.
+
+| Category | Meaning |
+|---|---|
+| Good to go | Recognizable requested genre/mood, acceptable to use in this sample. |
+| Minor improvement | Recognizable, with some detail, mood or consistency needing work. |
+| Major update / completely misses mark | Substantially wrong or unconvincing for the requested sound. |
+
+<!-- genre-scorecard:start -->
+| Style / assessed target | Category | Notes / work status |
+|---|---|---|
+| Country | Minor improvement | Some unwanted funk influence. |
+| Swing jazz | Good to go | No notes. |
+| House | Minor improvement | Tempo feel needs work; desired BPM not specified. |
+| Rap/Hip-hop instrumental | Good to go | Beat suitable for rap/hip-hop lyrics; vocals untested. |
+| Heavy metal/deathcore (Joshua's tested heavier target) | Major update / completely misses mark | Known limitation; tuning deferred for a future revisit. |
+<!-- genre-scorecard:end -->
+
+[Machine-readable scorecard and exact round1 evidence](a3-35-genre-scorecard.json):
+source7ebd861,4 music submissions/8 polls/4downloads,0other services/retries.
+Unmodified production seed defaults; four full non-silent48kHz stereoPCM16 WAVs,
+20s each. Raw clips rendered in chat and retained privately under results/raw.
+Metal's earlier [failed heavier case](a3-35-deathcore-candidate.json) is preserved;
+its deferral is a user priority decision, not a repaired or closed issue. No
+further generation under the completed round1 budget.

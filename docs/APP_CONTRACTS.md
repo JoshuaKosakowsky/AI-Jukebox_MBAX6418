@@ -25,7 +25,7 @@ contract, distinct from the verified [provider formats](SERVICE_CONTRACTS.md).
 | MediaRef | stable asset UUID and matching /api/media/UUID URL, MIME type; never a provider URL, filesystem path or credential |
 | GenerationJob | separate app job UUID, track UUID, kind (text/art/music/speech), queued/running/succeeded/failed, progress 0-1 (advanceable inline via with_progress while running), optional SafeError |
 | Playback | one phase: idle/speaking/playing/paused; queue of track UUIDs, current index/track, paused_from for resumption |
-| SessionSnapshot | contract_version=1, tracks, jobs, playback; track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
+| SessionSnapshot | contract_version=1, tracks, jobs, playback; additive dj_presentation defaults to relaxed (relaxed/upbeat/playful); track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
 | SafeError | code, fixed safe message, retryable; never copy raw provider errors/progress to the browser |
 
 Use GenerationJob.transition: queued -> running/failed; running -> succeeded/failed.
@@ -41,8 +41,20 @@ pause/skip and no overlap; model validation is not a playback test.
 Example empty snapshot (GET /api/session when no samples are registered):
 
 ```json
-{"contract_version":1,"tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
+{"contract_version":1,"dj_presentation":"relaxed","tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
 ```
+
+## DJ presentation preference
+
+`POST /api/playback/presentation` accepts only `{"style":"relaxed"}`,
+`{"style":"upbeat"}` or `{"style":"playful"}` and returns SessionSnapshot.
+It is a session-local preference and works without service configuration; it
+never creates a job, uploads a reference or calls a provider. The optional v1
+snapshot field `dj_presentation` defaults to relaxed for existing snapshots.
+The selected direction is captured when a new introduction job is queued;
+cached/in-flight speech and original track media are preserved. Restart/expiry
+resets it with the session. VoiceBody/start/advance/reference schemas and
+provider payload structure are unchanged. Only the DJ text prompt wording changes.
 
 ## Current HTTP surface
 
@@ -132,6 +144,18 @@ orders). Track status becomes ready only when audio is attached; a music
 failure leaves the prior status, cover and audio untouched and is reported
 through the job's SafeError. Provider tickets and media bytes stay server-side.
 
+Music captions put the selected genre first and use theme/mood to shape musical
+motifs and dynamics. Bare Metal/Heavy Metal and Rap/Hip-hop labels gain concrete
+arrangement cues; detailed/freeform styles and blends keep their own direction.
+Both modes retain full inputs within ACE-Step's documented
+512-character caption limit. The draft keeps music-LM semantic planning enabled
+while disabling caption rewriting (`use_cot_caption=false`, `thinking=true`),
+so the supplied description is retained for DiT. Tempo/key/meter are inferred
+rather than copied from the piano probe. A style-field hint explains how to add
+a subgenre, instruments and rhythm; the existing freeform field/schema is unchanged.
+This adds no text-service job or retry. Genre fidelity remains a human listening check;
+see [provider conditioning](SERVICE_CONTRACTS.md#production-genre-conditioning-35).
+
 ## Vocal songs and lyrics (A3-03)
 
 Vocal tracks use the same store/route pattern: /api/tracks accepts
@@ -144,10 +168,14 @@ lyrics in the lyrics field and a vocal-aware prompt; `queue_music` rejects a
 vocal track that still has no lyrics (409) and `generate_music` re-checks at
 submission time so a job can never silently fall back to the instrumental
 marker. One text job may run app-wide (MAX_ACTIVE_TEXT=1); art/music/text jobs
-for one track coexist. The lyrics token budget is raised to 512 for this call
-only (the 192-token probe budget was for a short reply marker); this deviation
-requires live A3-03 acceptance evidence, which is still pending (no class keys
-on the development machine).
+for one track coexist. Lyrics use a 512-token limit and explicitly request
+non-thinking output with `chat_template_kwargs.enable_thinking=false`, using
+the existing DJ direct-response control. The default 192-token text probe and
+its payload stay unchanged. Exact model, nonempty final content and
+`finish_reason=stop` remain required; reasoning-only or truncated replies fail
+without an automatic retry. Offline transport/route tests verify this candidate
+request correction; successful normal-launch A3-03 vocal and human listening
+acceptance remain pending.
 
 Store bounds: 32 sessions, two-hour inactivity expiry (active jobs are retained),
 20 tracks/100 jobs per session, two active covers, two active music and one
@@ -171,6 +199,29 @@ not decoded at upload. The speech request stays the frozen probe shape and adds
 verification of the reference route is pending acceptance evidence and is
 required before AT-08 closes). Default voice remains the no-reference call.
 Multipart bodies are parsed fully in memory (no temp files or disk spooling).
+
+DJ start/advance accept an optional JSON `{reference_id: UUID}` (omitting the
+body or sending `{}` preserves default behavior). Explicit speech retry accepts
+`{track_id, reference_id?}`. An unknown, expired or consumed reference returns
+404 before changing playback or creating a job; it never requests default speech
+as a substitute. Under the session lock, a new job claims the upload exactly
+once into a private job-to-bytes map, bounded by the existing global two-active-
+speech-job limit. Success and every failure remove that map entry and private
+commentary prompt. A rejected/cached/busy/failed-skip intent leaves its unconsumed
+upload available for deletion or session expiry; no recording or reference id
+is added to the shared snapshot schema.
+
+The browser retains the selected File in page memory only, uploads it afresh for
+each new introduction and deletes any unused upload after the intent completes
+or fails. Selecting a file alone, polling, pause/resume and reload do not upload
+or generate. Natural advance belongs to the user-started queue and uses the
+current selection. Cached/in-flight introductions retain their original voice;
+failed ones still require the explicit Retry action. Clear selects default voice
+for future jobs; reload forgets the clip. Selection changes during an upload
+apply only to subsequent requests. On automatic-advance error the local timeline
+waits for user recovery (clear/change the clip, then Resume or Skip), avoiding
+repeated uploads or automatic retries. Resume also releases this local halt when
+server playback was not paused. No service payload or provider implementation changed.
 The single-process launcher owns this memory; restart clears generated session data
 and reloads the approved sample catalog. No generated-data persistence, upload,
 fixtures or alternate generation provider is added to the normal launcher; the only
@@ -336,6 +387,9 @@ the frozen service-probes.json defaults and exposes:
 - speech(text, reference=MediaBytes) -> same, with ref_audio as a base64 data
   URI in the frozen request (schema-inspected; live verification pending).
 - submit_music(prompt, duration_seconds=10, lyrics="[Instrumental]") -> MusicTicket.
+  Production omits the probe's fixed BPM/key/meter so ACE-Step can infer them
+  from the selected style/mood; duration, lyrics and one-output/no-retry bounds
+  are unchanged. See SERVICE_CONTRACTS.md for the documented deviation.
 - poll_music(ticket) -> running or succeeded with a private download path; status
   2 becomes a safe generation_failed error. Success parses the JSON string array,
   matches task ID and verifies XL Turbo. Each invocation performs only one poll.

@@ -1,0 +1,57 @@
+{
+  "real_class_calls": 0,
+  "results": [
+    {
+      "mode": "success",
+      "result": "PASS",
+      "attempts": {
+        "text": 3,
+        "speech": 3,
+        "art": 0,
+        "music": 0
+      },
+      "captured_failure": null,
+      "prevented_requests": 0
+    },
+    {
+      "mode": "text_failure",
+      "result": "PASS",
+      "attempts": {
+        "text": 1,
+        "speech": 0,
+        "art": 0,
+        "music": 0
+      },
+      "captured_failure": {
+        "stage": "text",
+        "error": {
+          "code": "invalid_response",
+          "message": "The text service returned no text content (finish_reason='length').",
+          "retryable": false
+        },
+        "at_utc": "2026-11-02T05:12:20.353129+00:00"
+      },
+      "prevented_requests": 1
+    },
+    {
+      "mode": "speech_failure",
+      "result": "PASS",
+      "attempts": {
+        "text": 1,
+        "speech": 1,
+        "art": 0,
+        "music": 0
+      },
+      "captured_failure": {
+        "stage": "speech",
+        "error": {
+          "code": "unavailable",
+          "message": "The class service is temporarily unavailable.",
+          "retryable": true
+        },
+        "at_utc": "2026-11-02T05:12:20.501678+00:00"
+      },
+      "prevented_requests": 1
+    }
+  ]
+}

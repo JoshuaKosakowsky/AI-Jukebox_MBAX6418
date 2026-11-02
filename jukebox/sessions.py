@@ -6,7 +6,7 @@ from threading import RLock
 import time
 from uuid import UUID, uuid4
 
-from .contracts import GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
+from .contracts import DjPresentation, GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
 from .providers import MediaBytes, MusicTicket, ProviderFailure
 
 SESSION_COOKIE = "jukebox_session"
@@ -51,7 +51,10 @@ class Session:
     # Temporary voice references: browser uploads -> server-private bytes used
     # once by a speech job. Never exposed in snapshots, never written to disk.
     references: dict[UUID, MediaBytes] = field(default_factory=dict)
+    # Claimed once per job; bounded by MAX_ACTIVE_SPEECH, removed on every exit.
+    speech_references: dict[UUID, MediaBytes] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
+    dj_presentation: DjPresentation = "relaxed"
     # Each entry is one in-flight job (track id, job kind); a track may have an
     # art job and a music job running at the same time.
     active: set[tuple[UUID, str]] = field(default_factory=set)
@@ -65,30 +68,41 @@ class Session:
 
 
 def cover_prompt(track: Track) -> str:
-    return ("Create original square album cover art for this song.\n"
+    return ("Create original square artwork for this song with no text or lettering anywhere in the image: "
+            "no words, no typography, no captions, no logos, no decorative letters, no titles drawn in it.\n"
             f"Song title and theme: {track.title}\n"
             f"Musical style: {track.settings.style}\n"
             f"Mood: {track.settings.mood}\n"
-            "Reflect this song's theme, musical style and mood in the imagery and colors. "
-            "Use an original visual composition, no lettering, logos or copied album artwork.")
+            "Represent the song's theme, style and mood through imagery, color and composition only; "
+            "express the title visually, never as written words.")
+
+
+def _music_caption(track: Track, performance: str) -> str:
+    # ACE-Step consumes an audio caption, not a chat instruction. Genre leads;
+    # retain all three user inputs within its documented 512-character limit.
+    # Duration and lyrics have their own structured fields in the same request.
+    style = track.settings.style.casefold().replace("-", " ")
+    # Listening failed for bare Metal/Rap labels even with LM planning enabled.
+    # Give common exact labels concrete sonic cues. Detailed/freeform styles
+    # (including blends) keep their own direction; these are defaults, not rules.
+    if style in {"heavy metal", "metal"}:
+        arrangement = ("Riff-led metal: heavily distorted electric guitars, palm-muted chugs, "
+                       "electric bass, forceful acoustic drums and double-kick accents.")
+    elif style in {"rap", "hip hop"}:
+        arrangement = ("Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, "
+                       "sparse repeating hook and room for rhythmic vocal flow.")
+    else:
+        arrangement = "Genre-led groove, tempo, instruments and production;"
+    return (f"{track.settings.style}. {performance} Mood: {track.settings.mood}. "
+            f"Theme: {track.title}. {arrangement} Theme/mood shape dynamics and motifs.")
 
 
 def music_prompt(track: Track) -> str:
-    return ("Compose an original instrumental song; no vocals and no lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable instrumental piece that matches this style and mood.")
+    return _music_caption(track, "Instrumental; no vocals.")
 
 
 def vocal_music_prompt(track: Track) -> str:
-    return ("Compose an original song with expressive sung vocals that perform the provided lyrics.\n"
-            f"Song title and theme: {track.title}\n"
-            f"Musical style: {track.settings.style}\n"
-            f"Mood: {track.settings.mood}\n"
-            f"Approximate length: {track.settings.duration_seconds} seconds.\n"
-            "Create a cohesive, playable vocal piece that matches this style and mood.")
+    return _music_caption(track, "Style-matched vocals, supplied lyrics.")
 
 
 def lyrics_prompt(track: Track) -> str:
@@ -263,12 +277,22 @@ def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
         if frame_length is not None and index + frame_length <= len(content):
             return
     raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
-def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> str:
-    """Song-specific spoken commentary for Qwen (default ChatGPT-style text).
+
+
+DJ_PRESENTATIONS = {
+    "relaxed": "Speak as a calm, warm public-radio presenter with measured, reassuring wording.",
+    "upbeat": "Speak as an energetic music-radio presenter with punchy, concise wording. No shouting.",
+    "playful": "Speak as a lighthearted, witty DJ with one gentle playful remark. Keep it welcoming and kind.",
+}
+
+
+def dj_prompt(track: Track, prior: Track | None, position: int, total: int,
+              presentation: DjPresentation = "relaxed") -> str:
+    """Song-specific commentary with a captured presentation preference.
 
     The prompt carries the queued song's title, style, mood and vocal mode plus
-    transition context from the previous song; the result is spoken by
-    Chatterbox's default voice. No user content or credentials are included.
+    transition context from the previous song. Chatterbox speaks the result
+    with the independently selected default/reference voice.
     """
     if prior is None or position == 0:
         transition = "This is the first song of the set."
@@ -278,8 +302,8 @@ def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> s
         transition = f"After {prior.title}, the set continues."
     mode = "vocal song" if track.settings.mode == "vocal" else "instrumental"
     return ("You are the jukebox DJ. Write 2-4 short, natural spoken sentences "
-            "that introduce the next song for an automated radio show. Speak as "
-            "a friendly radio DJ. Plain speech only: no stage directions, no "
+            "that introduce the next song for an automated radio show. "
+            f"{DJ_PRESENTATIONS[presentation]} Plain speech only: no stage directions, no "
             "sound effects, no section headings, no song titles in quotes.\n"
             f"{transition}\n"
             f"Song title and theme: {track.title}\n"
@@ -323,7 +347,8 @@ class SessionStore:
 
     def snapshot(self, session):
         with self.lock:
-            return SessionSnapshot(tracks=list(session.tracks.values()), jobs=list(session.jobs.values()), playback=session.playback).model_copy(deep=True)
+            return SessionSnapshot(tracks=list(session.tracks.values()), jobs=list(session.jobs.values()),
+                                   playback=session.playback, dj_presentation=session.dj_presentation).model_copy(deep=True)
 
     def create_cover_track(self, session, title: str, settings: SongSettings):
         with self.lock:
@@ -403,6 +428,15 @@ class SessionStore:
 
     # ---- AI DJ queue -------------------------------------------------------
 
+    def set_dj_presentation(self, session, presentation):
+        with self.lock:
+            if presentation not in DJ_PRESENTATIONS:
+                raise SessionFailure(422, "Choose a supported DJ presentation style.")
+            # Only future job prompts change. Cached and already queued speech
+            # keep their captured wording; choosing a style never generates.
+            session.dj_presentation = presentation
+            session.touched = time.monotonic()
+
     def queue_playback(self, session, track_id):
         """Append one playable track to the DJ queue (one entry per track)."""
         with self.lock:
@@ -418,7 +452,7 @@ class SessionStore:
                                                         "queue": [*session.playback.queue, track_id]})
             return session.playback
 
-    def _queue_dj_speech(self, session, track_id, prior, position, total):
+    def _queue_dj_speech(self, session, track_id, prior, position, total, reference_id=None):
         """Create the commentary job for one track, best-effort.
 
         Silent skips (job already exists, commentary busy, session at its
@@ -447,10 +481,20 @@ class SessionStore:
             job = GenerationJob(track_id=track_id, kind="speech")
             session.jobs[job.id] = job
             session.active.add((track_id, "speech"))
-            session.speech_prompts[job.id] = dj_prompt(track, prior, position, total)
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, total, session.dj_presentation)
+            self._claim_speech_reference(session, job.id, reference_id)
             return job
 
-    def request_dj_speech(self, session, track_id):
+    def _check_speech_reference(self, session, reference_id):
+        if reference_id is not None and reference_id not in session.references:
+            raise SessionFailure(404, "Voice reference expired or was already used. Choose the clip again.")
+
+    def _claim_speech_reference(self, session, job_id, reference_id):
+        # Caller holds the store lock from validation through job creation.
+        if reference_id is not None:
+            session.speech_references[job_id] = self.take_reference(session, reference_id)
+
+    def request_dj_speech(self, session, track_id, reference_id=None):
         """Explicit user retry for a failed or absent DJ introduction.
 
         The only path that creates a NEW speech job after a failure; it is
@@ -459,6 +503,7 @@ class SessionStore:
         speech job already in flight rejects the request.
         """
         with self.lock:
+            self._check_speech_reference(session, reference_id)
             if track_id not in session.tracks:
                 raise SessionFailure(404, "Track not found in this session.")
             track = session.tracks[track_id]
@@ -482,12 +527,14 @@ class SessionStore:
             job = GenerationJob(track_id=track_id, kind="speech")
             session.jobs[job.id] = job
             session.active.add((track_id, "speech"))
-            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length)
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length, session.dj_presentation)
+            self._claim_speech_reference(session, job.id, reference_id)
             return job
 
-    def start_playback(self, session):
+    def start_playback(self, session, reference_id=None):
         """Start the queue at its first entry and request its DJ introduction."""
         with self.lock:
+            self._check_speech_reference(session, reference_id)
             if not session.playback.queue:
                 raise SessionFailure(409, "Add songs to the DJ queue before starting.")
             if session.playback.state != "idle":
@@ -495,10 +542,10 @@ class SessionStore:
             first = session.playback.queue[0]
             session.playback = Playback.model_validate({**session.playback.model_dump(), "state": "speaking",
                                                         "index": 0, "current_track_id": first})
-        job = self._queue_dj_speech(session, first, None, 0, len(session.playback.queue))
-        return session.playback, job
+            job = self._queue_dj_speech(session, first, None, 0, len(session.playback.queue), reference_id)
+            return session.playback, job
 
-    def advance_playback(self, session):
+    def advance_playback(self, session, reference_id=None):
         """Advance to the next queue entry (skip or natural end of a song).
 
         Idle at the end of the queue with the queue kept for another play;
@@ -506,6 +553,7 @@ class SessionStore:
         A paused advance stays paused.
         """
         with self.lock:
+            self._check_speech_reference(session, reference_id)
             queue, index = session.playback.queue, session.playback.index
             if session.playback.state == "idle":
                 raise SessionFailure(409, "Playback is not active.")
@@ -534,8 +582,8 @@ class SessionStore:
                  # introduction. The paused state MUST carry paused_from
                  # (contract validator).
                  "paused_from": "speaking" if was_paused else None})
-        job = self._queue_dj_speech(session, next_id, previous, index + 1, len(session.playback.queue))
-        return session.playback, job
+            job = self._queue_dj_speech(session, next_id, previous, index + 1, len(session.playback.queue), reference_id)
+            return session.playback, job
 
     def set_phase(self, session, phase, track_id=None):
         """Record the transition speech -> music (or back) made by the player.
@@ -677,7 +725,7 @@ class SessionStore:
                 session.touched = time.monotonic()
 
     def generate_dj_speech(self, session, job_id, providers):
-        """One deliberate Qwen commentary -> Chatterbox default-voice speech.
+        """One deliberate Qwen commentary -> Chatterbox speech request.
 
         The spoken intro attaches to its OWN track (track.speech), so a job
         that completes after the user has skipped elsewhere can never play out
@@ -690,6 +738,7 @@ class SessionStore:
             session.jobs[job_id] = job
             track = session.tracks[job.track_id]
             prompt = session.speech_prompts.get(job_id, "")
+            reference_audio = session.speech_references.get(job_id)
         try:
             if not prompt:
                 raise ProviderFailure(SafeError(
@@ -704,7 +753,8 @@ class SessionStore:
                     code="generation_failed",
                     message="DJ commentary came back empty. The song plays without an introduction.",
                     retryable=False))
-            audio = providers.speech(text)
+            audio = (providers.speech(text, reference=reference_audio) if reference_audio is not None
+                     else providers.speech(text))
             with self.lock:
                 used = self._media_bytes()
                 if used + len(audio.content) > MAX_MEDIA_BYTES:
@@ -727,6 +777,8 @@ class SessionStore:
                 session.jobs[job.id] = job.transition(JobState.FAILED, error=error)
         finally:
             with self.lock:
+                session.speech_references.pop(job_id, None)
+                session.speech_prompts.pop(job_id, None)
                 session.active.discard((job.track_id, "speech"))
                 session.touched = time.monotonic()
 

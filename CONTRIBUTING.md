@@ -32,7 +32,7 @@ to main. Joshua/the team handles invitations and lead/contributor assignments.
    then request approval on that head. Keep handoff.md current each session.
 
 Publication and branch/issue/PR collaboration for assigned work are authorized.
-Main protection requires teammate approval, passing `test`, up-to-date branches,
+Main protection requires an eligible approval, passing `test`, up-to-date branches,
 resolved conversations and latest-push approval for everyone.
 See docs/GITHUB_SETUP.md. Do not bypass protection to accelerate merging.
 
@@ -64,22 +64,67 @@ reviews; fix small related problems directly instead of opening process issues.
   expected behavior. Batch findings from the review; new evidence may justify more.
 - **Non-blocking:** preferences, wording, optional refactors and out-of-scope
   improvements. Mark them as suggestions; do not turn them into merge conditions.
-- Review correctness and the user flow, not test counts alone. No self-approval.
+- Review correctness and the user flow, not test counts alone. No author
+  self-approval; the disclosed automated-review exception below is explicit.
   Parent features close only after their flow passes on merged main; child PRs
   may deliver tested components without claiming the whole feature is complete.
 
 - **Review eligibility:** the PR author cannot approve their own PR. Any
   teammate with zero commits on the PR may review, approve, or request
-  changes, even if they did not code the change.
+  changes, even if they did not code the change. The named Hermes exception
+  below also permits a separate automated review of Joshua's contributions.
 - **Merge:** the approving reviewer or the issue lead merges once the one
   required approval, green `test`, and resolved conversations are present.
   A PR author may merge after an eligible approval exists, but convention
-  is that a non-author merges.
+  is that a non-author merges. Hermes/JoshKozy is review-only and never merges;
+  an already-authorized merge coordinator may act after all gates are satisfied.
 - **Branch freeze at review:** last-push approval and stale-review
   dismissal are enabled, so any collaborator push invalidates an approval.
   When the lead calls for review, collaborators stop pushing to that
   branch until the verdict; the reviewer who approves must not be the last
   committer.
+
+### Disclosed Hermes reviewer: JoshKozy
+
+Joshua owns both `JoshuaKosakowsky` and `JoshKozy`. The latter is the named
+identity for a separately configured, review-only Hermes agent. It is not an
+additional person or teammate. Its technically separate review may satisfy the
+one-approval gate, including for primary-account PRs Joshua authored or
+contributed to, only under these conditions:
+
+- This policy is present on protected main after a normal reviewed merge.
+  Hermes cannot approve the PR introducing this policy, or later changes to its
+  own authority, credentials, tool permissions or reviewer instructions. Those
+  need an eligible teammate under the ordinary rule.
+- The reviewer runs in a separate profile/workspace with its own instructions
+  and independently examines the exact head. It has not implemented, committed,
+  pushed, applied suggestions or resolved code conflicts on that PR under any
+  login. If it has, it may comment but cannot approve. A PR authored by JoshKozy
+  cannot receive JoshKozy's approval.
+- Its authenticated posting identity is verified as `JoshKozy`. Every review
+  starts `Hermes automated review for Joshua via JoshKozy.` and includes the
+  full reviewed SHA, actual validation, findings and unchecked areas. It never
+  claims independent human review, listening or installation it did not perform.
+- Required checks, latest-push/stale-approval rules, current main and resolved
+  conversations still apply. Unresolved defects or change requests are not
+  waived. The reviewer never edits code/docs, merges, dismisses another review,
+  changes assignments/protection or calls generation services.
+
+This role applies only to Joshua's dedicated `jukebox-reviewer` profile on
+JoshKozy. Classmates' Hermes coding agents continue under the normal contributor
+workflow on their own accounts; reading HERMES_REVIEWER.md does not assign the
+review-only role. The agent software name does not determine permissions.
+
+This is a project-policy exception for a disclosed automated reviewer, not a
+general exception for Joshua's other accounts or coding agents. Ordinary
+teammate reviews remain welcome. The assignment's actual teammate contribution,
+peer-review and independent-installation obligations remain unchanged. Attribute
+Hermes activity to Joshua in the completion record; never add another teammate.
+
+The separate [reviewer instructions](docs/HERMES_REVIEWER.md) define the role;
+[setup instructions](docs/HERMES_SETUP.md) separate credentials, capabilities and
+the checkout. A prompt alone does not enforce review-only permissions. Existing
+Dot authorization does not allow Dot to approve Joshua's work through this role.
 
 ### Resolved blocking review; original reviewer unavailable
 

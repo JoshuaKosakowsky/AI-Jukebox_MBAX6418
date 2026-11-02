@@ -1,0 +1,142 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "9871e7bc1f17dbed8b41911d8f9840083ce47c24",
+  "scope": "Production ClassProviders adapter, two real music-only jobs; not normal-launch/browser acceptance or human quality verification",
+  "limits": {
+    "music_submissions": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "counts": {
+    "music_submissions": 2,
+    "polls": 7,
+    "downloads": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "baseline": "User reports on PR37 head666d44b; original exact duration/mode/media not available. No baseline regeneration or paired controlled A/B claimed.",
+  "original_user_feedback": [
+    {
+      "title": "Iced Coffee",
+      "style": "Heavy Metal",
+      "mood": "Angsty",
+      "observation": "Not metal; upbeat dungeon music from a video game"
+    },
+    {
+      "title": "Yellow Sundress",
+      "style": "Rap",
+      "mood": "Upbeat",
+      "observation": "Wind-instrument snake-charming impression, not expected rap"
+    }
+  ],
+  "comparison_settings_note": "30s instrumental is an explicit test choice, not an observed original setting.",
+  "results": [
+    {
+      "title": "Iced Coffee",
+      "style": "Heavy Metal",
+      "mood": "Angsty",
+      "duration_seconds": 30,
+      "mode": "instrumental",
+      "started_at_utc": "2026-10-31T05:12:23.844275+00:00",
+      "request_prompt": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Genre-led groove, tempo, instruments and production; theme/mood shape dynamics and motifs.",
+      "request_lyrics": "[Instrumental]",
+      "request_controls": {
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "returned_caption_present": true,
+      "returned_caption_differs_from_request": false,
+      "service_reported_lm_model_present": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 143,
+        "key_scale": "G major",
+        "time_signature": "4"
+      },
+      "audio": {
+        "sha256": "1bf33495d0692916ba58ed6c8ac7f2814e94e9ea171be872bae98ab094439146",
+        "bytes": 5760078,
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 30.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.155721
+      },
+      "elapsed_seconds": 11.145,
+      "result": "PASS: request accepted and complete non-silent audio decoded; FAIL: user genre recognition"
+    },
+    {
+      "title": "Yellow Sundress",
+      "style": "Rap",
+      "mood": "Upbeat",
+      "duration_seconds": 30,
+      "mode": "instrumental",
+      "started_at_utc": "2026-10-31T05:12:34.989964+00:00",
+      "request_prompt": "Rap. Instrumental; no vocals. Mood: Upbeat. Theme: Yellow Sundress. Genre-led groove, tempo, instruments and production; theme/mood shape dynamics and motifs.",
+      "request_lyrics": "[Instrumental]",
+      "request_controls": {
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "returned_caption_present": true,
+      "returned_caption_differs_from_request": false,
+      "service_reported_lm_model_present": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 100,
+        "key_scale": "D major",
+        "time_signature": "4"
+      },
+      "audio": {
+        "sha256": "2f46def7b01756a1e5ef8cfa35347ac0dad6bd1fe93d2eeffac1f950cfb852f1",
+        "bytes": 5760078,
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 30.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.149156
+      },
+      "elapsed_seconds": 7.765,
+      "result": "PASS: request accepted and complete non-silent audio decoded; FAIL: user genre recognition"
+    }
+  ],
+  "result": "FAIL: requests completed but user found neither genre convincing",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "method": "Listened to the two revised clips displayed in chat; direct reply",
+    "response": "Neither is convincing",
+    "genre_acceptance": "FAIL for both examples",
+    "theme_mood_judgment": "Not separately supplied; no positive judgment inferred"
+  },
+  "unchecked": [
+    "Final concrete-cue revision: no live generation or listening",
+    "Normal-launch generation/browser playback on integrated main",
+    "Vocal/rap delivery and other genres"
+  ],
+  "interpretation_limits": [
+    "Request flags are supported and accepted; returned prompt echoed the request. No internal caption-rewrite/audio-code trace was captured.",
+    "Service metadata and model-presence fields do not establish audible genre fidelity.",
+    "Two revised samples are a bounded exploratory check; the original user clips/settings were not available for a controlled paired comparison."
+  ]
+}

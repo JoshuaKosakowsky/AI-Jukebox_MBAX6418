@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "ddf9e61a575fe28763204b8e21676d43cfba3648",
+  "scope": "Production ClassProviders adapter, two real music-only jobs; not normal-launch/browser acceptance or human quality verification",
+  "limits": {
+    "music_submissions": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "counts": {
+    "music_submissions": 2,
+    "polls": 4,
+    "downloads": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "baseline": "results/main-instrumental-acceptance.json on main, original retained class audio; no baseline regeneration",
+  "results": [
+    {
+      "title": "Moonlit Reflection",
+      "style": "Ambient piano",
+      "mood": "Calm and reflective",
+      "duration_seconds": 30,
+      "mode": "instrumental",
+      "baseline_sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+      "started_at_utc": "2026-10-31T04:48:59.212045+00:00",
+      "request_controls": {
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": false,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 97,
+        "time_signature": "3"
+      },
+      "audio": {
+        "sha256": "1d77b407ec703acf03b5b7f3f7a524297da160c5269c54496e4fdef5b4a4a4e7",
+        "bytes": 5760078,
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 30.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.12794
+      },
+      "elapsed_seconds": 4.881,
+      "result": "PASS: request accepted and complete non-silent audio decoded; quality/listening pending"
+    },
+    {
+      "title": "Desert Drive",
+      "style": "Upbeat funk",
+      "mood": "Energetic and optimistic",
+      "duration_seconds": 20,
+      "mode": "instrumental",
+      "baseline_sha256": "6402d2f1b3cb730d9af6f98c2bae0c71596377c116cd2b9af0c6c225c989aa26",
+      "started_at_utc": "2026-10-31T04:49:04.094794+00:00",
+      "request_controls": {
+        "audio_duration": 20,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": false,
+        "use_cot_caption": false,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 120,
+        "key_scale": "C major",
+        "time_signature": "4"
+      },
+      "audio": {
+        "sha256": "9e81df5e30fd948ed7db4c95977d8a5dd166e23b65aa5e15cc56b57d430b0349",
+        "bytes": 3840078,
+        "frames": 960000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 20.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.195095
+      },
+      "elapsed_seconds": 5.963,
+      "result": "PASS: request accepted and complete non-silent audio decoded; quality/listening pending"
+    }
+  ],
+  "result": "PASS: two changed requests completed; Joshua confirms clearer genre/rhythm contrast for these two outputs",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "date": "2026-10-30 America/Denver",
+    "confirmation": "Yes, clearer genre/rhythm difference",
+    "source": "Direct in-chat response after the two new clips were rendered",
+    "scope": "The two ambient-piano/upbeat-funk comparison outputs only; no broad genre guarantee"
+  },
+  "unchecked": [
+    "Normal-launch/browser flow on integrated main",
+    "Broad genre coverage or guaranteed quality for arbitrary inputs"
+  ]
+}
