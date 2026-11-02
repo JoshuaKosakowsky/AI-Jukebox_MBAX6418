@@ -65,7 +65,9 @@ python scripts/check_readiness.py --release \
   only the documentation/class credentials, not their clone or developer files.
   Another Joshua login or automated reviewer is not a different teammate.
   The [default-DJ checklist](DEFAULT_DJ_ZIP_TEST.md) gives the concrete steps,
-  proposed11-request ceiling, stop rules and copyable return record.
+  a copy-and-paste agent execution prompt, proposed11-request ceiling, stop rules
+  and copyable return record. The teammate's coding agent performs setup/browser/
+  evidence work; the human supplies listening and findings confirmations.
 - The installer verifies all core features + the three approved samples
   through the normal entrypoint (AT-11/16/17): playback with controls,
   cover/music/lyrics/vocal flows from the shipped samples, four service roles

@@ -4,6 +4,57 @@ Use this packet for an independent install and the three core features with the
 **default Chatterbox voice**. Do not upload a voice recording. The existing upload
 capability stays in the app; this checklist does not test or certify it.
 
+## Give this to your coding agent
+
+Paste the following into your normal contributing/coding agent with terminal
+and browser access. Joshua's restricted JoshKozy reviewer cannot perform this
+installation; it is not an independent teammate either.
+
+```text
+Act as my independent ZIP-testing agent for JoshuaKosakowsky/AI-Jukebox_MBAX6418.
+Execute the procedure yourself; do not just give me manual setup instructions.
+Read docs/DEFAULT_DJ_ZIP_TEST.md from PR #59's latest head, or main after it merges.
+Read the extracted ZIP's README and AGENTS.md; follow the ordinary contributor role.
+
+Identify the actual teammate you are acting for. Use that teammate's authenticated
+GitHub account for the claim/result; do not switch accounts or act as JoshKozy.
+Read current #10/#6 claims and coordinate the single installer before live calls.
+If another live run is active, continue only zero-call setup/sample checks.
+
+Download the exact candidate ZIP, verify its size/hash, extract into a fresh folder,
+install dependencies, launch the real app and operate its browser controls yourself.
+Use only the shipped source/docs plus approved private class credentials.
+Do not use source/assets or virtual environments copied from an existing clone.
+Use available approved credentials privately; ask me for local credential setup only
+if necessary. Never ask me to paste keys into chat or post them to GitHub.
+
+Perform every applicable step below: samples, new instrumental, new vocal/AI lyrics,
+matching covers, default-DJ queue, controls, automatic sequencing, cached replay
+and reload. Do not upload or request a voice recording. Do not edit the app.
+Reserve the expected generation allowance before each action and keep a ledger:
+text4/art2/music2/speech3 maximum,11 total, no retries or automatic resubmissions.
+Wait for each generation/job outcome before starting the next; no request bursts.
+Stop on the first unexpected error, uncertain submission or exhausted allowance.
+Capture safe UI/job errors and completed/unrun steps without exposing secrets.
+
+Automate file, setup, browser, screenshot, metadata and reporting work yourself.
+Ask me to listen when audio is ready; record my actual verdict, not an invented
+human approval. Continue independent checks while waiting, without extra generation.
+Write the completion record and safe evidence outside the extraction. Draft the
+README findings from what you actually observed and ask me to confirm them.
+Post one safe result on #10 using my verified teammate account; if posting is
+unavailable, provide the completed report for me to forward. Do not claim it posted.
+Stop only the server you started. Preserve the original ZIP and exact tested SHA.
+Do not commit, push, merge, reassign issues or change protections for this test.
+Report pass/fail/not-run honestly, with the voice-upload comparison not-run.
+```
+
+The teammate supplies only missing private configuration and the human listening/
+findings confirmations. Their agent handles the actual installation and test work.
+An agent without the necessary tools reports that blocker instead of claiming
+browser/installation success from code inspection or telling the human to do all
+the steps manually.
+
 ## Before starting — Joshua coordinates
 
 1. Name **one actual teammate other than Joshua** as installer and post the start
@@ -29,13 +80,17 @@ This separately supplied checklist can test that fixed baseline even if a later
 documentation PR merges. Submit the tested version's original GitHub ZIP and SHA;
 do not silently replace them with a later main archive.
 
-## What the teammate does
+## Agent executes the test
+
+The instructions below are actions for the teammate's agent. Human listening
+judgments are requested explicitly; the agent records technical observations and
+prepares the report. It does not assume it can hear or approve generated audio.
 
 1. **Download and extract into a brand-new folder** outside an existing clone.
    Keep the original ZIP. Verify its hash: Windows PowerShell
    `Get-FileHash -Algorithm SHA256 'C:\path\downloaded.zip'`; macOS
    `shasum -a 256 '/path/downloaded.zip'`. Record OS, Python version, ZIP hash/size
-   and the commit above. Open a terminal in the extracted inner folder containing
+   and the commit above. Run commands from the extracted inner folder containing
    `README.md`, `pyproject.toml` and `scripts/`.
 2. **Install and launch from the shipped README.** Use Python 3.12 (the app also
    supports 3.13/3.14). If uv is absent, run `python -m pip install uv==0.12.19`,
@@ -46,7 +101,8 @@ do not silently replace them with a later main archive.
 3. **Check the bundled library before configuring services.** It must show
    Afterglow Avenue (45s vocal), Moonlit Reflection (30s instrumental) and
    Antlercover (60s vocal), each with its matching cover. Play each to its end;
-   inspect both vocal lyric panels and exercise local pause/resume. Confirm the
+   inspect both vocal lyric panels and exercise local pause/resume. Ask the
+   teammate to confirm audibility; retain the actual answer. Confirm the
    samples work without regeneration. Missing-service guidance should be clear.
 4. **Configure privately.** Stop the server with Ctrl+C. In this new extraction,
    copy `.env.example` to `.env` and fill its eight values using class credentials
@@ -57,32 +113,37 @@ do not silently replace them with a later main archive.
 5. **Create one instrumental.** Title `ZIP Piano Check`, style `Ambient piano`,
    mood `Calm and reflective`, duration **20s**, mode **Instrumental**. Click Create
    once. Expect visible generation status, a new matching FLUX cover, playable
-   instrumental audio and a persistent library card. Listen and record the actual
-   result; do not treat a completed file as automatic quality approval.
+   instrumental audio and a persistent library card. Ask the teammate to listen
+   and record the actual result; a completed file is not quality approval.
 6. **Create one vocal.** Title `ZIP Homecoming Check`, style `Synth-pop`, mood
    `Hopeful`, duration **30s**, mode **Vocal song with AI lyrics**. Click Create
-   once. Expect original visible AI lyrics, a separate matching cover and audible,
-   intelligible sung vocals that broadly fit the settings. Verify the earlier
+   once. Expect original visible AI lyrics and a separate matching cover. Ask the
+   teammate whether sung vocals are audible/intelligible and broadly fit the
+   settings; record that judgment. Verify the earlier
    instrumental still plays. Record expected versus actual for music, lyrics and
    art; take safe screenshots of the completed cards and lyrics.
 7. **Run the default DJ.** Stop local players; add those two new tracks and one
    bundled sample to the queue. Choose **Relaxed / Public Radio**. Leave the
    optional reference chooser empty; use **Use default voice** if a file was
-   accidentally selected. Press **Play queue** once. Hear each introduction and
-   confirm it fits the upcoming song. Test Pause/Resume during speech and music,
+   accidentally selected. Press **Play queue** once. Ask the teammate to hear the
+   three introductions and confirm intelligibility/upcoming-song fit. The agent
+   tests Pause/Resume during speech and music,
    then let the queue automatically advance and finish. Speech must precede music
    without overlapping playback. This first pass creates at most three intros.
 8. **Replay the cached queue.** Press Play again. Skip during the first speech;
    on the next song let speech finish, then Skip during music. Pause, reload and
    confirm the queue/library survive without automatic generation. Resume cached
    playback as needed. Do not press new-generation or Retry-introduction buttons.
-9. **Verify the docs and report in your own words.** Note one instruction that
-   matched the app, any missing/wrong step, and a brief finding about the default
-   DJ, generated output or a documented limitation. Existing real recovery
+9. **Verify the docs and draft the findings.** From actual execution, the agent
+   records one instruction that matched the app, any missing/wrong step, and a
+   brief finding about the default DJ, output or a documented limitation. Have
+   the teammate confirm the findings rather than claim an unprovided human
+   judgment. Existing real recovery
    evidence is linked in README; confirm the missing-settings/fix/restart behavior
    in steps 2–4. Do not manufacture a failure or mark an unrun case passed.
-10. **Stop and return the record below**, safe screenshots and any error details
-    to Joshua through the team workflow. Stop the server. Keep records outside
+10. **Write and return the record below**, safe screenshots and any error details
+    to #10 through the teammate's verified GitHub account, or provide the completed
+    report for forwarding if posting is unavailable. Stop the server. Keep records outside
     the extraction and use the original downloaded ZIP for submission; do not
     repackage the folder containing your private `.env`.
 

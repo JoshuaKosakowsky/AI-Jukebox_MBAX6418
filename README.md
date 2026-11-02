@@ -345,7 +345,8 @@ the normal app also launches from source without .git.
   [observed results](docs/TEST_RESULTS.md), [A2 lessons](docs/A2_LESSONS.md).
 - [GitHub/protection](docs/GITHUB_SETUP.md), [completion record](docs/CONTRIBUTIONS.md).
 - [Teammate ZIP test with the default DJ](docs/DEFAULT_DJ_ZIP_TEST.md): clean install,
-  concrete human checks and a copyable result record; no voice recording requested.
+  an agent execution prompt, human listening checks and a copyable result record;
+  no voice recording requested.
 - Joshua's disclosed JoshKozy reviewer (not classmates' Hermes coding agents): [setup](docs/HERMES_SETUP.md),
   [separate review-only instructions](docs/HERMES_REVIEWER.md),
   [eligibility policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).

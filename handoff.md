@@ -1,5 +1,24 @@
 # Agent handoff
 
+## Session — PR59 procedure made agent-executable, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, pre-update head `7dd3138`, main `29c5de1`.
+Owner requested the procedure itself direct teammates' AIs to do the actual work.
+DEFAULT_DJ_ZIP_TEST now starts with a copy-and-paste coding-agent execution prompt.
+Agent downloads/verifies/extracts, installs, launches, operates browser, captures evidence and writes/posts the report.
+Agent verifies the teammate identity and current claims, uses a clean ZIP and coordinates one tester before live generation.
+Human is asked only for missing private credential setup, audio listening and confirmation of observed findings.
+No requirement for the human to manually perform installation, browser controls or report drafting.
+Restricted JoshKozy reviewer is not an installer; normal contributing agents use their own teammate account/tools.
+Agent does not invent listening, post success if posting unavailable, patch candidate code or switch accounts.
+Same frozen baseline29c5de1, hash/size,11-request ceiling and stop/no-retry rules remain unchanged.
+Default voice only in this checklist; no recording requested; existing upload capability/gate/AT-08 status unchanged.
+README/runbook point to agent execution; current PR remains six documentation paths versus main.
+Local checks PASS: scaffold176/link/safeguards, coverage36/11/19, agent-prompt/scope assertions and whitespace.
+Fresh exact-head CI/review required after push; app suite not repeated locally for docs-only changes.
+No installation, browser acceptance, generation, class calls or human confirmations performed by this edit.
+Next: push corrected procedure to #59, freeze head and request JoshKozy review; user forwards the agent prompt.
+Source: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/59
+
 ## Session — Independent ZIP/default-DJ packet prepared, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, source main `29c5de1` with passing CI.
 Owner clarified: default-DJ checklist only; keep existing voice-upload capability, do not request a recording.
