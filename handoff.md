@@ -1,5 +1,30 @@
 # Agent handoff
 
+## Session — UI layout comparison and light/dark, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-ux-review`, source main `29c5de1`.
+Owner preferred the revised layout and requested several designs for classmates to compare, all light/dark.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6591067299
+Changed only web layout/rendering/appearance, focused preference test, docs/DESIGN_REVIEW.md and handoff.
+A Record sleeve is editorial rows; B Cover gallery emphasizes artwork; C Studio console is a denser list.
+All three use the SAME DOM/media/handlers; switching only changes CSS attributes, with no reload or generation.
+Dark is the initial default, applied before paint; Light remains available across forms, setup, DJ and players.
+Only layout/theme preferences enter local storage; URL allowlists, denied storage/history gracefully fall back.
+Navigation opens studio/setup; optional voice upload and visible failure/status/retry paths remain available.
+Normal launcher remains at http://127.0.0.1:8033 from this worktree with private inherited configuration.
+External launch/state/screenshots stay beside repo in a3-ux-review-20261102; initial launcher PID10392.
+Browser checked all6 layout/theme pairs at actual1454px and387px:3 tracks retained, no horizontal overflow.
+Creation form visible without overflow at387px; earlier checks cover lyrics/revision controls and queue add.
+Bundled Moonlit audio remained playing across layout/theme changes; paused afterward; reload restored Gallery/Dark.
+Preference probe verifies6 pairs, early dark default, URL priority/hash, persistence, invalid choices and blocked storage/history.
+Browser connection initially stale; resetting only the UI session restored it; no alternate UI automation used.
+Locked dev.py --check PASS:239 tests/one skip, coverage36/11/19; JS syntax and whitespace clean.
+Scaffold/link safeguards PASS with179 files staged; no private configuration or new media belongs to this change.
+No class calls, generation, recording upload, provider/contracts/dependency, protection or assignment changes.
+Classmates can load the comparison branch using docs/DESIGN_REVIEW.md; their aesthetic feedback is still pending.
+This is a design preference comparison, not randomized research or independent final-ZIP acceptance.
+Next: normal reviewed PR for classmates/Hermes; preserve independent ZIP work in PR59 and Mike/Matt branches.
+Keep the local preview available in Dark mode for Joshua; do not stop unrelated servers.
+
 ## Session — A3-08 synthetic browser reference privacy, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-08-browser-privacy`, source main `3f65954` (main CI passed).
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6587859574

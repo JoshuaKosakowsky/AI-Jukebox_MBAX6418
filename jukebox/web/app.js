@@ -170,6 +170,11 @@ function buildTrackCard(track, jobs, queued) {
     picture.append(node("p", "No cover yet"));
   }
   const detail = node("div", undefined, "track-detail");
+  const tools = node("details", undefined, "track-tools");
+  tools.append(node("summary", "Make another version"));
+  if (!track.audio || jobs.some(job => job.track_id === track.id && job.state === "failed")) {
+    tools.setAttribute("open", "");
+  }
   detail.append(node("h3", track.title), node("p", `${track.settings.style} · ${track.settings.mood}`, "track-settings"));
   const artJobs = jobs.filter(job => job.track_id === track.id && job.kind === "art");
   const artJob = artJobs.at(-1);
@@ -219,7 +224,7 @@ function buildTrackCard(track, jobs, queued) {
       }
       await syncAfterMutation();
     });
-    detail.append(retryLyrics);
+    tools.append(retryLyrics);
   }
   if (track.audio) {
     const audio = node("audio");
@@ -246,7 +251,7 @@ function buildTrackCard(track, jobs, queued) {
     }
     await syncAfterMutation();
   });
-  detail.append(retryCover);
+  tools.append(retryCover);
   const failedMusic = musicJob?.state === "failed";
   if (failedMusic && musicJob?.error?.retryable) {
     // Resume continues polling/downloading the SAME class-service task; it never
@@ -284,9 +289,10 @@ function buildTrackCard(track, jobs, queued) {
     }
     await syncAfterMutation();
   });
-  detail.append(retryMusic);
+  tools.append(retryMusic);
   const addQueue = node("button", queued ? "In DJ queue" : "Add to DJ queue");
   addQueue.type = "button";
+  addQueue.className = "queue-add";
   addQueue.disabled = !djReady() || !track.audio || queued;
   addQueue.addEventListener("click", async () => {
     addQueue.disabled = true;
@@ -326,6 +332,7 @@ function buildTrackCard(track, jobs, queued) {
     });
     detail.append(retrySpeech);
   }
+  detail.append(tools);
   card.append(picture, detail);
   return card;
 }
@@ -908,3 +915,10 @@ document.querySelector("#dj-presentation").addEventListener("change", changeDjPr
 
 document.querySelector("#dj-voice").addEventListener("change", selectDjVoice);
 document.querySelector("#dj-voice-clear").addEventListener("click", clearDjVoice);
+
+// Section links reveal native disclosures; opening one never submits a job.
+for (const [link, panel] of [["create", ".create-panel"], ["setup", ".setup details"]]) {
+  document.querySelector(`a[href="#${link}"]`).addEventListener("click", () => {
+    document.querySelector(panel).open = true;
+  });
+}
