@@ -1,5 +1,45 @@
 # Agent handoff
 
+## Session — PR #47 current-main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-library-readiness; prior head `b6e9657`, normal merge of protected main `a1a41d1`.
+Claim: PR47 comment6567306768; user requested status check and inventory reconciliation while Mike owns the live run.
+Only handoff.md conflicted; preserved both complete histories in order, with this entry as current resumption state.
+Scope versus current main remains exactly assets/samples/README.md, results/a3-07-sample-inventory.json and handoff.md.
+All runtime/tests/contracts/probes/dependencies/CI/protection/media and incoming genre evidence match main exactly.
+Re-ran full candidate PCM/PNG decoding, original acceptance hashes and temporary production-loader validation: PASS.
+Historical prior inventory remains linked by immutable b6e9657/source7fb8e1c/date; candidate facts and optional shortlist are identical.
+Updated current audit source to a1a41d1 and linked the separate Afterglow Avenue preparation79e55de without editing that branch.
+18 sample tests run, one platform symlink skip: PASS; verifier136/coverage36-11-19/whitespace and scope/history checks PASS.
+Target remains at least2 finished vocals plus a selected instrumental; main manifest is empty and no vocal is approved by this inventory.
+Mike's13-request #3/#6 authorization remains pinned to a1a41d1; no duplicate live run or additional budget is created.
+At this check, no live-run start/result was published in #3/#6; latest visible Mike code is PR40 sync c2817fc.
+No submitted Hermes review was present on prior47 head; request a fresh exact-head review after publication/CI.
+The owner's review-only Hermes profile remains separate; this writer does not launch it or submit its verdict.
+No class calls, new media, listening/browser/ZIP acceptance, manifest selection, assignments or protection changes.
+Next: push this reconciliation to existing PR47, refresh description, verify CI and renew JoshKozy review request.
+Then continue coordinated vocal sample work from Mike's result and the distinct second-song preparation; keep #7 open.
+Preserve historical entries below as observations at their recorded source heads.
+
+## Session — A3-07 sample inventory, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-library-readiness; base protected main `7fb8e1c`.
+Owner target: at least3 finished songs, including at least2 vocal tracks with original AI lyrics and matching covers.
+Claim: issue7 comment6566909398; Mike keeps #3/#6 acceptance and his third-candidate preparation.
+Changed assets/samples/README.md and results/a3-07-sample-inventory.json; no runtime or media edits.
+Verified both retained instrumental pairs with full PCM/PNG decoding and hashes against original acceptance.
+Both pairs load as ready tracks in a temporary production-loader catalog; approved manifest remains empty.
+Inspected Moonlit lake/pianist artwork; Desert Drive remains an alternate pending cover-lettering curation.
+Historical PR43 records include10 Good-to-go instrumentals; source WAV handoff and matching covers still need confirmation.
+No finished vocal candidate is packaged in current main; preserve a suitable original result from Mike's planned run.
+Joshua coordinates a distinct second vocal sample after the first vocal path is verified; no duplicate run was started.
+Current loader max3 and release exactly3 mean additional showcase entries need a focused follow-up first.
+Retain original style/mood, safe prompts, Qwen lyrics, exact models/date/hashes, and source commit for final entries.
+New listening, normal-launch selected-library and final ZIP acceptance remain to be performed.
+Offline asset/hash/temporary-catalog audit PASS;18 sample tests run with1 platform skip; verifier127/coverage36-11-19/whitespace PASS.
+No generation, credentials, reference clips, assignments, protections, Mike branch edits or manifest selection.
+Next: confirm the first vocal's retained outputs with Mike, prepare the second vocal piece separately, curate the core set.
+Then integrate approved entries, verify normal-launch/reload/ZIP playback; larger showcase follows supported capacity.
+Existing contribution/provenance records are preserved; issue7 remains open for complete user-flow acceptance.
+
 ## Session — PR #37 integration after #44, 2026-11-01 America/Denver
 Codex for Joshua; existing codex/a3-35-genre-controls / PR37; pre-handoff head `a836c83`.
 Isolated branch codex/pr37-sync-nov1; normal merge of protected main `7fb8e1c` (merged #44).

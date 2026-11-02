@@ -1,0 +1,260 @@
+{
+  "checked_at_utc": "2026-11-02T02:06:15.523693+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "source_main": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+  "scope": "Offline candidate inventory, full local media decoding, original-hash checks and temporary production-loader validation; no new browser or listening acceptance",
+  "target": {
+    "minimum_songs": 3,
+    "minimum_finished_vocals": 2,
+    "additional_curated_songs": "Optional after the core set and a supported catalog-capacity update"
+  },
+  "approved_manifest_entries": 0,
+  "packaged_candidates": [
+    {
+      "title": "Desert Drive",
+      "candidate_record": "assets/samples/desert-drive.candidate.json",
+      "mode": "instrumental",
+      "audio": {
+        "path": "assets/samples/desert-drive.wav",
+        "sha256": "6402d2f1b3cb730d9af6f98c2bae0c71596377c116cd2b9af0c6c225c989aa26",
+        "bytes": 3840078,
+        "seconds": 20.0,
+        "channels": 2,
+        "sample_rate": 48000,
+        "bits_per_sample": 16,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.176626
+      },
+      "cover": {
+        "path": "assets/samples/desert-drive.png",
+        "sha256": "423fe5d2daf1ddb4b4c0270295d1bbafe10627d6456d7da1b92f668efe37c9ab",
+        "bytes": 787271,
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "hashes_match_candidate_and_original_acceptance": true,
+      "prior_listening": {
+        "tester": "JoshuaKosakowsky",
+        "date": "2026-10-28 America/Denver",
+        "confirmation": "Both play and broadly match",
+        "scope": "Prior direct confirmation of both original clips; Desert Drive was audible, instrumental and broadly matched upbeat funk. No new listening claimed."
+      },
+      "current_listening": "No new listening in this inventory",
+      "visual_inspection": "Warm desert-road/car illustration; generated lettering differs from the song title; retain as an alternate pending cover curation.",
+      "final_selection": "Awaiting Joshua curation"
+    },
+    {
+      "title": "Moonlit Reflection",
+      "candidate_record": "assets/samples/moonlit-reflection.candidate.json",
+      "mode": "instrumental",
+      "audio": {
+        "path": "assets/samples/moonlit-reflection.wav",
+        "sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+        "bytes": 5760078,
+        "seconds": 30.0,
+        "channels": 2,
+        "sample_rate": 48000,
+        "bits_per_sample": 16,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.222449
+      },
+      "cover": {
+        "path": "assets/samples/moonlit-reflection.png",
+        "sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818",
+        "bytes": 787271,
+        "dimensions": [
+          512,
+          512
+        ],
+        "full_decode": true
+      },
+      "hashes_match_candidate_and_original_acceptance": true,
+      "prior_listening": {
+        "tester": "JoshuaKosakowsky",
+        "date": "2026-10-28 America/Denver",
+        "confirmation": "Both play and broadly match",
+        "scope": "Prior direct confirmation of both original clips; Moonlit Reflection was audible, instrumental and broadly matched ambient piano. No new listening is claimed."
+      },
+      "current_listening": "No new listening in this inventory",
+      "visual_inspection": "Twilight lake and pianist; title reads Moonlit Reflection; theme association retained.",
+      "final_selection": "Awaiting Joshua curation"
+    }
+  ],
+  "packaged_finished_vocal_candidates": 0,
+  "temporary_catalog_check": {
+    "result": "pass",
+    "records": 2,
+    "modes": [
+      "instrumental",
+      "instrumental"
+    ],
+    "original_manifest_unchanged": true,
+    "production_loader": true
+  },
+  "current_capacity": {
+    "runtime_max_entries": 3,
+    "release_required_entries": 3,
+    "retained_media_budget_bytes": 64000000
+  },
+  "optional_instrumental_shortlist": [
+    {
+      "title": "After Hours",
+      "style": "Swing jazz",
+      "mood": "Laid-back and intimate",
+      "mode": "instrumental",
+      "audio_sha256": "7302467e7edcef057fb7079511eb0a8846b6b7dd108b40fd509bb7d589053875",
+      "source_record": "results/a3-35-genre-scorecard.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Yellow Sundress",
+      "style": "Rap",
+      "mood": "Upbeat",
+      "mode": "instrumental",
+      "audio_sha256": "19d8eb5450a5a7e541d6f668af1bfce303950b455cd0b484cf1f1fb1a2e37249",
+      "source_record": "results/a3-35-genre-scorecard.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Last Train Home",
+      "style": "Blues",
+      "mood": "Soulful and reflective",
+      "mode": "instrumental",
+      "audio_sha256": "62a6eb4153529189ec2e5eed584a9a1e29a29bec0aeaf16f12d0020d5598e3b4",
+      "source_record": "results/a3-35-genre-round2.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Sunday Breeze",
+      "style": "Reggae",
+      "mood": "Relaxed and sunny",
+      "mode": "instrumental",
+      "audio_sha256": "d42d25eba1d737a0672b529d64126807ad7a35ff0d4194eb18dadc4dac1c96cf",
+      "source_record": "results/a3-35-genre-round2.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Havana After Dark",
+      "style": "Salsa",
+      "mood": "Lively and celebratory",
+      "mode": "instrumental",
+      "audio_sha256": "80b143968c5c15779ee96b2a5d13e7e8869539814aa4a736dd82b1c93536ca0a",
+      "source_record": "results/a3-35-genre-round2.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Velvet Evening",
+      "style": "Contemporary R&B",
+      "mood": "Smooth and intimate",
+      "mode": "instrumental",
+      "audio_sha256": "01c3eeceb27ba153453f3d6069ab087f38c4a87772f7400789b1a95eae4a7f8f",
+      "source_record": "results/a3-35-genre-round2.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Night Express",
+      "style": "Drum and bass",
+      "mood": "Fast and energetic",
+      "mode": "instrumental",
+      "audio_sha256": "1fa10baf8fdf2cd0b33436de5f44264bf44551ae33e95047de5ec67a15ef896e",
+      "source_record": "results/a3-35-genre-round2.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Mirrorball Avenue",
+      "style": "Disco",
+      "mood": "Joyful and danceable",
+      "mode": "instrumental",
+      "audio_sha256": "b7796d7903fac94ac434bbb54dde3d61f93cc580f889f36155ab63b116aa8900",
+      "source_record": "results/a3-35-genre-round3.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    },
+    {
+      "title": "Skyline Lift",
+      "style": "Trance",
+      "mood": "Euphoric and uplifting",
+      "mode": "instrumental",
+      "audio_sha256": "178aba0b9cf2333e8279989d6aaaa6acf290c50a2737232e02b7efcf5ff171c0",
+      "source_record": "results/a3-35-genre-round3.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": "Listener unfamiliar with genre"
+    },
+    {
+      "title": "Slow Orbit",
+      "style": "Ambient",
+      "mood": "Spacious and peaceful",
+      "mode": "instrumental",
+      "audio_sha256": "1269db9feca0ca2f875030f21125ecab5e8ca68674f54fd36deab3681bae30af",
+      "source_record": "results/a3-35-genre-round3.json",
+      "source_commit": "18dfcf466c3c1b85016c1d28cb79b884e76b5b63",
+      "cover": "Requires matching class-generated artwork",
+      "source_audio": "Private source handoff to be confirmed before packaging",
+      "listening_caveat": null
+    }
+  ],
+  "local_availability_scope": "Packaged candidates verified in this checkout. Genre WAVs were not located in the inspected workspace and Assignment 3 generated folders; records alone are not packaged media.",
+  "remaining": [
+    "Retain and assess a successful vocal result from Mike's coordinated #3 run without repeating it",
+    "Prepare a separately coordinated second original vocal song and matching class cover",
+    "Select and listen to the final three-song set, including both vocal performances",
+    "Populate the approved manifest with AI lyrics, original settings and full provenance",
+    "Verify normal-launch sample playback, reload without generation and exact final GitHub ZIP"
+  ],
+  "provider_requests": 0,
+  "manifest_changed": false,
+  "new_generation": false,
+  "previous_inventory": {
+    "commit": "b6e9657003693b5be4f831665ab1dcd0a0142541",
+    "source_main": "7fb8e1c0cda83721cb41d307271c5ebf0078e0d6",
+    "checked_at_utc": "2026-11-02T01:31:32.560738+00:00"
+  },
+  "verification": {
+    "sample_tests_run": 18,
+    "platform_symlink_skips": 1,
+    "result": "pass",
+    "repository_verifier_files": 136,
+    "coverage_structure": {
+      "requirements": 36,
+      "tasks": 11,
+      "cases": 19
+    }
+  },
+  "coordination": {
+    "mike_run_authorization": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6567163725",
+    "mike_live_run_head": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+    "shared_generation_ceiling": 13,
+    "second_vocal_preparation_commit": "79e55de93ce6b209ab76f9889e6b9987dd187826",
+    "second_vocal_stage": "Offline preparation only; no class-generated lyrics/audio/art yet"
+  }
+}
