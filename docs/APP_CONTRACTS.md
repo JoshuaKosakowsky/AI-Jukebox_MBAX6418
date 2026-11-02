@@ -132,6 +132,18 @@ orders). Track status becomes ready only when audio is attached; a music
 failure leaves the prior status, cover and audio untouched and is reported
 through the job's SafeError. Provider tickets and media bytes stay server-side.
 
+Music captions put the selected genre first and use theme/mood to shape musical
+motifs and dynamics. Bare Metal/Heavy Metal and Rap/Hip-hop labels gain concrete
+arrangement cues; detailed/freeform styles and blends keep their own direction.
+Both modes retain full inputs within ACE-Step's documented
+512-character caption limit. The draft keeps music-LM semantic planning enabled
+while disabling caption rewriting (`use_cot_caption=false`, `thinking=true`),
+so the supplied description is retained for DiT. Tempo/key/meter are inferred
+rather than copied from the piano probe. A style-field hint explains how to add
+a subgenre, instruments and rhythm; the existing freeform field/schema is unchanged.
+This adds no text-service job or retry. Genre fidelity remains a human listening check;
+see [provider conditioning](SERVICE_CONTRACTS.md#production-genre-conditioning-35).
+
 ## Vocal songs and lyrics (A3-03)
 
 Vocal tracks use the same store/route pattern: /api/tracks accepts
@@ -363,6 +375,9 @@ the frozen service-probes.json defaults and exposes:
 - speech(text, reference=MediaBytes) -> same, with ref_audio as a base64 data
   URI in the frozen request (schema-inspected; live verification pending).
 - submit_music(prompt, duration_seconds=10, lyrics="[Instrumental]") -> MusicTicket.
+  Production omits the probe's fixed BPM/key/meter so ACE-Step can infer them
+  from the selected style/mood; duration, lyrics and one-output/no-retry bounds
+  are unchanged. See SERVICE_CONTRACTS.md for the documented deviation.
 - poll_music(ticket) -> running or succeeded with a private download path; status
   2 becomes a safe generation_failed error. Success parses the JSON string array,
   matches task ID and verifies XL Turbo. Each invocation performs only one poll.

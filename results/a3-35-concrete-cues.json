@@ -1,0 +1,183 @@
+{
+  "date": "2026-10-30 America/Denver",
+  "tester": "Codex for Joshua",
+  "tested_commit": "e62fe171b741fea70db3dae58a54e34bda9f5ed9",
+  "scope": "Production music_prompt and ClassProviders on immutablee62fe17, two real music-only jobs for user listening; not integrated-main normal-launch/browser acceptance",
+  "limits": {
+    "music_submissions": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "counts": {
+    "music_submissions": 2,
+    "polls": 6,
+    "downloads": 2,
+    "art": 0,
+    "text": 0,
+    "speech": 0,
+    "retries": 0
+  },
+  "authorization": "Joshua explicitly requested one new Iced Coffee metal clip and one Yellow Sundress rap clip using the latest cues. New bounded run; previous failed run and counts remain historical.",
+  "baseline": "results/a3-35-genre-fidelity.json on9871e7b: two planning-only clips failed user listening. Retained, not regenerated. New random outputs are an exploratory comparison, not a controlled same-seed A/B.",
+  "original_user_feedback": [
+    {
+      "title": "Iced Coffee",
+      "style": "Heavy Metal",
+      "mood": "Angsty",
+      "observation": "Not metal; upbeat dungeon music from a video game"
+    },
+    {
+      "title": "Yellow Sundress",
+      "style": "Rap",
+      "mood": "Upbeat",
+      "observation": "Wind-instrument snake-charming impression, not expected rap"
+    }
+  ],
+  "comparison_settings_note": "Same chosen30s instrumental comparison settings as the previous planning-only run; production music_prompt supplies the latest concrete cues.",
+  "results": [
+    {
+      "title": "Iced Coffee",
+      "style": "Heavy Metal",
+      "mood": "Angsty",
+      "duration_seconds": 30,
+      "mode": "instrumental",
+      "started_at_utc": "2026-10-31T05:26:48.350362+00:00",
+      "request_prompt": "Heavy Metal. Instrumental; no vocals. Mood: Angsty. Theme: Iced Coffee. Riff-led metal: heavily distorted electric guitars, palm-muted chugs, electric bass, forceful acoustic drums and double-kick accents. Theme/mood shape dynamics and motifs.",
+      "request_lyrics": "[Instrumental]",
+      "request_controls": {
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "returned_caption_present": true,
+      "returned_caption_differs_from_request": false,
+      "service_reported_lm_model_present": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 120,
+        "key_scale": "E major",
+        "time_signature": "4"
+      },
+      "audio": {
+        "sha256": "d8bc639d9eef150b9fb5e1b4b621e826c06cb5c5b21e69125ef9273b08a85e3a",
+        "bytes": 5760078,
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 30.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.171261
+      },
+      "elapsed_seconds": 8.003,
+      "result": "PASS: request accepted and complete non-silent audio decoded; FAIL: user genre recognition"
+    },
+    {
+      "title": "Yellow Sundress",
+      "style": "Rap",
+      "mood": "Upbeat",
+      "duration_seconds": 30,
+      "mode": "instrumental",
+      "started_at_utc": "2026-10-31T05:26:56.353794+00:00",
+      "request_prompt": "Rap. Instrumental; no vocals. Mood: Upbeat. Theme: Yellow Sundress. Hip-hop beat: deep kick and bass, crisp snare backbeat, syncopated hi-hats, sparse repeating hook and room for rhythmic vocal flow. Theme/mood shape dynamics and motifs.",
+      "request_lyrics": "[Instrumental]",
+      "request_controls": {
+        "audio_duration": 30,
+        "batch_size": 1,
+        "inference_steps": 8,
+        "thinking": true,
+        "use_cot_caption": true,
+        "use_cot_language": false,
+        "audio_format": "wav"
+      },
+      "musical_controls_omitted": true,
+      "returned_caption_present": true,
+      "returned_caption_differs_from_request": false,
+      "service_reported_lm_model_present": true,
+      "service_reported_metadata_not_audio_measurement": {
+        "bpm": 81,
+        "key_scale": "C major",
+        "time_signature": "4"
+      },
+      "audio": {
+        "sha256": "051b20eec02691135066ab1ba85994b795100a8e878ba8acb4b0fbe51ae7f9ae",
+        "bytes": 5760078,
+        "frames": 1440000,
+        "sample_rate": 48000,
+        "channels": 2,
+        "sample_width": 2,
+        "duration_seconds": 30.0,
+        "full_pcm_decode": true,
+        "peak": 0.891266,
+        "rms": 0.159606
+      },
+      "elapsed_seconds": 7.866,
+      "result": "PASS: request accepted and complete non-silent audio decoded; FAIL: user genre recognition"
+    }
+  ],
+  "result": "FAIL: generation/decoding succeeded but user found neither genre convincing",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "method": "Listened to the two new concrete-cue clips displayed in chat",
+    "response": "Neither is convincing",
+    "genre_acceptance": "FAIL for both examples",
+    "theme_mood_judgment": "No separate endorsement supplied"
+  },
+  "unchecked": [
+    "Deployed service interpretation of conditioning flags and internal model inputs",
+    "Genre-only control without title/theme",
+    "Normal-launch/browser generation and playback on integrated main",
+    "Vocal/rap delivery and broader genres"
+  ],
+  "read_only_service_discovery_after_listening": {
+    "/health": {
+      "http_status": 200,
+      "flags": {
+        "models_initialized": true,
+        "llm_initialized": true
+      }
+    },
+    "/v1/models": {
+      "http_status": 200,
+      "data_type": "list",
+      "model_entries": 1,
+      "model_names": [],
+      "entry_shapes": [
+        [
+          "id",
+          "name",
+          "created",
+          "input_modalities",
+          "output_modalities",
+          "context_length",
+          "max_output_length",
+          "pricing",
+          "description",
+          "architecture"
+        ]
+      ],
+      "advertised_models": [
+        {
+          "id": "acestep/acestep-v15-xl-turbo",
+          "name": "ACE-Step acestep-v15-xl-turbo"
+        }
+      ]
+    },
+    "request_counts": {
+      "health_gets": 1,
+      "model_list_gets": 3
+    }
+  },
+  "interpretation_limits": [
+    "The clips use the same titles/styles/moods/duration/mode as the previous comparison, but not matched seeds; no controlled causal A/B claim.",
+    "Returned prompt echoes the request. Accepted flags, response metadata and initialized models do not prove how internal conditioning was applied.",
+    "User listening is the genre-quality verdict; complete decoding and different output hashes are not genre acceptance."
+  ]
+}

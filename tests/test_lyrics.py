@@ -112,8 +112,12 @@ class VocalHttpTests(unittest.TestCase):
                 snapshot = client.get("/api/session").json()
                 self.assertEqual([j["state"] for j in snapshot["jobs"]], ["succeeded"] * 3)
                 self.assertEqual(snapshot["tracks"][0]["status"], "ready")
-                expected = {**PROBES["music"]["request"], "prompt": music[0]["prompt"],
-                            "audio_duration": 30, "lyrics": LYRICS}
+                # Preserve the full wire check with the shared genre controls;
+                # the frozen piano probe still retains its original metadata.
+                expected = {key: value for key, value in PROBES["music"]["request"].items()
+                            if key not in {"bpm", "key_scale", "time_signature"}}
+                expected.update(prompt=music[0]["prompt"], audio_duration=30, lyrics=LYRICS,
+                                thinking=True, use_cot_caption=False)
                 self.assertEqual(music, [expected])
                 self.assertIn("Moonlit lake", music[0]["prompt"])
                 self.assertIn("vocals", music[0]["prompt"])
