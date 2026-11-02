@@ -1,5 +1,5 @@
 {
-  "status": "candidate; jovi selection and sample-library/ZIP acceptance pending",
+  "status": "selected by Joshua; prior listening retained; integrated-main and final ZIP acceptance pending",
   "prepared_on": "2026-10-29 America/Denver",
   "prepared_by": "JoshuaKosakowsky directing Codex",
   "sample": {
@@ -61,6 +61,12 @@
         "response_format": "b64_json",
         "output_format": "png"
       }
+    },
+    "library_selection": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve both",
+      "scope": "Wordless Afterglow Avenue cover and Moonlit Reflection instrumental selection for the intended two-vocal/one-instrumental library"
     }
   },
   "validation": {

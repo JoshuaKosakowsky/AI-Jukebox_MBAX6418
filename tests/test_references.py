@@ -70,6 +70,7 @@ class ReferenceHttpTests(unittest.TestCase):
 
     def test_invalid_oversize_and_bad_duration_references_are_rejected(self):
         with TestClient(create_app(speech_settings()), base_url="http://localhost") as client:
+            before = client.get("/api/session").json()
             self.assertEqual(self.upload(client, b"not audio at all").status_code, 422)
             self.assertEqual(self.upload(client, b"RIFFriffWAVEgarbage").status_code, 422)
             too_long = wav_bytes(seconds=61, rate=8000)
@@ -78,7 +79,7 @@ class ReferenceHttpTests(unittest.TestCase):
             self.assertEqual(self.upload(client, too_short).status_code, 422)
             with patch("jukebox.sessions.MAX_REFERENCE_BYTES", 100):
                 self.assertEqual(self.upload(client, wav_bytes(seconds=2, rate=8000)).status_code, 422)
-            self.assertEqual(len(client.get("/api/session").json()["tracks"]), 0)
+            self.assertEqual(client.get("/api/session").json(), before)
 
     def test_session_isolation_and_capacity_limits(self):
         app = create_app(speech_settings())

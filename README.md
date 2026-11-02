@@ -7,7 +7,7 @@ artwork from a title/theme, style, mood and duration. Instrumental songs play
 the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
 sings them into a playable track. Everything stays paired with the correct
 track across page reloads and plays inline. Registered sample songs load locally
-without service settings or regeneration. The approved sample set is still pending;
+without service settings or regeneration. Two selected samples are bundled; the final three-song set is pending;
 DJ playback and an optional MP3/WAV reference chooser are implemented; real
 reference-voice acceptance is still pending.
 
@@ -33,8 +33,7 @@ python scripts/dev.py
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The launcher installs/syncs the
 exact uv.lock dependencies before starting FastAPI. No environment activation,
 Node build, paid account or Git metadata is needed to launch. Internet access is
-needed for the initial Python/package installation, not for subsequent empty-app
-startup. On Windows the launcher automatically uses a short per-checkout directory
+needed for the initial Python/package installation, not for subsequent local sample playback. On Windows the launcher automatically uses a short per-checkout directory
 under LOCALAPPDATA/AI-Jukebox_MBAX6418 to avoid native-extension failures in long
 OneDrive course paths. Linux uses .venv. Neither environment ships in the repo.
 
@@ -61,15 +60,18 @@ Playback needs no class-service settings. Reloading retains the session; restart
 clears generated tracks and reloads the registered samples. Manifest edits require
 an app restart. Unregistered candidate files are never added automatically.
 
-The approved manifest is currently empty, so this version opens with an empty
-library. Jovi owns selection of the three final class-generated samples; see the
+The manifest currently selects **Afterglow Avenue** (45 s synth-pop vocal) and
+**Moonlit Reflection** (30 s ambient-piano instrumental), approved by Joshua.
+The intended third entry is Mike's retained Moonlit Rehearsal vocal, pending its
+original files and final curation. The target remains three songs with at least
+two vocals; #7 and independent ZIP acceptance remain open. See the
 [record and asset requirements](assets/samples/README.md). A broken registered
 asset shows a safe setup warning and leaves song creation available. This loader
 and its synthetic browser rehearsal do not complete sample or ZIP acceptance.
 
 ## Configure class services
 
-The empty app works without credentials. If .env does not already exist, copy
+Local sample playback works without credentials. If .env does not already exist, copy
 .env.example to .env; preserve any existing private configuration. Supply the
 eight endpoint/key values from the team/class documentation. Environment variables
 override .env. Missing/placeholders show Missing settings; restart after editing.

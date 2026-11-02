@@ -1,5 +1,46 @@
 # Agent handoff
 
+## Session — A3-07 selected vocal/library integration, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-vocal-two-prep; runtime source afd93c2, protected main1fdc422.
+PR40 merged normally at1fdc422 after Matt's approval; four merged-main checks PASS (run41384144146).
+Generated Afterglow Avenue through real production HTTP on normal launcher:45 s synth-pop vocal, original346-char Qwen lyrics.
+Actual totals text1/music1/art2/speech0, polls3/download1, no automatic retries; no duplicate Mike generation.
+First cover still had incorrect lettering; retained original PNG. Separate visual-only FLUX curation yielded the selected wordless scene.
+Joshua approved Afterglow audio (“Approve the audio”), then its cover and Moonlit Reflection (“Approve both”).
+Manifest now selects these2 songs; candidate/provenance/lyrics/media and actual-run/curation/catalog evidence retained.
+Full decoding and exact HTTP bytes/lyrics PASS; selected media15,974,698 B, within64 MB budget.
+Normal-launch unconfigured browser: both covers/tracks, expanded lyrics, vocal pause/resume, instrumental end and reload PASS.
+No service calls during catalog checks; runtime/contracts/dependencies/CI/protection unchanged.
+Reference rejection test now compares unchanged full snapshots rather than assuming0 tracks; lyrics files preserve LF.
+Mike's Moonlit Rehearsal is confirmed for packaging in issue7 comment6568542507; original bundle still not published at this check.
+His reported private folder is not accessible here; do not infer full hashes or regenerate. Preserve his source a1a41d1/settings/credit.
+Locked scripts/dev.py --check PASS:230 tests run,1 platform skip; verifier145, coverage36/11/19; whitespace clean.
+Library remains2 entries/1 vocal; target3 entries/2 vocals. Joshua listening/cover selection for Mike's track still pending.
+Integrated-main three-song acceptance and independent final GitHub ZIP remain pending; #7 stays open.
+Published selected media at f73db7e in PR48; source/evidence hashes remain pinned; request JoshKozy's separate exact-head review.
+Next: integrate Mike's original files when accessible; preserve both approved selections and do not regenerate.
+Then present Moonlit Rehearsal to Joshua, verify all3 through normal launch and final ZIP; no further generation budget implied.
+
+## Session — Vocal sample 2 preparation, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-07-vocal-two-prep; base protected main `a1a41d1`.
+Joshua authorized normal #37 merge, Mike's corrected13-call run, and separate offline song preparation.
+PR37 merged at a1a41d168b1004132b6bac38f914d2eddff729bc; all4 merged-main CI checks pass (run41374290315).
+Owner go-ahead: issue3 comment6567163725; current issue3/6 handoffs now state the pinned head and shared budget.
+Mike owns the only live #3/#6 run: text4/art3/music3/speech3, zero retries; bounded polling/downloads remain within existing limits.
+He was asked to retain original Qwen lyrics/audio/art/provenance for possible #7 vocal candidate1 after listening/curation.
+Prepared Afterglow Avenue:45s vocal synth-pop, warm synths/bass/crisp drums, hopeful late-night homecoming theme.
+results/a3-07-vocal-two-preparation.json contains validated settings, exact current production prompts and proposed future3-request budget.
+Qwen output lyrics and sample media remain null; fixture lyrics and synthetic cover were used only in memory for offline checks.
+Three MockTransport requests PASS:512-token non-thinking lyrics,512-square cover,45s music using supplied lyrics and literal-caption genre controls.
+Real class requests=0; no speech, retries, media generation, manifest selection or credentials in this preparation.
+Future generation is separate from Mike's13 requests and waits for his result/head/style coordination; this session authorizes preparation only.
+Mike retains cover-prompt PR40 and his existing third-candidate preparation; refresh the draft cover prompt if40 lands before generation.
+PR47 stays frozen and separate; no changes to other branches, assignments, protection, schema or runtime code.
+Recorded37 integration/review credit with existing contribution history preserved.
+Offline plan checks PASS; repository verifier136, coverage36/11/19 and whitespace PASS; no runtime files changed.
+Next: inspect Mike's result, coordinate a distinct second vocal run, then retain/listen/curate the two vocals and selected instrumental.
+Preserve at least2 finished vocals for #7; additional showcase entries follow a separately reviewed capacity update.
+
 ## Session — PR #40 sync after #47, 2026-11-01 America/Denver
 Codex for Joshua; isolated codex/pr40-sync-nov1; existing codex/cover-lettering-fix / PR40.
 Prior head c2817fc; normal merge of protected main aac3953 (sample-inventory PR47).
