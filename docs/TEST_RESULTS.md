@@ -1900,3 +1900,35 @@ media28,282,047 B. No generation or new human listening was performed.
 This verifies R17/R18 and the integrated-main asset/browser portion of AT-11.
 Independent final GitHub ZIP acceptance remains pending; no DJ/reference-voice,
 other parent acceptance or submission readiness is claimed. No app code changed.
+
+## A3-05 default DJ on integrated main — 2026-11-01 America/Denver
+
+[Live/browser record](../results/a3-05-default-dj-live.json) pins main2be9625,
+normal launcher8028, actual existing three-song catalog and default voice.
+Only Qwen/Chatterbox were configured. All3 introductions succeeded: 11.4,10.72
+and13.44 s PCM WAVs, six HTTP200 responses, text3/speech3, art0/music0, no
+references, retries or guard intervention. The original production source is
+unchanged. Observational wrappers persisted attempts before I/O and retained
+safe stage/job/HTTP errors if any; no live introduction failed.
+
+Actual browser: pause/resume during speech and music, speech->music, automatic
+first-song advancement, skip during music and explicitly verified skip during
+active cached speech, end-of-queue, cached replay and reload all passed. The
+first attempted speech Skip reached the server after speech ended and is honestly
+classified as music Skip; the speech-specific check was then performed on a
+paused/resumed cached Antlercover intro at0.319 s. Provider counts remained3/3
+and job count3 throughout replay/reload. Sampled DOM states showed at most one
+playing element and no media errors; this is not continuous event recording.
+Browser console error/warning list was empty. The temporary stopped/reference
+message during pending Skip cleared without intervention; wording is noted.
+
+Owner heard the first clip and described it as relaxing/NPR-style/laid back,
+requesting selectable DJ options. That follow-up does not retroactively change
+this tested baseline. No new reference-voice result or cause for Mike's earlier
+failure is claimed. His previous13-request allowance is not reused.
+
+[Offline rehearsal](../results/a3-05-default-dj-rehearsal.json) separately proves
+sequential success and exact text/speech failure capture with zero class calls,
+including prevented further I/O after failure. Existing54 DJ/frontend/reference
+regressions PASS. Portable manual helpers are linked in docs/TESTING.md.
+Independent ZIP/release acceptance remains pending.
