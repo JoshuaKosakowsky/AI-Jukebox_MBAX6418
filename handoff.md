@@ -1,5 +1,27 @@
 # Agent handoff
 
+## Session — PR39 reconciliation for review, 2026-11-02 America/Denver
+Codex for Joshua; local `codex/pr39-main-sync-nov2`, PR branch `codex/main-browser-regression`.
+Pre-handoff PR head `60a4fed`; incoming protected main `af08249`; clean isolated worktree used.
+Owner requested reconciliation, JPEG filename fix, relevant checks and push for Hermes review; no merge requested.
+Only handoff conflicted; both complete parent histories are retained in order below.
+Original 27-case browser record still tests `25f86179f82cad2f323a81970a27fc76dbdb22ae`.
+JSON and manual helper remain byte-identical to `60a4fed`; all 11 recorded historical app hashes verified.
+Renamed paused/recovered screenshots from .png to .jpg; original JPEG bytes/hashes/dimensions unchanged.
+Report/index links updated; report explicitly distinguishes current integration from historical browser execution.
+Diff against incoming main is exactly seven evidence/report/helper/handoff paths.
+App/tests/contracts/dependencies/samples/CI/protection are byte-identical to main; no teammate branches changed.
+Locked `python scripts/dev.py --check` PASS: 237 tests run, one platform skip; verifier 165 files.
+Coverage structure PASS: 36 requirements, 11 tasks, 19 cases; staged/working whitespace clean.
+In-process helper smoke PASS: observer/root, synthetic cover/music/media, HTTP 429 hold/release.
+Smoke used MockTransport and blocked non-loopback sockets; Windows asyncio loopback was allowed.
+No new 27-case browser run, real class calls, listening, reference upload or final ZIP acceptance claimed.
+No HTTP test server was started; the in-process smoke completed and providers closed.
+Parent #3/#5/#8 remain open; this evidence integration does not establish submission readiness.
+Next: push once, freeze exact head, check CI and request JoshKozy review; Joshua will prompt Hermes.
+Keep #38 status refresh separate and reconcile it against main after whichever evidence PR merges first.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/39#issuecomment-6581954824
+
 ## Session — Night stopping point, 2026-11-01 America/Denver
 Codex for Joshua; branch `codex/a3-night-handoff-20261101`, based on main `9db244b`.
 Owner requested PR #52 merge and is stopping for the night; no new live run started.
@@ -638,17 +660,25 @@ Preserve inherited entries below; scoped reviewer setup is separate from profess
 
 ## Session — disclosed Hermes reviewer setup, 2026-11-01 America/Denver
 Codex for Joshua; branch codex/disclosed-hermes-reviewer from protected main cb818ae.
+## Session — PR39 main reconciliation, 2026-11-01 America/Denver
+Codex for Joshua; branch codex/main-browser-regression; pre-head eb27ae6; incoming main cb818ae.
 ## Constraints
 Docs/setup instructions only; preserve protection, app/tests/contracts/assets and existing PR heads.
 No account/access changes, Hermes repair/login, generation, invitations or automatic schedule edits.
+Evidence/documentation integration only; no class calls, generation, browser rerun, app fixes or edits to Mike's branches.
 ## Repository state
 Named JoshKozy role belongs to Joshua and becomes eligible only after normal protected policy adoption on main.
 Hermes cannot approve its own authority/profile changes; ordinary eligible teammate review is needed for this PR.
+Merged protected main into this PR; only handoff.md conflicted, and both complete note strands are retained below.
 ## Work completed and decisions
 Added distinct HERMES_REVIEWER instructions and HERMES_SETUP steps; linked canonical exception across root guides.
 Review role may inspect/offline-test and post disclosed reviews, never implement/commit/push/merge or edit handoff.
 Explicitly allow separate Hermes review of primary-account contributions; no extra human/teammate credit.
 Setup requires scoped app user authorization as JoshKozy, isolated workspace/tools and credential-free test runner.
+Original 27-check browser JSON, screenshots, helper and report remain byte-identical to eb27ae6.
+Incoming #41 failed-vocal JSON and TEST_RESULTS remain exact main bytes; no failure relabelled as success.
+Runtime/tests/contracts/dependencies/assets/CI/protection match main; original tested browser SHA stays 25f8617.
+#38 coordination refresh follows separately from main; neither PR depends on the other.
 ## Validation
 Follow-up verified Windows gh2.102.0 GH_HOST fallback with empty config; setup now leaves GH_HOST unset.
 Local initializer corrected and retested without changing logins; 403/404 and account-vs-token guidance clarified.
@@ -656,16 +686,25 @@ PASS: verifier121 files, coverage36/11/19, whitespace and10-file markdown-only s
 Live protection readback equals the saved baseline in every field; unavailable-reviewer exception text unchanged.
 JoshKozy permission readback is read; no permission was changed. Authenticated review submission is untested.
 Installed hermes --help reports missing dependency environment and directs hermes pm repair; not executed.
+Locked checks PASS:189 tests (one optional skip), verifier124 files, coverage36/11/19; whitespace clean.
+Five original evidence/helper/report files and incoming evidence byte-identical; both handoff histories retained in order.
+No new normal-launch, browser/listening, live-provider, reference-voice or final ZIP acceptance claimed.
 ## Blockers and unchecked areas
 Hermes profile/connector capabilities, scoped JoshKozy authentication and actual posting are not configured/verified.
 Owner manually grants needed collaborator access, sets up scoped tools and completes COMMENT-only smoke test.
 Actual teammate contribution/review, independent deployment and live acceptance remain required; NOT READY.
+Parent #3/#5/#8 remain open; submission NOT READY. #26/#40 await eligible teammate review; #42 requested changes remains Mike's work.
+Joshua contributes and cannot approve this PR. #35 remains Joshua's lane; #36 is not newly claimed.
 ## Next steps
 Eligible teammate reviews policy PR; merge normally. Load role in fresh Hermes session and verify identity/capabilities.
 After smoke review and adoption, allow eligible approvals; coordinate Dot without duplicate technical reviews.
+Push checked reconciliation, freeze head and request fresh eligible Matt/Preethi review; normal protected merge only.
+Keep all existing acceptance limits; coordinate one tester/head/budget for any later live run.
 ## References
 [Setup](docs/HERMES_SETUP.md), [reviewer prompt](docs/HERMES_REVIEWER.md), [policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
 Existing #38/#39 and Mike's feature branches are untouched; preserve inherited notes below.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/39#issuecomment-6562808198
+Original [browser report](docs/MAIN_BROWSER_REGRESSION.md); preserved browser and Mike handoffs follow.
 
 ## Session — #6 reference chooser / DJ wiring, 2026-11-01 America/Denver
 Codex for Joshua; branch `codex/a3-06-reference-dj-ui`, base `226f0ae`, implementation checkpoint `1b9f5e3`.
@@ -715,6 +754,34 @@ Hermes for MSpanny (Mike); PR #26 (#6 lead: Mike; #5 by Matt). Joshua's 22:06 re
 
 ## CROSS-CUTTING STATE (2026-10-31, for any fresh session)
 Main tip `25f8617` (contains #27 DJ queue + #29 lyrics diagnostics, both merged). Open PRs: #26 (MSpanny, round-4 pushed `d35d4b1`, CI green, MERGEABLE, awaiting mase7919 re-review — NO work pending from us), #40 (MSpanny, cover-lettering fix for #36, 190 tests, APPROVED by Joshua 05:09Z, awaiting merge), #37/#38/#39 (Joshua's: music-genre conditioning, docs refresh, browser regression — not ours). The class `.env` EXISTS at the repo root (4 services configured; endpoint typos fixed). The bounded A3-03 live rerun (plan posted on #3) is HOLDING for the user's go-ahead — do NOT run live generation without it. Known environment quirk: this Hermes chat uses the class LLM gateway (dobolyi.com:9000) and very large session contexts intermittently 400 with `json_invalid` 'Invalid control character' — sessions that start failing should be replaced with a fresh one (state lives in git/GitHub, not the session).
+## Session — isolated main browser regression, 2026-10-31 America/Denver
+Codex for Joshua; branch codex/main-browser-regression; tested main 25f86179f82cad2f323a81970a27fc76dbdb22ae.
+## Constraints
+Synthetic providers only; no class calls, credentials, app fixes, Mike/Matt branch edits or ownership changes.
+Joshua retains #35 genre work; #36 cover lettering remains unclaimed by Joshua.
+## Repository state
+Clean GitHub-derived clone used; original OneDrive checkout left untouched after its mmap failure.
+This evidence branch is independent of #26/reference work and #38 coordination docs.
+## Work completed and decisions
+Real-browser checks exercised integrated DJ controls, vocal diagnostics/retry and failed replacements/recovery.
+Added manual harness, safe observations/counters/events, two actual screenshots and one focused report/index link.
+No production app/tests/contracts/dependencies/CI/protection/approved samples changed.
+## Validation
+27 recorded browser checks PASS; 56 media events, max one playing element, no observed media/window errors.
+Replay/reload added no requests; three real 429 responses restored controls; resume did not resubmit music.
+All app snapshot bytes match tested main; six non-app files have EOL-only differences, recorded explicitly.
+No .env loaded; every provider request mocked; harness stopped and loopback port 8175 closed.
+Locked checks PASS: verifier123 files, coverage36/11/19, 189 tests (one optional skip), whitespace clean.
+Exact-head CI outcome and review link are recorded on the evidence PR when published.
+## Blockers and unchecked areas
+Synthetic/muted media, injected capacity; not normal-launch/live/listening, #26, sample or final ZIP acceptance.
+Parent #3/#5/#8 remain open; prior failed live vocal evidence and submission NOT READY status remain.
+## Next steps
+Eligible zero-commit teammate reviews this evidence PR; merge normally after green checks/approval.
+Mike continues #26 independently; coordinate remaining real acceptance with feature leads, without duplicate generation.
+## References
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8#issuecomment-6546111979
+Details: [main browser regression](docs/MAIN_BROWSER_REGRESSION.md); preserved prior notes follow.
 
 ## Session — A3-03 failed-vocal evidence record, 2026-10-31 America/Denver
 Hermes for MSpanny (Mike); issue #3 lead continues. Spontaneous normal-entrypoint vocal run (track "Mountaintop Adventure", head 926613db incl. #21/#27/#29; NOT the #40 prompt fix) failed exactly like #28: FLUX cover OK; Qwen lyrics returned finish_reason='length'; app showed the fixed #29-safe diagnostic. Recorded as results/a3-03-vocal-failure-mountaintop.json + TEST_RESULTS section on branch codex/a3-03-vocal-failure-evidence (base main 25f8617); claim comment on #3. No new provider calls — reuses the already-billed run; exact payloads/timestamps NOT captured (access_log=False). Access logging now enabled on the local server for the successor rerun (separate, holding for go-ahead). Refs #3.
@@ -960,6 +1027,7 @@ All four respond to `/v1/models` with the key. Unverified: request/response
 payload schemas for 9007/9008 (music/TTS) — still need class-endpoints.txt
 before building adapters.
 
+
 ## Preserved prse recovery handoff from main c6e1273
 
 ## Preserved merged-main notes
@@ -1202,6 +1270,7 @@ No collaborator credentials or successful normal-live evidence was inspected on 
 
 ## Session
 
+
 ## Preserved merged integration notes
 
 2026-10-30 America/Denver; Codex for Joshua. Collaboration follow-through on PR #22.
@@ -1346,6 +1415,7 @@ No test servers started this session; no credentials, uploads, generated media o
 ## References
 PRs #22/#24/#25/#26/#27/#28/#29/#30; docs/RECOVERY_AUDIT.md; results/retry-control-fix.json.
 
+
 ## Preserved loader integration notes
 
 2026-10-30 America/Denver; Codex for Joshua. Catch-up and current-main reconciliation of PR #31.
@@ -1446,6 +1516,7 @@ Same class key as Assignment 2 (copied from A2 `.env`; hash-verified, never prin
 All four respond to `/v1/models` with the key. Unverified: request/response
 payload schemas for 9007/9008 (music/TTS) â€” still need class-endpoints.txt
 before building adapters.
+
 
 ## Preserved prse recovery handoff from main c6e1273
 
