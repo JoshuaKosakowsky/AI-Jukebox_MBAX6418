@@ -1,7 +1,7 @@
 {
-  "checked_at_utc": "2026-11-02T01:31:32.560738+00:00",
+  "checked_at_utc": "2026-11-02T02:06:15.523693+00:00",
   "tester": "Codex for JoshuaKosakowsky",
-  "source_main": "7fb8e1c0cda83721cb41d307271c5ebf0078e0d6",
+  "source_main": "a1a41d168b1004132b6bac38f914d2eddff729bc",
   "scope": "Offline candidate inventory, full local media decoding, original-hash checks and temporary production-loader validation; no new browser or listening acceptance",
   "target": {
     "minimum_songs": 3,
@@ -234,15 +234,27 @@
   "provider_requests": 0,
   "manifest_changed": false,
   "new_generation": false,
+  "previous_inventory": {
+    "commit": "b6e9657003693b5be4f831665ab1dcd0a0142541",
+    "source_main": "7fb8e1c0cda83721cb41d307271c5ebf0078e0d6",
+    "checked_at_utc": "2026-11-02T01:31:32.560738+00:00"
+  },
   "verification": {
     "sample_tests_run": 18,
     "platform_symlink_skips": 1,
     "result": "pass",
-    "repository_verifier_files": 127,
+    "repository_verifier_files": 136,
     "coverage_structure": {
       "requirements": 36,
       "tasks": 11,
       "cases": 19
     }
+  },
+  "coordination": {
+    "mike_run_authorization": "https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6567163725",
+    "mike_live_run_head": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+    "shared_generation_ceiling": 13,
+    "second_vocal_preparation_commit": "79e55de93ce6b209ab76f9889e6b9987dd187826",
+    "second_vocal_stage": "Offline preparation only; no class-generated lyrics/audio/art yet"
   }
 }

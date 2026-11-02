@@ -16,7 +16,7 @@ acceptance run and existing third-candidate preparation; coordinate source hando
 and exact candidate pieces before creating or packaging another song.
 
 [Current offline inventory](../../results/a3-07-sample-inventory.json) checks main
-`7fb8e1c`: both packaged instrumental pairs fully decode and match their original
+`a1a41d1`: both packaged instrumental pairs fully decode and match their original
 acceptance hashes. Both also load as ready tracks using the production loader in a
 temporary two-entry catalog. This is an offline validation, not a new listening,
 normal-launch library or final ZIP acceptance. The approved manifest stays empty.
@@ -26,8 +26,8 @@ normal-launch library or final ZIP acceptance. The approved manifest stays empty
 | Moonlit Reflection | Original 30 s ambient-piano WAV/PNG; prior Joshua listening; matching lake/pianist cover inspected | Preferred retained instrumental option, subject to final curation |
 | Desert Drive | Original 20 s upbeat-funk WAV/PNG; prior Joshua listening | Alternate instrumental; generated cover lettering differs from the title, so curate artwork before selection |
 | Genre scorecard in [PR #43](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/43) | 20 historical instrumental assessments, 10 rated Good to go; exact hashes/settings | Confirm retained source audio and matching artwork with Mike before packaging; these are additional range options |
-| Vocal candidate 1 | Mike's coordinated #3 acceptance is planned; no finished vocal candidate is packaged here yet | Retain original lyrics/audio/art and provenance from a successful run, then listen and inspect before selection |
-| Vocal candidate 2 | Separate sample piece to coordinate after the first vocal path is verified | Joshua prepares a contrasting style/theme with original AI lyrics and a matching class cover, without repeating Mike's run |
+| Vocal candidate 1 | Mike's coordinated #3/#6 run is authorized on a1a41d1; no finished vocal candidate is packaged here yet | Retain original lyrics/audio/art and provenance from a successful run, then listen and inspect before selection |
+| Vocal candidate 2 | [Afterglow Avenue preparation](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/blob/79e55de93ce6b209ab76f9889e6b9987dd187826/results/a3-07-vocal-two-preparation.json): 45 s synth-pop draft; no generated sample media yet | Joshua prepares a contrasting style/theme with original AI lyrics and a matching class cover, without repeating Mike's run |
 
 Finish the three-song set first: two vocal performances plus one selected
 instrumental. A finished vocal sample must have intelligible sung performance of

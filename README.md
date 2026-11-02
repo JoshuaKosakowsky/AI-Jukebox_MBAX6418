@@ -154,6 +154,14 @@ track's card (a collapsible block). Instrumental songs are not available
 through the vocal mode, and vocal songs are not available in the instrumental
 mode — the mode is chosen at creation and kept on the track.
 
+Music quality varies by style. The tested heavy metal/deathcore target is a
+known limitation: it missed the requested sound in listening checks, and further
+tuning is deferred for a future revisit. Other genres are being assessed as
+Good to go, Minor improvement, or Major update / completely misses mark in the
+[genre listening scorecard](results/README.md#genre-listening-scorecard). These
+are provisional ratings of specific instrumental clips, not guarantees for
+an entire genre.
+
 Session media stays in process memory, private to the browser's HttpOnly,
 SameSite=Strict cookie. Reloading keeps it; restarting the app or two hours of
 inactivity clears it. Limits: 20 tracks and 100 generation jobs per session,
