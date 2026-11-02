@@ -1880,3 +1880,31 @@ Moonlit Reflection advanced to13.338 s, paused and resumed13.560 s. Reload kept
 all3 tracks/media URLs and started paused. Locked `scripts/dev.py --check` PASS:
 230 tests run, one platform symlink skip; verifier151, coverage36/11/19; whitespace
 PASS. No generation occurred during catalog/browser checks.
+
+## A3-05 DJ presentation styles — 2026-11-01 America/Denver
+
+Owner selected presentation styles after describing the default intro as laid
+back/NPR-like. [Feature evidence](../results/a3-05-dj-presentation-styles.json)
+records three options: Relaxed/Public Radio, Upbeat Radio, Playful. The preference
+is session-local, persists across reload and changes Qwen's commentary direction;
+it does not select a different Chatterbox voice. A separate additive preference
+endpoint leaves existing start/advance/reference bodies and provider schemas intact.
+
+Offline checks exercise all three exact prompt directions, unchanged default
+speech and reference-data payloads,192-token non-thinking text, strict preference
+validation, session isolation, cached replay without regeneration and in-flight
+prompt pinning. Changing style after failure creates no job; an explicit retry
+captures the new style. The production frontend handler is tested for saving,
+overlap prevention, error rollback and preservation of the selected reference.
+
+Actual normal-launch browser on8030 with all services missing: all options shown,
+Upbeat and Playful saved; Antlercover continued on the same media URL from0.150
+to5.921 s without errors while choosing styles. Reload retained Playful and the
+default-voice selection; all3 sample cards remained. No class calls were made.
+This is not a live comparison/listening claim for the new prompt styles. The
+separate six-request real default baseline stays attributed to its original main
+and does not establish results for this new prompt. Mike's6 reference work and
+independent final ZIP acceptance remain separate.
+
+Locked checks PASS:237 tests run, one platform symlink skip; verifier154 files,
+coverage36/11/19 and whitespace clean. Focused81 regressions also passed.

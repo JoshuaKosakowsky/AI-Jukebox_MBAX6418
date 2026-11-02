@@ -131,6 +131,19 @@
         <p id="dj-status" role="status" aria-live="polite">
           Add playable songs from your library to the queue, then press Play.
         </p>
+        <div class="dj-presentation">
+          <label for="dj-presentation">DJ presentation</label>
+          <select id="dj-presentation" aria-describedby="dj-presentation-help dj-presentation-status">
+            <option value="relaxed">Relaxed / Public Radio</option>
+            <option value="upbeat">Upbeat Radio</option>
+            <option value="playful">Playful</option>
+          </select>
+          <p id="dj-presentation-help" class="note">
+            Choose the tone of new introductions. Your selected voice stays the same.
+            Cached and in-progress introductions keep their original wording.
+          </p>
+          <p id="dj-presentation-status" role="status" aria-live="polite"></p>
+        </div>
         <div class="dj-voice">
           <label for="dj-voice">Optional DJ reference voice
             <input id="dj-voice" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav"

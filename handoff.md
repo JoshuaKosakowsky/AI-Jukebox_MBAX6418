@@ -1,5 +1,23 @@
 # Agent handoff
 
+## Session — A3-05 selectable presentation styles, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-05-dj-presentation-styles; fresh base main2be9625, independent of frozen50/51.
+Owner listened to baseline and explicitly selected presentation styles rather than different voice identities.
+Baseline default live check is preserved separately in PR51; its6 provider requests are spent and not repeated.
+Added Relaxed/Public Radio, Upbeat Radio and Playful selector; preference persists per session across reload.
+SessionSnapshot optional dj_presentation defaults relaxed; separate POST /api/playback/presentation, strict style enum.
+New jobs capture prompt direction under the store lock; in-flight/cached speech unchanged; no generation on preference changes.
+Existing start/advance/reference request bodies, provider schemas, voice selection, sample media and playback controller remain intact.
+Frontend serializes preference saves, prevents overlap, rolls back failed selection and preserves the reference file; UI explains cache behavior.
+Updated shared schema/APP_CONTRACTS/README; fresh offline tests cover actual default/reference wire payloads and failure/retry/cache semantics.
+Focused81 tests and locked237 tests PASS,1 platform skip; verifier154,coverage36/11/19,whitespace PASS.
+Actual unconfigured browser8030 saves styles without interrupting sample playback and retains Playful on reload.
+Evidence results/a3-05-dj-presentation-styles.json pins normalized runtime/schema hashes; no new class calls or live style-quality claims.
+Next: finish full locked checks, publish separate feature PR and request JoshKozy review; coordinate additive snapshot field with6.
+No assignment/protection/dependency/CI changes; preserve pending50/51 and historical evidence on their exact original sources.
+After approved normal integration, evaluate style outputs with a separately bounded live comparison only if requested.
+
+
 ## Session — A3-07 Antlercover backup/selection, 2026-11-01 America/Denver
 Codex for Joshua; codex/a3-07-third-vocal-integration; source45b309a, runtime base03fb2ef.
 Owner requested a separate hopeful Latin Flare backup about an Alaskan office moose blending in over winter and avoiding hunters.

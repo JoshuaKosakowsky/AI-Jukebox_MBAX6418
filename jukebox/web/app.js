@@ -34,6 +34,7 @@ let refreshInFlight;
 // Browser memory only: fresh one-shot upload for each newly requested intro.
 // Never persist the recording or its upload id across a page reload.
 let djVoiceFile = null;
+let djPresentationSaving = false;
 
 async function request(path, data, withVoice = true) {
   if (withVoice && data !== undefined && ["/api/playback/start", "/api/playback/advance",
@@ -53,6 +54,30 @@ async function jsonResponse(response) {
     throw error;
   }
   return response.json();
+}
+
+async function changeDjPresentation() {
+  if (djPresentationSaving) return;
+  const select = document.querySelector("#dj-presentation");
+  const status = document.querySelector("#dj-presentation-status");
+  const previous = latestSession?.dj_presentation || "relaxed";
+  const chosen = select.value;
+  djPresentationSaving = true;
+  select.disabled = true;
+  try {
+    await djUserQueue(async () => {
+      latestSession = await request("/api/playback/presentation", {style: chosen}, false);
+      await syncAfterMutation();
+    });
+    status.textContent = "Style saved for new introductions. Existing introductions keep their wording.";
+  } catch (error) {
+    select.value = previous;
+    status.textContent = error.message;
+  } finally {
+    djPresentationSaving = false;
+    select.disabled = false;
+    if (latestSession) renderDj(latestSession);
+  }
 }
 
 function selectDjVoice() {
@@ -819,6 +844,9 @@ function djStatusIdleDone() {
 }
 
 function renderDj(session) {
+  const presentation = document.querySelector("#dj-presentation");
+  if (!djPresentationSaving) presentation.value = session.dj_presentation || "relaxed";
+  presentation.disabled = djPresentationSaving;
   latestSession = session;
   const pb = session.playback;
   const list = document.querySelector("#dj-queue");
@@ -841,7 +869,7 @@ function renderDj(session) {
   const resume = document.querySelector("#dj-resume");
   const skip = document.querySelector("#dj-skip");
   const available = djReady();
-  play.disabled = !available || pb.queue.length === 0 || pb.state !== "idle";
+  play.disabled = djPresentationSaving || !available || pb.queue.length === 0 || pb.state !== "idle";
   pause.disabled = !(pb.state === "speaking" || pb.state === "playing");
   resume.disabled = pb.state !== "paused" && !(djHalted && pb.state !== "idle");
   skip.disabled = pb.state === "idle" || !available;
@@ -876,5 +904,7 @@ document.querySelector("#dj-play").addEventListener("click", djStart);
 document.querySelector("#dj-pause").addEventListener("click", djPause);
 document.querySelector("#dj-resume").addEventListener("click", djResume);
 document.querySelector("#dj-skip").addEventListener("click", djSkip);
+document.querySelector("#dj-presentation").addEventListener("change", changeDjPresentation);
+
 document.querySelector("#dj-voice").addEventListener("change", selectDjVoice);
 document.querySelector("#dj-voice-clear").addEventListener("click", clearDjVoice);

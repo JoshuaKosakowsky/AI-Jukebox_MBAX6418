@@ -13,7 +13,7 @@ from pydantic import Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .config import ROOT, Settings
-from .contracts import GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
+from .contracts import DjPresentation, GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
 from .samples import SampleLibraryError, load_samples
 from .sessions import (MAX_MEDIA_BYTES, MAX_REFERENCE_BYTES, SESSION_COOKIE, SESSION_SECONDS,
@@ -250,6 +250,15 @@ def create_app(settings: Settings | None = None):
     class PhaseBody(Model):
         phase: Literal["speaking", "playing"]
         track_id: UUID | None = None
+
+    class PresentationBody(Model):
+        style: DjPresentation
+
+    @app.post("/api/playback/presentation", response_model=SessionSnapshot)
+    def playback_presentation(data: PresentationBody, current=Depends(browser_session)):
+        # A session preference, not a generation request; no service required.
+        store.set_dj_presentation(current, data.style)
+        return store.snapshot(current)
 
     @app.post("/api/playback/queue", response_model=Playback)
     def playback_queue(data: QueueBody, current=Depends(browser_session)):

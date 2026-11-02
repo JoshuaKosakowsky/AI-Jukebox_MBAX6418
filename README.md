@@ -53,6 +53,14 @@ implemented. A wrong class endpoint produces a safe role-only terminal error;
 fix .env and restart. No provider requests or generation happen on startup or on
 Refresh status. Configured means values were supplied, not that a service is reachable.
 
+## DJ presentation
+
+In Queue & DJ, choose **Relaxed / Public Radio**, **Upbeat Radio** or **Playful**
+before starting the queue. This sets the tone of new introductions while keeping
+your default or uploaded reference voice. The choice stays in this browser
+session across reloads. Cached and in-progress introductions keep their original
+wording; choosing a style never regenerates them or interrupts music.
+
 ## Bundled sample library
 
 The app loads approved entries from [assets/samples/manifest.json](assets/samples/manifest.json)

@@ -6,7 +6,7 @@ from threading import RLock
 import time
 from uuid import UUID, uuid4
 
-from .contracts import GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
+from .contracts import DjPresentation, GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
 from .providers import MediaBytes, MusicTicket, ProviderFailure
 
 SESSION_COOKIE = "jukebox_session"
@@ -54,6 +54,7 @@ class Session:
     # Claimed once per job; bounded by MAX_ACTIVE_SPEECH, removed on every exit.
     speech_references: dict[UUID, MediaBytes] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
+    dj_presentation: DjPresentation = "relaxed"
     # Each entry is one in-flight job (track id, job kind); a track may have an
     # art job and a music job running at the same time.
     active: set[tuple[UUID, str]] = field(default_factory=set)
@@ -276,12 +277,22 @@ def _validate_mp3_structure(content: bytes, *, id3: bool) -> None:
         if frame_length is not None and index + frame_length <= len(content):
             return
     raise SessionFailure(422, "The MP3 reference contains no playable audio frames.")
-def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> str:
-    """Song-specific spoken commentary for Qwen (default ChatGPT-style text).
+
+
+DJ_PRESENTATIONS = {
+    "relaxed": "Speak as a calm, warm public-radio presenter with measured, reassuring wording.",
+    "upbeat": "Speak as an energetic music-radio presenter with punchy, concise wording. No shouting.",
+    "playful": "Speak as a lighthearted, witty DJ with one gentle playful remark. Keep it welcoming and kind.",
+}
+
+
+def dj_prompt(track: Track, prior: Track | None, position: int, total: int,
+              presentation: DjPresentation = "relaxed") -> str:
+    """Song-specific commentary with a captured presentation preference.
 
     The prompt carries the queued song's title, style, mood and vocal mode plus
-    transition context from the previous song; the result is spoken by
-    Chatterbox's default voice. No user content or credentials are included.
+    transition context from the previous song. Chatterbox speaks the result
+    with the independently selected default/reference voice.
     """
     if prior is None or position == 0:
         transition = "This is the first song of the set."
@@ -291,8 +302,8 @@ def dj_prompt(track: Track, prior: Track | None, position: int, total: int) -> s
         transition = f"After {prior.title}, the set continues."
     mode = "vocal song" if track.settings.mode == "vocal" else "instrumental"
     return ("You are the jukebox DJ. Write 2-4 short, natural spoken sentences "
-            "that introduce the next song for an automated radio show. Speak as "
-            "a friendly radio DJ. Plain speech only: no stage directions, no "
+            "that introduce the next song for an automated radio show. "
+            f"{DJ_PRESENTATIONS[presentation]} Plain speech only: no stage directions, no "
             "sound effects, no section headings, no song titles in quotes.\n"
             f"{transition}\n"
             f"Song title and theme: {track.title}\n"
@@ -336,7 +347,8 @@ class SessionStore:
 
     def snapshot(self, session):
         with self.lock:
-            return SessionSnapshot(tracks=list(session.tracks.values()), jobs=list(session.jobs.values()), playback=session.playback).model_copy(deep=True)
+            return SessionSnapshot(tracks=list(session.tracks.values()), jobs=list(session.jobs.values()),
+                                   playback=session.playback, dj_presentation=session.dj_presentation).model_copy(deep=True)
 
     def create_cover_track(self, session, title: str, settings: SongSettings):
         with self.lock:
@@ -416,6 +428,15 @@ class SessionStore:
 
     # ---- AI DJ queue -------------------------------------------------------
 
+    def set_dj_presentation(self, session, presentation):
+        with self.lock:
+            if presentation not in DJ_PRESENTATIONS:
+                raise SessionFailure(422, "Choose a supported DJ presentation style.")
+            # Only future job prompts change. Cached and already queued speech
+            # keep their captured wording; choosing a style never generates.
+            session.dj_presentation = presentation
+            session.touched = time.monotonic()
+
     def queue_playback(self, session, track_id):
         """Append one playable track to the DJ queue (one entry per track)."""
         with self.lock:
@@ -460,7 +481,7 @@ class SessionStore:
             job = GenerationJob(track_id=track_id, kind="speech")
             session.jobs[job.id] = job
             session.active.add((track_id, "speech"))
-            session.speech_prompts[job.id] = dj_prompt(track, prior, position, total)
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, total, session.dj_presentation)
             self._claim_speech_reference(session, job.id, reference_id)
             return job
 
@@ -506,7 +527,7 @@ class SessionStore:
             job = GenerationJob(track_id=track_id, kind="speech")
             session.jobs[job.id] = job
             session.active.add((track_id, "speech"))
-            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length)
+            session.speech_prompts[job.id] = dj_prompt(track, prior, position, queue_length, session.dj_presentation)
             self._claim_speech_reference(session, job.id, reference_id)
             return job
 
