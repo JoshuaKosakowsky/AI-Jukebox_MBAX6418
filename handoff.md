@@ -1,5 +1,49 @@
 # Agent handoff
 
+## Session — PR51 merged; PR52 ready for re-review, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-05-dj-presentation-styles; prior public head0fe135a; local prep b86d684.
+Owner asked to merge freshly reviewed51, reconcile52 for Hermes re-review, and defer automatic reviewer renewal to tomorrow.
+PR51 merged normally ate541c973761c1e53a7418060f0589d43811380c3 after JoshKozy approved exactb45dbd3; all4 checks PASS,0 threads.
+PR50 earlier mergedd0bfd92. Normal merge of actual maine541c97 into prepared52 added ancestry without content conflicts.
+Prior TEST_RESULTS/handoff conflicts were resolved by preserving both complete histories/shared base once.
+All original52 runtime/schema/tests/sample media and style evidence remain byte-identical to0fe135a; all51 helper/live/rehearsal blobs preserved.
+Combined237 tests PASS,1 platform skip; verifier160/coverage36-11-19/whitespace PASS. Final ancestry sync changed no code.
+Completion records for50/51 added truthfully; no approval claimed for the new52 head until Hermes re-reviews.
+No new class calls, media, listening, credential changes, protection changes or reference-work takeover.
+Historical live source2be9625 and zero-call style evidence stay pinned; no retesting with a spent service allowance.
+Next: push52 reconciliation, freeze, confirm exact-head CI and renew JoshKozy request; owner requested re-review, not52 merge yet.
+Tomorrow: consider encrypted refresh-token support for the reviewer; current8-hour login remains unchanged and isolated from writer.
+After52 integrates, mandatory next gap is6 real MP3/WAV voice comparison; keep Mike's claim/availability in view.
+
+
+## Session — PR52 local sync preparation, 2026-11-01 America/Denver
+Codex for Joshua; original approved52 head0fe135a, merging reconciled51 contentb45dbd3 locally.
+PR50 mergedd0bfd92. PR51 needs renewed approval after its required sync; user/Hermes notified.
+Only TEST_RESULTS/handoff conflicts resolved, preserving both parent histories/shared base once; original52 runtime/schema/tests/evidence unchanged.
+Do not publish this52 preparation until51 merges and the actual main merge commit is incorporated; maintain50 ->51 ->52 order.
+No service calls or acceptance reruns; old source hashes and zero-call style evidence stay honest.
+Combined local checks PASS:237 tests run,1 platform skip; verifier160,coverage36/11/19,whitespace.
+Next: offline checks, finish51 protected merge, sync52 with actualmain, push and request fresh exact-head review.
+
+
+## Session — A3-05 selectable presentation styles, 2026-11-01 America/Denver
+Codex for Joshua; codex/a3-05-dj-presentation-styles; fresh base main2be9625, independent of frozen50/51.
+Owner listened to baseline and explicitly selected presentation styles rather than different voice identities.
+Baseline default live check is preserved separately in PR51; its6 provider requests are spent and not repeated.
+Added Relaxed/Public Radio, Upbeat Radio and Playful selector; preference persists per session across reload.
+SessionSnapshot optional dj_presentation defaults relaxed; separate POST /api/playback/presentation, strict style enum.
+New jobs capture prompt direction under the store lock; in-flight/cached speech unchanged; no generation on preference changes.
+Existing start/advance/reference request bodies, provider schemas, voice selection, sample media and playback controller remain intact.
+Frontend serializes preference saves, prevents overlap, rolls back failed selection and preserves the reference file; UI explains cache behavior.
+Updated shared schema/APP_CONTRACTS/README; fresh offline tests cover actual default/reference wire payloads and failure/retry/cache semantics.
+Focused81 tests and locked237 tests PASS,1 platform skip; verifier154,coverage36/11/19,whitespace PASS.
+Actual unconfigured browser8030 saves styles without interrupting sample playback and retains Playful on reload.
+Evidence results/a3-05-dj-presentation-styles.json pins normalized runtime/schema hashes; no new class calls or live style-quality claims.
+Next: finish full locked checks, publish separate feature PR and request JoshKozy review; coordinate additive snapshot field with6.
+No assignment/protection/dependency/CI changes; preserve pending50/51 and historical evidence on their exact original sources.
+After approved normal integration, evaluate style outputs with a separately bounded live comparison only if requested.
+
+
 ## Session — PR51 sync after PR50, 2026-11-01 America/Denver
 Codex for Joshua; approved51 head7ae7fb5; normal merge of protected main d0bfd92 (PR50).
 Only TEST_RESULTS and handoff conflicted; both complete parent histories retained, shared base once.

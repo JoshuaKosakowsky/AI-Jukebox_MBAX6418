@@ -123,8 +123,12 @@ class Playback(Model):
         return self
 
 
+DjPresentation = Literal["relaxed", "upbeat", "playful"]
+
+
 class SessionSnapshot(Model):
     contract_version: Literal[1] = 1
+    dj_presentation: DjPresentation = "relaxed"
     tracks: list[Track] = Field(default_factory=list)
     jobs: list[GenerationJob] = Field(default_factory=list)
     playback: Playback = Field(default_factory=Playback)

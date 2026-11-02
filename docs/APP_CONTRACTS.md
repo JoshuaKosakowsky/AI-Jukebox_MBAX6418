@@ -25,7 +25,7 @@ contract, distinct from the verified [provider formats](SERVICE_CONTRACTS.md).
 | MediaRef | stable asset UUID and matching /api/media/UUID URL, MIME type; never a provider URL, filesystem path or credential |
 | GenerationJob | separate app job UUID, track UUID, kind (text/art/music/speech), queued/running/succeeded/failed, progress 0-1 (advanceable inline via with_progress while running), optional SafeError |
 | Playback | one phase: idle/speaking/playing/paused; queue of track UUIDs, current index/track, paused_from for resumption |
-| SessionSnapshot | contract_version=1, tracks, jobs, playback; track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
+| SessionSnapshot | contract_version=1, tracks, jobs, playback; additive dj_presentation defaults to relaxed (relaxed/upbeat/playful); track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
 | SafeError | code, fixed safe message, retryable; never copy raw provider errors/progress to the browser |
 
 Use GenerationJob.transition: queued -> running/failed; running -> succeeded/failed.
@@ -41,8 +41,20 @@ pause/skip and no overlap; model validation is not a playback test.
 Example empty snapshot (GET /api/session when no samples are registered):
 
 ```json
-{"contract_version":1,"tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
+{"contract_version":1,"dj_presentation":"relaxed","tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
 ```
+
+## DJ presentation preference
+
+`POST /api/playback/presentation` accepts only `{"style":"relaxed"}`,
+`{"style":"upbeat"}` or `{"style":"playful"}` and returns SessionSnapshot.
+It is a session-local preference and works without service configuration; it
+never creates a job, uploads a reference or calls a provider. The optional v1
+snapshot field `dj_presentation` defaults to relaxed for existing snapshots.
+The selected direction is captured when a new introduction job is queued;
+cached/in-flight speech and original track media are preserved. Restart/expiry
+resets it with the session. VoiceBody/start/advance/reference schemas and
+provider payload structure are unchanged. Only the DJ text prompt wording changes.
 
 ## Current HTTP surface
 

@@ -225,8 +225,8 @@ footer {
 [hidden] { display:none !important; }
 #cover-form { margin-top:22px; }
 label { display:flex; flex-direction:column; gap:8px; font-size:13px; color:#c6d6cf; }
-input { width:100%; border:1px solid #477b65; border-radius:8px; background:#101b18; color:#f1f5f3; padding:12px; font:inherit; }
-input:focus-visible { outline:3px solid #b8f3d7; outline-offset:2px; }
+input, select { width:100%; border:1px solid #477b65; border-radius:8px; background:#101b18; color:#f1f5f3; padding:12px; font:inherit; }
+input:focus-visible, select:focus-visible { outline:3px solid #b8f3d7; outline-offset:2px; }
 .mode { border:1px solid #30483d; border-radius:10px; padding:12px 14px; margin:16px 0 10px; font-size:14px; color:#a7bbb0; }
 .mode legend { font-size:12px; color:#7d9187; padding:0 6px; }
 .mode-option { display:inline-flex; flex-direction:row; align-items:center; gap:8px; font-size:14px; color:#c6d6cf; margin:4px 16px 4px 0; }
@@ -250,9 +250,10 @@ input:focus-visible { outline:3px solid #b8f3d7; outline-offset:2px; }
   .cover { max-width:320px; width:100%; margin:auto; }
 }
 .dj { margin-top:34px; }
-.dj-voice { border:1px solid #30483d; border-radius:10px; padding:14px; margin:18px 0; }
+.dj-voice, .dj-presentation { border:1px solid #30483d; border-radius:10px; padding:14px; margin:18px 0; }
 .dj-voice button { margin-top:12px; }
-#dj-voice-status { color:#c6e6d4; font-size:14px; }
+#dj-presentation { max-width:380px; margin-top:8px; }
+#dj-voice-status, #dj-presentation-status { color:#c6e6d4; font-size:14px; }
 .dj-queue { display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0; }
 .dj-queue li { border:1px solid #30483d; border-radius:999px; padding:4px 12px; font-size:13px; }
 .dj-queue li.current { border-color:#6fbf8f; background:rgba(111,191,143,.12); }
