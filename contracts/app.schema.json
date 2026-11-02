@@ -334,6 +334,16 @@
       "title": "Contract Version",
       "type": "integer"
     },
+    "dj_presentation": {
+      "default": "relaxed",
+      "enum": [
+        "relaxed",
+        "upbeat",
+        "playful"
+      ],
+      "title": "Dj Presentation",
+      "type": "string"
+    },
     "tracks": {
       "items": {
         "$ref": "#/$defs/Track"

@@ -1,0 +1,140 @@
+{
+  "title": "Afterglow Avenue",
+  "tester": "Codex for JoshuaKosakowsky",
+  "started_at_utc": "2026-11-02T03:52:10.582883+00:00",
+  "tested_commit": "afd93c242feee5ffda2d46abf4e0cc207009f9c7",
+  "runtime_base": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
+  "mode": "Real production HTTP routes on normal scripts/dev.py launcher; observational provider-attempt counter and hard ceiling only",
+  "inputs": {
+    "title": "Afterglow Avenue",
+    "settings": {
+      "style": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence",
+      "mood": "Hopeful and warmly nostalgic; a late-night journey home",
+      "duration_seconds": 45,
+      "mode": "vocal"
+    }
+  },
+  "production_prompts": {
+    "lyrics": "Write original song lyrics for a new song.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nTarget length: about 45 seconds, roughly 11 short lines.\nReturn only the lyrics: original, plain, one line per verse line, no section headings, no song title, no commentary. English.",
+    "music": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence. Style-matched vocals, supplied lyrics. Mood: Hopeful and warmly nostalgic; a late-night journey home. Theme: Afterglow Avenue. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
+    "cover": "Create original square artwork for this song with no text or lettering anywhere in the image: no words, no typography, no captions, no logos, no decorative letters, no titles drawn in it.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nRepresent the song's theme, style and mood through imagery, color and composition only; express the title visually, never as written words."
+  },
+  "class_models": {
+    "lyrics": "Qwen3.6-35B-A3B",
+    "music": "ACE-Step 1.5 XL Turbo",
+    "cover": "FLUX.2 klein 4B"
+  },
+  "application_posts": [
+    {
+      "route": "/api/tracks",
+      "kind": "art",
+      "intent_at_utc": "2026-11-02T03:52:10.738653+00:00",
+      "job_id": "54672652-af14-42f1-a9ca-3c15a620d67c",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "status": 202
+    },
+    {
+      "route": "/api/tracks/97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4/lyrics",
+      "kind": "text",
+      "intent_at_utc": "2026-11-02T03:52:11.751480+00:00",
+      "job_id": "ec807124-e775-45a8-8cec-1fd5af266690",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "status": 202
+    },
+    {
+      "route": "/api/tracks/97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4/music",
+      "kind": "music",
+      "intent_at_utc": "2026-11-02T03:52:12.765144+00:00",
+      "job_id": "137650a0-b1d5-4239-96cf-4d419f04affd",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "status": 202
+    }
+  ],
+  "stages": [
+    {
+      "id": "54672652-af14-42f1-a9ca-3c15a620d67c",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "kind": "art",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    },
+    {
+      "id": "ec807124-e775-45a8-8cec-1fd5af266690",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "kind": "text",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    },
+    {
+      "id": "137650a0-b1d5-4239-96cf-4d419f04affd",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "kind": "music",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    }
+  ],
+  "state": "generated_and_decoded",
+  "new_human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "confirmation": "Approve the audio",
+    "date": "2026-11-01 America/Denver",
+    "scope": "User approved audible/intelligible vocal audio, hopeful synth-pop fit and library suitability after listening"
+  },
+  "browser_creation": "not performed by this API driver",
+  "provider_attempts": {
+    "art": 1,
+    "text": 1,
+    "music": 1,
+    "speech": 0,
+    "polls": 3,
+    "downloads": 1
+  },
+  "configured_roles": {
+    "text": "configured",
+    "art": "configured",
+    "music": "configured",
+    "speech": "configured"
+  },
+  "completed_at_utc": "2026-11-02T03:52:20.906200+00:00",
+  "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+  "lyrics": "Neon signs blur in the rain\nStreetlights hum a soft refrain\nThe city sleeps, but I am awake\nChasing echoes for your sake\nWarm analog waves crash low\nPulsing bass begins to glow\nWe drive through shadows, side by side\nNowhere left for us to hide\nThe night is young, the road is clear\nWhispering all that we hold dear\nHome awaits at the end of light",
+  "media": {
+    "audio": {
+      "path": "assets/samples/afterglow-avenue.wav",
+      "bytes": 8640078,
+      "sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61"
+    },
+    "cover": {
+      "path": "results/afterglow-avenue-initial-cover.png",
+      "bytes": 787271,
+      "sha256": "08bea3e51d816f899d947d39cf9eeeeb734a23f0e45e156c73033edb04bd6be8"
+    },
+    "lyrics": {
+      "path": "assets/samples/afterglow-avenue.lyrics.txt",
+      "bytes": 346,
+      "sha256": "bde21ab90752482d8f744a13ed79b0904809b6ceefbe194462b25e25aecea532"
+    }
+  },
+  "audio": {
+    "duration_seconds": 45.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "bits_per_sample": 16,
+    "full_pcm_decode": true,
+    "peak": 0.891266,
+    "rms": 0.147591
+  },
+  "cover": {
+    "full_decode": true,
+    "dimensions": [
+      512,
+      512
+    ]
+  },
+  "reload_no_generation": true,
+  "candidate_status": "Audio and curated cover selected by Joshua; integrated-main and final ZIP acceptance pending",
+  "curated_cover_record": "results/a3-07-afterglow-cover-curation.json"
+}

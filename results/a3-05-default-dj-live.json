@@ -1,0 +1,629 @@
+{
+  "date": "2026-11-01 America/Denver",
+  "recorded_at_utc": "2026-11-02T05:14:01.614727+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "tested_main": "2be9625717c35b4bb586506562d0965c31143145",
+  "case_ids": [
+    "AT-07",
+    "AT-09"
+  ],
+  "requirements": [
+    "R13",
+    "R14",
+    "R19",
+    "R20",
+    "R21"
+  ],
+  "launcher": "python scripts/dev.py --port 8028",
+  "mode": "Real class Qwen and Chatterbox via normal launcher/browser; opt-in observational wrappers and persisted hard budget only; no production source edits",
+  "configuration": {
+    "text": "configured",
+    "speech": "configured",
+    "art": "missing",
+    "music": "missing",
+    "source_type": "Existing private server configuration; only two roles inherited by process; no .env copied"
+  },
+  "existing_sample_titles": [
+    "Afterglow Avenue",
+    "Moonlit Reflection",
+    "Antlercover"
+  ],
+  "class_models": {
+    "text": "Qwen3.6-35B-A3B",
+    "speech": "Chatterbox TTS"
+  },
+  "limits": {
+    "text": 3,
+    "speech": 3,
+    "art": 0,
+    "music": 0
+  },
+  "actual_provider_attempts": {
+    "text": 3,
+    "speech": 3,
+    "art": 0,
+    "music": 0
+  },
+  "automatic_retries": 0,
+  "reference_uploads": 0,
+  "guard_prevented_requests": 0,
+  "failed_introduction": null,
+  "job_results": [
+    {
+      "id": "b0cbbde1-215d-4c98-91d7-ef45e9e7b380",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "kind": "speech",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    },
+    {
+      "id": "2803dd8d-871e-4ba0-bb83-d2b02c02910a",
+      "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "kind": "speech",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    },
+    {
+      "id": "c649a1e0-905f-4bfa-a4b8-c814f43e6b63",
+      "track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "kind": "speech",
+      "state": "succeeded",
+      "progress": 1.0,
+      "error": null
+    }
+  ],
+  "provider_trace": [
+    {
+      "kind": "job_started",
+      "at_utc": "2026-11-02T05:04:30.215545+00:00",
+      "job_id": "b0cbbde1-215d-4c98-91d7-ef45e9e7b380",
+      "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "reference_present": false
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "text",
+      "route": "/v1/chat/completions",
+      "attempt": 1,
+      "at_utc": "2026-11-02T05:04:30.220544+00:00",
+      "default_voice": false
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:04:31.638326+00:00",
+      "role": "text",
+      "status": 200,
+      "route": "/v1/chat/completions"
+    },
+    {
+      "kind": "text_completed",
+      "at_utc": "2026-11-02T05:04:31.643840+00:00",
+      "prompt": "You are the jukebox DJ. Write 2-4 short, natural spoken sentences that introduce the next song for an automated radio show. Speak as a friendly radio DJ. Plain speech only: no stage directions, no sound effects, no section headings, no song titles in quotes.\nThis is the first song of the set.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nType: vocal song.",
+      "commentary": "Welcome to the night shift where we’re cruising down Afterglow Avenue. Let those warm analog synths and that pulsing bass guide you home on this hopeful late-night journey. It’s a melodic ride full of nostalgia, so settle in and let the music take over."
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "speech",
+      "route": "/v1/audio/speech",
+      "attempt": 1,
+      "at_utc": "2026-11-02T05:04:31.649089+00:00",
+      "default_voice": true
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:04:35.647776+00:00",
+      "role": "speech",
+      "status": 200,
+      "route": "/v1/audio/speech"
+    },
+    {
+      "kind": "speech_completed",
+      "at_utc": "2026-11-02T05:04:36.010856+00:00",
+      "bytes": 547244,
+      "sha256": "388e40f7ed2f02f077e933450e1aa65149bf88eee76f0fcedfb57c03047b3b6f",
+      "duration_seconds": 11.4,
+      "default_voice": true
+    },
+    {
+      "kind": "job_finished",
+      "at_utc": "2026-11-02T05:04:36.024466+00:00",
+      "job": {
+        "id": "b0cbbde1-215d-4c98-91d7-ef45e9e7b380",
+        "track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+        "kind": "speech",
+        "state": "succeeded",
+        "progress": 1.0,
+        "error": null
+      },
+      "title": "Afterglow Avenue"
+    },
+    {
+      "kind": "job_started",
+      "at_utc": "2026-11-02T05:06:17.209380+00:00",
+      "job_id": "2803dd8d-871e-4ba0-bb83-d2b02c02910a",
+      "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "reference_present": false
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "text",
+      "route": "/v1/chat/completions",
+      "attempt": 2,
+      "at_utc": "2026-11-02T05:06:17.215401+00:00",
+      "default_voice": false
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:06:17.799476+00:00",
+      "role": "text",
+      "status": 200,
+      "route": "/v1/chat/completions"
+    },
+    {
+      "kind": "text_completed",
+      "at_utc": "2026-11-02T05:06:17.805606+00:00",
+      "prompt": "You are the jukebox DJ. Write 2-4 short, natural spoken sentences that introduce the next song for an automated radio show. Speak as a friendly radio DJ. Plain speech only: no stage directions, no sound effects, no section headings, no song titles in quotes.\nAfter Afterglow Avenue, the set continues.\nSong title and theme: Moonlit Reflection\nMusical style: Ambient piano\nMood: Calm and reflective\nType: instrumental.",
+      "commentary": "That was Afterglow Avenue, and we are keeping the vibe nice and mellow as we move forward. Let this ambient piano piece wash over you for a moment of calm reflection. It is called Moonlit Reflection, so just sit back and let your thoughts drift."
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "speech",
+      "route": "/v1/audio/speech",
+      "attempt": 2,
+      "at_utc": "2026-11-02T05:06:17.811154+00:00",
+      "default_voice": true
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:06:21.128713+00:00",
+      "role": "speech",
+      "status": 200,
+      "route": "/v1/audio/speech"
+    },
+    {
+      "kind": "speech_completed",
+      "at_utc": "2026-11-02T05:06:21.420298+00:00",
+      "bytes": 514604,
+      "sha256": "b3c18c5fea0ee4aa4f05252a6611671dd93b876fbf4c12b47a8c4b73fa2cd862",
+      "duration_seconds": 10.72,
+      "default_voice": true
+    },
+    {
+      "kind": "job_finished",
+      "at_utc": "2026-11-02T05:06:21.433539+00:00",
+      "job": {
+        "id": "2803dd8d-871e-4ba0-bb83-d2b02c02910a",
+        "track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+        "kind": "speech",
+        "state": "succeeded",
+        "progress": 1.0,
+        "error": null
+      },
+      "title": "Moonlit Reflection"
+    },
+    {
+      "kind": "job_started",
+      "at_utc": "2026-11-02T05:06:36.948491+00:00",
+      "job_id": "c649a1e0-905f-4bfa-a4b8-c814f43e6b63",
+      "track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "reference_present": false
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "text",
+      "route": "/v1/chat/completions",
+      "attempt": 3,
+      "at_utc": "2026-11-02T05:06:36.955416+00:00",
+      "default_voice": false
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:06:37.846767+00:00",
+      "role": "text",
+      "status": 200,
+      "route": "/v1/chat/completions"
+    },
+    {
+      "kind": "text_completed",
+      "at_utc": "2026-11-02T05:06:37.853272+00:00",
+      "prompt": "You are the jukebox DJ. Write 2-4 short, natural spoken sentences that introduce the next song for an automated radio show. Speak as a friendly radio DJ. Plain speech only: no stage directions, no sound effects, no section headings, no song titles in quotes.\nAfter Moonlit Reflection, this is our final song.\nSong title and theme: Antlercover\nMusical style: Latin Flare: salsa-pop, syncopated congas, timbales, piano montuno, warm brass, melodic sung lead\nMood: Hopeful\nType: vocal song.",
+      "commentary": "That was Moonlit Reflection, and we are wrapping up the show with one last track. Get ready to move your feet as we bring you some warm Latin flare with syncopated rhythms and bright brass. This hopeful vocal number is called Antlercover. Thanks for tuning in, and have a wonderful evening."
+    },
+    {
+      "kind": "provider_attempt",
+      "role": "speech",
+      "route": "/v1/audio/speech",
+      "attempt": 3,
+      "at_utc": "2026-11-02T05:06:37.859329+00:00",
+      "default_voice": true
+    },
+    {
+      "kind": "provider_http_response",
+      "at_utc": "2026-11-02T05:06:41.799523+00:00",
+      "role": "speech",
+      "status": 200,
+      "route": "/v1/audio/speech"
+    },
+    {
+      "kind": "speech_completed",
+      "at_utc": "2026-11-02T05:06:42.131442+00:00",
+      "bytes": 645164,
+      "sha256": "87eb024d842222e5158c07df11cc6c1e5f322bc0515a83b59094cb4b42c93f8b",
+      "duration_seconds": 13.44,
+      "default_voice": true
+    },
+    {
+      "kind": "job_finished",
+      "at_utc": "2026-11-02T05:06:42.145149+00:00",
+      "job": {
+        "id": "c649a1e0-905f-4bfa-a4b8-c814f43e6b63",
+        "track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+        "kind": "speech",
+        "state": "succeeded",
+        "progress": 1.0,
+        "error": null
+      },
+      "title": "Antlercover"
+    }
+  ],
+  "playback_actions": [
+    {
+      "at_utc": "2026-11-02T05:04:19.494056+00:00",
+      "action": "queue_playback",
+      "state": "idle",
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:04:22.091702+00:00",
+      "action": "queue_playback",
+      "state": "idle",
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:04:26.900993+00:00",
+      "action": "queue_playback",
+      "state": "idle",
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:04:30.206934+00:00",
+      "action": "start_playback",
+      "state": "speaking",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:04:45.821669+00:00",
+      "action": "pause_playback",
+      "state": "paused",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": "speaking"
+    },
+    {
+      "at_utc": "2026-11-02T05:05:29.998241+00:00",
+      "action": "resume_playback",
+      "state": "speaking",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:05:32.110347+00:00",
+      "action": "set_phase",
+      "state": "playing",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:06:17.202578+00:00",
+      "action": "advance_playback",
+      "state": "speaking",
+      "index": 1,
+      "current_track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:06:33.143507+00:00",
+      "action": "set_phase",
+      "state": "playing",
+      "index": 1,
+      "current_track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:06:36.939969+00:00",
+      "action": "advance_playback",
+      "state": "speaking",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:06:56.736909+00:00",
+      "action": "set_phase",
+      "state": "playing",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:07:20.689181+00:00",
+      "action": "pause_playback",
+      "state": "paused",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": "playing"
+    },
+    {
+      "at_utc": "2026-11-02T05:07:23.888775+00:00",
+      "action": "resume_playback",
+      "state": "playing",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:07:27.462353+00:00",
+      "action": "advance_playback",
+      "state": "idle",
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:07:51.784361+00:00",
+      "action": "start_playback",
+      "state": "speaking",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:07:54.649528+00:00",
+      "action": "pause_playback",
+      "state": "paused",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": "speaking"
+    },
+    {
+      "at_utc": "2026-11-02T05:08:08.814541+00:00",
+      "action": "resume_playback",
+      "state": "speaking",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:08:20.504429+00:00",
+      "action": "set_phase",
+      "state": "playing",
+      "index": 0,
+      "current_track_id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:09:05.589859+00:00",
+      "action": "advance_playback",
+      "state": "speaking",
+      "index": 1,
+      "current_track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:09:16.375323+00:00",
+      "action": "set_phase",
+      "state": "playing",
+      "index": 1,
+      "current_track_id": "b0d7e116-1a1c-4e3e-a740-23b7a93c1447",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:09:19.802441+00:00",
+      "action": "advance_playback",
+      "state": "speaking",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:09:20.082900+00:00",
+      "action": "pause_playback",
+      "state": "paused",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": "speaking"
+    },
+    {
+      "at_utc": "2026-11-02T05:09:29.432558+00:00",
+      "action": "resume_playback",
+      "state": "speaking",
+      "index": 2,
+      "current_track_id": "da74d3f9-c0f4-4c50-bffa-dfbd78f15374",
+      "paused_from": null
+    },
+    {
+      "at_utc": "2026-11-02T05:09:29.713776+00:00",
+      "action": "advance_playback",
+      "state": "idle",
+      "index": 0,
+      "current_track_id": null,
+      "paused_from": null
+    }
+  ],
+  "generated_default_speech": [
+    {
+      "bytes": 547244,
+      "sha256": "388e40f7ed2f02f077e933450e1aa65149bf88eee76f0fcedfb57c03047b3b6f",
+      "duration_seconds": 11.4,
+      "default_voice": true
+    },
+    {
+      "bytes": 514604,
+      "sha256": "b3c18c5fea0ee4aa4f05252a6611671dd93b876fbf4c12b47a8c4b73fa2cd862",
+      "duration_seconds": 10.72,
+      "default_voice": true
+    },
+    {
+      "bytes": 645164,
+      "sha256": "87eb024d842222e5158c07df11cc6c1e5f322bc0515a83b59094cb4b42c93f8b",
+      "duration_seconds": 13.44,
+      "default_voice": true
+    }
+  ],
+  "raw_speech_retention": "Private files outside repository; original content hashes/durations above, no voice references or new sample media committed",
+  "observer": {
+    "path": "scripts/dj_default_observer.py",
+    "sha256_lf": "50a4520fbeac97a6170388bb8f9195b103d22f0e6a1281e83480add2db667ce7",
+    "original_file_sha256": "762eeec09cf94dc4a1b1b771374069a8a23de83c74f262017574782c367512a9",
+    "scope": "Same observation source as run copy; committed text uses normalized LF. Guard did not intervene; importing this module installs nothing."
+  },
+  "browser_observations": [
+    {
+      "case": "pause during first speech",
+      "status": "Paused during DJ speech (Afterglow Avenue).",
+      "dj_time": 9.345927,
+      "dj_duration": 11.4,
+      "dj_paused": true,
+      "manual_playing": 0
+    },
+    {
+      "case": "resume first speech",
+      "status": "DJ is speaking about Afterglow Avenue…",
+      "dj_time": 9.515846,
+      "dj_duration": 11.4,
+      "dj_paused": false,
+      "manual_playing": 0
+    },
+    {
+      "case": "automatic advance reaches second intro",
+      "status": "DJ is speaking about Moonlit Reflection…",
+      "dj_time": 6.536713,
+      "dj_duration": 10.72,
+      "playing_count": 1,
+      "manual_playing": 0
+    },
+    {
+      "case": "first Skip pending",
+      "status": "DJ stopped. Check the reference voice message, then use Resume or Skip to continue.",
+      "playing_count": 0,
+      "note": "Transient status while Skip settled; trace shows the preceding speech had already ended, so this is classified as Skip during music."
+    },
+    {
+      "case": "Skip settled",
+      "status": "DJ is speaking about Antlercover…",
+      "dj_time": 12.927607,
+      "dj_duration": 13.44,
+      "playing_count": 1
+    },
+    {
+      "case": "speech hands off to music",
+      "status": "Now playing Antlercover",
+      "dj_time": 18.6371,
+      "dj_duration": 60,
+      "playing_count": 1,
+      "manual_playing": 0
+    },
+    {
+      "case": "pause music",
+      "status": "Paused during music (Antlercover).",
+      "dj_time": 23.87528,
+      "dj_paused": true,
+      "playing_count": 0
+    },
+    {
+      "case": "resume music",
+      "status": "Now playing Antlercover",
+      "dj_time": 24.02516,
+      "dj_paused": false,
+      "playing_count": 1
+    },
+    {
+      "case": "Skip during music",
+      "status": "Queue finished. Press Play to hear it again.",
+      "playing_count": 0
+    },
+    {
+      "case": "cached replay",
+      "status": "DJ is speaking about Afterglow Avenue…",
+      "dj_time": 0.113257,
+      "dj_duration": 11.4,
+      "playing_count": 1
+    },
+    {
+      "case": "pause before reload",
+      "status": "Paused during DJ speech (Afterglow Avenue).",
+      "dj_time": 2.770288,
+      "dj_paused": true,
+      "playing_count": 0
+    },
+    {
+      "case": "reload",
+      "status": "Paused during DJ speech (Afterglow Avenue).",
+      "playing_count": 0,
+      "queue_retained": true,
+      "default_voice_selected": true
+    },
+    {
+      "case": "resume after reload",
+      "status": "Now playing Afterglow Avenue",
+      "dj_time": 39.246077,
+      "dj_duration": 45,
+      "playing_count": 1
+    },
+    {
+      "case": "hold cached speech for Skip test",
+      "status": "Paused during DJ speech (Antlercover).",
+      "dj_time": 0.137565,
+      "dj_duration": 13.44,
+      "playing_count": 0
+    },
+    {
+      "case": "actively resumed speech before Skip",
+      "status": "DJ is speaking about Antlercover…",
+      "dj_time": 0.319353,
+      "dj_duration": 13.44,
+      "playing_count": 1
+    },
+    {
+      "case": "Skip during active speech",
+      "status": "Queue finished. Press Play to hear it again.",
+      "playing_count": 0
+    }
+  ],
+  "browser_console_errors_or_warnings": [],
+  "sampled_audio_errors": [],
+  "cache_replay_reload": "No provider attempts after second Play; still exactly three successful jobs/text3/speech3 after replay, reload, resume and cached skips",
+  "human_listening": {
+    "tester": "JoshuaKosakowsky",
+    "date": "2026-11-01 America/Denver",
+    "feedback": "It's a relaxing DJ, NPR style. I think there should be a few options available for the DJ that the user can pick. This one was very laid back",
+    "scope": "Owner heard and characterized the provided first default-voice introduction; requested selectable DJ styles. No audio failure reported; style choice is a separate follow-up, not implemented by this test.",
+    "requested_followup": "Owner selected presentation styles (Relaxed/Public Radio, Upbeat Radio, Playful), not different voice identities; separate implementation follows the preserved baseline."
+  },
+  "remaining_limits": [
+    "No MP3/WAV reference-voice tests; Mike retains #6.",
+    "Successful sequential default-only run does not establish the cause of Mike's earlier failures.",
+    "Overlap observation is sampled DOM state (max one playing element), supported by production phase trace and offline regressions; not a continuous browser event recording.",
+    "The temporary reference-voice stopped message during pending Skip resolved without intervention; wording is noted, no runtime edit made.",
+    "Source-ZIP/independent final acceptance and submission readiness are not established."
+  ],
+  "validation": {
+    "locked_checks": "PASS:230 tests run,1 platform symlink skip; verifier156, coverage36/11/19",
+    "focused_dj_frontend_reference_tests": 54,
+    "offline_rehearsal": "3 scenarios PASS;0 class calls",
+    "portable_launcher": "Startup/roles/3 samples with fake config PASS,0 calls; all4-config role masking PASS via isolated child-environment probe",
+    "whitespace": "PASS"
+  }
+}

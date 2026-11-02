@@ -1,0 +1,107 @@
+{
+  "recorded_at_utc": "2026-11-02T04:49:59.781139+00:00",
+  "date": "2026-11-01 America/Denver",
+  "tester": "Codex for JoshuaKosakowsky",
+  "tested_main": "2be9625717c35b4bb586506562d0965c31143145",
+  "merged_pr": 49,
+  "launcher": "python scripts/dev.py --port 8026",
+  "configuration": "No .env; all four class roles missing; no class calls or new generation",
+  "catalog": [
+    {
+      "title": "Afterglow Avenue",
+      "mode": "vocal",
+      "duration_seconds": 45,
+      "audio_sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61",
+      "cover_sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067"
+    },
+    {
+      "title": "Moonlit Reflection",
+      "mode": "instrumental",
+      "duration_seconds": 30,
+      "audio_sha256": "8e7c19158b0b6a95f3a1d8846da52a31295bec0dbca1cc313695c1adfb33703a",
+      "cover_sha256": "a4a5fd15e55d7262774027d2486812c1dc40723396c5d14e21c412d15c975818"
+    },
+    {
+      "title": "Antlercover",
+      "mode": "vocal",
+      "duration_seconds": 60,
+      "audio_sha256": "6d3455c0240e0239793f050a1a59014db66f3d0c7a5e6de38e517c053eae87e3",
+      "cover_sha256": "a3480a609f9b8efd4eff651a1e404ac9203e75476241cf38abdef62ae7418cd4"
+    }
+  ],
+  "retained_media_bytes": 28282047,
+  "checks": {
+    "normal_launch": "PASS",
+    "production_loader_full_decode": "PASS",
+    "three_ready_tracks_two_vocals": "PASS",
+    "original_audio_cover_and_lyrics_via_http": "PASS",
+    "distinct_session_media_urls_and_cross_session404": "PASS",
+    "repeat_identical_snapshot_zero_jobs": "PASS",
+    "browser": {
+      "result": "PASS",
+      "covers": "All3 complete512x512, paired titles/genre/mood and correct vocal/instrumental modes",
+      "lyrics": "Both original Qwen lyrics expanded unchanged; instrumental claims none",
+      "full_playback": [
+        {
+          "title": "Afterglow Avenue",
+          "start_seconds": 0.12787,
+          "end_seconds": 45,
+          "duration_seconds": 45,
+          "ended_paused": true,
+          "media_error": null
+        },
+        {
+          "title": "Moonlit Reflection",
+          "start_seconds": 0.134242,
+          "end_seconds": 30,
+          "duration_seconds": 30,
+          "ended_paused": true,
+          "media_error": null
+        },
+        {
+          "title": "Antlercover",
+          "start_seconds": 0.145162,
+          "end_seconds": 60,
+          "duration_seconds": 60,
+          "ended_paused": true,
+          "media_error": null
+        }
+      ],
+      "replay_pause_resume": "Antlercover deliberately replayed0.157, paused3.184, resumed3.389; no media error",
+      "reload": "All3 tracks/covers retained, audio URLs unchanged in the same session; all paused",
+      "generation_requests": 0
+    }
+  },
+  "human_listening": "Prior owner approvals retained; no new human listening claimed",
+  "main_ci": {
+    "run": 41390292540,
+    "conclusion": "success"
+  },
+  "final_independent_github_zip": "pending; this is an integrated-main checkout verification, not final ZIP acceptance",
+  "remaining_scope": "No DJ/default/reference feature acceptance or unrelated parent closure is inferred",
+  "coverage": {
+    "requirements": [
+      "R17",
+      "R18"
+    ],
+    "case": "AT-11",
+    "modes": [
+      "asset-review",
+      "browser"
+    ],
+    "boundary": "Integrated-main checkout verified; independent final GitHub ZIP acceptance remains with release work"
+  },
+  "local_validation": {
+    "sample_tests_run": 18,
+    "skipped": 1,
+    "result": "PASS",
+    "verifier_files": 152,
+    "coverage_requirements_tasks_cases": [
+      36,
+      11,
+      19
+    ],
+    "whitespace": "PASS",
+    "full_suite": "Already passed on exact merged main in hosted CI41390292540; not rerun locally for evidence-only edits"
+  }
+}

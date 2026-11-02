@@ -1,0 +1,71 @@
+{
+  "status": "selected by Joshua; audio and cover approved; integrated-main and final ZIP acceptance pending",
+  "prepared_by": "JoshuaKosakowsky directing Codex",
+  "sample": {
+    "id": "97c0ac27-4fd3-4a08-b7bc-b458c26ee4d4",
+    "title": "Afterglow Avenue",
+    "audio": "assets/samples/afterglow-avenue.wav",
+    "cover": "assets/samples/afterglow-avenue.png",
+    "instrumental": false,
+    "lyrics": "Neon signs blur in the rain\nStreetlights hum a soft refrain\nThe city sleeps, but I am awake\nChasing echoes for your sake\nWarm analog waves crash low\nPulsing bass begins to glow\nWe drive through shadows, side by side\nNowhere left for us to hide\nThe night is young, the road is clear\nWhispering all that we hold dear\nHome awaits at the end of light",
+    "style": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence",
+    "mood": "Hopeful and warmly nostalgic; a late-night journey home",
+    "generated_at": "2026-11-01",
+    "generation_notes": "Class-generated in the normal app on afd93c2 (includes main1fdc422), 45s vocal, with original Qwen lyrics retained verbatim. Audio approved by Joshua after listening. One separate FLUX visual-only scene curation produced the matching wordless cover; the first app cover is retained unchanged in results. Actual total: text1, music1, art2, speech0; music polls3/download1, no automatic retries. See generation and cover-curation records for exact inputs/UTC bounds/hashes. Date here is America/Denver.",
+    "generated_with": {
+      "lyrics": "Qwen3.6-35B-A3B",
+      "music": "ACE-Step 1.5 XL Turbo",
+      "cover": "FLUX.2 klein 4B"
+    }
+  },
+  "provenance": {
+    "generation_record": "results/a3-07-afterglow-generation.json",
+    "cover_curation_record": "results/a3-07-afterglow-cover-curation.json",
+    "source_commit": "afd93c242feee5ffda2d46abf4e0cc207009f9c7",
+    "runtime_base": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
+    "human_listening": {
+      "tester": "JoshuaKosakowsky",
+      "confirmation": "Approve the audio",
+      "date": "2026-11-01 America/Denver",
+      "scope": "User approved audible/intelligible vocal audio, hopeful synth-pop fit and library suitability after listening"
+    },
+    "lyrics_file": "assets/samples/afterglow-avenue.lyrics.txt",
+    "lyrics_sha256": "bde21ab90752482d8f744a13ed79b0904809b6ceefbe194462b25e25aecea532",
+    "cover_visual_inspection": {
+      "tester": "Codex for Joshua",
+      "method": "Direct visual inspection of the actual generated PNG",
+      "observation": "Wordless residential avenue, warm home windows, rainy pavement, car and distant figures; no visible title lettering; matches the homecoming mood",
+      "owner_selection": {
+        "tester": "JoshuaKosakowsky",
+        "date": "2026-11-01 America/Denver",
+        "confirmation": "Approve both",
+        "scope": "Wordless Afterglow Avenue cover and Moonlit Reflection instrumental selection for the intended two-vocal/one-instrumental library"
+      }
+    },
+    "library_selection": {
+      "tester": "JoshuaKosakowsky",
+      "date": "2026-11-01 America/Denver",
+      "confirmation": "Approve both",
+      "scope": "Wordless Afterglow Avenue cover and Moonlit Reflection instrumental selection for the intended two-vocal/one-instrumental library"
+    }
+  },
+  "validation": {
+    "audio": {
+      "duration_seconds": 45.0,
+      "sample_rate": 48000,
+      "channels": 2,
+      "bits_per_sample": 16,
+      "full_pcm_decode": true,
+      "peak": 0.891266,
+      "rms": 0.147591
+    },
+    "audio_sha256": "726aef333f0a4944b3c879dc440ec10d3b774b579714cc0f998bc28ceb435b61",
+    "cover_sha256": "417cd8c5f2c5fd99f291864dabcd709328d152712b49c0280c6780b251512067",
+    "cover_dimensions": [
+      512,
+      512
+    ],
+    "final_library_browser": "pending",
+    "final_github_zip": "pending"
+  }
+}

@@ -175,13 +175,13 @@ class ClassProviders:
         return self._chat(prompt, None, "text", thinking=thinking)
 
     def lyrics(self, prompt: str) -> str:
-        """Song lyrics from Qwen; same endpoint/model as text() with a token
+        """Final song lyrics from Qwen in explicit non-thinking mode, with a token
         budget sized for 10-60 second songs instead of the probe's short marker.
-        The raised budget is a deliberate, documented deviation that requires
-        live evidence (A3-03 acceptance), not a guessed payload."""
+        The request uses the DJ's supported direct-response control; live
+        evidence is still required for A3-03 acceptance."""
         if not prompt.strip():
             raise ValueError("Lyrics prompt is required")
-        return self._chat(prompt, 512, "lyrics")
+        return self._chat(prompt, 512, "lyrics", thinking=False)
 
     def cover(self, prompt: str) -> MediaBytes:
         if not prompt.strip():
@@ -201,11 +201,17 @@ class ClassProviders:
         except (KeyError, IndexError, TypeError, ValueError, OSError, binascii.Error, UnidentifiedImageError, Image.DecompressionBombError):
             fail("invalid_response", "The art service returned an invalid image.")
 
-    def speech(self, text: str) -> MediaBytes:
+    def speech(self, text: str, *, reference: MediaBytes | None = None) -> MediaBytes:
+        """Chatterbox default-voice speech; optional MP3/WAV reference (schema-
+        inspected path: ref_audio as a base64 data URI in the same frozen JSON
+        request; live verification is pending acceptance evidence)."""
         if not 1 <= len(text.strip()) <= 4096:
             raise ValueError("Speech input must contain 1-4096 characters")
         payload = self._payload("speech")
         payload["input"] = text
+        if reference is not None:
+            media_type = reference.content_type if reference.content_type in {"audio/wav", "audio/x-wav", "audio/mpeg"} else "audio/wav"
+            payload["ref_audio"] = "data:" + media_type + ";base64," + base64.b64encode(reference.content).decode()
         raw, mime = self._request("speech", PROBES["speech"]["path"], payload)
         return self._wav(raw, mime)
 
@@ -213,7 +219,15 @@ class ClassProviders:
         if not prompt.strip() or not 10 <= duration_seconds <= 600:
             raise ValueError("Music needs a prompt and duration of 10-600 seconds")
         payload = self._payload("music")
-        payload.update(prompt=prompt, audio_duration=duration_seconds, lyrics=lyrics)
+        # The probe's 80 BPM / C Major / 4/4 describes its piano sample, not
+        # every song. Missing metadata lets ACE-Step infer it from the prompt.
+        for field in ("bpm", "key_scale", "time_signature"):
+            payload.pop(field, None)
+        # Keep music-LM semantic planning while retaining our literal caption
+        # for DiT instead of replacing it with an LM-generated description.
+        # Audible genre fidelity still needs listening evidence.
+        payload.update(prompt=prompt, audio_duration=duration_seconds, lyrics=lyrics,
+                       thinking=True, use_cot_caption=False)
         data = self._json("music", "/release_task", payload)
         try:
             task_id = data["data"]["task_id"]
