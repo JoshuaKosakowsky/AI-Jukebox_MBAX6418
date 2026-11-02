@@ -65,8 +65,9 @@ The manifest selects three Joshua-approved songs: **Afterglow Avenue** (45 s
 synth-pop vocal), **Moonlit Reflection** (30 s ambient-piano instrumental) and
 **Antlercover** (60 s hopeful Latin-flare vocal about an Alaskan office moose).
 Original AI lyrics and matching class artwork are bundled. Mike's retained
-Moonlit Rehearsal remains a possible later alternate. Integrated-main verification
-and independent ZIP acceptance remain open under #7. See the
+Moonlit Rehearsal remains a possible later alternate. All three passed
+[integrated-main playback/reload checks](results/a3-07-integrated-main-library.json)
+on2be9625. Independent final GitHub ZIP acceptance remains pending. See the
 [record and asset requirements](assets/samples/README.md). A broken registered
 asset shows a safe setup warning and leaves song creation available. This loader
 and its synthetic browser rehearsal do not complete sample or ZIP acceptance.

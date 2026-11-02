@@ -1,8 +1,10 @@
 # Curated sample library
 
 The manifest selects three Joshua-approved class-generated songs: **two vocals
-and one instrumental**. They play locally without service settings. Final
-integrated-main verification and independent ZIP acceptance remain pending.
+and one instrumental**. They play locally without service settings.
+[Integrated-main verification](../../results/a3-07-integrated-main-library.json)
+on2be9625 passed all three songs to their full duration, original lyric/cover
+pairing, pause/resume and reload. Independent final ZIP acceptance remains pending.
 
 | Selection | Retained media and approval |
 |---|---|
@@ -29,8 +31,9 @@ approved by Joshua before adding the third entry.
 production-loader decoding, exact HTTP media/lyrics and session isolation on the
 normal launcher with all generation services missing. The earlier
 [two-song checks](../../results/a3-07-selected-library-checks.json) remain historical
-evidence for the preceding selection. #7 stays open until the integrated-main
-three-song flow and independent final GitHub ZIP acceptance are verified.
+evidence for the preceding selection. The later integrated-main record above
+verifies the merged three-song flow. #7 stays open for the remaining source-ZIP
+acceptance; no independent final ZIP pass is inferred.
 
 Mike's retained Moonlit Rehearsal is a possible later alternate; original files
 and final curation are still needed. This backup does not change his separate
