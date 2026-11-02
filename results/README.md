@@ -7,6 +7,15 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Current README/UI documentation (2026-11-02, main `fcdda54`):
+[safe normal-launch record](a3-09-current-ui.json),
+[full interface/library](a3-09-current-library.jpg),
+[bundled lyrics/player](a3-09-current-lyrics.jpg),
+[DJ presentation/reference chooser](a3-09-current-dj.jpg).
+Actual browser screenshots with all service roles missing; only existing sample
+playback and presentation/reload were exercised, with zero generation jobs or
+class calls. These do not replace live DJ/reference/vocal or final ZIP evidence.
+
 Integrated-main offline browser regression (2026-10-31):
 [27-check record](main-browser-regression.json),
 [paused playback](main-browser-paused.jpg),

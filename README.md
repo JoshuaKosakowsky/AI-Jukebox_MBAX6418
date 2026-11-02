@@ -8,9 +8,9 @@ the music; vocal songs first write original AI lyrics with Qwen, then ACE-Step
 sings them into a playable track. Everything stays paired with the correct
 track across page reloads and plays inline. Registered sample songs load locally
 without service settings or regeneration. Three selected samples are bundled,
-including two vocal songs;
-DJ playback and an optional MP3/WAV reference chooser are implemented; real
-reference-voice acceptance is still pending.
+including two vocal songs. Default-DJ playback has recorded real-class testing;
+an optional MP3/WAV reference chooser is implemented, with its real voice
+comparison still pending. The results below separate implementation from acceptance.
 
 Public repo: [AI-Jukebox_MBAX6418](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418).
 Team workflow is active: task branches and reviewed PRs for every change.
@@ -32,7 +32,10 @@ python scripts/dev.py
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The launcher installs/syncs the
-exact uv.lock dependencies before starting FastAPI. No environment activation,
+exact uv.lock dependencies before starting FastAPI. Runtime packages include
+FastAPI/Uvicorn, Pydantic, HTTPX, python-dotenv, Pillow and python-multipart;
+[pyproject.toml](pyproject.toml) lists dependencies and [uv.lock](uv.lock) pins them.
+No environment activation,
 Node build, paid account or Git metadata is needed to launch. Internet access is
 needed for the initial Python/package installation, not for subsequent local sample playback. On Windows the launcher automatically uses a short per-checkout directory
 under LOCALAPPDATA/AI-Jukebox_MBAX6418 to avoid native-extension failures in long
@@ -75,10 +78,10 @@ synth-pop vocal), **Moonlit Reflection** (30 s ambient-piano instrumental) and
 Original AI lyrics and matching class artwork are bundled. Mike's retained
 Moonlit Rehearsal remains a possible later alternate. All three passed
 [integrated-main playback/reload checks](results/a3-07-integrated-main-library.json)
-on2be9625. Independent final GitHub ZIP acceptance remains pending. See the
+on `2be9625`. Independent final GitHub ZIP acceptance remains pending. See the
 [record and asset requirements](assets/samples/README.md). A broken registered
-asset shows a safe setup warning and leaves song creation available. This loader
-and its synthetic browser rehearsal do not complete sample or ZIP acceptance.
+asset shows a safe setup warning and leaves song creation available. The final
+ZIP check must verify the actual bundled media, not just the loader or fixtures.
 
 ## Configure class services
 
@@ -108,10 +111,12 @@ and source archives. Never commit uploads, voice references or third-party media
 
 ## Current browser/API behavior
 
-1. Configure the art and text services (and music for playable tracks), launch
-   normally and open the home page. Choose a mode under Design your song:
+1. For new songs, configure art and music; add text for vocal lyrics. For DJ
+   playback, configure text and speech. Bundled songs play directly without any
+   service settings; Add to DJ queue needs the DJ services. Launch normally and
+   choose a mode under **Design your song**:
    **Instrumental** or **Vocal song with AI lyrics**.
-2. Under Create an instrumental song (the heading applies to both modes), enter
+2. Under **Create a song**, enter
    a song title/theme, musical style, mood and duration (10–60 seconds). Select
    **Create song &amp; generate instrumental** (instrumental mode) or **Create vocal
    song &amp; generate** (vocal mode). An instrumental deliberately calls FLUX once
@@ -140,9 +145,9 @@ and source archives. Never commit uploads, voice references or third-party media
    is the only way forward.
 5. Add playable songs to the **Queue & DJ** panel and press **Play queue**: Qwen
    writes a short spoken introduction for each queued song, Chatterbox speaks
-   it with the default voice or your optional MP3/WAV reference, and the music follows automatically — speech and
-   music never overlap because one persistent player element drives the whole
-   timeline sequentially. Pause, Resume and Skip work during speech AND during
+   it with the default voice or your optional MP3/WAV reference, then the music
+   follows. One persistent player element drives the whole
+   timeline sequentially to prevent speech/music overlap. Pause, Resume and Skip work during speech AND during
    music; the set stops cleanly after the final track. Reloading the page
    keeps the queue and position and never regenerates commentary.
    Select **Optional DJ reference voice** before playing to use your clip for
@@ -183,7 +188,9 @@ inactivity clears it. Limits: 20 tracks and 100 generation jobs per session,
 seconds so WAV downloads stay within the class service's 20 MB response cap
 (60 s at 48 kHz/16-bit/stereo is about 11.5 MB).
 Use a fresh private browser window for a new session if a session limit is reached.
-There is no disk persistence, upload route or multi-user deployment authentication.
+There is no disk persistence or multi-user deployment authentication. The only
+upload route accepts temporary, session-private DJ reference audio; it has no
+recording-download route and does not save recordings to disk.
 
 GET /api/session returns the v1 tracks/jobs/playback snapshot; /api/media/UUID
 serves only that session's assets. POST /api/tracks creates a draft and art job;
@@ -191,8 +198,9 @@ POST /api/tracks/UUID/cover creates a replacement/retry cover job; POST
 /api/tracks/UUID/lyrics (vocal tracks only) creates the Qwen lyrics job; POST
 /api/tracks/UUID/music creates the instrumental or vocal music job — for vocal
 tracks the track's current lyrics are submitted with the same verified ACE-Step
-request, and a request without lyrics is rejected with 409. All POSTs return 202
-with a queued GenerationJob; read the snapshot for the terminal result.
+request; generate lyrics before requesting vocal music (missing stored lyrics
+returns 409). These generation routes return 202 with a queued GenerationJob
+when accepted; read the snapshot for the terminal result.
 /api/status reports cover_generation_available, music_generation_available and
 lyrics_generation_available separately from song generation; it reports
 configuration, not provider reachability. Temporary MP3/WAV DJ reference
@@ -202,35 +210,56 @@ read route). The Queue & DJ chooser sends a fresh one-shot upload for each new
 introduction, including explicit retries, and deletes unused uploads. See the full
 [app contracts and integration notes](docs/APP_CONTRACTS.md).
 
-The earlier [startup configuration view](results/startup-configured.jpg) shows
-the app shell; live A3-02 generation evidence (exact inputs, decoded media
-measurements and pairing checks) is recorded in
-[docs/TEST_RESULTS.md](docs/TEST_RESULTS.md). Interactive browser screenshots
-were not reproducible on this review machine; the browser flow was exercised
-through the normal launcher over HTTP with fully decoded WAV/PNG media.
+## Verified results and current interface
 
-![Startup configuration view](results/startup-configured.jpg)
+The current [full interface and three-song library](results/a3-09-current-library.jpg),
+[AI lyrics and local player](results/a3-09-current-lyrics.jpg), and
+[DJ controls](results/a3-09-current-dj.jpg) were captured through the normal
+launcher on main `fcdda54`, 2026-11-02. All four service roles were **missing**;
+the screenshots show bundled media and implemented controls, not new generation
+or a live reference-voice test. Generation/DJ controls correctly stay disabled
+without the required services. Playful presentation persisted after reload.
+See the [safe UI record](results/a3-09-current-ui.json).
 
-The screenshot is an actual normal-launch browser check, not evidence of music
-generation or playback. The [empty library view](results/startup-library.jpg)
-records the earlier startup-only foundation.
+![Current presentation selector and optional reference chooser](results/a3-09-current-dj.jpg)
 
-## Verified normal-launch milestone
+Historical service tests retain their own tested commits; they were not rerun
+for this documentation update. Inputs, expected behavior and observed results:
 
-On main 7cc9645, two real instrumentals (30 s ambient piano and 20 s upbeat funk)
-generated with new matching covers. Actual browser checks passed play/pause/resume,
-generation during playback, two-track retention and replay after reload. Joshua
-confirmed that both clips were audible, instrumental and broadly matched the
-requested styles. See [inputs/results](results/main-instrumental-acceptance.json).
+| Feature / tested source | Inputs and expected behavior | Actual result and evidence |
+|---|---|---|
+| Custom music, main `7cc9645` | Moonlit Reflection: ambient piano, calm, 30 s; Desert Drive: upbeat funk, optimistic, 20 s. Expect distinct playable instrumentals retained after reload. | Real ACE-Step WAVs played with pause/resume and reload retention; Joshua confirmed both broadly matched. [Live record](results/main-instrumental-acceptance.json). |
+| Matching artwork, original cover test | Moonlit mountain lake / ambient piano / calm, and Desert sunrise / upbeat desert funk / warm. Expect a new FLUX cover on each corresponding draft. | Two real covers remained correctly paired after reload. Later selected samples also have class-generated covers; arbitrary lettering quality is not guaranteed. [Cover record](results/cover-browser-record.json), [sample provenance](assets/samples/README.md). |
+| Default spoken DJ, main `2be9625` | Queue Afterglow Avenue, Moonlit Reflection and Antlercover. Expect Qwen commentary, Chatterbox speech, then music; pause/resume, skip and cached replay. | All three introductions succeeded (three text + three speech requests); sequential controls and cached replay/reload passed. Joshua described the first introduction as relaxed/NPR-like. [Live/browser record](results/a3-05-default-dj-live.json). |
+| Packaged vocals and sample library, main `2be9625` | Approved 45 s synth-pop vocal, 30 s ambient instrumental and 60 s hopeful Latin moose-story vocal, with original AI lyrics and matching covers. Expect three ready pairs that play locally. | All three played to their ends with paired media/lyrics and reload retention; two vocal songs meet the project curation target. [Integrated-main record](results/a3-07-integrated-main-library.json). |
+| Failure and recovery, main `2a19ecf` | Busy music capacity and missing music configuration. Expect safe messages and deliberate recovery without duplicate requests. | Preethi's normal-launch cases passed; exact expected/actual observations and the tested design trade-off are preserved below. [Live record](results/a3-08-normal-launch-recovery.json). |
 
-![Two real generated songs on merged main](results/main-instrumental-library.jpg)
+The vocal samples establish retained class-generated audio and owner listening,
+not a new normal-browser vocal-creation acceptance run. Their generation paths
+and provenance are explicit in [Afterglow](results/a3-07-afterglow-generation.json)
+and [Antlercover](results/a3-07-antlercover-generation.json).
 
-This completes the instrumental/library and cover-pairing milestone. The
-A3-05 default AI DJ queue is implemented and offline-verified in a real
-browser against fixture providers (sequencing, skip/pause in both phases,
-reload without regeneration); real Qwen/Chatterbox live acceptance is still
-pending. Vocals, reference voices, approved samples and ZIP/release
-acceptance remain.
+### Remaining checks and known limits
+
+- **Vocal creation (#3):** Mike reports a successful Moonlit Rehearsal run on
+  `a1a41d1`; its cited acceptance files and human-listening result are still
+  missing from main. Keep this separate from approved sample playback.
+- **Reference voices (#6):** chooser/upload wiring and synthetic MP3/WAV tests
+  are merged; the real default/MP3/WAV listening comparison remains pending
+  after the earlier run stopped. No new run allowance is created here.
+- **Presentation choices:** Relaxed/Public Radio, Upbeat Radio and Playful
+  change the wording of new commentary. They have offline/UI checks; this is
+  not a claim of different voice identities or a live comparison of all styles.
+- **Quality:** specific heavier genres missed their targets, and FLUX may render
+  unwanted or misspelled lettering. Existing investigated limits and curated
+  cover choices remain documented; no universal quality guarantee is made.
+- **Team/report/release:** a teammate still needs to verify the finished-app
+  documentation/findings in their own words (R31), and independently install
+  the final exact GitHub ZIP. Automated review is not another human installer.
+
+The merged [27-case synthetic browser regression](docs/MAIN_BROWSER_REGRESSION.md)
+supports recovery/control reliability on its original `25f8617` source; it does
+not replace these outstanding live or release checks.
 
 ## Failure and recovery - observed results (2026-10-30)
 
@@ -288,7 +317,7 @@ As of the 2026-10-30 rehearsal on main `2a19ecf`, the local offline gate
 needed git >= 2.40 (Apple git 2.39.3 lacks `git hook run --to-stdin`) and a
 modern Node for the optional frontend probe (the probe is skipped when Node is
 absent; an installed obsolete Node can fail it — Node is not an app
-requirement). CI always runs the current suite green.
+requirement). CI uses the locked environment; its outcome is recorded per commit.
 
 ## Development and verification
 
@@ -307,10 +336,6 @@ tests use loopback HTTP. CI runs Python 3.12 on Windows/Linux and 3.14 on Linux.
 The required aggregate check remains named test. These checks do not establish
 full feature or release acceptance. Repository-only Git checks require a checkout;
 the normal app also launches from source without .git.
-
-The A3-05 playback controller and speech/music sequencing are implemented on
-`codex/a3-05-dj-queue` (offline-verified; live acceptance pending),
-with A3-06 adding MP3/WAV reference voices on top of it.
 
 ## Project guides and delivery
 
@@ -331,12 +356,13 @@ It also needs three actual class-generated samples with provenance, progress/err
 recovery, evidence/design findings and an independent exact-GitHub-ZIP installation.
 See the complete brief; this paragraph does not replace it.
 
-**Submission NOT READY.** Instrumental generation/playback and matching covers
-have passed acceptance. Vocals, live-class DJ sequencing acceptance, reference
-uploads, samples and independent deployment remain incomplete. Freeze a merged
-main SHA, download that GitHub ZIP and follow docs/TESTING.md with a different
+**Submission NOT READY.** Instrumentals/covers, the three selected samples and
+real default-DJ results are recorded above. Complete the published vocal-creation
+and real reference-voice evidence, remaining recovery/report verification and
+independent deployment. Then freeze a merged main SHA, download that exact GitHub
+ZIP and follow the [submission runbook](docs/SUBMISSION_RUNBOOK.md) with a different
 teammate. Submit the public repo URL, that commit and that same ZIP on Canvas;
-keep it public through grading.
+keep the repository public through grading.
 
 Adapted from [Assignment 2](https://github.com/JoshuaKosakowsky/Course-Assistant_MBAX6418)
 at 1a19c33ab9929dd2796ac7a5ea53247602a0cd32; its RAG stack is not assumed here.
