@@ -90,6 +90,8 @@ class ReferenceDjTests(unittest.TestCase):
                 self.assertEqual(client.post("/api/playback/start", json={"reference_id": reference}).status_code, 200)
                 self.assertEqual(list(session.jobs.values())[-1].state, JobState.FAILED)
                 self.assert_clean(session)
+                self.assertEqual(client.get(f"/api/media/{reference}").status_code, 404)
+                self.assertNotIn(reference, client.get("/api/session").text)
                 self.assertNotIn("private-provider-marker", client.get("/api/session").text)
                 # Replay, polling and reload do not retry failed commentary.
                 client.post("/api/playback/advance", json={})
