@@ -72,6 +72,27 @@ class MusicStoreTests(unittest.TestCase):
         providers.download_music.return_value = MediaBytes(wav_bytes(), "audio/wav")
         return providers
 
+    def test_vocal_submission_rejects_whitespace_only_lyrics(self):
+        item = self.add_track(title="Vocal Song")
+        item = item.model_copy(
+            update={
+                "settings": item.settings.model_copy(update={"mode": "vocal"}),
+                "lyrics": "   \n\t   ",
+            }
+        )
+        self.session.tracks[item.id] = item
+
+        providers = self.music_providers()
+
+        with self.assertRaises(SessionFailure) as caught:
+            self.store.queue_music(self.session, item.id)
+
+        self.assertIn(
+            "Generate the song's lyrics before requesting vocal music.",
+            str(caught.exception),
+        )
+        providers.submit_music.assert_not_called()
+
     def test_instrumental_submission_uses_settings_prompt_and_lyrics_marker(self):
         item = self.add_track("Midnight piano", 15)
         job = self.store.queue_music(self.session, item.id)

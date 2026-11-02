@@ -195,7 +195,7 @@ class SessionStore:
             if track_id not in session.tracks:
                 raise SessionFailure(404, "Track not found in this session.")
             track = session.tracks[track_id]
-            if track.settings.mode == "vocal" and track.lyrics is None:
+            if track.settings.mode == "vocal" and not (track.lyrics or "").strip():
                 raise SessionFailure(409, "Generate the song's lyrics before requesting vocal music.")
             duration = session.tracks[track_id].settings.duration_seconds
             if not 10 <= duration <= MAX_MUSIC_DURATION:
@@ -579,7 +579,7 @@ class SessionStore:
                 # instrumental with the frozen "[Instrumental]" marker.
                 current = session.tracks[job.track_id]
                 vocal = current.settings.mode == "vocal"
-                if vocal and not current.lyrics:
+                if vocal and not (current.lyrics or "").strip():
                     raise ProviderFailure(SafeError(
                         code="generation_failed",
                         message="Lyrics are missing. Generate the song's lyrics before requesting vocal music.",
