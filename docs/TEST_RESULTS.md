@@ -1,5 +1,37 @@
 # Test results and evidence
 
+## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
+
+Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,
+normal merge of main `aac3953475b624a8101fc44eeffe3289ae84bd2d` (#47)
+in isolated `codex/pr40-sync-nov1`. Only handoff.md conflicted; both parent note
+histories and inherited test/contribution evidence content are retained in order.
+Runtime/tests/contracts/frozen probes/schema/dependencies/CI/protection match
+c2817fc exactly; the wordless cover prompt and regression guard are unchanged.
+Main's sample inventory/README/media/manifest are retained unchanged. The PR keeps
+its original four-file scope against main.
+
+Locked `python scripts/dev.py --check`: **230 tests run, one platform symlink
+skip; PASS**, verifier **136 files**, coverage **36 requirements / 11 tasks /
+19 cases**. History/content, source/scope and whitespace checks PASS. No class
+calls, generation, new media, real visual/listening or parent acceptance. Mike's
+separate authorized #3/#6 run remains pinned to a1a41d1 with its shared13-request
+ceiling. Matt's eligible exact-head review is requested after publication and CI;
+reviewer authority/protection are unchanged. #36 remains open for the separately
+coordinated real-cover evaluation; prompt wording alone does not establish it.
+
+## PR #40 reconciliation with current main — 2026-11-02 America/Denver
+
+Hermes for MSpanny (Mike); PR #40 (#36 wordless cover-art direction). Normal
+merge of protected main a1a41d1 into branch head e394db5. Only handoff.md and
+this file conflicted; both complete histories retained. All app/test files
+auto-merged (cover_prompt wordless direction + #37 music captions + #44 lyrics
++ #46 reference voices coexist; no duplicate definitions). Locked
+`python scripts/dev.py --check` PASS: 230 tests (one optional platform
+symlink skip), verifier 135 files, coverage 36/11/19, whitespace clean. CI
+pending on the new head. No provider requests or generation in this sync;
+#36's bounded FLUX visual evaluation remains a separately authorized live step.
+
 ## PR #37 integration after the lyrics fix — 2026-11-01 America/Denver
 
 Joshua/Codex; previous head `a836c832ed953d20c275c8c2ff524570c1f5d849`,
@@ -1179,7 +1211,6 @@ the initial simultaneous-tab setup was discarded and cover rerun from scratch.
 class-service requests, user recordings or human listening. These are focused
 offline recovery checks; #8's broader normal-launch acceptance stays open.
 
-
 ## A3-05 returned-blocker diagnosis and retry limits - 2026-10-30 America/Denver
 
 Codex for Joshua, diagnostic against Matt's draft c4404dd. Explicit separate
@@ -1209,7 +1240,6 @@ deliberate request, and the active-speech limit applies across browser sessions.
 Full locked checks: 162 tests PASS (159 prior + 2 HTTP + 1 optional Node probe),
 repository/coverage/whitespace PASS. Matt retains readiness and Qwen correction;
 Joshua contributes here and cannot supply independent approval. #5 stays open.
-
 
 ## A3-07 sample-library loader - 2026-10-30 America/Denver
 
@@ -1242,7 +1272,6 @@ loaded tracks plus session-local replacement with original catalog bytes preserv
 All 28 existing HTTP cases also passed from the isolated source copy with the
 three-entry synthetic manifest present; their explicit fixtures keep them independent
 of Jovi's eventual selection. The approved tracked manifest remained unchanged.
-
 
 ## A3-08 normal-launch failure and recovery - 2026-10-30 America/Denver
 
@@ -1348,7 +1377,6 @@ This verifies changed-request compatibility and a limited listening comparison;
 normal-launch/browser checking on integrated main and broad genre quality remain
 unchecked. Preethi's #27 test and budget were separate and untouched.
 
-
 ### Broader user feedback and planning revision — #35 / PR #37
 
 Joshua tested the normal app running PR head 666d44b and reported:
@@ -1403,7 +1431,6 @@ regressions. Final full locked check: **148 tests PASS**, verifier/coverage/
 whitespace PASS, including actual startup and Node handler checks.
 **This concrete-cue version has no live/listening acceptance yet.**
 
-
 ### Concrete-cue listening comparison — 2026-10-30 America/Denver
 
 Joshua explicitly requested one new Iced Coffee metal clip and one Yellow
@@ -1431,7 +1458,6 @@ investigation is a genre-only control and service-conditioning verification,
 not a claim that more prompt words already solved it. #35 stays open/#37 draft.
 No extra generation, retries, cover changes, full-suite rerun or integrated-main
 acceptance in this comparison. Runtime/tests remain the148-test checked code.
-
 
 ### Shared music request path and service controls — 2026-10-30 America/Denver
 
@@ -1479,7 +1505,6 @@ unavailable. Next comparison: same genre and request controls, current template
 vs a concise musical description. That comparison is proposed, not executed.
 #35 stays open and #37 draft. No universal genre fix or integrated-main acceptance.
 
-
 ## A3-05 Qwen correction - 2026-10-30 America/Denver
 
 Codex for Joshua, coordinated on #27 with the exact provider/DJ call-site claim;
@@ -1507,7 +1532,6 @@ or approved sample selection. No raw generated text/audio or keys retained in Gi
 verifies speech attachment through real adapters and HTTP/store orchestration;
 it is **not** normal-launch browser/control/listening or integrated-main acceptance.
 Matt still owns that remaining AT-07/AT-09 work; #5 stays open and #27 stays draft.
-
 
 ## A3-05 integration with merged sample loader - 2026-10-30 America/Denver
 
@@ -1602,6 +1626,21 @@ awaiting mase7919's readiness decision. Project-wide items outside Issue #5
 (vocal lyrics, reference voices, final approved samples, independent ZIP
 testing) remain open and are not claimed here.
 
+## #36 Wordless cover-art direction - 2026-10-31
+
+Issue #36 (repeatedly misspelled generated lettering, e.g. the Desert Drive
+"DESSERT DRIIVE" record and Joshua's b7d97a0 review): the production cover
+prompt now LEADS with a text-free artwork direction (no words/typography/
+captions/logos/titles drawn in the image, title expressed visually only),
+replacing the weaker "no lettering" tail and dropping the "album cover"
+framing that invited rendered title typography. The frozen art request probe
+(contracts/service-probes.json), the original starter prompt
+(docs/ASSIGNMENT.md), retry/replacement behavior and title/style/mood theme
+relation are all unchanged. Offline verification only: 190 tests (1 new static
+guard), verifier 118 files, coverage 36/11/19, gate PASS. Effectiveness is NOT
+yet established - per the issue, no prompt guarantees typography; the bounded
+FLUX visual evaluation remains a separately authorized live step (no provider
+request or generation budget was spent by this change).
 
 ### Within-genre caption comparison stopped — 2026-11-01 America/Denver
 
@@ -1631,7 +1670,6 @@ OFFLINE against the documented response shape, missing/different seed stop paths
 and one-shot accounting guards, with zero network calls. A fresh pair remains
 unexecuted after the stop; prior failures stay failed, #35 open / PR37 draft.
 
-
 ### Corrected caption pair — 2026-11-01 America/Denver
 
 Joshua explicitly authorized a fresh two-clip comparison after the stopped run:
@@ -1657,7 +1695,6 @@ pair changes the whole caption and cannot isolate title alone or prove all-genre
 fidelity. [Exact corrected-pair record](../results/a3-35-caption-ab-v2.json).
 No more generation under this completed run; #35 open / PR37 draft.
 
-
 Offline follow-up: pinned upstream [inference.py, lines824-828](https://github.com/ace-step/ACE-Step-1.5/blob/ca1e85fe9430179831e6bc6be790c332190a3866/acestep/inference.py#L824)
 replaces the DiT input caption with LM-generated caption when `use_cot_caption`
 is true. That flag is enabled in both comparison requests; the original prompt
@@ -1667,7 +1704,6 @@ all controls fixed, disables only caption rewriting, retains `thinking=true`,
 and compares one new clip against retained B. **Not run; fresh authorization
 required after the completed two-job budget.** No production change is justified
 from the failed pair alone; #35 remains open / PR37 draft.
-
 
 ### Caption rewriting disabled: one control — 2026-11-01 America/Denver
 
@@ -1690,7 +1726,6 @@ This suggests a shared conditioning setting worth evaluating; one retained-contr
 comparison does not prove causality or all-genre quality. Same DiT seed does not
 control every LM sample. No production flag/caption/default change or further
 generation. Detailed user steering is pending; #35 stays open / PR37 draft.
-
 
 ### Listening target and shared candidate — 2026-11-01 America/Denver
 
@@ -1715,7 +1750,6 @@ are complete. Candidate full locked check:193 tests PASS,0skips; safeguards126 /
 coverage36-11-19 / whitespace PASS, including startup and Node probes. Full
 genre/mood and integrated-main acceptance unverified. #35 remains open / PR37 draft.
 
-
 ### Explicit heavier target: Iced Coffee deathcore — 2026-11-01 America/Denver
 
 Joshua authorized "Generate the one deathcore clip"; claim PR37 comment6561605112.
@@ -1735,7 +1769,6 @@ recording, artist-name mapping or production fixed seed introduced.
 [Exact target record](../results/a3-35-deathcore-candidate.json).
 No further generation under this completed one-job run; #35 open / PR37 draft.
 
-
 D's failure leaves the shared candidate unaccepted for the requested heavier
 sound. Do not treat C's earlier relative improvement, decoded audio or green CI
 as a completed fix. Next step is an offline technical review with Matt of the
@@ -1745,7 +1778,6 @@ duration and other controls and use retained D as context. That is a hypothesis,
 not an executed/authorized follow-up or proof that planning caused the failure.
 No new generation under the completed budget; no model/service capability limit
 is established by these cases. #35 stays open / PR37 draft.
-
 
 ### Genre scorecard round1; metal tuning deferred — 2026-11-01 America/Denver
 

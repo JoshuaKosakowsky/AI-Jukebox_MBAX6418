@@ -15,7 +15,7 @@ from jukebox.app import create_app
 from jukebox.config import Settings
 from jukebox.contracts import MediaRef, Playback, SafeError, SongSettings, Track
 from jukebox.providers import MediaBytes, ProviderFailure
-from jukebox.sessions import SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore
+from jukebox.sessions import SESSION_COOKIE, SESSION_SECONDS, SessionFailure, SessionStore, cover_prompt
 
 
 def png(color):
@@ -31,6 +31,23 @@ def art_settings():
 
 def body(title="Moonlit lake", style="Ambient piano", mood="Reflective"):
     return {"title": title, "settings": {"style": style, "mood": mood, "duration_seconds": 30, "mode": "instrumental"}}
+
+
+class CoverPromptTests(unittest.TestCase):
+    def test_cover_prompt_leads_with_a_wordless_direction(self):
+        prompt = cover_prompt(Track(title="Solar Tide", settings=SongSettings(
+            style="Upbeat funk", mood="Energetic and optimistic", duration_seconds=30)))
+        # The prompt opens with the strongest no-text instruction (issue #36:
+        # generated lettering repeatedly comes out misspelled).
+        self.assertTrue(prompt.startswith("Create original square artwork for this song with no text"))
+        for needle in ("no words", "no typography", "no captions", "no logos",
+                       "no titles drawn in it", "never as written words"):
+            self.assertIn(needle, prompt)
+        # The visual theme relation is preserved: title, style and mood still ride along.
+        for needle in ("Solar Tide", "Upbeat funk", "Energetic and optimistic"):
+            self.assertIn(needle, prompt)
+        # The "album cover" framing that invites rendered title typography is gone.
+        self.assertNotIn("album cover", prompt)
 
 
 class CoverHttpTests(unittest.TestCase):

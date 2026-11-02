@@ -1,9 +1,9 @@
 {
   "title": "Afterglow Avenue",
-  "status": "offline_preparation_only",
+  "status": "authorized_for_one_bounded_live_generation",
   "prepared_by": "Codex for JoshuaKosakowsky",
-  "prepared_at_utc": "2026-11-02T01:54:08.791751+00:00",
-  "source_main": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+  "prepared_at_utc": "2026-11-02T03:41:20.792412+00:00",
+  "source_main": "1fdc422f987c3f98b22e9468ea9aa6fba119d680",
   "issue": 7,
   "branch": "codex/a3-07-vocal-two-prep",
   "draft_request": {
@@ -20,7 +20,7 @@
   "production_prompts": {
     "lyrics": "Write original song lyrics for a new song.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nTarget length: about 45 seconds, roughly 11 short lines.\nReturn only the lyrics: original, plain, one line per verse line, no section headings, no song title, no commentary. English.",
     "music": "Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence. Style-matched vocals, supplied lyrics. Mood: Hopeful and warmly nostalgic; a late-night journey home. Theme: Afterglow Avenue. Genre-led groove, tempo, instruments and production; Theme/mood shape dynamics and motifs.",
-    "cover": "Create original square album cover art for this song.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nReflect this song's theme, musical style and mood in the imagery and colors. Use an original visual composition, no lettering, logos or copied album artwork."
+    "cover": "Create original square artwork for this song with no text or lettering anywhere in the image: no words, no typography, no captions, no logos, no decorative letters, no titles drawn in it.\nSong title and theme: Afterglow Avenue\nMusical style: Synth-pop: warm analog synths, pulsing bass, crisp drums, melodic sung lead, clear final cadence\nMood: Hopeful and warmly nostalgic; a late-night journey home\nRepresent the song's theme, style and mood through imagery, color and composition only; express the title visually, never as written words."
   },
   "music_controls": {
     "audio_duration": 45,
@@ -43,11 +43,11 @@
   "coordination": {
     "first_vocal": "Mike owns the separate authorized #3/#6 run on a1a41d168b1004132b6bac38f914d2eddff729bc",
     "second_vocal": "Joshua owns this distinct sample preparation; confirm first-vocal result/style before live generation",
-    "artwork": "Mike retains #40. Refresh the production cover prompt after reviewed #40 integration if it lands before this sample is generated.",
+    "artwork": "Wordless cover helper from merged PR40 is included in this source.",
     "review_inventory": "PR #47 remains a separate frozen inventory change"
   },
   "future_live_budget": {
-    "status": "proposed; not executed or added to Mike's run",
+    "status": "Authorized by Joshua to produce this separate song now: one lyrics, one art and one music request; no retries or speech.",
     "text": 1,
     "art": 1,
     "music": 1,
