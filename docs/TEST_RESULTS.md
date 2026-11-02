@@ -1,5 +1,25 @@
 # Test results and evidence
 
+## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
+
+Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,
+normal merge of main `aac3953475b624a8101fc44eeffe3289ae84bd2d` (#47)
+in isolated `codex/pr40-sync-nov1`. Only handoff.md conflicted; both parent note
+histories and inherited test/contribution evidence content are retained in order.
+Runtime/tests/contracts/frozen probes/schema/dependencies/CI/protection match
+c2817fc exactly; the wordless cover prompt and regression guard are unchanged.
+Main's sample inventory/README/media/manifest are retained unchanged. The PR keeps
+its original four-file scope against main.
+
+Locked `python scripts/dev.py --check`: **230 tests run, one platform symlink
+skip; PASS**, verifier **136 files**, coverage **36 requirements / 11 tasks /
+19 cases**. History/content, source/scope and whitespace checks PASS. No class
+calls, generation, new media, real visual/listening or parent acceptance. Mike's
+separate authorized #3/#6 run remains pinned to a1a41d1 with its shared13-request
+ceiling. Matt's eligible exact-head review is requested after publication and CI;
+reviewer authority/protection are unchanged. #36 remains open for the separately
+coordinated real-cover evaluation; prompt wording alone does not establish it.
+
 ## PR #40 reconciliation with current main — 2026-11-02 America/Denver
 
 Hermes for MSpanny (Mike); PR #40 (#36 wordless cover-art direction). Normal
