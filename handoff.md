@@ -17,7 +17,8 @@ His reported private folder is not accessible here; do not infer full hashes or 
 Locked scripts/dev.py --check PASS:230 tests run,1 platform skip; verifier145, coverage36/11/19; whitespace clean.
 Library remains2 entries/1 vocal; target3 entries/2 vocals. Joshua listening/cover selection for Mike's track still pending.
 Integrated-main three-song acceptance and independent final GitHub ZIP remain pending; #7 stays open.
-Next: retain/test/publish this available set, request JoshKozy's separate review; integrate Mike's original files when accessible.
+Published selected media at f73db7e in PR48; source/evidence hashes remain pinned; request JoshKozy's separate exact-head review.
+Next: integrate Mike's original files when accessible; preserve both approved selections and do not regenerate.
 Then present Moonlit Rehearsal to Joshua, verify all3 through normal launch and final ZIP; no further generation budget implied.
 
 ## Session — Vocal sample 2 preparation, 2026-11-01 America/Denver
