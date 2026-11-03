@@ -1,5 +1,24 @@
 # Agent handoff
 
+## Session — PR65 merged, 2026-11-02 America/Denver
+Codex for Joshua; local `codex/a3-post-65-handoff` from main aece4d1.
+Owner's merge authorization remains active; fresh JoshKozy approval5747092088 covers8154f9a exactly.
+Verified four green CI checks, current baseb25a119, zero review threads and unchanged protection.
+Merged normally at aece4d17663aa2508d70a64e58d8f7acc60cb08d; no bypass, service calls or assignments changed.
+Main now contains #64 guide and #65 seeking, queue removal, confirmed lyric display corrections and voice wording.
+Pre-merge verification247 tests/one skip, scope194/coverage36/11/19 and browser evidence keep their original sources.
+Post-merge main CI is verified separately; no new integrated browser/listening or ZIP acceptance is claimed here.
+Normal unconfigured preview8036 remains available; original configured8033 session was not restarted or edited.
+An existing process does not automatically reload Python backend/catalogue from main; preserve session data before any restart.
+Original AI drafts/audio/art and provenance remain intact; only sample display text changed.
+Queue Remove keeps library media and protects the active entry; Skip first. Presentation is not speaker identity.
+Keep this completion row/handoff local for the next relevant reviewed change; no standalone paperwork PR or main push.
+Next: verify integrated main flow, explicitly choose/download a new runtime ZIP, coordinate one actual teammate install.
+The earlier0a34502 archive does not cover these runtime fixes; never relabel its recorded evidence.
+#9/R31 actual teammate documentation verification and remaining live acceptance remain pending.
+No extra generation allowance follows from this merge; keep Mike61 separate.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/65 ; /issues/10.
+
 ## Session — PR64 merged; PR65 synchronized, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-playback-ux-fixes`, pre-sync3ee4d3e, incoming main b25a119.
 Owner authorized #64/#65 merges when eligible; #64 approved, #65 initially had no review.
