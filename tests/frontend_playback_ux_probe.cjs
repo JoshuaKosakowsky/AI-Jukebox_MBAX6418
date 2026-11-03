@@ -17,8 +17,13 @@ const context = vm.createContext({
   request:async (path,body)=>{ assert.equal(path,'/api/playback/queue/remove'); calls.push(body.track_id); },
   syncAfterMutation:async()=>{}
 });
-vm.runInContext(seeking + dj + ';globalThis.api={seekAudio,seekDj,canSeekDj,renderDj};',context);
+vm.runInContext(seeking + dj + ';globalThis.api={seekAudio,seekDj,canSeekDj,renderDj,updateManualSeeking};',context);
 const api=context.api, audio=context.djAudio, session=context.latestSession;
+const manualButtons=[{disabled:true},{disabled:true}];
+context.document.querySelectorAll=()=>[{querySelector:()=>audio,querySelectorAll:()=>manualButtons}];
+context.djActive=true;api.updateManualSeeking();
+assert.equal(manualButtons[0].disabled,false,'idle snapshot restores manual seeking while DJ engine releases ownership');
+context.djActive=false;
 assert.equal(api.seekAudio(audio,5),true); assert.equal(audio.currentTime,15);
 assert.equal(audio.paused,true, 'seeking must not start a paused player');
 api.seekAudio(audio,-100); assert.equal(audio.currentTime,0);

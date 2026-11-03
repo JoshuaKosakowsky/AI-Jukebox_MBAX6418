@@ -165,7 +165,7 @@ function seekAudio(audio, seconds) {
 function updateManualSeeking() {
   document.querySelectorAll(".track").forEach(card => {
     const audio = card.querySelector("audio");
-    const disabled = djActive || latestSession?.playback.state !== "idle"
+    const disabled = latestSession?.playback.state !== "idle"
       || !audio || !Number.isFinite(audio.duration) || audio.duration <= 0;
     card.querySelectorAll(".seek-controls button").forEach(button => { button.disabled = disabled; });
   });
