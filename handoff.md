@@ -1,5 +1,29 @@
 # Agent handoff
 
+## Session — User playback/lyrics fixes, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-playback-ux-fixes` from main e17997d; tested code29b9032dbbb747092ae97bbe2c7b9b5201e3a337.
+Owner found no seeking, no queue removal and lyric/performance mismatches; asked about one DJ voice.
+Added session-private byte-range/HEAD media responses, metadata preload and native/+/-5-second seeking.
+DJ seeking is music-only (including paused), preserves paused state and never calls a provider.
+Additive POST queue/remove preserves library/media/jobs, adjusts index and rejects current-entry removal409.
+Queue renders queue order, not library order; current entry protected, Skip then Remove; idle queue can empty.
+Afterglow display omits3 unsung ending lines; Antlercover uses owner's exact Coffee steam rises, keeping it tight. and omits Sarah line.
+Original Qwen drafts/.lyrics.txt/candidate/generation records and audio/artwork are unchanged.
+Lyrics note clarifies draft/performance differences; DJ help distinguishes presentation wording from one default Chatterbox identity.
+PASS: focused32 + production Node probe; final locked suite247 tests/one skip, scaffold189, coverage36/11/19 and whitespace.
+Normal8036 browser: full45/30/60s seekable ranges, paused0->5->0 seeking and corrected lyric text.
+Synthetic8037 browser: player time5 survives card rebuild, new buttons seek10/back5; queue order/removal and paused DJ +5 pass.
+Current removal disabled; future removal keeps current paused/time; empty queue survives reload, library3 intact.
+Cached replay adds no fixture calls; total synthetic text1/speech1 (one-second silence), zero class calls/uploads.
+Browser caught disabled manual seeking at DJ finish; guard29b9032 fixes it, browser rechecked; final GET/HEAD decorator cleanup verified offline.
+Safe JSON and two JPEGs record normal/synthetic limits; no new human listening or independent ZIP acceptance.
+Synthetic8037 stopped. No-credentials normal8036 retained (root PID35260); owner8033/five-track session untouched.
+One restricted focused-test rerun stalled and was stopped; unrestricted focused/full checks are authoritative.
+#64 remains frozen and Mike61 untouched; README/handoff may need normal reconciliation after either merges.
+A runtime merge requires explicitly selecting/testing a new ZIP, not silently replacing old0a34502 evidence.
+Next: complete checks, publish Refs #9/#5/#7, request eligible Hermes review; merge only after normal gates.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6594778129.
+
 ## Session — PR63 merged; current ZIP packet, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, prior1e5808d, incoming main0a34502.
 Owner explicitly approved #63 merge; exact head9d4f072 had Hermes approval, four green checks, zero threads.

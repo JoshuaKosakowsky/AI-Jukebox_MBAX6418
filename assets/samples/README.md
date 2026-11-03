@@ -12,6 +12,14 @@ pairing, pause/resume and reload. Independent final ZIP acceptance remains pendi
 | Moonlit Reflection | Original 30 s reflective ambient-piano instrumental and FLUX lake/pianist cover. Prior Joshua listening retained; final selection confirmed on 2026-11-01 America/Denver. |
 | Antlercover | 60 s hopeful Latin-flare vocal about an Alaskan office moose; original Qwen lyrics, ACE-Step WAV and wordless FLUX workplace artwork. Joshua listened and approved audio/artwork on 2026-11-01 America/Denver. |
 
+Display-lyric corrections (Joshua listening feedback, 2026-11-02): Afterglow
+omits the three final draft lines that were not sung. Antlercover combines the
+coffee/blending lines as "Coffee steam rises, keeping it tight." and omits the
+Sarah line. The manifest supplies this corrected display text; original Qwen
+lyrics remain unchanged in candidate/generation records and .lyrics.txt files.
+Audio/artwork and their hashes are unchanged. These panels remain AI-written
+lyrics with targeted listening corrections, not independently verified transcripts.
+
 [Afterglow provenance](afterglow-avenue.candidate.json) links the exact production
 HTTP run, returned lyrics, source, model names and hashes. Actual Afterglow calls:
 text1/music1/art2/speech0, three music polls and one download, no automatic retries.

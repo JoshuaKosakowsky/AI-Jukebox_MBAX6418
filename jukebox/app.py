@@ -318,7 +318,8 @@ def create_app(settings: Settings | None = None):
         require_dj()
         return store.resume_playback(current)
 
-    @app.api_route("/api/media/{media_id}", methods=["GET", "HEAD"])
+    @app.get("/api/media/{media_id}")
+    @app.head("/api/media/{media_id}", include_in_schema=False)
     def media(media_id: UUID, request: Request, current=Depends(browser_session)):
         asset = store.get_media(current, media_id)
         size = len(asset.content)

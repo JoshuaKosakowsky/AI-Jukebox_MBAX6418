@@ -174,3 +174,13 @@ Unmodified production seed defaults; four full non-silent48kHz stereoPCM16 WAVs,
 Metal's earlier [failed heavier case](a3-35-deathcore-candidate.json) is preserved;
 its deferral is a user priority decision, not a repaired or closed issue. No
 further generation under the completed round1 budget.
+
+User playback review fixes (2026-11-02): [safe record](a3-playback-ux.json),
+[normal sample seeking](a3-playback-seeking.jpg), [synthetic DJ queue/seek controls](a3-playback-queue.jpg).
+Normal no-credentials browser verifies sample ranges/metadata, paused5-second
+seeking and exact owner display-lyric corrections. Separate synthetic-provider
+browser verifies card/player preservation, queue order/removal, paused DJ seeking,
+current-entry protection, empty-queue reload and cached playback. Zero class calls;
+fixture speech is silence, not real DJ quality/listening acceptance. Original
+sample media and lyric provenance are retained. A runtime merge needs an explicitly
+selected/tested new ZIP; it does not certify the older0a34502 candidate.
