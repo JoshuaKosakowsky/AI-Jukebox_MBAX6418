@@ -1,5 +1,46 @@
 # Test results and evidence
 
+## Current ZIP test packet reconciliation — 2026-11-02 America/Denver
+
+Joshua/Codex reconciled PR59 with main0a34502 after merged #63; both contribution
+and handoff histories are retained. The teammate procedure now explicitly pins
+`0a34502a4281a8a437b81657fe0809ea92e2c99f`, superseding its older29c5de1 pin;
+earlier observations keep their original source. Actual anonymous GitHub ZIP:
+31,547,394 bytes, SHA-256
+`cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025`.
+Archive inventory and all183 source files match that commit byte-for-byte; ZIP
+integrity, prohibited-path and bounded credential-pattern checks pass. Main CI
+[passed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/41562978679).
+No extraction/startup/browser/independent installation is claimed by this preflight.
+The external template retains19 not-run cases and no installer; release evidence
+completeness correctly remains NOT READY. No gate or acceptance registry changed.
+
+Locked `python scripts/dev.py --check` PASS:240 tests/one skip, scaffold184 and
+coverage36/11/19. Source/scope, historical-DJ JSON preservation, continuous table
+and whitespace checks pass. Procedure adds zero-call layout/theme/idea-helper
+checks; the existing coordinated text4/art2/music2/speech3 ceiling stays11 total.
+No service calls, new media, user uploads or invented listening/teammate results.
+Mike's61 and Matt's implementation remain separate. One actual teammate still
+needs the clean-ZIP/default-DJ run; reference-voice comparison is outside it.
+
+## Local editable song ideas — 2026-11-02 America/Denver
+
+Joshua/Codex, `codex/a3-surprise-song` from main `691fa44`. Expected: Surprise me
+fills a varied vocal-song idea/style/mood, optional seed steers it, selected
+nonempty custom style/mood survive, duration/manual editing remain unchanged,
+and neither click nor Enter submits generation. Actual: all pass in the normal
+no-credentials browser; the existing configured owner session's five track titles
+remain unchanged. All six layouts/both themes fit at1265/465px; a42-character
+unbroken seed also wraps at345px. No generation/service calls or new media.
+
+The actual production-handler VM probe samples2000 seeded rolls:1950 distinct
+titles,2000 distinct full ideas,1705 styles and20 moods. It rejects network/form
+submission/persistence, tests long Unicode bounds, Enter prevention, custom edits,
+reset and a repetitive RNG. This verifies variety for that run, not infinite or
+uniformly original writing. Music/lyrics still use the existing explicit Generate
+path; no new musical quality/fidelity/listening or final-ZIP acceptance is claimed.
+[Safe record](../results/a3-song-ideas.json); screenshots remain local author evidence.
+
 ## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
 
 Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,

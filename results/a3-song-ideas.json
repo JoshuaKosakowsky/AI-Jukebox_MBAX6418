@@ -1,0 +1,263 @@
+{
+  "date": "2026-11-02 America/Denver",
+  "tester": "Codex for JoshuaKosakowsky",
+  "branch": "codex/a3-surprise-song",
+  "source_base": "691fa4450ebf0b475c2c8e52d3fb38dca9b0bb84",
+  "scope": "Local editable idea generator; no song/service-generation quality or independent ZIP acceptance",
+  "offline_probe": {
+    "method": "Production ideas.js handlers executed in a network/submission-rejecting Node VM with a fixed LCG seed",
+    "rolls": 2000,
+    "unique_titles": 1950,
+    "unique_full_ideas": 2000,
+    "unique_styles": 1705,
+    "distinct_moods": 20,
+    "bounds": "title/style/mood<=120 chars; bounded repetitive random-source and long-Unicode-seed cases",
+    "custom_seed_keep_edit_enter_reset": "PASS"
+  },
+  "normal_browser": {
+    "launcher": "python scripts/dev.py --port8034",
+    "configuration": "All class roles missing; normal app, no synthetic provider replacements",
+    "checks": [
+      {
+        "design": "sleeve",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "There's a legally binding jellybean in my sandwich, and my toaster is the judge",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "sleeve",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "The office goldfish needs a legally binding jellybean to open a disco for moths",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "gallery",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "There's a singing tax return in my boots, and the villain is my lunch",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "gallery",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "A sleepwalking scarecrow is outsourcing its nightmares",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "console",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "I brought a singing tax return to a pirate customer-service line, and my socks start a rebellion",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "console",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "Once I answer my last email, I'll turn my deadlines into confetti",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "room",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "I brought a suspicious casserole to the last train to the moon, and the villain is my lunch",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "room",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "Dear a dragon in community college, please return a suspicious casserole",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "shop",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "A troll doing remote support is opening a detective agency for crumbs, and the cheese has hired a lawyer",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "shop",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "The breakup of a talking dental crown and a cactus with abandonment issues, and the clouds demand overtime",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "workbench",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "A protest anthem for the wrong birthday cake at an Antarctic karaoke bar, and the clouds demand overtime",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "workbench",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "Dear a cloud with a parking permit, please return a professional apology, and the ending is held up in customs",
+        "tracks": 3,
+        "width": 1265
+      },
+      {
+        "design": "sleeve",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "The breakup of a haunted shopping cart and a very polite kraken",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "sleeve",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "My pocket universe is haunted by a goose in witness protection, and the orchestra is on strike",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "gallery",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "A nervous black hole at a funeral for Wi-Fi, but the ghost needs a reference",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "gallery",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "There's a bag of fog in my school bag, and my socks start a rebellion",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "console",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "My desk drawer is haunted by a very polite kraken, and my socks start a rebellion",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "console",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "Once I teach the goose to whisper, I'll give the ocean a performance review",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "room",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "A power ballad for the wrong birthday cake in the lost-luggage afterlife",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "room",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "A pigeon with a mortgage needs a furious snow globe to open a hotel for thunderstorms, and my sandwich becomes the boss",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "shop",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "My spacesuit is haunted by a robot afraid of charging, and my toaster is the judge",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "shop",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "A cactus with abandonment issues has misplaced the entire ocean, and the ghost needs a reference",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "workbench",
+        "duration": "47",
+        "overflow": false,
+        "theme": "light",
+        "title": "An exhausted volcano needs moldy cheese to open a disco for moths",
+        "tracks": 3,
+        "width": 465
+      },
+      {
+        "design": "workbench",
+        "duration": "47",
+        "overflow": false,
+        "theme": "dark",
+        "title": "Dear the office goldfish, please return an invisible sofa, and the moon wants a refund",
+        "tracks": 3,
+        "width": 465
+      }
+    ],
+    "custom_seed": {
+      "duration": "47",
+      "mood": "Quietly annoyed",
+      "status": "New vocal-song idea filled in. Edit anything below, then Generate when ready. No song has been generated.",
+      "style": "Custom acoustic rock",
+      "title": "Moldy cheese in a courtroom for clouds, narrated by a homesick vending machine, and gravity has resigned",
+      "tracks": 3,
+      "vocal": true
+    },
+    "manual_title_and_instrumental_edit": "PASS",
+    "owner_session_on8033": "Original five track titles/count retained; no restart",
+    "additional_narrow_wrap": {
+      "width": 345,
+      "seed": "42 repeated x characters",
+      "title_length": 102,
+      "horizontal_overflow": false
+    },
+    "class_generation_calls": 0,
+    "song_generation_submissions": 0
+  },
+  "limitations": [
+    "No new class song/audio/art generation, model-fidelity or human-listening test was performed.",
+    "The generator recombines finite local word pools; this does not promise infinite topics or musical adherence to hybrid genres.",
+    "Local screenshots are retained outside Git; this report is author evidence, not an independent review or final ZIP pass."
+  ]
+}

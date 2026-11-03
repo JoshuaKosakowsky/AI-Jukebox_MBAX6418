@@ -134,6 +134,16 @@ and source archives. Never commit uploads, voice references or third-party media
    continues an in-flight chain: a vocal draft whose chain was interrupted by
    a reload waits for a deliberate **Generate vocal song** click. A failed
    vocal submission is likewise a deliberate button click away.
+   Optional: **Surprise me** fills an unusual vocal-song title, genre combination
+   and mood locally. Add a **Starting idea** to steer it, or leave that blank for
+   a fresh concept. **Keep my style and mood** preserves nonempty custom settings.
+   Every field remains editable, duration stays unchanged, and you can switch back
+   to Instrumental. Pressing Enter in the starting-idea box only remixes the idea.
+   No service request, track or audio is created until you deliberately Generate.
+   The suggestions remix finite story/music word pools; original sung lyrics still
+   come from Qwen when generation starts. Genre blends are prompts, not a guarantee
+   that the music model will reproduce every requested detail.
+
 3. Watch each track's cover/lyrics/instrumental status. Create a second distinct
    song, then reload: each track, cover, lyrics and audio remains paired with
    its own title/settings.

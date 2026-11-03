@@ -81,14 +81,18 @@ the steps manually.
    This packet makes no calls and does not renew any earlier spent allowance.
 3. Pin the candidate identity below. If choosing another merged SHA, replace the
    URL/hash/size before the test. Keep that version fixed throughout the run.
+   This pin supersedes the older29c5de1 candidate in earlier #10 comments.
+   Do not change a test already in progress: report its actual SHA separately.
 
 Ready baseline, verified 2026-11-02; these identify the ZIP, not completed testing:
 
-- Commit: `29c5de17b0a0500f09bfbaa80badee7f22be741d`.
-- [Download this exact GitHub ZIP](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/29c5de17b0a0500f09bfbaa80badee7f22be741d.zip).
-- Size: **31,520,975 bytes**; SHA-256:
-  `8aa22e4ae97fa87db30ccb1b2098599b8ca8517682d1e909adcbabcddaefd752`.
-- Main CI for that commit passed. No independent installation is claimed yet.
+- Commit: `0a34502a4281a8a437b81657fe0809ea92e2c99f`.
+- [Download this exact GitHub ZIP](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/0a34502a4281a8a437b81657fe0809ea92e2c99f.zip).
+- Size: **31,547,394 bytes**; SHA-256:
+  `cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025`.
+- This candidate includes all six layouts, Light/Dark and the local Surprise me
+  helper from merged #63. Archive inventory and all183 files match that commit.
+  No independent installation is claimed yet.
 
 This separately supplied checklist can test that fixed baseline even if a later
 documentation PR merges. Submit the tested version's original GitHub ZIP and SHA;
@@ -118,6 +122,12 @@ prepares the report. It does not assume it can hear or approve generated audio.
    inspect both vocal lyric panels and exercise local pause/resume. Ask the
    teammate to confirm audibility; retain the actual answer. Confirm the
    samples work without regeneration. Missing-service guidance should be clear.
+   Compare the six layout choices and Light/Dark, then record your preferred
+   layout and any awkward scrolling. In Create, try Surprise me with a starting
+   idea; confirm the fields stay editable, duration stays fixed, and Keep my
+   style and mood retains custom values. Enter in Starting idea must only remix,
+   with no new track/job. Switch back to Instrumental and use the exact inputs
+   in step5 later; this helper check needs no provider calls.
 4. **Configure privately.** Stop the server with Ctrl+C. In this new extraction,
    copy `.env.example` to `.env` and fill its eight values using class credentials
    from the private team source. Never post the file, keys or screenshots of it.
@@ -196,6 +206,8 @@ Actual launch command and port:
 Clean extraction; no clone/private developer files used: yes/no
 Install + missing-settings/configuration recovery: pass/fail/not run; actual:
 Three bundled songs/covers/lyric panels: pass/fail/not run; actual:
+Layout/theme preference and scrolling findings:
+Surprise me/custom edits/duration/Enter without generation: pass/fail/not run; actual:
 New instrumental + matching cover: pass/fail/not run; actual:
 New AI lyrics + sung vocal + matching cover: pass/fail/not run; actual:
 Default DJ: three intelligible, track-appropriate intros: pass/fail/not run; actual:

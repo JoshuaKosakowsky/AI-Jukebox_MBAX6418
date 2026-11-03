@@ -257,7 +257,7 @@ class FrontendLibraryGuardTests(unittest.TestCase):
         # A rejected lyrics POST (429 while another track holds the single text
         # slot, 502, ...) creates no job, so the per-track diff would skip
         # rebuilding the card: the handler must restore label and enabled state.
-        mutation = self.source.split("retryLyrics.addEventListener")[1].split("});\n    detail.append(retryLyrics)")[0]
+        mutation = self.source.split("retryLyrics.addEventListener")[1].split("});\n    tools.append(retryLyrics)")[0]
         self.assertIn("retryLyrics.disabled = !textConfigured;", mutation)
         self.assertIn("retryLyrics.textContent = previousLabel;", mutation)
         self.assertIn("\"Requesting…\"", mutation)

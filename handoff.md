@@ -1,5 +1,137 @@
 # Agent handoff
 
+## Session — PR63 merged; current ZIP packet, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, prior1e5808d, incoming main0a34502.
+Owner explicitly approved #63 merge; exact head9d4f072 had Hermes approval, four green checks, zero threads.
+Merged normally at0a34502a4281a8a437b81657fe0809ea92e2c99f; main CI41562978679 PASS.
+No protection/credential/assignment changes or bypass; owner8033 app/session remains untouched.
+Reconciled #59 with current main; preserved both handoff/contribution histories and #62 notes.
+Only docs/evidence differ from main; runtime/tests/assets/dependencies/CI/protection stay byte-identical.
+Re-pinned DEFAULT_DJ_ZIP_TEST to0a34502; earlier #10 comments cite a superseded29c5de1 ZIP.
+New public ZIP31,547,394 bytes; SHA-256cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025.
+Verified inventory, all183 files/bytes, ZIP integrity, prohibited paths and bounded credential patterns.
+External ZIP/identity/blank evidence/NOT READY diagnostics under ../a3-10-final-packet-20261102.
+All19 acceptance entries remain not-run, installer null; no independent acceptance or release PASS.
+Procedure includes zero-call six-layout/Light-Dark/Surprise-me checks; report actual preferences/scrolling.
+One actual teammate suffices; first active claim coordinates the unchanged shared11-call cap, no retries.
+Default-DJ only; keep voice capability, no new personal recording/upload test requested.
+Locked dev.py --check PASS:240 tests/one skip, scaffold184, coverage36/11/19; scope/table/whitespace pass.
+No generation/class calls, new media, playback/browser or human listening performed this session.
+Mike61 remains494c2a02 with existing change requests; do not edit his branch or duplicate its unchanged review.
+Publish this reconciliation on #59, update description, request fresh JoshKozy review; stale approval will dismiss.
+Next: one teammate claims/tests the pinned ZIP; coordinate final evidence and any newer runtime candidate explicitly.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/59 ; /pull/63 ; /issues/10.
+
+## Session — local Surprise me song ideas, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-surprise-song` from main691fa44; carried queued #62 clerical notes40e3a72.
+Owner requests high-variability unusual song ideas while retaining custom input.
+Added separate ideas.js, optional starting idea, preserve-style/mood checkbox and editable wrapped title preview.
+Combines12 default/8 seeded story formats, varied subject/action/place pools, genre hybrids/instruments and20 moods.
+Each roll selects vocal mode, dispatches the existing mode-change event, preserves duration and never submits.
+Enter in the seed field prevents default submission; no fetch, storage, provider or shared-contract changes.
+Production VM probe PASS:1950 unique titles/2000 full ideas,1705 styles/20 moods in2000 fixed-seed rolls.
+Tests include contract bounds, long Unicode seed, deterministic RNG, custom preserve/edit, Enter and reset.
+Normal no-credentials browser checked24 layout/theme/width combinations at1265/465px, no horizontal overflow.
+Additional345px unbroken-seed wrapping passes; full idea is readable outside the single-line title field.
+Real Enter/custom-input check kept style/mood/duration47 and3 bundled tracks; instrumental remains selectable.
+Owner's8033 session retained all5 existing titles, no restart; preserve its generated songs, do not repackage them.
+Local screenshot/observations under ../a3-surprise-preview-20261102; safe JSON/report/README updated.
+Temporary no-credentials localhost8034 test tab closed; stop its verified helper only; original8033 stays available.
+Full locked dev.py --check PASS:240 tests/one skip, scaffold183, coverage36/11/19; syntax/scope/whitespace pass.
+No class generation, uploads, new media, capacity/protection/dependency changes; canceled sample branch stays untouched.
+The finite local suggestion pool is not an AI-generation or musical-fidelity guarantee; full ZIP acceptance still pending.
+Next: freeze/publish focused PR Refs #9, request JoshKozy technical review; owner may try the new input helper locally.
+
+## Session — PR62 merged; awaiting new direction, 2026-11-02 America/Denver
+Codex for Joshua; public main691fa4450ebf0b475c2c8e52d3fb38dca9b0bb84.
+PR62 head6521904 had JoshKozy approval5745567402, all4 green checks and no unresolved review threads.
+Merged normally after current-base/head/protection verification; no bypass, protection, assignment or generation changes.
+A/B/C/D/E/F and both appearances are now on main; Matt/Mike can pull main to compare via DESIGN_REVIEW.md.
+Runtime bytes match approved6521904; earlier239-test/one-skip and author browser evidence retain their scopes.
+Post-merge main CI is checked separately; no new app/listening/ZIP acceptance is claimed by this merge.
+Local codex/a3-post-62-handoff queues this entry and #62 completion credit for the next authorized change.
+These clerical notes are committed locally only; no separate documentation PR or direct-main push.
+The owner CANCELED adding the two newly generated songs after the media-budget discussion.
+Do not resume, commit or publish codex/a3-five-song-library without a fresh instruction.
+That separate worktree under ../a3-new-samples-20261102/repo contains UNCOMMITTED five-song/capacity changes.
+Original8033 browser/session is preserved; do not restart it or regenerate/repackage those tracks on assumption.
+Owner will send the comparison instructions to Matt/Mike; do not message teammates on their behalf.
+Mike's61 still has an existing Hermes change request; review only a corrected new head, preserve others' work.
+Next: owner supplies the new direction; incorporate neutral completion notes into the next relevant PR.
+PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
+## Session — PR60 merged; PR62 reconciled for review, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`; pre-sync `118108b`, incoming main `c995a0c`.
+Owner authorized #60 merge then #62 reconciliation/checks/review preparation.
+PR60 head4050e0d had JoshKozy approval5745111295, four green checks and zero review threads.
+Merged normally at c995a0c2cc93017f90ab13dc35ec3d00b650f30e; no admin bypass or protection changes.
+Merged origin/main into62 without content conflicts; runtime/layout/media bytes are unchanged by this sync.
+PR62 now targets main; removed obsolete parent dependency wording and recorded actual #60 completion credit.
+D/E/F still extend A/B/C; no generation/playback handler, provider, contract or new media changes.
+Historical browser evidence remains a7225eb:1743/1154/387px, six new palette/layout pairs, rack focus and sample continuity.
+No new browser/listening, generation/class calls, uploads or independent ZIP acceptance is claimed for this sync.
+Local checks PASS:239 tests/one skip, scaffold179, coverage36/11/19, JS syntax, runtime preservation/table/whitespace.
+Publish/freeze this reconciliation; mark62 ready with status: review and request JoshKozy after exact-head CI passes.
+Freeze that exact head for Hermes; retain main/protection/CI guards and resolve any actual findings normally.
+Normal preview8033 remains available from this worktree; do not stop unrelated processes or edit other branches.
+PR60 main UI integration does not select the final preferred layout or satisfy teammate/final-ZIP acceptance.
+PR59 remains a separate procedure pinned to29c5de1; its archive results do not certify this changed UI.
+Next: Hermes exact-head review of62; merge only after normal gates, then plan the exact final ZIP candidate.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/60
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
+## Session — three additional layouts D/E/F, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`, stacked on approved PR60 head `4050e0d`.
+Owner explicitly invoked installed frontend-design; used its plan/critique/build/screenshot workflow.
+D Listening room features the first song; E Record shop has side navigation and a sideways sleeve rack.
+F Workbench places queue/library/studio in three desktop panes; all3 have separate light/dark palettes.
+A/B/C stylesheet prefix and generation/playback app.js remain unchanged from4050e0d.
+Only HTML/CSS/appearance controller, preference probe, comparison guide and this handoff change.
+New choices use the same media and handlers; only Workbench opens/restores the existing studio disclosure.
+Form inputs survive layout changes; only layout/theme preferences persist in browser-local storage.
+Keyboard audit found E could clip a focused sleeve; instant focus scrolling and disabled focus-time snapping fix it.
+Measured final focus fits within387px; no generation/media-node mutation is introduced by the focus handler.
+Browser inspected desktop1743px/mobile387px screenshots for all6 new layout/theme combinations.
+All retain3 songs with no page-wide horizontal overflow; E intentionally scrolls inside its album rack.
+At1154px all3 layouts also fit; F falls back to two panes with studio below, then stacks on mobile.
+Mobile critique compacted header/queue/art: first song player bottom D687px/F756px in833px viewport.
+E keeps larger mobile sleeves and needs a short vertical scroll to reach the first player.
+Bundled Moonlit audio kept playing through D/E/F and theme switches; paused afterward.
+Probe covers12 pairs, initial Workbench URL, disclosure restore, storage/history denial and rack focus.
+Final locked dev.py --check PASS:239 tests/one skip, scaffold179, coverage36/11/19; whitespace clean.
+Normal8033 launcher continues from this worktree; local screenshots are in ../def-screenshots (outside Git).
+No generation/class calls, uploads, new assets, provider/contracts/dependency or protection changes.
+PR60 remains approved and unchanged; new PR must stay stacked/draft until60 merges, then retarget main/recheck.
+Classmate aesthetic feedback, assistive-tech review, live generation/DJ and final-ZIP acceptance remain unchecked.
+Pre-handoff code hash `a7225eb`; draft PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+Published only codex/a3-layouts-def; parent60 approval and main remain unchanged by this task.
+Next: owner compares D/E/F; merge parent60, retarget/reconcile62 to main, then exact-head checks/review.
+
+## Session — UI layout comparison and light/dark, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-ux-review`, source main `29c5de1`.
+Owner preferred the revised layout and requested several designs for classmates to compare, all light/dark.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6591067299
+Changed only web layout/rendering/appearance, focused preference test, docs/DESIGN_REVIEW.md and handoff.
+A Record sleeve is editorial rows; B Cover gallery emphasizes artwork; C Studio console is a denser list.
+All three use the SAME DOM/media/handlers; switching only changes CSS attributes, with no reload or generation.
+Dark is the initial default, applied before paint; Light remains available across forms, setup, DJ and players.
+Only layout/theme preferences enter local storage; URL allowlists, denied storage/history gracefully fall back.
+Navigation opens studio/setup; optional voice upload and visible failure/status/retry paths remain available.
+Normal launcher remains at http://127.0.0.1:8033 from this worktree with private inherited configuration.
+External launch/state/screenshots stay beside repo in a3-ux-review-20261102; initial launcher PID10392.
+Browser checked all6 layout/theme pairs at actual1454px and387px:3 tracks retained, no horizontal overflow.
+Creation form visible without overflow at387px; earlier checks cover lyrics/revision controls and queue add.
+Bundled Moonlit audio remained playing across layout/theme changes; paused afterward; reload restored Gallery/Dark.
+Preference probe verifies6 pairs, early dark default, URL priority/hash, persistence, invalid choices and blocked storage/history.
+Browser connection initially stale; resetting only the UI session restored it; no alternate UI automation used.
+Locked dev.py --check PASS:239 tests/one skip, coverage36/11/19; JS syntax and whitespace clean.
+Scaffold/link safeguards PASS with179 files staged; no private configuration or new media belongs to this change.
+No class calls, generation, recording upload, provider/contracts/dependency, protection or assignment changes.
+Classmates can load the comparison branch using docs/DESIGN_REVIEW.md; their aesthetic feedback is still pending.
+This is a design preference comparison, not randomized research or independent final-ZIP acceptance.
+Next: normal reviewed PR for classmates/Hermes; preserve independent ZIP work in PR59 and Mike/Matt branches.
+Keep the local preview available in Dark mode for Joshua; do not stop unrelated servers.
+
 ## Session — Owner DJ feedback recorded; styles added to ZIP test, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, pre-change head `6ec67ee`, main `29c5de1`.
 Owner listened to the3 retained default-baseline clips and said "The DJ is clear and sounds good to me."
