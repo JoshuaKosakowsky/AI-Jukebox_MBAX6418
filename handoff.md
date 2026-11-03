@@ -1,5 +1,22 @@
 # Agent handoff
 
+## Session — Cover Gallery submission choice, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-cover-gallery-submission` from main a26c212; queued PR66 completion/audit notes included.
+Owner selected Cover Gallery ONLY and removal of layout chooser, retaining Light/Dark.
+Forced Gallery before paint in HTML/appearance.js; old URL/stored layout choices ignored and legacy design URL parameter cleaned.
+Only theme is read/written as a browser preference; no app data, draft or audio nodes are touched by appearance changes.
+Removed layout chooser, kept existing gallery CSS and all functional controls; unused prototype CSS left unchanged to limit risk.
+PASS: final locked254 tests/one optional skip, scaffold200, coverage36/11/19 and whitespace. No browser/live pass claimed yet.
+Updated actual production preference probe for theme persistence, legacy links, invalid/blocked storage, hash preservation and no requests/media mutations.
+README/design-selection guide/ZIP packet now describe Gallery only and current voice labels; historical screenshots/results keep their original source.
+ZIP packet takes candidate identity from owner-authorized #10 run rather than an obsolete embedded pin; started runs retain their original version.
+Prepared private female previewJ WAV and MP3 outside Git, zero new speech: WAV629f5ff7..., MP37f31e05e...,5.8seconds.
+Owner authorized their own clean-ZIP test including MP3/WAV reference customization; no personal recording or bundled reference is involved.
+Planned owner test is separate from Mike's authorized a26c212 independent default-DJ run; do not claim owner work as another teammate.
+Owner ZIP ceiling: one instrumental/vocal plus covers/lyrics (5 generation requests), three default/MP3/WAV intros (6);11 maximum, zero retries.
+Service testing is not yet executed by this entry; post actual outcomes on #6/#10 and keep evidence outside frozen test extraction.
+Do not restart original8033,8036/eight-track or8038 owner sessions. Next: final offline checks, publish focused PR/JoshKozy review, test downloaded exact-head ZIP.
+
 ## Session — PR66 integrated; deadline audit, 2026-11-02 America/Denver
 Codex for Joshua; local `codex/a3-final-readiness` from merged main a26c21251c90eefc204884c5216a9da06eae2392.
 Owner authorized protected merge66 after approval; exact4ee115a had JoshKozy approval and all4 CI checks green, current base and zero threads.
