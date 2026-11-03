@@ -8,7 +8,9 @@ Merged normally at aece4d17663aa2508d70a64e58d8f7acc60cb08d; no bypass, service 
 Main now contains #64 guide and #65 seeking, queue removal, confirmed lyric display corrections and voice wording.
 Pre-merge verification247 tests/one skip, scope194/coverage36/11/19 and browser evidence keep their original sources.
 Post-merge main CI is verified separately; no new integrated browser/listening or ZIP acceptance is claimed here.
-Normal unconfigured preview8036 remains available; original configured8033 session was not restarted or edited.
+Preview follow-up:8036 now uses the existing private course settings in server process environment only; no credential file was copied or committed. Root PID35272.
+Confirmed all4 safe configured labels and enabled Create vocal song button after Refresh status; user draft inputs remained identical without page reload.
+No generation/provider connectivity check performed; original8033 and its five-track session were not restarted or edited.
 An existing process does not automatically reload Python backend/catalogue from main; preserve session data before any restart.
 Original AI drafts/audio/art and provenance remain intact; only sample display text changed.
 Queue Remove keeps library media and protects the active entry; Skip first. Presentation is not speaker identity.
