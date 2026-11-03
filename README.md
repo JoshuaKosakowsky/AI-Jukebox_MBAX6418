@@ -56,9 +56,32 @@ implemented. A wrong class endpoint produces a safe role-only terminal error;
 fix .env and restart. No provider requests or generation happen on startup or on
 Refresh status. Configured means values were supplied, not that a service is reachable.
 
+## Try the interface without credentials
+
+Open the **Library** and use each song's own player; the three bundled tracks,
+matching covers and two vocal lyric panels work without configuring services.
+The header's **Layout** selector offers six arrangements; **Appearance** switches
+Light/Dark. Preferences are browser-local. [Compare the layouts](docs/DESIGN_REVIEW.md)
+from current main; no preview branch or additional assets are needed.
+
+For a quick user review:
+
+1. Play/pause a bundled song and open **Lyrics** on a vocal card.
+2. Open **Create a song** from the navigation or expand its studio heading.
+   Try **Surprise me**, optionally with a starting idea. Edit the result, keep
+   custom style/mood if desired, and choose Instrumental or Vocal. This helper
+   uses local word pools and needs no credentials or generation.
+3. Switch layouts and Light/Dark while checking that the draft stays intact.
+   Report confusing controls, clipped text or excessive scrolling, including
+   layout/theme/window size. Changing appearance does not generate media.
+4. Open **Queue & DJ → DJ style & voice** to inspect presentation and optional
+   voice controls. **Play queue** generates missing DJ introductions when services
+   are configured; use individual sample players for this zero-call review.
+
 ## DJ presentation
 
-In Queue & DJ, choose **Relaxed / Public Radio**, **Upbeat Radio** or **Playful**
+Expand **DJ style & voice** in Queue & DJ, then choose **Relaxed / Public Radio**,
+**Upbeat Radio** or **Playful**
 before starting the queue. This sets the tone of new introductions while keeping
 your default or uploaded reference voice. The choice stays in this browser
 session across reloads. Cached and in-progress introductions keep their original
@@ -120,7 +143,7 @@ and source archives. Never commit uploads, voice references or third-party media
 1. For new songs, configure art and music; add text for vocal lyrics. For DJ
    playback, configure text and speech. Bundled songs play directly without any
    service settings; Add to DJ queue needs the DJ services. Launch normally and
-   choose a mode under **Design your song**:
+   open **Create a song** and choose a mode under **Mode**:
    **Instrumental** or **Vocal song with AI lyrics**.
 2. Under **Create a song**, enter
    a song title/theme, musical style, mood and duration (10–60 seconds). Select
@@ -228,16 +251,27 @@ introduction, including explicit retries, and deletes unused uploads. See the fu
 
 ## Verified results and current interface
 
-The current [full interface and three-song library](results/a3-09-current-library.jpg),
-[AI lyrics and local player](results/a3-09-current-lyrics.jpg), and
-[DJ controls](results/a3-09-current-dj.jpg) were captured through the normal
-launcher on main `fcdda54`, 2026-11-02. All four service roles were **missing**;
-the screenshots show bundled media and implemented controls, not new generation
-or a live reference-voice test. Generation/DJ controls correctly stay disabled
-without the required services. Playful presentation persisted after reload.
-See the [safe UI record](results/a3-09-current-ui.json).
+These actual browser captures show the interface on main `e17997d`, 2026-11-02:
+[Gallery/Dark library](results/a3-09-layout-gallery.jpg),
+[editable song ideas](results/a3-09-song-ideas.jpg),
+[DJ settings](results/a3-09-dj-settings.jpg), and
+[Workbench/Light](results/a3-09-layout-workbench-light.jpg).
+The isolated normal launcher had **all four service roles missing**. Three bundled
+tracks and two vocal lyric panels were present; Enter remixed the seeded idea
+without creating a job, custom style/mood/duration stayed intact, and switching
+layouts/themes preserved the draft. Workbench/Light and Playful persisted after
+reload. Generation and DJ playback stayed disabled. No new media, class requests,
+listening verdict or independent installation is claimed by these screenshots.
+[Safe UI record](results/a3-09-guide-ui.json).
 
-![Current presentation selector and optional reference chooser](results/a3-09-current-dj.jpg)
+![Gallery/Dark library with the three bundled songs](results/a3-09-layout-gallery.jpg)
+
+![Create a song with an editable, locally remixed idea](results/a3-09-song-ideas.jpg)
+
+Earlier [library](results/a3-09-current-library.jpg),
+[lyrics](results/a3-09-current-lyrics.jpg) and [DJ](results/a3-09-current-dj.jpg)
+captures remain historical evidence of `fcdda54`, with their original
+[record](results/a3-09-current-ui.json); they predate the six-layout interface.
 
 Historical service tests retain their own tested commits; they were not rerun
 for this documentation update. Inputs, expected behavior and observed results:
@@ -246,7 +280,7 @@ for this documentation update. Inputs, expected behavior and observed results:
 |---|---|---|
 | Custom music, main `7cc9645` | Moonlit Reflection: ambient piano, calm, 30 s; Desert Drive: upbeat funk, optimistic, 20 s. Expect distinct playable instrumentals retained after reload. | Real ACE-Step WAVs played with pause/resume and reload retention; Joshua confirmed both broadly matched. [Live record](results/main-instrumental-acceptance.json). |
 | Matching artwork, original cover test | Moonlit mountain lake / ambient piano / calm, and Desert sunrise / upbeat desert funk / warm. Expect a new FLUX cover on each corresponding draft. | Two real covers remained correctly paired after reload. Later selected samples also have class-generated covers; arbitrary lettering quality is not guaranteed. [Cover record](results/cover-browser-record.json), [sample provenance](assets/samples/README.md). |
-| Default spoken DJ, main `2be9625` | Queue Afterglow Avenue, Moonlit Reflection and Antlercover. Expect Qwen commentary, Chatterbox speech, then music; pause/resume, skip and cached replay. | All three introductions succeeded (three text + three speech requests); sequential controls and cached replay/reload passed. Joshua described the first introduction as relaxed/NPR-like. [Live/browser record](results/a3-05-default-dj-live.json). |
+| Default spoken DJ, main `2be9625` | Queue Afterglow Avenue, Moonlit Reflection and Antlercover. Expect Qwen commentary, Chatterbox speech, then music; pause/resume, skip and cached replay. | All three introductions succeeded (three text + three speech requests); sequential controls and cached replay/reload passed. Joshua approved the retained baseline clips' clarity/voice; Matt recorded [#5's completion](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5). New presentation-style listening remains separate. [Live/browser record](results/a3-05-default-dj-live.json). |
 | Packaged vocals and sample library, main `2be9625` | Approved 45 s synth-pop vocal, 30 s ambient instrumental and 60 s hopeful Latin moose-story vocal, with original AI lyrics and matching covers. Expect three ready pairs that play locally. | All three played to their ends with paired media/lyrics and reload retention; two vocal songs meet the project curation target. [Integrated-main record](results/a3-07-integrated-main-library.json). |
 | Failure and recovery, main `2a19ecf` | Busy music capacity and missing music configuration. Expect safe messages and deliberate recovery without duplicate requests. | Preethi's normal-launch cases passed; exact expected/actual observations and the tested design trade-off are preserved below. [Live record](results/a3-08-normal-launch-recovery.json). |
 
@@ -257,9 +291,10 @@ and [Antlercover](results/a3-07-antlercover-generation.json).
 
 ### Remaining checks and known limits
 
-- **Vocal creation (#3):** Mike reports a successful Moonlit Rehearsal run on
-  `a1a41d1`; its cited acceptance files and human-listening result are still
-  missing from main. Keep this separate from approved sample playback.
+- **Vocal creation (#3):** Mike's [PR #61](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/61)
+  records the historical `a1a41d1` HTTP/provider run and his listening feedback.
+  Those records do not establish real-provider browser form/playback/reload
+  acceptance; keep that remaining check separate from approved sample playback.
 - **Reference voices (#6):** chooser/upload wiring and synthetic MP3/WAV tests
   are merged; the real default/MP3/WAV listening comparison remains pending
   after the earlier run stopped. No new run allowance is created here.
@@ -271,7 +306,11 @@ and [Antlercover](results/a3-07-antlercover-generation.json).
   cover choices remain documented; no universal quality guarantee is made.
 - **Team/report/release:** a teammate still needs to verify the finished-app
   documentation/findings in their own words (R31), and independently install
-  the final exact GitHub ZIP. Automated review is not another human installer.
+  the final exact GitHub ZIP. Automated review is not another human installer. A teammate's
+  coding agent can execute the [ZIP procedure](docs/DEFAULT_DJ_ZIP_TEST.md) and
+  draft a report with the tested SHA/launch command, a matching or incorrect
+  instruction, and an observed finding. The teammate confirms the findings in
+  their own words; no extra generation budget or human approval is implied.
 
 The merged [27-case synthetic browser regression](docs/MAIN_BROWSER_REGRESSION.md)
 supports recovery/control reliability on its original `25f8617` source; it does
@@ -376,7 +415,7 @@ recovery, evidence/design findings and an independent exact-GitHub-ZIP installat
 See the complete brief; this paragraph does not replace it.
 
 **Submission NOT READY.** Instrumentals/covers, the three selected samples and
-real default-DJ results are recorded above; [#8 recovery/public-file safeguards](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8)
+real default-DJ results ([#5 completed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5)) are recorded above; [#8 recovery/public-file safeguards](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8)
 are complete within that issue's scope. The [default-DJ ZIP checklist](docs/DEFAULT_DJ_ZIP_TEST.md)
 is prepared, not executed. Complete published vocal-creation evidence, actual
 teammate report verification and independent deployment. Voice upload capability
