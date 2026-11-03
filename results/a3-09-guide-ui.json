@@ -1,0 +1,279 @@
+{
+  "date": "2026-11-02",
+  "timezone": "America/Denver",
+  "recorded_at_utc": "2026-11-03T03:20:44.394167+00:00",
+  "tester": "Codex for JoshuaKosakowsky",
+  "tested_main": "e17997d29b0a1cb910545fc4c5eb5eb16332502b",
+  "launcher": "python scripts/dev.py --port 8035",
+  "method": "Actual in-app browser on an isolated normal-launch app; missing class settings; bundled class-generated samples; no fixture injection or source rewrite",
+  "services": {
+    "text": "missing",
+    "art": "missing",
+    "music": "missing",
+    "speech": "missing"
+  },
+  "real_provider_requests": 0,
+  "reference_uploads": 0,
+  "new_generation_jobs": 0,
+  "screenshots": [
+    {
+      "path": "results/a3-09-layout-gallery.jpg",
+      "width": 1265,
+      "height": 712,
+      "bytes": 108429,
+      "sha256": "a8f7e5cb9946d093e60c54021c2faec0ad047d2d5e883517c51c9bb2a0e62bf1"
+    },
+    {
+      "path": "results/a3-09-song-ideas.jpg",
+      "width": 1265,
+      "height": 712,
+      "bytes": 72416,
+      "sha256": "3b6481ec6aae34b98d6b0e4292cfdd0b93b5899115906a662fce2ef3538ab124"
+    },
+    {
+      "path": "results/a3-09-dj-settings.jpg",
+      "width": 1265,
+      "height": 712,
+      "bytes": 137438,
+      "sha256": "fdda40100063104add367da24a2f5587998f9f61fa77a1fe7b6c95df3b5d32f1"
+    },
+    {
+      "path": "results/a3-09-layout-workbench-light.jpg",
+      "width": 1265,
+      "height": 712,
+      "bytes": 101163,
+      "sha256": "14c1f9026b93f7443d6d9e07ae939c523c2f3044b678a6c000cdfd121ae81d36"
+    }
+  ],
+  "source_sha256": {
+    "jukebox/__init__.py": "5a186e8007ec0eb3ea8945bba6350339a4a6a4bfe716db7701b09dd39d0efa8e",
+    "jukebox/__main__.py": "08c6b323001c40a4bb3fdff8ce483daa79f7740e134f71e703159e05610a9de2",
+    "jukebox/app.py": "8e77ccf1bce706cbb0f79299cfb36a5f5d6cdad025e3189ca962a92312b3e3ef",
+    "jukebox/config.py": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+    "jukebox/contracts.py": "ad6e6df541254adb1ec3a65d1fc53a144c1a8713d85c98d3687eb3209f7024a2",
+    "jukebox/providers.py": "39e142e1b0defbc4f11ebf0b422abf55efb50d91bbdabd2a501942db6c5d57d6",
+    "jukebox/samples.py": "52e2933161287cca3e3e85da66e03a3ebfb54fcbdfe9fc7d9ecff902f3ad298d",
+    "jukebox/sessions.py": "eaf30ad6c8923aac2b2608f8d9209206ac3ba8ce3a6cb331dd263ce58e1c4e1e",
+    "jukebox/web/app.js": "7844efe36c0d2c0d8a7c999f8bd9c5d0cc912a503aab0a9d5711393ad345a2fe",
+    "jukebox/web/appearance.js": "fcd1ca2224203de0e8b6a27c8ade32beaabb458e8bfef87e154fb2d1fad2e98b",
+    "jukebox/web/ideas.js": "a22c075efb647e2842b006bae4996bca95f550e5ca1ab22509a94246121d1716",
+    "jukebox/web/index.html": "bd9112676e94e93c07a95cdafdf5b435b4502cdd0c905b8a9225030623b164c8",
+    "jukebox/web/style.css": "38938aca2668b8afa1ed1bbed25bfe386ef19baad66663f3deac2e1272f08656",
+    "pyproject.toml": "c7041c32d574e3084f9c89449501d1d4b28028f05d88b9d74029612a533c4b68",
+    "uv.lock": "06bae812b29507adb98d4a93681162300238401bffa8aa8a1191573ec4a870f4"
+  },
+  "observations": {
+    "seed_and_custom_settings": {
+      "form_before_switch": {
+        "documentWidth": 1265,
+        "generationDisabled": true,
+        "inputs": [
+          {
+            "checked": false,
+            "id": "idea-seed",
+            "name": "",
+            "type": "text",
+            "value": "moldy cheese"
+          },
+          {
+            "checked": true,
+            "id": "idea-keep",
+            "name": "",
+            "type": "checkbox",
+            "value": "on"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "title",
+            "type": "text",
+            "value": "Me versus moldy cheese, judged by an accountant made of bees"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "style",
+            "type": "text",
+            "value": "Opera with brass and percussion"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "mood",
+            "type": "text",
+            "value": "Hopeful"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "duration",
+            "type": "number",
+            "value": "35"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "mode",
+            "type": "radio",
+            "value": "instrumental"
+          },
+          {
+            "checked": true,
+            "id": "",
+            "name": "mode",
+            "type": "radio",
+            "value": "vocal"
+          }
+        ],
+        "tracks": [
+          "Afterglow Avenue",
+          "Moonlit Reflection",
+          "Antlercover"
+        ],
+        "width": 1280
+      },
+      "after_layout_theme_switch": {
+        "documentWidth": 1265,
+        "inputs": [
+          {
+            "checked": false,
+            "id": "idea-seed",
+            "name": "",
+            "value": "moldy cheese"
+          },
+          {
+            "checked": true,
+            "id": "idea-keep",
+            "name": "",
+            "value": "on"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "title",
+            "value": "Me versus moldy cheese, judged by an accountant made of bees"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "style",
+            "value": "Opera with brass and percussion"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "mood",
+            "value": "Hopeful"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "duration",
+            "value": "35"
+          },
+          {
+            "checked": true,
+            "id": "",
+            "name": "mode",
+            "value": "instrumental"
+          },
+          {
+            "checked": false,
+            "id": "",
+            "name": "mode",
+            "value": "vocal"
+          }
+        ],
+        "layout": "workbench",
+        "theme": "light",
+        "tracks": [
+          "Afterglow Avenue",
+          "Moonlit Reflection",
+          "Antlercover"
+        ],
+        "width": 1280
+      }
+    },
+    "reload": {
+      "createDisabled": true,
+      "djDisabled": true,
+      "selects": [
+        {
+          "id": "design-choice",
+          "value": "workbench"
+        },
+        {
+          "id": "theme-choice",
+          "value": "light"
+        },
+        {
+          "id": "dj-presentation",
+          "value": "playful"
+        }
+      ],
+      "tracks": [
+        "Afterglow Avenue",
+        "Moonlit Reflection",
+        "Antlercover"
+      ]
+    },
+    "same_browser_session": {
+      "jobs": 0,
+      "playback": "idle",
+      "presentation": "playful",
+      "tracks": [
+        {
+          "audio": true,
+          "cover": true,
+          "lyrics": true,
+          "mode": "vocal",
+          "title": "Afterglow Avenue"
+        },
+        {
+          "audio": true,
+          "cover": true,
+          "lyrics": false,
+          "mode": "instrumental",
+          "title": "Moonlit Reflection"
+        },
+        {
+          "audio": true,
+          "cover": true,
+          "lyrics": true,
+          "mode": "vocal",
+          "title": "Antlercover"
+        }
+      ]
+    }
+  },
+  "expected_actual": [
+    {
+      "expected": "Three bundled songs have paired audio/covers and two vocal lyric panels",
+      "actual": "Same browser session retained three ready tracks, three audio/cover pairs and two nonempty lyrics; zero jobs",
+      "result": "pass, local bundled UI only"
+    },
+    {
+      "expected": "Starting idea Enter remixes locally, retaining requested custom style/mood/duration and selecting vocal mode",
+      "actual": "moldy cheese produced the captured idea; Opera with brass and percussion/Hopeful/35 retained, vocal selected; manual Instrumental selection then worked",
+      "result": "pass, no generation"
+    },
+    {
+      "expected": "Layout/theme switching preserves editable draft; selected layout/theme/presentation survive reload",
+      "actual": "Gallery/Dark to Workbench/Light retained title/style/mood/duration; reload retained Workbench/Light/Playful and all three samples",
+      "result": "pass, no playback or live style comparison"
+    },
+    {
+      "expected": "Unavailable generation and DJ controls clearly indicate missing services",
+      "actual": "Create and Play queue disabled; missing-service guidance shown; class credentials absent",
+      "result": "pass, missing-configuration UI"
+    }
+  ],
+  "not_claimed": [
+    "Human listening or full-length playback in this run",
+    "New live instrumental/vocal/art/DJ/reference generation",
+    "Narrow/mobile screen or assistive-technology acceptance in this run",
+    "Independent teammate documentation verification (R31)",
+    "Independent final ZIP installation or release readiness"
+  ],
+  "cleanup": "Temporary browser tab closed; verified8035 launcher/descendants stopped;8035 no longer responds and owner8033 health remains200. No owner session actions or restart."
+}

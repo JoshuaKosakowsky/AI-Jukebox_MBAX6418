@@ -28,7 +28,16 @@ and normal extracted-ZIP HTTP startup passes without Git metadata or class
 settings. Zero class calls. Developer-directed; independent final ZIP/live
 acceptance is still pending and the incomplete release record stays NOT READY.
 
-Current README/UI documentation (2026-11-02, main `fcdda54`):
+Current six-layout guide captures (2026-11-02, main `e17997d`):
+[safe author UI record](a3-09-guide-ui.json),
+[Gallery/Dark](a3-09-layout-gallery.jpg), [editable song ideas](a3-09-song-ideas.jpg),
+[DJ settings](a3-09-dj-settings.jpg), [Workbench/Light](a3-09-layout-workbench-light.jpg).
+Actual normal-launch browser with all class roles missing; existing bundled
+assets, seeded Enter/custom settings and layout/theme/presentation retention
+were observed. Zero generation jobs, class calls or uploads. No new listening,
+full playback, live service or independent teammate/ZIP acceptance is claimed.
+
+Historical README/UI documentation before the layout update (2026-11-02, main `fcdda54`):
 [safe normal-launch record](a3-09-current-ui.json),
 [full interface/library](a3-09-current-library.jpg),
 [bundled lyrics/player](a3-09-current-lyrics.jpg),
