@@ -1,5 +1,30 @@
 # Agent handoff
 
+## Session — three additional layouts D/E/F, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`, stacked on approved PR60 head `4050e0d`.
+Owner explicitly invoked installed frontend-design; used its plan/critique/build/screenshot workflow.
+D Listening room features the first song; E Record shop has side navigation and a sideways sleeve rack.
+F Workbench places queue/library/studio in three desktop panes; all3 have separate light/dark palettes.
+A/B/C stylesheet prefix and generation/playback app.js remain unchanged from4050e0d.
+Only HTML/CSS/appearance controller, preference probe, comparison guide and this handoff change.
+New choices use the same media and handlers; only Workbench opens/restores the existing studio disclosure.
+Form inputs survive layout changes; only layout/theme preferences persist in browser-local storage.
+Keyboard audit found E could clip a focused sleeve; instant focus scrolling and disabled focus-time snapping fix it.
+Measured final focus fits within387px; no generation/media-node mutation is introduced by the focus handler.
+Browser inspected desktop1743px/mobile387px screenshots for all6 new layout/theme combinations.
+All retain3 songs with no page-wide horizontal overflow; E intentionally scrolls inside its album rack.
+At1154px all3 layouts also fit; F falls back to two panes with studio below, then stacks on mobile.
+Mobile critique compacted header/queue/art: first song player bottom D687px/F756px in833px viewport.
+E keeps larger mobile sleeves and needs a short vertical scroll to reach the first player.
+Bundled Moonlit audio kept playing through D/E/F and theme switches; paused afterward.
+Probe covers12 pairs, initial Workbench URL, disclosure restore, storage/history denial and rack focus.
+Final locked dev.py --check PASS:239 tests/one skip, scaffold179, coverage36/11/19; whitespace clean.
+Normal8033 launcher continues from this worktree; local screenshots are in ../def-screenshots (outside Git).
+No generation/class calls, uploads, new assets, provider/contracts/dependency or protection changes.
+PR60 remains approved and unchanged; new PR must stay stacked/draft until60 merges, then retarget main/recheck.
+Classmate aesthetic feedback, assistive-tech review, live generation/DJ and final-ZIP acceptance remain unchecked.
+Next: publish comparison branch/draft PR, let owner compare D/E/F, then normal exact-head review after parent integration.
+
 ## Session — UI layout comparison and light/dark, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-ux-review`, source main `29c5de1`.
 Owner preferred the revised layout and requested several designs for classmates to compare, all light/dark.
