@@ -116,5 +116,12 @@
   "audio": "generated/retained/a3-03-vocal-d2f18dae-258b-433a-aded-46b6c6137a6a.wav",
   "cover": "generated/retained/a3-03-vocal-d2f18dae-258b-433a-aded-46b6c6137a6a.png"
  },
- "provider_call_accounting": "art1 + text1(lyrics) + music1 = 3 of the 13 ceiling"
+ "provider_call_accounting": "art1 + text1(lyrics) + music1 = 3 app-level submissions, all succeeded; 0 retries. 3 of the shared 13-request authorization ceiling.",
+ "method": "Direct HTTP requests to the normal-launch app on localhost (:8000) driven by a Python acceptance driver; NO browser automation in this run.",
+ "operator": "MSpanny directing Hermes",
+ "environment": "macOS, normal-launch app (scripts/dev.py), localhost:8000, head a1a41d1",
+ "browser_level_observations": {
+  "recorded": false,
+  "explanation": "No form interaction, in-browser playback, visible pairing or reload-retention was recorded for THIS run. The only browser-level AT-04 UI evidence is the pre-existing offline fixture-harness run (real app + real browser + fixture providers; results/vocal-browser-record.json) and separately recorded real-browser DJ runs. Issue #3 stays OPEN pending real-provider browser acceptance."
+ }
 }

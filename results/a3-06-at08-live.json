@@ -122,5 +122,22 @@
  "speech_jobs": [],
  "submissions_by_kind": null,
  "fixture_stats": null,
- "provider_call_accounting": "art2 + music2 + text3(commentary) + speech3 = 8 more; run total 13 = ceiling"
+ "provider_call_accounting": "OBSERVED app-level leg-B submissions: art 2 + music 2 (both succeeded) + 3 speech-job attempts (2 failed, 1 succeeded at app level) + commentary text requests inside those speech jobs. Provider-side call counts for the speech attempts were NOT independently observable; the shared 13-request authorization was conservatively treated as FULLY attempted (no unused allowance inferred). Leg A of the same run used art1+text1+music1.",
+ "accounting_reconciliation_2026_11_03": {
+  "reason": "Added per JoshKozy + mase7919 review of PR #61 (both findings independently confirmed).",
+  "speech_jobs_empty": "Driver stopped at the first gate ('intro default stage clean' FAILED) before per-intro speech-job states were appended; the field is preserved empty as evidence of where the run stopped.",
+  "submissions_by_kind_null": "End-of-run tally is computed only after all three intros complete; the run stopped at the first intro, so the tally was never computed.",
+  "observed_app_intents": {
+   "art": 2,
+   "music": 2,
+   "speech_job_attempts": 3,
+   "speech_succeeded": 1,
+   "speech_failed": 2,
+   "text_commentary": "inside speech jobs"
+  },
+  "provider_side": "not independently observable; original stop report (issue #3 comment 6567842638) states provider accounting for the three app-level speech-job attempts could not be observed.",
+  "driver_disclosure": "The original driver sent start/advance/advance POSTs eagerly before verifying the default intro (driver bug, NOT app behavior). This record is therefore NOT a verified sequential default->MP3->WAV comparison; the driver has since been fixed (strictly sequential steps + job-error capture) and rehearsed 58/58 offline.",
+  "authorization": "The shared 13-request ceiling (previous combined run authorization) is treated as fully attempted; AT-08 completion requires a NEW separately authorized diagnostic leg.",
+  "no_invented_counts": "No class-side failure cause or provider call count is asserted beyond the app-observable 3 speech-job attempts (2 failed, 1 succeeded)."
+ }
 }

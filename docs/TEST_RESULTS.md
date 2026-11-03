@@ -1,6 +1,6 @@
 # Test results and evidence
 
-## AT-04 vocal acceptance + human listening evidence — 2026-11-02 America/Denver
+## AT-04 vocal acceptance + human listening evidence (historical HTTP/provider record) — 2026-11-02 America/Denver
 
 Hermes for MSpanny (Mike); #3 lead. Commits the real live-run evidence records
 from the authorized combined #3/#6 run (exact main head `a1a41d1`, CI green)
@@ -8,16 +8,18 @@ into results/ — the :8000 normal-launch records, NOT the :8010 fixture
 rehearsal copies (kept out of Git). App/tests/contracts/assets/dependencies
 untouched; no new generation, uploads, credentials or budget.
 
-- `results/a3-03-at04-live.json` — AT-04 leg: 14/14 checks PASS as executed.
-  Track "Moonlit Rehearsal" (acoustic indie pop, hopeful/upbeat, 30 s vocal):
-  cover PNG + Qwen lyrics 241 chars + vocal WAV 5,760,078 B stereo 48 kHz,
-  30.0 s decoded. Real provider calls: art 1, text 1 (lyrics), music 1 = 3 of
-  the shared 13-request ceiling.
+- `results/a3-03-at04-live.json` — AT-04 leg: 14/14 checks PASS as executed
+  (direct HTTP/providers against the running app; operator MSpanny, macOS
+  localhost:8000, head a1a41d1). Track "Moonlit Rehearsal" (acoustic indie
+  pop, hopeful/upbeat, 30 s vocal): cover PNG + Qwen lyrics 241 chars + vocal
+  WAV 5,760,078 B stereo 48 kHz, 30.0 s decoded. Observed app-level
+  submissions: art 1, text 1 (lyrics), music 1 = 3 of the shared 13-request
+  ceiling.
 - `results/a3-06-at08-live.json` — AT-08 leg record: reference uploads
   validated/consumed privately; default-voice intro did NOT pass (2 of 3
   speech jobs failed at app level; exact class-side diagnostic not captured).
-  This is a FAILURE record, not a pass; #6 stays open for an AT-08-only
-  diagnostic leg under a new authorization.
+  A FAILURE record, not a pass; see the record's accounting reconciliation and
+  the driver-burst disclosure below.
 
 **Human listening — PASS (2026-11-02 America/Denver, MSpanny):** retained
 audio sha256 `bf45f625ec77bd05…` / cover sha256 `62812834236e0e24…` / 241-char
@@ -26,9 +28,75 @@ well. Cover has NO spelling mistakes, caveat: lettering is not smooth
 (imperfect rendering) — recorded as a #7 curation note, not an AT-04 blocker.
 Listening record: [#3 comment](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6591393031).
 
-With this merge, #3's normal-launch real-output and human-listening evidence
-is fully integrated (issue checkboxes already confirmed); #6 remains open
-for the AT-08 diagnostic re-run.
+**Evidence-method limits (per JoshKozy + mase7919 review, both independently
+confirmed):** the AT-04 record substantiates real-provider generation and
+media attachment over HTTP but does NOT include real-provider browser
+observation — no form interaction, in-browser playback, visible
+track/lyrics/cover pairing or reload retention was recorded for THIS run. The
+only browser-level AT-04/UI evidence is the pre-existing offline fixture
+harness run (real app + real browser + fixture providers), recorded in
+[vocal-browser-record.json](../results/vocal-browser-record.json) and the
+"Real-browser acceptance (offline fixture harness)" section below — it is
+fixture, not class-service, evidence. **#3 therefore stays OPEN pending
+real-provider browser acceptance; no closure claim is made.**
+
+**AT-08 accounting reconciliation (2026-11-02):** the record's fields
+`speech_jobs` (empty) and `submissions_by_kind` (null) reflect the driver
+stopping at the first gate before per-intro job states and the end-of-run
+tally were captured. Observed app-level leg-B submissions: art 2 + music 2
+(succeeded) + 3 speech-job attempts (2 failed, 1 succeeded) = 7 app intents
+plus commentary text requests inside those jobs; provider-side call counts
+for the speech attempts were NOT independently observable (original stop
+report, [#3 comment](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6567842638)),
+and the 13-request authorization ceiling was conservatively treated as fully
+attempted — no unused allowance is inferred. The original driver sent the
+start/advance/advance POSTs eagerly before verifying the default intro
+(driver bug, not app behavior); this run is therefore NOT a verified
+sequential default→MP3→WAV comparison. The driver was since fixed (strictly
+sequential steps + job-error capture) and rehearsed 58/58 offline. #6 stays
+open; a NEW AT-08-only diagnostic leg is a separately authorized run.
+
+
+## Current ZIP test packet reconciliation — 2026-11-02 America/Denver
+
+Joshua/Codex reconciled PR59 with main0a34502 after merged #63; both contribution
+and handoff histories are retained. The teammate procedure now explicitly pins
+`0a34502a4281a8a437b81657fe0809ea92e2c99f`, superseding its older29c5de1 pin;
+earlier observations keep their original source. Actual anonymous GitHub ZIP:
+31,547,394 bytes, SHA-256
+`cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025`.
+Archive inventory and all183 source files match that commit byte-for-byte; ZIP
+integrity, prohibited-path and bounded credential-pattern checks pass. Main CI
+[passed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/41562978679).
+No extraction/startup/browser/independent installation is claimed by this preflight.
+The external template retains19 not-run cases and no installer; release evidence
+completeness correctly remains NOT READY. No gate or acceptance registry changed.
+
+Locked `python scripts/dev.py --check` PASS:240 tests/one skip, scaffold184 and
+coverage36/11/19. Source/scope, historical-DJ JSON preservation, continuous table
+and whitespace checks pass. Procedure adds zero-call layout/theme/idea-helper
+checks; the existing coordinated text4/art2/music2/speech3 ceiling stays11 total.
+No service calls, new media, user uploads or invented listening/teammate results.
+Mike's61 and Matt's implementation remain separate. One actual teammate still
+needs the clean-ZIP/default-DJ run; reference-voice comparison is outside it.
+
+## Local editable song ideas — 2026-11-02 America/Denver
+
+Joshua/Codex, `codex/a3-surprise-song` from main `691fa44`. Expected: Surprise me
+fills a varied vocal-song idea/style/mood, optional seed steers it, selected
+nonempty custom style/mood survive, duration/manual editing remain unchanged,
+and neither click nor Enter submits generation. Actual: all pass in the normal
+no-credentials browser; the existing configured owner session's five track titles
+remain unchanged. All six layouts/both themes fit at1265/465px; a42-character
+unbroken seed also wraps at345px. No generation/service calls or new media.
+
+The actual production-handler VM probe samples2000 seeded rolls:1950 distinct
+titles,2000 distinct full ideas,1705 styles and20 moods. It rejects network/form
+submission/persistence, tests long Unicode bounds, Enter prevention, custom edits,
+reset and a repetitive RNG. This verifies variety for that run, not infinite or
+uniformly original writing. Music/lyrics still use the existing explicit Generate
+path; no new musical quality/fidelity/listening or final-ZIP acceptance is claimed.
+[Safe record](../results/a3-song-ideas.json); screenshots remain local author evidence.
 
 ## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
 
@@ -2103,3 +2171,23 @@ comparison/listening, R31 teammate report check and independent final ZIP remain
 pending. #6/#8/#10 stay open; submission NOT READY. No runtime/contracts/media/
 dependencies/CI/protection/assignment changes. The queued #57 completion credit
 is carried into this focused PR without creating another notes-only review.
+
+## Default-DJ owner listening feedback — 2026-11-02 America/Denver
+
+Joshua listened to the retained Afterglow Avenue11.4s, Moonlit Reflection10.72s
+and Antlercover13.44s introductions and stated: **"The DJ is clear and sounds
+good to me."** [Current feedback record](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6590638135).
+The [baseline JSON](../results/a3-05-default-dj-live.json) appends this follow-up,
+including the three full media hashes, while preserving every original run field.
+The clips still belong to the real default-only run on2be9625. No new generation,
+class calls, browser run or independent installation was performed for listening.
+
+Relaxed / Public Radio, Upbeat Radio and Playful are implemented presentation
+choices from #52; they change Qwen wording while retaining the same Chatterbox
+speaker. Their live audible-style comparison is still untested. The agent-led
+ZIP procedure now captures one uncached intro per style by changing the selector
+during the preceding music before automatic advancement. It retains the existing
+three-intro/11-total-generation ceiling and records actual style/timing and human
+judgments; no extra regeneration to repair a missed switch is allowed.
+This feedback does not establish a full-app, presentation-comparison or final
+independent-ZIP PASS.

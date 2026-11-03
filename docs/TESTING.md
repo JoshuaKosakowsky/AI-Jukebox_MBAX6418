@@ -179,6 +179,12 @@ local pre-publication rehearsal is useful but cannot satisfy the GitHub ZIP rule
 
 ## Final candidate and ZIP
 
+For the owner's default-DJ independent test, use
+[the teammate checklist](DEFAULT_DJ_ZIP_TEST.md). It excludes voice uploads from
+the test flow while retaining that app capability. Its return record is scoped;
+the existing all-case release checker still reports AT-08 as unverified until
+actual evidence/scope is reconciled. Never mark an omitted case passed.
+
 1. Commit reviewed code, assets, dependencies, README and earlier evidence to main.
    Select the full candidate SHA. No missing mandatory requirements may be waived.
 2. Download GitHub's source ZIP for that SHA, not a local build/working-tree ZIP.

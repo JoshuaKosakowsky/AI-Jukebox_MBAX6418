@@ -1,20 +1,258 @@
 # Agent handoff
 
-## Session — AT-04 evidence integration + listening PASS, 2026-11-02 America/Denver
-Hermes for MSpanny (Mike); issue #3 lead. Branch `codex/a3-03-at04-evidence`,
-base origin/main `29c5de1`. Adds the REAL live-run records (base :8000, head
-a1a41d1) `results/a3-03-at04-live.json` (14/14 AT-04 checks PASS; Moonlit
-Rehearsal 30s vocal, Qwen lyrics 241 chars, WAV 5,760,078 B stereo 48 kHz)
-and `results/a3-06-at08-live.json` (AT-08 leg NOT passed: 2/3 speech jobs
-failed at app level) — NOT the :8010 fixture rehearsal copies. TEST_RESULTS.md
-new dated section + this entry. Human listening PASS posted on #3
-(issuecomment-6591393031): audio great, vocals follow written lyrics; cover
-no spelling mistakes, lettering not smooth (curation caveat). Local manifest
-updated. No app/tests/contracts/assets/CI changes; zero generation, uploads,
-credentials or budget. Closes #3 when merged (evidence fully integrated);
-#6 stays open for a NEW AT-08-only diagnostic leg (3 sequential intros,
-jobs-error capture) pending team/lead authorization. Gate must be PASS on
-this head; eligible review from mase7919 / prse4479 per issue pool.
+## Session — AT-04 evidence integration + listening PASS (narrowed per review), 2026-11-02 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead. Branch `codex/a3-03-at04-evidence`
+reconciled with current main `e17997d`. Commits the REAL live-run records
+(base :8000, head a1a41d1) `results/a3-03-at04-live.json` (14/14 HTTP/provider
+AT-04 checks PASS; Moonlit Rehearsal 30s vocal, Qwen lyrics 241 chars, WAV
+5,760,078 B stereo 48 kHz) and `results/a3-06-at08-live.json` (AT-08 leg NOT
+passed: 2/3 speech jobs failed at app level; cause not captured) — NOT the
+:8010 fixture rehearsal copies. Human listening PASS posted on #3
+(issuecomment-6591393031); TEST_RESULTS dated section + this entry; local
+manifest updated. **Scope narrowed per JoshKozy + mase7919 reviews:** these
+are historical real-provider HTTP + human-listening records — NO real-provider
+browser observation exists for this run (the only browser evidence is the
+pre-existing offline fixture harness, linked in TEST_RESULTS), so **#3 stays
+OPEN** and no closure claim is made; AT-08 record carries an accounting
+reconciliation (observed app intents vs unobservable provider attempts,
+13-ceiling treated as fully attempted) and the driver-burst disclosure. No
+app/tests/contracts/assets/CI changes; zero generation, uploads, credentials
+or budget. #6 stays open for a NEW AT-08-only diagnostic leg (3 sequential
+intros, jobs-error capture) pending team/lead authorization.
+
+
+## Session — PR63 merged; current ZIP packet, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, prior1e5808d, incoming main0a34502.
+Owner explicitly approved #63 merge; exact head9d4f072 had Hermes approval, four green checks, zero threads.
+Merged normally at0a34502a4281a8a437b81657fe0809ea92e2c99f; main CI41562978679 PASS.
+No protection/credential/assignment changes or bypass; owner8033 app/session remains untouched.
+Reconciled #59 with current main; preserved both handoff/contribution histories and #62 notes.
+Only docs/evidence differ from main; runtime/tests/assets/dependencies/CI/protection stay byte-identical.
+Re-pinned DEFAULT_DJ_ZIP_TEST to0a34502; earlier #10 comments cite a superseded29c5de1 ZIP.
+New public ZIP31,547,394 bytes; SHA-256cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025.
+Verified inventory, all183 files/bytes, ZIP integrity, prohibited paths and bounded credential patterns.
+External ZIP/identity/blank evidence/NOT READY diagnostics under ../a3-10-final-packet-20261102.
+All19 acceptance entries remain not-run, installer null; no independent acceptance or release PASS.
+Procedure includes zero-call six-layout/Light-Dark/Surprise-me checks; report actual preferences/scrolling.
+One actual teammate suffices; first active claim coordinates the unchanged shared11-call cap, no retries.
+Default-DJ only; keep voice capability, no new personal recording/upload test requested.
+Locked dev.py --check PASS:240 tests/one skip, scaffold184, coverage36/11/19; scope/table/whitespace pass.
+No generation/class calls, new media, playback/browser or human listening performed this session.
+Mike61 remains494c2a02 with existing change requests; do not edit his branch or duplicate its unchanged review.
+Publish this reconciliation on #59, update description, request fresh JoshKozy review; stale approval will dismiss.
+Next: one teammate claims/tests the pinned ZIP; coordinate final evidence and any newer runtime candidate explicitly.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/59 ; /pull/63 ; /issues/10.
+
+## Session — local Surprise me song ideas, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-surprise-song` from main691fa44; carried queued #62 clerical notes40e3a72.
+Owner requests high-variability unusual song ideas while retaining custom input.
+Added separate ideas.js, optional starting idea, preserve-style/mood checkbox and editable wrapped title preview.
+Combines12 default/8 seeded story formats, varied subject/action/place pools, genre hybrids/instruments and20 moods.
+Each roll selects vocal mode, dispatches the existing mode-change event, preserves duration and never submits.
+Enter in the seed field prevents default submission; no fetch, storage, provider or shared-contract changes.
+Production VM probe PASS:1950 unique titles/2000 full ideas,1705 styles/20 moods in2000 fixed-seed rolls.
+Tests include contract bounds, long Unicode seed, deterministic RNG, custom preserve/edit, Enter and reset.
+Normal no-credentials browser checked24 layout/theme/width combinations at1265/465px, no horizontal overflow.
+Additional345px unbroken-seed wrapping passes; full idea is readable outside the single-line title field.
+Real Enter/custom-input check kept style/mood/duration47 and3 bundled tracks; instrumental remains selectable.
+Owner's8033 session retained all5 existing titles, no restart; preserve its generated songs, do not repackage them.
+Local screenshot/observations under ../a3-surprise-preview-20261102; safe JSON/report/README updated.
+Temporary no-credentials localhost8034 test tab closed; stop its verified helper only; original8033 stays available.
+Full locked dev.py --check PASS:240 tests/one skip, scaffold183, coverage36/11/19; syntax/scope/whitespace pass.
+No class generation, uploads, new media, capacity/protection/dependency changes; canceled sample branch stays untouched.
+The finite local suggestion pool is not an AI-generation or musical-fidelity guarantee; full ZIP acceptance still pending.
+Next: freeze/publish focused PR Refs #9, request JoshKozy technical review; owner may try the new input helper locally.
+
+## Session — PR62 merged; awaiting new direction, 2026-11-02 America/Denver
+Codex for Joshua; public main691fa4450ebf0b475c2c8e52d3fb38dca9b0bb84.
+PR62 head6521904 had JoshKozy approval5745567402, all4 green checks and no unresolved review threads.
+Merged normally after current-base/head/protection verification; no bypass, protection, assignment or generation changes.
+A/B/C/D/E/F and both appearances are now on main; Matt/Mike can pull main to compare via DESIGN_REVIEW.md.
+Runtime bytes match approved6521904; earlier239-test/one-skip and author browser evidence retain their scopes.
+Post-merge main CI is checked separately; no new app/listening/ZIP acceptance is claimed by this merge.
+Local codex/a3-post-62-handoff queues this entry and #62 completion credit for the next authorized change.
+These clerical notes are committed locally only; no separate documentation PR or direct-main push.
+The owner CANCELED adding the two newly generated songs after the media-budget discussion.
+Do not resume, commit or publish codex/a3-five-song-library without a fresh instruction.
+That separate worktree under ../a3-new-samples-20261102/repo contains UNCOMMITTED five-song/capacity changes.
+Original8033 browser/session is preserved; do not restart it or regenerate/repackage those tracks on assumption.
+Owner will send the comparison instructions to Matt/Mike; do not message teammates on their behalf.
+Mike's61 still has an existing Hermes change request; review only a corrected new head, preserve others' work.
+Next: owner supplies the new direction; incorporate neutral completion notes into the next relevant PR.
+PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
+## Session — PR60 merged; PR62 reconciled for review, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`; pre-sync `118108b`, incoming main `c995a0c`.
+Owner authorized #60 merge then #62 reconciliation/checks/review preparation.
+PR60 head4050e0d had JoshKozy approval5745111295, four green checks and zero review threads.
+Merged normally at c995a0c2cc93017f90ab13dc35ec3d00b650f30e; no admin bypass or protection changes.
+Merged origin/main into62 without content conflicts; runtime/layout/media bytes are unchanged by this sync.
+PR62 now targets main; removed obsolete parent dependency wording and recorded actual #60 completion credit.
+D/E/F still extend A/B/C; no generation/playback handler, provider, contract or new media changes.
+Historical browser evidence remains a7225eb:1743/1154/387px, six new palette/layout pairs, rack focus and sample continuity.
+No new browser/listening, generation/class calls, uploads or independent ZIP acceptance is claimed for this sync.
+Local checks PASS:239 tests/one skip, scaffold179, coverage36/11/19, JS syntax, runtime preservation/table/whitespace.
+Publish/freeze this reconciliation; mark62 ready with status: review and request JoshKozy after exact-head CI passes.
+Freeze that exact head for Hermes; retain main/protection/CI guards and resolve any actual findings normally.
+Normal preview8033 remains available from this worktree; do not stop unrelated processes or edit other branches.
+PR60 main UI integration does not select the final preferred layout or satisfy teammate/final-ZIP acceptance.
+PR59 remains a separate procedure pinned to29c5de1; its archive results do not certify this changed UI.
+Next: Hermes exact-head review of62; merge only after normal gates, then plan the exact final ZIP candidate.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/60
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
+## Session — three additional layouts D/E/F, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`, stacked on approved PR60 head `4050e0d`.
+Owner explicitly invoked installed frontend-design; used its plan/critique/build/screenshot workflow.
+D Listening room features the first song; E Record shop has side navigation and a sideways sleeve rack.
+F Workbench places queue/library/studio in three desktop panes; all3 have separate light/dark palettes.
+A/B/C stylesheet prefix and generation/playback app.js remain unchanged from4050e0d.
+Only HTML/CSS/appearance controller, preference probe, comparison guide and this handoff change.
+New choices use the same media and handlers; only Workbench opens/restores the existing studio disclosure.
+Form inputs survive layout changes; only layout/theme preferences persist in browser-local storage.
+Keyboard audit found E could clip a focused sleeve; instant focus scrolling and disabled focus-time snapping fix it.
+Measured final focus fits within387px; no generation/media-node mutation is introduced by the focus handler.
+Browser inspected desktop1743px/mobile387px screenshots for all6 new layout/theme combinations.
+All retain3 songs with no page-wide horizontal overflow; E intentionally scrolls inside its album rack.
+At1154px all3 layouts also fit; F falls back to two panes with studio below, then stacks on mobile.
+Mobile critique compacted header/queue/art: first song player bottom D687px/F756px in833px viewport.
+E keeps larger mobile sleeves and needs a short vertical scroll to reach the first player.
+Bundled Moonlit audio kept playing through D/E/F and theme switches; paused afterward.
+Probe covers12 pairs, initial Workbench URL, disclosure restore, storage/history denial and rack focus.
+Final locked dev.py --check PASS:239 tests/one skip, scaffold179, coverage36/11/19; whitespace clean.
+Normal8033 launcher continues from this worktree; local screenshots are in ../def-screenshots (outside Git).
+No generation/class calls, uploads, new assets, provider/contracts/dependency or protection changes.
+PR60 remains approved and unchanged; new PR must stay stacked/draft until60 merges, then retarget main/recheck.
+Classmate aesthetic feedback, assistive-tech review, live generation/DJ and final-ZIP acceptance remain unchecked.
+Pre-handoff code hash `a7225eb`; draft PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+Published only codex/a3-layouts-def; parent60 approval and main remain unchanged by this task.
+Next: owner compares D/E/F; merge parent60, retarget/reconcile62 to main, then exact-head checks/review.
+
+## Session — UI layout comparison and light/dark, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-ux-review`, source main `29c5de1`.
+Owner preferred the revised layout and requested several designs for classmates to compare, all light/dark.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6591067299
+Changed only web layout/rendering/appearance, focused preference test, docs/DESIGN_REVIEW.md and handoff.
+A Record sleeve is editorial rows; B Cover gallery emphasizes artwork; C Studio console is a denser list.
+All three use the SAME DOM/media/handlers; switching only changes CSS attributes, with no reload or generation.
+Dark is the initial default, applied before paint; Light remains available across forms, setup, DJ and players.
+Only layout/theme preferences enter local storage; URL allowlists, denied storage/history gracefully fall back.
+Navigation opens studio/setup; optional voice upload and visible failure/status/retry paths remain available.
+Normal launcher remains at http://127.0.0.1:8033 from this worktree with private inherited configuration.
+External launch/state/screenshots stay beside repo in a3-ux-review-20261102; initial launcher PID10392.
+Browser checked all6 layout/theme pairs at actual1454px and387px:3 tracks retained, no horizontal overflow.
+Creation form visible without overflow at387px; earlier checks cover lyrics/revision controls and queue add.
+Bundled Moonlit audio remained playing across layout/theme changes; paused afterward; reload restored Gallery/Dark.
+Preference probe verifies6 pairs, early dark default, URL priority/hash, persistence, invalid choices and blocked storage/history.
+Browser connection initially stale; resetting only the UI session restored it; no alternate UI automation used.
+Locked dev.py --check PASS:239 tests/one skip, coverage36/11/19; JS syntax and whitespace clean.
+Scaffold/link safeguards PASS with179 files staged; no private configuration or new media belongs to this change.
+No class calls, generation, recording upload, provider/contracts/dependency, protection or assignment changes.
+Classmates can load the comparison branch using docs/DESIGN_REVIEW.md; their aesthetic feedback is still pending.
+This is a design preference comparison, not randomized research or independent final-ZIP acceptance.
+Next: normal reviewed PR for classmates/Hermes; preserve independent ZIP work in PR59 and Mike/Matt branches.
+Keep the local preview available in Dark mode for Joshua; do not stop unrelated servers.
+
+## Session — Owner DJ feedback recorded; styles added to ZIP test, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, pre-change head `6ec67ee`, main `29c5de1`.
+Owner listened to the3 retained default-baseline clips and said "The DJ is clear and sounds good to me."
+Recorded exact feedback on issue5 and appended human_listening_followups to the baseline JSON with media hashes.
+Original run fields remain identical; audio still comes from source2be9625, not a new/current-style run.
+This confirms baseline clarity/voice only; no new song-fit, all-style, full-app or independent install approval invented.
+Confirmed implemented labels Relaxed / Public Radio, Upbeat Radio, Playful; prompts affect Qwen wording, same TTS speaker.
+Updated agent ZIP procedure to use one new intro per style, switching during prior music before automatic advance.
+Record actual selected styles and perceived energy; if timing is missed, disclose it without regenerating.
+Budget unchanged: text4/art2/music2/speech3,11 total; single tester coordination and stop/no-retry rules unchanged.
+Human listening for new selector outputs remains pending; the current feedback is not substituted for the installer's judgment.
+README/TEST_RESULTS explain the boundary; voice uploads stay outside the checklist, capability and gate untouched.
+Joshua opened the independent test to Matt/Mike/Preethi/Johanna; one successful run suffices.
+First live-install claimant runs the shared11-request ceiling; others avoid duplicate generation. No GitHub assignee change.
+No class calls, uploads, generation, browser test or independent installation performed in this session.
+Local checks PASS: original JSON run fields preserved, three-clip feedback/unchanged11-request cap, scaffold176, coverage36/11/19 and whitespace.
+Fresh exact-head CI/review required after push; no app suite repeated locally for docs/evidence-only changes.
+Next: freeze updated #59, retain JoshKozy review request and forward the agent procedure to the selected teammate.
+Installer uses fixed baseline29c5de1 or an explicitly re-pinned candidate; no silent archive/version replacement.
+Feedback: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6590638135
+
+## Session — PR59 procedure made agent-executable, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, pre-update head `7dd3138`, main `29c5de1`.
+Owner requested the procedure itself direct teammates' AIs to do the actual work.
+DEFAULT_DJ_ZIP_TEST now starts with a copy-and-paste coding-agent execution prompt.
+Agent downloads/verifies/extracts, installs, launches, operates browser, captures evidence and writes/posts the report.
+Agent verifies the teammate identity and current claims, uses a clean ZIP and coordinates one tester before live generation.
+Human is asked only for missing private credential setup, audio listening and confirmation of observed findings.
+No requirement for the human to manually perform installation, browser controls or report drafting.
+Restricted JoshKozy reviewer is not an installer; normal contributing agents use their own teammate account/tools.
+Agent does not invent listening, post success if posting unavailable, patch candidate code or switch accounts.
+Same frozen baseline29c5de1, hash/size,11-request ceiling and stop/no-retry rules remain unchanged.
+Default voice only in this checklist; no recording requested; existing upload capability/gate/AT-08 status unchanged.
+README/runbook point to agent execution; current PR remains six documentation paths versus main.
+Local checks PASS: scaffold176/link/safeguards, coverage36/11/19, agent-prompt/scope assertions and whitespace.
+Fresh exact-head CI/review required after push; app suite not repeated locally for docs-only changes.
+No installation, browser acceptance, generation, class calls or human confirmations performed by this edit.
+Next: push corrected procedure to #59, freeze head and request JoshKozy review; user forwards the agent prompt.
+Source: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/59
+
+## Session — Independent ZIP/default-DJ packet prepared, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-10-default-dj-zip-checklist`, source main `29c5de1` with passing CI.
+Owner clarified: default-DJ checklist only; keep existing voice-upload capability, do not request a recording.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10#issuecomment-6589829642
+Added docs/DEFAULT_DJ_ZIP_TEST.md with exact install/core/sample/control/listening steps and copyable return record.
+Prepared baseline ZIP pin29c5de1/hash/size from the current public archive audit; no independent result invented.
+Coordinator may retain that tested version despite a later docs merge, or explicitly select/re-pin another SHA.
+Plan: one installer, two custom songs, three default intros; proposed generation maximum text4/art2/music2/speech3.
+Single tester/budget must be coordinated before live calls; stop at first unexpected error/uncertain submission, no retries.
+Three bundled songs require no regeneration; same tester can check README and explain findings in their own words.
+Runbook now uses actual issue10 lead and source requirement: a different teammate can install even if they contributed code.
+Added README/testing pointers; original brief, app, contracts, dependencies, CI/protection and all-case gate unchanged.
+AT-08 is honestly outside this checklist, not-run; current all-case release gate still requires its MP3/WAV result.
+No default-only result may be presented as an all-case release PASS; full submission readiness is not claimed.
+Imported queued #58 completion and #8 closure notes; #8 remains closed, Mike/Matt work and assignments untouched.
+External candidate identity/blank release and teammate-return records prepared; installer null, all19 cases not-run.
+Local docs/link/coverage/scope/template/launcher-help and whitespace checks PASS; no app suite repeated for docs only.
+Fresh exact-head CI and eligible review required; this is preparation, not an independent acceptance result.
+Next: publish/freeze docs PR and request JoshKozy review; Joshua names an actual installer and coordinates the run.
+Return actual results/screenshots outside extraction; do not repackage the private .env or silently change the submitted ZIP.
+No generation, provider calls, real voice uploads, browser test or installation run performed in this session.
+
+## Session — A3-08 acceptance reconciled and closed, 2026-11-02 America/Denver
+Codex for Joshua; reviewed main `29c5de17b0a0500f09bfbaa80badee7f22be741d`; main CI41529816531 passed.
+Owner requested #8 checklist reconciliation and closure only where fully supported; no implementation task started.
+#8 CLOSED/completed at2026-11-02T21:45:57Z; its live body contains the requirement matrix and source links.
+R07/R22/R23/R24/R25 and scoped AT-02/AT-10/AT-12 all accepted; three aggregate checklist boxes checked.
+R07 reuses four prior real adapter results; current config and provider request boundary match Preethi's recovery source.
+R22 retains Preethi/prse4479's actual normal-launch cases on2a19ecf; later synthetic reports remain supplemental.
+R23-R25 combine current source/archive checks, prior class-sample provenance and merged reference-privacy observations.
+Fresh anonymous current-main ZIP:31,520,975 bytes; SHA-2568aa22e4ae97fa87db30ccb1b2098599b8ca8517682d1e909adcbabcddaefd752.
+All175 ZIP files match Git; CRC/path/mode, bounded credential signatures and private-path checks pass.
+Remote-history filename inventory1839 objects has no prohibited paths; this was not an all-history content scan.
+All four audio/art pairs match retained provenance hashes; selected library3 tracks/two AI-lyric vocals.
+No new live/browser/install run or final submission acceptance claimed; class calls0; submission NOT READY.
+Removed only #8's in-progress label; assignees preserved. #3/#6/#9/#10 and Mike/Matt work remain unchanged.
+This local `codex/a3-post-58-handoff` queues handoff/credit notes for the next focused PR; no notes-only PR/push.
+Next: coordinate remaining #3/#6 evidence with Mike, R31 actual teammate verification with Matt/another teammate.
+Then another actual teammate installs/tests the final exact GitHub ZIP for #10; no old generation budget is renewed.
+Do not keep #8 marked pending in later status summaries; reopen only for a concrete new scoped regression/gap.
+Authoritative acceptance/closure: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8
+
+## Session — PR58 merged; completion notes queued, 2026-11-02 America/Denver
+Codex for Joshua; #58 merged normally at `29c5de17b0a0500f09bfbaa80badee7f22be741d`.
+Approved head `4f8dda6`; JoshKozy review5743606798, four green PR checks, no unresolved threads.
+Authenticated writer JoshuaKosakowsky; no admin override or protection/assignment changes.
+Local checkout fast-forwarded to main; this `codex/a3-post-58-handoff` queues only handoff/completion credit.
+These notes are local-only for the next focused PR; do not push a separate notes-only PR.
+Main now includes the18-observation synthetic browser report/helper and #57 completion credit.
+Browser evidence still tests source `3f65954`; archive preflight still tests `78fb007`.
+No rerun/live/ZIP/listening acceptance for this later main is implied by the merge.
+Original local238-test/one-skip result and four approved-head CI checks remain recorded.
+Main CI is checked separately after merge; no application changes require another local suite run.
+Next independent task: reconcile #8's R07/R22-R25 and AT-02/10/12 checklist against merged evidence.
+Close only requirements with actual published support; identify exact remaining gaps instead of generating more fixtures.
+Mike's #3 published vocal/listening evidence and #6 real default/MP3/WAV comparison remain separate.
+The old13-request allowance is spent; any new coordinated class comparison needs a fresh bounded authorization.
+Matt/another actual teammate still needs R31 documentation verification; final ZIP needs a different teammate.
+No class calls, new uploads, browser tests or implementation were performed in this merge session.
+Submission remains NOT READY; merge source: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/58
 
 ## Session — A3-08 synthetic browser reference privacy, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-08-browser-privacy`, source main `3f65954` (main CI passed).

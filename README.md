@@ -64,6 +64,12 @@ your default or uploaded reference voice. The choice stays in this browser
 session across reloads. Cached and in-progress introductions keep their original
 wording; choosing a style never regenerates them or interrupts music.
 
+Joshua listened to the three retained default-baseline introductions on
+2026-11-02 and reported, "The DJ is clear and sounds good to me." This approves
+those clips' clarity/voice; live Upbeat/Playful comparison remains untested.
+The [teammate ZIP procedure](docs/DEFAULT_DJ_ZIP_TEST.md) checks one new intro per
+style within its existing three-intro allowance, with actual human feedback.
+
 ## Bundled sample library
 
 The app loads approved entries from [assets/samples/manifest.json](assets/samples/manifest.json)
@@ -128,6 +134,16 @@ and source archives. Never commit uploads, voice references or third-party media
    continues an in-flight chain: a vocal draft whose chain was interrupted by
    a reload waits for a deliberate **Generate vocal song** click. A failed
    vocal submission is likewise a deliberate button click away.
+   Optional: **Surprise me** fills an unusual vocal-song title, genre combination
+   and mood locally. Add a **Starting idea** to steer it, or leave that blank for
+   a fresh concept. **Keep my style and mood** preserves nonempty custom settings.
+   Every field remains editable, duration stays unchanged, and you can switch back
+   to Instrumental. Pressing Enter in the starting-idea box only remixes the idea.
+   No service request, track or audio is created until you deliberately Generate.
+   The suggestions remix finite story/music word pools; original sung lyrics still
+   come from Qwen when generation starts. Genre blends are prompts, not a guarantee
+   that the music model will reproduce every requested detail.
+
 3. Watch each track's cover/lyrics/instrumental status. Create a second distinct
    song, then reload: each track, cover, lyrics and audio remains paired with
    its own title/settings.
@@ -344,6 +360,9 @@ the normal app also launches from source without .git.
 - [Full requirement map](docs/acceptance.json), [testing](docs/TESTING.md),
   [observed results](docs/TEST_RESULTS.md), [A2 lessons](docs/A2_LESSONS.md).
 - [GitHub/protection](docs/GITHUB_SETUP.md), [completion record](docs/CONTRIBUTIONS.md).
+- [Teammate ZIP test with the default DJ](docs/DEFAULT_DJ_ZIP_TEST.md): clean install,
+  an agent execution prompt, human listening checks and a copyable result record;
+  no voice recording requested.
 - Joshua's disclosed JoshKozy reviewer (not classmates' Hermes coding agents): [setup](docs/HERMES_SETUP.md),
   [separate review-only instructions](docs/HERMES_REVIEWER.md),
   [eligibility policy](CONTRIBUTING.md#disclosed-hermes-reviewer-joshkozy).
@@ -357,9 +376,12 @@ recovery, evidence/design findings and an independent exact-GitHub-ZIP installat
 See the complete brief; this paragraph does not replace it.
 
 **Submission NOT READY.** Instrumentals/covers, the three selected samples and
-real default-DJ results are recorded above. Complete the published vocal-creation
-and real reference-voice evidence, remaining recovery/report verification and
-independent deployment. Then freeze a merged main SHA, download that exact GitHub
+real default-DJ results are recorded above; [#8 recovery/public-file safeguards](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/8)
+are complete within that issue's scope. The [default-DJ ZIP checklist](docs/DEFAULT_DJ_ZIP_TEST.md)
+is prepared, not executed. Complete published vocal-creation evidence, actual
+teammate report verification and independent deployment. Voice upload capability
+remains; its live comparison is untested and the all-case checker still lists
+AT-08 as unverified. Then freeze a merged main SHA, download that exact GitHub
 ZIP and follow the [submission runbook](docs/SUBMISSION_RUNBOOK.md) with a different
 teammate. Submit the public repo URL, that commit and that same ZIP on Canvas;
 keep the repository public through grading.

@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Local Surprise me controls (2026-11-02, branch `codex/a3-surprise-song`):
+[idea-generator browser/variability record](a3-song-ideas.json). Production handler
+probe:1950 distinct titles/2000 full ideas in2000 fixed-seed rolls. Normal
+no-credentials browser checks cover all6 layouts in both themes at1265/465px,
+custom seed/keep/edit/Enter behavior and345px wrapping. Zero generation calls;
+this is input/UI evidence, not music quality or independent ZIP acceptance.
+
 Reference-voice browser privacy/recovery regression (2026-11-02, main `3f65954`):
 [safe18-observation record and reproduction](a3-08-reference-browser.json),
 [malformed upload](a3-08-reference-malformed.jpg), [clear/default](a3-08-reference-default.jpg),
