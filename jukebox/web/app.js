@@ -152,6 +152,25 @@ function musicStatusText(job, hasAudio, vocal) {
   return "Waiting to start…";
 }
 
+function seekAudio(audio, seconds) {
+  if (!audio || !Number.isFinite(audio.duration) || audio.duration <= 0) return false;
+  try {
+    audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + seconds));
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+function updateManualSeeking() {
+  document.querySelectorAll(".track").forEach(card => {
+    const audio = card.querySelector("audio");
+    const disabled = djActive || latestSession?.playback.state !== "idle"
+      || !audio || !Number.isFinite(audio.duration) || audio.duration <= 0;
+    card.querySelectorAll(".seek-controls button").forEach(button => { button.disabled = disabled; });
+  });
+}
+
 function trackCardInput(track, jobs, queued) {
   return JSON.stringify({track, jobs: jobs.filter(job => job.track_id === track.id), queued});
 }
@@ -199,6 +218,7 @@ function buildTrackCard(track, jobs, queued) {
     if (track.lyrics) {
       const lyricsBlock = node("details", undefined, "lyrics");
       lyricsBlock.append(node("summary", "Lyrics"));
+      lyricsBlock.append(node("p", "AI-written lyrics; the sung performance may omit or change words.", "note"));
       lyricsBlock.append(node("pre", track.lyrics));
       detail.append(lyricsBlock);
     }
@@ -229,10 +249,27 @@ function buildTrackCard(track, jobs, queued) {
   if (track.audio) {
     const audio = node("audio");
     audio.controls = true;
-    audio.preload = "none";
+    audio.preload = "metadata";
     audio.src = track.audio.url;
     audio.setAttribute("aria-label", `Play ${track.title}`);
     detail.append(audio);
+    const seeking = node("div", undefined, "seek-controls");
+    for (const [seconds, label] of [[-5, "Back"], [5, "Forward"]]) {
+      const button = node("button", seconds < 0 ? "−5 s" : "+5 s");
+      button.type = "button";
+      button.disabled = true;
+      button.setAttribute("aria-label", `${label} 5 seconds in ${track.title}`);
+      button.addEventListener("click", () => {
+        if (djActive || latestSession?.playback.state !== "idle") return;
+        // Resolve the player from the new card: renderLibrary preserves its
+        // original audio node when queue/cover/lyrics changes rebuild a card.
+        seekAudio(card.querySelector("audio"), seconds);
+      });
+      seeking.append(button);
+    }
+    detail.append(seeking);
+    audio.addEventListener("loadedmetadata", updateManualSeeking);
+    audio.addEventListener("durationchange", updateManualSeeking);
   } else {
     detail.append(node("p", vocal ? "Song draft · lyrics and vocal generation pending." : "Song draft · instrumental generation pending.", "note"));
   }
@@ -371,6 +408,7 @@ function renderLibrary(session) {
       existing.remove();
     }
   }
+  updateManualSeeking();
 }
 
 function vocalMode() {
@@ -850,6 +888,28 @@ function djStatusIdleDone() {
   status.textContent = "Queue finished. Press Play to hear it again.";
 }
 
+function canSeekDj() {
+  const playback = latestSession?.playback;
+  const music = playback?.state === "playing"
+    || (playback?.state === "paused" && playback.paused_from === "playing");
+  const track = latestSession?.tracks.find(item => item.id === playback.current_track_id);
+  return music && track?.audio && djAudio.getAttribute("src") === track.audio.url
+    && Number.isFinite(djAudio.duration) && djAudio.duration > 0;
+}
+
+function updateDjSeeking() {
+  const available = Boolean(canSeekDj());
+  for (const id of ["#dj-back", "#dj-forward"]) document.querySelector(id).disabled = !available;
+  const time = value => `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, "0")}`;
+  document.querySelector("#dj-position").textContent = available
+    ? `${time(djAudio.currentTime)} / ${time(djAudio.duration)}` : "Seeking is available during music.";
+}
+
+function seekDj(seconds) {
+  if (canSeekDj()) seekAudio(djAudio, seconds);
+  updateDjSeeking();
+}
+
 function renderDj(session) {
   const presentation = document.querySelector("#dj-presentation");
   if (!djPresentationSaving) presentation.value = session.dj_presentation || "relaxed";
@@ -861,13 +921,29 @@ function renderDj(session) {
   if (pb.queue.length === 0) {
     list.append(node("li", "Queue is empty"));
   }
-  session.tracks.forEach(track => {
-    const position = pb.queue.indexOf(track.id);
-    if (position < 0) return;
+  pb.queue.forEach((trackId, position) => {
+    const track = session.tracks.find(item => item.id === trackId);
+    if (!track) return;
     const item = node("li", `${position + 1}. ${track.title}`);
     if (position === pb.index && pb.state !== "idle") {
       item.className = "current";
     }
+    const remove = node("button", "Remove", "queue-remove");
+    remove.type = "button";
+    remove.setAttribute("aria-label", `Remove ${track.title} from DJ queue`);
+    remove.disabled = pb.state !== "idle" && track.id === pb.current_track_id;
+    remove.title = remove.disabled ? "Use Skip before removing the current song." : "Keep the song in the library.";
+    remove.addEventListener("click", async () => {
+      remove.disabled = true;
+      try {
+        await request("/api/playback/queue/remove", {track_id: track.id});
+        notice.textContent = `${track.title} removed from the DJ queue; kept in your library.`;
+      } catch (error) {
+        notice.textContent = error.message;
+      }
+      await syncAfterMutation();
+    });
+    item.append(remove);
     list.append(item);
   });
   const status = document.querySelector("#dj-status");
@@ -880,6 +956,8 @@ function renderDj(session) {
   pause.disabled = !(pb.state === "speaking" || pb.state === "playing");
   resume.disabled = pb.state !== "paused" && !(djHalted && pb.state !== "idle");
   skip.disabled = pb.state === "idle" || !available;
+  updateManualSeeking();
+  updateDjSeeking();
   const current = pb.current_track_id
     ? session.tracks.find(track => track.id === pb.current_track_id) : null;
   if (!available) {
@@ -911,6 +989,11 @@ document.querySelector("#dj-play").addEventListener("click", djStart);
 document.querySelector("#dj-pause").addEventListener("click", djPause);
 document.querySelector("#dj-resume").addEventListener("click", djResume);
 document.querySelector("#dj-skip").addEventListener("click", djSkip);
+document.querySelector("#dj-back").addEventListener("click", () => seekDj(-5));
+document.querySelector("#dj-forward").addEventListener("click", () => seekDj(5));
+for (const event of ["loadedmetadata", "durationchange", "timeupdate", "emptied"]) {
+  djAudio.addEventListener(event, updateDjSeeking);
+}
 document.querySelector("#dj-presentation").addEventListener("change", changeDjPresentation);
 
 document.querySelector("#dj-voice").addEventListener("change", selectDjVoice);
