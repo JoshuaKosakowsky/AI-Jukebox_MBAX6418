@@ -1,0 +1,127 @@
+{
+ "mode": "A3-03 AT-04 vocal acceptance (combined run, leg A)",
+ "commit": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+ "base": "http://127.0.0.1:8000",
+ "started_utc": "2026-11-02T02:43:28.210504+00:00",
+ "finished_utc": "2026-11-02T02:43:52.941747+00:00",
+ "inputs": {
+  "title": "Moonlit Rehearsal",
+  "style": "Acoustic indie pop",
+  "mood": "Hopeful and upbeat",
+  "duration_seconds": 30,
+  "mode": "vocal",
+  "queue": [
+   "Moonlit Rehearsal",
+   "Desert Drive",
+   "Glass Atrium"
+  ]
+ },
+ "stop_condition": "intro default stage clean: failed jobs: speech:failed; speech:failed",
+ "checks": [
+  {
+   "check": "all four generation roles configured before the run",
+   "pass": true,
+   "detail": "services={'text': 'configured', 'art': 'configured', 'music': 'configured', 'speech': 'configured'}"
+  },
+  {
+   "check": "connectivity not force-checked before the run",
+   "pass": true,
+   "detail": "False"
+  },
+  {
+   "check": "track created (Moonlit Rehearsal)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "leg A cover stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "lyrics requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "lyrics settled within deadline",
+   "pass": true,
+   "detail": "polls=2"
+  },
+  {
+   "check": "lyrics stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "lyrics attached and non-empty",
+   "pass": true,
+   "detail": "lyrics_len=241"
+  },
+  {
+   "check": "vocal music requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "vocal music settled within deadline",
+   "pass": true,
+   "detail": "polls=8"
+  },
+  {
+   "check": "vocal music stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "vocal audio attached",
+   "pass": true,
+   "detail": "5760078"
+  },
+  {
+   "check": "vocal cover attached",
+   "pass": true,
+   "detail": "787271"
+  },
+  {
+   "check": "audio decodes with plausible duration",
+   "pass": true,
+   "detail": "30.0s (target ~30s)"
+  }
+ ],
+ "lyrics_retained": "Strumming chords beneath the silver sky\nChasing shadows as they drift on by\nOne more take before the dawn breaks through\nEvery note feels brand new\nWe\u2019re learning how to fly\nWith the moonlight in our eyes\nJust a simple melody\nSetting us free",
+ "submissions_by_kind": null,
+ "media": {
+  "audio": {
+   "bytes": 5760078,
+   "content_type": "audio/wav",
+   "sha256": "bf45f625ec77bd05c3a07d7f7c8e9608fe7d57dc0862c24747d0dd3356e53dcd",
+   "media_id": "bcecb940-1631-485e-8bcd-65ccfe7705f9",
+   "decoded_wav": {
+    "frames": 1440000,
+    "rate": 48000,
+    "channels": 2,
+    "duration_seconds": 30.0
+   }
+  },
+  "cover": {
+   "bytes": 787271,
+   "content_type": "image/png",
+   "sha256": "62812834236e0e244639322d54d100ca867c283e418ae20030d894f77d566bf5",
+   "media_id": "1da205ce-76f0-49a7-9feb-c15e1688f7b8"
+  }
+ },
+ "retained": {
+  "lyrics_txt": "generated/retained/a3-03-vocal-d2f18dae-258b-433a-aded-46b6c6137a6a.lyrics.txt",
+  "audio": "generated/retained/a3-03-vocal-d2f18dae-258b-433a-aded-46b6c6137a6a.wav",
+  "cover": "generated/retained/a3-03-vocal-d2f18dae-258b-433a-aded-46b6c6137a6a.png"
+ },
+ "provider_call_accounting": "art1 + text1(lyrics) + music1 = 3 app-level submissions, all succeeded; 0 retries. 3 of the shared 13-request authorization ceiling.",
+ "method": "Direct HTTP requests to the normal-launch app on localhost (:8000) driven by a Python acceptance driver; NO browser automation in this run.",
+ "operator": "MSpanny directing Hermes",
+ "environment": "macOS, normal-launch app (scripts/dev.py), localhost:8000, head a1a41d1",
+ "browser_level_observations": {
+  "recorded": false,
+  "explanation": "No form interaction, in-browser playback, visible pairing or reload-retention was recorded for THIS run. The only browser-level AT-04 UI evidence is the pre-existing offline fixture-harness run (real app + real browser + fixture providers; results/vocal-browser-record.json) and separately recorded real-browser DJ runs. Issue #3 stays OPEN pending real-provider browser acceptance."
+ }
+}

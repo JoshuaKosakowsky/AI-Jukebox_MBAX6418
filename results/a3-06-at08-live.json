@@ -1,0 +1,143 @@
+{
+ "mode": "A3-06 AT-08 reference-voice acceptance (combined run, leg B)",
+ "commit": "a1a41d168b1004132b6bac38f914d2eddff729bc",
+ "base": "http://127.0.0.1:8000",
+ "started_utc": "2026-11-02T02:43:28.210504+00:00",
+ "finished_utc": "2026-11-02T02:43:52.941925+00:00",
+ "inputs": {
+  "queue": [
+   "Moonlit Rehearsal",
+   "Desert Drive",
+   "Glass Atrium"
+  ],
+  "voice_order": [
+   "default",
+   "mp3",
+   "wav"
+  ]
+ },
+ "stop_condition": "intro default stage clean: failed jobs: speech:failed; speech:failed",
+ "checks": [
+  {
+   "check": "invalid reference clip rejected (422)",
+   "pass": true,
+   "detail": "HTTP 422"
+  },
+  {
+   "check": "MP3 reference accepted (201)",
+   "pass": true,
+   "detail": "HTTP 201"
+  },
+  {
+   "check": "WAV reference accepted (201)",
+   "pass": true,
+   "detail": "HTTP 201"
+  },
+  {
+   "check": "reference ids stay private (absent from session)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "reference media never served",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "check": "leg B inst1 cover stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "inst1 music requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "inst1 music settled within deadline",
+   "pass": true,
+   "detail": "polls=6"
+  },
+  {
+   "check": "leg B inst1 music stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "leg B inst2 cover stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "inst2 music requested (202)",
+   "pass": true,
+   "detail": "HTTP 202"
+  },
+  {
+   "check": "inst2 music settled within deadline",
+   "pass": true,
+   "detail": "polls=6"
+  },
+  {
+   "check": "leg B inst2 music stage clean",
+   "pass": true,
+   "detail": "1 job(s) succeeded"
+  },
+  {
+   "check": "queued d2f18dae",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "queued 8cee1ee0",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "queued 113abe86",
+   "pass": true,
+   "detail": "HTTP 200"
+  },
+  {
+   "check": "intro settles (default) settled within deadline",
+   "pass": true,
+   "detail": "polls=2"
+  },
+  {
+   "check": "intro default stage clean",
+   "pass": false,
+   "detail": "failed jobs: speech:failed; speech:failed"
+  }
+ ],
+ "uploads": {
+  "mp3": {
+   "id": "cb8c4ce3-c7c1-496c-b808-4b36ba920a9b",
+   "media_type": "audio/mpeg"
+  },
+  "wav": {
+   "id": "dc47a798-058d-48d0-8d6c-27806cd07514",
+   "media_type": "audio/wav"
+  }
+ },
+ "speech_jobs": [],
+ "submissions_by_kind": null,
+ "fixture_stats": null,
+ "provider_call_accounting": "OBSERVED app-level leg-B submissions: art 2 + music 2 (both succeeded) + 3 speech-job attempts (2 failed, 1 succeeded at app level) + commentary text requests inside those speech jobs. Provider-side call counts for the speech attempts were NOT independently observable; the shared 13-request authorization was conservatively treated as FULLY attempted (no unused allowance inferred). Leg A of the same run used art1+text1+music1.",
+ "accounting_reconciliation_2026_11_03": {
+  "reason": "Added per JoshKozy + mase7919 review of PR #61 (both findings independently confirmed).",
+  "speech_jobs_empty": "Driver stopped at the first gate ('intro default stage clean' FAILED) before per-intro speech-job states were appended; the field is preserved empty as evidence of where the run stopped.",
+  "submissions_by_kind_null": "End-of-run tally is computed only after all three intros complete; the run stopped at the first intro, so the tally was never computed.",
+  "observed_app_intents": {
+   "art": 2,
+   "music": 2,
+   "speech_job_attempts": 3,
+   "speech_succeeded": 1,
+   "speech_failed": 2,
+   "text_commentary": "inside speech jobs"
+  },
+  "provider_side": "not independently observable; original stop report (issue #3 comment 6567842638) states provider accounting for the three app-level speech-job attempts could not be observed.",
+  "driver_disclosure": "The original driver sent start/advance/advance POSTs eagerly before verifying the default intro (driver bug, NOT app behavior). This record is therefore NOT a verified sequential default->MP3->WAV comparison; the driver has since been fixed (strictly sequential steps + job-error capture) and rehearsed 58/58 offline.",
+  "authorization": "The shared 13-request ceiling (previous combined run authorization) is treated as fully attempted; AT-08 completion requires a NEW separately authorized diagnostic leg.",
+  "no_invented_counts": "No class-side failure cause or provider call count is asserted beyond the app-observable 3 speech-job attempts (2 failed, 1 succeeded)."
+ }
+}

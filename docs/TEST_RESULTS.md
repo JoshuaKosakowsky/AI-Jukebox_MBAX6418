@@ -1,5 +1,62 @@
 # Test results and evidence
 
+## AT-04 vocal acceptance + human listening evidence (historical HTTP/provider record) — 2026-11-02 America/Denver
+
+Hermes for MSpanny (Mike); #3 lead. Commits the real live-run evidence records
+from the authorized combined #3/#6 run (exact main head `a1a41d1`, CI green)
+into results/ — the :8000 normal-launch records, NOT the :8010 fixture
+rehearsal copies (kept out of Git). App/tests/contracts/assets/dependencies
+untouched; no new generation, uploads, credentials or budget.
+
+- `results/a3-03-at04-live.json` — AT-04 leg: 14/14 checks PASS as executed
+  (direct HTTP/providers against the running app; operator MSpanny, macOS
+  localhost:8000, head a1a41d1). Track "Moonlit Rehearsal" (acoustic indie
+  pop, hopeful/upbeat, 30 s vocal): cover PNG + Qwen lyrics 241 chars + vocal
+  WAV 5,760,078 B stereo 48 kHz, 30.0 s decoded. Observed app-level
+  submissions: art 1, text 1 (lyrics), music 1 = 3 of the shared 13-request
+  ceiling.
+- `results/a3-06-at08-live.json` — AT-08 leg record: reference uploads
+  validated/consumed privately; default-voice intro did NOT pass (2 of 3
+  speech jobs failed at app level; exact class-side diagnostic not captured).
+  A FAILURE record, not a pass; see the record's accounting reconciliation and
+  the driver-burst disclosure below.
+
+**Human listening — PASS (2026-11-02 America/Denver, MSpanny):** retained
+audio sha256 `bf45f625ec77bd05…` / cover sha256 `62812834236e0e24…` / 241-char
+lyrics. Audio sounds great and the sung vocals follow the written lyrics
+well. Cover has NO spelling mistakes, caveat: lettering is not smooth
+(imperfect rendering) — recorded as a #7 curation note, not an AT-04 blocker.
+Listening record: [#3 comment](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6591393031).
+
+**Evidence-method limits (per JoshKozy + mase7919 review, both independently
+confirmed):** the AT-04 record substantiates real-provider generation and
+media attachment over HTTP but does NOT include real-provider browser
+observation — no form interaction, in-browser playback, visible
+track/lyrics/cover pairing or reload retention was recorded for THIS run. The
+only browser-level AT-04/UI evidence is the pre-existing offline fixture
+harness run (real app + real browser + fixture providers), recorded in
+[vocal-browser-record.json](../results/vocal-browser-record.json) and the
+"Real-browser acceptance (offline fixture harness)" section below — it is
+fixture, not class-service, evidence. **#3 therefore stays OPEN pending
+real-provider browser acceptance; no closure claim is made.**
+
+**AT-08 accounting reconciliation (2026-11-02):** the record's fields
+`speech_jobs` (empty) and `submissions_by_kind` (null) reflect the driver
+stopping at the first gate before per-intro job states and the end-of-run
+tally were captured. Observed app-level leg-B submissions: art 2 + music 2
+(succeeded) + 3 speech-job attempts (2 failed, 1 succeeded) = 7 app intents
+plus commentary text requests inside those jobs; provider-side call counts
+for the speech attempts were NOT independently observable (original stop
+report, [#3 comment](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6567842638)),
+and the 13-request authorization ceiling was conservatively treated as fully
+attempted — no unused allowance is inferred. The original driver sent the
+start/advance/advance POSTs eagerly before verifying the default intro
+(driver bug, not app behavior); this run is therefore NOT a verified
+sequential default→MP3→WAV comparison. The driver was since fixed (strictly
+sequential steps + job-error capture) and rehearsed 58/58 offline. #6 stays
+open; a NEW AT-08-only diagnostic leg is a separately authorized run.
+
+
 ## Current ZIP test packet reconciliation — 2026-11-02 America/Denver
 
 Joshua/Codex reconciled PR59 with main0a34502 after merged #63; both contribution

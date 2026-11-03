@@ -1,5 +1,26 @@
 # Agent handoff
 
+## Session — AT-04 evidence integration + listening PASS (narrowed per review), 2026-11-02 America/Denver
+Hermes for MSpanny (Mike); issue #3 lead. Branch `codex/a3-03-at04-evidence`
+reconciled with current main `e17997d`. Commits the REAL live-run records
+(base :8000, head a1a41d1) `results/a3-03-at04-live.json` (14/14 HTTP/provider
+AT-04 checks PASS; Moonlit Rehearsal 30s vocal, Qwen lyrics 241 chars, WAV
+5,760,078 B stereo 48 kHz) and `results/a3-06-at08-live.json` (AT-08 leg NOT
+passed: 2/3 speech jobs failed at app level; cause not captured) — NOT the
+:8010 fixture rehearsal copies. Human listening PASS posted on #3
+(issuecomment-6591393031); TEST_RESULTS dated section + this entry; local
+manifest updated. **Scope narrowed per JoshKozy + mase7919 reviews:** these
+are historical real-provider HTTP + human-listening records — NO real-provider
+browser observation exists for this run (the only browser evidence is the
+pre-existing offline fixture harness, linked in TEST_RESULTS), so **#3 stays
+OPEN** and no closure claim is made; AT-08 record carries an accounting
+reconciliation (observed app intents vs unobservable provider attempts,
+13-ceiling treated as fully attempted) and the driver-burst disclosure. No
+app/tests/contracts/assets/CI changes; zero generation, uploads, credentials
+or budget. #6 stays open for a NEW AT-08-only diagnostic leg (3 sequential
+intros, jobs-error capture) pending team/lead authorization.
+
+
 ## Session — PR63 merged; current ZIP packet, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, prior1e5808d, incoming main0a34502.
 Owner explicitly approved #63 merge; exact head9d4f072 had Hermes approval, four green checks, zero threads.
