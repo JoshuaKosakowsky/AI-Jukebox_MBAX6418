@@ -1,5 +1,23 @@
 # Test results and evidence
 
+## Local editable song ideas — 2026-11-02 America/Denver
+
+Joshua/Codex, `codex/a3-surprise-song` from main `691fa44`. Expected: Surprise me
+fills a varied vocal-song idea/style/mood, optional seed steers it, selected
+nonempty custom style/mood survive, duration/manual editing remain unchanged,
+and neither click nor Enter submits generation. Actual: all pass in the normal
+no-credentials browser; the existing configured owner session's five track titles
+remain unchanged. All six layouts/both themes fit at1265/465px; a42-character
+unbroken seed also wraps at345px. No generation/service calls or new media.
+
+The actual production-handler VM probe samples2000 seeded rolls:1950 distinct
+titles,2000 distinct full ideas,1705 styles and20 moods. It rejects network/form
+submission/persistence, tests long Unicode bounds, Enter prevention, custom edits,
+reset and a repetitive RNG. This verifies variety for that run, not infinite or
+uniformly original writing. Music/lyrics still use the existing explicit Generate
+path; no new musical quality/fidelity/listening or final-ZIP acceptance is claimed.
+[Safe record](../results/a3-song-ideas.json); screenshots remain local author evidence.
+
 ## PR #40 reconciliation after sample inventory — 2026-11-01 America/Denver
 
 Joshua/Codex; prior head `c2817fccf7ffeb7215d104c7ed8bfb8a87eb54bc`,

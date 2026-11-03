@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — local Surprise me song ideas, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-surprise-song` from main691fa44; carried queued #62 clerical notes40e3a72.
+Owner requests high-variability unusual song ideas while retaining custom input.
+Added separate ideas.js, optional starting idea, preserve-style/mood checkbox and editable wrapped title preview.
+Combines12 default/8 seeded story formats, varied subject/action/place pools, genre hybrids/instruments and20 moods.
+Each roll selects vocal mode, dispatches the existing mode-change event, preserves duration and never submits.
+Enter in the seed field prevents default submission; no fetch, storage, provider or shared-contract changes.
+Production VM probe PASS:1950 unique titles/2000 full ideas,1705 styles/20 moods in2000 fixed-seed rolls.
+Tests include contract bounds, long Unicode seed, deterministic RNG, custom preserve/edit, Enter and reset.
+Normal no-credentials browser checked24 layout/theme/width combinations at1265/465px, no horizontal overflow.
+Additional345px unbroken-seed wrapping passes; full idea is readable outside the single-line title field.
+Real Enter/custom-input check kept style/mood/duration47 and3 bundled tracks; instrumental remains selectable.
+Owner's8033 session retained all5 existing titles, no restart; preserve its generated songs, do not repackage them.
+Local screenshot/observations under ../a3-surprise-preview-20261102; safe JSON/report/README updated.
+Temporary no-credentials localhost8034 test tab closed; stop its verified helper only; original8033 stays available.
+Full locked dev.py --check PASS:240 tests/one skip, scaffold183, coverage36/11/19; syntax/scope/whitespace pass.
+No class generation, uploads, new media, capacity/protection/dependency changes; canceled sample branch stays untouched.
+The finite local suggestion pool is not an AI-generation or musical-fidelity guarantee; full ZIP acceptance still pending.
+Next: freeze/publish focused PR Refs #9, request JoshKozy technical review; owner may try the new input helper locally.
+
 ## Session — PR62 merged; awaiting new direction, 2026-11-02 America/Denver
 Codex for Joshua; public main691fa4450ebf0b475c2c8e52d3fb38dca9b0bb84.
 PR62 head6521904 had JoshKozy approval5745567402, all4 green checks and no unresolved review threads.
