@@ -1,5 +1,52 @@
 # Agent handoff
 
+## Session — PR60 merged; PR62 reconciled for review, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`; pre-sync `118108b`, incoming main `c995a0c`.
+Owner authorized #60 merge then #62 reconciliation/checks/review preparation.
+PR60 head4050e0d had JoshKozy approval5745111295, four green checks and zero review threads.
+Merged normally at c995a0c2cc93017f90ab13dc35ec3d00b650f30e; no admin bypass or protection changes.
+Merged origin/main into62 without content conflicts; runtime/layout/media bytes are unchanged by this sync.
+PR62 now targets main; removed obsolete parent dependency wording and recorded actual #60 completion credit.
+D/E/F still extend A/B/C; no generation/playback handler, provider, contract or new media changes.
+Historical browser evidence remains a7225eb:1743/1154/387px, six new palette/layout pairs, rack focus and sample continuity.
+No new browser/listening, generation/class calls, uploads or independent ZIP acceptance is claimed for this sync.
+Local checks PASS:239 tests/one skip, scaffold179, coverage36/11/19, JS syntax, runtime preservation/table/whitespace.
+Publish/freeze this reconciliation; mark62 ready with status: review and request JoshKozy after exact-head CI passes.
+Freeze that exact head for Hermes; retain main/protection/CI guards and resolve any actual findings normally.
+Normal preview8033 remains available from this worktree; do not stop unrelated processes or edit other branches.
+PR60 main UI integration does not select the final preferred layout or satisfy teammate/final-ZIP acceptance.
+PR59 remains a separate procedure pinned to29c5de1; its archive results do not certify this changed UI.
+Next: Hermes exact-head review of62; merge only after normal gates, then plan the exact final ZIP candidate.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/60
+https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
+## Session — three additional layouts D/E/F, 2026-11-02 America/Denver
+Codex for Joshua; branch `codex/a3-layouts-def`, stacked on approved PR60 head `4050e0d`.
+Owner explicitly invoked installed frontend-design; used its plan/critique/build/screenshot workflow.
+D Listening room features the first song; E Record shop has side navigation and a sideways sleeve rack.
+F Workbench places queue/library/studio in three desktop panes; all3 have separate light/dark palettes.
+A/B/C stylesheet prefix and generation/playback app.js remain unchanged from4050e0d.
+Only HTML/CSS/appearance controller, preference probe, comparison guide and this handoff change.
+New choices use the same media and handlers; only Workbench opens/restores the existing studio disclosure.
+Form inputs survive layout changes; only layout/theme preferences persist in browser-local storage.
+Keyboard audit found E could clip a focused sleeve; instant focus scrolling and disabled focus-time snapping fix it.
+Measured final focus fits within387px; no generation/media-node mutation is introduced by the focus handler.
+Browser inspected desktop1743px/mobile387px screenshots for all6 new layout/theme combinations.
+All retain3 songs with no page-wide horizontal overflow; E intentionally scrolls inside its album rack.
+At1154px all3 layouts also fit; F falls back to two panes with studio below, then stacks on mobile.
+Mobile critique compacted header/queue/art: first song player bottom D687px/F756px in833px viewport.
+E keeps larger mobile sleeves and needs a short vertical scroll to reach the first player.
+Bundled Moonlit audio kept playing through D/E/F and theme switches; paused afterward.
+Probe covers12 pairs, initial Workbench URL, disclosure restore, storage/history denial and rack focus.
+Final locked dev.py --check PASS:239 tests/one skip, scaffold179, coverage36/11/19; whitespace clean.
+Normal8033 launcher continues from this worktree; local screenshots are in ../def-screenshots (outside Git).
+No generation/class calls, uploads, new assets, provider/contracts/dependency or protection changes.
+PR60 remains approved and unchanged; new PR must stay stacked/draft until60 merges, then retarget main/recheck.
+Classmate aesthetic feedback, assistive-tech review, live generation/DJ and final-ZIP acceptance remain unchecked.
+Pre-handoff code hash `a7225eb`; draft PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+Published only codex/a3-layouts-def; parent60 approval and main remain unchanged by this task.
+Next: owner compares D/E/F; merge parent60, retarget/reconcile62 to main, then exact-head checks/review.
+
 ## Session — UI layout comparison and light/dark, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-ux-review`, source main `29c5de1`.
 Owner preferred the revised layout and requested several designs for classmates to compare, all light/dark.

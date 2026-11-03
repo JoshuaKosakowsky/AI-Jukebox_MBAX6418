@@ -187,3 +187,156 @@ audio { color-scheme:inherit; }
   .design-controls p { width:100%; max-width:none; margin:0; }
   :root[data-design="gallery"] .tracks { grid-template-columns:minmax(0,1fr); }
 }
+/* D/E/F are opt-in compositions. A/B/C rules and their palettes stay intact. */
+.rack-help { display:none; }
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .eyebrow,
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .title-period { display:none; }
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) h1 { font-size:36px; line-height:1.15; letter-spacing:-.04em; }
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .page-title { padding:20px 0 8px; }
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) h2 { font-size:23px; }
+:root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) button { min-height:40px; }
+
+/* D: Listening room. The first sleeve anchors a focused listening view. */
+:root[data-design="room"] {
+  --paper:#122536; --panel:#1d384d; --field:#162e42; --ink:#e5eff7;
+  --muted:#adc2d3; --line:#506b80; --accent:#8dc9f1; --on-accent:#102638;
+  --hover:#2b4c63; --accent-hover:#b5dfff; --inverse:#122536;
+  --ready:#b9deca; --missing:#ffc6a8; scroll-padding-top:190px;
+}
+:root[data-design="room"][data-theme="light"] {
+  --paper:#eef5fa; --panel:#dceaf4; --field:#ffffff; --ink:#182f42;
+  --muted:#4c6578; --line:#9db4c6; --accent:#245d85; --on-accent:#ffffff;
+  --hover:#cbddeb; --accent-hover:#174665; --inverse:#f5faff;
+  --ready:#2c654f; --missing:#934021;
+}
+:root[data-design="room"] h1,
+:root[data-design="room"] h2,
+:root[data-design="room"] .track h3 { font-family:'Trebuchet MS',Arial,sans-serif; font-weight:600; }
+:root[data-design="room"] .listening-room { grid-template-columns:minmax(0,1fr); grid-template-areas:'dj' 'library'; gap:24px; }
+:root[data-design="room"] .tracks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+:root[data-design="room"] .track { grid-template-columns:88px minmax(0,1fr); gap:16px; }
+:root[data-design="room"] .cover { width:88px; height:88px; }
+:root[data-design="room"] .track:first-child { grid-column:1/-1; grid-template-columns:minmax(220px,34%) minmax(0,1fr); align-items:center; padding-top:0; border:0; gap:32px; }
+:root[data-design="room"] .track:first-child .cover { width:100%; height:auto; aspect-ratio:1; }
+:root[data-design="room"] .track:first-child h3 { font-size:clamp(26px,3vw,42px); }
+:root[data-design="room"] .track:first-child audio { height:46px; margin:22px 0; }
+:root[data-design="room"] .dj { top:10px; z-index:2; }
+:root:is([data-design="room"],[data-design="shop"]) .dj { display:grid; grid-template-columns:minmax(150px,1fr) minmax(180px,1fr) auto; column-gap:24px; padding:16px 20px; border-top:0; border-radius:10px; }
+:root:is([data-design="room"],[data-design="shop"]) .dj .section-heading { grid-column:1; grid-row:1/3; display:block; }
+:root:is([data-design="room"],[data-design="shop"]) .dj-queue { margin:8px 0 0; max-width:none; max-height:95px; overflow:auto; }
+:root:is([data-design="room"],[data-design="shop"]) #dj-status { grid-column:2; grid-row:1; margin:0; }
+:root:is([data-design="room"],[data-design="shop"]) .dj-controls { grid-column:3; grid-row:1; margin:0; align-content:start; }
+:root:is([data-design="room"],[data-design="shop"]) .dj-options { grid-column:2; grid-row:2; }
+:root:is([data-design="room"],[data-design="shop"]) .playback-help { grid-column:3; grid-row:2; max-width:360px; }
+:root[data-design="room"] .dj:has(details[open]) { position:static; }
+
+/* E: Record shop. Side navigation and a horizontal sleeve rack, not a card grid. */
+:root[data-design="shop"] {
+  --paper:#281b2b; --panel:#3c2b40; --field:#302035; --ink:#f6eaf3;
+  --muted:#c5afc2; --line:#785c78; --accent:#ebce91; --on-accent:#302215;
+  --hover:#503954; --accent-hover:#ffe3aa; --inverse:#281b2b;
+  --ready:#c0d5b0; --missing:#ffc4b0; font-family:Verdana,Arial,sans-serif;
+}
+:root[data-design="shop"][data-theme="light"] {
+  --paper:#faf3f8; --panel:#efdfeb; --field:#ffffff; --ink:#3b2037;
+  --muted:#75566f; --line:#bfa6b9; --accent:#73422a; --on-accent:#ffffff;
+  --hover:#e4cfde; --accent-hover:#542c1b; --inverse:#fff8fc;
+  --ready:#396134; --missing:#923723;
+}
+:root[data-design="shop"] main { max-width:1480px; display:grid; grid-template-columns:150px minmax(0,1fr); column-gap:28px; padding-top:20px; }
+:root[data-design="shop"] .masthead { grid-column:1; grid-row:1/7; position:sticky; top:20px; align-self:start; flex-direction:column; align-items:start; justify-content:start; min-height:0; border:0; padding-right:18px; }
+:root[data-design="shop"] .brand { display:flex; flex-direction:column; align-items:start; gap:14px; white-space:normal; line-height:1.7; }
+:root[data-design="shop"] nav { flex-direction:column; gap:8px; margin-top:28px; font-size:14px; }
+:root[data-design="shop"] :is(.page-title,.design-controls,.listening-room,.create,.setup,footer) { grid-column:2; min-width:0; }
+:root[data-design="shop"] :is(h1,h2,.track h3) { font-family:Verdana,Arial,sans-serif; font-weight:700; letter-spacing:-.05em; }
+:root[data-design="shop"] .page-title { display:block; }
+:root[data-design="shop"] .page-title p { margin-top:12px; }
+:root[data-design="shop"] .page-title br { display:none; }
+:root[data-design="shop"] .listening-room { grid-template-columns:minmax(0,1fr); grid-template-areas:'dj' 'library'; }
+:root[data-design="shop"] .rack-help { display:block; color:var(--muted); font-size:12px; line-height:1.6; }
+:root[data-design="shop"] .tracks { display:grid; grid-auto-flow:column; grid-auto-columns:clamp(240px,25vw,300px); gap:24px; overflow-x:auto; scroll-snap-type:x proximity; scrollbar-color:var(--accent) var(--panel); padding:4px 4px 20px; margin-top:8px; }
+:root[data-design="shop"] .track { display:flex; flex-direction:column; gap:14px; border:0; padding:0 0 12px; scroll-snap-align:start; min-width:0; }
+:root[data-design="shop"] .cover { width:100%; height:auto; aspect-ratio:1; }
+:root[data-design="shop"] .track h3 { font-size:22px; }
+:root[data-design="shop"] .dj { position:static; }
+
+/* F: Workbench. Queue, playable library and open studio share a working view. */
+:root[data-design="workbench"] {
+  --paper:#222a2c; --panel:#2d383a; --field:#243033; --ink:#e6f0ee;
+  --muted:#b4c7c2; --line:#5b7771; --accent:#a1d5cc; --on-accent:#153530;
+  --hover:#3a4c49; --accent-hover:#c0e8e1; --inverse:#222a2c;
+  --ready:#b4dab1; --missing:#ffc1a4; font-family:'Segoe UI',Arial,sans-serif;
+}
+:root[data-design="workbench"][data-theme="light"] {
+  --paper:#f0f5f4; --panel:#e0eae8; --field:#ffffff; --ink:#15302f;
+  --muted:#506b67; --line:#91aaa4; --accent:#236b68; --on-accent:#ffffff;
+  --hover:#cbded9; --accent-hover:#174e4b; --inverse:#f5fcfa;
+  --ready:#366335; --missing:#913e24;
+}
+:root[data-design="workbench"] main { max-width:1580px; display:grid; grid-template-columns:240px minmax(0,1fr) 300px; column-gap:24px; }
+:root[data-design="workbench"] :is(.masthead,.page-title,.design-controls,.setup,footer) { grid-column:1/-1; }
+:root[data-design="workbench"] .listening-room { display:contents; }
+:root[data-design="workbench"] .dj { grid-column:1; grid-row:4; top:16px; align-self:start; border:0; border-radius:8px; padding:16px; }
+:root[data-design="workbench"] .library { grid-column:2; grid-row:4; }
+:root[data-design="workbench"] .create { grid-column:3; grid-row:4; margin:0; padding:16px; border:0; border-radius:8px; background:var(--panel); align-self:start; }
+:root[data-design="workbench"] :is(h1,h2,.track h3) { font-family:'Segoe UI',Arial,sans-serif; font-weight:600; }
+:root[data-design="workbench"] .track { grid-template-columns:58px minmax(0,1fr); gap:12px; padding:14px 0; }
+:root[data-design="workbench"] .cover { width:58px; height:58px; }
+:root[data-design="workbench"] .track h3 { font-size:21px; }
+:root[data-design="workbench"] .tracks { margin-top:14px; }
+:root[data-design="workbench"] .form-row { grid-template-columns:1fr; margin:12px 0; gap:12px; }
+:root[data-design="workbench"] #cover-form { margin-top:14px; }
+:root[data-design="workbench"] .mode-option { margin-right:0; }
+:root[data-design="workbench"] .create-panel > summary { padding-right:24px; }
+:root[data-design="workbench"] .create-panel > summary::after { top:0; }
+
+@media(max-width:1200px) {
+  :root[data-design="workbench"] main { grid-template-columns:230px minmax(0,1fr); }
+  :root[data-design="workbench"] .create { grid-column:1/-1; grid-row:5; margin-top:24px; }
+  :root[data-design="workbench"] .form-row { grid-template-columns:1fr 1fr 140px; }
+}
+@media(max-width:960px) {
+  :root[data-design="room"] .dj { position:static; }
+  :root:is([data-design="room"],[data-design="shop"]) .dj { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; }
+  :root:is([data-design="room"],[data-design="shop"]) .dj .section-heading { grid-column:1; grid-row:1; }
+  :root:is([data-design="room"],[data-design="shop"]) #dj-status { grid-column:2; grid-row:1; }
+  :root:is([data-design="room"],[data-design="shop"]) .dj-controls { grid-column:1/-1; grid-row:2; }
+  :root:is([data-design="room"],[data-design="shop"]) .dj-options { grid-column:1; grid-row:3; }
+  :root:is([data-design="room"],[data-design="shop"]) .playback-help { grid-column:2; grid-row:3; }
+  :root[data-design="shop"] main { grid-template-columns:120px minmax(0,1fr); column-gap:20px; }
+  :root[data-design="workbench"] main { display:block; }
+  :root[data-design="workbench"] .listening-room { display:grid; grid-template-columns:minmax(0,1fr); grid-template-areas:'dj' 'library'; }
+  :root[data-design="workbench"] .dj, :root[data-design="workbench"] .library { grid-column:auto; grid-row:auto; }
+  :root[data-design="workbench"] .form-row { grid-template-columns:1fr 1fr 140px; }
+}
+@media(max-width:650px) {
+  :root[data-design="room"] .tracks { grid-template-columns:minmax(0,1fr); gap:8px; }
+  :root[data-design="room"] .track:first-child { grid-column:auto; grid-template-columns:minmax(0,1fr); gap:18px; }
+  :root[data-design="room"] .track:first-child .cover { width:min(100%,260px); justify-self:center; }
+  :root[data-design="room"] .track:first-child h3 { font-size:28px; }
+  :root[data-design="shop"] main { display:block; padding-top:0; }
+  :root[data-design="shop"] .masthead { position:static; flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:14px 0; border-bottom:1px solid var(--line); }
+  :root[data-design="shop"] .brand { flex-direction:row; align-items:center; }
+  :root[data-design="shop"] nav { flex-direction:row; margin:0; gap:16px; font-size:12px; }
+  :root[data-design="shop"] .tracks { grid-auto-columns:82%; gap:18px; }
+  :root[data-design="workbench"] .form-row { grid-template-columns:minmax(0,1fr); }
+}
+@media(max-width:650px) {
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .masthead { min-height:0; padding:10px 0 6px; gap:6px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .page-title { padding:12px 0 0; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) h1 { font-size:29px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .page-title p { display:none; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .design-controls { padding:12px 0 16px; gap:12px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .design-controls p { display:none; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .listening-room { padding-top:16px; gap:20px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .dj { padding:12px; gap:8px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .dj h2 { font-size:18px; }
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .dj-options,
+  :root:is([data-design="room"],[data-design="shop"],[data-design="workbench"]) .playback-help { margin-top:8px; padding-top:8px; }
+  :root[data-design="room"] .track:first-child { grid-template-columns:92px minmax(0,1fr); gap:12px; align-items:start; }
+  :root[data-design="room"] .track:first-child .cover { width:92px; }
+  :root[data-design="room"] .track:first-child h3 { font-size:24px; }
+  :root[data-design="room"] .track:first-child audio { height:36px; margin:12px 0; }
+  :root[data-design="shop"] .cover { width:min(100%,200px); align-self:center; }
+}
+:root[data-design="shop"] .tracks:focus-within { scroll-snap-type:none; }
