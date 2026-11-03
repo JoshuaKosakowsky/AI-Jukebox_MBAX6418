@@ -1,0 +1,182 @@
+{
+  "date": "2026-11-02",
+  "timezone": "America/Denver",
+  "recorded_at_utc": "2026-11-03T03:46:03.114369+00:00",
+  "author": "Codex for JoshuaKosakowsky",
+  "base_main": "e17997d29b0a1cb910545fc4c5eb5eb16332502b",
+  "tested_code_commit": "29b9032dbbb747092ae97bbe2c7b9b5201e3a337",
+  "real_class_requests": 0,
+  "new_class_generated_media": 0,
+  "reference_uploads": 0,
+  "normal_browser": {
+    "launcher": "python scripts/dev.py --port 8036",
+    "configuration": "All four roles missing; no .env, inherited JUKEBOX values stripped; no provider fixtures",
+    "seeking": {
+      "seekBefore": [
+        {
+          "duration": 45,
+          "label": "Play Afterglow Avenue",
+          "paused": true,
+          "seekable": [
+            [
+              0,
+              45
+            ]
+          ],
+          "time": 0
+        },
+        {
+          "duration": 30,
+          "label": "Play Moonlit Reflection",
+          "paused": true,
+          "seekable": [
+            [
+              0,
+              30
+            ]
+          ],
+          "time": 0
+        },
+        {
+          "duration": 60,
+          "label": "Play Antlercover",
+          "paused": true,
+          "seekable": [
+            [
+              0,
+              60
+            ]
+          ],
+          "time": 0
+        }
+      ],
+      "settledBack": {
+        "paused": true,
+        "time": 0
+      },
+      "settledForward": {
+        "paused": true,
+        "time": 5
+      },
+      "lyricObservation": [
+        "Neon signs blur in the rain\nStreetlights hum a soft refrain\nThe city sleeps, but I am awake\nChasing echoes for your sake\nWarm analog waves crash low\nPulsing bass begins to glow\nWe drive through shadows, side by side\nNowhere left for us to hide",
+        "Snow boots heavy on the linoleum floor\nI tuck my crown behind the office door\nCoffee steam rises, keeping it tight.\nThe boss calls a meeting, I stand up straight\nPraying my antlers donâ€™t meet his fate\nShe sees the moose, not just the wall\nWe laugh at jokes that only we understand\nIn this small town across the land\nNo hunters here, just hearts beating true\nMy place is here, and so are you\nThe winter fades with a salsa beat\nWarm brass swells beneath my feet\nI am home, finally seen"
+      ]
+    },
+    "final_committed_code": {
+      "duration": 45,
+      "paused": true,
+      "seekableEnd": 45,
+      "time": 5,
+      "tracks": [
+        "Afterglow Avenue",
+        "Moonlit Reflection",
+        "Antlercover"
+      ]
+    }
+  },
+  "synthetic_dj_browser": {
+    "method": "Separate localhost8037 app with fake class settings and patched text/speech; real _request raises; bundled actual songs plus one-second silent fixture speech; not live DJ/listening acceptance",
+    "observations": {
+      "beforeRebuild": 5,
+      "afterRebuild": 5,
+      "afterRebuiltSeek": 10,
+      "afterRemoveSeek": 5,
+      "djPausedBefore": {
+        "duration": 60,
+        "paused": true,
+        "status": "Paused during music (Antlercover).",
+        "time": 0.017882
+      },
+      "djPausedAfter": {
+        "paused": true,
+        "time": 5.017882
+      },
+      "queuePausedObservation": {
+        "currentRemoveDisabled": true,
+        "paused": true,
+        "queue": "1. AntlercoverRemove2. Afterglow AvenueRemove",
+        "status": "Paused during music (Antlercover).",
+        "time": 5.017882,
+        "tracks": [
+          "Afterglow Avenue",
+          "Moonlit Reflection",
+          "Antlercover"
+        ]
+      },
+      "queueEmptied": {
+        "queue": "Queue is empty",
+        "status": "Add playable songs from your library to the queue, then press Play.",
+        "tracks": [
+          "Afterglow Avenue",
+          "Moonlit Reflection",
+          "Antlercover"
+        ]
+      },
+      "queueReload": {
+        "playDisabled": true,
+        "queue": "Queue is empty",
+        "tracks": [
+          "Afterglow Avenue",
+          "Moonlit Reflection",
+          "Antlercover"
+        ]
+      },
+      "manualSeekingAfterDj": {
+        "paused": true,
+        "time": 5,
+        "dj_back_disabled_after_finish": true
+      }
+    },
+    "fixture_calls": [
+      "synthetic-text",
+      "synthetic-speech"
+    ],
+    "real_network_boundary": "ClassProviders._request blocked; music/art never requested"
+  },
+  "owner_lyric_corrections": {
+    "afterglow": "Omit the final three displayed lines beginning The night is young; keep original eleven-line AI draft in candidate/generation records and .lyrics.txt.",
+    "antlercover": "Replace Coffee steam rises in the cold gray light / Trying to blend in, keeping it tight with Coffee steam rises, keeping it tight. Remove the full A gentle nod from Sarah down the hall line.",
+    "scope": "Exact owner listening feedback, not a new author transcription or listening claim. Other lyrics remain AI-written and may differ from performance."
+  },
+  "runtime_sha256": {
+    "jukebox/app.py": "5885f79264f7327b7985a180866889cbda5a0ded15e0ea63e85829e450f17669",
+    "jukebox/config.py": "0edc30ff3871f9a14097da71cd415c2b22231f3603b6076a8f14a1cef8b30221",
+    "jukebox/contracts.py": "ad6e6df541254adb1ec3a65d1fc53a144c1a8713d85c98d3687eb3209f7024a2",
+    "jukebox/providers.py": "39e142e1b0defbc4f11ebf0b422abf55efb50d91bbdabd2a501942db6c5d57d6",
+    "jukebox/samples.py": "52e2933161287cca3e3e85da66e03a3ebfb54fcbdfe9fc7d9ecff902f3ad298d",
+    "jukebox/sessions.py": "5d9ac7711f5d935f0fc689700191e269a4626199cc1c5750549da007adfb58f0",
+    "jukebox/__init__.py": "5a186e8007ec0eb3ea8945bba6350339a4a6a4bfe716db7701b09dd39d0efa8e",
+    "jukebox/__main__.py": "08c6b323001c40a4bb3fdff8ce483daa79f7740e134f71e703159e05610a9de2",
+    "jukebox/web/app.js": "3bf34152b43e40a1f256ac30aa683bfc1d52e3c893f1e873293269afa8aab412",
+    "jukebox/web/appearance.js": "fcd1ca2224203de0e8b6a27c8ade32beaabb458e8bfef87e154fb2d1fad2e98b",
+    "jukebox/web/ideas.js": "a22c075efb647e2842b006bae4996bca95f550e5ca1ab22509a94246121d1716",
+    "jukebox/web/index.html": "cdcf018c8eff7f1267ab8846f98751b4775f658c3920fae40047038e880c24ae",
+    "jukebox/web/style.css": "2994a0138dad18991c688149a919d50e9ef4563159b3d8e87c24892bfc7d908b"
+  },
+  "screenshots": [
+    {
+      "path": "results/a3-playback-seeking.jpg",
+      "sha256": "fb1816ea7ae2a630428093e88d39f637bec8fc6e3f93a965c1f0629cf425169f",
+      "bytes": 119630
+    },
+    {
+      "path": "results/a3-playback-queue.jpg",
+      "sha256": "5f84f448ca81747a7468e8b395a3bd28cc0bdc56c902734739eda1dca4c84b7c",
+      "bytes": 121220
+    }
+  ],
+  "not_claimed": [
+    "New live generation or voice comparison",
+    "Human listening by this author",
+    "Full mobile/accessibility acceptance",
+    "Independent ZIP installation or release readiness"
+  ],
+  "preview": "No-credentials normal8036 retained for owner; original8033/five-track session untouched; synthetic8037 stopped.",
+  "post_browser_adjustment": "Separate GET/HEAD route decorators avoid duplicate OpenAPI operation IDs. Final offline checks verify this metadata-only routing adjustment; browser observations retain the29b9032 source.",
+  "validation": {
+    "focused": "32 offline tests PASS; production seek/queue Node probe PASS",
+    "full_suite": "Final locked scripts/dev.py --check PASS:247 tests, one optional skip; scaffold189, coverage36 requirements/11 tasks/19 cases; includes final separate HEAD route decorator.",
+    "scope": "No provider, dependency, CI, protection, original WAV/PNG/lyric/candidate/generation-record changes."
+  }
+}

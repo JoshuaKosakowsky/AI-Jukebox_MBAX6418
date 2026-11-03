@@ -1,5 +1,6 @@
 """Same-origin local app with session-scoped FLUX cover generation."""
 from contextlib import asynccontextmanager
+import re
 from typing import Literal
 from uuid import UUID
 
@@ -265,6 +266,10 @@ def create_app(settings: Settings | None = None):
         require_dj()
         return store.queue_playback(current, data.track_id)
 
+    @app.post("/api/playback/queue/remove", response_model=Playback)
+    def playback_remove(data: QueueBody, current=Depends(browser_session)):
+        return store.remove_from_queue(current, data.track_id)
+
     @app.post("/api/playback/speech", response_model=GenerationJob, status_code=202)
     def playback_speech(data: SpeechBody, tasks: BackgroundTasks = BackgroundTasks,
                         current=Depends(browser_session)):
@@ -314,9 +319,40 @@ def create_app(settings: Settings | None = None):
         return store.resume_playback(current)
 
     @app.get("/api/media/{media_id}")
-    def media(media_id: UUID, current=Depends(browser_session)):
-        image = store.get_media(current, media_id)
-        return Response(image.content, media_type=image.content_type)
+    @app.head("/api/media/{media_id}", include_in_schema=False)
+    def media(media_id: UUID, request: Request, current=Depends(browser_session)):
+        asset = store.get_media(current, media_id)
+        size = len(asset.content)
+        headers = {"Accept-Ranges": "bytes", "Content-Length": str(size)}
+        if request.method == "HEAD":
+            return Response(media_type=asset.content_type, headers=headers)
+        requested = request.headers.get("range", "")
+        # Single byte ranges let native players seek without downloading the
+        # complete WAV again. Unsupported units/multipart ranges use normal GET.
+        if requested.startswith("bytes=") and "," not in requested and not request.headers.get("if-range"):
+            match = re.fullmatch(r"bytes=(\d*)-(\d*)", requested)
+            try:
+                if not match or not any(match.groups()):
+                    raise ValueError()
+                first, last = match.groups()
+                if first:
+                    start = int(first)
+                    end = min(int(last), size - 1) if last else size - 1
+                else:
+                    suffix = int(last)
+                    if suffix == 0:
+                        raise ValueError()
+                    start, end = max(0, size - suffix), size - 1
+                if not 0 <= start <= end < size:
+                    raise ValueError()
+            except ValueError:
+                return Response(status_code=416, headers={
+                    "Accept-Ranges": "bytes", "Content-Range": f"bytes */{size}"})
+            headers.update({"Content-Range": f"bytes {start}-{end}/{size}",
+                            "Content-Length": str(end - start + 1)})
+            return Response(asset.content[start:end + 1], status_code=206,
+                            media_type=asset.content_type, headers=headers)
+        return Response(asset.content, media_type=asset.content_type, headers=headers)
 
     @app.post("/api/references/speech", status_code=201)
     async def upload_speech_reference(request: Request, current=Depends(browser_session)):

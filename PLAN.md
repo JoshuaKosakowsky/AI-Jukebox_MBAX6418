@@ -1,52 +1,48 @@
 # Delivery plan - Assignment 3
 
-**Current state (2026-11-02):** protected main `eb29bab` includes merged #39;
-[main CI passed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/41484629978).
-Runtime/contracts, instrumental generation/playback and matching covers are
-accepted (A3-01/02/04). Component integration and remaining acceptance are:
+**Current state (2026-11-02):** protected main `e17997d` includes six layouts,
+Light/Dark, editable Surprise me ideas and merged #59's default-DJ ZIP procedure.
+[Main CI passed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/41564908360).
+Runtime/contracts, instrumental generation and matching covers are accepted
+(A3-01/02/04). Current integration and remaining acceptance:
 
-- **Vocals (#3):** implementation #21, diagnostics #29, non-thinking lyrics #44
-  and genre controls #37 are merged. Mike reports 14/14 AT-04 checks on `a1a41d1`
-  for Moonlit Rehearsal, with human listening pending. His cited acceptance JSON
-  is not on main. [Result/stop record](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/3#issuecomment-6567842638).
-  Reconcile the issue's checked boxes with published evidence and listening;
-  the two packaged vocals do not replace normal-launch vocal-creation acceptance.
-- **Default DJ (#5):** #27 and integrated evidence #51 are merged. The
-  [real default-DJ record](results/a3-05-default-dj-live.json), tested on `2be9625`,
-  records three successful intros, sequential playback/controls and cached
-  replay/reload using text3/speech3. Joshua described the first clip as relaxed/NPR-like.
-  #52 adds Relaxed/Public Radio, Upbeat Radio and Playful presentation choices;
-  those choices have offline/browser checks, not a live style-quality comparison.
-- **Reference voices (#6):** upload/provider #26 and chooser/DJ wiring #46 are
-  merged. Mike's last AT-08 run stopped at failed speech jobs; upload validation
-  alone did not establish a default/MP3/WAV listening comparison.
-  [Result/stop record](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/6#issuecomment-6567842868).
-  A new bounded, strictly sequential run needs one coordinated tester and fresh
-  authorization; the previous 13-request allowance is spent, not reusable.
-- **Samples (#7):** #48/#49/#50 ship three owner-approved pairs: Afterglow Avenue
-  (45 s vocal), Moonlit Reflection (30 s instrumental), Antlercover (60 s vocal).
-  The two-vocal project target is met. [Integrated-main evidence](results/a3-07-integrated-main-library.json)
-  pins full playback, covers, lyrics, controls and reload to `2be9625` with zero
-  new provider calls. Final GitHub-ZIP installation/sample verification is pending.
-- **Recovery/report (#8/#9):** Preethi's #32 live recovery evidence and #34 README
-  findings, the rejected-control correction #30, and #39's historical 27-case
-  synthetic browser regression are merged. [Browser report](docs/MAIN_BROWSER_REGRESSION.md)
-  remains attributed to `25f8617`; no later browser rerun is implied. Reconcile the
-  remaining requirement checks and finished-app screenshots/report before closure.
-- **Release (#10):** #42's runbook/mechanics and #20's earlier ZIP startup are
-  preparation only. A different teammate must install/test the final exact GitHub
-  ZIP and complete the release evidence/gate. No final candidate is certified.
+- **Vocals (#3):** implementation #21/#29/#44/#37 is merged. Mike's
+  [#61](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/61) records
+  historical HTTP/provider observations and his listening judgment on `a1a41d1`.
+  Those do not establish real-provider browser form/playback/reload acceptance;
+  #3 stays open. Bundled vocal playback is a separate accepted observation.
+- **Default DJ (#5):** Matt [closed the scoped feature](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5)
+  after reconciling merged implementation, historical real/synthetic evidence
+  and listening. The [three-intro default-voice record](results/a3-05-default-dj-live.json)
+  remains pinned to `2be9625`; Joshua's later clarity/voice feedback is attributed.
+  Live comparison of the newer presentation styles remains pending under #10.
+- **Reference voices (#6):** upload/chooser wiring #26/#46 is merged. The prior
+  run stopped with speech failures; MP3/WAV upload acceptance is not a listening
+  comparison. The failed run/accounting is preserved in #61. No personal voice
+  recording is requested by the default-DJ ZIP procedure and no previous spent
+  service allowance is renewed here. Full AT-08 remains unverified.
+- **Samples (#7):** Afterglow Avenue (45s vocal), Moonlit Reflection (30s
+  instrumental) and Antlercover (60s vocal) ship with covers/lyrics/provenance.
+  [Integrated-main playback/reload](results/a3-07-integrated-main-library.json)
+  retains its original `2be9625` source. Final independent ZIP verification remains.
+- **Recovery/report (#8/#9):** #8 is closed within its documented recovery/privacy
+  scope. Preethi's #34 findings/design trade-off and original evidence remain.
+  #9 refreshes the current guide/screenshots without rerunning historical service
+  tests; actual teammate verification of the documentation/findings is still needed.
+- **Release (#10):** [the merged agent-executable procedure](docs/DEFAULT_DJ_ZIP_TEST.md)
+  pins candidate `0a34502`, including current layouts and ideas. One actual teammate
+  claims/coordinates the clean-ZIP/default-DJ run; one successful run suffices.
+  The prepared packet/verified archive is not independent acceptance. Keep its
+  original SHA/ZIP identity unless a new candidate is explicitly selected.
 
-Genre controls #37 and wordless-cover prompt #40 are integrated; documented
-quality limits (#35/#36) remain. The historical 20-style scorecard is still draft
-PR #43; its case-specific ratings are not a guarantee of every genre or vocal.
+Genre controls #37 and wordless-cover prompt #40 are integrated. Quality limits
+#35/#36 and draft scorecard #43 remain distinct from required release acceptance.
 
-**Next:** coordinate Mike's #3 evidence/listening and #6 comparison; reconcile
-#5/#7 checklists using existing records; finish #8/#9 and arrange #10's independent
-installer. Confirm actual teammate contribution/review evidence before submission.
-No status update, merge or model switch creates a new service-call allowance.
-Full submission remains **NOT READY**. [Test results](docs/TEST_RESULTS.md) retain
-source commits and the distinction between live, synthetic and unchecked work.
+**Next:** finish #61 review, run one coordinated independent ZIP test and have a
+teammate verify the finished-app report in their own words. No status update,
+merge or model switch creates a new service-call allowance. Full submission
+remains **NOT READY**; [test results](docs/TEST_RESULTS.md) preserve actual sources
+and distinguish live, synthetic, author UI and unchecked work.
 
 Team workflow active: all changes use task branches and reviewed PRs.
 Joshua/the team will arrange invitations and lead/contributor assignments

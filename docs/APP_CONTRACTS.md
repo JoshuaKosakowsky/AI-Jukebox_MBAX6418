@@ -71,7 +71,7 @@ provider payload structure are unchanged. Only the DJ text prompt wording change
 | POST /api/tracks/{track_id}/lyrics | deliberate Qwen lyrics generation/replacement/retry for a vocal session track (422 for instrumental tracks); attaches the text to the track on success; queued GenerationJob with 202 |
 | DELETE /api/references/speech/{reference_id} | discard one temporary voice reference; 404 if unknown |
 | POST /api/tracks/{track_id}/music/resume?from={job_id} | continue polling/downloading the SAME retained class-service task of a failed music job; never submits a new task; queued GenerationJob with 202 |
-| GET /api/media/{media_id} | session-owned bytes with their validated MIME type; missing/foreign assets return 404 |
+| GET/HEAD /api/media/{media_id} | session-owned bytes and validated MIME; single byte ranges return206/Content-Range, unsatisfiable ranges416; HEAD advertises length/ranges without a body; missing/foreign assets404 |
 | POST /api/references/speech | multipart `file`, parsed fully in memory (no temp files or disk spooling; header order-independent); validate real WAV (RIFF/WAVE, internally coherent PCM fmt and a physical non-empty data chunk, duration from the real frame count) or MP3 (ID3v2 tag plus at least one complete MPEG frame whose computed length is fully present); max 5 MB (stream-aborted / 422 before parse); WAV 1-60 s; store in session memory only and return 201 `{id, media_type}` |
 
 | GET /api/contracts | unchanged v1 shared JSON Schema |
@@ -229,6 +229,29 @@ upload surface is the temporary in-memory speech reference described above, whic
 is never persisted or committed.
 Metadata must remain stable while a job is generating; an editing feature
 would need coordinated versioning of those updates.
+
+## Seeking and queue edits
+
+Media access still resolves session ownership before reading ranges. Full GETs
+return200/Accept-Ranges: bytes; single bounded/open-ended/suffix byte ranges
+return206 and exact length/Content-Range. Unsupported units/multipart ranges and
+If-Range requests use full GET (no validator is advertised); invalid or
+unsatisfiable byte ranges return416/Content-Range: bytes */size. Media stays in
+memory, private and no-store; HEAD has no body. No provider request is involved.
+
+`POST /api/playback/queue/remove` accepts the existing `{track_id}` body and
+returns Playback. It is a local session edit, works without service settings,
+and never removes library media/jobs or generates speech. Missing queue entries
+return404. Removing the active entry (including paused) returns409; Skip first.
+Removing an earlier entry decrements the active index; removing a future entry
+keeps current identity/state/paused_from unchanged. Idle queues can be emptied.
+The v1 object schema is unchanged; this route is additive.
+
+Frontend song seeking uses native controls or clamped +/-5-second adjustments
+without play()/pause() or provider calls. DJ seeking is enabled only for a loaded
+current music source (playing or paused-from-playing), never for speech. Existing
+player nodes survive queue/card refreshes; queue removal renders actual queue
+order and protects the current entry.
 
 ## Default AI DJ playback queue (A3-05)
 

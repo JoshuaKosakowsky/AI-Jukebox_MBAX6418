@@ -28,7 +28,16 @@ and normal extracted-ZIP HTTP startup passes without Git metadata or class
 settings. Zero class calls. Developer-directed; independent final ZIP/live
 acceptance is still pending and the incomplete release record stays NOT READY.
 
-Current README/UI documentation (2026-11-02, main `fcdda54`):
+Current six-layout guide captures (2026-11-02, main `e17997d`):
+[safe author UI record](a3-09-guide-ui.json),
+[Gallery/Dark](a3-09-layout-gallery.jpg), [editable song ideas](a3-09-song-ideas.jpg),
+[DJ settings](a3-09-dj-settings.jpg), [Workbench/Light](a3-09-layout-workbench-light.jpg).
+Actual normal-launch browser with all class roles missing; existing bundled
+assets, seeded Enter/custom settings and layout/theme/presentation retention
+were observed. Zero generation jobs, class calls or uploads. No new listening,
+full playback, live service or independent teammate/ZIP acceptance is claimed.
+
+Historical README/UI documentation before the layout update (2026-11-02, main `fcdda54`):
 [safe normal-launch record](a3-09-current-ui.json),
 [full interface/library](a3-09-current-library.jpg),
 [bundled lyrics/player](a3-09-current-lyrics.jpg),
@@ -174,3 +183,13 @@ Unmodified production seed defaults; four full non-silent48kHz stereoPCM16 WAVs,
 Metal's earlier [failed heavier case](a3-35-deathcore-candidate.json) is preserved;
 its deferral is a user priority decision, not a repaired or closed issue. No
 further generation under the completed round1 budget.
+
+User playback review fixes (2026-11-02): [safe record](a3-playback-ux.json),
+[normal sample seeking](a3-playback-seeking.jpg), [synthetic DJ queue/seek controls](a3-playback-queue.jpg).
+Normal no-credentials browser verifies sample ranges/metadata, paused5-second
+seeking and exact owner display-lyric corrections. Separate synthetic-provider
+browser verifies card/player preservation, queue order/removal, paused DJ seeking,
+current-entry protection, empty-queue reload and cached playback. Zero class calls;
+fixture speech is silence, not real DJ quality/listening acceptance. Original
+sample media and lyric provenance are retained. A runtime merge needs an explicitly
+selected/tested new ZIP; it does not certify the older0a34502 candidate.

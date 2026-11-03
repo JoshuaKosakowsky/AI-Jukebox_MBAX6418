@@ -452,6 +452,22 @@ class SessionStore:
                                                         "queue": [*session.playback.queue, track_id]})
             return session.playback
 
+    def remove_from_queue(self, session, track_id):
+        """Remove an entry without generating or disturbing current playback."""
+        with self.lock:
+            playback = session.playback
+            if track_id not in playback.queue:
+                raise SessionFailure(404, "Track is not in this session's DJ queue.")
+            position = playback.queue.index(track_id)
+            if playback.state != "idle" and track_id == playback.current_track_id:
+                raise SessionFailure(409, "Use Skip before removing the current song.")
+            queue = [entry for entry in playback.queue if entry != track_id]
+            index = 0 if playback.state == "idle" else playback.index - int(position < playback.index)
+            session.playback = Playback.model_validate(
+                {**playback.model_dump(), "queue": queue, "index": index})
+            session.touched = time.monotonic()
+            return session.playback
+
     def _queue_dj_speech(self, session, track_id, prior, position, total, reference_id=None):
         """Create the commentary job for one track, best-effort.
 
