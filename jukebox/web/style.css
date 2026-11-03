@@ -340,3 +340,16 @@ audio { color-scheme:inherit; }
   :root[data-design="shop"] .cover { width:min(100%,200px); align-self:center; }
 }
 :root[data-design="shop"] .tracks:focus-within { scroll-snap-type:none; }
+
+/* Inspiration controls share each layout's palette and never obscure the form. */
+.idea-tools { display:flex; align-items:end; gap:10px; }
+.idea-tools label { flex:1; min-width:0; }
+#surprise-song { min-height:42px; flex:0 0 auto; }
+.idea-keep { flex-direction:row; align-items:center; gap:8px; margin-top:12px; }
+.idea-keep input { width:auto; accent-color:var(--accent); }
+#idea-status { font-size:13px; font-weight:600; line-height:1.6; margin:0 0 18px; color:var(--ink); overflow-wrap:anywhere; }
+#idea-status:empty { display:none; }
+@media(max-width:380px) {
+  .idea-tools { flex-wrap:wrap; }
+  .idea-tools label { flex-basis:100%; }
+}

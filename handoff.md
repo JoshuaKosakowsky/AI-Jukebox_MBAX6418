@@ -1,5 +1,43 @@
 # Agent handoff
 
+## Session — local Surprise me song ideas, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-surprise-song` from main691fa44; carried queued #62 clerical notes40e3a72.
+Owner requests high-variability unusual song ideas while retaining custom input.
+Added separate ideas.js, optional starting idea, preserve-style/mood checkbox and editable wrapped title preview.
+Combines12 default/8 seeded story formats, varied subject/action/place pools, genre hybrids/instruments and20 moods.
+Each roll selects vocal mode, dispatches the existing mode-change event, preserves duration and never submits.
+Enter in the seed field prevents default submission; no fetch, storage, provider or shared-contract changes.
+Production VM probe PASS:1950 unique titles/2000 full ideas,1705 styles/20 moods in2000 fixed-seed rolls.
+Tests include contract bounds, long Unicode seed, deterministic RNG, custom preserve/edit, Enter and reset.
+Normal no-credentials browser checked24 layout/theme/width combinations at1265/465px, no horizontal overflow.
+Additional345px unbroken-seed wrapping passes; full idea is readable outside the single-line title field.
+Real Enter/custom-input check kept style/mood/duration47 and3 bundled tracks; instrumental remains selectable.
+Owner's8033 session retained all5 existing titles, no restart; preserve its generated songs, do not repackage them.
+Local screenshot/observations under ../a3-surprise-preview-20261102; safe JSON/report/README updated.
+Temporary no-credentials localhost8034 test tab closed; stop its verified helper only; original8033 stays available.
+Full locked dev.py --check PASS:240 tests/one skip, scaffold183, coverage36/11/19; syntax/scope/whitespace pass.
+No class generation, uploads, new media, capacity/protection/dependency changes; canceled sample branch stays untouched.
+The finite local suggestion pool is not an AI-generation or musical-fidelity guarantee; full ZIP acceptance still pending.
+Next: freeze/publish focused PR Refs #9, request JoshKozy technical review; owner may try the new input helper locally.
+
+## Session — PR62 merged; awaiting new direction, 2026-11-02 America/Denver
+Codex for Joshua; public main691fa4450ebf0b475c2c8e52d3fb38dca9b0bb84.
+PR62 head6521904 had JoshKozy approval5745567402, all4 green checks and no unresolved review threads.
+Merged normally after current-base/head/protection verification; no bypass, protection, assignment or generation changes.
+A/B/C/D/E/F and both appearances are now on main; Matt/Mike can pull main to compare via DESIGN_REVIEW.md.
+Runtime bytes match approved6521904; earlier239-test/one-skip and author browser evidence retain their scopes.
+Post-merge main CI is checked separately; no new app/listening/ZIP acceptance is claimed by this merge.
+Local codex/a3-post-62-handoff queues this entry and #62 completion credit for the next authorized change.
+These clerical notes are committed locally only; no separate documentation PR or direct-main push.
+The owner CANCELED adding the two newly generated songs after the media-budget discussion.
+Do not resume, commit or publish codex/a3-five-song-library without a fresh instruction.
+That separate worktree under ../a3-new-samples-20261102/repo contains UNCOMMITTED five-song/capacity changes.
+Original8033 browser/session is preserved; do not restart it or regenerate/repackage those tracks on assumption.
+Owner will send the comparison instructions to Matt/Mike; do not message teammates on their behalf.
+Mike's61 still has an existing Hermes change request; review only a corrected new head, preserve others' work.
+Next: owner supplies the new direction; incorporate neutral completion notes into the next relevant PR.
+PR62: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/62
+
 ## Session — PR60 merged; PR62 reconciled for review, 2026-11-02 America/Denver
 Codex for Joshua; branch `codex/a3-layouts-def`; pre-sync `118108b`, incoming main `c995a0c`.
 Owner authorized #60 merge then #62 reconciliation/checks/review preparation.

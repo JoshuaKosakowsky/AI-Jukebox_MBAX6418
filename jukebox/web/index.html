@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/static/style.css">
     <script defer src="/static/app.js">
     </script>
+    <script defer src="/static/ideas.js"></script>
   </head>
   <body>
     <main>
@@ -146,6 +147,15 @@
           <summary><span class="eyebrow">THE STUDIO</span><h2 id="cover-title">Create a song</h2><span class="summary-hint">Title, sound, mood. Make something new.</span></summary>
         <p id="cover-help" class="note">Checking service configuration…</p>
         <form id="cover-form">
+          <div class="idea-tools">
+            <label for="idea-seed">Starting idea (optional)
+              <input id="idea-seed" maxlength="42" placeholder="A haunted toaster or my final exam" autocomplete="off" aria-describedby="idea-help">
+            </label>
+            <button id="surprise-song" type="button" aria-describedby="idea-help">Surprise me</button>
+          </div>
+          <label class="idea-keep"><input id="idea-keep" type="checkbox"> Keep my style and mood</label>
+          <p id="idea-help" class="note">Remix an unusual vocal-song idea, style and mood. Everything stays editable; duration stays as set. Generate only when you’re ready.</p>
+          <p id="idea-status" role="status" aria-live="polite"></p>
           <label>Song title / theme
             <input name="title" required maxlength="120" placeholder="Moonlit mountain lake">
           </label>
