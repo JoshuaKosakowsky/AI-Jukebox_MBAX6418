@@ -1,5 +1,25 @@
 # Agent handoff
 
+## Session — Three DJ speaker options, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-dj-speaker-options` from current main aece4d1; queued PR65 completion notes included.
+Owner auditioned11 short saved-voice previews in batches4/3/4 and approvedG (Alternate DJ) andJ (Female DJ).
+C excluded by owner as too young sounding. No other preview voice is adopted.
+All11 deliberate Chatterbox POSTs returned200/non-silent24kHz mono WAV; zero retries, uploads, text/art/music calls or voice mutations.
+Private audio/scripts stay outside Git in sibling a3-dj-voice-previews-20261102; safe hashes/counters are in results/dj-voice-selection.json.
+Added curated Default/Alternate/Female selector and POST playback/voice; dj_voice is additive/session-local and persists on reload.
+Only local enum keys cross the app API; saved provider IDs remain server-side. Default payload still omits voice.
+Each queued job captures its speaker; uploaded reference takes precedence; success/failure cleans private job choice.
+Changing speaker generates nothing and preserves cached introductions; no default fallback/automatic retries on failures.
+Updated contracts/schema, UI, seven meaningful offline tests, docs and safe screenshots; no dependencies or CI/protection changes.
+PASS: locked254 tests/one optional skip; final scaffold200/coverage36/11/19 and whitespace clean.
+Browser8038 normal/no-credentials: Female save/reload, Alternate save, dark desktop and390px dark/light; no console errors observed.
+Final newer-reference preservation guard was validated offline after those browser observations; safe record states that boundary.
+Temporary viewport reset and8038 stopped. Original8033/8036 processes untouched; owner8036 now has eight tracks—do not restart it casually.
+Current running owner app still uses merged main; new selector requires reviewed integration and a deliberately coordinated restart.
+Saved voices depend on shared-service retention; no new integrated live DJ/reference-upload or independent ZIP acceptance claimed.
+Next: Hermes/JoshKozy exact-head review, protected integration if approved; preserve owner's generated tracks before restarting any app.
+Keep Mike61 historical acceptance evidence and optional43 scorecard separate; no issue closure/assignment changes here.
+
 ## Session — PR65 merged, 2026-11-02 America/Denver
 Codex for Joshua; local `codex/a3-post-65-handoff` from main aece4d1.
 Owner's merge authorization remains active; fresh JoshKozy approval5747092088 covers8154f9a exactly.

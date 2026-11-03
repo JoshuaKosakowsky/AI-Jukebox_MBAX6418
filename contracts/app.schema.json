@@ -344,6 +344,16 @@
       "title": "Dj Presentation",
       "type": "string"
     },
+    "dj_voice": {
+      "default": "default",
+      "enum": [
+        "default",
+        "alternate",
+        "female"
+      ],
+      "title": "Dj Voice",
+      "type": "string"
+    },
     "tracks": {
       "items": {
         "$ref": "#/$defs/Track"

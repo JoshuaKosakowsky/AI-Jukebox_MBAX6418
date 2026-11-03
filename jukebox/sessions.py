@@ -6,8 +6,8 @@ from threading import RLock
 import time
 from uuid import UUID, uuid4
 
-from .contracts import DjPresentation, GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
-from .providers import MediaBytes, MusicTicket, ProviderFailure
+from .contracts import DjPresentation, DjVoice, GenerationJob, JobState, MediaRef, Playback, SafeError, SessionSnapshot, SongSettings, Track
+from .providers import DJ_VOICES, MediaBytes, MusicTicket, ProviderFailure
 
 SESSION_COOKIE = "jukebox_session"
 SESSION_SECONDS = 7200
@@ -53,8 +53,10 @@ class Session:
     references: dict[UUID, MediaBytes] = field(default_factory=dict)
     # Claimed once per job; bounded by MAX_ACTIVE_SPEECH, removed on every exit.
     speech_references: dict[UUID, MediaBytes] = field(default_factory=dict)
+    speech_voices: dict[UUID, DjVoice] = field(default_factory=dict)
     playback: Playback = field(default_factory=Playback)
     dj_presentation: DjPresentation = "relaxed"
+    dj_voice: DjVoice = "default"
     # Each entry is one in-flight job (track id, job kind); a track may have an
     # art job and a music job running at the same time.
     active: set[tuple[UUID, str]] = field(default_factory=set)
@@ -348,7 +350,8 @@ class SessionStore:
     def snapshot(self, session):
         with self.lock:
             return SessionSnapshot(tracks=list(session.tracks.values()), jobs=list(session.jobs.values()),
-                                   playback=session.playback, dj_presentation=session.dj_presentation).model_copy(deep=True)
+                                   playback=session.playback, dj_presentation=session.dj_presentation,
+                                   dj_voice=session.dj_voice).model_copy(deep=True)
 
     def create_cover_track(self, session, title: str, settings: SongSettings):
         with self.lock:
@@ -427,6 +430,13 @@ class SessionStore:
             return job
 
     # ---- AI DJ queue -------------------------------------------------------
+
+    def set_dj_voice(self, session, voice):
+        with self.lock:
+            if voice not in DJ_VOICES:
+                raise SessionFailure(422, "Choose a supported DJ voice.")
+            session.dj_voice = voice
+            session.touched = time.monotonic()
 
     def set_dj_presentation(self, session, presentation):
         with self.lock:
@@ -507,6 +517,7 @@ class SessionStore:
 
     def _claim_speech_reference(self, session, job_id, reference_id):
         # Caller holds the store lock from validation through job creation.
+        session.speech_voices[job_id] = session.dj_voice
         if reference_id is not None:
             session.speech_references[job_id] = self.take_reference(session, reference_id)
 
@@ -755,6 +766,7 @@ class SessionStore:
             track = session.tracks[job.track_id]
             prompt = session.speech_prompts.get(job_id, "")
             reference_audio = session.speech_references.get(job_id)
+            voice = session.speech_voices.get(job_id, "default")
         try:
             if not prompt:
                 raise ProviderFailure(SafeError(
@@ -769,8 +781,12 @@ class SessionStore:
                     code="generation_failed",
                     message="DJ commentary came back empty. The song plays without an introduction.",
                     retryable=False))
-            audio = (providers.speech(text, reference=reference_audio) if reference_audio is not None
-                     else providers.speech(text))
+            if reference_audio is not None:
+                audio = providers.speech(text, reference=reference_audio)
+            elif voice != "default":
+                audio = providers.speech(text, voice=voice)
+            else:
+                audio = providers.speech(text)
             with self.lock:
                 used = self._media_bytes()
                 if used + len(audio.content) > MAX_MEDIA_BYTES:
@@ -794,6 +810,7 @@ class SessionStore:
         finally:
             with self.lock:
                 session.speech_references.pop(job_id, None)
+                session.speech_voices.pop(job_id, None)
                 session.speech_prompts.pop(job_id, None)
                 session.active.discard((job.track_id, "speech"))
                 session.touched = time.monotonic()

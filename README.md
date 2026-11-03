@@ -83,13 +83,19 @@ For a quick user review:
 Expand **DJ style & voice** in Queue & DJ, then choose **Relaxed / Public Radio**,
 **Upbeat Radio** or **Playful**
 before starting the queue. This sets the tone of new introductions while keeping
-your default or uploaded reference voice. The choice stays in this browser
+your selected DJ or uploaded reference voice. The choice stays in this browser
 session across reloads. Cached and in-progress introductions keep their original
 wording; choosing a style never regenerates them or interrupts music.
 
-These are presentation choices, not speaker identities: Chatterbox supplies one
-default voice. An optional reference clip supplies another voice; no personal
-recording is needed to use the default DJ.
+Use **DJ voice** to choose **Default Chatterbox**, **Alternate DJ**, or **Female DJ**.
+Joshua auditioned and selected the latter two from the class service's saved voices.
+These choices change the speaker; presentation changes the wording. Both preferences
+stay in this browser session across reloads and apply only to new introductions.
+Selecting a voice makes no generation call and clears any selected reference clip.
+An optional MP3/WAV reference overrides the chosen speaker until cleared or reloaded;
+no personal recording is needed. Saved voices remain on the shared class service,
+so availability depends on that service retaining them. A failed introduction has
+no silent fallback or automatic retry; choose another voice and explicitly retry.
 
 Joshua listened to the three retained default-baseline introductions on
 2026-11-02 and reported, "The DJ is clear and sounds good to me." This approves
@@ -190,7 +196,7 @@ and source archives. Never commit uploads, voice references or third-party media
    is the only way forward.
 5. Add playable songs to the **Queue & DJ** panel and press **Play queue**: Qwen
    writes a short spoken introduction for each queued song, Chatterbox speaks
-   it with the default voice or your optional MP3/WAV reference, then the music
+   it with your selected DJ voice or optional MP3/WAV reference, then the music
    follows. One persistent player element drives the whole
    timeline sequentially to prevent speech/music overlap. Pause, Resume and Skip work during speech AND during
    music; the set stops cleanly after the final track. Reloading the page
@@ -201,8 +207,8 @@ and source archives. Never commit uploads, voice references or third-party media
    Skip it first, then remove it. Other entries can be removed during playback;
    all entries can be removed while idle. Queue order matches the order added.
    Select **Optional DJ reference voice** before playing to use your clip for
-   each new introduction (up to 5 MB; WAV 1–60 seconds). **Use default voice**
-   clears the choice. Cached/in-flight introductions keep their original voice;
+   each new introduction (up to 5 MB; WAV 1–60 seconds). **Clear reference clip**
+   returns to the chosen DJ voice. Cached/in-flight introductions keep their original voice;
    recordings stay temporary, are forgotten on reload and never enter saved files.
    A rejected clip does not silently fall back to the default voice. Choose another
    clip or clear it, then retry; if automatic advance stopped, press **Resume**.

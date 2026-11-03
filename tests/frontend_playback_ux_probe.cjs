@@ -8,7 +8,7 @@ const element = (tag, text) => ({tag, textContent:text, children:[], events:{},
   setAttribute(key,value) { this[key]=value; }, addEventListener(key,fn) { this.events[key]=fn; }});
 const elements = {}, calls = [];
 const context = vm.createContext({
-  djActive:false, djPresentationSaving:false, djHalted:false, notice:{}, node:element,
+  djActive:false, djPresentationSaving:false, djVoiceSaving:false, djHalted:false, notice:{}, node:element,
   djReady:()=>true,
   document:{querySelector:key=>elements[key] ||= element('div'), querySelectorAll:()=>[]},
   djAudio:{currentTime:10,duration:30,paused:true,src:'/b',getAttribute() { return this.src; }},

@@ -1,5 +1,27 @@
 # Test results and evidence
 
+## Selected saved DJ voices — 2026-11-02 America/Denver
+
+Joshua requested alternate speakers and auditioned11 short class-Chatterbox
+previews in batches4/3/4; all HTTP200, decoded non-silent WAV. He approvedG as
+Alternate DJ andJ as Female DJ; C was excluded because he found it too young
+sounding. Zero retries, text/art/music calls, uploads or saved-voice mutations.
+Preview/reference audio stays outside Git; the [safe record](../results/dj-voice-selection.json)
+contains selected clip hashes, attribution and runtime checksums.
+
+Branch `codex/a3-dj-speaker-options`, base aece4d1:254 locked offline tests passed
+(one optional skip), covering provider payloads, job-captured choices, cached
+replay, failures/no fallback, explicit retry, reference precedence and preference
+isolation. Normal no-credentials launcher8038 browser: selector save/reload,
+dark desktop and390px dark/light controls passed; no console errors observed.
+The preview stopped and viewport reset. Original8033/8036 were not restarted;
+the owner has eight tracks in8036, so preserve that session.
+
+Direct auditions and synthetic application routing do not establish new live
+Qwen-to-Chatterbox browser acceptance, reference-upload acceptance or independent
+ZIP readiness. Saved voice availability depends on the shared service retaining
+the selected entries. No branch-protection or teammate assignment changes.
+
 ## Current ZIP test packet reconciliation — 2026-11-02 America/Denver
 
 Joshua/Codex reconciled PR59 with main0a34502 after merged #63; both contribution

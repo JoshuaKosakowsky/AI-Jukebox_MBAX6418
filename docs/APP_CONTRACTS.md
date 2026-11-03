@@ -25,7 +25,7 @@ contract, distinct from the verified [provider formats](SERVICE_CONTRACTS.md).
 | MediaRef | stable asset UUID and matching /api/media/UUID URL, MIME type; never a provider URL, filesystem path or credential |
 | GenerationJob | separate app job UUID, track UUID, kind (text/art/music/speech), queued/running/succeeded/failed, progress 0-1 (advanceable inline via with_progress while running), optional SafeError |
 | Playback | one phase: idle/speaking/playing/paused; queue of track UUIDs, current index/track, paused_from for resumption |
-| SessionSnapshot | contract_version=1, tracks, jobs, playback; additive dj_presentation defaults to relaxed (relaxed/upbeat/playful); track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
+| SessionSnapshot | contract_version=1, tracks, jobs, playback; additive dj_presentation defaults to relaxed (relaxed/upbeat/playful), dj_voice defaults to default (default/alternate/female); track/job IDs and all media-reference IDs are unique; job/queue references must exist in the snapshot |
 | SafeError | code, fixed safe message, retryable; never copy raw provider errors/progress to the browser |
 
 Use GenerationJob.transition: queued -> running/failed; running -> succeeded/failed.
@@ -41,8 +41,21 @@ pause/skip and no overlap; model validation is not a playback test.
 Example empty snapshot (GET /api/session when no samples are registered):
 
 ```json
-{"contract_version":1,"dj_presentation":"relaxed","tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
+{"contract_version":1,"dj_presentation":"relaxed","dj_voice":"default","tracks":[],"jobs":[],"playback":{"state":"idle","queue":[],"index":0,"current_track_id":null,"paused_from":null}}
 ```
+
+## DJ voice preference
+
+`POST /api/playback/voice` accepts only `{"voice":"default"}`,
+`{"voice":"alternate"}` or `{"voice":"female"}` and returns SessionSnapshot.
+This session-local preference needs no configured services and creates no job,
+upload, provider request or media replacement. It survives page reload within
+the process-local session. The UI clears a selected reference only after a
+successful choice; a temporary uploaded reference otherwise overrides the saved
+speaker. A speech job captures the preference when queued, so later selection
+changes cannot alter it. Cached speech is retained. Failed introductions have no
+fallback or automatic resubmission; an explicit retry uses the current choice.
+Only the curated local keys are accepted; provider IDs remain server-side.
 
 ## DJ presentation preference
 
@@ -65,6 +78,7 @@ provider payload structure are unchanged. Only the DJ text prompt wording change
 | GET /api/health | local process health, contract version; no provider health claim |
 | GET /api/status | configured/missing per service; connectivity_checked=false, generation_available=false; additive cover_generation_available, music_generation_available and lyrics_generation_available based on configured services; sample_library contains count and a fixed safe error or null |
 | GET /api/session | this browser's SessionSnapshot, including track-specific art/music jobs |
+| POST /api/playback/voice | session-local default/alternate/female speaker preference; no generation |
 | POST /api/tracks | JSON title + SongSettings; create a draft and fresh FLUX cover job, return queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/cover | deliberate generation/replacement/retry for an existing session track; queued GenerationJob with 202 |
 | POST /api/tracks/{track_id}/music | deliberate instrumental or vocal-music generation/replacement/retry for an existing session track; vocal tracks submit the track's current lyrics with the same verified request and are rejected with 409 while lyrics are missing; queued GenerationJob with 202 |
