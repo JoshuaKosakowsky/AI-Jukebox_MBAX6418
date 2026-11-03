@@ -1,5 +1,24 @@
 # Agent handoff
 
+## Session — PR64 merged; PR65 synchronized, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-playback-ux-fixes`, pre-sync3ee4d3e, incoming main b25a119.
+Owner authorized #64/#65 merges when eligible; #64 approved, #65 initially had no review.
+#64 headba2c55e had JoshKozy approval5746966170, four green checks and zero unresolved threads.
+Merged normally at b25a1190fc1bd216501e101365a70258b8db2441; no protection/assignment changes or bypass.
+Reconciled #65 with that main; only handoff conflicted, both complete histories retained.
+README/results index auto-merged; #64 screenshots/records and current-main guide remain intact.
+#65 runtime/tests/contracts/sample manifest/provenance/dependencies/CI stay byte-identical to3ee4d3e.
+Added actual #64 completion row; #9 stays open for real teammate documentation verification.
+No new browser, playback/listening, generation, service calls or uploads in this reconciliation.
+Prior normal/synthetic evidence retains29b9032 source and its declared routing-metadata adjustment.
+Owner8033 session and no-credentials8036 preview remain untouched; Mike61 branch is separate.
+PASS: final locked247 tests/one skip, scaffold194, coverage36/11/19, code/evidence preservation, table and whitespace checks.
+Main #64 CI41574861990 PASS. Fresh exact-head approval is required after sync; earlier-head reviews are not current.
+Merge65 only if eligible approval, current main, green test and resolved conversations remain present.
+Full ZIP readiness is pending; a runtime merge requires explicit candidate re-selection/testing.
+Next: refreshed Hermes review of65, protected merge if approved, then integrated-app and ZIP coordination.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/64 ; /pull/65.
+
 ## Session — User playback/lyrics fixes, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-playback-ux-fixes` from main e17997d; tested code29b9032dbbb747092ae97bbe2c7b9b5201e3a337.
 Owner found no seeking, no queue removal and lyric/performance mismatches; asked about one DJ voice.
@@ -23,6 +42,49 @@ One restricted focused-test rerun stalled and was stopped; unrestricted focused/
 A runtime merge requires explicitly selecting/testing a new ZIP, not silently replacing old0a34502 evidence.
 Next: complete checks, publish Refs #9/#5/#7, request eligible Hermes review; merge only after normal gates.
 Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6594778129.
+
+## Session — Current guide/screenshots for #9, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-09-final-guide` from main e17997d29b0a1cb910545fc4c5eb5eb16332502b.
+Owner likes the current interface and assigned #9 while Hermes re-reviews Mike61.
+Updated README, DESIGN_REVIEW and PLAN: main launch/six layouts/Light-Dark/ideas and verified #5 closure.
+Preserved Preethi's failure/recovery/design/limitation findings and all historical test sources.
+Added4 real JPEG screenshots and safe a3-09-guide-ui.json; retained earlier fcdda54 screenshots as historical.
+Normal isolated launcher8035 had all roles missing; no .env, fixtures, source rewrites or provider calls.
+Observed3 bundled tracks, paired media,2 lyrics and0 jobs through the same browser session snapshot.
+Seed Enter retained custom style/mood/duration35, selected vocal; manual Instrumental choice worked.
+Gallery/Dark to Workbench/Light preserved fields; reload retained layout/theme/Playful and3 songs.
+Missing-role Create/DJ controls stayed disabled; no new listening, playback, generation or upload claim.
+Screenshots compressed lossily to JPEG without crop/layout/content edits;4 files total419,446 bytes.
+Runtime source hashes pin e17997d; app/tests/assets/contracts/dependencies/protection/CI remain unchanged.
+Owner8033 remains healthy; its session/selected layout/generated songs were not touched.
+Temporary documentation tab closed; verified8035 helper/descendants stopped and port no longer responds.
+Carry queued #59 completion/handoff notes; contribution table remains continuous.
+PASS: repository/link/safeguards189, coverage36/11/19,4 JPEG decode/hash checks, JSON/runtime/scope/historical-findings/table and whitespace checks.
+No local app suite repeated for docs/images only; require fresh exact-head CI and eligible review.
+#9/R31 stays open for actual teammate documentation verification; full ZIP/all-case readiness remains pending.
+Do not change the pinned0a34502 candidate or create extra service allowance; keep Mike61 separate.
+Next: publish focused Refs #9 PR, request JoshKozy technical and Matt teammate review; preserve all ordinary gates.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6594364008.
+
+## Session — PR59 merged; independent test ready, 2026-11-02 America/Denver
+Codex for Joshua; local `codex/a3-post-59-handoff` from main e17997d.
+Owner requested #59 merge; exact head27d288ec03214a512fb1099596130cf4e54a74e7 verified.
+JoshKozy approval5746289175, all four green CI checks, current base and zero unresolved threads.
+Merged normally at e17997d29b0a1cb910545fc4c5eb5eb16332502b; no bypass/protection/assignment changes.
+Post-merge main CI is checked separately; prior240-test/one-skip evidence keeps its scope.
+The main procedure docs/DEFAULT_DJ_ZIP_TEST.md is now available to teammate agents.
+It deliberately tests0a34502a4281a8a437b81657fe0809ea92e2c99f, not the newer docs-merge ZIP.
+Pinned ZIP31,547,394 bytes; SHA-256cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025.
+One actual teammate claims #10 and coordinates the shared11-call/no-retry cap before live work.
+No independent installation, generation, browser or human listening occurred in this merge session.
+Default-DJ checklist does not certify reference-voice comparison or all-case submission readiness.
+Owner8033 app/session and Mike/Matt branches remain untouched.
+Owner review follow-up: verified8033 health200 and reopened the existing Gallery/Dark Library tab; all5 session tracks remain visible, no restart or generation.
+Queue this handoff/completion row locally for the next relevant reviewed change; do not publish another docs-only PR.
+Follow-up: #10 unexpectedly closed at the #59 merge; removed the negative-sentence closing reference from the PR body and reopened #10.
+Current read-back confirms OPEN; no independent acceptance, new runtime change or extra service allowance.
+Next: teammate clean-ZIP/default-DJ test and actual report; independently correct any observed blockers.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/59 ; /issues/10.
 
 ## Session — PR63 merged; current ZIP packet, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-10-default-dj-zip-checklist`, prior1e5808d, incoming main0a34502.
