@@ -1,125 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark" data-design="sleeve">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>
       AI Jukebox
     </title>
+    <script src="/static/appearance.js"></script>
     <link rel="stylesheet" href="/static/style.css">
     <script defer src="/static/app.js">
     </script>
   </head>
   <body>
     <main>
-      <header>
-        <div class="mark" aria-hidden="true">
-          ♫
-        </div>
-        <div>
-          <p class="eyebrow">
-            MBAX 6418 · ASSIGNMENT 3
-          </p>
-          <h1>
-            AI Jukebox
-          </h1>
-          <p class="subtitle">
-            Your music. Your mood. Your DJ.
-          </p>
-        </div>
-        <span class="tag">
-          Local session
-        </span>
+      <a class="skip-link" href="#library">Skip to library</a>
+      <header class="masthead">
+        <div class="brand"><span class="record-mark" aria-hidden="true">●</span><span>MBAX 6418 / SIDE A</span></div>
+        <nav aria-label="Main navigation">
+          <a href="#library">Library</a><a href="#create">Create a song</a><a href="#queue">Queue &amp; DJ</a><a href="#setup">Setup</a>
+        </nav>
       </header>
-      <section class="setup" aria-labelledby="setup-title">
+      <div class="page-title">
+        <h1>AI Jukebox<span class="title-period">.</span></h1>
+        <p>Original music. Unusual ideas.<br> A DJ to bring it together.</p>
+      </div>
+      <div class="design-controls" role="group" aria-label="Design comparison">
+        <label for="design-choice">Layout
+          <select id="design-choice">
+            <option value="sleeve">A · Record sleeve</option>
+            <option value="gallery">B · Cover gallery</option>
+            <option value="console">C · Studio console</option>
+          </select>
+        </label>
+        <label for="theme-choice">Appearance
+          <select id="theme-choice">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
+        </label>
+        <p class="note">Compare the same songs and controls. Your layout and appearance are saved on this browser.</p>
+      </div>
+      <div class="listening-room">
+      <section id="queue" class="dj" aria-labelledby="dj-title">
         <div class="section-heading">
           <div>
             <p class="eyebrow">
-              GET CONNECTED
-            </p>
-            <h2 id="setup-title">
-              Service setup
-            </h2>
-          </div>
-          <button id="refresh" type="button">
-            Refresh status
-          </button>
-        </div>
-        <p id="summary" role="status" aria-live="polite">
-          Checking local configuration…
-        </p>
-        <ul id="services" class="services">
-        </ul>
-        <p class="note">
-          Configuration status does not check connectivity or generate media. Missing settings can be added to your server’s .env file; restart the app afterward.
-        </p>
-      </section>
-      <section aria-labelledby="cover-title">
-        <p class="eyebrow">DESIGN YOUR SONG</p>
-        <h2 id="cover-title">Create a song</h2>
-        <p id="cover-help" class="note">Checking service configuration…</p>
-        <form id="cover-form">
-          <label>Song title / theme
-            <input name="title" required maxlength="120" placeholder="Moonlit mountain lake">
-          </label>
-          <div class="form-row">
-            <label>Musical style
-              <input name="style" required maxlength="120" placeholder="Ambient piano" aria-describedby="style-help">
-            </label>
-            <label>Mood
-              <input name="mood" required maxlength="120" placeholder="Calm and reflective">
-            </label>
-            <label>Duration (seconds)
-              <input name="duration" type="number" min="10" max="60" step="1" value="30" required>
-            </label>
-          </div>
-          <p id="style-help" class="note">You can describe the subgenre, instruments and rhythm: deathcore with low-tuned riffs and double-kick drums, or jazz waltz with brushed drums.</p>
-          <fieldset class="mode">
-            <legend>Mode</legend>
-            <label class="mode-option"><input type="radio" name="mode" value="instrumental" checked> Instrumental</label>
-            <label class="mode-option"><input type="radio" name="mode" value="vocal"> Vocal song with AI lyrics</label>
-          </fieldset>
-          <button id="create-cover" type="submit" disabled>Create song &amp; generate instrumental</button>
-        </form>
-        <p id="cover-notice" role="status" aria-live="polite"></p>
-        <p class="note">Each song gets a new matching cover and a playable track: an ACE-Step instrumental, or vocal songs with AI-written lyrics. Instrumental and vocal durations are currently limited to 10–60 seconds so downloads stay within the class service size limit. Drafts and media last for this browser session, up to two hours of inactivity; restarting the app clears them.</p>
-      </section>
-      <section class="library" aria-labelledby="library-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">
-              YOUR COLLECTION
-            </p>
-            <h2 id="library-title">
-              Session library
-            </h2>
-          </div>
-          <span id="track-count" class="count">
-            0 tracks
-          </span>
-        </div>
-        <div id="tracks" class="tracks"></div>
-        <div id="empty-library" class="empty">
-          <div class="disc" aria-hidden="true">
-            <span>
-            </span>
-          </div>
-          <h3>
-            A fresh start
-          </h3>
-          <p>
-            Your session library is empty. Create a song draft and its cover above.
-          </p>
-          <p class="note">
-            Each cover is generated for its own track. No stock artwork is used.
-          </p>
-        </div>
-      </section>
-      <section class="dj" aria-labelledby="dj-title">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">
-              AI DJ
+              YOUR DJ
             </p>
             <h2 id="dj-title">
               Queue &amp; DJ
@@ -131,6 +57,14 @@
         <p id="dj-status" role="status" aria-live="polite">
           Add playable songs from your library to the queue, then press Play.
         </p>
+        <div class="dj-controls">
+          <button id="dj-play" type="button" disabled>Play queue</button>
+          <button id="dj-pause" type="button" disabled>Pause</button>
+          <button id="dj-resume" type="button" disabled>Resume</button>
+          <button id="dj-skip" type="button" disabled>Skip</button>
+        </div>
+        <details class="dj-options">
+          <summary>DJ style &amp; voice</summary>
         <div class="dj-presentation">
           <label for="dj-presentation">DJ presentation</label>
           <select id="dj-presentation" aria-describedby="dj-presentation-help dj-presentation-status">
@@ -158,13 +92,10 @@
           </p>
           <p id="dj-voice-status" role="status" aria-live="polite">Default Chatterbox voice selected.</p>
         </div>
-        <div class="dj-controls">
-          <button id="dj-play" type="button" disabled>Play queue</button>
-          <button id="dj-pause" type="button" disabled>Pause</button>
-          <button id="dj-resume" type="button" disabled>Resume</button>
-          <button id="dj-skip" type="button" disabled>Skip</button>
-        </div>
+
+        </details>
         <audio id="dj-audio" hidden></audio>
+        <details class="playback-help"><summary>How playback works</summary>
         <p class="note">
           Qwen writes a short introduction for each queued song; Chatterbox
           speaks it with your selected reference or its default voice, then the music plays — speech and
@@ -172,6 +103,78 @@
           the queue advances on its own after each song. Reloading the page
           keeps the queue and never generates new speech.
         </p>
+        </details>
+      </section>
+      <section id="library" class="library" aria-labelledby="library-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">
+              THE RECORD SHELF
+            </p>
+            <h2 id="library-title">
+              Session library
+            </h2>
+          </div>
+          <span id="track-count" class="count">
+            0 tracks
+          </span>
+        </div>
+        <div id="tracks" class="tracks"></div>
+        <div id="empty-library" class="empty">
+          <div class="disc" aria-hidden="true">
+            <span>
+            </span>
+          </div>
+          <h3>
+            A fresh start
+          </h3>
+          <p>
+            Your session library is empty. Open Create a song to make your first track and cover.
+          </p>
+          <p class="note">
+            Each cover is generated for its own track. No stock artwork is used.
+          </p>
+        </div>
+      </section>
+      </div>
+      <section id="create" class="create" aria-labelledby="cover-title">
+        <details class="create-panel">
+          <summary><span class="eyebrow">THE STUDIO</span><h2 id="cover-title">Create a song</h2><span class="summary-hint">Title, sound, mood. Make something new.</span></summary>
+        <p id="cover-help" class="note">Checking service configuration…</p>
+        <form id="cover-form">
+          <label>Song title / theme
+            <input name="title" required maxlength="120" placeholder="Moonlit mountain lake">
+          </label>
+          <div class="form-row">
+            <label>Musical style
+              <input name="style" required maxlength="120" placeholder="Ambient piano" aria-describedby="style-help">
+            </label>
+            <label>Mood
+              <input name="mood" required maxlength="120" placeholder="Calm and reflective">
+            </label>
+            <label>Duration (seconds)
+              <input name="duration" type="number" min="10" max="60" step="1" value="30" required>
+            </label>
+          </div>
+          <p id="style-help" class="note">You can describe the subgenre, instruments and rhythm: deathcore with low-tuned riffs and double-kick drums, or jazz waltz with brushed drums.</p>
+          <fieldset class="mode">
+            <legend>Mode</legend>
+            <label class="mode-option"><input type="radio" name="mode" value="instrumental" checked> Instrumental</label>
+            <label class="mode-option"><input type="radio" name="mode" value="vocal"> Vocal song with AI lyrics</label>
+          </fieldset>
+          <button id="create-cover" type="submit" disabled>Create song &amp; generate instrumental</button>
+        </form>
+        <p class="note">Each song gets a new matching cover and a playable track: an ACE-Step instrumental, or vocal songs with AI-written lyrics. Instrumental and vocal durations are currently limited to 10–60 seconds so downloads stay within the class service size limit. Drafts and media last for this browser session, up to two hours of inactivity; restarting the app clears them.</p>
+        </details>
+        <p id="cover-notice" role="status" aria-live="polite"></p>
+      </section>
+      <section id="setup" class="setup" aria-labelledby="setup-title">
+        <details>
+          <summary><h2 id="setup-title">Service setup</h2><span id="summary" role="status" aria-live="polite">Checking local configuration…</span></summary>
+          <button id="refresh" type="button">Refresh status</button>
+          <ul id="services" class="services"></ul>
+          <p class="note">Configuration status does not check connectivity or generate media. Missing settings can be added to your server’s .env file; restart the app afterward.</p>
+        </details>
       </section>
       <footer>
         Class-powered music, artwork and DJ speech.
