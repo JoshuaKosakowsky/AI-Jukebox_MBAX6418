@@ -1,5 +1,46 @@
 # Agent handoff
 
+## Session — Three DJ speaker options, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-dj-speaker-options` from current main aece4d1; queued PR65 completion notes included.
+Owner auditioned11 short saved-voice previews in batches4/3/4 and approvedG (Alternate DJ) andJ (Female DJ).
+C excluded by owner as too young sounding. No other preview voice is adopted.
+All11 deliberate Chatterbox POSTs returned200/non-silent24kHz mono WAV; zero retries, uploads, text/art/music calls or voice mutations.
+Private audio/scripts stay outside Git in sibling a3-dj-voice-previews-20261102; safe hashes/counters are in results/dj-voice-selection.json.
+Added curated Default/Alternate/Female selector and POST playback/voice; dj_voice is additive/session-local and persists on reload.
+Only local enum keys cross the app API; saved provider IDs remain server-side. Default payload still omits voice.
+Each queued job captures its speaker; uploaded reference takes precedence; success/failure cleans private job choice.
+Changing speaker generates nothing and preserves cached introductions; no default fallback/automatic retries on failures.
+Updated contracts/schema, UI, seven meaningful offline tests, docs and safe screenshots; no dependencies or CI/protection changes.
+PASS: locked254 tests/one optional skip; final scaffold200/coverage36/11/19 and whitespace clean.
+Browser8038 normal/no-credentials: Female save/reload, Alternate save, dark desktop and390px dark/light; no console errors observed.
+Final newer-reference preservation guard was validated offline after those browser observations; safe record states that boundary.
+Temporary viewport reset and8038 stopped. Original8033/8036 processes untouched; owner8036 now has eight tracks—do not restart it casually.
+Current running owner app still uses merged main; new selector requires reviewed integration and a deliberately coordinated restart.
+Saved voices depend on shared-service retention; no new integrated live DJ/reference-upload or independent ZIP acceptance claimed.
+Next: Hermes/JoshKozy exact-head review, protected integration if approved; preserve owner's generated tracks before restarting any app.
+Keep Mike61 historical acceptance evidence and optional43 scorecard separate; no issue closure/assignment changes here.
+
+## Session — PR65 merged, 2026-11-02 America/Denver
+Codex for Joshua; local `codex/a3-post-65-handoff` from main aece4d1.
+Owner's merge authorization remains active; fresh JoshKozy approval5747092088 covers8154f9a exactly.
+Verified four green CI checks, current baseb25a119, zero review threads and unchanged protection.
+Merged normally at aece4d17663aa2508d70a64e58d8f7acc60cb08d; no bypass, service calls or assignments changed.
+Main now contains #64 guide and #65 seeking, queue removal, confirmed lyric display corrections and voice wording.
+Pre-merge verification247 tests/one skip, scope194/coverage36/11/19 and browser evidence keep their original sources.
+Post-merge main CI is verified separately; no new integrated browser/listening or ZIP acceptance is claimed here.
+Preview follow-up:8036 now uses the existing private course settings in server process environment only; no credential file was copied or committed. Root PID35272.
+Confirmed all4 safe configured labels and enabled Create vocal song button after Refresh status; user draft inputs remained identical without page reload.
+No generation/provider connectivity check performed; original8033 and its five-track session were not restarted or edited.
+An existing process does not automatically reload Python backend/catalogue from main; preserve session data before any restart.
+Original AI drafts/audio/art and provenance remain intact; only sample display text changed.
+Queue Remove keeps library media and protects the active entry; Skip first. Presentation is not speaker identity.
+Keep this completion row/handoff local for the next relevant reviewed change; no standalone paperwork PR or main push.
+Next: verify integrated main flow, explicitly choose/download a new runtime ZIP, coordinate one actual teammate install.
+The earlier0a34502 archive does not cover these runtime fixes; never relabel its recorded evidence.
+#9/R31 actual teammate documentation verification and remaining live acceptance remain pending.
+No extra generation allowance follows from this merge; keep Mike61 separate.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/65 ; /issues/10.
+
 ## Session — PR64 merged; PR65 synchronized, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-playback-ux-fixes`, pre-sync3ee4d3e, incoming main b25a119.
 Owner authorized #64/#65 merges when eligible; #64 approved, #65 initially had no review.

@@ -18,6 +18,13 @@ from .contracts import SafeError
 
 PROBES = json.loads((ROOT / "contracts/service-probes.json").read_text(encoding="utf-8"))["services"]
 MAX_BYTES = 20_000_000
+# Owner auditioned and approved these class-service saved voices. The browser
+# sends only the stable local choices; it cannot submit arbitrary provider IDs.
+DJ_VOICES = {
+    "default": None,
+    "alternate": "voice_70309c3c13734f75a09d9cf0b9230780",
+    "female": "voice_64de483d591344e3a0c776acd29cee1a",
+}
 
 
 class ProviderFailure(Exception):
@@ -201,14 +208,18 @@ class ClassProviders:
         except (KeyError, IndexError, TypeError, ValueError, OSError, binascii.Error, UnidentifiedImageError, Image.DecompressionBombError):
             fail("invalid_response", "The art service returned an invalid image.")
 
-    def speech(self, text: str, *, reference: MediaBytes | None = None) -> MediaBytes:
-        """Chatterbox default-voice speech; optional MP3/WAV reference (schema-
+    def speech(self, text: str, *, reference: MediaBytes | None = None, voice: str = "default") -> MediaBytes:
+        """Chatterbox default/saved speech; optional MP3/WAV reference (schema-
         inspected path: ref_audio as a base64 data URI in the same frozen JSON
         request; live verification is pending acceptance evidence)."""
         if not 1 <= len(text.strip()) <= 4096:
             raise ValueError("Speech input must contain 1-4096 characters")
+        if voice not in DJ_VOICES or (reference is not None and voice != "default"):
+            raise ValueError("Choose one supported DJ voice or a reference clip")
         payload = self._payload("speech")
         payload["input"] = text
+        if voice != "default":
+            payload["voice"] = {"id": DJ_VOICES[voice]}
         if reference is not None:
             media_type = reference.content_type if reference.content_type in {"audio/wav", "audio/x-wav", "audio/mpeg"} else "audio/wav"
             payload["ref_audio"] = "data:" + media_type + ";base64," + base64.b64encode(reference.content).decode()

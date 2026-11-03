@@ -7,6 +7,13 @@ evidence is listed below. Record metadata in docs/TEST_RESULTS.md.
 Never commit credentials, raw unsafe logs, user uploads or voice recordings.
 Required sample audio/images belong in assets/samples/, not this directory.
 
+Saved DJ speaker selection (2026-11-02): [audition and selector record](dj-voice-selection.json).
+Joshua selected previewG as Alternate DJ andJ as Female DJ; original default stays.
+Eleven short direct class-speech previews,254 offline tests/one skip and normal
+no-credentials preference/reload checks are distinct evidence. [Dark desktop](dj-voice-selector-dark.png),
+[dark mobile](dj-voice-selector-mobile.png), [light mobile](dj-voice-selector-light.png).
+No voice/reference media is bundled; integrated live DJ and ZIP acceptance are separate.
+
 Local Surprise me controls (2026-11-02, branch `codex/a3-surprise-song`):
 [idea-generator browser/variability record](a3-song-ideas.json). Production handler
 probe:1950 distinct titles/2000 full ideas in2000 fixed-seed rolls. Normal

@@ -14,7 +14,7 @@ from pydantic import Field
 from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from .config import ROOT, Settings
-from .contracts import DjPresentation, GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
+from .contracts import DjPresentation, DjVoice, GenerationJob, Model, Playback, SessionSnapshot, SongSettings, schema
 from .providers import ClassProviders, ProviderFailure, fail
 from .samples import SampleLibraryError, load_samples
 from .sessions import (MAX_MEDIA_BYTES, MAX_REFERENCE_BYTES, SESSION_COOKIE, SESSION_SECONDS,
@@ -254,6 +254,15 @@ def create_app(settings: Settings | None = None):
 
     class PresentationBody(Model):
         style: DjPresentation
+
+    class SpeakerBody(Model):
+        voice: DjVoice
+
+    @app.post("/api/playback/voice", response_model=SessionSnapshot)
+    def playback_voice(data: SpeakerBody, current=Depends(browser_session)):
+        # Preference only: no service call or cached-introduction replacement.
+        store.set_dj_voice(current, data.voice)
+        return store.snapshot(current)
 
     @app.post("/api/playback/presentation", response_model=SessionSnapshot)
     def playback_presentation(data: PresentationBody, current=Depends(browser_session)):

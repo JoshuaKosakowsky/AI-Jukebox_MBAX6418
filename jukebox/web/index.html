@@ -82,25 +82,38 @@
             <option value="playful">Playful</option>
           </select>
           <p id="dj-presentation-help" class="note">
-            Presentation changes the wording, not the speaker. Chatterbox provides one default voice;
-            an optional reference clip supplies another voice.
+            Presentation changes the wording, not the speaker. Choose the speaker below.
             Cached and in-progress introductions keep their original wording.
           </p>
           <p id="dj-presentation-status" role="status" aria-live="polite"></p>
         </div>
+          <div class="dj-presentation">
+            <label for="dj-speaker">DJ voice</label>
+            <select id="dj-speaker" aria-describedby="dj-speaker-help dj-speaker-status">
+              <option value="default">Default Chatterbox</option>
+              <option value="alternate">Alternate DJ</option>
+              <option value="female">Female DJ</option>
+            </select>
+            <p id="dj-speaker-help" class="note">
+              Applies to new introductions. Cached and in-progress introductions keep their voice.
+              Choosing a voice clears a selected reference clip. Saved voices depend on the class service.
+            </p>
+            <p id="dj-speaker-status" role="status" aria-live="polite"></p>
+          </div>
         <div class="dj-voice">
           <label for="dj-voice">Optional DJ reference voice
             <input id="dj-voice" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav"
                    aria-describedby="dj-voice-help dj-voice-status">
           </label>
-          <button id="dj-voice-clear" type="button" disabled>Use default voice</button>
+          <button id="dj-voice-clear" type="button" disabled>Clear reference clip</button>
           <p id="dj-voice-help" class="note">
             Choose an MP3 or WAV, up to 5 MB (WAV: 1–60 seconds). Your clip stays
             in this page and is uploaded temporarily for each new introduction.
             Cached or in-progress introductions keep their original voice.
-            Clear it or reload to return to the default voice. Recordings are never saved.
+            A reference overrides the DJ voice above. Clear it or reload to use that voice again.
+            Recordings are never saved.
           </p>
-          <p id="dj-voice-status" role="status" aria-live="polite">Default Chatterbox voice selected.</p>
+          <p id="dj-voice-status" role="status" aria-live="polite">No reference clip selected. The DJ voice above applies.</p>
         </div>
 
         </details>
@@ -108,7 +121,7 @@
         <details class="playback-help"><summary>How playback works</summary>
         <p class="note">
           Qwen writes a short introduction for each queued song; Chatterbox
-          speaks it with your selected reference or its default voice, then the music plays — speech and
+          speaks it with your selected DJ voice or reference, then the music plays — speech and
           music never overlap. Pause and Skip work during speech and music, and
           the queue advances on its own after each song. Reloading the page
           keeps the queue and never generates new speech.

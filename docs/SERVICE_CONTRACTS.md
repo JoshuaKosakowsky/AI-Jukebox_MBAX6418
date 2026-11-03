@@ -235,6 +235,17 @@ Reference voice paths below are **schema-inspected only; not live verified**:
   persistence is unnecessary for temporary assignment uploads. Keep references
   out of Git and archives and define cleanup in A3-06.
 
+On 2026-11-02, GET /v1/voices returned23 saved entries. Names alone do not
+establish speaker gender, suitability or provenance. Eleven short, deliberate
+speech previews used returned saved IDs as `voice: {"id":"..."}` and all decoded
+as non-silent WAVs. Joshua selected previewG (Alternate DJ) and previewJ (Female
+DJ, his listening judgment); previewC was excluded because he found it too young
+sounding. The app's two curated mappings live server-side in providers.py;
+arbitrary service names/IDs are not browser choices. The default request still
+omits voice exactly as before. No reference audio or preview media is bundled,
+and the shared service must retain these saved IDs for them to stay available.
+This saved-voice check does not verify the separate MP3/WAV upload acceptance.
+
 The schema documents MP3/WAV support (and others), reference length 1-60 seconds
 by default, input length 1-4096, response formats mp3/wav/opus/aac/flac/pcm,
 and speed 0.25-4. Do not turn documented limits into verified app behavior.

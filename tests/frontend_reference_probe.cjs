@@ -80,7 +80,7 @@ const flush = async () => { for (let i=0; i<10; i++) await Promise.resolve(); };
   t = setup(); t.choose(clip); t.failUpload(true);
   await assert.rejects(t.context.request('/api/playback/start', {}), /Invalid clip/);
   assert.equal(t.calls.length, 1, 'invalid upload never submits a default-voice intent');
-  assert.match(t.context.document.querySelector('#dj-voice-status').textContent, /No default-voice substitution/);
+  assert.match(t.context.document.querySelector('#dj-voice-status').textContent, /No other voice was substituted/);
   t.failUpload(false); t.failIntent(true);
   await assert.rejects(t.context.request('/api/playback/start', {}), /Busy/);
   assert.equal(t.calls.at(-1).method, 'DELETE', 'rejected intent discards unused upload');

@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-02 America/Denver",
+  "branch": "codex/a3-dj-speaker-options",
+  "base": "aece4d17663aa2508d70a64e58d8f7acc60cb08d",
+  "runtime_sha256": {
+    "jukebox/providers.py": "0b042612e7e03525b4df0a9d4936ced26ed1f2646cce6205e87764f745204b94",
+    "jukebox/contracts.py": "a817817ee5f7b222e696b6bb8dfccf202cccf5af6d3955aebf95c49d809e0b8c",
+    "jukebox/sessions.py": "39d21b499b3a34fc12a5e022fcaf91e72b0e949940637c096810fc4109ea6c8e",
+    "jukebox/app.py": "77a73f12d702aa6cac6d334bc5f8a462b8fd410585984aa2198e2844945599ff",
+    "jukebox/web/app.js": "62a82d05d2c5ad90e975bec1cf1c6b893894574ff1eba4bcc1d1a393981ec6e5",
+    "jukebox/web/index.html": "99061340475c8f472757d4b9d11639aca2be51152a8321562feff7bd5002d211",
+    "contracts/app.schema.json": "18c8a594d0b29e79196f066afcdfb8435d72441c0941d4b707dc37e0ef2ec9f6"
+  },
+  "requirements": [
+    "R14"
+  ],
+  "related_issues": [
+    5,
+    6
+  ],
+  "live_preview": {
+    "service": "class Chatterbox",
+    "speech_posts": 11,
+    "batches": [
+      4,
+      3,
+      4
+    ],
+    "http_200": 11,
+    "decoded_non_silent": 11,
+    "automatic_retries": 0,
+    "text_art_music_requests": 0,
+    "saved_voice_mutations": 0,
+    "reference_uploads": 0,
+    "selected": [
+      {
+        "label": "G",
+        "sha256": "1348ac6777b3d0b410c856e7ea6fc084476b72a04d67ced8a19fcb488219a84a",
+        "duration_seconds": 5.36,
+        "sample_rate": 24000,
+        "channels": 1,
+        "decoded": true,
+        "choice": "alternate",
+        "human_feedback": "Joshua: I like G, add it."
+      },
+      {
+        "label": "J",
+        "sha256": "629f5ff7cd22b89a21f4b92daa1324005bbfd4999306b4920e68b3c4ffc392d5",
+        "duration_seconds": 5.8,
+        "sample_rate": 24000,
+        "channels": 1,
+        "decoded": true,
+        "choice": "female",
+        "human_feedback": "Joshua selected J as the female option."
+      }
+    ],
+    "excluded": {
+      "C": "Owner found it too young sounding."
+    },
+    "media_location": "Private local scratch outside Git; no preview/reference audio bundled."
+  },
+  "offline_validation": {
+    "locked_suite": {
+      "tests_run": 254,
+      "skipped": 1,
+      "result": "PASS"
+    },
+    "scope": "MockTransport/store/HTTP/frontend checks only; no provider calls in tests.",
+    "cases": [
+      "default frozen payload unchanged",
+      "allowlisted saved IDs reach speech",
+      "session choice and reload retention",
+      "queued voice captured before later change",
+      "cached replay retains speech with no new requests",
+      "failed voice has no default fallback or automatic retry",
+      "explicit retry uses current preference",
+      "temporary reference overrides saved voice",
+      "unknown IDs and extra fields rejected",
+      "front-end save serialization, rollback and reference clearing",
+      "a newer reference selected while saving a speaker is retained"
+    ],
+    "scaffold_files": 200,
+    "coverage_structure": {
+      "requirements": 36,
+      "tasks": 11,
+      "cases": 19
+    }
+  },
+  "browser_validation": {
+    "launcher": "python scripts/dev.py --port 8038",
+    "provider_configuration": "missing, deliberately; no class calls from this preview",
+    "observations": [
+      "all three curated choices visible",
+      "Female DJ selection saved and retained after reload",
+      "Alternate DJ selection saved",
+      "no console errors observed",
+      "390px dark/light controls usable; no horizontal document overflow",
+      "temporary viewport reset; isolated preview stopped",
+      "original 8033/8036 processes not restarted; owner 8036 has eight tracks and remains open"
+    ],
+    "screenshots": [
+      "dj-voice-selector-dark.png",
+      "dj-voice-selector-mobile.png",
+      "dj-voice-selector-light.png"
+    ],
+    "runtime_note": "Browser observations/screenshots precede the final newer-reference preservation guard; that guard passed the final offline suite."
+  },
+  "limitations": [
+    "Saved IDs depend on continued availability on the shared class server.",
+    "Direct saved-voice audition plus synthetic app routing is not an integrated live Qwen-to-Chatterbox browser acceptance.",
+    "MP3/WAV upload acceptance and independent final ZIP verification remain separate.",
+    "Current running owner app is not restarted or silently switched to this branch."
+  ],
+  "runtime_sha256_normalization": "Staged Git text blobs (LF), not platform-specific working-tree line endings."
+}

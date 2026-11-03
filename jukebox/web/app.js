@@ -35,6 +35,7 @@ let refreshInFlight;
 // Never persist the recording or its upload id across a page reload.
 let djVoiceFile = null;
 let djPresentationSaving = false;
+let djVoiceSaving = false;
 
 async function request(path, data, withVoice = true) {
   if (withVoice && data !== undefined && ["/api/playback/start", "/api/playback/advance",
@@ -80,6 +81,38 @@ async function changeDjPresentation() {
   }
 }
 
+function djSpeakerLabel() {
+  return {default: "Default Chatterbox voice", alternate: "Alternate DJ voice", female: "Female DJ voice"}
+    [latestSession?.dj_voice || "default"];
+}
+
+async function changeDjSpeaker() {
+  if (djVoiceSaving) return;
+  const select = document.querySelector("#dj-speaker");
+  const status = document.querySelector("#dj-speaker-status");
+  const previous = latestSession?.dj_voice || "default";
+  const chosen = select.value;
+  const previousReference = djVoiceFile;
+  djVoiceSaving = true;
+  select.disabled = true;
+  try {
+    await djUserQueue(async () => {
+      latestSession = await request("/api/playback/voice", {voice: chosen}, false);
+      // A clip chosen after this intent began is the user's newer selection.
+      if (djVoiceFile === previousReference) clearDjVoice();
+      await syncAfterMutation();
+    });
+    status.textContent = "Voice saved for new introductions. Existing introductions keep their voice.";
+  } catch (error) {
+    select.value = previous;
+    status.textContent = error.message;
+  } finally {
+    djVoiceSaving = false;
+    select.disabled = false;
+    if (latestSession) renderDj(latestSession);
+  }
+}
+
 function selectDjVoice() {
   const input = document.querySelector("#dj-voice");
   const file = input.files[0];
@@ -87,11 +120,11 @@ function selectDjVoice() {
   djVoiceFile = null;
   if (file && (file.size === 0 || file.size > 5000000)) {
     input.value = "";
-    status.textContent = "Choose a non-empty MP3 or WAV clip, 5 MB or smaller. Default voice is selected.";
+    status.textContent = `Choose a non-empty MP3 or WAV clip, 5 MB or smaller. ${djSpeakerLabel()} is selected.`;
   } else {
     djVoiceFile = file || null;
     status.textContent = file ? "Reference selected for new introductions. The clip is validated when used."
-      : "Default Chatterbox voice selected.";
+      : `${djSpeakerLabel()} selected.`;
   }
   document.querySelector("#dj-voice-clear").disabled = !djVoiceFile;
 }
@@ -100,7 +133,7 @@ function clearDjVoice() {
   document.querySelector("#dj-voice").value = "";
   djVoiceFile = null;
   document.querySelector("#dj-voice-clear").disabled = true;
-  document.querySelector("#dj-voice-status").textContent = "Default Chatterbox voice selected for new introductions.";
+  document.querySelector("#dj-voice-status").textContent = `${djSpeakerLabel()} selected for new introductions.`;
 }
 
 async function requestDjWithVoice(path, data) {
@@ -124,7 +157,7 @@ async function requestDjWithVoice(path, data) {
     return await request(path, {...data, reference_id: referenceId}, false);
   } catch (error) {
     document.querySelector("#dj-voice-status").textContent =
-      `${error.message} No default-voice substitution was requested. Choose another clip or use Default voice, then retry.`;
+      `${error.message} No other voice was substituted. Choose another clip or clear the reference, then retry.`;
     throw error;
   } finally {
     // A cached/raced/rejected intent may leave the upload unused. Consumed ids
@@ -914,6 +947,11 @@ function renderDj(session) {
   const presentation = document.querySelector("#dj-presentation");
   if (!djPresentationSaving) presentation.value = session.dj_presentation || "relaxed";
   presentation.disabled = djPresentationSaving;
+  const speaker = document.querySelector("#dj-speaker");
+  if (speaker) {
+    if (!djVoiceSaving) speaker.value = session.dj_voice || "default";
+    speaker.disabled = djVoiceSaving;
+  }
   latestSession = session;
   const pb = session.playback;
   const list = document.querySelector("#dj-queue");
@@ -995,6 +1033,7 @@ for (const event of ["loadedmetadata", "durationchange", "timeupdate", "emptied"
   djAudio.addEventListener(event, updateDjSeeking);
 }
 document.querySelector("#dj-presentation").addEventListener("change", changeDjPresentation);
+document.querySelector("#dj-speaker").addEventListener("change", changeDjSpeaker);
 
 document.querySelector("#dj-voice").addEventListener("change", selectDjVoice);
 document.querySelector("#dj-voice-clear").addEventListener("click", clearDjVoice);
