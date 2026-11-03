@@ -343,6 +343,9 @@ audio { color-scheme:inherit; }
 
 /* Inspiration controls share each layout's palette and never obscure the form. */
 .idea-tools { display:flex; align-items:end; gap:10px; }
+.seek-controls { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:8px 0; }
+.seek-controls button, .queue-remove { padding:6px 10px; font-size:12px; }
+.queue-remove { margin-left:8px; }
 .idea-tools label { flex:1; min-width:0; }
 #surprise-song { min-height:42px; flex:0 0 auto; }
 .idea-keep { flex-direction:row; align-items:center; gap:8px; margin-top:12px; }

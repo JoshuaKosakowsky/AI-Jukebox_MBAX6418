@@ -87,6 +87,10 @@ your default or uploaded reference voice. The choice stays in this browser
 session across reloads. Cached and in-progress introductions keep their original
 wording; choosing a style never regenerates them or interrupts music.
 
+These are presentation choices, not speaker identities: Chatterbox supplies one
+default voice. An optional reference clip supplies another voice; no personal
+recording is needed to use the default DJ.
+
 Joshua listened to the three retained default-baseline introductions on
 2026-11-02 and reported, "The DJ is clear and sounds good to me." This approves
 those clips' clarity/voice; live Upbeat/Playful comparison remains untested.
@@ -170,7 +174,9 @@ and source archives. Never commit uploads, voice references or third-party media
 3. Watch each track's cover/lyrics/instrumental status. Create a second distinct
    song, then reload: each track, cover, lyrics and audio remains paired with
    its own title/settings.
-4. Play either song directly in the browser. After a failed or timed-out
+4. Play either song directly in the browser. Use its native seek bar or **−5 s /
+   +5 s** buttons to move within the song; seeking keeps a paused song paused.
+   After a failed or timed-out
    generation, use Resume check to continue checking the SAME class-service
    task (it never submits a new one — repeated resumes of one task stay on
    its single original submission), or Generate new instrumental / Generate
@@ -188,7 +194,12 @@ and source archives. Never commit uploads, voice references or third-party media
    follows. One persistent player element drives the whole
    timeline sequentially to prevent speech/music overlap. Pause, Resume and Skip work during speech AND during
    music; the set stops cleanly after the final track. Reloading the page
-   keeps the queue and position and never regenerates commentary.
+   keeps the queue and position and never regenerates commentary. **Skip** moves
+   to the next track; the DJ's **−5 s / +5 s** move within music, including while
+   paused, and are disabled during introductions. **Remove** drops a queue entry
+   while retaining its library song/media. The current active entry is protected:
+   Skip it first, then remove it. Other entries can be removed during playback;
+   all entries can be removed while idle. Queue order matches the order added.
    Select **Optional DJ reference voice** before playing to use your clip for
    each new introduction (up to 5 MB; WAV 1–60 seconds). **Use default voice**
    clears the choice. Cached/in-flight introductions keep their original voice;
@@ -207,7 +218,9 @@ music configured but not art, the form explains that art is needed to create
 tracks. Vocal mode additionally needs the text service for AI lyrics; without
 it the draft/cover still creates and the form explains what to add. Refresh
 status and page reload never submit generation. Lyrics appear on each vocal
-track's card (a collapsible block). Instrumental songs are not available
+track's card (a collapsible block). These are AI-written lyrics, not a verified
+transcript; ACE-Step can omit or change words. Bundled display lyrics include
+Joshua's listening corrections, while original drafts remain in provenance. Instrumental songs are not available
 through the vocal mode, and vocal songs are not available in the instrumental
 mode — the mode is chosen at creation and kept on the track.
 

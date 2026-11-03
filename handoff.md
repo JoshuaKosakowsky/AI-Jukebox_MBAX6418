@@ -1,5 +1,48 @@
 # Agent handoff
 
+## Session — PR64 merged; PR65 synchronized, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-playback-ux-fixes`, pre-sync3ee4d3e, incoming main b25a119.
+Owner authorized #64/#65 merges when eligible; #64 approved, #65 initially had no review.
+#64 headba2c55e had JoshKozy approval5746966170, four green checks and zero unresolved threads.
+Merged normally at b25a1190fc1bd216501e101365a70258b8db2441; no protection/assignment changes or bypass.
+Reconciled #65 with that main; only handoff conflicted, both complete histories retained.
+README/results index auto-merged; #64 screenshots/records and current-main guide remain intact.
+#65 runtime/tests/contracts/sample manifest/provenance/dependencies/CI stay byte-identical to3ee4d3e.
+Added actual #64 completion row; #9 stays open for real teammate documentation verification.
+No new browser, playback/listening, generation, service calls or uploads in this reconciliation.
+Prior normal/synthetic evidence retains29b9032 source and its declared routing-metadata adjustment.
+Owner8033 session and no-credentials8036 preview remain untouched; Mike61 branch is separate.
+PASS: final locked247 tests/one skip, scaffold194, coverage36/11/19, code/evidence preservation, table and whitespace checks.
+Main #64 CI41574861990 PASS. Fresh exact-head approval is required after sync; earlier-head reviews are not current.
+Merge65 only if eligible approval, current main, green test and resolved conversations remain present.
+Full ZIP readiness is pending; a runtime merge requires explicit candidate re-selection/testing.
+Next: refreshed Hermes review of65, protected merge if approved, then integrated-app and ZIP coordination.
+Links: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/pull/64 ; /pull/65.
+
+## Session — User playback/lyrics fixes, 2026-11-02 America/Denver
+Codex for Joshua; `codex/a3-playback-ux-fixes` from main e17997d; tested code29b9032dbbb747092ae97bbe2c7b9b5201e3a337.
+Owner found no seeking, no queue removal and lyric/performance mismatches; asked about one DJ voice.
+Added session-private byte-range/HEAD media responses, metadata preload and native/+/-5-second seeking.
+DJ seeking is music-only (including paused), preserves paused state and never calls a provider.
+Additive POST queue/remove preserves library/media/jobs, adjusts index and rejects current-entry removal409.
+Queue renders queue order, not library order; current entry protected, Skip then Remove; idle queue can empty.
+Afterglow display omits3 unsung ending lines; Antlercover uses owner's exact Coffee steam rises, keeping it tight. and omits Sarah line.
+Original Qwen drafts/.lyrics.txt/candidate/generation records and audio/artwork are unchanged.
+Lyrics note clarifies draft/performance differences; DJ help distinguishes presentation wording from one default Chatterbox identity.
+PASS: focused32 + production Node probe; final locked suite247 tests/one skip, scaffold189, coverage36/11/19 and whitespace.
+Normal8036 browser: full45/30/60s seekable ranges, paused0->5->0 seeking and corrected lyric text.
+Synthetic8037 browser: player time5 survives card rebuild, new buttons seek10/back5; queue order/removal and paused DJ +5 pass.
+Current removal disabled; future removal keeps current paused/time; empty queue survives reload, library3 intact.
+Cached replay adds no fixture calls; total synthetic text1/speech1 (one-second silence), zero class calls/uploads.
+Browser caught disabled manual seeking at DJ finish; guard29b9032 fixes it, browser rechecked; final GET/HEAD decorator cleanup verified offline.
+Safe JSON and two JPEGs record normal/synthetic limits; no new human listening or independent ZIP acceptance.
+Synthetic8037 stopped. No-credentials normal8036 retained (root PID35260); owner8033/five-track session untouched.
+One restricted focused-test rerun stalled and was stopped; unrestricted focused/full checks are authoritative.
+#64 remains frozen and Mike61 untouched; README/handoff may need normal reconciliation after either merges.
+A runtime merge requires explicitly selecting/testing a new ZIP, not silently replacing old0a34502 evidence.
+Next: complete checks, publish Refs #9/#5/#7, request eligible Hermes review; merge only after normal gates.
+Claim: https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/9#issuecomment-6594778129.
+
 ## Session — Current guide/screenshots for #9, 2026-11-02 America/Denver
 Codex for Joshua; `codex/a3-09-final-guide` from main e17997d29b0a1cb910545fc4c5eb5eb16332502b.
 Owner likes the current interface and assigned #9 while Hermes re-reviews Mike61.
