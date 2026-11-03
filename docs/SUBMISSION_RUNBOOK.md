@@ -3,7 +3,8 @@
 Companion to issue #10 and [docs/TESTING.md](TESTING.md). Two phases: a
 **preflight** that is expected to fail (`NOT READY`) while acceptance work is
 open, and the **final gate** that must PASS after the independent installation
-and a completed external record. Lead: @jovi1214; backup: @MSpanny. Never
+and a completed external record. Lead: @JoshuaKosakowsky; backup: @MSpanny;
+live issue #10 owns coordination. Never
 substitute a local archive for the GitHub source ZIP, waive a missing
 requirement, or modify candidate code after the independent check.
 
@@ -11,8 +12,11 @@ requirement, or modify candidate code after the independent check.
 
 - Merge the feature/reference PRs whose AT-cases are being accepted BEFORE
   freezing; the frozen main must contain everything the record claims. The
-  reference-voice PR (#26) is REQUIRED for AT-08, not optional; the cover
-  prompt fix (#40) is required for the cover-quality ask. The final record
+  [default-DJ teammate checklist](DEFAULT_DJ_ZIP_TEST.md) covers the owner's
+  selected independent core-flow test without asking for a voice upload.
+  Existing upload capability is retained and its live comparison stays untested
+  by that checklist. The unchanged all-case registry/gate still includes AT-08;
+  do not convert omitted tests into passes. The final record
   needs every case as `pass` with tester/inputs/expected/actual, required
   modes, variants, and evidence files that exist in the candidate tree
   (`docs/acceptance.json` is the case authority) — the gate refuses
@@ -55,10 +59,15 @@ python scripts/check_readiness.py --release \
 
 ## Phase 2 — Independent installation + acceptance (AT-16/17/18)
 
-- Pick a teammate with **zero commits on the candidate PRs** (pool:
-  mase7919 / prse4479 eligible; a contributor must not certify their own
-  work). They install from the exact downloaded ZIP only, per README
-  (`python scripts/dev.py`), on their own machine.
+- Pick an **actual teammate different from the candidate preparer**. Previous
+  project/code contributions do not disqualify an installer; PR-review eligibility
+  is a separate rule. They independently install the exact downloaded ZIP using
+  only the documentation/class credentials, not their clone or developer files.
+  Another Joshua login or automated reviewer is not a different teammate.
+  The [default-DJ checklist](DEFAULT_DJ_ZIP_TEST.md) gives the concrete steps,
+  a copy-and-paste agent execution prompt, proposed11-request ceiling, stop rules
+  and copyable return record. The teammate's coding agent performs setup/browser/
+  evidence work; the human supplies listening and findings confirmations.
 - The installer verifies all core features + the three approved samples
   through the normal entrypoint (AT-11/16/17): playback with controls,
   cover/music/lyrics/vocal flows from the shipped samples, four service roles

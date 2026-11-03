@@ -1,5 +1,28 @@
 # Test results and evidence
 
+## Current ZIP test packet reconciliation — 2026-11-02 America/Denver
+
+Joshua/Codex reconciled PR59 with main0a34502 after merged #63; both contribution
+and handoff histories are retained. The teammate procedure now explicitly pins
+`0a34502a4281a8a437b81657fe0809ea92e2c99f`, superseding its older29c5de1 pin;
+earlier observations keep their original source. Actual anonymous GitHub ZIP:
+31,547,394 bytes, SHA-256
+`cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025`.
+Archive inventory and all183 source files match that commit byte-for-byte; ZIP
+integrity, prohibited-path and bounded credential-pattern checks pass. Main CI
+[passed](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/actions/runs/41562978679).
+No extraction/startup/browser/independent installation is claimed by this preflight.
+The external template retains19 not-run cases and no installer; release evidence
+completeness correctly remains NOT READY. No gate or acceptance registry changed.
+
+Locked `python scripts/dev.py --check` PASS:240 tests/one skip, scaffold184 and
+coverage36/11/19. Source/scope, historical-DJ JSON preservation, continuous table
+and whitespace checks pass. Procedure adds zero-call layout/theme/idea-helper
+checks; the existing coordinated text4/art2/music2/speech3 ceiling stays11 total.
+No service calls, new media, user uploads or invented listening/teammate results.
+Mike's61 and Matt's implementation remain separate. One actual teammate still
+needs the clean-ZIP/default-DJ run; reference-voice comparison is outside it.
+
 ## Local editable song ideas — 2026-11-02 America/Denver
 
 Joshua/Codex, `codex/a3-surprise-song` from main `691fa44`. Expected: Surprise me
@@ -2091,3 +2114,23 @@ comparison/listening, R31 teammate report check and independent final ZIP remain
 pending. #6/#8/#10 stay open; submission NOT READY. No runtime/contracts/media/
 dependencies/CI/protection/assignment changes. The queued #57 completion credit
 is carried into this focused PR without creating another notes-only review.
+
+## Default-DJ owner listening feedback — 2026-11-02 America/Denver
+
+Joshua listened to the retained Afterglow Avenue11.4s, Moonlit Reflection10.72s
+and Antlercover13.44s introductions and stated: **"The DJ is clear and sounds
+good to me."** [Current feedback record](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/5#issuecomment-6590638135).
+The [baseline JSON](../results/a3-05-default-dj-live.json) appends this follow-up,
+including the three full media hashes, while preserving every original run field.
+The clips still belong to the real default-only run on2be9625. No new generation,
+class calls, browser run or independent installation was performed for listening.
+
+Relaxed / Public Radio, Upbeat Radio and Playful are implemented presentation
+choices from #52; they change Qwen wording while retaining the same Chatterbox
+speaker. Their live audible-style comparison is still untested. The agent-led
+ZIP procedure now captures one uncached intro per style by changing the selector
+during the preceding music before automatic advancement. It retains the existing
+three-intro/11-total-generation ceiling and records actual style/timing and human
+judgments; no extra regeneration to repair a missed switch is allowed.
+This feedback does not establish a full-app, presentation-comparison or final
+independent-ZIP PASS.
