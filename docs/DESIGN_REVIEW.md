@@ -1,6 +1,6 @@
 # Compare the jukebox designs
 
-D/E/F extend the comparison in PR #60; merge #60 before integrating this branch.
+D/E/F extend the A/B/C comparison merged in PR #60. This branch targets main.
 A/B/C remain available. These are alternative layouts of the same app, using
 the same songs and controls.
 This is a preference comparison, not a randomized experiment or release sign-off.
