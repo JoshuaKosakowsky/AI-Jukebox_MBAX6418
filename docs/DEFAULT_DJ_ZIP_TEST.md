@@ -4,6 +4,13 @@ Use this packet for an independent install and the three core features with the
 **default Chatterbox voice**. Do not upload a voice recording. The existing upload
 capability stays in the app; this checklist does not test or certify it.
 
+The submission layout is **Cover Gallery only**, with Light/Dark. Use the exact
+candidate SHA, GitHub ZIP URL, byte count and SHA-256 supplied in Joshua's current
+run authorization on [#10](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/issues/10).
+Do not substitute moving main or relabel an earlier run. This avoids embedding
+an archive's own checksum inside that archive. Preserve completed historical
+ZIP records with their original versions.
+
 ## Give this to your coding agent
 
 Paste the following into your normal contributing/coding agent with terminal
@@ -84,19 +91,12 @@ the steps manually.
    This pin supersedes the older29c5de1 candidate in earlier #10 comments.
    Do not change a test already in progress: report its actual SHA separately.
 
-Ready baseline, verified 2026-11-02; these identify the ZIP, not completed testing:
-
-- Commit: `0a34502a4281a8a437b81657fe0809ea92e2c99f`.
-- [Download this exact GitHub ZIP](https://github.com/JoshuaKosakowsky/AI-Jukebox_MBAX6418/archive/0a34502a4281a8a437b81657fe0809ea92e2c99f.zip).
-- Size: **31,547,394 bytes**; SHA-256:
-  `cc0a117d8579edb0be9dade75bf4874b9e8832e276c21673e733164fd9554025`.
-- This candidate includes all six layouts, Light/Dark and the local Surprise me
-  helper from merged #63. Archive inventory and all183 files match that commit.
-  No independent installation is claimed yet.
-
-This separately supplied checklist can test that fixed baseline even if a later
-documentation PR merges. Submit the tested version's original GitHub ZIP and SHA;
-do not silently replace them with a later main archive.
+Record the four candidate values from the owner's authorization before starting:
+commit SHA, exact GitHub ZIP URL, bytes and SHA-256. Verify them from your own
+download. The older0a34502 preflight remains historical in TEST_RESULTS and #10;
+it does not include the later playback/speaker/submission-layout changes.
+Submit the tested version's original GitHub ZIP and SHA; do not silently replace
+them with a later main archive. An already-started run keeps its authorized pin.
 
 ## Agent executes the test
 
@@ -122,8 +122,8 @@ prepares the report. It does not assume it can hear or approve generated audio.
    inspect both vocal lyric panels and exercise local pause/resume. Ask the
    teammate to confirm audibility; retain the actual answer. Confirm the
    samples work without regeneration. Missing-service guidance should be clear.
-   Compare the six layout choices and Light/Dark, then record your preferred
-   layout and any awkward scrolling. In Create, try Surprise me with a starting
+   Verify the Cover Gallery layout in Light/Dark and record any awkward
+   scrolling. The submission has no layout chooser. In Create, try Surprise me with a starting
    idea; confirm the fields stay editable, duration stays fixed, and Keep my
    style and mood retains custom values. Enter in Starting idea must only remix,
    with no new track/job. Switch back to Instrumental and use the exact inputs
@@ -148,8 +148,9 @@ prepares the report. It does not assume it can hear or approve generated audio.
    art; take safe screenshots of the completed cards and lyrics.
 7. **Run the default DJ.** Stop local players; add those two new tracks and one
    bundled sample to the queue. Choose **Relaxed / Public Radio**. Leave the
-   optional reference chooser empty; use **Use default voice** if a file was
-   accidentally selected. Press **Play queue** once. Ask the teammate to hear the
+   optional reference chooser empty; choose **Default Chatterbox** in **DJ voice**
+   and use **Clear reference clip** if a file was accidentally selected.
+   Press **Play queue** once. Ask the teammate to hear the
    three introductions and confirm intelligibility/upcoming-song fit. After the
    first intro finishes and its music starts, choose **Upbeat Radio** and confirm
    the saved-style message before automatic advancement. During the second song's

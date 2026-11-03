@@ -60,9 +60,9 @@ Refresh status. Configured means values were supplied, not that a service is rea
 
 Open the **Library** and use each song's own player; the three bundled tracks,
 matching covers and two vocal lyric panels work without configuring services.
-The header's **Layout** selector offers six arrangements; **Appearance** switches
-Light/Dark. Preferences are browser-local. [Compare the layouts](docs/DESIGN_REVIEW.md)
-from current main; no preview branch or additional assets are needed.
+The submission uses **Cover Gallery**. **Appearance** switches Light/Dark and
+remembers the theme in this browser. Old layout links/preferences also open
+Gallery. [Design selection](docs/DESIGN_REVIEW.md) records the decision.
 
 For a quick user review:
 
@@ -71,9 +71,9 @@ For a quick user review:
    Try **Surprise me**, optionally with a starting idea. Edit the result, keep
    custom style/mood if desired, and choose Instrumental or Vocal. This helper
    uses local word pools and needs no credentials or generation.
-3. Switch layouts and Light/Dark while checking that the draft stays intact.
+3. Switch Light/Dark while checking that the draft stays intact.
    Report confusing controls, clipped text or excessive scrolling, including
-   layout/theme/window size. Changing appearance does not generate media.
+   theme/window size. Changing appearance does not generate media.
 4. Open **Queue & DJ → DJ style & voice** to inspect presentation and optional
    voice controls. **Play queue** generates missing DJ introductions when services
    are configured; use individual sample players for this zero-call review.
@@ -270,7 +270,8 @@ introduction, including explicit retries, and deletes unused uploads. See the fu
 
 ## Verified results and current interface
 
-These actual browser captures show the interface on main `e17997d`, 2026-11-02:
+The submission uses Cover Gallery with Light/Dark and no layout chooser.
+The following historical captures show the earlier comparison interface on main `e17997d`, 2026-11-02:
 [Gallery/Dark library](results/a3-09-layout-gallery.jpg),
 [editable song ideas](results/a3-09-song-ideas.jpg),
 [DJ settings](results/a3-09-dj-settings.jpg), and
